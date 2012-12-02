@@ -1,0 +1,319 @@
+<html>
+
+  <head>
+    <title>
+      IS_SERIAL - NAS Parallel Benchmark IS, Serial Version, C
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      IS_SERIAL <br> NAS Parallel Benchmark IS, Serial Version, C
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>IS_SERIAL</b> 
+      is a C program which
+      is a serial implementation of the NAS Parallel Benchmark 
+      known as IS ("Integer Sort").
+    </p>
+
+    <p>
+      The NAS Parallel Benchmarks are "paper and pencil" specifications; that is, the
+      proposers have laid down what the programs must do algorithmically,
+      but only very general rules about computer language implementation
+      have been given.  Thus, a user or vendor has enormous freedom in
+      implementing the benchmark program in a way that is optimal for
+      a given architecture or parallel programming scheme. 
+    </p>
+
+    <p>
+      As a starting point for implementors, the proposers have supplied
+      certain initial versions of the benchmark programs.
+    </p>
+
+    <p>
+      This directory contains material derived from one such initial 
+      benchmark code.  Persons interested in the original source of the
+      benchmark codes should NOT work from this material, but should
+      go to the NAS Parallel Benchmark website directly!
+    </p>
+
+    <p>
+      The benchmark programs are available in SERIAL, MPI and OPEN_MP
+      versions, and in a sequence of "classes" of increasing size: S, W, A, B, C, D and E.
+    </p>
+ 
+    <p>
+      Statistics for classes S, A, and B, are available, as run on one processor
+      of a Cray Y-MP, with a C version of the program.
+      <table border="1" align="center">
+        <tr><th>Class</th><th>Size</th><th>Memory (Mw)</th><th>Time (sec)</th><th>Mop/s</th></tr>
+        <tr><td>S</td><td>2^16</td><td>0.3</td><td>0.2</td><td>30.5</td></tr>
+        <tr><td>A</td><td>2^23</td><td>26</td><td>21</td><td>37.2</td></tr>
+        <tr><td>B</td><td>2^25</td><td>114</td><td>126</td><td>25</td></tr>
+      </table>
+    </p>
+
+    <p>
+      Statistics for classes S, W, A, B, and C are available, as run on an Apple PowerPC G5, 
+      using this SERIAL C version of the program:
+      <table border="1" align="center">
+        <tr><th>Class</th><th>Size</th><th>Memory (Mw)</th><th>Time (sec)</th><th>Mop/s</th></tr>
+        <tr><td>S</td><td>2^16</td><td>0.3</td><td>0.06</td><td>11</td></tr>
+        <tr><td>W</td><td>2^20</td><td>---</td><td>0.69</td><td>15</td></tr>
+        <tr><td>A</td><td>2^23</td><td>26</td><td>5.62</td><td>15</td></tr>
+        <tr><td>B</td><td>2^25</td><td>114</td><td>28.16</td><td>12</td></tr>
+        <tr><td>C</td><td>2^27</td><td>---</td><td>90.69</td><td>15</td></tr>
+      </table>
+    </p>
+
+    <p>
+      This directory contains the serial version of the benchmark, along
+      with include files that allow it to run in some of the smaller sizes.
+    </p>
+
+    <p>
+      The web site for the NAS Parallel Benchmarks is
+      <a href = "http://www.nas.nasa.gov/Resources/Software/npb.html">
+                 http://www.nas.nasa.gov/Resources/Software/npb.html</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../f77_src/bt_serial/bt_serial.html">
+      BT_SERIAL</a>,
+      a FORTRAN77 program which
+      runs the serial version of the NAS Parallel Benchmark known as "BT"
+      (block tridiagonal solver for a 3D PDE).
+    </p>
+
+    <p>
+      <a href = "../../f77_src/cg_serial/cg_serial.html">
+      CG_SERIAL</a>,
+      a FORTRAN77 program which
+      is a serial version of the NAS Parallel Benchmark CG 
+      (conjugate gradient solver).
+    </p>
+
+    <p>
+      <a href = "../../f77_src/ep_serial/ep_serial.html">
+      EP_SERIAL</a>, 
+      a FORTRAN77 program which
+      runs the serial version of the NAS Parallel Benchmark known as "EP"
+      (embarassingly parallel).
+    </p>
+
+    <p>
+      <a href = "../../f77_src/linpack_bench/linpack_bench.html">
+      LINPACK_BENCH</a>, 
+      a FORTRAN77 program which
+      measures the time taken by <b>LINPACK</b> to solve a particular linear system.
+    </p>
+
+    <p>
+      <a href = "../../f77_src/matmul/matmul.html">
+      MATMUL</a>,
+      a FORTRAN77 program which
+      is an interactive matrix multiplication benchmark.
+    </p>
+
+    <p>
+      <a href = "../../f77_src/mdbnch/mdbnch.html">
+      MDBNCH</a>,
+      a FORTRAN77 program which
+      is a benchmark molecular simulation calculation.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mxm_serial/mxm_serial.html">
+      MXM_SERIAL</a>,
+      a C program which
+      sets up a matrix multiplication problem A=B*C,
+      intended as a starting point for implementing a parallel version.
+    </p>
+
+    <p>
+      <a href = "../../c_src/poisson_serial/poisson_serial.html">
+      POISSON_SERIAL</a>,
+      a C program which
+      computes an approximate solution to the Poisson equation in a rectangle,
+      and is intended as the starting point for the creation of a parallel version.
+    </p>
+
+    <p>
+      <a href = "../../c_src/prime_serial/prime_serial.html">
+      PRIME_SERIAL</a>,
+      a C program which
+      counts the number of primes between 1 and N,
+      intended as a starting point for the creation of a parallel version.
+    </p>
+
+    <p>
+      <a href = "../../c_src/search_serial/search_serial.html">
+      SEARCH_SERIAL</a>,
+      a C program which
+      searches the integers from A to B for a value J such that F(J) = C.
+      this version of the program is intended as a starting point for
+      a parallel approach.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          David Bailey, Eric Barszcz, John Barton, D Browning, Robert Carter, Leonardo Dagum,
+          Rod Fatoohi, Samuel Fineberg, Paul Frederickson, Thomas Lasinski, Robert Schreiber,
+          Horst Simon, V Venkatakrishnan, Sisira Weeratunga,<br>
+          The NAS Parallel Benchmarks,<br>
+          International Journal of High Performane Computing Applications,<br>
+          Volume 5, Number 3, September 1991, pages 63-73.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "is_serial.c">is_serial.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "c_print_results.c">c_print_results.c</a>, prints the results.
+        </li>
+        <li>
+          <a href = "c_timers.c">c_timers.c</a>, carry out the timings.
+        </li>
+        <li>
+          <a href = "wtime.c">wtime.c</a>, a small routine used for timing.
+        </li>
+        <li>
+          <a href = "wtime.h">wtime.h</a>, an include file for WTIME.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and tests:
+    </h3>
+
+    <p>
+      <b>IS_SERIAL_S</b> runs the benchmark in serial mode with problem size S.
+      <ul>
+        <li>
+          <a href = "npbparams_S.h">nbparams_S.h</a>, 
+          the include file.
+        </li>
+        <li>
+          <a href = "is_serial_S.sh">is_serial_S.sh</a>, 
+          a script which compiles the code.
+        </li>
+        <li>
+          <a href = "is_serial_S_output.txt">is_serial_S_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>IS_SERIAL_W</b> runs the benchmark in serial mode with problem size W.
+      <ul>
+        <li>
+          <a href = "npbparams_W.h">nbparams_W.h</a>, 
+          the include file.
+        </li>
+        <li>
+          <a href = "is_serial_W.sh">is_serial_W.sh</a>, 
+          a script which compiles the code.
+        </li>
+        <li>
+          <a href = "is_serial_W_output.txt">is_serial_W_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>IS_SERIAL_A</b> runs the benchmark in serial mode with problem size A.
+      <ul>
+        <li>
+          <a href = "npbparams_A.h">nbparams_A.h</a>, 
+          the include file.
+        </li>
+        <li>
+          <a href = "is_serial_A.sh">is_serial_A.sh</a>, 
+          a script which compiles the code.
+        </li>
+        <li>
+          <a href = "is_serial_A_output.txt">is_serial_A_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>IS_SERIAL_B</b> runs the benchmark in serial mode with problem size B.
+      <ul>
+        <li>
+          <a href = "npbparams_B.h">nbparams_B.h</a>, 
+          the include file.
+        </li>
+        <li>
+          <a href = "is_serial_B.sh">is_serial_B.sh</a>, 
+          a script which compiles the code.
+        </li>
+        <li>
+          <a href = "is_serial_B_output.txt">is_serial_B_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>IS_SERIAL_C</b> runs the benchmark in serial mode with problem size C.
+      <ul>
+        <li>
+          <a href = "npbparams_C.h">nbparams_C.h</a>, 
+          the include file.
+        </li>
+        <li>
+          <a href = "is_serial_C.sh">is_serial_C.sh</a>, 
+          a script which compiles the code.
+        </li>
+        <li>
+          <a href = "is_serial_C_output.txt">is_serial_C_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 02 April 2009.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

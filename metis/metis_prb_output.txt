@@ -1,0 +1,46 @@
+*****************************************************************
+  METIS 4.0.1 Copyright 1998, Regents of the University of Minnesota
+
+Graph Information ---------------------------------------------------
+  Name: 4elt.graph, #Vertices: 15606, #Edges: 45878
+
+Testing METIS_PartGraphRecursive ------------------------------------
+  [1:ok][2:ok][3:ok][4:ok][5:ok][6:ok]
+
+Testing METIS_WPartGraphRecursive -----------------------------------
+  [1:ok][2:ok][3:ok][4:ok][5:ok][6:ok]
+
+Testing METIS_PartGraphKway -----------------------------------------
+  [1:ok][2:ok][3:ok]You just increased the maxndoms: 8 7
+[4:ok][5:ok][6:ok][7:ok][8:ok]
+
+Testing METIS_WPartGraphKway ----------------------------------------
+  [1:ok][2:ok][3:ok][4:ok][5:ok][6:ok][7:ok][8:ok]
+
+Testing METIS_PartGraphVKway ----------------------------------------
+  [1:ok][2:ok][3:ok][4:ok][5:ok][6:ok][7:ok]
+
+Testing METIS_WPartGraphVKway ---------------------------------------
+  [1:ok][2:ok][3:ok][4:ok][5:ok][6:ok][7:ok]
+
+Testing METIS_mCPartGraphRecursive ----------------------------------
+  [1:ok][2:ok][3:ok][4:ok][5:ok][6:ok][7:ok][8:ok][9:ok][10:ok]
+  [11:ok][12:ok]
+
+Testing METIS_mCPartGraphKway ---------------------------------------
+  [1:ok][2:ok][3:ok][4:ok][5:ok][6:ok][7:ok][8:ok][9:ok][10:ok]
+  [11:ok][12:ok][13:ok][14:ok]
+
+Testing METIS_EdgeND ------------------------------------------------
+  [1:ok][2:ok][3:ok]
+
+Testing METIS_NodeND ------------------------------------------------
+  [1:ok][2:ok][3:ok][4:ok][5:ok][6:ok][7:ok][8:ok][9:ok][10:ok]
+  [11:ok][12:ok][13:ok]
+
+Testing METIS_NodeWND -----------------------------------------------
+  [1:ok][2:ok][3:ok][4:ok][5:ok][6:ok]
+
+-----------------------------------------------------------
+ Testing completed.
+************************************************************

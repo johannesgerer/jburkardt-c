@@ -1,0 +1,41 @@
+
+MATMULC
+
+An interactive demonstration of the speed of matrix multiplication.
+Version 1.0c, last compiled on 25-MAR-92.  This version is for a Apple Macintosh
+
+If you've never used this program before, type EXPLAIN.
+
+Command?  (Type H for help):P
+The algorithm chosen is IJK
+The leading dimension of arrays, LDA, is 512
+The maximum legal choice for LDA is 512
+The actual size of the arrays, N, is 16
+A total of 0 cases have been run.
+Command?  (Type H for help):N=10
+N has been set to 10
+Command?  (Type H for help):H
+This is the list of legal commands.
+H           Help. List the legal commands.
+LDA=value   Assigns the leading dimension of arrays.
+M           Multiply two matrices.
+N=value     Assigns the size of the arrays.
+ORDER=name  Chooses the algorithm for multiplication.
+P           Prints out current values and results.
+Q           Quit.
+NOSHOW=name Value of NAME should not be included in output.
+            NAME=ORDER, LDA, N, TIME, OPS or MFLOPS
+SHOW=name   Value of NAME should be included in output.
+            NAME=ORDER, LDA, N, TIME, OPS or MFLOPS
+
+Command?  (Type H for help):ORDER=R8_IJK
+ORDER has been set to R8_IJK
+Command?  (Type H for help):M
+ ORDER    LDA   N       Time      Ops     MFLOPS   A(N,N) MACHINE      LANGUAGE
+The matrix multiplication has been carried out.
+Command?  (Type H for help):Q
+Please type "Y" to confirm that you want to quit.
+Command?  (Type H for help):Y
+A copy of your input is in the file matmul.inp
+A copy of your results is in the file matmul.dat
+A copy of the entire session is in the file matmul.out

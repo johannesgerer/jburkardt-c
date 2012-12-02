@@ -1,0 +1,519 @@
+<html>
+
+  <head>
+    <title>
+      TRIANGLE - Mesh generation and Delaunay triangulation
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      TRIANGLE <br> Mesh generation and Delaunay triangulation
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>TRIANGLE</b>
+      is a C program which
+      generates meshes, Delaunay
+      triangulations and Voronoi diagrams for 2D pointsets,
+      by Jonathan Shewchuk.
+    </p>
+
+    <p>
+      <b>TRIANGLE</b> generates exact Delaunay triangulations, constrained 
+      Delaunay triangulations, and quality conforming Delaunay triangulations.  
+      The latter can be generated with no small angles, and are thus suitable
+      for finite element analysis. 
+    </p> 
+
+    <p>
+      <b>TRIANGLE</b> produces its own documentation.
+      Complete instructions are printed by invoking the program with 
+      the `-h' switch:
+      <pre>
+        triangle -h
+      </pre>
+    </p>
+
+    <p>
+      The instructions are long; you'll probably want to pipe the output to
+      <b>more</b> or redirect it to a file.  The programs gives a short list
+      of command line options if it is invoked without arguments.  
+    </p>
+
+    <p>
+      You have to give <b>TRIANGLE</b> some input to work with.  Usually,
+      you start with a Planar Straight Line Graph (PSLG) which defines
+      a set of points, and some nonintersecting segments that you
+      want to be sure are included in the triangulation.  This
+      information can easily be stored in a POLY, which is one of the expected input formats.
+    </p>
+
+    <p>
+      Normally, <b>TRIANGLE</b> will triangulate the entire region defined 
+      by the convex hull of the points.  You may define a portion of the 
+      convex hull to be a "hole", which is not to be triangulated. 
+      This is done by adding some hole information to your POLY file.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      Try out <b>TRIANGLE</b> on the sample file, A.poly:
+      <pre>
+        triangle -p A.poly
+      </pre>
+    </p>
+
+    <p>
+      <b>TRIANGLE</b> will read the Planar Straight Line Graph defined 
+      by A.poly, and write its constrained Delaunay triangulation to 
+      A.1.node, A.1.ele and A.1.poly.  
+    </p>
+
+    <p>
+      For contrast, try running
+      <pre>
+        triangle -pq A.poly
+      </pre>
+      Now, click on the same "ele" button.  A new triangulation will be loaded;
+      this one having no angles smaller than 20 degrees.
+    </p>
+
+    <p>
+      To see a Voronoi diagram, try this:
+      <pre>
+        cp A.poly A.node
+        triangle -v A
+      </pre>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../data/poly/poly.html">
+      POLY</a>,
+      a data directory which
+      contains a description and examples of the POLY file format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/showme/showme.html">
+      SHOWME</a>,
+      a C program which
+      can display the POLY files uses as input to <b>TRIANGLE</b>,
+      and the output files that define meshes and other objects.
+    </p>
+
+    <p>
+      <a href = "../../data/triangle_files/triangle_files.html">
+      TRIANGLE_FILES</a>, 
+      a data directory of examples of files used by the
+      <b>triangle</b> and <b>showme</b> programs.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangulate/triangulate.html">
+      TRIANGULATE</a>,
+      a C program which
+      reads data defining a polygon and produces a PostScript file
+      describing a triangulation of the polygon.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangulation/triangulation.html">
+      TRIANGULATION</a>,
+      a C library which
+      performs various operations on order 3 (linear) or order 6 (quadratic) triangulations.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/triangulation_display_opengl/triangulation_display_opengl.html">
+      TRIANGULATION_DISPLAY_OPENGL</a>,
+      a C++ program which
+      reads files defining a triangulation and displays an image
+      using Open GL.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangulation_triangle_neighbors/triangulation_triangle_neighbors.html">
+      TRIANGULATION_TRIANGLE_NEIGHBORS</a>,
+      a C program which
+      reads data defining a triangulation, determines the neighboring
+      triangles of each triangle, and writes that information to a file.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Jonathan Shewchuk,<br>
+      Computer Science Division,<br>
+      University of California at Berkeley,<br>
+      Berkeley, California, 94720-1776<br>
+      jrs@cs.berkeley.edu.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Franz Aurenhammer,<br>
+          Voronoi diagrams - 
+          a study of a fundamental geometric data structure,<br>
+          ACM Computing Surveys,<br>
+          Volume 23, pages 345-405, September 1991.
+        </li>
+        <li>
+          Jim Ruppert,<br>
+          A Delaunay Refinement Algorithm for Quality 2-Dimensional
+          Mesh Generation,<br>
+          Journal of Algorithms,<br>
+          Volume 18, Number 3, pages 548-585, May 1995.
+        </li>
+        <li>
+          Jonathan Shewchuk,<br>
+          Triangle: Engineering a 2D Quality Mesh Generator and
+          Delaunay Triangulator,<br>
+          in Applied Computational Geometry: Towards Geometric Engineering,<br>
+          edited by Ming Lin, Dinesh Manocha,<br>
+          Lecture Notes in Computer Science, Volume 1148,<br>
+          Springer, 1996,<br>
+          ISBN: 354061785X,<br>
+          LC: QA448.D38.A635.
+        </li>
+        <li>
+          Jonathan Shewchuk,<br>
+          Delaunay Refinement Algorithms for Triangular Mesh Generation,<br>
+          Computational Geometry, Theory and Applications,<br>
+          Volume 23, pages 21-74, May 2002.
+        </li>
+        <li>
+          <a href = "http://www-2.cs.cmu.edu/~quake/triangle.html">
+                     http://www-2.cs.cmu.edu/~quake/triangle.html</a>,
+          the TRIANGLE web site;
+        </li>
+        <li>
+          <a href = "http://www.netlib.org/voronoi/index.html">
+                     http://www.netlib.org/voronoi/index.html</a>,
+          the NETLIB Voronoi web site.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "triangle.c">triangle.c</a>, 
+          the source code;
+        </li>
+        <li>
+          <a href = "triangle.h">triangle.h</a>, 
+          an include file;
+        </li>
+        <li>
+          <a href = "triangle.sh">triangle.sh</a>, 
+          commands to compile and load the source code as an executable,
+          and as a library;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "tricall.c">tricall.c</a>, 
+          a calling program which uses TRIANGLE as a library;
+        </li>
+        <li>
+          <a href = "tricall.sh">tricall.sh</a>, 
+          commands to compile and load the test code and link
+          it to the library version of TRIANGLE;
+        </li>
+        <li>
+          <a href = "tricall_output.txt">tricall_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>A</b> is a planar straight line graph of the capital letter A.
+      We use it as input to get a constrained Delaunay triangulation.
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/A.poly">A.poly</a>, 
+          the POLY file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/A.1.poly">A.1.poly</a>, 
+          the output polygon file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/A.1.node">A.1.node</a>,
+          the output node file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/A.1.ele">A.1.ele</a>;
+          the output element file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>BOX</b> is a planar straight line graph of a double box.
+      We use it as input to get a constrained Delaunay triangulation.
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/box.poly">box.poly</a>, 
+          the POLY file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/box.1.poly">box.1.poly</a>, 
+          the output POLY file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/box.1.node">box.1.node</a>,
+          the output node file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/box.1.ele">box.1.ele</a>;
+          the output element file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>DIAMOND_02_00009</b> is another set of test data, for which
+      we want the Voronoi diagram.
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/diamond_02_00009.node">diamond_02_00009.node</a>, 
+          the POLY file of 9 nodes;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/diamond_02_00009.1.node">diamond_02_00009.1.node</a>, 
+          the output Delaunay nodes;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/diamond_02_00009.1.ele">diamond_02_00009.1.ele</a>, 
+          the output Delaunay triangles;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/diamond_02_00009.1.v.node">diamond_02_00009.1.v.node</a>, 
+          the output Voronoi vertices;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/diamond_02_00009.1.v.edge">diamond_02_00009.1.v.edge</a>, 
+          the output lines and rays that make up the Voronoi diagram;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>DOUBLE_HEX</b> describes a unit square with two hexagonal holes.
+      72 points are listed on the outer boundary, and 12 on each of the
+      holes.  It is desired to create a nice looking mesh of about 500
+      nodes, and no additional nodes on the boundary segments.
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.poly">double_hex.poly</a>, 
+          is the original POLY file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.poly.png">double_hex.poly.png</a>,
+          a PNG image of the segments;
+        </li>
+      </ul>
+      Our first command 
+      <blockquote><b>
+        triangle -p double_hex.poly
+      </b></blockquote>
+      requests that we triangulate the current points:
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.1.node">double_hex.1.node</a>, 
+          the NODE file after step 1;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.1.node.png">double_hex.1.node.png</a>,
+          a PNG image of the nodes.
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.1.poly">double_hex.1.poly</a>, 
+          the POLY file after step 1;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.1.ele">double_hex.1.ele</a>, 
+          the ELE file after step 1;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.1.ele.png">double_hex.1.ele.png</a>, 
+          a PNG image of the elements;
+        </li>
+      </ul>
+      Our second command 
+      <blockquote><b>
+        triangle -pqY -a0.0015 double_hex.1.poly
+      </b></blockquote>
+      requests that we triangulate the current points, adding new nodes
+      as necessary to make a nice mesh, with no triangle being larger
+      than 0.0015 in area, and with no points added on boundary segments.
+      We end up with 525 nodes and 956 elements:
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.2.node">double_hex.2.node</a>, 
+          the NODE file after step 2;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.2.node.png">double_hex.2.node.png</a>, 
+          a PNG image of the nodes.
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.2.poly">double_hex.2.poly</a>, 
+          the POLY file after step 2;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.2.ele">double_hex.2.ele</a>, 
+          the ELE file after step 2;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex.2.ele.png">double_hex.2.ele.png</a>, 
+          a PNG image of the elements;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>DOUBLE_HEX2</b> describes a unit square with two hexagonal holes.
+      36 points are listed on the outer boundary, and 6 on each of the
+      holes.  It is desired to create a nice looking mesh of about 235
+      elements, and no additional nodes on the boundary segments.
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.poly">double_hex2.poly</a>, 
+          is the original POLY file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.poly.png">double_hex2.poly.png</a>, 
+          a PNG image of the segments;
+        </li>
+      </ul>
+      Our first command 
+      <blockquote><b>
+        triangle -p double_hex2.poly
+      </b></blockquote>
+      requests that we triangulate the current points:
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.1.node">double_hex2.1.node</a>, 
+          the NODE file after step 1;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.1.poly">double_hex2.1.poly</a>, 
+          the POLY file after step 1;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.1.ele">double_hex2.1.ele</a>, 
+          the ELE file after step 1;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.1.ele.png">double_hex2.1.ele.png</a>, 
+          a PNG image of 
+          the ELE file, created by SHOWME;
+        </li>
+      </ul>
+      Our second command 
+      <blockquote><b>
+        triangle -pqY -a0.0060 double_hex2.1.poly
+      </b></blockquote>
+      requests that we triangulate the current points, adding new nodes
+      as necessary to make a nice mesh, with no triangle being larger
+      than 0.0060 in area, and with no points added on boundary segments.
+      We end up with 141 nodes and 236 elements:
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.2.node">double_hex2.2.node</a>, 
+          the NODE file after step 2;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.2.poly">double_hex2.2.poly</a>, 
+          the POLY file after step 2;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.2.ele">double_hex2.2.ele</a>, 
+          the ELE file after step 2;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/double_hex2.2.ele.png">double_hex2.2.ele.png</a>, 
+          a PNG image of the elements;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>SQUARE_CIRCLE_HOLE</b> is a planar straight line graph of a 
+      square region with an off center circular hole, and 826 points computed
+      by a CVT calculation, prepared by Hua Fei.
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.poly">square_circle_hole.poly</a>, 
+          the POLY file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.1.node">
+          square_circle_hole.1.node</a>,
+          the node file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.1.ele">
+          square_circle_hole.1.ele</a>, the element file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.1.png">
+          square_circle_hole.1.png</a>,
+          an image of the triangulation.
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.1.output.txt">
+          square_circle_hole.1.output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 03 June 2012.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

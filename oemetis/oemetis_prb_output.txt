@@ -1,0 +1,15 @@
+**********************************************************************
+  METIS 4.0.1 Copyright 1998, Regents of the University of Minnesota
+
+Graph Information ---------------------------------------------------
+  Name: 4elt.graph, #Vertices: 15606, #Edges: 45878
+
+Edge-Based Ordering... ----------------------------------------------
+  Nonzeros: 340094, 	Operation Count: 1.3434e+07
+
+Timing Information --------------------------------------------------
+  I/O:                     	   0.116
+  Ordering:                	   0.659   (OEMETIS time)
+  Symbolic Factorization:  	   0.039
+  Total:                   	   0.814
+**********************************************************************

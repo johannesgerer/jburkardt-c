@@ -1,0 +1,20 @@
+
+SCANF_DEMO
+  Show how scanf(format,address) is used to read data from the user.
+
+Enter an integer value for int n:
+Enter a real value for float x:
+Enter a real value for double y:
+Enter 1 character for char c:
+Enter a string of 20 characters or less and NO INTERNAL SPACES:
+
+  Here is what scanf() got for us:
+
+  n = 1
+  x = 2.200000
+  y = 3.300000
+  c = w
+  s = Hello,
+
+SCANF_DEMO
+  Normal end of execution.

@@ -1,0 +1,55 @@
+==60158== Memcheck, a memory error detector
+==60158== Copyright (C) 2002-2010, and GNU GPL'd, by Julian Seward et al.
+==60158== Using Valgrind-3.6.1 and LibVEX; rerun with -h for copyright info
+==60158== Command: test01
+==60158== 
+--60158-- run: /usr/bin/dsymutil "./test01"
+==60158== Invalid write of size 4
+==60158==    at 0x100000E4F: f (test01.c:83)
+==60158==    by 0x100000D6C: main (test01.c:38)
+==60158==  Address 0x10029e148 is 0 bytes after a block of size 40 alloc'd
+==60158==    at 0x1000101EF: malloc (vg_replace_malloc.c:236)
+==60158==    by 0x100000DB1: f (test01.c:73)
+==60158==    by 0x100000D6C: main (test01.c:38)
+==60158== 
+==60158== Invalid read of size 4
+==60158==    at 0x100000E5E: f (test01.c:84)
+==60158==    by 0x100000D6C: main (test01.c:38)
+==60158==  Address 0x10029e148 is 0 bytes after a block of size 40 alloc'd
+==60158==    at 0x1000101EF: malloc (vg_replace_malloc.c:236)
+==60158==    by 0x100000DB1: f (test01.c:73)
+==60158==    by 0x100000D6C: main (test01.c:38)
+==60158== 
+
+TEST01:
+  C version
+  A sample code for analysis by VALGRIND.
+   0   1
+   1   1
+   2   2
+   3   3
+   4   5
+   5   8
+   6  13
+   7  21
+   8  34
+   9  55
+  10  89
+
+TEST01
+  Normal end of execution.
+==60158== 
+==60158== HEAP SUMMARY:
+==60158==     in use at exit: 4,184 bytes in 2 blocks
+==60158==   total heap usage: 3 allocs, 1 frees, 4,224 bytes allocated
+==60158== 
+==60158== LEAK SUMMARY:
+==60158==    definitely lost: 0 bytes in 0 blocks
+==60158==    indirectly lost: 0 bytes in 0 blocks
+==60158==      possibly lost: 0 bytes in 0 blocks
+==60158==    still reachable: 4,184 bytes in 2 blocks
+==60158==         suppressed: 0 bytes in 0 blocks
+==60158== Rerun with --leak-check=full to see details of leaked memory
+==60158== 
+==60158== For counts of detected and suppressed errors, rerun with: -v
+==60158== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)

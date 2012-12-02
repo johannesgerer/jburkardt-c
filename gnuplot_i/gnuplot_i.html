@@ -1,0 +1,144 @@
+<html>
+
+  <head>
+    <title>
+      GNUPLOT_I - Runtime Graphics Using GNUPLOT
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      GNUPLOT_I <br> Runtime Graphics using GNUPLOT
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>GNUPLOT_I</b> 
+      is a C library which 
+      allows a C or C++ program to pass data to GNUPLOT 
+      for immediate plotting,
+      by Nicholas Devillard.
+    </p>
+
+    <p>
+      In order to use this package, you must have GNUPLOT available in
+      your path.  
+    </p>
+
+    <p>
+      The original package allowed the user to plot a pair of data vectors
+      (x,y) by storing them in a struct designated as a "dpoint", and calling 
+      the function
+      <pre>
+void gnuplot_plot1d_var2 ( gnuplot_ctrl *handle, dpoint *d, int n_points, char *title )
+      </pre>
+    </p>
+
+    <p>
+      My preference is to handle such data as a pair of vectors x and y.  Thus,
+      a variation of the above function has been prepared:
+      <pre>
+void gnuplot_plot1d_var2v ( gnuplot_ctrl *handle, double *x, double *y, int n_points, char *title )
+      </pre>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../f_src/gnufor/gnufor.html">
+      GNUFOR</a>,
+      a FORTRAN90 library which
+      provides an interface to the <b>GNUPLOT</b> graphics library.
+    </p>
+
+    <p>
+      <a href = "../../c_src/gnuplot_i_examples/gnuplot_i_examples.html">
+      GNUPLOT_I_EXAMPLES</a>,
+      C programs which
+      demonstrate the use of the GNUPLOT_I library for interactive  
+      runtime GNUPLOT graphics.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Nicholas Devillard
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          <a href = "http://ndevilla.free.fr/gnuplot/">
+          The GNUPLOT_I homepage</a>.
+        </li>
+        <li>
+          Philipp Janert,<br>
+          Gnuplot in Action: Understanding Data with Graphs,<br>
+          Manning, 2008,<br>
+          ISBN: 1-933988-39-8.
+        </li>
+        <li>
+          Thomas Williams, Colin Kelley, J Campbell, D Kotz, R Lang,<br>
+          gnuplot, An Interactive Plotting Program,<br>
+          The Free Software Foundation, 1990.
+        </li>
+        <li>
+          <a href = "http://www.gnuplot.info/">The GNUPLOT Website</a>.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "gnuplot_i.c">gnuplot_i.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "gnuplot_i.sh">gnuplot_i.sh</a>, 
+          commands to compile the source code.
+        </li>
+        <li>
+          <a href = "gnuplot_i.h">gnuplot_i.h</a>, 
+          the include file for C programs.
+        </li>
+        <li>
+          <a href = "gnuplot_i.hpp">gnuplot_i.hpp</a>, 
+          the include file for C++ programs.
+        </li>
+        <li>
+          <a href = "gnuplot_i.txt">gnuplot_i.txt</a>, some notes
+          on the routines.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 26 June 2011.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

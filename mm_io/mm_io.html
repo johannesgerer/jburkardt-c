@@ -1,0 +1,213 @@
+<html>
+
+  <head>
+    <title>
+      MM_IO - Matrix Market - Read and Write Utilities
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      MM_IO <br> Matrix Market - Read and Write Utilities
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>MM_IO</b> 
+      is a C library which
+      reads and writes files in the Matrix Market format.
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>MM_IO</b> is available in
+      <a href = "../../c_src/mm_io/mm_io.html">a C version</a> and
+      <a href = "../../f_src/mm_io/mm_io.html">a FORTRAN90 version</a> and
+      <a href = "../../m_src/mm_io/mm_io.html">a MATLAB version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../data/mm/mm.html">
+      MM</a>,
+      a data directory which
+      contains a description and
+      examples of the Matrix Market format for storing matrices.
+    </p>
+
+    <p>
+      <a href = "../../m_src/mm_to_msm/mm_to_msm.html">
+      MM_TO_MSM</a>,
+      a MATLAB program which
+      reads a Matrix Market file defining a sparse matrix, and creates
+      a corresponding MATLAB sparse matrix data structure.
+    </p>
+
+    <p>
+      <a href = "../../m_src/msm_to_mm/msm_to_mm.html">
+      MSM_TO_MM</a>, 
+      a MATLAB program which
+      writes a MATLAB sparse matrix to a <a href = "../../data/mm/mm.html">
+      Matrix Market</a> file;
+    </p>
+
+    <p>
+      <a href = "../../m_src/templates/templates.html">
+      TEMPLATES</a>,
+      a MATLAB library which
+      performs the iterative solution of large sparse linear systems.
+      It includes a routine <b>mm_to_msm</b> which
+      can read a Matrix Market file and store it as a MATLAB sparse
+      matrix.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Ronald Boisvert, Roldan Pozo, Karin Remington,<br>
+          The Matrix Market Exchange Formats: Initial Design,<br>
+          National Institute of Standards and Technology,<br>
+          NISTIR 5935, December 1996.
+        </li>
+        <li>
+          <a href = "http://math.nist.gov/MatrixMarket/">
+                     http://math.nist.gov/MatrixMarket/</a>,
+          the Matrix Market web site.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "mm_io.c">mm_io.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "mm_io.h">mm_io.h</a>, the include file.
+        </li>
+        <li>
+          <a href = "mm_io.sh">mm_io.sh</a>,
+          commands to compile the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "mm_io_prb.c">mm_io_prb.c</a>
+          a sample calling program.
+        </li>
+        <li>
+          <a href = "mm_io_prb.sh">mm_io_prb.sh</a>,
+          commands to compile and run the sample program.
+        </li>
+        <li>
+          <a href = "mm_io_prb_output.txt">mm_io_prb_output.txt</a>,
+          the output file.
+        </li>
+        <li>
+          <a href = "matrix_05_05_arg.txt">matrix_05_05_arg.txt</a>,
+          a 5 by 5 matrix in ARRAY REAL GENERAL form, read
+          by some routines, and written by others.
+        </li>
+        <li>
+          <a href = "matrix_05_05_crg.txt">matrix_05_05_crg.txt</a>,
+          a 5 by 5 matrix in COORDINATE REAL GENERAL form, read
+          by some routines, and written by others.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MM_IS_VALID</b> checks whether the matrix code is valid or not.
+        </li>
+        <li>
+          <b>MM_READ_BANNER</b> reads the header line of an MM file.
+        </li>
+        <li>
+          <b>MM_READ_MTX_ARRAY_SIZE</b> reads the size line of an MM array file.
+        </li>
+        <li>
+          <b>MM_READ_MTX_CRD</b> reads the values in an MM coordinate file.
+        </li>
+        <li>
+          <b>MM_READ_MTX_CRD_DATA</b> reads the values in an MM coordinate file.
+        </li>
+        <li>
+          <b>MM_READ_MTX_CRD_ENTRY</b> ???
+        </li>
+        <li>
+          <b>MM_READ_MTX_CRD_SIZE</b> reads the size line of an MM coordinate file.
+        </li>
+        <li>
+          <b>MM_READ_UNSYMMETRIC_SPARSE</b> ???
+        </li>
+        <li>
+          <b>MM_STRDUP</b> creates a new copy of a string.
+        </li>
+        <li>
+          <b>MM_TYPECODE_TO_STR</b> converts the internal typecode to an MM header string.
+        </li>
+        <li>
+          <b>MM_WRITE_BANNER</b> writes the header line of an MM file.
+        </li>
+        <li>
+          <b>MM_WRITE_MTX_ARRAY_SIZE</b> writes the size line of an MM array file.
+        </li>
+        <li>
+          <b>MM_WRITE_MTX_CRD</b> writes an MM coordinate file.
+        </li>
+        <li>
+          <b>MM_WRITE_MTX_CRD_SIZE</b> writes the size line of an MM coordinate file. 
+        </li>
+        <li>
+          <b>TIMESTAMP</b> prints the current YMDHMS date as a time stamp.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 02 November 2008.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

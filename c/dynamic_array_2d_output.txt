@@ -1,0 +1,23 @@
+
+DYNAMIC_ARRAY_2D:
+  C version
+  Demonstrate the allocation and use of dynamic arrays.
+
+  A = a dynamically allocated matrix:
+
+   0   1   2   3   4
+  10  11  12  13  14
+  20  21  22  23  24
+  30  31  32  33  34
+
+  B = A' * A
+  (also dynamically allocated)
+
+  1400  1460  1520  1580  1640
+  1460  1524  1588  1652  1716
+  1520  1588  1656  1724  1792
+  1580  1652  1724  1796  1868
+  1640  1716  1792  1868  1944
+
+DYNAMIC_ARRAY_2D:
+  Normal end of execution.

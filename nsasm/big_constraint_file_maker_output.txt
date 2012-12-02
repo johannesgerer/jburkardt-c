@@ -1,0 +1,15 @@
+>> big_constraint_file_maker
+11-Apr-2012 14:14:13
+
+BIG_CONSTRAINT_FILE_MAKER:
+  Create the constraint file associated with the "big" problem.
+
+  Number of constrained velocity nodes is 193
+
+  Constraint data saved in the file "big_constraints.txt"
+
+BIG_CONSTRAINT_FILE_MAKER:
+  Normal end of execution.
+
+11-Apr-2012 14:14:13
+>> 

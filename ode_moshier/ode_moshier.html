@@ -1,0 +1,177 @@
+<html>
+
+  <head>
+    <title>
+      ODE_MOSHIER - Ordinary Differential Equation Solvers
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      ODE_MOSHIER <br> Ordinary Differential Equation Solvers
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>ODE_MOSHIER</b>
+      is a C library which
+      solves systems of
+      ordinary differential equations.  Two main methods are implemented,
+      the Adams-Bashforth-Moulton integrator, and the Runge-Kutta integrator,
+      by Steven Moshier.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../f77_src/cwg_ode/cwg_ode.html">
+      CWG_ODE</a>,
+      a FORTRAN77 library which
+      contains three ODE solvers by C William Gear.
+    </p>
+
+    <p>
+      <a href = "../../f_src/nms/nms.html">
+      NMS</a>,
+      a FORTRAN90 library which
+      includes a wide variety of numerical software.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ode/ode.html">
+      ODE</a>,
+      a C library which
+      solves a system of ordinary differential equations,
+      by Shampine and Gordon.
+    </p>
+
+    <p>
+      <a href = "../../f77_src/odepack/odepack.html">
+      ODEPACK</a>,
+      a FORTRAN77 library which
+      contains nine ODE solvers, including LSODE, LSODES, LSODA,
+      LSODAR, LSODPK, LSODKR, LSODI, LSOIBT, and LSODIS,
+      by Alan Hindmarsh.
+    </p>
+
+    <p>
+      <a href = "../../c_src/rk4/rk4.html">
+      RK4</a>,
+      a C library which
+      applies the fourth order Runge-Kutta algorithm to estimate the
+      solution of an ordinary differential equation at the next time step.
+    </p>
+
+    <p>
+      <a href = "../../c_src/rkf45/rkf45.html">
+      RKF45</a>,
+      a C library which
+      implements the Watt and Shampine RKF45 ODE solver.
+    </p>
+
+    <p>
+      <a href = "../../f_src/test_ode/test_ode.html">
+      TEST_ODE</a>,
+      a FORTRAN90 library which
+      contains routines which define some test problems for ODE solvers.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Steven Moshier
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Benku Thomas,<br>
+          The Runge-Kutta Methods,<br>
+          BYTE,<br>
+          Volume 11, Number 4, April 1986, pages 191-192.
+        </li>
+        <li>
+          Lawrence Shampine, Marilyn Gordon,<br>
+          Computer Solution of Ordinary Differential Equations:
+          The Initial Value Problem,<br>
+          Freeman, 1975,<br>
+          ISBN: 0716704617,<br>
+          LC: QA372.S416.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "adams3.c">adams3.c</a>,
+          the source code for the Adams-Bashforth-Moulton method;
+        </li>
+        <li>
+          <a href = "rungek.c">rungek.c</a>,
+          the source code for the Runge-Kutta method;
+        </li>
+        <li>
+          <a href = "ode_moshier.h">ode_moshier.h</a>, the include file.
+        </li>
+        <li>
+          <a href = "ode_moshier.sh">ode_moshier.sh</a>,
+          commands to compile the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "ode_moshier_prb.c">ode_moshier_prb.c</a>, the calling program;
+        </li>
+        <li>
+          <a href = "ode_moshier_prb.sh">ode_moshier_prb.sh</a>,
+          commands to compile, link and run the calling program;
+        </li>
+        <li>
+          <a href = "ode_moshier_prb_input.txt">ode_moshier_prb_input.txt</a>,
+          an input file to specify the Adams order, step size, and number of steps.
+        </li>
+        <li>
+          <a href = "ode_moshier_prb_output.txt">ode_moshier_prb_output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 16 January 2012.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

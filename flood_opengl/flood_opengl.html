@@ -1,0 +1,255 @@
+  <head>
+    <title>
+      FLOOD_OPENGL - An OpenGL Demonstration of "Flooding"
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      FLOOD_OPENGL <br> An OpenGL Demonstration of "Flooding"
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>FLOOD_OPENGL</b> 
+      is a C program which 
+      demonstrates the idea of "flooding", that is, filling one region
+      of an image with a color, using OpenGL.
+    </p>
+
+    <p>
+      The program begins by displaying an image of a white background
+      upon which are a series of wavy black lines.  If the user clicks
+      the mouse in a given region, a random color is chosen, and the entire
+      region is filled with that color.  That's it!
+    </p>
+
+    <h3 align = "center">
+      OpenGL on Macintosh OS X
+    </h3>
+
+    <p>
+      <b>OpenGL</b> ships with OS9 and OSX for the Macintosh.  You can obtain
+      the latest software version on 
+      <a href = "http://www.apple.com/opengl/">the Apple OpenGL web site</a>.
+    </p>
+
+    <p>
+      Note that the source code and compilation script have been adapted for
+      use on a Macintosh running OS X.  
+    </p>
+
+    <p>
+      For that reason, the include file references have been changed from:
+      <pre><code>
+        # include &lt;GL/gl.h&gt;
+        # include &lt;GL/glu.h&gt;
+        # include &lt;GL/glut.h&gt;
+      </code></pre>
+      to:
+      <pre><code>
+        # include &lt;OpenGL/gl.h&gt;
+        # include &lt;OpenGL/glu.h&gt;
+        # include &lt;GLUT/glut.h&gt;
+      </code></pre>
+    </p>
+
+    <p>
+      The compilation statement, which might ordinarily be
+      <pre><code>
+        gcc flood_opengl.c -lGL -lGLU -lglut 
+      </code></pre>
+      was modified to:
+      <pre><code>
+        gcc flood_opengl.c -framework OpenGL -framework GLUT
+      </code></pre>
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Art Wetzel
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../cpp_src/caustic_opengl/caustic_opengl.html">
+      CAUSTIC_OPENGL</a>, 
+      a C++ program which
+      computes a caustic curve and displays it using OpenGL.
+    </p>
+
+    <p>
+      <a href = "../../c_src/life_opengl/life_opengl.html">
+      LIFE_OPENGL</a>,
+      a C program which
+      plays John Conway's "Game of Life", using OpenGL to display the results.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/lights_out_opengl/lights_out_opengl.html">
+      LIGHTS_OUT_OPENGL</a>, 
+      a C++ program which
+      sets up a "Lights Out" game and allows the user to solve it,
+      using the OpenGL graphics window.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/lissajous_opengl/lissajous_opengl.html">
+      LISSAJOUS_OPENGL</a>, 
+      a C++ program which 
+      computes a Lissajous figure and displays it using OpenGL.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/opengl/opengl.html">
+      OPENGL</a>,
+      C++ programs which
+      demonstrate the use of OpenGL for graphics applications.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/polygonal_surface_display_opengl/polygonal_surface_display_opengl.html">
+      POLYGONAL_SURFACE_DISPLAY_OPENGL</a>,
+      a C++ program which
+      displays a surface in 3D described as a set of polygons, using OpenGL.
+    </p>
+
+    <p> 
+      <a href = "../../cpp_src/xy_display_opengl/xy_display_opengl.html">
+      XY_DISPLAY_OPENGL</a>, 
+      a C++ program which
+      reads an XY file of 2D point coordinates, and displays
+      an image of those points using OpenGL.
+    </p>
+
+    <p> 
+      <a href = "../../cpp_src/xyz_display_opengl/xyz_display_opengl.html">
+      XYZ_DISPLAY_OPENGL</a>, 
+      a C++ program which
+      reads an XYZ file of 3D point coordinates, and displays
+      an image of those points using OpenGL.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          Mason Woo, Jackie Neider, Tom Davis,<br>
+          OpenGL Programming Guide,<br>
+          Addison-Wesley, 1997,<br>
+          ISBN: 0-201-46138-2,<br>
+          LC: T385.N435.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "flood_opengl.c">flood_opengl.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "flood_opengl.sh">flood_opengl.sh</a>, 
+          commands to compile and load the source code;
+        </li>
+        <li>
+          <a href = "flood_opengl.png">flood_opengl.png</a>, 
+          a sample image of the screen.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MAIN</b> is the main program for FLOOD_OPENGL.
+        </li>
+        <li>
+          <b>GLUT_SETUP</b>
+        </li>
+        <li>
+          <b>GL_SETUP</b>
+        </li>
+        <li>
+          <b>DISPLAY</b>
+        </li>
+        <li>
+          <b>DISPLAY2</b>
+        </li>
+        <li>
+          <b>IDLE</b>
+        </li>
+        <li>
+          <b>KEYBOARD</b>
+        </li>
+        <li>
+          <b>MOUSE</b>
+        </li>
+        <li>
+          <b>DATA_SETUP</b>
+        </li>
+        <li>
+          <b>DRAW_TILE_A</b>
+        </li>
+        <li>
+          <b>DRAW_TILE_B</b>
+        </li>
+        <li>
+          <b>DRAW_PATTERN</b>
+        </li>
+        <li>
+          <b>ARC</b>
+        </li>
+        <li>
+          <b>PUTPIXEL</b>
+        </li>
+        <li>
+          <b>GETPIXEL</b> returns the color of a pixel.
+        </li>
+        <li>
+          <b>DO_FLOODFILL</b> chooses a color, and fills the selected region.
+        </li>
+        <li>
+          <b>FLOODFILL</b> recursively colors a pixel and all its neighbors.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 24 March 2008.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>
+

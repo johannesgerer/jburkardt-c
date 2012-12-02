@@ -1,0 +1,149 @@
+25 October 2010 09:29:13 AM
+
+ASA007_PRB:
+  C version
+  Test the ASA007 library.
+
+TEST01:
+  SYMINV computes the inverse of a positive
+  definite symmetric matrix.
+  A compressed storage format is used
+
+  Here we look at the matrix A which is
+  N+1 on the diagonal and
+  N   on the off diagonals.
+
+  Matrix order N = 1
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 1.110223e-16
+
+  Matrix order N = 2
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 3.845925e-16
+
+  Matrix order N = 3
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 3.140185e-16
+
+  Matrix order N = 4
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 1.200890e-15
+
+  Matrix order N = 5
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 1.270708e-15
+
+  Matrix order N = 6
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 1.661630e-15
+
+  Matrix order N = 7
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 3.873072e-15
+
+  Matrix order N = 8
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 3.825037e-15
+
+  Matrix order N = 9
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 3.735368e-15
+
+  Matrix order N = 10
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 6.782363e-15
+
+  Matrix order N = 11
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 1.694391e-14
+
+  Matrix order N = 12
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 9.820925e-15
+
+  Matrix order N = 13
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 2.330807e-14
+
+  Matrix order N = 14
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 2.117705e-14
+
+  Matrix order N = 15
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 1.548433e-14
+
+TEST02:
+  SYMINV computes the inverse of a positive
+  definite symmetric matrix.
+  A compressed storage format is used
+
+  Here we look at the Hilbert matrix
+  A(I,J) = 1/(I+J-1)
+
+  For this matrix, we expect errors to grow quickly.
+
+  Matrix order N = 1
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 0.000000e+00
+
+  Matrix order N = 2
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 6.280370e-16
+
+  Matrix order N = 3
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 1.004859e-14
+
+  Matrix order N = 4
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 3.457650e-13
+
+  Matrix order N = 5
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 6.382683e-12
+
+  Matrix order N = 6
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 1.498653e-10
+
+  Matrix order N = 7
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 3.659510e-09
+
+  Matrix order N = 8
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 1.572310e-07
+
+  Matrix order N = 9
+  Maxtrix nullity NULLTY = 0
+  RMS ( C * A - I ) = 4.406828e-06
+
+  Matrix order N = 10
+  Maxtrix nullity NULLTY = 1
+  RMS ( C * A - I ) = 1.000000e+00
+
+  Matrix order N = 11
+  Maxtrix nullity NULLTY = 1
+  RMS ( C * A - I ) = 3.295867e+00
+
+  Matrix order N = 12
+  Maxtrix nullity NULLTY = 1
+  RMS ( C * A - I ) = 3.443004e+00
+
+  Matrix order N = 13
+  Maxtrix nullity NULLTY = 1
+  RMS ( C * A - I ) = 3.588203e+00
+
+  Matrix order N = 14
+  Maxtrix nullity NULLTY = 1
+  RMS ( C * A - I ) = 3.731480e+00
+
+  Matrix order N = 15
+  Maxtrix nullity NULLTY = 1
+  RMS ( C * A - I ) = 3.872885e+00
+
+ASA007_PRB:
+  Normal end of execution.
+
+25 October 2010 09:29:13 AM

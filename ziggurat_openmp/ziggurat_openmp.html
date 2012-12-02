@@ -1,0 +1,525 @@
+<html>
+
+  <head>
+    <title>
+      ZIGGURAT_OPENMP - Using the ZIGGURAT Library with OpenMP
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      ZIGGURAT_OPENMP <br> Using the ZIGGURAT Library with OpenMP
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>ZIGGURAT_OPENMP</b> 
+      is a C library which 
+      explores how the ZIGGURAT library may be used, in conjunction with
+      OpenMP, to compute random numbers efficiently and correctly.
+    </p>
+
+    <p>
+      The primary worry, when computing random numbers in OpenMP, 
+      occurs when the user calls a random number generator which may
+      have some internal memory.  In that case, the internal memory
+      may become corrupted if multiple threads are invoking the code
+      at the same time.  
+    </p>
+
+    <p>
+      A safe way to compute random numbers is to ensure that the
+      seed value, and any other data or tables needed by the computation,
+      are stored externally, in the user program.  That way, each thread
+      can have a separate copy of the data, and multiple threads of random number
+      calculations can be going along simultaneously without fear
+      of overwriting or memory contention.
+    </p>
+
+    <p>
+      The program presented here is somewhat awkward, because it wishes
+      to verify that OpenMP can compute exactly the same data as a sequential
+      program.  To do so, we need to create separate seeds for each threads,
+      and ensure that the threads execute the loop iterations in some predictable
+      sequence.  When the sequential program goes through the same calculations,
+      we again have to do some acrobatics to ensure that it is doing the
+      same things that the parallel program did.
+    </p>
+
+    <p>
+      So some of the complications in this program are there to ensure that
+      we can exhibit the same results sequentially and in parallel.  Once
+      you are convinced of that, and see how to go about this, your own
+      program can be set up without some of the overhead and special
+      instructions used in this demonstration.
+    </p>
+
+    <p>
+      On an Apple PowerPC G5 with two processors, the following results were
+      observed:
+      <table border="1" align="center">
+        <tr>
+          <th>Threads</th><th>Test01</th><th>Test02</th><th>Test03</th><th>Test04</th>
+        </tr>
+        <tr>
+          <td>1</td><td>0.477 s</td><td>2.338 s</td><td>1.213 s</td><td>1.104 s</td>
+        </tr>
+        <tr>
+          <td>2</td><td>0.237 s</td><td>1.190 s</td><td>0.608 s</td><td>0.693 s</td>
+        </tr>
+        <tr>
+          <td>4</td><td>0.248 s</td><td>1.295 s</td><td>0.620 s</td><td>0.564 s</td>
+        </tr>
+      </table> 
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      In the BASH shell, the program could be run with 2 threads using the commands:
+      <pre>
+        export OMP_NUM_THREADS=2
+        ./ziggurat_openmp
+      </pre>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page 
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>ZIGGURAT_OPENMP</b> is available in
+      <a href = "../../c_src/ziggurat_openmp/ziggurat_openmp.html">a C version</a> and
+      <a href = "../../cpp_src/ziggurat_openmp/ziggurat_openmp.html">a C++ version</a> and
+      <a href = "../../f77_src/ziggurat_openmp/ziggurat_openmp.html">a FORTRAN77 version</a> and
+      <a href = "../../f_src/ziggurat_openmp/ziggurat_openmp.html">a FORTRAN90 version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../cpp_src/cvt/cvt.html">
+      CVT</a>, 
+      a C++ library which 
+      computes elements of a Centroidal Voronoi Tessellation.
+    </p>
+
+    <p>
+      <a href = "../../c_src/dijkstra_openmp/dijkstra_openmp.html">
+      DIJKSTRA_OPENMP</a>,
+      a C program which
+      uses OpenMP to parallelize a simple example of Dijkstra's 
+      minimum distance algorithm for graphs.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/faure/faure.html">
+      FAURE</a>,
+      a C++ library which 
+      computes elements of a Faure quasirandom sequence.
+    </p>
+
+    <p>
+      <a href = "../../c_src/fft_openmp/fft_openmp.html">
+      FFT_OPENMP</a>,
+      a C program which
+      demonstrates the computation of a Fast Fourier Transform
+      in parallel, using OpenMP.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/grid/grid.html">
+      GRID</a>, 
+      a C++ library which 
+      computes elements of a grid dataset.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/halton/halton.html">
+      HALTON</a>, 
+      a C++ library which 
+      computes elements of a Halton quasirandom sequence.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/hammersley/hammersley.html">
+      HAMMERSLEY</a>, 
+      a C++ library which 
+      computes elements of a Hammersley quasirandom sequence.
+    </p>
+
+    <p>
+      <a href = "../../c_src/heated_plate_openmp/heated_plate_openmp.html">
+      HEATED_PLATE_OPENMP</a>,
+      a C program which 
+      solves the steady (time independent) heat equation in a 2D
+      rectangular region, using OpenMP to run in parallel.
+    </p>
+
+    <p>
+      <a href = "../../c_src/hello_openmp/hello_openmp.html">
+      HELLO_OPENMP</a>,
+      a C program which 
+      prints out "Hello, world!" using the OpenMP parallel programming environment. 
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/hex_grid/hex_grid.html">
+      HEX_GRID</a>, 
+      a C++ library which 
+      computes elements of a hexagonal grid dataset.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/ihs/ihs.html">
+      IHS</a>, 
+      a C++ library which 
+      computes elements of an improved distributed Latin hypercube dataset.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/latin_center/latin_center.html">
+      LATIN_CENTER</a>, 
+      a C++ library which 
+      computes elements of a Latin Hypercube dataset, choosing center points.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/latin_edge/latin_edge.html">
+      LATIN_EDGE</a>, 
+      a C++ library which 
+      computes elements of a Latin Hypercube dataset, choosing edge points.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/latin_random/latin_random.html">
+      LATIN_RANDOM</a>,
+      a C++ library which 
+      computes elements of a Latin Hypercube dataset, choosing 
+      points at random.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/lcvt/lcvt.html">
+      LCVT</a>,
+      a C++ library which 
+      computes a latinized Centroidal Voronoi Tessellation.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mandelbrot_openmp/mandelbrot_openmp.html">
+      MANDELBROT_OPENMP</a>,
+      a C program which
+      generates an ASCII Portable Pixel Map (PPM) image of the Mandelbrot fractal set,
+      using OpenMP for parallel execution.
+    </p>
+
+    <p>
+      <a href = "../../c_src/md_openmp/md_openmp.html">
+      MD_OPENMP</a>,
+      a C program which
+      carries out a molecular dynamics simulation using OpenMP.
+    <p>
+
+    <p>
+      <a href = "../../c_src/multitask_openmp/multitask_openmp.html">
+      MULTITASK_OPENMP</a>,
+      a C program which
+      demonstrates how to "multitask", that is, to execute several unrelated
+      and distinct tasks simultaneously, using OpenMP for parallel execution.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mxv_openmp/mxv_openmp.html">
+      MXM_OPENMP</a>,
+      a C program which
+      computes a dense matrix product C=A*B,
+      using OpenMP for parallel execution.
+    <p>
+
+    <p>
+      <a href = "../../c_src/mxv_openmp/mxv_openmp.html">
+      MXV_OPENMP</a>,
+      a C program which
+      compares the performance of plain vanilla Fortran and the FORTRAN90
+      intrinsic routine MATMUL, for the matrix multiplication problem
+      y=A*x, with and without parallelization by OpenMP.
+    <p>
+
+    <p>
+      <a href = "../../cpp_src/niederreiter2/niederreiter2.html">
+      NIEDERREITER2</a>, 
+      a C++ library which 
+      computes elements of a Niederreiter quasirandom sequence with base 2.
+    </p>
+
+    <p>
+      <a href = "../../c_src/normal/normal.html">
+      NORMAL</a>, 
+      a C library which
+      computes elements of a sequence of pseudorandom normally distributed values.
+    </p>
+
+    <p>
+      <a href = "../../c_src/openmp/openmp.html">
+      OPENMP</a>,
+      C programs which
+      illustrate the use of the OpenMP application program interface
+      for carrying out parallel computations in a shared memory environment.
+    </p>
+
+    <p>
+      <a href = "../../c_src/poisson_openmp/poisson_openmp.html">
+      POISSON_OPENMP</a>,
+      a C program which
+      computes an approximate solution to the Poisson equation in a rectangle,
+      using the Jacobi iteration to solve the linear system, and OpenMP to
+      carry out the Jacobi iteration in parallel.
+    </p>
+
+    <p>
+      <a href = "../../c_src/prime_openmp/prime_openmp.html">
+      PRIME_OPENMP</a>,
+      a C program which 
+      counts the number of primes between 1 and N, using OpenMP for parallel execution.
+    </p>
+
+    <p>
+      <a href = "../../c_src/quad_openmp/quad_openmp.html">
+      QUAD_OPENMP</a>, 
+      a C program which
+      approximates an integral using a quadrature rule, and carries out the
+      computation in parallel using OpenMP.
+    </p>
+
+    <p>
+      <a href = "../../c_src/random_mpi/random_mpi.html">
+      RANDOM_MPI</a>, 
+      a C program which
+      demonstrates one way to generate the same sequence of random numbers
+      for both sequential execution and parallel execution under MPI.
+    </p>
+
+    <p>
+      <a href = "../../c_src/random_openmp/random_openmp.html">
+      RANDOM_OPENMP</a>,
+      a C program which
+      illustrates how a parallel program using OpenMP can generate multiple
+      distinct streams of random numbers.
+    </p>
+
+    <p>
+      <a href = "../../c_src/rbox/rbox.html">
+      RBOX</a>, 
+      a C program which
+      generates a set of points in a region, selected at random according to a given distribution.
+    </p>
+
+    <p>
+      <a href = "../../c_src/satisfy_openmp/satisfy_openmp.html">
+      SATISFY_OPENMP</a>,
+      a C program which
+      demonstrates, for a particular circuit, an exhaustive search
+      for solutions of the circuit satisfy problem,
+      using OpenMP for parallel execution.
+    <p>
+
+    <p>
+      <a href = "../../c_src/schedule_openmp/schedule_openmp.html">
+      SCHEDULE_OPENMP</a>,
+      a C program which
+      demonstrates the default, static, and dynamic methods of "scheduling"
+      loop iterations in OpenMP to avoid work imbalance.
+    <p>
+
+    <p>
+      <a href = "../../c_src/sgefa_openmp/sgefa_openmp.html">
+      SGEFA_OPENMP</a>,
+      a C program which 
+      reimplements the SGEFA/SGESL linear algebra routines from
+      LINPACK for use with OpenMP.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/sobol/sobol.html">
+      SOBOL</a>, 
+      a C++ library which 
+      computes elements of a Sobol quasirandom sequence.
+    </p>
+
+    <p>
+      <a href = "../../c_src/uniform/uniform.html">
+      UNIFORM</a>, 
+      a C library which 
+      computes elements of uniform pseudorandom sequence.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/van_der_corput/van_der_corput.html">
+      VAN_DER_CORPUT</a>, 
+      a C++ library which 
+      computes elements of a van der Corput quasirandom sequence.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ziggurat/ziggurat.html">
+      ZIGGURAT</a>, 
+      a C program which
+      generates points from a uniform, normal or exponential distribution, using
+      the ziggurat method.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          George Marsaglia, Wai Wan Tsang,<br>
+          The Ziggurat Method for Generating Random Variables,<br>
+          Journal of Statistical Software,<br>
+          Volume 5, Number 8, October 2000, seven pages.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "ziggurat_openmp.c">ziggurat_openmp.c</a>, the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>ZIGGURAT_LOCAL_GCC</b> compiles, links, loads and runs the program
+      using 1, 2 and 4 threads, the local interactive environment, 
+      and the GNU GCC compiler.
+      <ul>
+        <li>
+          <a href = "ziggurat_local_gcc.sh">ziggurat_local_gcc.sh</a>, 
+          BASH commands.
+        </li>
+        <li>
+          <a href = "ziggurat_local_gcc_output.txt">ziggurat_local_gcc_output.txt</a>, 
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>ZIGGURAT_LOCAL_ICC</b> compiles, links, loads and runs the program
+      using 1, 2 and 4 threads, the local interactive environment, 
+      and the Intel ICC compiler.
+      <ul>
+        <li>
+          <a href = "ziggurat_local_icc.sh">ziggurat_local_icc.sh</a>, 
+          BASH commands.
+        </li>
+        <li>
+          <a href = "ziggurat_local_icc_output.txt">ziggurat_local_icc_output.txt</a>, 
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>ZIGGURAT_ITHACA_GCC</b> compiles, links, loads and runs the program
+      using 1, 2 and 4 threads, using the PBS queueing system on Virginia
+      Tech's Ithaca cluster, and the GNU GCC compiler.
+      <ul>
+        <li>
+          <a href = "ziggurat_ithaca_gcc.sh">ziggurat_ithaca_gcc.sh</a>, 
+          BASH commands.
+        </li>
+        <li>
+          <a href = "ziggurat_ithaca_gcc_output.txt">ziggurat_ithaca_gcc_output.txt</a>, 
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>ZIGGURAT_ITHACA_ICC</b> compiles, links, loads and runs the program
+      using 1, 2 and 4 threads, using the PBS queueing system on Virginia
+      Tech's Ithaca cluster,
+      and the Intel ICC compiler.
+      <ul>
+        <li>
+          <a href = "ziggurat_ithaca_icc.sh">ziggurat_ithaca_icc.sh</a>, 
+          BASH commands.
+        </li>
+        <li>
+          <a href = "ziggurat_ithaca_icc_output.txt">ziggurat_ithaca_icc_output.txt</a>, 
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MAIN</b> is the main program for ZIGGURAT_OPENMP.
+        </li>
+        <li>
+          <b>TEST01</b> tests SHR3.
+        </li>
+        <li>
+          <b>TEST02</b> tests R4_UNI.
+        </li>
+        <li>
+          <b>TEST03</b> tests R4_NOR.
+        </li>
+        <li>
+          <b>TEST04</b> tests R4_EXP.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 07 September 2009.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

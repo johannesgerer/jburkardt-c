@@ -1,0 +1,24 @@
+
+CHARACTER_ARITHMETIC:
+  C version
+
+  c1 = a (character) = 97 (integer)
+  c2 = b (character) = 98 (integer)
+  c3 = c (character) = 99 (integer)
+  c4 = d (character) = 100 (integer)
+  c5 = z (character) = 122 (integer)
+  c6 = A (character) = 65 (integer)
+  c7 = & (character) = 38 (integer)
+  c8 = 7 (character) = 55 (integer)
+
+We can capitalize a lower case letter by adding A-a to it!
+
+  a+A-a = A
+  b+A-a = B
+  c+A-a = C
+  d+A-a = D
+
+We can average two characters
+
+  1/2(a+c)=b
+  1/2(a+z)=m

@@ -1,0 +1,27 @@
+
+SUM - Master process:
+  Illustrate the use of some MPI routines.
+  The master process computes some coefficients,
+  sends them to each worker process, which sums them.
+
+  Compiled on Oct  9 2002 at 08:27:31.
+
+  The number of processes available is 4.
+
+SUM - Process 0:
+  My contribution to the sum is 0.000000
+
+SUM - Process 1:
+  My contribution to the sum is 19197.565848
+
+SUM - Process 2:
+  My contribution to the sum is 38395.131695
+
+SUM - Process 3:
+  My contribution to the sum is 57592.697543
+
+SUM - Master process:
+  The total sum is 115185.3950864409900000
+
+SUM - Master process:
+  Normal end of execution.

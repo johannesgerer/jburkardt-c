@@ -1,0 +1,51 @@
+05 April 2011 09:29:50 AM
+
+RKF45_PRB2
+  C version
+
+  Demonstrate the RKF45 ODE integrator.
+
+TEST07
+  Solve a scalar equation using R8_RKF:
+
+  There are three parameters, ALPHA, BETA, GAMMA
+
+  Y' = ALPHA * BETA * cos ( BETA * T + GAMMA )
+
+  ALPHA = 1.000000
+  BETA  = 2.000000
+  GAMMA = 3.000000
+
+FLAG             T          Y         Y'          Y_Exact         Error
+
+   1      0.000000      0.141120     -1.979985      0.141120      0.000000
+   2      4.000000     -0.999990      0.008851     -0.999990     -0.000000
+   2      8.000000      0.149877      1.977409      0.149877     -0.000000
+   2     12.000000      0.956376     -0.584278      0.956376     -0.000000
+   2     16.000000     -0.428183     -1.807384     -0.428183     -0.000000
+   2     20.000000     -0.831775      1.110227     -0.831775     -0.000000
+
+TEST07
+  Solve a scalar equation using R8_RKF:
+
+  There are three parameters, ALPHA, BETA, GAMMA
+
+  Y' = ALPHA * BETA * cos ( BETA * T + GAMMA )
+
+  ALPHA = 1.000000
+  BETA  = 0.500000
+  GAMMA = 0.000000
+
+FLAG             T          Y         Y'          Y_Exact         Error
+
+   1      0.000000      0.000000      0.500000      0.000000      0.000000
+   2      4.000000      0.909297     -0.208073      0.909297      0.000000
+   2      8.000000     -0.756802     -0.326822     -0.756802      0.000000
+   2     12.000000     -0.279416      0.480085     -0.279415     -0.000000
+   2     16.000000      0.989358     -0.072750      0.989358      0.000000
+   2     20.000000     -0.544021     -0.419536     -0.544021      0.000000
+
+RKF45_PRB2
+  Normal end of execution.
+
+05 April 2011 09:29:50 AM

@@ -1,0 +1,105 @@
+28 November 2011 09:50:18 PM
+
+LINPLUS_PRB
+  C version
+  Test routines in the LINPLUS library.
+
+TEST02
+  R83_CR_FA factors a real tridiagonal matrix;
+  R83_CR_SL solves a factored system.
+
+  Matrix order N = 5
+  Demonstrate multiple system solution method.
+
+  Solve linear system number #1.
+
+  Solution:
+
+         1        1.000000
+         2        2.000000
+         3        3.000000
+         4        4.000000
+         5        5.000000
+
+  Solve linear system number #2.
+
+  Solution:
+
+         1        1.000000
+         2        1.000000
+         3        1.000000
+         4        1.000000
+         5        1.000000
+
+TEST03:
+  For a real tridiagonal matrix,
+  using CYCLIC REDUCTION,
+  R83_CR_FA factors;
+  R83_CR_SL solves.
+
+  Matrix order N = 10
+  The matrix is NOT symmetric.
+
+  The matrix:
+
+  Col:       1             2             3             4             5       
+  Row
+  ---
+     1      4.000000      2.000000                                            
+     2      1.000000      8.000000      3.000000                              
+     3                    2.000000     12.000000      4.000000                
+     4                                  3.000000     16.000000      5.000000  
+     5                                                4.000000     20.000000  
+     6                                                              5.000000  
+
+  Col:       6             7             8             9            10       
+  Row
+  ---
+     5      6.000000                                                          
+     6     24.000000      7.000000                                            
+     7      6.000000     28.000000      8.000000                              
+     8                    7.000000     32.000000      9.000000                
+     9                                  8.000000     36.000000     10.000000  
+    10                                                9.000000     40.000000  
+
+
+  Solution:
+
+         1        1.000000
+         2        2.000000
+         3        3.000000
+         4        4.000000
+         5        5.000000
+         6        6.000000
+         7        7.000000
+         8        8.000000
+         9        9.000000
+        10       10.000000
+
+TEST345
+  For a matrix in general storage,
+  R8GE_FSS_NEW factors and solves multiple linear systems.
+
+  Matrix order N = 10
+  Number of systems NB = 3
+
+  Solutions:
+
+  Col:          1             2             3     
+  Row
+
+    1:        1.000000        1.000000        1.000000
+    2:        1.000000        2.000000        2.000000
+    3:        1.000000        3.000000        3.000000
+    4:        1.000000        4.000000        1.000000
+    5:        1.000000        5.000000        2.000000
+    6:        1.000000        6.000000        3.000000
+    7:        1.000000        7.000000        1.000000
+    8:        1.000000        8.000000        2.000000
+    9:        1.000000        9.000000        3.000000
+   10:        1.000000       10.000000        1.000000
+
+LINPLUS_PRB
+  Normal end of execution.
+
+28 November 2011 09:50:18 PM

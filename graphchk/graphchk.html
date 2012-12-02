@@ -1,0 +1,235 @@
+<html>
+
+  <head>
+    <title>
+      GRAPHCHK - Verify a METIS Graph File
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      GRAPHCHK <br> Verify a METIS Graph File
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>GRAPHCHK</b> 
+      is a C program which
+      can read a METIS GRAPH file defining a graph for use by the <b>METIS</b>
+      program, and verify that the file has the correct format.
+    </p>
+
+    <p>
+      The rules for the METIS GRAPH format are defined in the manual,
+      and examples are given in the METIS GRAPH data directory.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      To check that a graph file is really in the correct format 
+      preferred by <b>METIS</b>:
+      <dl>
+        <dt>
+          <b>graphchk</b> <i>graph_file</i>
+        </dt>
+        <dd>
+          reads the graph information in <i>graph_file</i> and reports
+          whether it is acceptable.
+        </dd>
+      </dl>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      <b>GRAPHCHK</b> is part of the METIS family of Multilevel Partitioning
+      Algorithms.  It was produced by the lab of George Karypis, who states
+      <blockquote><i>
+        "It is our general policy to make these tools available to the research 
+        community for use in their own research and/or non-commercial applications."
+      </i></blockquote>
+    </p>
+
+    <p>
+      For further information on licensing and permissions, refer to
+      <a href = "http://www.cs.umn.edu/~metis">
+                 http://www.cs.umn.edu/~metis</a>,
+      the METIS home page.
+    </p>
+
+    <h3 align = "center">
+      Related Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/kmetis/kmetis.html">
+      KMETIS</a>,
+      a C program, using METIS, which
+      can partition the nodes of a graph.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2dual/mesh2dual.html">
+      MESH2DUAL</a>, 
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by KMETIS or PMETIS.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2nodal/mesh2nodal.html">
+      MESH2NODAL</a>, 
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by KMETIS or PMETIS.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_graph/metis_graph.html">
+      METIS_GRAPH</a>, 
+      a data directory contains examples of
+      the graph files used to describe a graph to the METIS
+      family of programs.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_mesh/metis_mesh.html">
+      METIS_MESH</a>,
+      a data directory which
+      contains examples of
+      the mesh files used to describe a finite element mesh 
+      to the METIS family of programs.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mpi/mpi.html">
+      MPI</a>,
+      C programs which
+      demonstrate the use of a message passing interface that allows programs to
+      be written for execution on parallel computers.
+    </p>
+
+    <p>
+      <a href = "../../f_src/neighbors_to_metis_graph/neighbors_to_metis_graph.html">
+      NEIGHBORS_TO_METIS_GRAPH</a>,
+      a FORTRAN90 program which
+      reads information describing the adjacency
+      relations in a tet mesh, and writes out essentially the same information,
+      but in a format that METIS will accept.
+    </p>
+
+    <p>
+      <a href = "../../c_src/oemetis/oemetis.html">
+      OEMETIS</a>,
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/onmetis/onmetis.html">
+      ONMETIS</a>, 
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partdmesh/partdmesh.html">
+      PARTDMESH</a>, 
+      a C program, using <b>METIS</b>, which
+      can partition the elements of a finite element mesh, by working
+      with the dual graph of the mesh.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partnmesh/partnmesh.html">
+      PARTNMESH</a>,
+      a C program, using METIS, which
+      can partition the elements of a finite element mesh, by working
+      with the nodal graph of the mesh.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          METIS, a Software Package for Partitioning Unstructured Graphs
+          and Computing Fill-Reduced Orderings of Sparse Matrices;
+        </li>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          A fast and high quality multilevel scheme for partitioning 
+          irregular graphs,<br>
+          SIAM Journal on Scientific Computing,<br>
+          Volume 20, Number 1, 1998, pages 359-392;
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "graphchk.c">graphchk.c</a>
+        </li>
+        <li>
+          <a href = "graphchk.sh">graphchk.sh</a>,
+          commands to compile the source code 
+          and create the executable program.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "graphchk_prb.sh">graphchk_prb.sh</a>,
+          a script that copies a graph file from the METIS GRAPH data directory
+          and runs the GRAPHCHK program on it.
+        </li>
+        <li>
+          <a href = "graphchk_prb_output.txt">graphchk_prb_output.txt</a>,
+          the printed output.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 28 April 2006.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

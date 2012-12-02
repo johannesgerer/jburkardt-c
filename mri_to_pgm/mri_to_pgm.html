@@ -1,0 +1,230 @@
+<html>
+
+  <head>
+    <title>
+      MRI_TO_PGM - MRI Data => PGM Image File Sequence
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      MRI_TO_PGM <br> MRI Data => PGM Image File Sequence
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>MRI_TO_PGM</b>
+      is a C program which
+      reads a file containing
+      MRI information in binary format, and writes a sequence of
+      PGM graphics files corresponding to successive XY planes of data.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>mri_to_pgm</b> <i>prefix</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>prefix</i><b>.dat</b> is the name of the binary file
+          containing the MRI information.
+        </li>
+        <li>
+          <i>prefix</i>_<i>nn</i><b>.pgm</b> is the name of the <i>nn</i>-th
+          PGM file created.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/ascii_to_mri/ascii_to_mri.html">
+      ASCII_TO_MRI</a>,
+      a C program which
+      converts translated ASCII text back to binary format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mri_to_ascii/mri_to_ascii.html">
+      MRI_TO_ASCII</a>,
+      a C program which
+      converts binary MRI information to ASCII text format.
+    </p>
+
+    <p>
+      <a href = "../../data/pgh_mri/pgh_mri.html">
+      PGH_MRI</a>,
+      a data directory which
+      contains examples of PGH MRI files,
+      a format for storing brain scan data gathered by
+      magnetic resonance imaging;
+    </p>
+
+    <p>
+      <a href = "../../c_src/pgma_io/pgma_io.html">
+      PGMA_IO</a>,
+      a C library which
+      can read or write ASCII PGM image files.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ppma_io/ppma_io.html">
+      PPMA_IO<a>,
+      a C library which
+      can read or write ASCII PPM (Portable Pixel Map) graphics files.
+    </p>
+
+    <p>
+      <a href = "../../f_src/region/region.html">
+      REGION</a>,
+      a FORTRAN90 library which
+      reads an ASCII MRI file and groups the voxels into regions.
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "mri_to_pgm.c">mri_to_pgm.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "mri_to_pgm.sh">mri_to_pgm.sh</a>,
+          commands to compile, link and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>ROI</b> is a set of MRI data, which comes as separate header and
+      data files.
+      <ul>
+        <li>
+          <a href = "roi.mri">roi.mri</a>, the header part of the MRI file;
+        </li>
+        <li>
+          <a href = "roi.dat">roi.dat</a>, the main part of the MRI file;
+        </li>
+        <li>
+          <a href = "roi_01.pgm">roi_01.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_02.pgm">roi_02.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_03.pgm">roi_03.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_04.pgm">roi_04.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_05.pgm">roi_05.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_06.pgm">roi_06.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_07.pgm">roi_07.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_08.pgm">roi_08.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_09.pgm">roi_09.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_10.pgm">roi_10.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_11.pgm">roi_11.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_12.pgm">roi_12.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_13.pgm">roi_13.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_14.pgm">roi_14.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_15.pgm">roi_15.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_16.pgm">roi_16.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_17.pgm">roi_17.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_18.pgm">roi_18.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_19.pgm">roi_19.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_20.pgm">roi_20.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_21.pgm">roi_21.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_22.pgm">roi_22.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_23.pgm">roi_23.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_24.pgm">roi_24.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_25.pgm">roi_25.pgm</a>,
+        </li>
+        <li>
+          <a href = "roi_26.pgm">roi_26.pgm</a>,
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 24 December 2010.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

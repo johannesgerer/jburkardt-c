@@ -1,0 +1,356 @@
+<html>
+
+  <head>
+    <title>
+      PBMLIB - Portable Bit Map (PBM) Graphics
+    </TITLE>
+
+  </HEAD>
+
+  <BODY bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      PBMLIB - Portable Bit Map (PBM) Graphics
+    </H1>
+
+    <hr>
+
+    <p>
+      <b>PBMLIB</b> 
+      is a C library which 
+      creates and reads Portable Bit Map (PBM) graphics files.  
+    </p>
+
+    <p>
+      Both ASCII and binary PBM formats are supported.  The library can also handle
+      the related Portable Gray Map (PGM) and Portable Pixel Map
+      (PPM) formats.  
+    </p>
+
+    <p>
+      There are many graphics programs, such as XV and GIMP, that can
+      display images in these formats, or translate them to other formats
+      such as BMP, GIF, JPEG, MacPaint, X Window, and so on.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page 
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>PBMLIB</b> is available in
+      <a href = "../../c_src/pbmlib/pbmlib.html">a C version</a> and
+      <a href = "../../f_src/pbmlib/pbmlib.html">a FORTRAN90 version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Programs:
+    </h3>
+
+    <p>
+      <a href = "../../data/pbma/pbma.html">
+      PBMA</a>,
+      a data directory which 
+      contains examples and a description
+      of the ASCII Portable Bit Map (PBM) graphics file format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/pbma_io/pbma_io.html">
+      PBMA_IO</a>,
+      a C library which
+      can read or write ASCII Portable Bit Map (PBM) graphics files.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/pbmb_io/pbmb_io.html">
+      PBMB_IO</a>,
+      a C++ library which
+      can read or write binary Portable Bit Map (PBM) graphics files.
+    </p>
+
+    <p>
+      <a href = "../../data/pgma/pgma.html">
+      PGMA</a>,
+      a data directory which 
+      contains examples and a description
+      of the ASCII Portable Grayscale Map (PGM) graphics file format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/pgma_io/pgma_io.html">
+      PGMA_IO</a>,
+      a C library which
+      can read or write ASCII Portable Grayscale Map (PGM) graphics files.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/pgmb_io/pgmb_io.html">
+      PGMB_IO</a>,
+      a C++ library which
+      can read or write binary Portable Grayscale Map (PGM) graphics files.
+    </p>
+
+    <p>
+      <a href = "../../data/ppma/ppma.html">
+      PPMA</a>,
+      a data directory which 
+      contains examples and a description
+      of the ASCII Portable Pixel Map (PPM) graphics file format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ppma_io/ppma_io.html">
+      PPMA_IO<a>,
+      a C library which
+      can read or write ASCII Portable Pixel Map (PPM) graphics files.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/ppmb_io/ppmb_io.html">
+      PPMB_IO</a>,
+      a C++ library which
+      can read or write binary Portable Pixel Map (PPM) graphics files.
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <P>
+      <ul>
+        <li>
+          <a href = "pbmlib.c">pbmlib.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "pbmlib.h">pbmlib.h</a>, the include file;
+        </li>
+        <li>
+          <a href = "pbmlib.sh">pbmlib.sh</a>, 
+          commands to compile the source code;
+        </li>
+      </ul>
+    </P>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <P>
+      <ul>
+        <li>
+          <a href = "pbmlib_prb.c">pbmlib_prb.c</a>, the sample calling program.
+        </li>
+        <li>
+          <a href = "pbmlib_prb.sh">pbmlib_prb.sh</a>, 
+          commands to compile, link and run the sample calling program.
+        </li>
+        <li>
+          <a href = "pbmlib_prb_output.txt">pbmlib_prb_output.txt</a>, the sample output file.
+        </li>
+      </ul>
+    </P>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <P>
+      <ul>
+        <li>
+          <b>BITCHR75</b> returns a 35 bit pattern for a given character.
+        </li>
+        <li>
+          <b>PBM_CHECK_DATA</b> checks the data for an ASCII portable bit map file.
+        </li>
+        <li>
+          <b>PBM_EXAMPLE</b> sets up some PBM data.
+        </li>
+        <li>
+          <b>PBMA_READ</b> reads the header and data from an ASCII portable bit map file.
+        </li>
+        <li>
+          <b>PBMA_READ_DATA</b> reads the data in an ASCII portable bit map file.
+        </li>
+        <li>
+          <b>PBMA_READ_HEADER</b> reads the header of an ASCII portable bit map file.
+        </li>
+        <li>
+          <b>PBMA_READ_TEST</b> tests the ASCII portable bit map read routines.
+        </li>
+        <li>
+          <b>PBMA_WRITE</b> writes the header and data for an ASCII portable bit map file.
+        </li>
+        <li>
+          <b>PBMA_WRITE_DATA</b> writes the data for an ASCII portable bit map file.
+        </li>
+        <li>
+          <b>PBMA_WRITE_HEADER</b> writes the header of an ASCII portable bit map file.
+        </li>
+        <li>
+          <b>PBMA_WRITE_TEST</b> tests the ASCII portable bit map write routines.
+        </li>
+        <li>
+          <b>PBMB_READ</b> reads the header and data from a binary portable bit map file.
+        </li>
+        <li>
+          <b>PBMB_READ_DATA</b> reads the data in a binary portable bit map file.
+        </li>
+        <li>
+          <b>PBMB_READ_HEADER</b> reads the header of a binary portable bit map file.
+        </li>
+        <li>
+          <b>PBMB_READ_TEST</b> tests the binary portable bit map read routines.
+        </li>
+        <li>
+          <b>PBMB_WRITE</b> writes the header and data for a binary portable bit map file.
+        </li>
+        <li>
+          <b>PBMB_WRITE_DATA</b> writes the data for a binary portable bit map file.
+        </li>
+        <li>
+          <b>PBMB_WRITE_HEADER</b> writes the header of a binary portable bit map file.
+        </li>
+        <li>
+          <b>PBMB_WRITE_TEST</b> tests the binary portable bit map write routines.
+        </li>
+        <li>
+          <b>PGM_CHECK_DATA</b> checks the data for an ASCII portable gray map file.
+        </li>
+        <li>
+          <b>PGM_EXAMPLE</b> sets up some PGM data.
+        </li>
+        <li>
+          <b>PGMA_READ</b> reads the header and data from an ASCII portable gray map file.
+        </li>
+        <li>
+          <b>PGMA_READ_DATA</b> reads the data in an ASCII portable gray map file.
+        </li>
+        <li>
+          <b>PGMA_READ_HEADER</b> reads the header of an ASCII portable gray map file.
+        </li>
+        <li>
+          <b>PGMA_READ_TEST</b> tests the ASCII portable gray map read routines.
+        </li>
+        <li>
+          <b>PGMA_WRITE</b> writes the header and data for an ASCII portable gray map file.
+        </li>
+        <li>
+          <b>PGMA_WRITE_DATA</b> writes the data for an ASCII portable gray map file.
+        </li>
+        <li>
+          <b>PGMA_WRITE_HEADER</b> writes the header of an ASCII portable gray map file.
+        </li>
+        <li>
+          <b>PGMA_WRITE_TEST</b> tests the ASCII portable gray map write routines.
+        </li>
+        <li>
+          <b>PGMB_READ</b> reads the header and data from a binary portable gray map file.
+        </li>
+        <li>
+          <b>PGMB_READ_DATA</b> reads the data in a binary portable gray map file.
+        </li>
+        <li>
+          <b>PGMB_READ_HEADER</b> reads the header of a binary portable gray map file.
+        </li>
+        <li>
+          <b>PGMB_READ_TEST</b> tests the binary portable gray map read routines.
+        </li>
+        <li>
+          <b>PGMB_WRITE</b> writes the header and data for a binary portable gray map file.
+        </li>
+        <li>
+          <b>PGMB_WRITE_DATA</b> writes the data for a binary portable gray map file.
+        </li>
+        <li>
+          <b>PGMB_WRITE_HEADER</b> writes the header of a binary portable gray map file.
+        </li>
+        <li>
+          <b>PGMB_WRITE_TEST</b> tests the binary portable gray map write routines.
+        </li>
+        <li>
+          <b>PPM_CHECK_DATA</b> checks the data for an ASCII portable pixel map file.
+        </li>
+        <li>
+          <b>PPM_EXAMPLE</b> sets up some PPM data.
+        </li>
+        <li>
+          <b>PPMA_READ</b> reads the header and data from an ASCII portable pixel map file.
+        </li>
+        <li>
+          <b>PPMA_READ_DATA</b> reads the data in an ASCII portable pixel map file.
+        </li>
+        <li>
+          <b>PPMA_READ_HEADER</b> reads the header of an ASCII portable pixel map file.
+        </li>
+        <li>
+          <b>PPMA_READ_TEST</b> tests the ASCII portable pixel map read routines.
+        </li>
+        <li>
+          <b>PPMA_WRITE</b> writes the header and data for an ASCII portable pixel map file.
+        </li>
+        <li>
+          <b>PPMA_WRITE_DATA</b> writes the data for an ASCII portable pixel map file.
+        </li>
+        <li>
+          <b>PPMA_WRITE_HEADER</b> writes the header of an ASCII portable pixel map file.
+        </li>
+        <li>
+          <b>PPMA_WRITE_TEST</b> tests the ASCII portable pixel map write routines.
+        </li>
+        <li>
+          <b>PPMB_READ</b> reads the header and data from a binary portable pixel map file.
+        </li>
+        <li>
+          <b>PPMB_READ_DATA</b> reads the data in a binary portable pixel map file.
+        </li>
+        <li>
+          <b>PPMB_READ_HEADER</b> reads the header of a binary portable pixel map file.
+        </li>
+        <li>
+          <b>PPMB_READ_TEST</b> tests the binary portable pixel map read routines.
+        </li>
+        <li>
+          <b>PPMB_WRITE</b> writes the header and data for a binary portable pixel map file.
+        </li>
+        <li>
+          <b>PPMB_WRITE_DATA</b> writes the data for a binary portable pixel map file.
+        </li>
+        <li>
+          <b>PPMB_WRITE_HEADER</b> writes the header of a binary portable pixel map file.
+        </li>
+        <li>
+          <b>PPMB_WRITE_TEST</b> tests the binary portable pixel map write routines.
+        </li>
+        <li>
+          <b>TIMESTAMP</b> prints the YMDHMS date as a timestamp.
+        </li>
+      </ul>
+    </P>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 05 October 2008.
+    </i>
+
+    <!-- John Burkardt -->
+ 
+  </body>
+
+</html>

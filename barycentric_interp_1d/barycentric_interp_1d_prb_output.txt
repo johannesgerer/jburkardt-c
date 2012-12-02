@@ -1,0 +1,1452 @@
+14 October 2012 09:02:22 AM
+
+BARYCENTRIC_INTERP_1D_TEST:
+  C version
+  Test the BARYCENTRIC_INTERP_1D library.
+  The R8LIB library is needed.
+  These tests need the TEST_INTERP_1D library.
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.038060       -1.000000
+     1:       0.308658       -1.000000
+     2:       0.691342        2.000000
+     3:       0.961940        1.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.009607       -1.000000
+     1:       0.084265       -1.000000
+     2:       0.222215       -1.000000
+     3:       0.402455        2.000000
+     4:       0.597545        2.000000
+     5:       0.777785        2.000000
+     6:       0.915735        1.000000
+     7:       0.990393        1.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.038060        0.885819
+     1:       0.308658        0.074025
+     2:       0.691342        2.148050
+     3:       0.961940        3.771639
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.009607        0.971178
+     1:       0.084265        0.747204
+     2:       0.222215        0.333355
+     3:       0.402455        0.414729
+     4:       0.597545        1.585271
+     5:       0.777785        2.666711
+     6:       0.915735        3.494409
+     7:       0.990393        3.942356
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.038060       -0.241204
+     1:       0.308658        0.201102
+     2:       0.691342        1.699328
+     3:       0.961940       -1.115476
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.009607       -0.110162
+     1:       0.084265       -0.092684
+     2:       0.222215        0.419140
+     3:       0.402455        0.000196
+     4:       0.597545        1.178791
+     5:       0.777785        1.207372
+     6:       0.915735       -1.100564
+     7:       0.990393       -0.414590
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.038060       -1.496735
+     1:       0.308658       -1.210416
+     2:       0.691342        1.491932
+     3:       0.961940        1.528228
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.009607       -1.502483
+     1:       0.084265       -1.485018
+     2:       0.222215       -1.408605
+     3:       0.402455        0.832163
+     4:       0.597545        1.458929
+     5:       0.777785        1.508808
+     6:       0.915735        1.524596
+     7:       0.990393        1.530194
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.038060        0.460159
+     1:       0.308658       -3.533298
+     2:       0.691342        4.099309
+     3:       0.961940       -3.525666
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.009607       14.516127
+     1:       0.084265        2.515391
+     2:       0.222215        2.773020
+     3:       0.402455        8.238842
+     4:       0.597545       17.049105
+     5:       0.777785        3.241063
+     6:       0.915735       -5.612443
+     7:       0.990393       11.965915
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.038060        0.487388
+     1:       0.308658        0.946435
+     2:       0.691342        0.044311
+     3:       0.961940        0.000301
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.009607        0.396683
+     1:       0.084265        0.644366
+     2:       0.222215        0.987724
+     3:       0.402455        0.689437
+     4:       0.597545        0.144771
+     5:       0.777785        0.011598
+     6:       0.915735        0.000832
+     7:       0.990393        0.000155
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.038060        1.164441
+     1:       0.308658        3.437117
+     2:       0.691342        0.000000
+     3:       0.961940        0.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.009607        1.039177
+     1:       0.084265        1.400824
+     2:       0.222215        2.432354
+     3:       0.402455        5.001908
+     4:       0.597545        0.000000
+     5:       0.777785        0.000000
+     6:       0.915735        0.000000
+     7:       0.990393        0.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.038060        0.044765
+     1:       0.308658        0.214539
+     2:       0.691342        0.214539
+     3:       0.961940        0.044765
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.009607        0.039923
+     1:       0.084265        0.054694
+     2:       0.222215        0.114726
+     3:       0.402455        0.512425
+     4:       0.597545        0.512425
+     5:       0.777785        0.114726
+     6:       0.915735        0.054694
+     7:       0.990393        0.039923
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST01:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 1 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.000000       -1.000000
+     1:       0.250000       -1.000000
+     2:       0.750000        2.000000
+     3:       1.000000        1.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.000000       -1.000000
+     1:       0.049516       -1.000000
+     2:       0.188255       -1.000000
+     3:       0.388740        2.000000
+     4:       0.611260        2.000000
+     5:       0.811745        1.000000
+     6:       0.950484        1.000000
+     7:       1.000000        1.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.000000        1.000000
+     1:       0.250000        0.250000
+     2:       0.750000        2.500000
+     3:       1.000000        4.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.000000        1.000000
+     1:       0.049516        0.851453
+     2:       0.188255        0.435235
+     3:       0.388740        0.332437
+     4:       0.611260        1.667563
+     5:       0.811745        2.870469
+     6:       0.950484        3.702907
+     7:       1.000000        4.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.000000       -0.000000
+     1:       0.250000        0.379687
+     2:       0.750000        1.492969
+     3:       1.000000        0.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.000000       -0.000000
+     1:       0.049516       -0.233633
+     2:       0.188255        0.400150
+     3:       0.388740        0.004013
+     4:       0.611260        1.294458
+     5:       0.811745        0.705402
+     6:       0.950484       -1.218827
+     7:       1.000000        0.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.000000       -1.504228
+     1:       0.250000       -1.373401
+     2:       0.750000        1.504228
+     3:       1.000000        1.530818
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.000000       -1.504228
+     1:       0.049516       -1.494138
+     2:       0.188255       -1.437715
+     3:       0.388740        0.502522
+     4:       0.611260        1.465373
+     5:       0.811745        1.513617
+     6:       0.950484        1.527382
+     7:       1.000000        1.530818
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.000000       16.000000
+     1:       0.250000      -10.115345
+     2:       0.750000       -7.762628
+     3:       1.000000       13.379068
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.000000       16.000000
+     1:       0.049516       -3.290244
+     2:       0.188255        9.455861
+     3:       0.388740        6.349165
+     4:       0.611260       14.522593
+     5:       0.811745        4.398354
+     6:       0.950484       -8.658073
+     7:       1.000000       13.379068
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.000000        0.367879
+     1:       0.250000        1.000000
+     2:       0.750000        0.018316
+     3:       1.000000        0.000123
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.000000        0.367879
+     1:       0.049516        0.525658
+     2:       0.188255        0.940824
+     3:       0.388740        0.734931
+     4:       0.611260        0.123917
+     5:       0.811745        0.006416
+     6:       0.950484        0.000389
+     7:       1.000000        0.000123
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.000000        1.000000
+     1:       0.250000        2.718282
+     2:       0.750000        0.000000
+     3:       1.000000        0.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.000000        1.000000
+     1:       0.049516        1.219038
+     2:       0.188255        2.123404
+     3:       0.388740        4.734888
+     4:       0.611260        0.000000
+     5:       0.811745        0.000000
+     6:       0.950484        0.000000
+     7:       1.000000        0.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.000000        0.038462
+     1:       0.250000        0.137931
+     2:       0.750000        0.137931
+     3:       1.000000        0.038462
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.000000        0.038462
+     1:       0.049516        0.046962
+     2:       0.188255        0.093297
+     3:       0.388740        0.446850
+     4:       0.611260        0.446850
+     5:       0.811745        0.093297
+     6:       0.950484        0.046962
+     7:       1.000000        0.038462
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST02:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use Chebyshev Type 2 spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use even spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.125000       -1.000000
+     1:       0.375000        2.000000
+     2:       0.625000        2.000000
+     3:       0.875000        1.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use even spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.062500       -1.000000
+     1:       0.187500       -1.000000
+     2:       0.312500       -1.000000
+     3:       0.437500        2.000000
+     4:       0.562500        2.000000
+     5:       0.687500        2.000000
+     6:       0.812500        1.000000
+     7:       0.937500        1.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use even spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use even spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use even spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #1
+  Use even spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use even spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.125000        0.625000
+     1:       0.375000        0.250000
+     2:       0.625000        1.750000
+     3:       0.875000        3.250000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use even spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.062500        0.812500
+     1:       0.187500        0.437500
+     2:       0.312500        0.062500
+     3:       0.437500        0.625000
+     4:       0.562500        1.375000
+     5:       0.687500        2.125000
+     6:       0.812500        2.875000
+     7:       0.937500        3.625000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use even spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use even spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use even spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #2
+  Use even spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use even spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.125000        0.149921
+     1:       0.375000        0.019135
+     2:       0.625000        1.401581
+     3:       0.875000       -0.478131
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use even spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.062500       -0.197097
+     1:       0.187500        0.398783
+     2:       0.312500        0.187878
+     3:       0.437500        0.048179
+     4:       0.562500        0.864086
+     5:       0.687500        1.695351
+     6:       0.812500        0.692610
+     7:       0.937500       -1.240512
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use even spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use even spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use even spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #3
+  Use even spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use even spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.125000       -1.471128
+     1:       0.375000        0.000000
+     2:       0.625000        1.471128
+     3:       0.875000        1.520838
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use even spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.062500       -1.490966
+     1:       0.187500       -1.438245
+     2:       0.312500       -1.190290
+     3:       0.437500        1.190290
+     4:       0.562500        1.438245
+     5:       0.687500        1.490966
+     6:       0.812500        1.513716
+     7:       0.937500        1.526381
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use even spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use even spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use even spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #4
+  Use even spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use even spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.125000       -1.797977
+     1:       0.375000       -0.258664
+     2:       0.625000        7.610850
+     3:       0.875000       -8.324996
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use even spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.062500       -3.387090
+     1:       0.187500        9.222518
+     2:       0.312500       -4.483176
+     3:       0.437500       -5.597248
+     4:       0.562500        2.011182
+     5:       0.687500        3.592273
+     6:       0.812500        4.055899
+     7:       0.937500      -10.321577
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use even spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use even spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use even spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #5
+  Use even spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use even spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.125000        0.778801
+     1:       0.375000        0.778801
+     2:       0.625000        0.105399
+     3:       0.875000        0.001930
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use even spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.062500        0.569783
+     1:       0.187500        0.939413
+     2:       0.312500        0.939413
+     3:       0.437500        0.569783
+     4:       0.562500        0.209611
+     5:       0.687500        0.046771
+     6:       0.812500        0.006330
+     7:       0.937500        0.000520
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use even spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use even spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use even spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #6
+  Use even spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use even spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.125000        1.648721
+     1:       0.375000        4.481689
+     2:       0.625000        0.000000
+     3:       0.875000        0.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use even spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.062500        1.284025
+     1:       0.187500        2.117000
+     2:       0.312500        3.490343
+     3:       0.437500        5.754603
+     4:       0.562500        0.000000
+     5:       0.687500        0.000000
+     6:       0.812500        0.000000
+     7:       0.937500        0.000000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use even spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use even spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use even spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #7
+  Use even spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use even spacing for data points.
+  Number of data points = 4
+
+  Data array:
+
+     0:       0.125000        0.066390
+     1:       0.375000        0.390244
+     2:       0.625000        0.390244
+     3:       0.875000        0.066390
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use even spacing for data points.
+  Number of data points = 8
+
+  Data array:
+
+     0:       0.062500        0.049651
+     1:       0.187500        0.092888
+     2:       0.312500        0.221453
+     3:       0.437500        0.719101
+     4:       0.562500        0.719101
+     5:       0.687500        0.221453
+     6:       0.812500        0.092888
+     7:       0.937500        0.049651
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use even spacing for data points.
+  Number of data points = 16
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use even spacing for data points.
+  Number of data points = 32
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use even spacing for data points.
+  Number of data points = 64
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST03:
+  Interpolate data from TEST_INTERP_1D problem #8
+  Use even spacing for data points.
+  Number of data points = 1000
+
+  L2 interpolation error averaged per interpolant node = 0
+
+BARYCENTRIC_INTERP_1D_TEST:
+  Normal end of execution.
+
+14 October 2012 09:02:23 AM

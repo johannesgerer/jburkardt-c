@@ -1,0 +1,23 @@
+
+SUPER_LU_D1:
+  Read a general sparse matrix A from standard input,
+  stored in Harwell-Boeing Sparse Matrix format.
+
+  Solve a linear system A * X = B.
+10x10 grid, with COLMMD order                                                   
+
+  Dimension 100x100; # nonzeros 460
+.. Use approximate minimum degree column ordering.
+||X - Xtrue||/||X|| = 7.061018e-14
+
+  Number of nonzeros in factor L = 835
+  Number of nonzeros in factor U = 978
+  Number of nonzeros in L+U = 1713
+
+  L\U MB 0.020	total MB needed 0.040	expansions 0
+Factor time  =     0.00
+Factor flops = 1.623300e+04	Mflops =     8.31
+Solve time   =     0.00
+
+SUPER_LU_D1:
+  Normal end of execution.

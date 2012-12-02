@@ -1,0 +1,209 @@
+<html>
+
+  <head>
+    <title>
+      COMPLEX_NUMBERS - Complex Numbers in C Programming
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      COMPLEX_NUMBERS <br> Complex Numbers in C Programming
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>COMPLEX_NUMBERS</b> is a C program which
+      demonstrates very briefly some of the features of using complex
+      numbers in a C program.
+    </p>
+
+    <p>
+      The first issue is how to declare a complex variable, including
+      the choice of single precision or double precision, whether
+      the variable is a scalar, vector, or array, and whether the variable
+      is initialized with a value, or assigned one.
+    </p>
+
+    <p>
+      A second issue concerns the question of how a complex variable is
+      to be printed out.
+    </p>
+
+    <p>
+      Another issue concerns how a complex variable is to operated on
+      by the arithmetic operators of addition, subtraction, multiplication,
+      division, and exponentiation.
+    </p>
+
+    <p>
+      The language also provides a number of intrinsic functions that
+      can be applied to a complex variable.  The names of these functions
+      can sometimes be easy to forget.  Moreover, it is occasionally true
+      that there may be a selection of functions with similar names
+      (say, "exp", "cexp" and "dcexp") which may or may not produce the
+      desired results.
+    </p>
+
+    <p>
+      Another issue concerns the details of double precision calculation.
+      Even a single accidental use of a single precision function name
+      in a double precision computation can result in the loss of half
+      the digits of accuracy.  Thus, it sometimes really matters whether
+      you use "cmplx" or "dcmplx" to assign values to a double precision
+      complex variable.
+    </p>
+
+    <p>
+      An unusual feature of the implementation of complex numbers in
+      C is that a complex number can be defined by a statement like
+      <blockquote>
+        z = a + b * I;
+      </blockquote>
+      where <b>I</b> is predefined; but <b>I</b> is actually implemented
+      via a macro, and is not a numeric value.  It needs to be multiplied
+      by a number to be meaningful (this is how it determines the precision
+      it will use, for instance).  So you cannot set the imaginary unit by
+      <blockquote>
+        a = I;
+      </blockquote>
+      Instead, you would have to write
+      <blockquote>
+        a = 1 * I;
+      </blockquote>
+    </p>
+
+    <p>
+      Another issue concerns the mistakes that can be made, which will
+      evoke no warning from the compiler, but which will produce incorrect
+      results.  Here I am thinking, in particular, of the fact that if
+      <b>z</b> is float complex or double complex, you should compute
+      its exponential with the expression <b>cexp(z)</b>; however, no
+      compiler warning will occur if you use the expression <b>exp(z)</b>;
+      however, these two expressions are not equivalent, and will
+      yield different results.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      <b>COMPLEX_NUMBERS</b> is available in
+      <a href = "../../c_src/complex_numbers/complex_numbers.html">a C version</a> and
+      <a href = "../../cpp_src/complex_numbers/complex_numbers.html">a C++ version</a> and
+      <a href = "../../f77_src/complex_numbers/complex_numbers.html">a FORTRAN77 version</a> and
+      <a href = "../../f_src/complex_numbers/complex_numbers.html">a FORTRAN90 version</a> and
+      <a href = "../../m_src/complex_numbers/complex_numbers.html">a MATLAB version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/blas1_c/blas1_c.html">
+      BLAS1_C</a>,
+      a C library which
+      contains basic linear algebra routines for vector-vector operations,
+      using single precision complex arithmetic;
+    </p>
+
+    <p>
+      <a href = "../../c_src/blas1_z/blas1_z.html">
+      BLAS1_Z</a>,
+      a C library which
+      contains basic linear algebra routines for vector-vector operations,
+      using double precision complex arithmetic.
+    </p>
+
+    <p>
+      <a href = "../../c_src/c4_complex_lib/c4_complex_lib.html">
+      C4_COMPLEX_LIB</a>,
+      a C library which
+      defines a single precision complex variable or "C4" as a structure,
+      and implements certain corresponding elementary functions.
+    </p>
+
+    <p>
+      <a href = "../../c_src/c4lib/c4lib.html">
+      C4LIB</a>,
+      a C library which
+      implements certain elementary functions for "C4" or
+      single precision complex variables;
+    </p>
+
+    <p>
+      <a href = "../../c_src/c8_complex_lib/c8_complex_lib.html">
+      C8_COMPLEX_LIB</a>,
+      a C library which
+      defines a double precision complex variable or "C8" as a structure,
+      and implements certain corresponding elementary functions.
+    </p>
+
+    <p>
+      <a href = "../../c_src/c8lib/c8lib.html">
+      C8LIB</a>,
+      a C library which
+      implements certain elementary functions for "C8" or
+      double precision complex variables;
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "complex_numbers.c">complex_numbers.c</a>,
+          the source code.
+        </li>
+        <li>
+          <a href = "complex_numbers.sh">complex_numbers.sh</a>,
+          commands that compile and load the program.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "complex_numbers_output.txt">complex_numbers_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 12 November 2010.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

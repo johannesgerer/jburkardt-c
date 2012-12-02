@@ -1,0 +1,127 @@
+31 January 2009 12:13:08 PM
+
+PBMLIB_PRB:
+  C version
+  Tests for PBMLIB, portable bit map read/write routines.
+
+
+TEST01:
+  PBM_EXAMPLE sets up PBM data.
+  PBMA_WRITE writes an ASCII PBM file.
+
+  PBM_EXAMPLE has set up the data.
+  PBMA_WRITE was successful.
+
+TEST02
+  PBMA_READ_HEADER reads the header of a PBMA file.
+  PBMA_READ_DATA reads the data in a PBMA file.
+
+  Reading the file pbmlib.pbma.
+
+  The header was read successfully.
+  Number of rows of data    = 200
+  Number of columns of data = 200
+
+  The data was read successfully.
+
+TEST03:
+  PGM_EXAMPLE sets up PGM data.
+  PGMA_WRITE writes an ASCII PGM file.
+  PGM_EXAMPLE has set up the data.
+  PGMA_WRITE was successful.
+
+TEST04
+  PGMA_READ_HEADER reads the header of a PGMA file.
+  PGMA_READ_DATA reads the data in a PGMA file.
+
+  Reading the file pbmlib.pgma.
+
+  The header was read successfully.
+  Number of rows of data    = 600
+  Number of columns of data = 200
+  Maximum data value =        79
+
+  The data was read successfully.
+
+TEST05:
+  PPM_EXAMPLE sets up PPM data.
+  PPMA_WRITE writes an ASCII PPM file.
+  PPM_EXAMPLE has set up the data.
+  PPMA_WRITE was successful.
+
+TEST06
+  PPMA_READ_HEADER reads the header of a PPMA file.
+  PPMA_READ_DATA reads the data in a PPMA file.
+
+  Reading the file pbmlib.ppma.
+
+  The header was read successfully.
+  Number of rows of data    = 300
+  Number of columns of data = 300
+  Maximum data value =        255
+
+  The data was read successfully.
+
+TEST07:
+  PBM_EXAMPLE sets up PBM data.
+  PBMB_WRITE writes a binary PBM file.
+
+  PBM_EXAMPLE has set up the data.
+  PBMB_WRITE was successful.
+
+TEST08
+  PBMB_READ_HEADER reads the header of a PBMB file.
+  PBMB_READ_DATA reads the data in a PBMB file.
+
+  Reading the file pbmlib.pbmb.
+
+  The header was read successfully.
+  Number of rows of data    = 200
+  Number of columns of data = 200
+
+  The data was read successfully.
+
+TEST09:
+  PGM_EXAMPLE sets up PGM data.
+  PGMB_WRITE writes a binary PGM file.
+
+  PGM_EXAMPLE has set up the data.
+  PGMB_WRITE was successful.
+
+TEST10
+  PGMB_READ_HEADER reads the header of a PGMB file.
+  PGMB_READ_DATA reads the data in a PGMB file.
+
+  Reading the file pbmlib.pgmb.
+
+  The header was read successfully.
+  Number of rows of data    = 600
+  Number of columns of data = 200
+  Maximum data value =        79
+
+  The data was read successfully.
+
+TEST05:
+  PPM_EXAMPLE sets up PPM data.
+  PPMB_WRITE writes a binary PPM file.
+
+  PPM_EXAMPLE has set up the data.
+  PPMB_WRITE was successful.
+
+TEST12
+  PPMB_READ_HEADER reads the header of a PPMB file.
+  PPMB_READ_DATA reads the data in a PPMB file.
+
+  Reading the file pbmlib.ppmb.
+
+  The header was read successfully.
+  Number of rows of data    = 300
+  Number of columns of data = 300
+  Maximum data value =        255
+
+  The data was read successfully.
+
+PBMLIB_PRB:
+  Normal end of execution.
+
+31 January 2009 12:13:09 PM

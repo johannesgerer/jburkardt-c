@@ -1,0 +1,67 @@
+
+HELLO
+  C/OpenMP version
+
+  Number of processors available = 16
+  Number of threads =              1
+
+  OUTSIDE the parallel region.
+
+  HELLO from process 0
+
+  Going INSIDE the parallel region:
+
+  Hello from process 0
+
+  Back OUTSIDE the parallel region.
+
+HELLO
+  Normal end of execution.
+
+  Elapsed wall clock time = 0.000027
+
+HELLO
+  C/OpenMP version
+
+  Number of processors available = 16
+  Number of threads =              2
+
+  OUTSIDE the parallel region.
+
+  HELLO from process 0
+
+  Going INSIDE the parallel region:
+
+  Hello from process 0
+  Hello from process 1
+
+  Back OUTSIDE the parallel region.
+
+HELLO
+  Normal end of execution.
+
+  Elapsed wall clock time = 0.000154
+
+HELLO
+  C/OpenMP version
+
+  Number of processors available = 16
+  Number of threads =              4
+
+  OUTSIDE the parallel region.
+
+  HELLO from process 0
+
+  Going INSIDE the parallel region:
+
+  Hello from process 0
+  Hello from process 2
+  Hello from process 3
+  Hello from process 1
+
+  Back OUTSIDE the parallel region.
+
+HELLO
+  Normal end of execution.
+
+  Elapsed wall clock time = 0.000332

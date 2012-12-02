@@ -1,0 +1,47 @@
+05 October 2012 10:42:43 AM
+
+RBF_INTERP_ND_TEST:
+  C version
+  Test the RBF_INTERP_ND library.
+  The R8LIB library is also required.
+
+RBF_INTERP_ND_TEST01:
+  RBF_WEIGHT computes weights for RBF interpolation.
+  RBF_INTERP_ND evaluates the RBF interpolant.
+  Use the multiquadratic basis function PHI1(R).
+  Scale factor R0 = 0.4
+
+  L2 interpolation error averaged per interpolant node = 2.96286e-16
+  L2 approximation error averaged per 1000 samples = 0.0031887
+
+RBF_INTERP_ND_TEST02:
+  RBF_WEIGHT computes weights for RBF interpolation.
+  RBF_INTERP_ND evaluates the RBF interpolant.
+  Use the inverse multiquadratic basis function PHI2(R).
+  Scale factor R0 = 0.4
+
+  L2 interpolation error averaged per interpolant node = 5.89813e-17
+  L2 approximation error averaged per 1000 samples = 0.00410702
+
+RBF_INTERP_ND_TEST03:
+  RBF_WEIGHT computes weights for RBF interpolation.
+  RBF_INTERP_ND evaluates the RBF interpolant.
+  Use the thin-plate spline basis function PHI3(R).
+  Scale factor R0 = 0.4
+
+  L2 interpolation error averaged per interpolant node = 9.00541e-16
+  L2 approximation error averaged per 1000 samples = 0.0026366
+
+RBF_INTERP_ND_TEST04:
+  RBF_WEIGHT computes weights for RBF interpolation.
+  RBF_INTERP_ND evaluates the RBF interpolant.
+  Use the gaussian basis function PHI4(R).
+  Scale factor R0 = 0.4
+
+  L2 interpolation error averaged per interpolant node = 3.90968e-17
+  L2 approximation error averaged per 1000 samples = 0.00413716
+
+RBF_INTERP_ND_TEST:
+  Normal end of execution.
+
+05 October 2012 10:42:43 AM

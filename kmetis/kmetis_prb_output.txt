@@ -1,0 +1,14 @@
+**********************************************************************
+  METIS 4.0.1 Copyright 1998, Regents of the University of Minnesota
+
+Graph Information ---------------------------------------------------
+  Name: 4elt.graph, #Vertices: 15606, #Edges: 45878, #Parts: 8
+
+K-way Partitioning... -----------------------------------------------
+  8-way Edge-Cut:     655, Balance:  1.03 
+
+Timing Information --------------------------------------------------
+  I/O:          		   0.115
+  Partitioning: 		   0.071   (KMETIS time)
+  Total:        		   0.187
+**********************************************************************

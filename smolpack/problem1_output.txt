@@ -1,0 +1,575 @@
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     1
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  33
+  Weight evaluations =        17
+
+  Exact:    1.0163000834e-01
+  Estimate: 1.0163000834e-01 
+  Error:    4.1633363423e-17 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     2
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  145
+  Weight evaluations =        28
+
+  Exact:    1.1577451344e-01
+  Estimate: 1.1577462339e-01 
+  Error:    1.0995268998e-07 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     3
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  441
+  Weight evaluations =        33
+
+  Exact:    -3.3627059543e-02
+  Estimate: -3.3628078757e-02 
+  Error:    1.0192142450e-06 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     4
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  1105
+  Weight evaluations =        35
+
+  Exact:    2.2641806246e-01
+  Estimate: 2.2641855811e-01 
+  Error:    4.9565169705e-07 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     5
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  2433
+  Weight evaluations =        36
+
+  Exact:    8.5413568665e-02
+  Estimate: 8.5412877554e-02 
+  Error:    6.9111101078e-07 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     6
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  4865
+  Weight evaluations =        36
+
+  Exact:    4.3377825784e-01
+  Estimate: 4.3377563874e-01 
+  Error:    2.6191027641e-06 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     7
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  9017
+  Weight evaluations =        36
+
+  Exact:    2.2568293951e-01
+  Estimate: 2.2568248011e-01 
+  Error:    4.5939983304e-07 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     8
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  15713
+  Weight evaluations =        36
+
+  Exact:    3.2234524248e-02
+  Estimate: 3.2234483858e-02 
+  Error:    4.0389937485e-08 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     9
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  26017
+  Weight evaluations =        36
+
+  Exact:    -3.0656083328e-01
+  Estimate: -3.0656051159e-01 
+  Error:    3.2169248204e-07 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        1
+  Random number SEED =        123456789
+  Basic sequence choice BS =  1
+
+  Number of function calls =  21
+  Weight evaluations =        2
+
+  Exact:    1.0144175612e-01
+  Estimate: 8.5589364163e-02 
+  Error:    1.5852391955e-02 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        2
+  Random number SEED =        123456789
+  Basic sequence choice BS =  1
+
+  Number of function calls =  201
+  Weight evaluations =        3
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0305433804e-01 
+  Error:    1.6125819201e-03 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        3
+  Random number SEED =        123456789
+  Basic sequence choice BS =  1
+
+  Number of function calls =  1201
+  Weight evaluations =        6
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0135473998e-01 
+  Error:    8.7016136687e-05 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        4
+  Random number SEED =        123456789
+  Basic sequence choice BS =  1
+
+  Number of function calls =  5281
+  Weight evaluations =        9
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0144448356e-01 
+  Error:    2.7274460109e-06 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  1
+
+  Number of function calls =  19105
+  Weight evaluations =        12
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0144169592e-01 
+  Error:    6.0202304475e-08 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        6
+  Random number SEED =        123456789
+  Basic sequence choice BS =  1
+
+  Number of function calls =  60225
+  Weight evaluations =        22
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0144175725e-01 
+  Error:    1.1290257479e-09 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        7
+  Random number SEED =        123456789
+  Basic sequence choice BS =  1
+
+  Number of function calls =  169185
+  Weight evaluations =        32
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0144175610e-01 
+  Error:    1.6360496291e-11 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:06 AM
+
+22 September 2010 09:39:06 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        8
+  Random number SEED =        123456789
+  Basic sequence choice BS =  1
+
+  Number of function calls =  434145
+  Weight evaluations =        42
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0144175612e-01 
+  Error:    1.9466372958e-13 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:07 AM
+
+22 September 2010 09:39:07 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        1
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  21
+  Weight evaluations =        2
+
+  Exact:    1.0144175612e-01
+  Estimate: 8.7761079761e-02 
+  Error:    1.3680676356e-02 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:07 AM
+
+22 September 2010 09:39:07 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        2
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  221
+  Weight evaluations =        4
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0225734067e-01 
+  Error:    8.1558454876e-04 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:07 AM
+
+22 September 2010 09:39:07 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        3
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  1581
+  Weight evaluations =        8
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0145401390e-01 
+  Error:    1.2257785563e-05 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:07 AM
+
+22 September 2010 09:39:07 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        4
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  8801
+  Weight evaluations =        17
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0143970592e-01 
+  Error:    2.0502005308e-06 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:07 AM
+
+22 September 2010 09:39:07 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        5
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  41265
+  Weight evaluations =        36
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0144175289e-01 
+  Error:    3.2319275589e-09 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:07 AM
+
+22 September 2010 09:39:07 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        6
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  171425
+  Weight evaluations =        79
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0144175779e-01 
+  Error:    1.6687318471e-09 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:07 AM
+
+22 September 2010 09:39:07 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        7
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  652065
+  Weight evaluations =        172
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0144175613e-01 
+  Error:    1.1118411747e-11 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:07 AM
+
+22 September 2010 09:39:07 AM
+
+SMOLPACK_INTERACTIVE
+  C version
+
+  Test function number FNUM = 1
+  Spatial dimension DIM =     10
+  Number of states K =        8
+  Random number SEED =        123456789
+  Basic sequence choice BS =  2
+
+  Number of function calls =  2320385
+  Weight evaluations =        379
+
+  Exact:    1.0144175612e-01
+  Estimate: 1.0144175612e-01 
+  Error:    3.6802505488e-13 
+
+SMOLPACK_INTERACTIVE
+  Normal end of execution.
+
+22 September 2010 09:39:08 AM

@@ -1,0 +1,14 @@
+!format = pgh
+!version = 1.0
+images = [chunk]
+images.datatype = int16
+images.dimensions = xyz
+images.extent.x = 64
+images.extent.y = 64
+images.extent.z = 26
+images.file = .dat
+images.offset = 0
+images.size = 212992
+images.size.x = 3.750000
+images.size.y = 3.750000
+images.size.z = 3.800000

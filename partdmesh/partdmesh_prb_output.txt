@@ -1,0 +1,13 @@
+**********************************************************************
+  METIS 4.0.1 Copyright 1998, Regents of the University of Minnesota
+
+Mesh Information ----------------------------------------------------
+  Name: metis.mesh, #Elements: 7434, #Nodes: 4038, Etype: TRI
+
+Partitioning Dual Graph... ------------------------------------------
+  8-way Edge-Cut:     120, Balance:  1.03
+
+Timing Information --------------------------------------------------
+  I/O:          		   0.043
+  Partitioning: 		   0.047
+**********************************************************************

@@ -1,0 +1,13 @@
+Everything's okay so far
+Matrix is set
+Communications are set up
+Beginning to iterate
+I finished gather
+task 1 took  0.033 seconds
+I finished gather
+task 2 took  0.027 seconds
+I finished gather
+task 3 took  0.033 seconds
+I finished gather
+did 820 iterations
+task 0 took  0.026 seconds

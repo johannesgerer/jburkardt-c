@@ -1,0 +1,344 @@
+<html>
+
+  <head>
+    <title>
+      TRIANGULATE - Triangulate a Polygonal Region
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      TRIANGULATE <br> Triangulate a Polygonal Region
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>TRIANGULATE</b>
+      is a C program which
+      triangulates a polygonal region, 
+      by Joseph O'Rourke.  
+    </p>
+
+    <p>
+      The region need not be convex.
+      The polygon is defined by an input file which gives the coordinates
+      of the nodes of the polygon, in counterclockwise order.  The
+      coordinates are expected to be integers.
+    </p>
+
+    <p>
+      No consecutive pair of vertices should be equal.
+    </p>
+
+    <p>
+      The output of the program is a PostScript file which shows the
+      polygon and its triangulation.  The text of the PostScript file
+      includes comments that describe the triangulation in terms of
+      the pairs of vertices that were connected to make each diagonal.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>triangulate</b> &lt; <i>input.txt</i> &gt; <i>output.ps</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>input.txt</i> lists the (integer) vertex coordinates;
+        </li>
+        <li>
+          <i>output.ps</i> is a PostScript image of the triangulation.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>TRIANGULATE</b> is available in
+      <a href = "../../c_src/triangulate/triangulate.html">a C version</a> and
+      <a href = "../../m_src/triangulate/triangulate.html">a MATLAB version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../datasets/polygon/polygon.html">
+      POLYGON</a>,
+      a dataset directory which
+      contains examples of polygons.
+    </p>
+
+    <p>
+      <a href = "../../c_src/polygon_moments/polygon_moments.html">
+      POLYGON_MOMENTS</a>,
+      a C library which
+      computes arbitrary moments of a polygon.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangle/triangle.html">
+      TRIANGLE</a>,
+      a C program which
+      triangulates a set of points.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Joseph ORourke
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          Joseph ORourke,<br>
+          Computational Geometry in C,<br>
+          Second Edition,<br>
+          Cambridge, 1998,<br>
+          ISBN: 0521649765,<br>
+          LC: QA448.D38.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <b>COMB</b> generates a "comb" polygon, a somewhat tricky shape
+      that can be used as an input to the triangulation program.
+      <ul>
+        <li>
+          <a href = "comb.c">comb.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "comb.sh">comb.sh</a>,
+          a shell script to compile, link and load the source code.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>TRIANGULATE</b> reads a file definining a polygon, and determines
+      an appropriate triangulation.
+      <ul>
+        <li>
+          <a href = "triangulate.c">triangulate.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "triangulate.sh">triangulate.sh</a>,
+          a shell script to compile, link and load the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>COMB10</b> is an example of a "comb" polygon of 10 vertices
+      Files you may copy include:
+      <ul>
+        <li>
+          <a href = "comb10.in">comb10.in</a>, the input file defining the polygon
+        </li>
+        <li>
+          <a href = "comb10.png">comb10.png</a>,
+          a PNG image of the polygon.
+        </li>
+        <li>
+          <a href = "comb10_triangulated.png">comb10_triangulated.png</a>,
+          a PNG image of the triangulated polygon.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>I18</b> is an example of a complicated nonconvex polygon.
+      Files you may copy include:
+      <ul>
+        <li>
+          <a href = "i18.in">i18.in</a>, the input file defining the polygon
+        </li>
+        <li>
+          <a href = "i18.png">i18.png</a>,
+          a PNG image of the polygon.
+        </li>
+        <li>
+          <a href = "i18_triangulated.png">i18_triangulated.png</a>,
+          a PNG image of the triangulated polygon.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>I19</b> is a copy of I18 with a pair of repeated vertices, which
+      should cause the program to refuse to try to carry out the triangulation.
+      <ul>
+        <li>
+          <a href = "i19.in">i19.in</a>, the input file defining the polygon
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>SNAKE</b> is an example defining a "snake" polygon.
+      Files you may copy include:
+      <ul>
+        <li>
+          <a href = "snake5.in">snake5.in</a>, the input file defining the polygon
+        </li>
+        <li>
+          <a href = "snake5.png">snake5.png</a>,
+          a PNG image of the polygon.
+        </li>
+        <li>
+          <a href = "snake5_triangulated.png">snake5_triangulated.png</a>,
+          a PNG image of the triangulated polygon.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>SQUARE</b> is an example defining a square.
+      Files you may copy include:
+      <ul>
+        <li>
+          <a href = "square.in">square.in</a>, the input file defining the polygon
+        </li>
+        <li>
+          <a href = "square.png">square.png</a>,
+          a PNG image of the polygon.
+        </li>
+        <li>
+          <a href = "square_triangulated.png">square_triangulated.png</a>,
+          a PNG image of the triangulated polygon.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>TRIANGLE</b> is an example defining a triangle.
+      Files you may copy include:
+      <ul>
+        <li>
+          <a href = "triangle.in">triangle.in</a>, the input file defining the polygon
+        </li>
+        <li>
+          <a href = "triangle.png">triangle.png</a>,
+          a PNG image of the polygon.
+        </li>
+        <li>
+          <a href = "triangle_triangulated.png">triangle_triangulated.png</a>,
+          a PNG image of the triangulated polygon.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MAIN</b> is the main program for TRIANGULATE.
+        </li>
+        <li>
+          <b>AREA_POLY2</b> returns the area of a polygon.
+        </li>
+        <li>
+          <b>AREA_SIGN</b> returns the sign of the area defined by three points.
+        </li>
+        <li>
+          <b>AREA2</b> returns twice the signed area of a triangle.
+        </li>
+        <li>
+          <b>BETWEEN</b> returns TRUE iff point C lies on the closed segement AB.
+        </li>
+        <li>
+          <b>COLLINEAR</b> is TRUE if the points A, B and C are collinear.
+        </li>
+        <li>
+          <b>DIAGONAL</b> returns TRUE iff (A,B) is a proper internal diagonal of the polygon.
+        </li>
+        <li>
+          <b>DIAGONALIE</b> returns TRUE iff (A,B) is a proper diagonal of a polygon.
+        </li>
+        <li>
+          <b>EAR_INIT</b> initializes the data structures, and calls Triangulate2 to clip ears.
+        </li>
+        <li>
+          <b>IN_CONE</b> returns TRUE iff the diagonal (A,B) is strictly internal.
+        </li>
+        <li>
+          <b>INTERSECT</b> returns TRUE iff segments AB and CD intersect.
+        </li>
+        <li>
+          <b>INTERSECT_PROP</b> returns true if and only if AB properly intersects CD.
+        </li>
+        <li>
+          <b>LEFT</b> is TRUE if C is on the left side of the line from A to B.
+        </li>
+        <li>
+          <b>LEFT_ON</b> is TRUE if C is to the left side, or on, the line from A to B.
+        </li>
+        <li>
+          <b>MAKE_NULL_VERTEX</b> makes a vertex.
+        </li>
+        <li>
+          <b>PRINT_POLY</b> prints the polygon data.
+        </li>
+        <li>
+          <b>PRINT_VERTICES</b> prints the vertices.
+        </li>
+        <li>
+          <b>READ_VERTICES</b> reads the polygon vertice from standard input.
+        </li>
+        <li>
+          <b>SCALE_DATA</b> determines the scale for the polygonal data.
+        </li>
+        <li>
+          <b>TRIANGULATE</b> prints N-3 diagonals which triangulate the polygon.
+        </li>
+        <li>
+          <b>XOR</b> returns the exclusive OR of two values.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 11 April 2011.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

@@ -1,0 +1,9 @@
+
+--- Matrix: 4-by-4, nnz: 12 (sym: 0: nnz 0), norm: 7.00e+00
+blocks: 1 singletons: 0 structural rank: 4
+QR   natural    time:     0.00 resid: 7.08e-17
+QR   amd(A'*A)  time:     0.00 resid: 7.08e-17
+LU   natural    time:     0.00 resid: 4.72e-17
+LU   amd(A+A')  time:     0.00 resid: 2.36e-17
+LU   amd(S'*S)  time:     0.00 resid: 4.72e-17
+LU   amd(A'*A)  time:     0.00 resid: 4.72e-17

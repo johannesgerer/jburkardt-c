@@ -1,0 +1,25 @@
+15 September 2012 09:07:52 PM
+
+PCE_BURGERS:
+  C version
+
+  Polynomial Chaos Solution
+  1D Burgers equation
+  Original version by Gianluca Iaccarino
+
+  PCE order       = 5
+  Number of cells = 32
+  Time step       = 0.001
+  Initial time    = 0
+  Final time      = 2
+  Viscosity Mean  = 0.25
+  Viscosity Var   = 0.08
+
+  Time history in "burgers.history.txt".
+  Moments written to "burgers.moments.txt".
+  Final modes written to "burgers.modes.txt".
+
+PCE_BURGERS:
+  Normal end of execution.
+
+15 September 2012 09:07:53 PM

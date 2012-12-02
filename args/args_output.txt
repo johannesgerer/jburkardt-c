@@ -1,0 +1,20 @@
+26 April 2007 12:40:58 PM
+
+ARGS
+  C version
+
+  Compiled on Apr 26 2007 at 12:39:49.
+
+  Print the command line arguments of a C program.
+
+  ARGC reports the number of arguments as 4
+
+  0  "/home/u8/users/burkardt/binc/Alpha/args"
+  1  "17"
+  2  "apple"
+  3  "3.14159"
+
+ARGS:
+  Normal end of execution.
+
+26 April 2007 12:40:58 PM

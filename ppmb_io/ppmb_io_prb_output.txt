@@ -1,0 +1,31 @@
+16 June 2012 03:25:51 PM
+
+PPMB_IO_PRB:
+  C version
+  Test the PPMB_IO library.
+
+TEST01:
+  PPMB_EXAMPLE sets up PPM data.
+  PPMB_WRITE writes a binary PPM file.
+
+  PGMB_EXAMPLE has set up the data.
+  PPMB_WRITE was successful.
+
+TEST02
+  PPMB_READ reads the header and data of a PPMB file.
+
+  Reading the file ppmb_io_prb_02.ppm.
+
+  PPMB_WRITE_TEST created some test data.
+
+PPMB_READ_DATA: Failed reading data byte 1200.
+
+PPMB_READ: Fatal error!
+  PPMB_READ_DATA failed.
+
+  PPMB_READ failed!
+
+PPMB_IO_PRB:
+  Normal end of execution.
+
+16 June 2012 03:25:51 PM

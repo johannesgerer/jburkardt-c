@@ -1,0 +1,328 @@
+<html>
+
+  <head>
+    <title>
+      C - Simple C Examples
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      C <br> Simple C Examples
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>C</b>
+      is a directory of C programs which
+      illustrate the use of the C programming language.
+    </p>
+
+    <p>
+      Depending on your computer, you might invoke the <b>C</b> compiler
+      by a command like <b>cc</b>, <b>gcc</b> or <b>xlc</b>.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/c_arrays/c_arrays.html">
+      C_ARRAYS</a>,
+      C programs which
+      illustrate the use of vectors, matrices and tensors.
+    </p>
+
+    <p>
+      <a href = "../../c_src/c_calls_f77/c_calls_f77.html">
+      C_CALLS_F77</a>,
+      C programs which
+      call a FORTRAN77 subroutine.
+    </p>
+
+    <p>
+      <a href = "../../c_src/c_calls_f90/c_calls_f90.html">
+      C_CALLS_F90</a>,
+      C programs which
+      call a FORTRAN90 subroutine.
+    </p>
+
+    <p>
+      <a href = "../../c_src/c_intrinsics/c_intrinsics.html">
+      C_INTRINSICS</a>,
+      a C program which
+      illustrates the use of intrinsic functions supplied by the C language.
+    </p>
+
+    <p>
+      <a href = "../../c_src/c_operators/c_operators.html">
+      C_OPERATORS</a>,
+      a C program which
+      illustrates the use of some of the operators supplied by the C language.
+    </p>
+
+    <p>
+      <a href = "../../c_src/c_random/c_random.html">
+      C_RANDOM</a>,
+      C programs which
+      illustrate the use of C's random number generator routines.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/cpp/cpp.html">
+      CPP</a>,
+      C++ programs which
+      includes some examples on features of the C++ language.
+    </p>
+
+    <p>
+      <a href = "../../f77_src/f77/f77.html">
+      F77</a>,
+      FORTRAN77 programs which
+      includes some examples on features of the FORTRAN77 language.
+    </p>
+
+    <p>
+      <a href = "../../f_src/f90/f90.html">
+      F90</a>,
+      FORTRAN90 programs which
+      includes some examples on features of the FORTRAN90 language.
+    </p>
+    <p>
+      <a href = "../../m_src/matlab_calls_c/matlab_calls_c.html">
+      MATLAB_CALLS_C</a>,
+      MATLAB programs which
+      call a C function, using MATLAB's MEX facility.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mixed/mixed.html">
+      MIXED</a>,
+      C programs which
+      shows some examples of writing a program partly in C
+      and partly in some other language.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Samuel Harbison, Guy Steele,<br>
+          C: A Reference Manual,<br>
+          Third Edition,<br>
+          Prentice Hall, 1991,<br>
+          ISBN: 0-13-110933-2,<br>
+          LC: QA76.73.C15H38.
+        </li>
+        <li>
+          Brian Kernighan, Dennis Ritchie,<br>
+          The C Programming Language,<br>
+          Second Edition,<br>
+          Prentice Hall, 1988,<br>
+          ISBN: 0-13-110362-8.
+        </li>
+        <li>
+          Robert Sedgewick,<br>
+          Algorithms in C,<br>
+          Addison-Wesley, 1990,<br>
+          LC: QA76.73.C15S43,<br>
+          ISBN: 0-201-51425-7.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>CHARACTER_ARITHMETIC</b> demonstrates that characters are really
+      unsigned short ints (numbers between 0 and 255) so you can do arithmetic
+      with them.
+      <ul>
+        <li>
+          <a href = "character_arithmetic.c">character_arithmetic.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "character_arithmetic.sh">character_arithmetic_2d.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "character_arithmetic_output.txt">character_arithmetic_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>DYNAMIC_ARRAY_2D</b> demonstrates how a 2D array can be allocated dynamically.
+      <ul>
+        <li>
+          <a href = "dynamic_array_2d.c">dynamic_array_2d.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "dynamic_array_2d.sh">dynamic_array_2d.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "dynamic_array_2d_output.txt">dynamic_array_2d_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>FUNCTION_POINTER</b> shows how a variable can be created which can
+      point to a function; the target of the pointer can be changed so that
+      a different function is indicated.
+      <ul>
+        <li>
+          <a href = "function_pointer.c">function_pointer.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "function_pointer.sh">function_pointer.sh</a>,
+          a C-shell script to compile and run the program.
+        </li>
+        <li>
+          <a href = "function_pointer_output.txt">function_pointer_output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>HELLO</b> is just a "Hello, world!" program.
+      <ul>
+        <li>
+          <a href = "hello.c">hello.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "hello.sh">hello.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "hello_output.txt">hello_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>NOT_ALLOCATED_ARRAYS</b> shows that you should initialize your
+      array pointers to NULL, and reset them to NULL after you delete
+      your arrays.  Otherwise, an unallocated or delete array is liable
+      to have a deceptive nonnull value!
+      <ul>
+        <li>
+          <a href = "not_allocated_arrays.c">not_allocated_arrays.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "not_allocated_arrays.sh">not_allocated_arrays.sh</a>,
+          commands that compile and run the source code;
+        </li>
+        <li>
+          <a href = "not_allocated_arrays_output.txt">not_allocated_arrays_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>POISSON</b> solves the Poisson equation on a 2D grid.
+      The program uses dynamically allocated doubly dimensioned arrays,
+      and includes routines to allocate and free the associated memory.
+      <ul>
+        <li>
+          <a href = "poisson.c">poisson.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "poisson.sh">poisson.sh</a>,
+          a C-shell script to compile and run the program.
+        </li>
+        <li>
+          <a href = "poisson_output.txt">
+          poisson_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>SCANF_DEMO</b> demonstrates how scanf(format,address) can be used to
+      read data from the user.
+      <ul>
+        <li>
+          <a href = "scanf_demo.c">scanf_demo.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "scanf_demo.sh">scanf_demo.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "scanf_demo_input.txt">scanf_demo_input.txt</a>,
+          the input file;
+        </li>
+        <li>
+          <a href = "scanf_demo_output.txt">scanf_demo_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>SIZES</b> prints out the sizes of various datatypes.
+      <ul>
+        <li>
+          <a href = "sizes.c">sizes.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "sizes.sh">sizes.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "sizes_output.txt">sizes_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 23 May 2012.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

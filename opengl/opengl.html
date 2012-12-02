@@ -1,0 +1,286 @@
+<html>
+
+  <head>
+    <title>
+      OPENGL - Examples of OpenGL Graphics
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      OPENGL <br> Examples of OpenGL Graphics
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>OPENGL</b> 
+      is a directory of C programs which 
+      demonstrate the use of the OpenGL graphics library.
+    </p>
+
+    <p>
+      It is possible to do a wide range of sophisticated
+      2D and 3D graphics presentations.  
+      <b>OpenGL</b> v1.1 software runtime is included as part of the operating 
+      system for WinXP, Windows 2000, Windows 98, Windows 95 (OSR2) and 
+      Windows NT.  The OpenGL v1.1 libraries are also available as a
+      self-extracting archive file from the Microsoft Site via HTTP or FTP. 
+    </p>
+
+    <p>
+      <b>OpenGL</b> is most commonly used with C or C++ programs, but can also
+      be called by a FORTRAN program if the necessary intermediate
+      "FORTRAN bindings" (an interface package) have been installed.
+    </p>
+
+    <p>
+      <b>OpenGL</b> only does graphics rendering, and has no concept of
+      windowing systems, input devices, printing to the screen and so on.
+      These extra functions must be provided by an auxilliary package.
+      One common package as known as <b>GLUT</b>, for the Graphics Language
+      Utility Toolbox.  
+    </p>
+
+    <h3 align = "center">
+      OpenGL on Macintosh OS X
+    </h3>
+
+    <p>
+      <b>OpenGL</b> ships with OS9 and OSX for the Macintosh.  You can obtain
+      the latest software version on 
+      <a href = "http://www.apple.com/opengl/">the Apple OpenGL web site</a>.
+    </p>
+
+    <p>
+      Note that the source code and compilation script have been adapted for
+      use on a Macintosh running OS X.  
+    </p>
+
+    <p>
+      For that reason, the include file references have been changed from:
+      <pre><code>
+        # include &lt;GL/gl.h&gt;
+        # include &lt;GL/glu.h&gt;
+        # include &lt;GL/glut.h&gt;
+      </code></pre>
+      to:
+      <pre><code>
+        # include &lt;OpenGL/gl.h&gt;
+        # include &lt;OpenGL/glu.h&gt;
+        # include &lt;GLUT/glut.h&gt;
+      </code></pre>
+    </p>
+
+    <p>
+      The compilation statement, which might ordinarily be
+      <pre><code>
+        g++ myprog.C -lGL -lGLU -lglut 
+      </code></pre>
+      was modified to:
+      <pre><code>
+        g++ myprog.C -framework OpenGL -framework GLUT
+      </code></pre>
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>OPENGL</b> examples are available in
+      <a href = "../../c_src/opengl/opengl.html">a C version</a> and
+      <a href = "../../cpp_src/opengl/opengl.html">a C++ version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../cpp_src/caustic_opengl/caustic_opengl.html">
+      CAUSTIC_OPENGL</a>, 
+      a C++ program which
+      computes a caustic curve and displays it using OpenGL.
+    </p>
+
+    <p>
+      <a href = "../../c_src/flood_opengl/flood_opengl.html">
+      FLOOD_OPENGL</a>,
+      a C program which
+      allows a user to select a region and flood it with color,
+      using OpenGL, by Art Wetzel.
+    </p>
+
+    <p> 
+      <a href = "../../c_src/life_opengl/life_opengl.html">
+      LIFE_OPENGL</a>,
+      a C program which
+      simulates a version of John Conway's "Game of Life", displaying the
+      results using OpenGL.
+    </p>
+
+    <p> 
+      <a href = "../../data/ppma/ppma.html">
+      PPMA</a>,
+      a data directory which
+      describes the ASCII Portable Pixelmap format,
+      which is a possible means of storing the
+      graphics information displayed by <b>OpenGL</b>.  One of the example
+      programs shows how this can be done.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/tet_mesh_display_opengl/tet_mesh_display_opengl.html">
+      TET_MESH_DISPLAY_OPENGL</a>,
+      a C++ program which 
+      reads a pair of files defining
+      a tetrahedral mesh and displays an image using OpenGL.
+    </p> 
+
+    <p>
+      <a href = "../../cpp_src/triangulation_display_opengl/triangulation_display_opengl.html">
+      TRIANGULATION_DISPLAY_OPENGL</a>,
+      a C++ program which
+      reads a pair of files defining
+      a triangulation and displays an image using OpenGL.
+    </p> 
+
+    <p> 
+      <a href = "../../cpp_src/xy_display_opengl/xy_display_opengl.html">
+      XY_DISPLAY_OPENGL</a>,
+      a C++ program which
+      reads an XY file of 2D point coordinates, and displays
+      an image of those points using OpenGL.
+    </p>
+
+    <p> 
+      <a href = "../../cpp_src/xyz_display_opengl/xyz_display_opengl.html">
+      XYZ_DISPLAY_OPENGL</a>,
+      a C++ program which
+      reads an XYZ file of 3D point coordinates, and displays
+      an image of those points using OpenGL.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Edward Angel,<br>
+          Interactive Computer Graphics, 
+          a Top-Down Approach with OpenGL,<br>
+          Addison-Wesley, 2000,<br>
+          ISBN: 0-201-38597-X,<br>
+          LC: T385.A514.
+        </li>
+        <li>
+          Renate Kempf, Chris Frazier, editors,<br>
+          OpenGL Reference Manual,<br>
+          Fourth Edition,<br>
+          Addison-Wesley, 2004,<br>
+          ISBN: 032117383X,<br>
+          LC: T385.O642.
+        </li>
+        <li>
+          Mason Woo, Jackie Neider, Tom Davis,<br>
+          OpenGL Programming Guide,<br>
+          Addison-Wesley, 1997,<br>
+          ISBN: 0-201-46138-2,<br>
+          LC: T385.N435.
+        </li>
+        <li>
+          Richard Wright, Michael Sweet,<br>
+          OpenGL Superbible,<br>
+          Third Edition,<br>
+          Sams, 2004,<br>
+          ISBN: 0672326019,<br>
+          LC: T385.W73.
+        </li>
+        <li>
+          <a href = "http://www.opengl.org/">
+                     http://www.opengl.org/ </a> <br>
+          The official OpenGL site.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>GASKET_POINTS</b> displays the Sierpinksi gasket by
+      showing 5000 points.
+      <ul>
+        <li>
+          <a href = "gasket_points.c">gasket_points.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "gasket_points.sh">gasket_points.sh</a>, 
+          commands to compile and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>HELLO</b> just draws a blue rectangle.
+      <ul>
+        <li>
+          <a href = "hello.c">hello.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "hello.sh">hello.sh</a>, 
+          commands to compile and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>PLANET</b> draws a wireframe sun and planet.  The "d" and "y" keys
+      make the planet rotate and revolve.
+      <ul>
+        <li>
+          <a href = "planet.c">planet.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "planet.sh">planet.sh</a>, 
+          commands to compile and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>TEAPOT</b> draws a teapot.  The level of recursion is a command-line
+      argument.
+      <ul>
+        <li>
+          <a href = "teapot.c">teapot.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "teapot.sh">teapot.sh</a>, 
+          commands to compile and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 12 September 2012.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>
+

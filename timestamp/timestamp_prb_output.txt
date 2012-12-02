@@ -1,0 +1,40 @@
+06 June 2011 09:33:07 AM
+
+TIMESTAMP_PRB
+  C version
+  Test the TIMESTAMP library.
+
+TEST01
+  TIMESTAMP prints out the current wallclock time,
+  including the year, month, day, hours, minutes,
+  seconds, thousandths of a second, and AM/PM.
+
+  This can be useful in keeping track of the date
+  of execution of a particular program
+  or to give a rough idea of the length of time
+  required to run a program.
+
+06 June 2011 09:33:07 AM
+
+TEST02
+  TIMESTRING returns the current wallclock time,
+  including the year, month, day, hours, minutes,
+  seconds, thousandths of a second, and AM/PM
+  in a string, which the user may print or manipulate.
+
+  TIMESTRING returned the value "06 June 2011 09:33:07 AM"
+
+TEST03
+  TIME_NUMBERS returns the date as a string of integers.
+
+  Year =        2011
+  Month =       6
+  Day =         6
+  Hour =        9
+  Minute =      33
+  Second =      7
+
+TIMESTAMP_PRB
+  Normal end of execution.
+
+06 June 2011 09:33:07 AM

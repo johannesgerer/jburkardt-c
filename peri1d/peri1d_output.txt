@@ -1,0 +1,66 @@
+16 November 2012 04:49:31 PM
+
+PERI1D:
+  Solve a 1D peridynamics problem
+
+  Initial time t = 0
+  Output interval Tint = 10
+  Final time T = 500
+  Number of elements N = 10
+  Horizon, delta = 0.005
+  MESH.NU = 22
+  MESH.NE = 12
+  Saving solution at time 10
+  Saving solution at time 20
+  Saving solution at time 30
+  Saving solution at time 40
+  Saving solution at time 50
+  Saving solution at time 60
+  Saving solution at time 70
+  Saving solution at time 80
+  Saving solution at time 90
+  Saving solution at time 100
+  Saving solution at time 110
+  Saving solution at time 120
+  Saving solution at time 130
+  Saving solution at time 140
+  Saving solution at time 150
+  Saving solution at time 160
+  Saving solution at time 170
+  Saving solution at time 180
+  Saving solution at time 190
+  Saving solution at time 200
+  Saving solution at time 210
+  Saving solution at time 220
+  Saving solution at time 230
+  Saving solution at time 240
+  Saving solution at time 250
+  Saving solution at time 260
+  Saving solution at time 270
+  Saving solution at time 280
+  Saving solution at time 290
+  Saving solution at time 300
+  Saving solution at time 310
+  Saving solution at time 320
+  Saving solution at time 330
+  Saving solution at time 340
+  Saving solution at time 350
+  Saving solution at time 360
+  Saving solution at time 370
+  Saving solution at time 380
+  Saving solution at time 390
+  Saving solution at time 400
+  Saving solution at time 410
+  Saving solution at time 420
+  Saving solution at time 430
+  Saving solution at time 440
+  Saving solution at time 450
+  Saving solution at time 460
+  Saving solution at time 470
+  Saving solution at time 480
+  Saving solution at time 490
+
+PERI1D:
+  Normal end of execution.
+
+16 November 2012 05:00:31 PM

@@ -1,0 +1,190 @@
+10 June 2010 09:32:45 AM
+
+COLORED_NOISE_PRB
+  C version
+  Test the COLORED_NOISE functions.
+
+TEST01:
+  Generating 128 sample points.
+  1/F^ALPHA noise has ALPHA = 0.000000
+  Variance is 1.000000
+  Initial random number seed = 123456789
+
+  Noise sample:
+
+         0        1.679040
+         1       -0.472769
+         2       -0.566060
+         3       -0.231124
+         4        1.212934
+         5        0.535037
+         6        1.269381
+         7        1.049543
+  ......  ..............
+       127       -0.066060
+  Data written to file "alpha_0.00.txt"
+
+TEST01:
+  Generating 128 sample points.
+  1/F^ALPHA noise has ALPHA = 0.250000
+  Variance is 1.000000
+  Initial random number seed = 123456789
+
+  Noise sample:
+
+         0        1.679040
+         1       -0.262889
+         2       -0.507098
+         3       -0.251499
+         4        1.186028
+         5        0.677714
+         6        1.418870
+         7        1.306401
+  ......  ..............
+       127       -0.067986
+  Data written to file "alpha_0.25.txt"
+
+TEST01:
+  Generating 128 sample points.
+  1/F^ALPHA noise has ALPHA = 0.500000
+  Variance is 1.000000
+  Initial random number seed = 123456789
+
+  Noise sample:
+
+         0        1.679040
+         1       -0.053009
+         2       -0.421902
+         3       -0.249747
+         4        1.171173
+         5        0.826697
+         6        1.592319
+         7        1.597493
+  ......  ..............
+       127       -0.023972
+  Data written to file "alpha_0.50.txt"
+
+TEST01:
+  Generating 128 sample points.
+  1/F^ALPHA noise has ALPHA = 0.750000
+  Variance is 1.000000
+  Initial random number seed = 123456789
+
+  Noise sample:
+
+         0        1.679040
+         1        0.156871
+         2       -0.310471
+         3       -0.222588
+         4        1.172981
+         5        0.986356
+         6        1.793486
+         7        1.928559
+  ......  ..............
+       127        0.100291
+  Data written to file "alpha_0.75.txt"
+
+TEST01:
+  Generating 128 sample points.
+  1/F^ALPHA noise has ALPHA = 1.000000
+  Variance is 1.000000
+  Initial random number seed = 123456789
+
+  Noise sample:
+
+         0        1.679040
+         1        0.366751
+         2       -0.172804
+         3       -0.166742
+         4        1.196472
+         5        1.161868
+         6        2.027164
+         7        2.306475
+  ......  ..............
+       127        0.358878
+  Data written to file "alpha_1.00.txt"
+
+TEST01:
+  Generating 128 sample points.
+  1/F^ALPHA noise has ALPHA = 1.250000
+  Variance is 1.000000
+  Initial random number seed = 123456789
+
+  Noise sample:
+
+         0        1.679040
+         1        0.576631
+         2       -0.008903
+         3       -0.078931
+         4        1.247076
+         5        1.359265
+         6        2.299307
+         7        2.739459
+  ......  ..............
+       127        0.837794
+  Data written to file "alpha_1.25.txt"
+
+TEST01:
+  Generating 128 sample points.
+  1/F^ALPHA noise has ALPHA = 1.500000
+  Variance is 1.000000
+  Initial random number seed = 123456789
+
+  Noise sample:
+
+         0        1.679040
+         1        0.786511
+         2        0.181234
+         3        0.044124
+         4        1.330634
+         5        1.585491
+         6        2.617171
+         7        3.237293
+  ......  ..............
+       127        1.674413
+  Data written to file "alpha_1.50.txt"
+
+TEST01:
+  Generating 128 sample points.
+  1/F^ALPHA noise has ALPHA = 1.750000
+  Variance is 1.000000
+  Initial random number seed = 123456789
+
+  Noise sample:
+
+         0        1.679040
+         1        0.996391
+         2        0.397605
+         3        0.205704
+         4        1.453396
+         5        1.848450
+         6        2.989452
+         7        3.811574
+  ......  ..............
+       127        3.088373
+  Data written to file "alpha_1.75.txt"
+
+TEST01:
+  Generating 128 sample points.
+  1/F^ALPHA noise has ALPHA = 2.000000
+  Variance is 1.000000
+  Initial random number seed = 123456789
+
+  Noise sample:
+
+         0        1.679040
+         1        1.206271
+         2        0.640212
+         3        0.409088
+         4        1.622022
+         5        2.157059
+         6        3.426439
+         7        4.475982
+  ......  ..............
+       127        5.430474
+  Data written to file "alpha_2.00.txt"
+
+COLORED_NOISE_PRB:
+  Normal end of execution.
+
+10 June 2010 09:32:45 AM

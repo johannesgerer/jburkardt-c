@@ -1,0 +1,50 @@
+27 May 2011 02:34:28 PM
+
+PPMA_IO_PRB:
+  C version
+  Test the PPMA_IO library.
+
+TEST01:
+  PPMA_EXAMPLE sets up PPM data.
+  PPMA_WRITE writes an ASCII PPM file.
+
+  Writing the file "test01.ascii.ppm".
+
+  PPMA_EXAMPLE has set up the data.
+
+  PPMA_WRITE was successful.
+
+PPMA_READ_TEST:
+  PPMA_READ was able to read "test01.ascii.ppm".
+
+PPMA_READ_TEST:
+  PPMA_CHECK_DATA has approved the data from the file.
+
+  PPMA_READ_TEST was able to read the file we wrote.
+
+TEST02
+  PPMA_READ reads the header and data of a PPMA file.
+
+  Reading the file "test02.ascii.ppm".
+
+  PPMA_WRITE_TEST created some test data.
+
+  PPMA_READ read the test data successfully.
+
+  Ten sample values:
+
+  04  04  506  1506  1506
+  334  334  506  1506  1506
+  664  664  506  1506  1506
+  994  994  506  2196  2196
+  1324  1324  506  2506  2506
+  1664  1664  506  2516  2516
+  1994  1994  506  2216  2216
+  2324  2324  776  1656  1656
+  2654  2654  1526  896  896
+  2994  2994  2556  1506  1506
+
+PPMA_IO_PRB:
+  Normal end of execution.
+
+27 May 2011 02:34:28 PM

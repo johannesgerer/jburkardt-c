@@ -1,0 +1,153 @@
+<html>
+
+  <head>
+    <title>
+      TOMS722 - IEEE Arithmetic Support
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      TOMS722<br> IEEE Arithmetic Support
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>TOMS722</b> 
+      is a C library which
+      supports IEEE arithmetic.
+      Both single and double precision routines are supplied.
+    </p>
+
+    <p>
+      The original, correct and authentic copies of the source code
+      are available from the TOMS subdirectory of 
+      <a href = "http://www.netlib.org/">NETLIB</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/machar/machar.html">
+      MACHAR</a>,
+      a C library which 
+      can compute machine arithmetic quantities dynamically.
+    </p>
+
+    <p>
+      <a href = "../../c_src/machine/machine.html">
+      MACHINE</a>,
+      a C library which 
+      stores the appropriate values of machine constants for a given machine.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+           William Cody, Jerome Coonen,<br>
+           Algorithm 722: Functions to support the IEEE standard for
+           binary floating point arithmetic;<br>
+           ACM Transactions on Mathematical Software,<br>
+           Volume 19, Number 4, December 1993, pages 443-451.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "toms722.c">toms722.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "toms722.h">toms722.h</a>, the INCLUDE file;
+        </li>
+        <li>
+          <a href = "toms722.sh">toms722.sh</a>, 
+          commands to compile the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "toms722_prb.c">toms722_prb.c</a>, the calling program;
+        </li>
+        <li>
+          <a href = "toms722_prb.sh">toms722_prb.sh</a>, 
+          commands to compile, link and run the calling program;
+        </li>
+        <li>
+          <a href = "toms722_prb_output.txt">toms722_prb_output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>COPYSIGN_F</b> returns the first argument with the sign of 
+            the second.
+        </li>
+        <li>
+          <b>FINITE_F</b> returns true (1) if its argument is finite, and 
+            false (0) otherwise.
+        </li>
+        <li>
+          <b>ISNAN_F</b> returns true (1) if its argument is NaN, and 
+            false (0) otherwise. 
+        </li>
+        <li>
+          <b>LOGB_F</b> returns the exponent of a real number.
+        </li>
+        <li>
+          <b>MACHAR_S</b> computes machine constants for floating point
+          arithmetic.
+        </li>
+        <li>
+          <b>SCALB_F</b> returns ARG * 2 ** N.
+        </li>
+        <li>
+          <b>TEST_F</b> returns its input argument.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 05 October 2008.
+    </i>
+
+    <!-- John Burkardt -->
+ 
+  </body>
+
+</html>
+

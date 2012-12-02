@@ -1,0 +1,319 @@
+04 November 2012 08:41:01 AM
+
+FN_PRB
+  C version
+  Test the FN library.
+
+REAL_SIN_TEST
+  Test SIN and COS on float arguments.
+
+  Test of sin(x) vs 3*sin(x/3)-4*sin(x/3)^3
+
+  2000 random arguments were tested from the interval
+  ( 0,1.5708 )
+
+  sin(x) was larger 988 times,
+  agreed 0 times, and 
+  was smaller 1011 times.
+
+  There are 24 base 2 significant digits in a floating-point number.
+  The maximum relative error of 2 = 2 ^ 9.09827e-08
+  occurred for X = 0.138581
+  The estimated loss of base 2 significant digits is 0.610167
+  The root mean square relative error was 2.96744e-08 = 2 ^ -25.0062
+  The estimated loss of base 2 significant digits is 0
+
+  Test of sin(x) vs 3*sin(x/3)-4*sin(x/3)^3
+
+  2000 random arguments were tested from the interval
+  ( 18.8496,20.4204 )
+
+  sin(x) was larger 975 times,
+  agreed 0 times, and 
+  was smaller 1024 times.
+
+  There are 24 base 2 significant digits in a floating-point number.
+  The maximum relative error of 2 = 2 ^ 8.73913e-08
+  occurred for X = 19.2259
+  The estimated loss of base 2 significant digits is 0.552065
+  The root mean square relative error was 2.99359e-08 = 2 ^ -24.9935
+  The estimated loss of base 2 significant digits is 0
+
+  Test of cos(x) vs 4*cos(x/3)^3-3*cos(x/3)
+
+  2000 random arguments were tested from the interval
+  ( 4428372,1121508880 )
+
+  cos(x) was larger 995 times,
+  agreed 0 times, and 
+  was smaller 1004 times.
+
+  There are 24 base 2 significant digits in a floating-point number.
+  The maximum relative error of 2 = 2 ^ 9.61278e-08
+  occurred for X = 23.4675
+  The estimated loss of base 2 significant digits is 0.689529
+  The root mean square relative error was 3.00231e-08 = 2 ^ -24.9894
+  The estimated loss of base 2 significant digits is 0
+
+  Special tests:
+
+  if 1 is not almost 1.0,
+  sin has the wrong period.
+  The identity   sin(-x) = -sin(x)   will be tested.
+        x         f(x) + f(-x)
+
+          2.74935                0 
+          4.37732                0 
+         0.528255                0 
+          9.48319                0 
+          16.7258                0 
+
+  The identity sin(x) = x , x small, will be tested.
+        x         x - f(x)
+
+      5.46372e-08      2.64698e-23 
+      2.73186e-08      3.30872e-24 
+      1.36593e-08                0 
+      6.82966e-09                0 
+      3.41483e-09                0 
+
+  The identity   cos(-x) = cos(x)   will be tested.
+         x         f(x) - f(-x)
+
+           10.982                0 
+          15.5847                0 
+          6.58332                0 
+          12.3844                0 
+          2.39043                0 
+
+  Test of underflow for very small argument.
+
+  sin ( 3.56998e-29 ) = 3.56998e-29
+
+  The following three lines illustrate the loss in 
+  significance for large arguments.  The arguments,
+  are consecutive.
+
+  sin (    4095.999755859375 ) =  -0.5948382616043091
+  sin (    4095.999755859375 ) =  -0.5946419835090637
+  sin (     4096.00048828125 ) =  -0.5942493677139282
+
+  Test of error returns:
+
+  SIN will be called with the argument 1.67772e+07
+  This should trigger an error message.
+
+  SIN returned the value -0.779564
+
+  This concludes the tests.
+
+DOUBLE_SIN_TEST
+  Test SIN and COS on double arguments.
+
+  Test of sin(x) vs 3*sin(x/3)-4*sin(x/3)^3
+
+  2000 random arguments were tested from the interval
+  ( 0,1.5708 )
+
+  sin(x) was larger 380 times,
+  agreed 1228 times, and 
+  was smaller 391 times.
+
+  There are 53 base 2 significant digits in a doubleing-point number.
+  The maximum relative error of 2.53096e-16 = 2 ^ -51.8112
+  occurred for X = 0.0548595
+  The estimated loss of base 2 significant digits is 1.18884
+  The root mean square relative error was 8.7252e-17 = 2 ^ -53.3476
+  The estimated loss of base 2 significant digits is 0
+
+  Test of sin(x) vs 3*sin(x/3)-4*sin(x/3)^3
+
+  2000 random arguments were tested from the interval
+  ( 18.8496,20.4204 )
+
+  sin(x) was larger 392 times,
+  agreed 1269 times, and 
+  was smaller 338 times.
+
+  There are 53 base 2 significant digits in a doubleing-point number.
+  The maximum relative error of 2.88564e-16 = 2 ^ -51.622
+  occurred for X = 19.0431
+  The estimated loss of base 2 significant digits is 1.37804
+  The root mean square relative error was 8.50429e-17 = 2 ^ -53.3846
+  The estimated loss of base 2 significant digits is 0
+
+  Test of cos(x) vs 4*cos(x/3)^3-3*cos(x/3)
+
+  2000 random arguments were tested from the interval
+  ( 21.9911,23.5619 )
+
+  cos(x) was larger 399 times,
+  agreed 1239 times, and 
+  was smaller 361 times.
+
+  There are 53 base 2 significant digits in a doubleing-point number.
+  The maximum relative error of 2.688e-16 = 2 ^ -51.7243
+  occurred for X = 23.3539
+  The estimated loss of base 2 significant digits is 1.27568
+  The root mean square relative error was 8.80258e-17 = 2 ^ -53.3349
+  The estimated loss of base 2 significant digits is 0
+
+  Special tests:
+
+  if 1 is not almost 1.0,
+  sin has the wrong period.
+  The identity   sin(-x) = -sin(x)   will be tested.
+        x         f(x) + f(-x)
+
+          2.74935                0 
+          4.37732                0 
+         0.528255                0 
+          9.48319                0 
+          16.7258                0 
+
+  The identity sin(x) = x , x small, will be tested.
+        x         x - f(x)
+
+       1.0177e-16                0 
+      5.08849e-17                0 
+      2.54425e-17                0 
+      1.27212e-17                0 
+      6.36061e-18                0 
+
+  The identity   cos(-x) = cos(x)   will be tested.
+         x         f(x) - f(-x)
+
+           10.982                0 
+          15.5847                0 
+          6.58332                0 
+          12.3844                0 
+          2.39043                0 
+
+  Test of underflow for very small argument.
+
+  sin ( 1.82183e-231 ) = 1.82183e-231
+
+  The following three lines illustrate the loss in 
+  significance for large arguments.  The arguments,
+  are consecutive.
+
+  sin (    94906265.62425154 ) =   0.9419570571788562
+  sin (    94906265.62425154 ) =   0.9419570521760389
+  sin (    94906265.62425157 ) =   0.9419570471732214
+
+  Test of error returns:
+
+  SIN will be called with the argument 9.0072e+15
+  This should trigger an error message.
+
+  SIN returned the value -0.848926
+
+  This concludes the tests.
+
+R8_SIN_TEST
+  Test R8_SIN and R8_COS on double arguments.
+
+  Test of sin(x) vs 3*sin(x/3)-4*sin(x/3)^3
+
+  2000 random arguments were tested from the interval
+  ( 0, 1.5708 )
+
+  sin(x) was larger 309 times,
+  agreed 1146 times, and 
+  was smaller 544 times.
+
+  There are 53 base 2 significant digits in a double.
+  The maximum relative error of 3.3314e-16 = 2 ^ -51.4147
+  occurred for X = 1.54986
+  The estimated loss of base 2 significant digits is 1.58528
+  The root mean square relative error was 9.60137e-17 = 2 ^ -53.2095
+  The estimated loss of base 2 significant digits is 0
+
+  Test of sin(x) vs 3*sin(x/3)-4*sin(x/3)^3
+
+  2000 random arguments were tested from the interval
+  ( 18.8496, 20.4204 )
+
+  sin(x) was larger 375 times,
+  agreed 980 times, and 
+  was smaller 644 times.
+
+  There are 53 base 2 significant digits in a double.
+  The maximum relative error of 2.9757e-15 = 2 ^ -48.2557
+  occurred for X = 18.8497
+  The estimated loss of base 2 significant digits is 4.74431
+  The root mean square relative error was 1.31686e-16 = 2 ^ -52.7538
+  The estimated loss of base 2 significant digits is 0.246249
+
+  Test of cos(x) vs 4*cos(x/3)^3-3*cos(x/3)
+
+  2000 random arguments were tested from the interval
+  ( 21.9911,23.5619 )
+
+  cos(x) was larger 316 times,
+  agreed 923 times, and 
+  was smaller 760 times.
+
+  There are 53 base 2 significant digits in a double.
+  The maximum relative error of 3.41924e-16 = 2 ^ -51.3772
+  occurred for X = 22.2193
+  The estimated loss of base 2 significant digits is 1.62283
+  The root mean square relative error was 1.16564e-16 = 2 ^ -52.9297
+  The estimated loss of base 2 significant digits is 0.0702739
+
+  Special tests:
+
+  if 1 is not almost 1.0,
+  sin has the wrong period.
+  The identity   sin(-x) = -sin(x)   will be tested.
+        x         f(x) + f(-x)
+
+          14.8687                0 
+          11.3325                0 
+          2.85166                0 
+          17.1661                0 
+          15.7603                0 
+
+  The identity sin(x) = x , x small, will be tested.
+        x         x - f(x)
+
+      5.70512e-17                0 
+      2.85256e-17                0 
+      1.42628e-17                0 
+      7.13139e-18                0 
+       3.5657e-18                0 
+
+  The identity   cos(-x) = cos(x)   will be tested.
+         x         f(x) - f(-x)
+
+          4.40875                0 
+          4.45665                0 
+          10.4436                0 
+          4.83165                0 
+         0.771043                0 
+
+  Test of underflow for very small argument.
+
+  r8_sin ( 1.82183e-231 ) = 1.82183e-231
+
+  The following three lines illustrate the loss in 
+  significance for large arguments.  The arguments,
+  are consecutive.
+
+  sin (    94906265.62425154 ) =   0.9419570571790321
+  sin (    94906265.62425154 ) =   0.9419570521762148
+  sin (    94906265.62425157 ) =   0.9419570471733973
+
+  Test of error returns:
+
+  SIN will be called with the argument 9.0072e+15
+  This should trigger an error message.
+
+  SIN returned the value 0
+
+  This concludes the tests.
+
+FN_PRB
+  Normal end of execution.
+
+04 November 2012 08:41:01 AM

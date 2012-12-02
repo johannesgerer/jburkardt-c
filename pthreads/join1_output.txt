@@ -1,0 +1,11 @@
+Thread number -267907072
+Thread number -266842112
+Thread number -267374592
+Thread number -266309632
+Thread number -265244672
+Thread number -264179712
+Thread number -263647232
+Thread number -263114752
+Thread number -264712192
+Thread number -265777152
+Final counter value: 10

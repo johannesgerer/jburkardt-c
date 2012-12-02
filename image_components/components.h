@@ -1,0 +1,13 @@
+int file_column_count ( char *filename );
+int file_row_count ( char *input_filename );
+int i4block_components ( int l, int m, int n, int a[], int c[] );
+int i4_min ( int i1, int i2 );
+int i4mat_components ( int m, int n, int a[], int c[] );
+int *i4mat_data_read ( char *input_filename, int m, int n );
+void i4mat_header_read ( char *input_filename, int *m, int *n );
+int i4vec_components ( int n, int a[], int c[] );
+int s_len_trim ( char *s );
+int s_to_i4 ( char *s, int *last, int *error );
+int s_to_i4vec ( char *s, int n, int ivec[] );
+int s_word_count ( char *s );
+void timestamp ( void );

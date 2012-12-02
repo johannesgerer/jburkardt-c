@@ -1,0 +1,384 @@
+<html>
+
+  <head>
+    <title>
+      SMOLPACK - Multidimensional Quadrature Using Sparse Grids
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      SMOLPACK <br> Multidimensional Quadrature Using Sparse Grids
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>SMOLPACK</b> 
+      is a C library which 
+      estimates the integral of a function over a hypercube using a sparse grid,
+      by Knut Petras.
+    </p>
+
+    <p>
+      An interactive test program is also provided.  The user can
+      specify the input to this program as part of the commandline,
+      or wait to enter the data interactively.
+    </p>
+
+    <p>
+      Output from the program includes the exact and approximate integral
+      values, the error, and, if requested, the number of quadrature 
+      points (function evaluations) and the number of
+      quadrature weights that needed to be computed.  Note that, because
+      of symmetry in the quadrature rule, the number of quadrature weights
+      computed will generally be much lower than the number of quadrature
+      points.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>smolpack_interactive</b> <i>fnum dim k seed bs</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <b>fnum</b> is the test function f(x) to be integrated.<br>
+          <b>1 &lt;= fnum &lt;= 7</b>
+        </li>
+        <li>
+          <b>dim</b> is the spatial dimension,<br>
+          <b>1 &lt;= dim &lt; 40</b>
+        </li>
+        <li>
+          <b>k</b> is the number of stages.  Generally a "small" number like 4 or 8;<br>
+          <b>1 &lt;= k</b>
+        </li>
+        <li>
+          <b>seed</b> is a seed for the random number generator.  Should not be zero!
+        </li>
+        <li>
+          <b>bs</b> is the "basic sequence", that is, the one dimensional quadrature rule
+          that is used to build the multidimensional quadrature rule.  The
+          two choices are:
+          <ul>
+            <li>
+              <b>bs = 1</b>: delayed Clenshaw Curtis, uses few function evaluations;
+            </li>
+            <li>
+              <b>bs = 2</b>: standard Clenshaw Curtis;
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Test Functions:
+    </h3>
+
+    <p>
+      <b>SMOLPACK_INTERACTIVE</b> allows the user to choose a test
+      function to be integrated.  The first six test functions come
+      from the standard test suite of Genz.  In the description,      
+      <b>M</b> denotes the spatial dimension, <b>R</b> is a randomly 
+      chosen parameter, <b>C</b> is a randomly chosen scaling
+      vector, and <b>X0</b> is a randomly chosen displacement vector.
+      <ol>
+        <li>
+          f(x) = cos ( 2 * pi * r + sum ( c(1:m) * x(1:m) ) ), <br>
+          Genz "Oscillatory";
+        </li>
+        <li>
+          f(x) = 1 / product ( c(1:m)^2 + (x(1:m) - x0(1:m))^2),<br>
+          Genz "Product Peak";
+        </li>
+        <li>
+          f(x) = 1 / ( 1 + sum ( c(1:m) * x(1:m) ) )^(d+1),<br>
+          Genz "Corner Peak";
+        </li>
+        <li>
+          f(x) = exp(-sum(c(1:m)^2 * ( x(1:m) - x0(1:m))^2 ) ),<br>
+          Genz "Gaussian";
+        </li>
+        <li>
+          f(x) = exp ( - sum ( c(1:m) * abs ( x(1:m) - x0(1:m) ) ) ),<br>
+          Genz "Continuous";
+        </li>
+        <li>
+          f(x) = exp(sum(c(1:m)*x(1:m)) for x(1:2) <= x0(1:2), 0 otherwise,<br>
+          Genz "Discontinuous";
+        </li>
+        <li>
+          f(x) = exp(sum( x(1:m));
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Related Programs:
+    </h3>
+
+    <p>
+      <a href = "../../m_src/cc_display/cc_display.html">
+      CC_DISPLAY</a>, 
+      a MATLAB program which
+      can compute and display Clenshaw Curtis grids in two dimensions,
+      as well as sparse grids formed from sums of Clenshaw Curtis grids.
+    </p>
+
+    <p>
+      <a href = "../../m_src/clenshaw_curtis_rule/clenshaw_curtis_rule.html">
+      CLENSHAW_CURTIS_RULE</a>, 
+      a MATLAB library which 
+      can set up a Clenshaw Curtis quadrature grid in multiple dimensions.
+    </p>
+
+    <p>
+      <a href = "../../datasets/quadrature_rules/quadrature_rules.html">
+      QUADRATURE_RULES</a>,
+      a dataset directory which 
+      contains quadrature rules;  
+      a number of examples of sparse grid quadrature rules are included.
+    </p>
+
+    <p>
+      <a href = "../../datasets/sparse_grid_cc/sparse_grid_cc.html">
+      SPARSE_GRID_CC</a>, 
+      a dataset directory which
+      contains files of the abscissas of sparse
+      grids based on a Clenshaw Curtis rule.
+    </p>
+
+    <p>
+      <a href = "../../datasets/sparse_grid_f2/sparse_grid_f2.html">
+      SPARSE_GRID_F2</a>, 
+      a dataset directory which 
+      contains files of the abscissas of sparse
+      grids based on a Fejer Type 2 rule.
+    </p>
+
+    <p>
+      <a href = "../../datasets/sparse_grid_gp/sparse_grid_gp.html">
+      SPARSE_GRID_GP</a>, 
+      a dataset directory which 
+      contains files of the abscissas of sparse
+      grids based on a Gauss Patterson rule.
+    </p>
+
+    <p>
+      <a href = "../../datasets/sparse_grid_ncc/sparse_grid_ncc.html">
+      SPARSE_GRID_NCC</a>,
+      a dataset directory which
+      contains files of the abscissas of sparse
+      grids based on a Newton Cotes closed rule.
+    </p>
+
+    <p>
+      <a href = "../../datasets/sparse_grid_nco/sparse_grid_nco.html">
+      SPARSE_GRID_NCO</a>, 
+      a dataset directory which 
+      contains files of the abscissas of sparse
+      grids based on a Newton Cotes open rule.
+    </p>
+
+    <p>
+      <a href = "../../m_src/toms847/toms847.html">
+      TOMS847</a>,
+      a MATLAB program which 
+      uses sparse grids to carry out multilinear hierarchical interpolation.
+      It is commonly known as SPINTERP, and is by Andreas Klimke.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/testpack/testpack.html">
+      TESTPACK</a>,
+      a C library which 
+      defines the Genz test integrand functions.
+    </p>
+
+    <p>
+      <a href = "../../f_src/test_nint/test_nint.html">
+      TEST_NINT</a>,
+      a FORTRAN90 library which 
+      defines a number of test integrand functions for multidimensional integration.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Knut Petras
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Alan Genz,<br>
+          A Package for Testing Multiple Integration Subroutines,<br>
+          in Numerical Integration: 
+          Recent Developments, Software and Applications,<br>
+          edited by Patrick Keast, Graeme Fairweather,<br>
+          Reidel, 1987, pages 337-340,<br>
+          ISBN: 9027725144,<br>
+          LC: QA299.3.N38
+        </li>
+        <li>
+          Erich Novak, Klaus Ritter,<br>
+          High dimensional integration of smooth functions over cubes,<br>
+          Numerische Mathematik,<br>
+          Volume 75, Number 1, November 1996, pages 79-97.
+        </li>
+        <li>
+          Erich Novak, Klaus Ritter,<br>
+          Simple Cubature Formulas with High Polynomial Exactness,<br>
+          Constructive Approximation,<br>
+          Volume 15, Number 4, December 1999, pages 499-522.
+        </li>
+        <li>
+          Knut Petras,<br>
+          Fast Calculation of Coefficients in the Smolyak Algorithm,<br>
+          Numerical Algorithms,<br>
+          Volume 26, Number 2, February 2001, pages 93-109.
+        </li>
+        <li>
+          Knut Petras,<br>
+          Smolyak Cubature of Given Polynomial Degree with Few Nodes
+          for Increasing Dimension,<br>
+          Numerische Mathematik,<br>
+          Volume 93, Number 4, February 2003, pages 729-753.
+        </li>
+        <li>
+          Sergey Smolyak,<br>
+          Quadrature and Interpolation Formulas for Tensor Products of
+          Certain Classes of Functions,<br>
+          Doklady Akademii Nauk SSSR,<br>
+          Volume 4, 1963, pages 240-243.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "ccsmolyak.c">ccsmolyak.c</a>,
+          sparse integration using standard Clenshaw Curtis rules.
+        </li>
+        <li>
+          <a href = "smolyak.c">smolyak.c</a>,
+          sparse integration using delayed Clenshaw Curtis rule.
+        </li>
+        <li>
+          <a href = "smolpack.h">smolpack.h</a>, 
+          the include file.
+        </li>
+        <li>
+          <a href = "smolpack.sh">smolpack.sh</a>, 
+          commands to compile the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "smolpack_interactive.c">
+          smolpack_interactive.c</a>, an interactive test program.
+        </li>
+        <li>
+          <a href = "smolpack_interactive.sh">smolpack_interactive.sh</a>, 
+          commands to compile, link and load the interactive test program;
+        </li>
+        <li>
+          <a href = "problem1.sh">problem1.sh</a>, 
+          a shell script that calls the test program for function 1.
+        </li>
+        <li>
+          <a href = "problem1_output.txt">problem1_output.txt</a>, 
+          output from the test program related to test function 1;
+        </li>
+        <li>
+          <a href = "problem2.sh">problem2.sh</a>, 
+          a shell script that calls the test program for function 2.
+        </li>
+        <li>
+          <a href = "problem2_output.txt">problem2_output.txt</a>, 
+          output from the test program related to test function 2;
+        </li>
+        <li>
+          <a href = "problem3.sh">problem3.sh</a>, 
+          a shell script that calls the test program for function 3.
+        </li>
+        <li>
+          <a href = "problem3_output.txt">problem3_output.txt</a>, 
+          output from the test program related to test function 3;
+        </li>
+        <li>
+          <a href = "problem4.sh">problem4.sh</a>, 
+          a shell script that calls the test program for function 4.
+        </li>
+        <li>
+          <a href = "problem4_output.txt">problem4_output.txt</a>, 
+          output from the test program related to test function 4;
+        </li>
+        <li>
+          <a href = "problem5.sh">problem5.sh</a>, 
+          a shell script that calls the test program for function 5.
+        </li>
+        <li>
+          <a href = "problem5_output.txt">problem5_output.txt</a>, 
+          output from the test program related to test function 5;
+        </li>
+        <li>
+          <a href = "problem6.sh">problem6.sh</a>, 
+          a shell script that calls the test program for function 6.
+        </li>
+        <li>
+          <a href = "problem6_output.txt">problem6_output.txt</a>, 
+          output from the test program related to test function 6;
+        </li>
+        <li>
+          <a href = "problem7.sh">problem7.sh</a>, 
+          a shell script that calls the test program for function 7.
+        </li>
+        <li>
+          <a href = "problem7_output.txt">problem7_output.txt</a>, 
+          output from the test program related to test function 7;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 30 April 2007.
+    </i>
+
+    <!-- John Burkardt -->
+ 
+  </body>
+
+</html>

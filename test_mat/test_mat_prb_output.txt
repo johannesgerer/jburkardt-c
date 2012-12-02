@@ -1,0 +1,459 @@
+08 November 2012 03:58:01 PM
+
+TEST_MAT_PRB
+  C version
+  Test the TEST_MAT library.
+
+TEST_COND
+  Compute the condition number of an example of each
+  test matrix
+
+  Matrix title             N      COND
+
+  AEGERTER                 5              24
+  BAB                      5         8.42986
+  BODEWIG                  4         10.4366
+  COMBIN                   5         35.9091
+  CONEX3                   5              80
+  RUTIS5                   4           62608
+  SUMMATION                5              10
+  TRI_UPPER                5           524.6
+  WILK03                   3         2.6e+11
+  WILSON                   4            4488
+
+TEST_DETERMINANT
+  Compute the determinants of an example of each
+  test matrix; compare with the determinant routine,
+  if available.  Print the matrix Frobenius norm
+  for an estimate of magnitude.
+
+  Matrix title             N          Determ          Determ          ||A||
+
+  AEGERTER                 5             -25             -25        9.433981
+  ANTICIRCULANT            3            -180          -231.8       10.849885
+  ANTICIRCULANT            4          967.68         1397.76       12.585706
+  ANTICIRCULANT            5          1228.8         7207.92       14.184499
+  ANTIHADAMARD             5               1               1        3.316625
+  ANTISYMM_RANDOM          5                               0        2.873692
+  ANTISYMM_RANDOM          6                        0.097353        3.334512
+  BAB                      5        -2075.15        -2075.15       14.438837
+  BIMARKOV_RANDOM          5                    -8.62803e-05        1.387933
+  BIS                      5         51.5363         51.5363       19.820192
+  BODEWIG                  4             568             568       12.727922
+  BOOTHROYD                5               1               1      886.710212
+  BORDERBAND               5       -0.328125       -0.328125        2.766993
+  CARRY                  5     1.65382e-08     1.65382e-08        1.413914
+  CAUCHY                 5               0     6.89186e-10        8.737263
+  CHEBY_DIFF1            5                    -2.13163e-14       13.472194
+  CHEBY_DIFF1            6                    -5.11591e-13       20.770171
+  CHEBY_T                5              64              64       12.688578
+  CHEBY_U                5            1024            1024       22.427661
+  CHEBY_VAN1             5                     1.88744e+07     4896.255814
+  CHEBY_VAN2             2              -2              -2        2.000000
+  CHEBY_VAN2             3        -1.41421        -1.41421        2.000000
+  CHEBY_VAN2             4               1               1        2.081666
+  CHEBY_VAN2             5        0.707107        0.707107        2.179449
+  CHEBY_VAN2             6            -0.5            -0.5        2.280351
+  CHEBY_VAN2             7       -0.353553       -0.353553        2.380476
+  CHEBY_VAN2             8            0.25            0.25        2.478479
+  CHEBY_VAN2             9        0.176777        0.176777        2.573908
+  CHEBY_VAN2            10          -0.125          -0.125        2.666667
+  CHEBY_VAN3             5         13.9754         13.9754        3.872983
+  CHOW                   5          201639          201639       69.911028
+  CIRCULANT              5         7207.92         7207.92       14.184499
+  CIRCULANT2             3              18              18        6.480741
+  CIRCULANT2             4            -160            -160       10.954451
+  CIRCULANT2             5            1875            1875       16.583124
+  CLEMENT1               5               0               0        7.745967
+  CLEMENT1               6            -225            -225       10.488088
+  CLEMENT2               5               0               0        6.324555
+  CLEMENT2               6            -225            -225        8.366600
+  CLEMENT3               5               0               0        9.000000
+  CLEMENT3               6            -144            -144       10.344080
+  COMBIN                 5         1175.97         1175.97       50.392460
+  COMPANION              5              -3              -3        7.000000
+  COMPLEX_I              2               1               1        1.414214
+  CONEX1                 4             2.2             2.2        7.639372
+  CONEX2                 3        0.454545        0.454545        2.653806
+  CONEX3                 5              -1              -1        3.872983
+  CONFERENCE             6            -125            -125        5.477226
+  CREATION               5               0               0        5.477226
+  DAUB2                  4               1               1        2.000000
+  DAUB4                  8              -1              -1        2.828427
+  DAUB6                 12               1               1        3.464102
+  DAUB8                 16              -1              -1        4.000000
+  DAUB10                20               1               1        4.472136
+  DAUB12                24              -1              -1        4.898979
+  DIAGONAL               5              45              45        6.708204
+  DIF1                   5               0               0        2.828427
+  DIF1CYCLIC             5               0               0        3.162278
+  DIF2                   5               6               6        5.291503
+  DIF2CYCLIC             5               0               0        5.477226
+  DORR                   5                     1.88949e+10      421.362931
+  DOWNSHIFT              5               1               1        2.236068
+  EBERLEIN               5               0     1.84173e-11       38.031566
+  EULERIAN               5               1               1       77.298124
+  EXCHANGE               5               1               1        2.236068
+  FIBONACCI1             5               0    -1.55847e-41      369.524884
+  FIBONACCI2             5              -1              -1        3.000000
+  FIBONACCI3             5               8               8        3.605551
+  FIEDLER                7         1502.87         1502.87       30.117105
+  FORSYTHE               7     7.51448e+06     7.51448e+06       25.611716
+  FOURIER_COSINE         5               1               1        2.236068
+  FOURIER_SINE           5               1               1        2.236068
+  FRANK                  5               1               1       11.618950
+  GEAR                   4    -2.44929e-16              -0        2.828427
+  GEAR                   5               2               2        3.162278
+  GEAR                   6              -4              -4        3.464102
+  GEAR                   7               2               2        3.741657
+  GEAR                   8     4.89859e-16               0        4.000000
+  GFPP                   5         104.858         104.858        7.576279
+  GIVENS                 5              16              16       20.615528
+  GK316                  5             -25             -25        9.433981
+  GK323                  5              32              32       10.000000
+  GK324                  5         12.0384         12.0384       11.431535
+  GRCAR                  5                               8        3.605551
+  HADAMARD               5                               0        4.000000
+  HANKEL                 5                        -3057.94       15.277434
+  HANOWA                 6         714.498         714.498        7.552483
+  HARMAN                 8     0.000954779     0.000954779        5.053593
+  HARTLEY                5         55.9017         55.9017        5.000000
+  HARTLEY                6            -216            -216        6.000000
+  HARTLEY                7        -907.493        -907.493        7.000000
+  HARTLEY                8           -4096           -4096        8.000000
+  HELMERT                5               1               1        2.236068
+  HELMERT2               5                               1        2.236068
+  HERMITE                5            1024            1024       54.194096
+  HERNDON                5           -0.04           -0.04        1.771327
+  HILBERT                5      3.7493e-12      3.7493e-12        1.580906
+  HOUSEHOLDER            5              -1              -1        2.236068
+  IDEM_RANDOM            5               0               0        1.000000
+  IDENTITY               5               1               1        2.236068
+  IJFACT1                5     7.16636e+09     7.16636e+09  3665587.891976
+  IJFACT2                5      1.4948e-21      1.4948e-21        0.557720
+  ILL3                   3               6               6      817.763413
+  INTEGRATION            6               1               1        3.617164
+  INVOL                  5              -1              -1     1942.461253
+  INVOL_RANDOM           5              -1              -1        2.236068
+  JACOBI                 5               0               0        1.490712
+  JACOBI                 6       -0.021645       -0.021645        1.651446
+  JORDAN                 6          113.38          113.38        5.834381
+  KAHAN                  5        0.041226        0.041226        1.807853
+  KERSHAW                4               1               1        8.246211
+  KERSHAWTRI             5         538.766         538.766        8.731552
+  KMS                    5         217.433         217.433       41.657060
+  LAGUERRE               5      0.00347222      0.00347222        6.853755
+  LEHMER                 5                        0.065625        3.280413
+  LESLIE                 4        0.605244        0.605244        1.784145
+  LESP                   5          -42300          -42300       22.348683
+  LIETZKE                5              48              48       18.027756
+  LIGHTS_OUT          -----Not ready----
+  LINE_ADJ               5               0               0        2.828427
+  LINE_LOOP_ADJ          5               0              -0        3.605551
+  LOEWNER                5                        -29.0825       20.522700
+  LOTKIN                 5     1.87465e-11     1.87465e-11        2.456757
+  MARKOV_RANDOM          5                      0.00488558        1.335842
+  MAXIJ                  5               5               5       19.874607
+  MILNES                 5         12.0384         12.0384       11.431535
+  MINIJ                  5               1               1       12.449900
+  MOLER1                 5               1               1       47.584787
+  MOLER2                 5               0     1.02538e-07   101035.360741
+  MOLER3                 5               1               1        8.660254
+  NEUMANN               25               0      0.00124631       23.237900
+  ONE                    5               0              -0        5.000000
+  ORTEGA                 5         -20.592         -20.592      248.220973
+  ORTH_RANDOM            5               1               1        2.236068
+  ORTH_SYMM              5               1               1        2.236068
+  OTO                    5               6               6        5.291503
+  PARTER                 5         131.917         131.917        6.340772
+  PASCAL1                5               1               1        9.949874
+  PASCAL2                5               1               1       92.460803
+  PASCAL3                5               1               1      122.628597
+  PDS_RANDOM             5       0.0404187       0.0404187        1.462299
+  PEI                    5         168.664         168.664        8.438009
+  PERMUTATION_RANDOM     5               1               1        2.236068
+  PLU                    5     1.93261e+07     1.93261e+07      139.254067
+  POISSON               25     3.25655e+13     3.25655e+13       21.908902
+  PROLATE                5                         1644.22        9.844606
+  RECTANGLE_ADJ       -----Not ready-----
+  REDHEFFER              5              -2              -2        3.741657
+  REF_RANDOM             5               0               0        2.635602
+  REF_RANDOM             5               1               1        2.818935
+  RIEMANN                5                             -66        6.928203
+  RING_ADJ               1               1               1        1.000000
+  RING_ADJ               2              -1              -1        1.414214
+  RING_ADJ               3               2               2        2.449490
+  RING_ADJ               4               0               0        2.828427
+  RING_ADJ               5               2               2        3.162278
+  RING_ADJ               6              -4              -4        3.464102
+  RING_ADJ               7               2               2        3.741657
+  RING_ADJ               8               0               0        4.000000
+  RIS                    5         4.12239         4.12239        3.170386
+  RODMAN                 5        -2126.84        -2126.84       12.720063
+  ROSSER1                8               0        -9480.58     2482.257037
+  ROUTH                  5          75.768          75.768        7.748548
+  RUTIS1                 4            -375            -375       16.613248
+  RUTIS2                 4             100             100       11.401754
+  RUTIS3                 4             624             624       14.142136
+  RUTIS4                 4             125             125       50.714889
+  RUTIS5                 4               1               1       23.769729
+  SCHUR_BLOCK            5         572.032         572.032        8.380931
+  SKEW_CIRCULANT         5          -10057          -10057       14.184499
+  SPLINE                 5        -2444.28        -2444.28       20.641705
+  STIRLING               5               1               1       67.919069
+  STRIPE                 5                            2112       14.832397
+  SUMMATION              5               1               1        3.872983
+  SWEET1                 6                    -2.04682e+07       70.199715
+  SWEET2                 6                         9562.52       30.143287
+  SWEET3                 6                    -5.40561e+07       73.423430
+  SWEET4                13                    -6.46348e+16      119.703919
+  SYLVESTER              5                        -219.525       12.509197
+  SYMM_RANDOM            5         19.7837         19.7837        6.343501
+  TOEPLITZ               5                        -3057.94       15.277434
+  TOEPLITZ_5DIAG         5                        -672.905       12.756175
+  TOEPLITZ_5DS          25                    -1.41078e+17       40.265121
+  TOEPLITZ_PDS           5                     0.000424591        2.825568
+  TOURNAMENT_RANDOM      5               0               0        4.472136
+  TRANSITION_RANDOM      5                      0.00486764        1.323312
+  TRENCH                 5                        -35.0147        6.998661
+  TRI_UPPER              5               1               1        9.132360
+  TRIS                   5         6656.04         6656.04       13.346160
+  TRIV                   5        -712.622        -712.622       11.189281
+  TRIW                   5               1               1        9.467840
+  UPSHIFT                5               1               1        2.236068
+  VAND1                  5          132934          132934      476.381705
+  VAND2                  5          132934          132934      476.381705
+  WATHEN             -----Not ready-----
+  WILK03                 3           9e-21           9e-21        1.392839
+  WILK04                 4     4.42923e-17     4.42923e-17        1.895450
+  WILK05                 5      3.7995e-15     3.79947e-15        1.514850
+  WILK12                12               1               1       53.591044
+  WILK20                20                     1.46801e+25      100.388446
+  WILK21                21    -4.15825e+12    -4.15825e+12       28.460499
+  WILSON                 4               1               1       30.545049
+  ZERO                   5               0              -0        0.000000
+  ZIELKE                 5                         446.457       13.709850
+
+TEST_EIGEN
+  Compute the Frobenius norm of the eigenvalue error:
+    A * X - X * LAMBDA
+  given a set of K eigenvectors X and eigenvalues LAMBDA.
+
+  Matrix title             N     K      ||A||          ||(A-Lambda*I)*X||
+
+  BODEWIG                  4     4         12.7279     9.17346e-15
+  CARRY                    5     5         1.41391     1.17642e-15
+  CHOW                     5     5          69.911     2.66885e-13
+  COMBIN                   5     5         50.3925     7.53644e-15
+  DIF2                     5     5          5.2915     1.07099e-15
+  EXCHANGE                 5     5         2.23607               0
+  IDEM_RANDOM              5     5         1.73205     8.45225e-16
+  IDENTITY                 5     5         2.23607               0
+  ILL3                     3     3         817.763     1.62356e-11
+  KMS                      5     5         2.32288      3.2055e-08
+  ONE                      5     5               5               0
+  ORTEGA                   5     5         248.221     6.32798e-13
+  OTO                      5     5          5.2915     1.07099e-15
+  PDS_RANDOM               5     5          1.4623       7.617e-16
+  PEI                      5     5         8.43801               0
+  RODMAN                   5     5         10.0896               0
+  ROSSER1                  8     8         2482.26     2.61994e-11
+  RUTIS1                   4     4         16.6132               0
+  RUTIS2                   4     4         11.4018               0
+  RUTIS5                   4     4         23.7697     1.46286e-14
+  WILK12                  12    12          53.591     1.01528e-07
+  WILSON                   4     4          30.545     2.48731e-14
+  ZERO                     5     5               0               0
+
+TEST_INVERSE
+  A = a test matrix of order N;
+  B = inverse as computed by a routine.
+  C = inverse as computed by R8MAT_INVERSE.
+
+  ||I-AB|| = Frobenius norm of I-A*B.
+  ||I-AC|| = Frobenius norm of I-A*C.
+  ||I-AB|| = Frobenius norm of I-A*B.
+
+  Matrix title             N           ||A||          ||C||      ||I-AC||        ||I-AB||
+
+  AEGERTER                 5         9.43398         1.77133     5.72869e-16      7.1089e-16
+  BAB                      5         14.4388        0.707481      6.2865e-16       6.776e-16
+  BERNSTEIN                5         25.2784         3.19613               0               0
+  BIS                      5         11.1283          4.0726               0     4.61511e-15
+  BODEWIG                  4         12.7279        0.683062      7.1575e-16     7.08784e-16
+  BOOTHROYD                5          886.71          886.71     1.92659e-11               0
+  BORDERBAND               5         2.76699         6.80053               0               0
+  CARRY                    5         1.41391         3126.49     3.06614e-13     1.06315e-13
+  CAUCHY                   5         8.73726          193064     7.02387e-11     2.15883e-10
+  CHEBY_T                  5         12.6886         1.87916               0               0
+  CHEBY_U                  5         22.4277         1.22793               0               0
+  CHEBY_VAN2               5         2.17945             2.5     4.62778e-16     5.91396e-16
+  CHEBY_VAN3               5         3.87298         1.34164     9.73821e-16     6.57403e-16
+  CHOW                     5          69.911        0.352262     1.32385e-15     2.13752e-15
+  CIRCULANT                5         14.1845        0.402549     7.67963e-16      6.5861e-16
+  CIRCULANT2               5         16.5831        0.635959     9.22566e-16     1.49288e-15
+  CLEMENT1                 6         10.4881         2.54209               0               0
+  CLEMENT2                 6          8.3666         1.51731     6.47646e-16               0
+  CLEMENT3                 6         10.2215         2.85956     1.79073e-15     1.79018e-15
+  COMBIN                   5         50.3925        0.909309     4.17774e-15     2.87803e-15
+  COMPANION                5               7           2.848               0     4.44089e-16
+  COMPLEX_I                2         1.41421         1.41421               0               0
+  CONEX1                   4         7.63937         5.36407               0               0
+  CONEX2                   3         2.65381         3.51319               0               0
+  CONEX3                   5         3.87298         10.8167               0               0
+  CONFERENCE               6         5.47723         1.09545     7.75668e-16               0
+  DAUB2                    4               2               2               0     8.88178e-16
+  DAUB4                    8         2.82843         2.82843     2.69133e-16     2.26448e-15
+  DAUB6                   12          3.4641          3.4641     1.01953e-15     1.57726e-15
+  DAUB8                   16               4               4     1.70404e-15     4.70844e-15
+  DAUB10                  20         4.47214         4.47214     1.68801e-15     8.75081e-15
+  DAUB12                  24         4.89898         4.89898     2.19403e-15     1.95459e-14
+  DIAGONAL                 5          6.3435         2.14773               0               0
+  DIF2                     5          5.2915         3.91933     1.04148e-15     6.86635e-16
+  DOWNSHIFT                5         2.23607         2.23607               0               0
+  EULERIAN                 5         77.2981         784.774     2.54716e-13               0
+  EXCHANGE                 5         2.23607         2.23607               0               0
+  FIBONACCI2               5               3          3.4641               0               0
+  FIBONACCI3               5         3.60555         1.58114     1.57009e-16               0
+  FIEDLER                  7         30.1171         3.19343     1.02768e-14     6.36935e-15
+  FORSYTHE                 5         21.6712        0.235176     2.22209e-16     9.18185e-18
+  FOURIER_COSINE           5         2.23607         2.23607     1.15085e-15     9.60078e-16
+  FOURIER_SINE             5         2.23607         2.23607     7.46826e-16     1.75717e-15
+  FRANK                    5          11.619          59.439     5.19793e-14               0
+  GFPP                     5         3.07848         2.17286      5.1254e-16     6.08727e-16
+  GIVENS                   5         20.6155         2.73861               0               0
+  GK316                    5         9.43398         1.77133     5.72869e-16      7.1089e-16
+  GK323                    5              10         2.30489               0               0
+  GK324                    5         11.4315         5.39001     2.61554e-15     4.40186e-15
+  HANOWA                   8         7.77056         1.65793     3.15243e-16     6.28037e-16
+  HARMAN                   8         5.05359         14.6831     4.64392e-15     1.01653e-14
+  HARTLEY                  5               5               1     9.67571e-16     2.75896e-15
+  HELMERT                  5         2.23607         2.23607     4.85723e-16     7.58596e-16
+  HELMERT2                 5         2.23607         2.23607     7.22998e-16     2.99599e-16
+  HERMITE                  5         54.1941         1.80818               0               0
+  HERNDON                  5         1.77133         9.43398       1.113e-15      7.1089e-16
+  HILBERT                  5         1.58091          304160     8.65244e-12     7.27596e-12
+  HOUSEHOLDER              5         2.23607         2.23607     1.10153e-15      7.0116e-16
+  IDENTITY                 5         2.23607         2.23607               0               0
+  ILL3                     3         817.763         337.323     1.58731e-11               0
+  INTEGRATION              6         3.61716         4.93612               0     5.32444e-16
+  INVOL                    5         1942.46         1942.46      5.2446e-11     7.27596e-12
+  JORDAN                   6         5.83438         1.22257     2.08167e-17     4.85723e-17
+  KAHAN                    5         1.80785         5.41586               0     1.66533e-16
+  KERSHAW                  4         8.24621         8.24621     3.55271e-15               0
+  KERSHAWTRI               5         8.73155        0.697502     7.76767e-16     7.72264e-16
+  KMS                      5         41.6571         3.11453     7.00518e-15     6.93334e-15
+  LAGUERRE                 5         6.85376          202.65     2.98979e-14               0
+  LEGENDRE                 5         6.80762         1.86931               0     3.14018e-16
+  LEHMER                   5         3.28041          7.7202     1.72652e-15     1.41744e-15
+  LIETZKE                  5         18.0278          2.3863      3.3605e-15     6.95553e-16
+  LOTKIN                   5         2.45676          242794     1.70489e-11               0
+  JORDAN                   5         19.8746         4.65188      2.7555e-15               0
+  MILNES                   5         11.4315         5.39001     2.61554e-15     4.40186e-15
+  MINIJ                    5         12.4499               5               0               0
+  MOLER1                   5         47.5848         75.4092     1.48004e-13     1.56584e-13
+  MOLER3                   5         8.66025         115.659               0               0
+  ORTEGA                   5         248.221         81.9688     7.57542e-13     2.26134e-12
+  ORTH_SYMM                5         2.23607         2.23607     1.23481e-15     2.20932e-15
+  OTO                      5          5.2915         3.91933     1.04148e-15     6.86635e-16
+  PARTER                   5         6.34077        0.943311     7.34737e-16     5.55112e-17
+  PASCAL1                  5         9.94987         9.94987               0               0
+  PASCAL2                  5         92.4608         92.4608               0               0
+  PASCAL3                  5         122.629         122.629     2.84983e-13     9.01578e-14
+  PDS_RANDOM               5          1.4623         5.69873       8.973e-16     4.51699e-15
+  PEI                      5         8.43801        0.919639     5.94643e-16     1.08211e-15
+  PERMUTATION_RANDOM       5         2.23607         2.23607               0               0
+  PLU                      5         139.254        0.121172     1.56879e-15     1.40023e-15
+  RIS                      5         3.17039         1.88662     7.08478e-16     8.37173e-17
+  RODMAN                   5         12.7201        0.535369     5.93346e-16     1.12127e-15
+  RUTIS1                   4         16.6132         1.04137     1.74485e-15     1.05471e-15
+  RUTIS2                   4         11.4018         1.14018     5.81544e-16     6.83824e-16
+  RUTIS3                   4         14.1421        0.577813      7.5758e-16     5.92697e-16
+  RUTIS4                   5          59.127         51.9905     2.48423e-13     3.36548e-13
+  RUTIS5                   4         23.7697         1871.74     4.03548e-12               0
+  SCHUR_BLOCK              5         8.38093        0.658257     9.61481e-17     7.85046e-17
+  SPLINE                   5         20.6417        0.986078     6.33324e-16     9.67194e-16
+  STIRLING                 5         67.9191           32.45     2.85044e-14               0
+  SUMMATION                5         3.87298               3               0               0
+  TRI_UPPER                5         9.13236         165.079               0               0
+  TRIS                     5         13.3462        0.395111     4.01737e-16     6.23883e-16
+  TRIV                     5         11.1893         1.10907     1.80091e-15     9.89756e-16
+  TRIW                     5         9.46784         469.955               0               0
+  UPSHIFT                  5         2.23607         2.23607               0               0
+  VAND1                    5         476.382         1.34131     2.20927e-14     7.58512e-15
+  VAND2                    5         476.382         1.34131     1.17377e-13     1.15096e-14
+  WILK03                   3         1.39284     1.78816e+10               0               0
+  WILK04                   4         1.89545     1.15398e+16     9.64303e-05         10.0957
+  WILK05                   5         1.51485      3.0639e+06     2.98752e-10     1.02452e-09
+  WILK21                  21         28.4605         4.30755     1.49579e-15     3.82082e-15
+  WILSON                   4          30.545         98.5292     1.70382e-13               0
+
+TEST_NULL
+  A = a test matrix of order M by N
+  x = an N vector, candidate for a null vector.
+
+  ||A|| = Frobenius norm of A.
+  ||x|| = L2 norm of x.
+  ||A*x||/||x|| = L2 norm of A*x over L2 norm of x.
+
+  Matrix title	           M     N      ||A||            ||x||        ||A*x||/||x||
+
+  ARCHIMEDES               7     8          93.397     1.87697e+07               0
+  CHEBY_DIFF1              5     5         13.4722         2.23607     6.49741e-16
+  CREATION                 5     5         5.47723               1               0
+  DIF1                     5     5         2.82843               1               1
+  DIF1CYCLIC               5     5         3.16228         2.23607               0
+  DIF2CYCLIC               5     5         5.47723         2.23607               0
+  EBERLEIN (left)          5     5         18.0665         2.23607     5.61733e-16
+  FIBONACCI1               5     5         96.9208         1.73205               0
+  LAUCHLI (left)           6     5         6.64831         3.58329               0
+  LINE_ADJ                 7     7          3.4641               2               0
+  MOLER2                   5     5          101035          1016.3               0
+  NEUMANN                 25    25         23.2379               5               0
+  ONE                      5     5               5         1.41421               0
+  RING_ADJ                12    12         4.89898          3.4641               0
+  ROSSER1                  8     8         2482.26         22.3607               0
+  ZERO                     5     5               0         2.23607               0
+
+TEST_PLU
+  A = a test matrix of order M by N
+  P, L, U are the PLU factors.
+
+  ||A|| = Frobenius norm of A.
+  ||A-PLU|| = Frobenius norm of A-P*L*U.
+
+  Matrix title	           M     N      ||A||            ||A-PLU||
+
+  BODEWIG                  4     4         12.7279      4.1243e-15
+  BORDERBAND               5     5         2.76699               0
+  DIF2                     5     5          5.2915               0
+  GFPP                     5     5         7.57628     1.58882e-14
+  GIVENS                   5     5         20.6155               0
+  KMS                      5     5         41.6571     1.31968e-13
+  MAXIJ                    5     5         19.8746               0
+  MINIJ                    5     5         12.4499               0
+  MOLER1                   5     5         47.5848               0
+  MOLER3                   5     5         8.66025               0
+  OTO                      5     5          5.2915               0
+  PASCAL2                  5     5         92.4608               0
+  WILSON                   4     4          30.545     7.32411e-15
+
+TEST_SOLUTION
+  Compute the Frobenius norm of the solution error:
+    A * X - B
+  given MxN matrix A, NxK solution X, MxK right hand side B.
+
+  Matrix title             M     N     K      ||A||         ||A*X-B||
+
+  BODEWIG                  4     4     1         12.7279               0
+  DIF2                    10    10     2         7.61577               0
+  FRANK                   10    10     2         38.6652               0
+  POISSON                 20    20     1         19.5448               0
+  WILK03                   3     3     1         1.39284      6.7435e-07
+  WILK04                   4     4     1         1.89545     1.29463e+16
+  WILSON                   4     4     1          30.545               0
+
+TEST_MAT_PRB
+  Normal end of execution.
+
+08 November 2012 03:58:01 PM

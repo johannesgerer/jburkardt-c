@@ -1,0 +1,21 @@
+  Process 2 says 'Hello, world!'
+  Process 3 says 'Hello, world!'
+  Process 1 says 'Hello, world!'
+10 January 2012 01:42:42 PM
+
+COMMUNICATOR_MPI - Master process:
+  C/MPI version
+  An MPI example program.
+
+  The number of processes is 4.
+
+  Process 0 says 'Hello, world!'
+  Number of processes in even communicator = 2
+  Sum of global ID's in even communicator  = 2
+  Number of processes in odd communicator = 2
+  Sum of global ID's in odd communicator  = 4
+
+COMMUNICATOR_MPI:
+  Normal end of execution.
+
+10 January 2012 01:42:42 PM

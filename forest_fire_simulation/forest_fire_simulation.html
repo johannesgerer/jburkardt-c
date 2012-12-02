@@ -1,0 +1,206 @@
+<html>
+
+  <head>
+    <title>
+      FOREST_FIRE_SIMULATION - An X Window Forest Fire Simulation
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      FOREST_FIRE_SIMULATION <br> An X Window Forest Fire Simulation
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>FOREST_FIRE_SIMULATION</b>
+      is a C program which
+      simulates forest fires, by Michael Creutz.
+    </p>
+
+    <p>
+      The program simulates a forest in which fires and regrowth occur, using
+      X Windows to display the current status of the forest.
+    </p>
+
+    <p>
+      <b>FOREST_FIRE_SIMULATION</b> models forest fires.  On each site of a lattice is either
+      nothing, a tree, or a fire.  In one time step a fire spreads to adjacent
+      trees and leaves an empty space.  Trees are born in a random
+      manner with a probability of approximately 1/32 per time step.
+      If no fires are active, one is started at a random location.
+      Fires can also be started with the mouse button.
+    </p>
+
+    <p>
+      An Amiga version of this program  was published in the December 1993
+      issue of "JUMPDISK".
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/brownian_motion_simulation/brownian_motion_simulation.html">
+      BROWNIAN_MOTION_SIMULATION</a>,
+      a C library which
+      simulates Brownian motion in an M-dimensional region.
+    </p>
+
+    <p>
+      <a href = "../../c_src/duel_simulation/duel_simulation.html">
+      DUEL_SIMULATION</a>,
+      a C program which
+      simulates N repetitions of a duel between two players, each of
+      whom has a known firing accuracy.
+    </p>
+
+    <p>
+      <a href = "../../c_src/fair_dice_simulation/fair_dice_simulation.html">
+      FAIR_DICE_SIMULATION</a>,
+      a C program which
+      simulates N tosses of 2 dice, making a histogram of the results.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ising_2d_simulation/ising_2d_simulation.html">
+      ISING_2D_SIMULATION</a>,
+      a C program which
+      carries out a Monte Carlo simulation of an Ising model.
+      a 2D array of positive and negative charges,
+      each of which is likely to "flip" to be in agreement with neighbors.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mandelbrot/mandelbrot.html">
+      MANDELBROT</a>,
+      a C program which
+      generates an ASCII PPM image of the Mandelbrot set;
+    </p>
+
+    <p>
+      <a href = "../../c_src/poisson_simulation/poisson_simulation.html">
+      POISSON_SIMULATION</a>,
+      a C library which
+      simulates a Poisson process in which events randomly occur with an
+      average waiting time of Lambda.
+    </p>
+
+    <p>
+      <a href = "../../c_src/reactor_simulation/reactor_simulation.html">
+      REACTOR_SIMULATION</a>,
+      a C program which
+      a simple Monte Carlo simulation of the shielding effect of a slab
+      of a certain thickness in front of a neutron source.  This program was
+      provided as an example with the book "Numerical Methods and Software."
+    </p>
+
+    <p>
+      <a href = "../../c_src/showme/showme.html">
+      SHOWME</a>,
+      a C program which
+      uses the X Window library to display triangulatons.
+    </p>
+
+    <p>
+      <a href = "../../c_src/string_simulation/string_simulation.html">
+      STRING_SIMULATION</a>,
+      a C program which
+      simulates the behavior of a vibrating string.
+    </p>
+
+    <p>
+      <a href = "../../c_src/three_body_simulation/three_body_simulation.html">
+      THREE_BODY_SIMULATION</a>,
+      a C program which
+      simulates the behavior of three planets, constrained to lie in a plane,
+      and moving under the influence of gravity,
+      by Walter Gander and Jiri Hrebicek.
+    </p>
+
+    <p>
+      <a href = "../../c_src/xboids/xboids.html">
+      XBOIDS</a>,
+      a C program which
+      simulates the behavior of a flying flock of animals,
+      displaying the results using X Windows,
+      by Conrad Parker.
+    </p>
+
+    <p>
+      <a href = "../../c_src/xising/xising.html">
+      XISING</a>,
+      a C program which
+      simulates the variation in ferromagnetism in a material,
+      displaying the results using X Windows.
+    </p>
+
+    <p>
+      <a href = "../../c_src/xwaves/xwaves.html">
+      XWAVES</a>,
+      a C program which
+      simulates the behavior of solution of certain forms of the wave equation,
+      displaying the results using X Windows.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/x_window/x_window.html">
+      X_WINDOW</a>,
+      C++ examples which
+      demonstrate some simple uses of the X Window library.
+    </p>
+
+    <p>
+      <a href = "../../examples/x_window_display/x_window_display.html">
+      X_WINDOW_DISPLAY</a>,
+      a discussion of the issues involved when an X Window program
+      on a remote machine needs to know how to get graphics information
+      back to your local display.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Michael Creutz
+    </p>
+
+    <h3 align = "center">
+      Source code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "forest_fire_simulation.c">forest_fire_simulation.c</a>, the source code;
+        <li>
+          <a href = "forest_fire_simulation.sh">forest_fire_simulation.sh</a>
+          commands to compile, link and load the source code;
+        </li>
+        <li>
+          <a href = "forest_fire_simulation.png">forest_fire_simulation.png</a>
+          a snapshot of the model;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 23 March 2008.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

@@ -1,0 +1,272 @@
+  <head>
+    <title>
+      LIFE_OPENGL - Conway's Game of Life, OpenGL Implementation
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      LIFE_OPENGL <br> Conway's Game of Life, OpenGL Implementation
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>LIFE_OPENGL</b> 
+      is a C program which 
+      implements John Conway's Game of Life, presenting the evolution
+      graphically, using OpenGL.
+    </p>
+
+    <h3 align = "center">
+      OpenGL on Macintosh OS X
+    </h3>
+
+    <p>
+      <b>OpenGL</b> ships with OS9 and OSX for the Macintosh.  You can obtain
+      the latest software version on 
+      <a href = "http://www.apple.com/opengl/">the Apple OpenGL web site</a>.
+    </p>
+
+    <p>
+      Note that the source code and compilation script have been adapted for
+      use on a Macintosh running OS X.  
+    </p>
+
+    <p>
+      For that reason, the include file references have been changed from:
+      <pre><code>
+        # include &lt;GL/gl.h&gt;
+        # include &lt;GL/glu.h&gt;
+        # include &lt;GL/glut.h&gt;
+      </code></pre>
+      to:
+      <pre><code>
+        # include &lt;OpenGL/gl.h&gt;
+        # include &lt;OpenGL/glu.h&gt;
+        # include &lt;GLUT/glut.h&gt;
+      </code></pre>
+    </p>
+
+    <p>
+      The compilation statement, which might ordinarily be
+      <pre><code>
+        gcc life_opengl.c -lGL -lGLU -lglut 
+      </code></pre>
+      was modified to:
+      <pre><code>
+        gcc life_opengl.c -framework OpenGL -framework GLUT
+      </code></pre>
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>LIFE_OPENGL</b> is available in
+      <a href = "../../c_src/life_opengl/life_opengl.html">a C version</a> and
+      <a href = "../../cpp_src/life_opengl/life_opengl.html">a C++ version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../cpp_src/caustic_opengl/caustic_opengl.html">
+      CAUSTIC_OPENGL</a>, 
+      a C++ program which
+      computes a caustic curve and displays it using OpenGL.
+    </p>
+
+    <p>
+      <a href = "../../c_src/flood_opengl/flood_opengl.html">
+      FLOOD_OPENGL</a>,
+      a C program which
+      allows a user to select a region and flood it with color,
+      using OpenGL, by Art Wetzel.
+    </p>
+
+    <p>
+      <a href = "../../c_src/forest_fire_simulation/forest_fire_simulation.html">
+      FOREST_FIRE_SIMULATION</a>, 
+      a C program which
+      models the occurrence of fires in a forest, and displays the status
+      of the forest using X Windows, by Michael Creutz.
+    </p>
+
+    <p>
+      <a href = "../../c_src/lights_out_opengl/lights_out_opengl.html">
+      LIGHTS_OUT_OPENGL</a>,
+      a C program which
+      sets up a Lights Out game and allows the user to solve it,
+      using the OpenGL graphics window.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/lissajous_opengl/lissajous_opengl.html">
+      LISSAJOUS_OPENGL</a>, 
+      a C++ program which 
+      computes a Lissajous figure and displays it using OpenGL.
+    </p>
+
+    <p>
+      <a href = "../../f_src/mandelbrot/mandelbrot.html">
+      MANDELBROT</a>, 
+      a FORTRAN90 program which
+      generates an ASCII PPM image of the Mandelbrot set;
+    </p>
+
+    <p>
+      <a href = "../../c_src/opengl/opengl.html">
+      OPENGL</a>,
+      C programs which
+      demonstrate the use of OpenGL for graphics applications.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/polygonal_surface_display_opengl/polygonal_surface_display_opengl.html">
+      POLYGONAL_SURFACE_DISPLAY_OPENGL</a>,
+      a C++ program which
+      displays a surface in 3D described as a set of polygons, using OpenGL.
+    </p>
+
+    <p>
+      <a href = "../../c_src/xising/xising.html">
+      XISING</a>, 
+      a C program which
+      models the variations in ferromagnetism in a material, displaying
+      the results using X Windows.
+    </p>
+
+    <p>
+      <a href = "../../c_src/xwaves/xwaves.html">
+      XWAVES</a>, 
+      a C program which
+      simulates the behavior of solutions of certain forms of the wave equation, displaying
+      the results using X Windows.
+    </p>
+
+    <p> 
+      <a href = "../../cpp_src/xy_display_opengl/xy_display_opengl.html">
+      XY_DISPLAY_OPENGL</a>,
+      a C++ program which
+      reads an XY file of 2D point coordinates, and displays
+      an image of those points using OpenGL.
+    </p>
+
+    <p> 
+      <a href = "../../cpp_src/xyz_display_opengl/xyz_display_opengl.html">
+      XYZ_DISPLAY_OPENGL</a>,
+      a C++ program which
+      reads an XYZ file of 3D point coordinates, and displays
+      an image of those points using OpenGL.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Simon Green
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          Martin Gardner,<br>
+          Mathematical Games:
+          The Fantastic Combinations of John Conway's new solitaire game "Life",<br>
+          Scientific American,<br>
+          Volume 223, Number 4, October 1970, pages 120-123.
+        </li>
+        <li>
+          Mason Woo, Jackie Neider, Tom Davis,<br>
+          OpenGL Programming Guide,<br>
+          Addison-Wesley, 1997,<br>
+          ISBN: 0-201-46138-2,<br>
+          LC: T385.N435.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "life_opengl.c">life_opengl.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "life_opengl.sh">life_opengl.sh</a>, 
+          commands to compile and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>CHECKERRORS</b> ???
+        </li>
+        <li>
+          <b>DRAWPATTERN</b> ???
+        </li>
+        <li>
+          <b>DRAWQUAD</b> ???
+        </li>
+        <li>
+          <b>GENERATION</b> computes the next generation.
+        </li>
+        <li>
+          <b>DISPLAY</b> ???.
+        </li>
+        <li>
+          <b>IDLE</b> ???.
+        </li>
+        <li>
+          <b>RESHAPE</b> ???.
+        </li>
+        <li>
+          <b>KEY</b> ???.
+        </li>
+        <li>
+          <b>INITGL</b> initializes OpenGL.
+        </li>
+        <li>
+          <b>MAIN</b> is the main program for LIFE_OPENGL.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 20 March 2008.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>
+

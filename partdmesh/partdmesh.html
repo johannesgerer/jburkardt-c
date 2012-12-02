@@ -1,0 +1,291 @@
+<html>
+
+  <head>
+    <title>
+      PARTDMESH - Partition a Finite Element Mesh
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      PARTDMESH <br> Partition a Finite Element Mesh
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>PARTDMESH</b> 
+      is a C program which 
+      can partition the elements
+      of a finite element mesh.  
+    </p>
+
+    <p>
+      The program attempts to partition the mesh in such a way
+      that each part has roughly the same number of elements, and so
+      that the number of "interfaces" between parts is minimized.
+      Such a partition can be very useful when parallel processing
+      is to be applied.
+    </p>
+
+    <p>
+      The partition is done on the <i>elements</i> of the finite element mesh;
+      however, this naturally induces a pseudo-partition of the nodes.
+      A subset of the nodes will be associated with the elements belonging
+      to each part of the partition - however, there will of course be
+      some nodes that belong to more than one "part" of the pseudo-partition
+      of the nodes.  (This is not really a deep idea; it's just important
+      to realize that while each element is in exactly one part, some nodes
+      may be in several parts).  
+    </p>
+
+    <p>
+      <b>PARTDMESH</b> will produce both a list of the elements belonging
+      to each part of the partition, and a list of the nodes belonging
+      to each associated part of the pseudopartition of the nodes. 
+    </p>
+
+    <p>
+      The mesh file is stored in the <b>METIS MESH</b> format.
+    </p>
+
+    <p>
+      <b>PARTDMESH</b> works with the dual graph of the mesh.  Generally,
+      this is slower than the corresponding program <b>PARTNMESH</b>,
+      which works with the nodal graph of the mesh.  Either program
+      may be used to get equivalent results.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>partdmesh</b> <i>mesh_file</i> <i>nparts</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>mesh_file</i> contains the mesh information
+        </li>
+        <li>
+          <i>nparts</i> is the number of processors and graph parts.
+        </li>
+      </ul>
+      reads the mesh information in <i>mesh_file</i>,
+      assigns each node and element to processor 0 through <i>nparts-1</i>, 
+      and writes the partitionings to the file
+      <i>mesh_file.npart.Nparts</i> for the nodes and
+      <i>mesh_file.epart.Nparts</i> for the elements.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      <b>PARTDMESH</b> is part of the METIS family of Multilevel Partitioning
+      Algorithms.  It was produced by the lab of George Karypis, who states
+      <blockquote><i>
+        "It is our general policy to make these tools available to the research 
+        community for use in their own research and/or non-commercial applications."
+      </i></blockquote>
+    </p>
+
+    <p>
+      For further information on licensing and permissions, refer to
+      <a href = "http://www.cs.umn.edu/~metis">
+                 http://www.cs.umn.edu/~metis</a>,
+      the METIS home page.
+    </p>
+
+    <h3 align = "center">
+      Related Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/graphchk/graphchk.html">
+      GRAPHCHK</a>,
+      a C program which 
+      reads a METIS GRAPH 
+      file and verifies that it has the proper format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/kmetis/kmetis.html">
+      KMETIS</a>, 
+      a C program which
+      partitions the nodes of a graph.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2nodal/mesh2nodal.html">
+      MESH2NODAL</a>,
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by <b>KMETIS</b> or <b>PMETIS</b>.
+    </p>
+
+    <p>
+      <a href = "../../c_src/metis/metis.html">
+      METIS</a>,
+      a C library which 
+      partitions the nodes
+      of a graph, or the elements of a finite element mesh, or
+      reorders the variables in a sparse matrix.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_graph/metis_graph.html">
+      METIS_GRAPH</a>,
+      a data directory which
+      contains examples of
+      the graph files used to describe a graph to the <b>METIS</b>
+      family of programs.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_mesh/metis_mesh.html">
+      METIS_MESH</a>,
+      a data directory which
+      contains examples of
+      the mesh files used to describe a finite element mesh 
+      to the <b>METIS</b> family of programs.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mpi/mpi.html">
+      MPI</a>,
+      a message passing interface that allows programs to
+      be written for execution on parallel computers.
+    </p>
+
+    <p>
+      <a href = "../../f_src/neighbors_to_metis_graph/neighbors_to_metis_graph.html">
+      NEIGHBORS_TO_METIS_GRAPH</a>,
+      a FORTRAN90 program which
+      reads information describing the adjacency
+      relations in a tet mesh, and writes out essentially the same information,
+      but in a format that METIS will accept.
+    </p>
+
+    <p>
+      <a href = "../../c_src/oemetis/oemetis.html">
+      OEMETIS</a>,
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/onmetis/onmetis.html">
+      ONMETIS</a>,
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partnmesh/partnmesh.html">
+      PARTNMESH</a>,
+      a C program which
+      partitions the elements of a finite element mesh, by working
+      with the nodal graph of the mesh.
+    </p>
+
+    <p>
+      <a href = "../../c_src/pmetis/pmetis.html">
+      PMETIS</a>,
+      a C program which
+      partitions the nodes of a graph.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          METIS, a Software Package for Partitioning Unstructured Graphs
+          and Computing Fill-Reduced Orderings of Sparse Matrices;
+        </li>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          A fast and high quality multilevel scheme for partitioning 
+          irregular graphs,<br>
+          SIAM Journal on Scientific Computing,<br>
+          Volume 20, Number 1, 1998, pages 359-392;
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "partdmesh.c">partdmesh.c</a>
+        </li>
+        <li>
+          <a href = "partdmesh.sh">partdmesh.sh</a>,
+          commands to compile the source code and create the library.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "../../data/metis_mesh/metis.mesh">metis.mesh</a>,
+          a sample finite element grid.
+        </li>
+        <li>
+          <a href = "metis.mesh.epart.8">metis.mesh.epart.8</a>,
+          the partition of elements into 8 parts.
+        </li>
+        <li>
+          <a href = "metis.mesh.npart.8">metis.mesh.npart.8</a>,
+          the (induced) partition of nodes into 8 parts (some nodes
+          will belong to more than one part).
+        </li>
+        <li>
+          <a href = "partdmesh_prb.sh">partdmesh_prb.sh</a>,
+          commands to compile, link, load and run the test problem.
+        </li>
+        <li>
+          <a href = "partdmesh_prb_output.txt">partdmesh_prb_output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 01 October 2008.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

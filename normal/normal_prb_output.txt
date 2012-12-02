@@ -1,0 +1,229 @@
+10 June 2010 10:00:19 AM
+
+NORMAL_PRB
+  C version
+  Test the NORMAL routines.
+
+TEST03
+  I4_NORMAL computes pseudonormal integers
+  with mean A and standard deviation B.
+
+  The mean A = 70.000000
+  The standard deviation B = 10.000000
+  The initial seed is 123456789
+
+         1        87
+         2        65
+         3        64
+         4        68
+         5        82
+         6        75
+         7        83
+         8        80
+         9        53
+        10        51
+
+TEST04
+  I8_NORMAL computes pseudonormal integers
+  with mean A and standard deviation B.
+
+  The mean A = 70.000000
+  The standard deviation B = 10.000000
+  The initial seed is 123456789
+
+         1        87
+         2        65
+         3        64
+         4        68
+         5        82
+         6        75
+         7        83
+         8        80
+         9        53
+        10        51
+
+TEST05
+  R4_NORMAL computes pseudonormal values
+  with mean A and standard deviation B.
+
+  The mean A = 10.000000
+  The standard deviation B = 2.000000
+  The initial seed is 123456789
+
+       1       13.358081
+       2        9.054463
+       3        8.867881
+       4        9.537752
+       5       12.425869
+       6       11.070074
+       7       12.538761
+       8       12.099085
+       9        6.667827
+      10        6.269544
+
+TEST06
+  R4_NORMAL_01 computes pseudonormal values
+  with mean 0 and standard deviation 1.
+
+  The initial seed is 123456789
+
+       1        1.679040
+       2       -0.472769
+       3       -0.566060
+       4       -0.231124
+       5        1.212934
+       6        0.535037
+       7        1.269381
+       8        1.049543
+       9       -1.666086
+      10       -1.865228
+
+TEST07
+  R8_NORMAL computes pseudonormal values
+  with mean A and standard deviation B.
+
+  The mean A = 10.000000
+  The standard deviation B = 2.000000
+  The initial seed is 123456789
+
+       1       13.358081
+       2        9.054462
+       3        8.867880
+       4        9.537752
+       5       12.425868
+       6       11.070074
+       7       12.538761
+       8       12.099085
+       9        6.667827
+      10        6.269545
+
+TEST08
+  R8_NORMAL_01 computes pseudonormal values
+  with mean 0 and standard deviation 1.
+
+  The initial seed is 123456789
+
+       1        1.679040
+       2       -0.472769
+       3       -0.566060
+       4       -0.231124
+       5        1.212934
+       6        0.535037
+       7        1.269381
+       8        1.049543
+       9       -1.666087
+      10       -1.865228
+
+TEST09
+  R8_NORMAL_01 computes pseudonormal values
+  with mean 0 and standard deviation 1.
+
+  Verify that we can change the seed
+  and get the desired results.
+
+  The initial seed is 123456789
+
+         I    Seed(in)   Seed(out)   R8_NORMAL_01
+
+         1     123456789     469049721        1.679040
+         2     469049721    2053676357       -0.472769
+         3    2053676357    1781357515       -0.566060
+         4    1781357515    1206231778       -0.231124
+         5    1206231778     891865166        1.212934
+
+  Resetting seed to repeat, after an ODD number of steps.
+
+         6     123456789     469049721        1.679040
+         7     469049721    2053676357       -0.472769
+         8    2053676357    1781357515       -0.566060
+         9    1781357515    1206231778       -0.231124
+        10    1206231778     891865166        1.212934
+
+  Resetting seed to repeat, after an EVEN number of steps.
+
+        11     123456789     469049721        1.679040
+        12     469049721    2053676357       -0.472769
+        13    2053676357    1781357515       -0.566060
+        14    1781357515    1206231778       -0.231124
+        15    1206231778     891865166        1.212934
+
+TEST10
+  R8_NORMAL_01 computes a sequence of normally distributed
+  pseudorandom numbers.
+
+  Initial SEED = 12345
+
+  First 10 values:
+
+       I         Input        Output   R8_NORMAL_01
+                  SEED          SEED
+
+       1         12345     207482415    1.088743
+       2     207482415    1790989824   -1.867793
+       3    1790989824    2035175616    0.319471
+       4    2035175616      77048696    0.073264
+       5      77048696      24794531    2.834141
+       6      24794531     109854999    0.943666
+       7     109854999    1644515420   -0.628978
+       8    1644515420    1256127050   -0.371602
+       9    1256127050    1963079340    0.089319
+      10    1963079340    1683198519   -0.414231
+
+  Now call R8_NORMAL_01 1000 times.
+
+  Average value = -0.027474
+  Expecting       0.000000
+
+  Variance =      0.991456
+  Expecting       1.000000
+
+TEST11
+  R8_NORMAL_01 computes pseudonormal values one at a time.
+  R8MAT_NORMAL_01_NEW computes a matrix of values.
+
+  For the same initial seed, the results should be identical,
+  but R8MAT_NORMAL_01_NEW might be faster.
+
+  Initial seed is 123456789
+
+      I       J      A[I,J]        B[I,J]
+                 (R8_NORMAL_01)  (R8MAT_NORMAL_01)
+
+       0       0      1.679040      1.679040
+       9       0     -1.865228     -1.865228
+      19       1     -0.275993     -0.275993
+      29       2      0.620309      0.620309
+      39       3     -0.384676     -0.384676
+      49       4     -2.869798     -2.869798
+      59       5      0.971005      0.971005
+      69       6     -0.287301     -0.287301
+      79       7     -1.905933     -1.905933
+      89       8     -0.827487     -0.827487
+      99       9     -1.108490     -1.108490
+
+TEST12
+  R8_NORMAL_01 computes pseudeonormal values one at a time.
+  R8VEC_NORMAL_01_NEW computes a vector of values.
+
+  For the same initial seed, the results should be identical,
+  but R8VEC_NORMAL_01_NEW might be faster.
+
+  Initial seed is 123456789
+
+      I      A[I]          B[I]
+         (R8_NORMAL_01)  (R8VEC_NORMAL_01_NEW)
+
+       1     -0.472769     -0.472769
+       2     -0.566060     -0.566060
+       3     -0.231124     -0.231124
+       4      1.212934      1.212934
+       5      0.535037      0.535037
+       6      1.269381      1.269381
+       7      1.049543      1.049543
+       8     -1.666087     -1.666087
+       9     -1.865228     -1.865228
+
+NORMAL_PRB
+  Normal end of execution.
+
+10 June 2010 10:00:19 AM

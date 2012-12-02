@@ -1,0 +1,168 @@
+07 November 2010 06:48:39 PM
+
+COMPLEX_NUMBERS
+  C version
+  Demonstrate complex number usage.
+
+TEST01
+  Declare a COMPLEX variable.
+  Assign value with an = statement.
+
+  Scalar A:
+
+  (1, 2)
+
+  Vector B:
+
+  (1, 2)
+  (3, 4)
+  (5, 6)
+
+  Array C:
+
+  (1, 0.1)  (1, 0.2)
+  (2, 0.1)  (2, 0.2)
+
+TEST02
+  Declare a COMPLEX variable.
+  Initialize value as part of the declaration.
+
+  Scalar A:
+
+  (1, 2)
+
+  Vector B:
+
+  (1, 2)
+  (3, 4)
+  (5, 6)
+
+  Array C:
+
+  (1, 0.1)  (1, 0.2)
+  (2, 0.1)  (2, 0.2)
+
+TEST03
+  Apply intrinsic functions to COMPLEX variables
+
+  ( complex ) I =      (             0,             1)
+  a =                  (             1,             2)
+  - a =                (            -1,            -2)
+  a + 3 =              (             4,             2)
+  a + (0,5) =          (             6,             2)
+  4 * a =              (             4,             8)
+  a / 8 =              (         0.125,          0.25)
+  a * a =              (            -3,             4)
+  cpow ( a, 2 ) =      (            -3,             4)
+  cpow ( 2, a ) =      (      0.366914,       1.96606)
+  cpow ( a, a ) =      (     -0.222517,      0.100709)
+  1/a =                (           0.2,          -0.4)
+
+  cabs(a) =                    2.23607
+  cacos(a) =           (       1.14372,      -1.52857)
+  cacosh(a) =          (       1.52857,       1.14372)
+  carg(a) =                    1.10715
+  casin(a) =           (      0.427079,       1.52857)
+  casinh(a) =          (       1.46935,       1.06344)
+  catan(a) =           (       1.33897,      0.402359)
+  catanh(a) =          (      0.173287,        1.1781)
+  ccos(a) =            (       2.03272,       -3.0519)
+  ccosh(a) =           (     -0.642148,       1.06861)
+  cexp(a) =            (       -1.1312,       2.47173)
+  cimag(a) =                         2
+  clog(a) =            (      0.804719,       1.10715)
+  (complex)(1) =       (             1,             0)
+  (complex)(4.0) =     (             4,             0)
+  conj(a) =            (             1,            -2)
+  cproj(a) =           (             1,             2)
+  creal(a) =                         1
+  csin(a) =            (       3.16578,        1.9596)
+  csinh(a) =           (     -0.489056,       1.40312)
+  csqrt(a) =           (       1.27202,      0.786151)
+  ctan(a) =            (     0.0338128,       1.01479)
+  ctanh(a) =           (       1.16674,     -0.243458)
+  (int)(a) =                     1
+
+TEST04
+  Declare a DOUBLE COMPLEX variable.
+  Assign value with an = statement.
+
+  Scalar A:
+
+  (1, 2)
+
+  Vector B:
+
+  (1, 2)
+  (3, 4)
+  (5, 6)
+
+  Array C:
+
+  (1, 0.1)  (1, 0.2)
+  (2, 0.1)  (2, 0.2)
+
+TEST05
+  Declare a DOUBLE COMPLEX variable.
+  Initialize value as part of the declaration.
+
+  Scalar A:
+
+  (1, 2)
+
+  Vector B:
+
+  (1, 2)
+  (3, 4)
+  (5, 6)
+
+  Array C:
+
+  (1, 0.1)  (1, 0.2)
+  (2, 0.1)  (2, 0.2)
+
+TEST06
+  Apply intrinsic functions to DOUBLE COMPLEX variables
+
+  ( double complex ) I =  (             0,             1)
+  a =                     (             1,             2)
+  - a =                   (            -1,            -2)
+  a + 3 =                 (             4,             2)
+  a + (0,5) =             (             6,             2)
+  4 * a =                 (             4,             8)
+  a / 8 =                 (         0.125,          0.25)
+  a * a =                 (            -3,             4)
+  cpow ( a, 2 ) =         (            -3,             4)
+  cpow ( 2, a ) =         (      0.366914,       1.96606)
+  cpow ( a, a ) =         (     -0.222517,      0.100709)
+  1/a =                   (           0.2,          -0.4)
+
+  cabs(a) =                       2.23607
+  cacos(a) =              (       1.14372,      -1.52857)
+  cacosh(a) =             (       1.52857,       1.14372)
+  carg(a) =                       1.10715
+  casin(a) =              (      0.427079,       1.52857)
+  casinh(a) =             (       1.46935,       1.06344)
+  catan(a) =              (       1.33897,      0.402359)
+  catanh(a) =             (      0.173287,        1.1781)
+  ccos(a) =               (       2.03272,       -3.0519)
+  ccosh(a) =              (     -0.642148,       1.06861)
+  cexp(a) =               (       -1.1312,       2.47173)
+  cimag(a) =                            2
+  clog(a) =               (      0.804719,       1.10715)
+  (double complex)(1) =   (             1,             0)
+  (double complex)(4.0) = (             4,             0)
+  conj(a) =               (             1,            -2)
+  cproj(a) =              (             1,             2)
+  creal(a) =                            1
+  csin(a) =               (       3.16578,        1.9596)
+  csinh(a) =              (     -0.489056,       1.40312)
+  csqrt(a) =              (       1.27202,      0.786151)
+  ctan(a) =               (     0.0338128,       1.01479)
+  ctanh(a) =              (       1.16674,     -0.243458)
+  (int)(a) =                        1
+
+COMPLEX_NUMBERS
+  Normal end of execution.
+
+07 November 2010 06:48:39 PM

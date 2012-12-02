@@ -1,0 +1,167 @@
+<html>
+
+  <head>
+    <title>
+      F77SPLIT - Split FORTRAN77 Source Files
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      F77SPLIT <br> Split FORTRAN77 Source Files
+    </h1>
+
+    <hr>
+
+    <P>
+      <b>F77SPLIT</b>
+      is a C program which 
+      reads a FORTRAN77 source code, and writes each module to a separate file.  A module 
+      is considered to be a FORTRAN BLOCKDATA, FUNCTION, MODULE, 
+      PROGRAM or SUBROUTINE.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>f77split</b> <i>myprog.f</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>myprog.f</i> is the file to be split.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../cpp_src/catalog/catalog.html">
+      CATALOG</a>,
+      a C++ program which
+      reads a C, C++, FORTRAN77 or FORTRAN90 program and prints every line 
+      that begins with a special index tag.  If the program has been marked
+      up expecting this convention, it is a handy way of making a table
+      of contents of a program file.
+    </p>
+
+    <p>
+      <a href = "../../f_src/extract/extract.html">
+      EXTRACT</a>,
+      a FORTRAN90 program which
+      extracts a subroutine, function or module by name from a 
+      FORTRAN file.
+    </p>
+
+    <p>
+      <a href = "../../f_src/f90split/f90split.html">
+      F90SPLIT</a>,
+      a FORTRAN90 program which
+      can split a FORTRAN90 file, assigning each subroutine
+      or function to a separate file.
+    </p>
+
+    <p>
+      <a href = "../../f_src/fixcon/fixcon.html">
+      FIXCON</a>,
+      a FORTRAN90 program which
+      reads a FORTRAN file using FORTRAN77 continuation statements,
+      and makes a copy that uses FORTRAN90 continuation instead.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/htmlindex/htmlindex.html">
+      HTMLINDEX</a>,
+      a C++ program which
+      reads a C, C++, FORTRAN77, or FORTRAN90 file and writes a skeleton HTML page describing it,
+      assuming that each subroutine includes a '!!' or 'cc' description line.
+    </p>
+
+    <p>
+      <a href = "../../f_src/include_files/include_files.html">
+      INCLUDE_FILES</a>,
+      a FORTRAN90 program which
+      reads a FORTRAN program with INCLUDE statements, and makes a copy
+      with the indicated files included.
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "f77split.c">f77split.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "f77split.sh">f77split.sh</a>, 
+          commands to compile and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "f77split_prb.f">f77split_prb.f</a>, 
+          a sample file to split up;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MAIN</b> is the main program for F77SPLIT.
+        </li>
+        <li>
+          <b>COMPARE</b> compares two strings for equality.  
+        </li>
+        <li>
+          <b>ENDCARD</b> checks to see whether the current record is an END statement.
+        </li>
+        <li>
+          <b>GET_NAME</b> creates a file name based on the name of the current module.
+        </li>
+        <li>
+          <b>SHORTEN_LINE</b> removes characters beyond column 72, and trailing blanks.
+        </li>
+        <li>
+          <b>SPLIT_FILE</b> splits up the modules contained in a single file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 30 March 2010.
+    </i>
+
+    <!-- John Burkardt -->
+ 
+  </body>
+
+</html>
+

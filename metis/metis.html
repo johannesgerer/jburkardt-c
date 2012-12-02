@@ -1,0 +1,470 @@
+<html>
+
+  <head>
+    <title>
+      METIS - Graph Partioning, Mesh Partitioning, Matrix Reordering
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      METIS <br> Graph Partioning, Mesh Partitioning, Matrix Reordering
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>METIS</b> 
+      is a C program which 
+      can partition a graph,
+      partition a finite element mesh, or reorder a sparse matrix.
+    </p>
+
+    <p>
+      Typically, the graph or mesh is being partitioned so that a
+      computational task can be correspondingly divided up among
+      a number of processors for parallel computing.  Thus, it is
+      important that each part of the partition have roughly the
+      same number of elements, and that "connections" between
+      distinct partitions be limited, as much as possible, to
+      reduce the amount of interprocess communication necessary.
+    </p>
+
+    <p>
+      The reordering of a sparse matrix is done in order to 
+      control the size of the active front, and to reduce the
+      number of fill-in entries created during elimination.
+      In this case, the reordering is very useful even when
+      the computation is to be done on a single processor.
+    </p>
+
+    <p>
+      <b>METIS</b> consists of a fundamental library, and a number
+      of executable programs (which call appropriate routines from
+      the library), to handle the graph partitioning, mesh partitioning,
+      and matrix reordering tasks.  A number of other utilities
+      are also included.
+    </p>
+
+    <p>
+      <b>METIS</b> uses particular formats for storing the graph,
+      mesh or matrix data.  The formats have extended to include
+      the ability to weight certain items.
+    </p>
+
+    <p>
+      <b>METIS</b> can be executed on a single processor.  However,
+      <b>METIS</b> includes an <b>MPI</b> interface which allows it
+      to be run in parallel as well.
+    </p>
+
+    <p>
+      Most users will be interested in running one of the executable
+      programs associated with the <b>METIS</b> library, rather than
+      using the library directly.  For this purpose, you should go
+      to the web pages listed below, which are associated directly with
+      <ul>
+        <li>
+          <b>kmetis</b> or <b>pmetis</b>, for partitioning the nodes of 
+          a graph;
+        </li>
+        <li>
+          <b>partdmesh</b> or <b>partnmesh</b>, for partitioning the 
+          elements of a finite element mesh;
+        </li>
+        <li>
+          <b>oemetis</b> or <b>onmetis</b>, for reordering the variables
+          in a sparse matrix;
+        </li>
+        <li>
+          <b>mesh2dual</b> or <b>mesh2nodal</b>, for converting a mesh
+          into the dual or nodal graph;
+        </li>
+        <li>
+          <b>graphchk</b>, for error checking a graph file;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      <b>METIS</b> is part of the METIS family of Multilevel Partitioning
+      Algorithms.  It was produced by the lab of George Karypis, who states
+      <blockquote><i>
+        "It is our general policy to make these tools available to the research 
+        community for use in their own research and/or non-commercial applications."
+      </i></blockquote>
+    </p>
+
+    <p>
+      For further information on licensing and permissions, refer to
+      <a href = "http://www.cs.umn.edu/~metis">
+                 http://www.cs.umn.edu/~metis</a>,
+      the METIS home page.
+    </p>
+
+    <h3 align = "center">
+      Related Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/graphchk/graphchk.html">
+      GRAPHCHK</a>,
+      a C program which 
+      can read a METIS GRAPH 
+      file and verify that it has the proper format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/kmetis/kmetis.html">
+      KMETIS</a>, 
+      a C program which
+      can partition the nodes of a graph.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2dual/mesh2dual.html">
+      MESH2DUAL</a>, 
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by <b>KMETIS</b> or <b>PMETIS</b>.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2nodal/mesh2nodal.html">
+      MESH2NODAL</a>, 
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by <b>KMETIS</b> or <b>PMETIS</b>.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_graph/metis_graph.html">
+      METIS_GRAPH</a>, 
+      a data directory which
+      contains examples of
+      the graph files used to describe a graph to the <b>METIS</b>
+      family of programs.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_mesh/metis_mesh.html">
+      METIS_MESH</a>, 
+      a data directory which
+      contains examples of
+      the mesh files used to describe a finite element mesh 
+      to the <b>METIS</b> family of programs.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mpi/mpi.html">
+      MPI</a>,
+      a message passing interface that allows programs to
+      be written for execution on parallel computers.
+    </p>
+
+    <p>
+      <a href = "../../f_src/neighbors_to_metis_graph/neighbors_to_metis_graph.html">
+      NEIGHBORS_TO_METIS_GRAPH</a>, 
+      a FORTRAN90 program which
+      reads information describing the adjacency
+      relations in a tet mesh, and writes out essentially the same information,
+      but in a format that METIS will accept.
+    </p>
+
+    <p>
+      <a href = "../../c_src/oemetis/oemetis.html">
+      OEMETIS</a>,
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/onmetis/onmetis.html">
+      ONMETIS</a>,
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partdmesh/partdmesh.html">
+      PARTDMESH</a>,
+      a C program which
+      can partition the elements of a finite element mesh, by working
+      with the dual graph of the mesh.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partnmesh/partnmesh.html">
+      PARTNMESH</a>,
+      a C program which
+      can partition the elements of a finite element mesh, by working
+      with the nodal graph of the mesh.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          METIS, a Software Package for Partitioning Unstructured Graphs
+          and Computing Fill-Reduced Orderings of Sparse Matrices;
+        </li>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          A fast and high quality multilevel scheme for partitioning 
+          irregular graphs,<br>
+          SIAM Journal on Scientific Computing,<br>
+          Volume 20, Number 1, 1998, pages 359-392;
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "defs.h">defs.h</a>
+        </li>
+        <li>
+          <a href = "macros.h">macros.h</a>
+        </li>
+        <li>
+          <a href = "metis.h">metis.h</a>
+        </li>
+        <li>
+          <a href = "proto.h">proto.h</a>
+        </li>
+        <li>
+          <a href = "rename.h">rename.h</a>
+        </li>
+        <li>
+          <a href = "struct.h">struct.h</a>
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "metis.sh">metis.sh</a>,
+          commands to compile the source code and create the library.
+        </li>
+        <li>
+          <a href = "balance.c">balance.c</a>
+        </li>
+        <li>
+          <a href = "bucketsort.c">bucketsort.c</a>
+        </li>
+        <li>
+          <a href = "ccgraph.c">ccgraph.c</a>
+        </li>
+        <li>
+          <a href = "coarsen.c">coarsen.c</a>
+        </li>
+        <li>
+          <a href = "compress.c">compress.c</a>
+        </li>
+        <li>
+          <a href = "debug.c">debug.c</a>
+        </li>
+        <li>
+          <a href = "estmem.c">estmem.c</a>
+        </li>
+        <li>
+          <a href = "fm.c">fm.c</a>
+        </li>
+        <li>
+          <a href = "fortran.c">fortran.c</a>
+        </li>
+        <li>
+          <a href = "frename.c">frename.c</a>
+        </li>
+        <li>
+          <a href = "graph.c">graph.c</a>
+        </li>
+        <li>
+          <a href = "initpart.c">initpart.c</a>
+        </li>
+        <li>
+          <a href = "io.c">io.c</a>,
+          some I/O routines.
+        </li>
+        <li>
+          <a href = "kmetis.c">kmetis.c</a>
+        </li>
+        <li>
+          <a href = "kvmetis.c">kvmetis.c</a>
+        </li>
+        <li>
+          <a href = "kwayfm.c">kwayfm.c</a>
+        </li>
+        <li>
+          <a href = "kwayrefine.c">kwayrefine.c</a>
+        </li>
+        <li>
+          <a href = "kwayvolfm.c">kwayvolfm.c</a>
+        </li>
+        <li>
+          <a href = "kwayvolrefine.c">kwayvolrefine.c</a>
+        </li>
+        <li>
+          <a href = "match.c">match.c</a>
+        </li>
+        <li>
+          <a href = "mbalance2.c">mbalance2.c</a>
+        </li>
+        <li>
+          <a href = "mcoarsen.c">mcoarsen.c</a>
+        </li>
+        <li>
+          <a href = "memory.c">memory.c</a>
+        </li>
+        <li>
+          <a href = "mesh.c">mesh.c</a>
+        </li>
+        <li>
+          <a href = "meshpart.c">meshpart.c</a>
+        </li>
+        <li>
+          <a href = "mfm.c">mfm.c</a>
+        </li>
+        <li>
+          <a href = "mfm2.c">mfm2.c</a>
+        </li>
+        <li>
+          <a href = "mincover.c">mincover.c</a>
+        </li>
+        <li>
+          <a href = "minitpart.c">minitpart.c</a>
+        </li>
+        <li>
+          <a href = "minitpart2.c">minitpart2.c</a>
+        </li>
+        <li>
+          <a href = "mkmetis.c">mkmetis.c</a>
+        </li>
+        <li>
+          <a href = "mkwayfmh.c">mkwayfmh.c</a>
+        </li>
+        <li>
+          <a href = "mkwayrefine.c">mkwayrefine.c</a>
+        </li>
+        <li>
+          <a href = "mmatch.c">mmatch.c</a>
+        </li>
+        <li>
+          <a href = "mmd.c">mmd.c</a>
+        </li>
+        <li>
+          <a href = "mpmetis.c">mpmetis.c</a>
+        </li>
+        <li>
+          <a href = "mrefine.c">mrefine.c</a>
+        </li>
+        <li>
+          <a href = "mrefine2.c">mrefine2.c</a>
+        </li>
+        <li>
+          <a href = "mutil.c">mutil.c</a>
+        </li>
+        <li>
+          <a href = "myqsort.c">myqsort.c</a>
+        </li>
+        <li>
+          <a href = "ometis.c">ometis.c</a>
+        </li>
+        <li>
+          <a href = "parmetis.c">parmetis.c</a>
+        </li>
+        <li>
+          <a href = "pmetis.c">pmetis.c</a>
+        </li>
+        <li>
+          <a href = "pqueue.c">pqueue.c</a>
+        </li>
+        <li>
+          <a href = "refine.c">refine.c</a>
+        </li>
+        <li>
+          <a href = "separator.c">separator.c</a>
+        </li>
+        <li>
+          <a href = "sfm.c">sfm.c</a>
+        </li>
+        <li>
+          <a href = "smbfactor.c">smbfactor.c</a>,
+          symbolic factorization routines needed for sparse matrix
+          variable reordering.
+        </li>
+        <li>
+          <a href = "srefine.c">srefine.c</a>
+        </li>
+        <li>
+          <a href = "stat.c">stat.c</a>
+        </li>
+        <li>
+          <a href = "subdomains.c">subdomains.c</a>
+        </li>
+        <li>
+          <a href = "timing.c">timing.c</a>
+        </li>
+        <li>
+          <a href = "util.c">util.c</a>
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "metis_prb.c">metis_prb.c</a>,
+          an executable test program.
+        </li>
+        <li>
+          <a href = "metis_prb.sh">metis_prb.sh</a>,
+          commands to compile, link, load and run the test problem.
+        </li>
+        <li>
+          <a href = "metis_prb_output.txt">metis_prb_output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 27 April 2006.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

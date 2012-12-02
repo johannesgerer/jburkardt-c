@@ -1,0 +1,76 @@
+==1057== Memcheck, a memory error detector
+==1057== Copyright (C) 2002-2010, and GNU GPL'd, by Julian Seward et al.
+==1057== Using Valgrind-3.6.1 and LibVEX; rerun with -h for copyright info
+==1057== Command: test02
+==1057== 
+--1057-- run: /usr/bin/dsymutil "./test02"
+==1057== Conditional jump or move depends on uninitialised value(s)
+==1057==    at 0x100037ABE: __vfprintf (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100079DCA: vfprintf_l (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x1000A7482: printf (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100000E34: junk_data (test02.c:103)
+==1057==    by 0x100000D45: main (test02.c:37)
+==1057== 
+==1057== Conditional jump or move depends on uninitialised value(s)
+==1057==    at 0x100039226: __vfprintf (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100079DCA: vfprintf_l (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x1000A7482: printf (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100000E34: junk_data (test02.c:103)
+==1057==    by 0x100000D45: main (test02.c:37)
+==1057== 
+==1057== Conditional jump or move depends on uninitialised value(s)
+==1057==    at 0x1000F6881: __ultoa (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100039296: __vfprintf (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100079DCA: vfprintf_l (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x1000A7482: printf (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100000E34: junk_data (test02.c:103)
+==1057==    by 0x100000D45: main (test02.c:37)
+==1057== 
+==1057== Syscall param write(buf) points to uninitialised byte(s)
+==1057==    at 0x10007A1A2: write$NOCANCEL (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x10007A11C: _swrite (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x10007A061: __sflush (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x10007E519: _fwalk (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x10003C7BB: exit (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100000D02: (below main) (in ./test02)
+==1057==  Address 0x100282132 is 82 bytes inside a block of size 4,096 alloc'd
+==1057==    at 0x1000161EF: malloc (vg_replace_malloc.c:236)
+==1057==    by 0x100079F0D: __smakebuf (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100079E79: __swsetup (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x10007E821: __swbuf (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x1000B08B7: putchar (in /usr/lib/libSystem.B.dylib)
+==1057==    by 0x100000D1C: main (test02.c:32)
+==1057== 
+
+TEST02:
+  C version
+  A sample code for analysis by VALGRIND.
+  0  0
+  1  2
+  2  0
+  3  6
+  4  8
+  5  0
+  6  0
+  7  0
+  8  0
+  9  0
+
+TEST02
+  Normal end of execution.
+==1057== 
+==1057== HEAP SUMMARY:
+==1057==     in use at exit: 4,184 bytes in 2 blocks
+==1057==   total heap usage: 3 allocs, 1 frees, 4,224 bytes allocated
+==1057== 
+==1057== LEAK SUMMARY:
+==1057==    definitely lost: 0 bytes in 0 blocks
+==1057==    indirectly lost: 0 bytes in 0 blocks
+==1057==      possibly lost: 0 bytes in 0 blocks
+==1057==    still reachable: 4,184 bytes in 2 blocks
+==1057==         suppressed: 0 bytes in 0 blocks
+==1057== Rerun with --leak-check=full to see details of leaked memory
+==1057== 
+==1057== For counts of detected and suppressed errors, rerun with: -v
+==1057== Use --track-origins=yes to see where uninitialised values come from
+==1057== ERROR SUMMARY: 19 errors from 4 contexts (suppressed: 0 from 0)

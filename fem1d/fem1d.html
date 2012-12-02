@@ -1,0 +1,307 @@
+<html>
+
+  <head>
+    <title>
+      FEM1D - Piecewise Linear Finite Element Method for 1D problem.
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      FEM1D <br> Piecewise Linear Finite Element Method for 1D problem.
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>FEM1D</b> 
+      is a C program which 
+      applies the finite element method to a linear two point
+      boundary value problem in one spatial dimension.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page 
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>FEM1D</b> is available in
+      <a href = "../../c_src/fem1d/fem1d.html">a C version</a> and
+      <a href = "../../cpp_src/fem1d/fem1d.html">a C++ version</a> and
+      <a href = "../../f77_src/fem1d/fem1d.html">a FORTRAN77 version</a> and
+      <a href = "../../f_src/fem1d/fem1d.html">a FORTRAN90 version</a> and
+      <a href = "../../m_src/fem1d/fem1d.html">a MATLAB version.</a>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../data/fem1d/fem1d.html">
+      FEM1D</a>, 
+      a data directory which
+      contains examples of 1D FEM files, 
+      three text files that describe a 1D finite element model;
+    </p>
+
+
+    <p>
+      <a href = "../../m_src/fem_50/fem_50.html">
+      FEM_50</a>,
+      a MATLAB program which
+      implements the finite element method in just 50 lines of code.
+    </p>
+
+    <p>
+      <a href = "../../m_src/fem_50_heat/fem_50_heat.html">
+      FEM_50_HEAT</a>,
+      a MATLAB program which
+      solves the heat equation.
+    </p>
+
+    <p>
+      <a href = "../../m_src/fem_basis_t3_display/fem_basis_t3_display.html">
+      FEM_BASIS_T3_DISPLAY</a>,
+      a MATLAB program which 
+      displays a basis function associated with a linear triangle ("T3") mesh.
+    </p>
+
+    <p>
+      <a href = "../../m_src/fem_basis_t6_display/fem_basis_t6_display.html">
+      FEM_BASIS_T6_DISPLAY</a>,
+      a MATLAB program which 
+      displays a basis function associated with a quadratic triangle ("T6") mesh.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/fem_io/fem_io.html">
+      FEM_IO</a>,
+      a C++ library which
+      reads or writes the node, element and data files that define a finite element model.
+    </p>
+
+    <p>
+      <a href = "../../m_src/fem_to_tec/fem_to_tec.html">
+      FEM_TO_TEC</a>,
+      a MATLAB program which
+      can convert an FEM model into a TEC graphics file.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/fem1d_adaptive/fem1d_adaptive.html">
+      FEM1D_ADAPTIVE</a>, 
+      a C++ program which
+      applies the finite
+      element method to a linear two point boundary value problem
+      in a 1D region, using adaptive refinement to improve the solution.
+    </p>
+
+    <p>
+      <a href = "../../c_src/fem1d_bvp_linear/fem1d_bvp_linear.html">
+      FEM1D_BVP_LINEAR</a>, 
+      a C program which
+      applies the finite element method, with piecewise linear elements,
+      to a two point boundary value problem in one spatial dimension.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/fem1d_nonlinear/fem1d_nonlinear.html">
+      FEM1D_NONLINEAR</a>, 
+      a C++ program which 
+      applies the finite
+      element method to a nonlinear two point boundary value problem
+      in a 1D region.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/fem1d_pmethod/fem1d_pmethod.html">
+      FEM1D_PMETHOD</a>,
+      a C++ program which 
+      applies the 
+      p-method version of the finite element method to a linear 
+      two point boundary value problem in a 1D region.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/fem1d_project/fem1d_project.html">
+      FEM1D_PROJECT</a>,
+      a C++ program which
+      projects data into a finite element space, including the least squares
+      approximation of data, or the projection of a finite element solution
+      from one mesh to another.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/fem1d_sample/fem1d_sample.html">
+      FEM1D_SAMPLE</a>,
+      a C++ program which
+      samples a scalar or vector finite element function of one variable,
+      defined by FEM files,
+      returning interpolated values at the sample points.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/fem2d_heat/fem2d_heat.html">
+      FEM2D_HEAT</a>,
+      a C++ program which
+      solves the time dependent heat equation on the unit square.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/fem2d_poisson/fem2d_poisson.html">
+      FEM2D_POISSON</a>, 
+      a C++ program which
+      solves Poisson's equation
+      on a square, using the finite element method.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/fem2d_sample/fem2d_sample.html">
+      FEM2D_SAMPLE</a>, 
+      a C++ library which
+      evaluates a finite element function defined on an order 3 or order 6 triangulation.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/piecewise_linear_product_integral/piecewise_linear_product_integral.html">
+      PIECEWISE_LINEAR_PRODUCT_INTEGRAL</a>,
+      a C++ library which
+      calculates the exact value of the integral of the product of two
+      piecewise linear functions F(X) and G(X). 
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Hans Rudolf Schwarz,<br>
+          Finite Element Methods,<br>
+          Academic Press, 1988,<br>
+          ISBN: 0126330107,<br>
+          LC: TA347.F5.S3313.
+        </li>
+        <li>
+          Gilbert Strang, George Fix,<br>
+          An Analysis of the Finite Element Method,<br>
+          Cambridge, 1973,<br>
+          ISBN: 096140888X,<br>
+          LC: TA335.S77.
+        </li>
+        <li>
+          Olgierd Zienkiewicz,<br>
+          The Finite Element Method,<br>
+          Sixth Edition,<br>
+          Butterworth-Heinemann, 2005,<br>
+          ISBN: 0750663200,<br>
+          LC: TA640.2.Z54
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "fem1d.c">fem1d.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "fem1d.sh">fem1d.sh</a>,
+          commands to compile the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "fem1d_output.txt">fem1d_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MAIN</b> is the main program for FEM1D.
+        </li>
+        <li>
+          <b>ASSEMBLE</b> assembles the matrix and right-hand-side of the linear system.
+        </li>
+        <li>
+          <b>FF</b> evaluates the right hand side function.
+        </li>
+        <li>
+          <b>GEOMETRY</b> sets up the geometry for the interval [XL,XR].
+        </li>
+        <li>
+          <b>INIT</b> assigns values to variables which define the problem.
+        </li>
+        <li>
+          <b>OUTPUT</b> prints out the computed solution.
+        </li>
+        <li>
+          <b>PHI</b> evaluates a linear basis function and its derivative.
+        </li>
+        <li>
+          <b>PP</b> evaluates the function P in the differential equation.
+        </li>
+        <li>
+          <b>PRSYS</b> prints out the tridiagonal linear system.
+        </li>
+        <li>
+          <b>QQ</b> evaluates the function Q in the differential equation.
+        </li>
+        <li>
+          <b>SOLVE</b> solves a tridiagonal matrix system of the form A*x = b.
+        </li>
+        <li>
+          <b>TIMESTAMP</b> prints the current YMDHMS date as a time stamp.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 31 October 2006.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

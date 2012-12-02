@@ -1,0 +1,23 @@
+
+C_SIMPLE
+  A simple C program to demonstrate
+  the use of makefiles.
+
+  Estimate the integral from 0 to 1000, of
+  F(T) = (4+T/365+1/2 sin(pi*T/91)) * (2+exp(-sin(2*pi*T)))
+  a function which models daily power consumption.
+
+  quad = midpoint ( a, b, f, int_num )
+  estimates the integral using the midpoint rule.
+
+  f ( t )
+  evaluates the integrand.
+
+  Intervals   Estimate
+
+       100    1.619638e+04
+     10000    1.763339e+04
+   1000000    1.763245e+04
+
+C_SIMPLE:
+  Normal end of execution.

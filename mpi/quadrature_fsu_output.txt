@@ -1,0 +1,60 @@
+24 October 2011 10:45:43 AM
+
+QUADRATURE - Master process:
+  C version
+
+  An MPI example program.
+  Estimate the value of PI by approximating an integral.
+  The integral is approximated by a sum,
+  whose calculation is divided among a number of processes.
+
+  Compiled on Oct 24 2011 at 10:45:43.
+
+  The number of processes available is 8.
+
+QUADRATURE - Master process:
+  Number of intervals used is 1000.
+
+QUADRATURE - Process 0:
+  Points used = 125
+  Estimate 0.393573.
+
+QUADRATURE - Process 1:
+  Points used = 125
+  Estimate 0.393324.
+
+QUADRATURE - Process 2:
+  Points used = 125
+  Estimate 0.393074.
+
+QUADRATURE - Process 4:
+  Points used = 125
+  Estimate 0.392575.
+
+QUADRATURE - Process 6:
+  Points used = 125
+  Estimate 0.392074.
+
+QUADRATURE - Process 5:
+  Points used = 125
+  Estimate 0.392324.
+
+QUADRATURE - Process 3:
+  Points used = 125
+  Estimate 0.392825.
+
+QUADRATURE - Process 7:
+  Points used = 125
+  Estimate 0.391823.
+
+QUADRATURE - Master process:
+  Integral estimate            3.1415927369231262
+  The exact value is           3.1415926535897931
+  The error is                 0.0000000833333331
+
+  Wall clock elapsed seconds = 0.010878
+
+QUADRATURE - Master process:
+  Normal end of execution.
+
+24 October 2011 10:45:43 AM

@@ -1,0 +1,53 @@
+26 June 2012 03:24:47 PM
+
+SIZES
+  C version
+  Return the size of various data types.
+  Compiled on Jun 26 2012 at 15:24:47
+
+TEST01:
+  You can ask for the size of a datatype by name:
+
+  sizeof (            int ) = 4
+  sizeof (      short int ) = 2
+  sizeof (       long int ) = 8
+  sizeof (  long long int ) = 8
+  sizeof (          float ) = 4
+  sizeof (         double ) = 8
+  sizeof (    long double ) = 16
+  sizeof (        complex ) = 16
+  sizeof ( double complex ) = 16
+  sizeof (           char ) = 1
+  sizeof (           bool ) = 1
+
+TEST02:
+  You can ask for the size of a specific variable:
+
+  sizeof ( a ) = 4
+  sizeof ( b ) = 2
+  sizeof ( c ) = 8
+  sizeof ( d ) = 8
+  sizeof ( e ) = 4
+  sizeof ( f ) = 8
+  sizeof ( g ) = 16
+  sizeof ( h ) = 16
+  sizeof ( i ) = 16
+  sizeof ( j ) = 1
+  sizeof ( k ) = 1
+
+TEST03:
+  You can ask for the size of an array:
+
+  sizeof ( l ) = 40
+  sizeof ( m ) = 40
+  sizeof ( n ) = 80
+  sizeof ( o ) = 10
+  sizeof ( p ) = 40
+  sizeof ( q ) = 40
+  sizeof ( r ) = 80
+  sizeof ( s ) = 10
+
+SIZES
+  Normal end of execution.
+
+26 June 2012 03:24:47 PM

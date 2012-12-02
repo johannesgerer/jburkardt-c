@@ -1,0 +1,46 @@
+03 November 2008 08:45:58 AM
+
+MM_IO_PRB
+  C version
+  Test the MM_IO routines.
+
+TEST01:
+  MM_READ_BANNER reads the header line of
+    a Matrix Market file.
+
+  Reading "matrix_05_05_crg.txt".
+
+  MM_typecode[0] = M
+  MM_typecode[1] = C
+  MM_typecode[2] = R
+  MM_typecode[3] = G
+
+TEST02:
+  MM_READ_MTX_ARRAY_SIZE reads the sizes line of
+    an MM matrix file;
+  MM_READ_MTX_CRD_SIZE reads the sizes line of
+    an MM coordinate file;
+
+  Reading "matrix_05_05_crg.txt".
+
+  Coordinate sizes:
+    M  = 5
+    N  = 5
+    NZ = 10
+
+TEST02:
+  MM_READ_MTX_ARRAY_SIZE reads the sizes line of
+    an MM matrix file;
+  MM_READ_MTX_CRD_SIZE reads the sizes line of
+    an MM coordinate file;
+
+  Reading "matrix_05_05_arg.txt".
+
+  Array sizes:
+    M = 5
+    N = 5
+
+MM_IO_PRB
+  Normal end of execution.
+
+03 November 2008 08:45:58 AM

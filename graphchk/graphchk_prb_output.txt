@@ -1,0 +1,10 @@
+**********************************************************************
+  METIS 4.0.1 Copyright 1998, Regents of the University of Minnesota
+
+Graph Information ---------------------------------------------------
+  Name: 4elt.graph, #Vertices: 15606, #Edges: 45878
+
+Checking Graph... ---------------------------------------------------
+   The format of the graph is correct!
+
+**********************************************************************

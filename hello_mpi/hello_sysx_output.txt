@@ -1,0 +1,20 @@
+  Process 2 says 'Hello, world!'
+  Process 3 says 'Hello, world!'
+  Process 6 says 'Hello, world!'
+  Process 1 says 'Hello, world!'
+  Process 5 says 'Hello, world!'
+
+HELLO_MPI - Master process:
+  C/MPI version
+  An MPI example program.
+
+  The number of processes is 8.
+
+  Process 0 says 'Hello, world!'
+
+HELLO_MPI - Master process:
+  Normal end of execution: 'Goodbye, world!'
+
+  Process 4 says 'Hello, world!'
+  Elapsed wall clock time = 0.000068 seconds.
+  Process 7 says 'Hello, world!'

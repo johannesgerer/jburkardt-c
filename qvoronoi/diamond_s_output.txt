@@ -1,0 +1,17 @@
+
+Voronoi diagram by the convex hull of 9 points in 3-d:
+
+  Number of Voronoi regions: 9
+  Number of Voronoi vertices: 12
+
+Statistics for: #  diamond_02_00009.qxy | qvoronoi s
+
+  Number of points processed: 9
+  Number of hyperplanes created: 23
+  Number of facets in hull: 13
+  Number of distance tests for qhull: 48
+  Number of distance tests for merging: 132
+  Number of distance tests for checking: 93
+  Number of merged facets: 2
+  CPU seconds to compute hull (after input): 0.000976
+

@@ -1,0 +1,280 @@
+<html>
+
+  <head>
+    <title>
+      LAPLACE_MPI - Laplace's Equation in a Rectangle, Solved With MPI
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      LAPLACE_MPI <br> Laplace's Equation in a Rectangle, Solved With MPI
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>LAPLACE_MPI</b> 
+      is a C program which
+      solves Laplace's equation in a rectangle,
+      using MPI for parallel execution.
+    </p>
+
+    <p>
+      Laplace's equation can be thought of as a heat equation.  For a scalar
+      variable <b>u(x,y)</b>, it has the form:
+      <pre>
+          d2 u     d2 u
+       - -----  -  ----  = 0 
+          dx2      dy2
+      </pre>
+      with the value of <b>u(x,y)</b> specified along the boundary of the rectangle.
+    </p>
+
+    <p>
+      This program uses a finite difference scheme to solve
+      Laplace's equation for a square matrix distributed over a square
+      (logical) processor topology.  A complete description of the algorithm
+      is found in the reference by Fox.
+    </p>
+
+    <p>
+      This program works on the SPMD (single program, multiple data)
+      paradigm.  It illustrates 2D block decomposition, nodes exchanging
+      edge values, and convergence checking.
+    </p>
+
+    <p>
+      Each matrix element is updated based on the values of the four
+      neighboring matrix elements.  This process is repeated until the data
+      converges, that is, until the average change in any matrix element (compared
+      to the value 20 iterations previous) is smaller than a specified value.
+    </p>
+
+    <p>
+      To ensure reproducible results between runs, a red/black
+      checkerboard algorithm is used.  Each process exchanges edge values
+      with its four neighbors.  Then new values are calculated for the upper
+      left and lower right corners (the "red" corners) of each node's
+      matrix.  The processes exchange edge values again.  The upper right
+      and lower left corners (the "black" corners) are then calculated.
+    </p>
+
+    <p>
+      The program is currently configured for a 48x48 matrix
+      distributed over four processors.  It can be edited to handle
+      different matrix sizes or number of processors, as long as the matrix
+      can be divided evenly between the processors.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page 
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/communicator_mpi/communicator_mpi.html">
+      COMMUNICATOR_MPI</a>,
+      a C program which
+      creates new communicators involving a subset of initial
+      set of MPI processes in the default communicator MPI_COMM_WORLD.
+    </p>
+
+    <p>
+      <a href = "../../c_src/heat_mpi/heat_mpi.html">
+      HEAT_MPI</a>,
+      a C program which 
+      solves the 1D Time Dependent Heat Equation using MPI.
+    </p>
+
+    <p>
+      <a href = "../../c_src/hello_mpi/hello_mpi.html">
+      HELLO_MPI</a>,
+      a C program which 
+      prints out "Hello, world!" using the MPI parallel programming environment. 
+    </p>
+
+    <p>
+      <a href = "../../examples/moab/moab.html">
+      MOAB</a>,
+      examples which
+      illustrate the use of the MOAB job scheduler for a computer cluster.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mpi/mpi.html">
+      MPI</a>,
+      C programs which
+      illustrate the use of the MPI application program interface
+      for carrying out parallel computations in a distributed memory environment.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mpi_stubs/mpi_stubs.html">
+      MPI_STUBS</a>,
+      a C library which
+      contains "stub" MPI routines, allowing a user to compile, load, and possibly 
+      run an MPI program on a serial machine.
+    </p>
+
+    <p>
+      <a href = "../../c_src/multitask_mpi/multitask_mpi.html">
+      MULTITASK_MPI</a>,
+      a C program which
+      demonstrates how to "multitask", that is, to execute several unrelated
+      and distinct tasks simultaneously, using MPI for parallel execution.
+    </p>
+
+    <p>
+      <a href = "../../c_src/prime_mpi/prime_mpi.html">
+      PRIME_MPI</a>,
+      a C program which
+      counts the number of primes between 1 and N, using MPI for parallel execution.
+    </p>
+
+    <p>
+      <a href = "../../c_src/quad_mpi/quad_mpi.html">
+      QUAD_MPI</a>,
+      a C program which
+      approximates an integral using a quadrature rule, and carries out the
+      computation in parallel using MPI.
+    </p>
+
+    <p>
+      <a href = "../../c_src/random_mpi/random_mpi.html">
+      RANDOM_MPI</a>, 
+      a C program which
+      demonstrates one way to generate the same sequence of random numbers
+      for both sequential execution and parallel execution under MPI.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ring_mpi/ring_mpi.html">
+      RING_MPI</a>,
+      a C program which
+      uses the MPI parallel programming environment, and measures the time
+      necessary to copy a set of data around a ring of processes.
+    </p>
+
+    <p>
+      <a href = "../../c_src/satisfy_mpi/satisfy_mpi.html">
+      SATISFY_MPI</a>,
+      a C program which 
+      demonstrates, for a particular circuit, an exhaustive search
+      for solutions of the circuit satisfiability problem, using MPI to
+      carry out the calculation in parallel.
+    </p>
+
+    <p>
+      <a href = "../../c_src/search_mpi/search_mpi.html">
+      SEARCH_MPI</a>,
+      a C program which
+      searches integers between A and B for a value J such that F(J) = C,
+      using 
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Sequential C version by Robb Newman;
+      MPI C version by Xianneng Shen.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          Geoffrey Fox, Mark Johnson, Gregory Lyzenga, Steve Otto, John Salmon, David Walker,<br>
+          Solving problems on concurrent Processors,<br>
+          Volume 1: General Techniques and Regular Problems, <br>
+          Prentice Hall, 1988,<br>
+          ISBN: 0-13-8230226,<br>
+          LC: QA76.5.F627.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "laplace_mpi.c">laplace_mpi.c</a>, the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>LAPLACE_LOCAL</b> compiles and runs the program on a local machine.
+      <ul>
+        <li>
+          <a href = "laplace_local.sh">laplace_local.sh</a>,
+          a script to compile and run the program.
+        </li>
+        <li>
+          <a href = "laplace_local_output.txt">laplace_local_output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>LAPLACE_FSU</b> compiles and runs the program on the FSU HPC cluster.
+      <ul>
+        <li>
+          <a href = "laplace_fsu.sh">laplace_fsu.sh</a>,
+          the MOAB script.
+        </li>
+        <li>
+          <a href = "laplace_fsu_output.txt">laplace_fsu_output.txt</a>,
+          the output file.
+        </li>
+        <li>
+          <a href = "laplace_solution.txt">laplace_solution.txt</a>,
+          a file containing the solution values at the grid points.
+        </li>
+        <li>
+          <a href = "laplace_solution.png">laplace_solution.png</a>,
+          a contour plot of the solution, created using MATLAB's contourf() function.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 15 November 2011.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

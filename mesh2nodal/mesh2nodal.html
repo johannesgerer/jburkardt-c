@@ -1,0 +1,256 @@
+<html>
+
+  <head>
+    <title>
+      MESH2NODAL - Convert Finite Element Mesh to Nodal Graph
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      MESH2NODAL <br> Convert Finite Element Mesh to Nodal Graph
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>MESH2NODAL</b> 
+      is a C program which 
+      converts a finite element mesh to a nodal graph.  
+    </p>
+
+    <p>
+      The mesh file is stored in the <b>METIS MESH</b> format, and the
+      resulting graph file is stored in the <b>METIS GRAPH</b> format.
+    </p>
+
+    <p>
+      This operation simplifies the use of
+      the <b>METIS</b> partitioning program, which can work directly 
+      on the resulting graph.  If the same finite element mesh is
+      being used a number of times, it is more efficient for the
+      user to convert the mesh once to a graph, rather than having
+      <b>METIS</b> do it each time.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>mesh2nodal</b> <i>mesh_file</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>mesh_file</i> contains the mesh information.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      <b>MESH2NODAL</b> is part of the METIS family of Multilevel Partitioning
+      Algorithms.  It was produced by the lab of George Karypis, who states
+      <blockquote><i>
+        "It is our general policy to make these tools available to the research 
+        community for use in their own research and/or non-commercial applications."
+      </i></blockquote>
+    </p>
+
+    <p>
+      For further information on licensing and permissions, refer to
+      <a href = "http://www.cs.umn.edu/~metis">
+                 http://www.cs.umn.edu/~metis</a>,
+      the METIS home page.
+    </p>
+
+    <h3 align = "center">
+      Related Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/graphchk/graphchk.html">
+      GRAPHCHK</a>,
+      a C program which 
+      can read a METIS GRAPH 
+      file and verify that it has the proper format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/kmetis/kmetis.html">
+      KMETIS</a>,
+      a C program which
+      can partition the nodes of a graph.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2dual/mesh2dual.html">
+      MESH2DUAL</a>, 
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by <b>KMETIS</b> or <b>PMETIS</b>.
+    </p>
+
+    <p>
+      <a href = "../../c_src/metis/metis.html">
+      METIS</a>, 
+      a C library which
+      partitions the nodes
+      of a graph, or the elements of a finite element mesh, or for
+      reordering the variables in a sparse matrix.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_graph/metis_graph.html">
+      METIS_GRAPH</a>,
+      a data directory which
+      contains examples of
+      the graph files used to describe a graph to the <b>METIS</b>
+      family of programs.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_mesh/metis_mesh.html">
+      METIS_MESH</a>,
+      a data directory which
+      contains examples of
+      the mesh files used to describe a finite element mesh 
+      to the <b>METIS</b> family of programs.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mpi/mpi.html">
+      MPI</a>,
+      a message passing interface that allows programs to
+      be written for execution on parallel computers.
+    </p>
+
+    <p>
+      <a href = "../../f_src/neighbors_to_metis_graph/neighbors_to_metis_graph.html">
+      NEIGHBORS_TO_METIS_GRAPH</a>, 
+      a FORTRAN90 program which
+      reads information describing the adjacency
+      relations in a tet mesh, and writes out essentially the same information,
+      but in a format that METIS will accept.
+    </p>
+
+    <p>
+      <a href = "../../c_src/oemetis/oemetis.html">
+      OEMETIS</a>,
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/onmetis/onmetis.html">
+      ONMETIS</a>, 
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partdmesh/partdmesh.html">
+      PARTDMESH</a>, 
+      a C program which
+      can partition the elements of a finite element mesh, by working
+      with the dual graph of the mesh.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partnmesh/partnmesh.html">
+      PARTNMESH</a>, 
+      a C program which
+      can partition the elements of a finite element mesh, by working
+      with the nodal graph of the mesh.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          METIS, a Software Package for Partitioning Unstructured Graphs
+          and Computing Fill-Reduced Orderings of Sparse Matrices;
+        </li>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          A fast and high quality multilevel scheme for partitioning 
+          irregular graphs,<br>
+          SIAM Journal on Scientific Computing,<br>
+          Volume 20, Number 1, 1998, pages 359-392;
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "mesh2nodal.c">mesh2nodal.c</a>
+        </li>
+        <li>
+          <a href = "mesh2nodal.sh">mesh2nodal.sh</a>,
+          commands to compile the source code and create the library.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "../../data/metis_mesh/metis.mesh">metis.mesh</a>,
+          a sample finite element grid.
+        </li>
+        <li>
+          <a href = "metis.mesh.ngraph">metis.mesh.ngraph</a>,
+          the dual graph computed by <b>MESH2NODAL</b>.
+        </li>
+        <li>
+          <a href = "mesh2nodal_prb.sh">mesh2nodal_prb.sh</a>,
+          commands to compile, link, load and run the test problem.
+        </li>
+        <li>
+          <a href = "mesh2nodal_prb_output.txt">mesh2nodal_prb_output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 29 April 2006.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

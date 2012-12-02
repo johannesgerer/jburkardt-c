@@ -1,0 +1,48 @@
+23 November 2010 08:09:46 AM
+
+CHRPAK_PRB:
+  C version
+
+  Test the routines in the CHRPAK library.
+
+TEST011
+  CH_CAP uppercases a character.
+
+  C  CH_CAP(C)
+
+  F  F
+  f  F
+  1  1
+  b  B
+  B  B
+
+TEST1126
+  S_LEN_TRIM reports the length of a string to the last nonblank.
+
+  Here are some strings, and their lengths:
+
+ "HELLO"  5
+ "  B la nk"  9
+ " "  0
+ "1234567890"  10
+
+TEST119
+  S_REVERSE reverses a string.
+
+  Before: "A man, a plan, a canal, Panama!".
+  After:  "!amanaP ,lanac a ,nalp a ,nam A".
+
+TEST137
+  S_WORD_COUNT counts the words in a string
+
+  STRING                      Words
+
+                                 ?                        1
+  A man, a plan, a canal - Panama!                        8
+                justone!word,-@#$                         1
+      How about a day in the park?                        7
+
+CHRPAK_PRB:
+  Normal end of execution.
+
+23 November 2010 08:09:46 AM

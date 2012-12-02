@@ -1,0 +1,2 @@
+
+--- Matrix: 4-by-4, nnz: 12 (sym: 0: nnz 0), norm: 7.00e+00

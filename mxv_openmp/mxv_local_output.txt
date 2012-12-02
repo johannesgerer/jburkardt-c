@@ -1,0 +1,216 @@
+20 May 2010 10:50:20 AM
+
+MXV_OPEN_MP:
+  C/OpenMP version
+
+  Compute matrix vector products y = A*x.
+
+  Number of processors available = 2
+  Number of threads =              1
+
+  Compare various algorithms:
+
+  MXV_PLAIN          - plain MxV coding.
+  MXV_PLAIN_OPEN_MP  - plain MxV coding + OpenMP.
+
+  Algorithm                  M         N      Seconds
+
+  MXV_PLAIN                 10        10        0.000002
+  MXV_PLAIN_OPEN_MP         10        10        0.000022
+
+  MXV_PLAIN                100       100        0.000189
+  MXV_PLAIN_OPEN_MP        100       100        0.000182
+
+  MXV_PLAIN               1000      1000        0.055332
+  MXV_PLAIN_OPEN_MP       1000      1000        0.048071
+
+  MXV_PLAIN                  1        10        0.000001
+  MXV_PLAIN_OPEN_MP          1        10        0.000009
+
+  MXV_PLAIN                 10       100        0.000017
+  MXV_PLAIN_OPEN_MP         10       100        0.000022
+
+  MXV_PLAIN                100      1000        0.002752
+  MXV_PLAIN_OPEN_MP        100      1000        0.002872
+
+  MXV_PLAIN               1000     10000        3.222980
+  MXV_PLAIN_OPEN_MP       1000     10000        3.208368
+
+  MXV_PLAIN                 10         1        0.000001
+  MXV_PLAIN_OPEN_MP         10         1        0.000011
+
+  MXV_PLAIN                100        10        0.000023
+  MXV_PLAIN_OPEN_MP        100        10        0.000026
+
+  MXV_PLAIN               1000       100        0.002609
+  MXV_PLAIN_OPEN_MP       1000       100        0.002898
+
+  MXV_PLAIN              10000      1000        0.362640
+  MXV_PLAIN_OPEN_MP      10000      1000        0.369826
+
+MXV_OPEN_MP:
+  Normal end of execution.
+
+20 May 2010 10:50:28 AM
+20 May 2010 10:50:28 AM
+
+MXV_OPEN_MP:
+  C/OpenMP version
+
+  Compute matrix vector products y = A*x.
+
+  Number of processors available = 2
+  Number of threads =              2
+
+  Compare various algorithms:
+
+  MXV_PLAIN          - plain MxV coding.
+  MXV_PLAIN_OPEN_MP  - plain MxV coding + OpenMP.
+
+  Algorithm                  M         N      Seconds
+
+  MXV_PLAIN                 10        10        0.000003
+  MXV_PLAIN_OPEN_MP         10        10        0.000298
+
+  MXV_PLAIN                100       100        0.000192
+  MXV_PLAIN_OPEN_MP        100       100        0.000220
+
+  MXV_PLAIN               1000      1000        0.039254
+  MXV_PLAIN_OPEN_MP       1000      1000        0.020221
+
+  MXV_PLAIN                  1        10        0.000000
+  MXV_PLAIN_OPEN_MP          1        10        0.000120
+
+  MXV_PLAIN                 10       100        0.000016
+  MXV_PLAIN_OPEN_MP         10       100        0.000084
+
+  MXV_PLAIN                100      1000        0.002739
+  MXV_PLAIN_OPEN_MP        100      1000        0.001685
+
+  MXV_PLAIN               1000     10000        3.244466
+  MXV_PLAIN_OPEN_MP       1000     10000        1.702205
+
+  MXV_PLAIN                 10         1        0.000001
+  MXV_PLAIN_OPEN_MP         10         1        0.000134
+
+  MXV_PLAIN                100        10        0.000024
+  MXV_PLAIN_OPEN_MP        100        10        0.000085
+
+  MXV_PLAIN               1000       100        0.002598
+  MXV_PLAIN_OPEN_MP       1000       100        0.001544
+
+  MXV_PLAIN              10000      1000        0.354787
+  MXV_PLAIN_OPEN_MP      10000      1000        0.182650
+
+MXV_OPEN_MP:
+  Normal end of execution.
+
+20 May 2010 10:50:35 AM
+20 May 2010 10:50:35 AM
+
+MXV_OPEN_MP:
+  C/OpenMP version
+
+  Compute matrix vector products y = A*x.
+
+  Number of processors available = 2
+  Number of threads =              4
+
+  Compare various algorithms:
+
+  MXV_PLAIN          - plain MxV coding.
+  MXV_PLAIN_OPEN_MP  - plain MxV coding + OpenMP.
+
+  Algorithm                  M         N      Seconds
+
+  MXV_PLAIN                 10        10        0.000002
+  MXV_PLAIN_OPEN_MP         10        10        0.000460
+
+  MXV_PLAIN                100       100        0.000191
+  MXV_PLAIN_OPEN_MP        100       100        0.000256
+
+  MXV_PLAIN               1000      1000        0.036939
+  MXV_PLAIN_OPEN_MP       1000      1000        0.019589
+
+  MXV_PLAIN                  1        10        0.000000
+  MXV_PLAIN_OPEN_MP          1        10        0.000175
+
+  MXV_PLAIN                 10       100        0.000018
+  MXV_PLAIN_OPEN_MP         10       100        0.000130
+
+  MXV_PLAIN                100      1000        0.002724
+  MXV_PLAIN_OPEN_MP        100      1000        0.001701
+
+  MXV_PLAIN               1000     10000        3.431752
+  MXV_PLAIN_OPEN_MP       1000     10000        1.711825
+
+  MXV_PLAIN                 10         1        0.000001
+  MXV_PLAIN_OPEN_MP         10         1        0.000207
+
+  MXV_PLAIN                100        10        0.000024
+  MXV_PLAIN_OPEN_MP        100        10        0.000136
+
+  MXV_PLAIN               1000       100        0.002644
+  MXV_PLAIN_OPEN_MP       1000       100        0.001549
+
+  MXV_PLAIN              10000      1000        0.374921
+  MXV_PLAIN_OPEN_MP      10000      1000        0.198242
+
+MXV_OPEN_MP:
+  Normal end of execution.
+
+20 May 2010 10:50:42 AM
+20 May 2010 10:50:42 AM
+
+MXV_OPEN_MP:
+  C/OpenMP version
+
+  Compute matrix vector products y = A*x.
+
+  Number of processors available = 2
+  Number of threads =              8
+
+  Compare various algorithms:
+
+  MXV_PLAIN          - plain MxV coding.
+  MXV_PLAIN_OPEN_MP  - plain MxV coding + OpenMP.
+
+  Algorithm                  M         N      Seconds
+
+  MXV_PLAIN                 10        10        0.000002
+  MXV_PLAIN_OPEN_MP         10        10        0.000616
+
+  MXV_PLAIN                100       100        0.000195
+  MXV_PLAIN_OPEN_MP        100       100        0.000404
+
+  MXV_PLAIN               1000      1000        0.040269
+  MXV_PLAIN_OPEN_MP       1000      1000        0.022216
+
+  MXV_PLAIN                  1        10        0.000005
+  MXV_PLAIN_OPEN_MP          1        10        0.000241
+
+  MXV_PLAIN                 10       100        0.000020
+  MXV_PLAIN_OPEN_MP         10       100        0.000208
+
+  MXV_PLAIN                100      1000        0.002756
+  MXV_PLAIN_OPEN_MP        100      1000        0.001971
+
+  MXV_PLAIN               1000     10000        3.287543
+  MXV_PLAIN_OPEN_MP       1000     10000        1.815156
+
+  MXV_PLAIN                 10         1        0.000001
+  MXV_PLAIN_OPEN_MP         10         1        0.000357
+
+  MXV_PLAIN                100        10        0.000023
+  MXV_PLAIN_OPEN_MP        100        10        0.000249
+
+  MXV_PLAIN               1000       100        0.002643
+  MXV_PLAIN_OPEN_MP       1000       100        0.001705
+
+  MXV_PLAIN              10000      1000        0.381202
+  MXV_PLAIN_OPEN_MP      10000      1000        0.219027
+
+MXV_OPEN_MP:
+  Normal end of execution.
+
+20 May 2010 10:50:49 AM

@@ -1,0 +1,278 @@
+
+TEST01:
+  MACHAR_S determines constants for floating point arithmetic.
+
+ibeta =  2
+it =     24
+irnd =   5
+ngrd =   0
+machep = -23
+negep =  -24
+iexp =   8
+minexp = -126
+maxexp = 128
+eps      1.1920928955078125e-07  34000000 
+epsneg   5.9604644775390625e-08  33800000 
+xmin     1.1754943508222875e-38    800000 
+xmax     3.4028234663852886e+38  7F7FFFFF 
+
+Tests with moderate numbers:
+
+yy                   =   1.1920928955078125e-07  34000000 
+zz                   =   5.9604644775390625e-08  33800000 
+nextafter_f(yy,zz)   =   1.1920928244535389e-07  33FFFFFF 
+nextafter_f(-yy,zz)  =  -1.1920928244535389e-07  B3FFFFFF 
+ 
+n = (long int) logb_f(yy)  = -23 
+scalb_f(yy,-n)       =   1.0000000000000000e+00  3F800000 
+n = (long int) logb_f(-yy) = -23 
+scalb_f(-yy,-n)      =  -1.0000000000000000e+00  BF800000 
+ 
+yy                   =   1.9999998807907104e+00  3FFFFFFF 
+zz                   =   4.0000000000000000e+00  40800000 
+nextafter_f(yy,zz)   =   2.0000000000000000e+00  40000000 
+nextafter_f(-yy,-zz) =  -2.0000000000000000e+00  C0000000 
+ 
+n = (long int) logb_f(yy)  = 0 
+scalb_f(yy,-n)       =   1.9999998807907104e+00  3FFFFFFF 
+n = (long int) logb_f(-yy) = 0 
+scalb_f(-yy,-n)      =  -1.9999998807907104e+00  BFFFFFFF 
+ 
+yy                   =   2.0000000000000000e+00  40000000 
+zz                   =   0.0000000000000000e+00         0 
+nextafter_f(yy,zz)   =   1.9999998807907104e+00  3FFFFFFF 
+nextafter_f(-yy,zz)  =  -1.9999998807907104e+00  BFFFFFFF 
+ 
+n = (long int) logb_f(yy)  = 1 
+scalb_f(yy,-n)       =   1.0000000000000000e+00  3F800000 
+n = (long int) logb_f(-yy) = 1 
+scalb_f(-yy,-n)      =  -1.0000000000000000e+00  BF800000 
+
+Tests near smallest positive number 
+
+yy                   =   0.0000000000000000e+00         0 
+zz                   =   1.0000000000000000e+00  3F800000 
+nextafter_f(yy,zz)   =   1.4012984643248171e-45         1 
+nextafter_f(-yy,zz)  =   1.4012984643248171e-45         1 
+nextafter_f(-yy,-zz) =  -1.4012984643248171e-45  80000001 
+ 
+yy                   =   1.4012984643248171e-45         1 
+zz                   =  -1.4012984643248171e-45  80000001 
+nextafter_f(yy,zz)   =   0.0000000000000000e+00         0 
+nextafter_f(-yy,zz)  =  -1.4012984643248171e-45  80000001 
+nextafter_f(-yy,-zz) =  -0.0000000000000000e+00  80000000 
+copysign_f(-0.0,1.0) =   0.0000000000000000e+00         0 
+copysign_f(0.0,-1.0) =  -0.0000000000000000e+00  80000000 
+ 
+n = (long int) logb_f(yy)  = -149 
+scalb_f(yy,-n)       =   1.0000000000000000e+00  3F800000 
+n = (long int) logb_f(-yy) = -149 
+scalb_f(-yy,-n)      =  -1.0000000000000000e+00  BF800000 
+ 
+tt                   =   1.5414283107572988e-44         B 
+scalb_f(tt,-1)       =   8.4077907859489024e-45         6 
+tt * 0.5             =   8.4077907859489024e-45         6 
+scalb_f(tt,-2)       =   4.2038953929744512e-45         3 
+tt * 0.25            =   4.2038953929744512e-45         3 
+scalb_f(tt,-3)       =   1.4012984643248171e-45         1 
+tt * 0.125           =   1.4012984643248171e-45         1 
+scalb_f(tt,3)        =   1.2331426486058390e-43        58 
+ 
+yy                   =   1.4012984643248171e-45         1 
+zz                   =   1.0000000000000000e+00  3F800000 
+nextafter_f(yy,zz)   =   2.8025969286496341e-45         2 
+nextafter_f(-yy,zz)  =  -0.0000000000000000e+00  80000000 
+ 
+yy                   =   2.8025969286496341e-45         2 
+zz                   =   1.0000000000000000e+00  3F800000 
+nextafter_f(yy,zz)   =   4.2038953929744512e-45         3 
+nextafter_f(-yy,zz)  =  -1.4012984643248171e-45  80000001 
+ 
+n = (long int) logb_f(yy)  = -148 
+scalb_f(yy,-n)       =   1.0000000000000000e+00  3F800000 
+n = (long int) logb_f(-yy) = -148 
+scalb_f(-yy,-n)      =  -1.0000000000000000e+00  BF800000 
+
+Test near largest positive number 
+
+yy                   =   3.4028234663852886e+38  7F7FFFFF 
+zz                   =   1.0000000000000000e+00  3F800000 
+nextafter_f(yy,zz)   =   3.4028232635611926e+38  7F7FFFFE 
+nextafter_f(-yy,zz)  =  -3.4028232635611926e+38  FF7FFFFE 
+copysign_f(yy,-1.0)  =  -3.4028234663852886e+38  FF7FFFFF 
+copysign_f(-yy,1.0)  =   3.4028234663852886e+38  7F7FFFFF 
+ 
+n = (long int) logb_f(yy)  = 127 
+scalb_f(yy,-n)       =   1.9999998807907104e+00  3FFFFFFF 
+n = (long int) logb_f(-yy) = 127 
+scalb_f(-yy,-n)      =  -1.9999998807907104e+00  BFFFFFFF 
+
+Tests with infinity 
+
+yy                   =   3.4028234663852886e+38  7F7FFFFF 
+zz                   =                      inf  7F800000 
+copysign_f(Inf,-1.0) =                     -inf  FF800000 
+copysign_f(-Inf,Inf) =                      inf  7F800000 
+nextafter_f(yy,zz)   =                      inf  7F800000 
+nextafter_f(zz,yy)   =   3.4028234663852886e+38  7F7FFFFF 
+nextafter_f(-zz,yy)  =  -3.4028234663852886e+38  FF7FFFFF 
+logb_f(zz)           =                      inf  7F800000 
+
+Tests with NaN 
+
+yy                   =                      nan  7F800004 
+zz                   =   3.4028234663852886e+38  7F7FFFFF 
+Using a NaN returns                        nan  7F800004 
+copysign_f(NaN,-1.0) =                      nan  FF800004 
+copysign_f(-NaN,1.0) =                      nan  7F800004 
+nextafter_f(yy,zz)   =                      nan  7FC00004 
+nextafter_f(-yy,zz)  =                      nan  FFC00004 
+nextafter_f(zz,yy)   =                      nan  7FC00004 
+nextafter_f(-zz,yy)  =                      nan  7FC00004 
+logb_f(yy)           =                      nan  7F800004 
+scalb_f(yy,10)       =                      nan  7F800004 
+
+Special test with 0.0:
+
+yy                   =   0.0000000000000000e+00         0 
+scalb_f(yy,10)       =   0.0000000000000000e+00         0 
+logb_f(yy)           =                     -inf  FF800000 
+
+TEST02:
+  MACHAR_D determines constants for floating point arithmetic.
+
+ibeta = 2
+it    = 53
+irnd  = 5
+ngrd  = 0
+machep = -52
+negep = -53
+iexp = 11
+minexp = -1022
+maxexp = 1024
+eps      2.2204460492503131e-16  3CB00000         0 
+epsneg   1.1102230246251565e-16  3CA00000         0 
+xmin    2.2250738585072014e-308    100000         0 
+xmax    1.7976931348623157e+308  7FEFFFFF  FFFFFFFF 
+ 
+ Tests with moderate numbers 
+ 
+yy                   =   2.2204460492503131e-16  3CB00000         0 
+zz                   =   1.1102230246251565e-16  3CA00000         0 
+nextafter_d(yy,zz)   =   2.2204460492503128e-16  3CAFFFFF  FFFFFFFF 
+nextafter_d(-yy,zz)  =  -2.2204460492503128e-16  BCAFFFFF  FFFFFFFF 
+ 
+n = (long int) logb_d(yy)  = -52 
+scalb_d(yy,-n)       =   1.0000000000000000e+00  3FF00000         0 
+n = (long int) logb_d(-yy) = -52 
+scalb_d(-yy,-n)      =  -1.0000000000000000e+00  BFF00000         0 
+ 
+yy                   =   1.9999999999999998e+00  3FFFFFFF  FFFFFFFF 
+zz                   =   4.0000000000000000e+00  40100000         0 
+nextafter_d(yy,zz)   =   2.0000000000000000e+00  40000000         0 
+nextafter_d(-yy,-zz) =  -2.0000000000000000e+00  C0000000         0 
+ 
+n = (long int) logb_d(yy)  = 0 
+scalb_d(yy,-n)       =   1.9999999999999998e+00  3FFFFFFF  FFFFFFFF 
+n = (long int) logb_d(-yy) = 0 
+scalb_d(-yy,-n)      =  -1.9999999999999998e+00  BFFFFFFF  FFFFFFFF 
+ 
+yy                   =   2.0000000000000000e+00  40000000         0 
+zz                   =   0.0000000000000000e+00         0         0 
+nextafter_d(yy,zz)   =   1.9999999999999998e+00  3FFFFFFF  FFFFFFFF 
+nextafter_d(-yy,zz)  =  -1.9999999999999998e+00  BFFFFFFF  FFFFFFFF 
+ 
+n = (long int) logb_d(yy)  = 1 
+scalb_d(yy,-n)       =   1.0000000000000000e+00  3FF00000         0 
+n = (long int) logb_d(-yy) = 1 
+scalb_d(-yy,-n)      =  -1.0000000000000000e+00  BFF00000         0 
+ 
+ Tests near smallest positive number 
+ 
+yy                   =   0.0000000000000000e+00         0         0 
+zz                   =   1.0000000000000000e+00  3FF00000         0 
+nextafter_d(yy,zz)   =  4.9406564584124654e-324         0         1 
+nextafter_d(-yy,zz)  =  4.9406564584124654e-324         0         1 
+nextafter_d(-yy,-zz) = -4.9406564584124654e-324  80000000         1 
+ 
+yy                   =  4.9406564584124654e-324         0         1 
+zz                   = -4.9406564584124654e-324  80000000         1 
+nextafter_d(yy,zz)   =   0.0000000000000000e+00         0         0 
+nextafter_d(-yy,zz)  = -4.9406564584124654e-324  80000000         1 
+nextafter_d(-yy,-zz) =  -0.0000000000000000e+00  80000000         0 
+copysign_d(-0.0,1.0) =   0.0000000000000000e+00         0         0 
+copysign_d(0.0,-1.0) =  -0.0000000000000000e+00  80000000         0 
+ 
+n = (long int) logb_d(yy)  = -1074 
+scalb_d(yy,-n)       =   1.0000000000000000e+00  3FF00000         0 
+n = (long int) logb_d(-yy) = -1074 
+scalb_d(-yy,-n)      =  -1.0000000000000000e+00  BFF00000         0 
+ 
+tt                   =  5.4347221042537120e-323         0         B 
+scalb_d(tt,-1)       =  2.9643938750474793e-323         0         6 
+tt * 0.5             =  2.9643938750474793e-323         0         6 
+scalb_d(tt,-2)       =  1.4821969375237396e-323         0         3 
+tt * 0.25            =  1.4821969375237396e-323         0         3 
+scalb_d(tt,-3)       =  4.9406564584124654e-324         0         1 
+tt * 0.125           =  4.9406564584124654e-324         0         1 
+scalb_d(tt,3)        =  4.3477776834029696e-322         0        58 
+ 
+yy                   =  4.9406564584124654e-324         0         1 
+zz                   =   1.0000000000000000e+00  3FF00000         0 
+nextafter_d(yy,zz)   =  9.8813129168249309e-324         0         2 
+nextafter_d(-yy,zz)  =  -0.0000000000000000e+00  80000000         0 
+ 
+yy                   =  9.8813129168249309e-324         0         2 
+zz                   =   1.0000000000000000e+00  3FF00000         0 
+nextafter_d(yy,zz)   =  1.4821969375237396e-323         0         3 
+nextafter_d(-yy,zz)  = -4.9406564584124654e-324  80000000         1 
+ 
+n = (long int) logb_d(yy)  = -1073 
+scalb_d(yy,-n)       =   1.0000000000000000e+00  3FF00000         0 
+n = (long int) logb_d(-yy) = -1073 
+scalb_d(-yy,-n)      =  -1.0000000000000000e+00  BFF00000         0 
+ 
+ Test near largest positive number 
+ 
+yy                   =  1.7976931348623157e+308  7FEFFFFF  FFFFFFFF 
+zz                   =   1.0000000000000000e+00  3FF00000         0 
+nextafter_d(yy,zz)   =  1.7976931348623155e+308  7FEFFFFF  FFFFFFFE 
+nextafter_d(-yy,zz)  = -1.7976931348623155e+308  FFEFFFFF  FFFFFFFE 
+copysign_d(yy,-1.0)  = -1.7976931348623157e+308  FFEFFFFF  FFFFFFFF 
+copysign_d(-yy,1.0)  =  1.7976931348623157e+308  7FEFFFFF  FFFFFFFF 
+ 
+n = (long int) logb_d(yy)  = 1023 
+scalb_d(yy,-n)       =   1.9999999999999998e+00  3FFFFFFF  FFFFFFFF 
+n = (long int) logb_d(-yy) = 1023 
+scalb_d(-yy,-n)      =  -1.9999999999999998e+00  BFFFFFFF  FFFFFFFF 
+ 
+ Tests with infinity 
+ 
+yy                   =  1.7976931348623157e+308  7FEFFFFF  FFFFFFFF 
+zz                   =                      inf  7FF00000         0 
+copysign_d(Inf,-1.0) =                     -inf  FFF00000         0 
+copysign_d(-Inf,Inf) =                      inf  7FF00000         0 
+nextafter_d(yy,zz)   =                      inf  7FF00000         0 
+nextafter_d(zz,yy)   =  1.7976931348623157e+308  7FEFFFFF  FFFFFFFF 
+nextafter_d(-zz,yy)  = -1.7976931348623157e+308  FFEFFFFF  FFFFFFFF 
+logb_d(zz)           =                      inf  7FF00000         0 
+ 
+ Tests with NaN 
+ 
+yy                   =                      nan  7FF00004         0 
+zz                   =  1.7976931348623157e+308  7FEFFFFF  FFFFFFFF 
+Using a NaN returns                       nan  7FF00004         0 
+copysign_d(NaN,-1.0) =                      nan  FFF00004         0 
+copysign_d(-NaN,NaN) =                      nan  7FF00004         0 
+nextafter_d(yy,zz)   =                      nan  7FF80004         0 
+nextafter_d(-yy,zz)  =                      nan  FFF80004         0 
+nextafter_d(zz,yy)   =                      nan  7FF80004         0 
+nextafter_d(-zz,yy)  =                      nan  7FF80004         0 
+logb_d(yy)           =                      nan  7FF00004         0 
+scalb_d(yy,10)       =                      nan  7FF00004         0 
+ 
+ Special test with 0.0 
+ 
+yy                   =   0.0000000000000000e+00         0         0 
+scalb_d(yy,10)       =   0.0000000000000000e+00         0         0 
+logb_d(yy)           =                     -inf  FFF00000         0 

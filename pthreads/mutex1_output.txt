@@ -1,0 +1,2 @@
+Counter value: 1
+Counter value: 2

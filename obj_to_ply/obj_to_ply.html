@@ -1,0 +1,253 @@
+<html>
+
+  <head>
+    <title>
+      OBJ_TO_PLY - OBJ => PLY Graphics File Conversion
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      OBJ_TO_PLY <br> OBJ => PLY Graphics File Conversion
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>OBJ_TO_PLY</b>
+      is a C program which
+      converts an Alias OBJ file to a PLY file,
+      by Greg Turk.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>obj_to_ply</b> [flags] &lt; <i>file.obj</i> &gt; <i>file.ply</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>file.obj</i> is the OBJ file to be read;
+        </li>
+        <li>
+          <i>file.ply</i> is the PLY file to be created;
+        </li>
+      </ul>
+      Note that the "-f" flag flips the vertex order in polygons.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../cpp_src/ivcon/ivcon.html">
+      IVCON</a>,
+      a C++ program which
+      can convert between the Alias OBJ format
+      and other formats.
+    </p>
+
+    <p>
+      <a href = "../../f_src/ivread/ivread.html">
+      IVREAD</a>,
+      a FORTRAN90 program which
+      can convert between the Alias OBJ
+      and other formats.
+    </p>
+
+    <p>
+      <a href = "../../data/obj/obj.html">
+      OBJ</a>,
+      a data directory which
+      contains some information about the Alias OBJ format.
+    </p>
+
+    <p>
+      <a href = "../../f_src/obj_io/obj_io.html">
+      OBJ_IO</a>,
+      a FORTRAN90 library which
+      transfers graphics information to
+      and from Alias OBJ files.
+    </p>
+
+    <p>
+      <a href = "../../pl_src/obj2opengl/obj2opengl.html">
+      OBJ2OPENGL</a>,
+      a PERL script which
+      converts an OBJ file to a
+      C/C++ include file appropriate for use with OpenGL
+    </p>
+
+    <p>
+      <a href = "../../c_src/plato_ply/plato_ply.html">
+      PLATO_PLY</a>,
+      a C program which
+      creates a Platonic solid
+      and writes it to an ASCII PLY file.
+    </p>
+
+    <p>
+      <a href = "../../data/ply/ply.html">
+      PLY</a>,
+      a data directory which
+      contains some information about the PLY format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ply_to_iv/ply_to_iv.html">
+      PLY_TO_IV</a>,
+      a C program which
+      can convert a PLY file to the IV format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ply_io/ply_io.html">
+      PLY_IO</a>,
+      a C library which
+      has some routines needed by <b>OBJ_TO_PLY</b>.
+    </p>
+
+    <p>
+      <a href = "../../m_src/ply_io/ply_io.html">
+      PLY_IO</a>,
+      a MATLAB library which
+      reads or writes a PLY file.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ply_to_obj/ply_to_obj.html">
+      PLY_TO_OBJ</a>,
+      a C program which
+      reads a PLY 3D graphics file and writes an equivalent OBJ graphics file.
+    </p>
+
+    <p>
+      <a href = "../../f_src/tec_to_obj/tec_to_obj.html">
+      TEC_TO_OBJ</a>,
+      a FORTRAN90 program which
+      can read a TECPLOT file describing a
+      surface in 3D composed of triangles or quadrilaterals, and write
+      an OBJ file.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Greg Turk
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          OBJ is a file format from ALIAS (
+          <a href = "http://www.alias.com/eng/index.shtml">
+                     http://www.alias.com/eng/index.shtml</a>)
+        </li>
+        <li>
+          <a href = "../../data/obj/obj.html">the OBJ file directory</a>.
+        </li>
+        <li>
+          <a href = "../../data/ply/ply.html">the PLY file directory</a>.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "obj_to_ply.c">obj_to_ply.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "obj_to_ply.sh">obj_to_ply.sh</a>,
+          commands to compile, link and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "../../data/obj/cube.obj">cube.obj</a>,
+          an Alias OBJ file describing a cube;
+        </li>
+        <li>
+          <a href = "cube.ply">cube.ply</a>,
+          the PLY file created by OBJ_TO_PLY.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MAIN</b> is the main program for OBJ_TO_PLY.
+        </li>
+        <li>
+          <b>FETCH_LINE</b> gets a text line and see if it is a line of comments.
+        </li>
+        <li>
+          <b>FETCH_WORDS</b> breaks up the last read line into words.
+        </li>
+        <li>
+          <b>GET_INDICES</b> breaks a word of slash-separated numbers into one or more numbers.
+        </li>
+        <li>
+          <b>MAKE_COMMENT</b> saves a new comment.
+        </li>
+        <li>
+          <b>MAKE_FACE</b> creates a new face.
+        </li>
+        <li>
+          <b>MAKE_VERTEX</b> creates a new vertex.
+        </li>
+        <li>
+          <b>READ_OBJ</b> reads in a Wavefront OBJ file.
+        </li>
+        <li>
+          <b>USAGE</b> prints out usage information.
+        </li>
+        <li>
+          <b>WRITE_FILE</b> writes the PLY file to the standard output unit.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 18 January 2011.
+    </i>
+
+    <!-- John Burkardt -->
+  </body>
+
+</html>

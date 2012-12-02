@@ -1,0 +1,185 @@
+<HTML>
+
+  <HEAD>
+    <TITLE>
+      PCL_READ - Extract Numeric Data from a PCL File
+    </TITLE>
+  </HEAD>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      PCL_READ <br> Extract Numeric Data from a PCL File
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>PCL_READ</b> 
+      is a C program which
+       reads a PCL file and writes a copy containing only
+      the numeric data.  The main reason for doing this is so that the
+      resulting file can easily be read by a program as pure numeric data.
+    </p>
+
+    <p>
+      The PCL files we are considering contain gene expression data
+      from experiments on Arabidopsis.  The first line of the file contains
+      a (long) list of labels.  There follow N records, each containing
+      3 labels and 14 numeric values, separated by TAB characters.  
+      PCL_READ reads this data, ignoring the title and labels, and writes
+      N records of numeric data to a new file.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>pcl_read</b> <i>file.pcl</i> <i>file.txt</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>file.pcl</i> is the name of the PCL file to be read.
+        </li>
+        <li>
+          <i>file.txt</i> is the name of the text file to be created, which will contain
+          the numeric data in the PCL file.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page 
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../datasets/pcl/pcl.html">
+      PCL</a>, 
+      a dataset directory which 
+      contains datasets from a gene expression experiment on Arabidopsis;
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "pcl_read.c">pcl_read.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "pcl_read.csh">pcl_read.csh</a>, 
+          commands to compile and load the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>I1039</b> is a PCL file.
+      <ul>
+        <li>
+          <a href = "../../datasets/pcl/i1039.pcl">i1039.pcl</a>, 
+          the original PCL file.
+        </li>
+        <li>
+          <a href = "../../datasets/pcl/i1039.dat">i1039.dat</a>, 
+          1152 lines of data extracted by PCL_READ.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>I1650</b> is a PCL file.
+      <ul>
+        <li>
+          <a href = "../../datasets/pcl/i1650.pcl">i1650.pcl</a>, 
+          the original PCL file.
+        </li>
+        <li>
+          <a href = "../../datasets/pcl/i1650.dat">i1650.dat</a>, 
+          180 lines of data extracted by PCL_READ.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>I2032</b> is a PCL file.
+      <ul>
+        <li>
+          <a href = "../../datasets/pcl/i2032.pcl">i2032.pcl</a>, 
+          the original PCL file.
+        </li>
+        <li>
+          <a href = "../../datasets/pcl/i2032.dat">i2032.dat</a>, 
+          1481 lines of data extracted by PCL_READ.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>I29111</b> is a PCL file.
+      <ul>
+        <li>
+          <a href = "../../datasets/pcl/i29111.pcl">i29111.pcl</a>, 
+          the original PCL file.
+        </li>
+        <li>
+          <a href = "../../datasets/pcl/i29111.dat">i29111.dat</a>, 
+          1031 lines of data extracted by PCL_READ.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>PCL_READ</b> reads a PCL file for Arabidopsis and writes out a pure data file.
+        </li>
+        <li>
+          <b>PCL_TO_PURE</b> reads data from a PCL file and writes the numeric data
+        </li>
+        <li>
+          <b>TIMESTAMP</b> prints the current YMDHMS date as a time stamp.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 09 December 2007.
+    </i>
+
+    <!-- John Burkardt -->
+ 
+  </body>
+
+</html>
+

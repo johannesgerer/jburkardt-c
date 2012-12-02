@@ -1,0 +1,2 @@
+ Alpha = 1.000000  Std = 1.000000  Range = 1.000000  M = 10000  N = 10000 
+   Expected value of the mean 0.008448  Standard deviation 0.805311 

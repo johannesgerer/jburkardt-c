@@ -1,0 +1,22 @@
+
+LAPLACE_MPI:
+  C/MPI version
+  Solve the Laplace equation using MPI!
+
+  MPI has been set up.
+  Matrix is set
+  Communications are set up
+  Beginning to iterate
+I finished gather
+  Task 1 took  0.033 seconds
+I finished gather
+did 820 iterations
+  Task 0 took  0.033 seconds
+I finished gather
+  Task 2 took  0.033 seconds
+I finished gather
+  Task 3 took  0.034 seconds
+  Solution written to "laplace_solution.txt".
+
+LAPLACE_MPI:
+  Normal end of execution.

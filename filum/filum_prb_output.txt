@@ -1,0 +1,62 @@
+22 November 2011 09:40:02 AM
+
+FILUM_PRB:
+  C version
+  Test the FILUM library.
+
+TEST03
+  FILE_COLUMN_COUNT counts the columns in a file.
+
+  It is assumed that the file contains a number of lines,
+  with each line containing the same number of words.
+  The task is to determine the number of words in a line,
+  that is, the number of "columns" of text.
+
+  Examining the file:"filum_prb_4by5.txt".
+
+  Number of columns: 5
+
+TEST06
+  FILE_EXIST reports whether a file 'exists'.
+
+  Exist?   File_name
+
+       1  filum_prb.c
+       1  filum.c
+       0  raisin.txt
+       0  make.money.fast
+
+TEST14
+  FILE_NAME_INC increments a string
+
+     Input             Output
+
+  file???.dat               
+  (File name not incrementable.  Quit loop!)
+
+  file072.dat    file073.dat
+  file073.dat    file074.dat
+  file074.dat    file075.dat
+  file075.dat    file076.dat
+
+  2cat9.dat      3cat0.dat  
+  3cat0.dat      3cat1.dat  
+  3cat1.dat      3cat2.dat  
+  3cat2.dat      3cat3.dat  
+
+  fred98.txt     fred99.txt 
+  fred99.txt     fred00.txt 
+  fred00.txt     fred01.txt 
+  fred01.txt     fred02.txt 
+
+TEST22
+  FILE_ROW_COUNT counts the lines in a file.
+
+  Examining file "filum_prb_test.txt".
+
+  Number of lines: 16
+
+FILUM_PRB:
+  Normal end of execution.
+
+22 November 2011 09:40:02 AM

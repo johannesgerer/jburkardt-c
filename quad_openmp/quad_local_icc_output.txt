@@ -1,0 +1,42 @@
+
+QUAD_OPEN_MP:
+  C/OpenMP version
+  Estimate the integral of f(x) from A to B.
+  f(x) = 50 / ( pi * ( 2500 * x * x + 1 ) ).
+
+  A        = 0.000000
+  B        = 10.000000
+  N        = 10000000
+  Exact    =       0.4993633810764567
+
+  Estimate =       0.4993712889190963
+  Error    = 7.907843e-06
+  Time     = 0.122273
+
+QUAD_OPEN_MP:
+  C/OpenMP version
+  Estimate the integral of f(x) from A to B.
+  f(x) = 50 / ( pi * ( 2500 * x * x + 1 ) ).
+
+  A        = 0.000000
+  B        = 10.000000
+  N        = 10000000
+  Exact    =       0.4993633810764567
+
+  Estimate =       0.4993712889190981
+  Error    = 7.907843e-06
+  Time     = 0.070973
+
+QUAD_OPEN_MP:
+  C/OpenMP version
+  Estimate the integral of f(x) from A to B.
+  f(x) = 50 / ( pi * ( 2500 * x * x + 1 ) ).
+
+  A        = 0.000000
+  B        = 10.000000
+  N        = 10000000
+  Exact    =       0.4993633810764567
+
+  Estimate =       0.4993712889190901
+  Error    = 7.907843e-06
+  Time     = 0.036484

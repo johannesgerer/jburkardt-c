@@ -1,0 +1,184 @@
+<html>
+
+  <head>
+    <title>
+      PLY_TO_IV - PLY => IV Graphics File Conversion
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      PLY_TO_IV <br> PLY => IV Graphics File Conversion
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>PLY_TO_IV</b> 
+      is a C program which
+      converts a PLY file to an Inventor (IV) file,
+      by Greg Turk.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>ply_to_iv</b> &lt; <i>file</i>.ply &gt; <i>file</i>.iv
+      </b></blockquote>
+      <ul>
+        <li>
+          <i>file</i>.ply is the PLY file to be read;
+        </li>
+        <li>
+          <i>file</i>.iv is the IV file to be created;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/obj_to_ply/obj_to_ply.html">
+      OBJ_TO_PLY</a>, 
+      a C program which 
+      converts an OBJ file to a PLY file.
+    </p>
+
+    <p>
+      <a href = "../../c_src/plato_ply/plato_ply.html">
+      PLATO_PLY</a>, 
+      a C program which 
+      writes out any of the five Platonic solids as a PLY file,
+      by Greg Turk.
+    </p>
+
+    <p>
+      <a href = "../../data/ply/ply.html">
+      PLY</a>,
+      a data directory which
+      contains some information about the PLY format.
+    </p>
+
+    <p>
+      <a href = "../../m_src/ply_display/ply_display.html">
+      PLY_DISPLAY</a>,
+      a MATLAB program which
+      displays an image of a 3D graphics file in PLY format;
+    </p>
+
+    <p>
+      <a href = "../../c_src/ply_io/ply_io.html">
+      PLY_IO</a>, 
+      a C library which
+      can read or write a PLY file, by Greg Turk.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ply_to_obj/ply_to_obj.html">
+      PLY_TO_OBJ</a>, 
+      a C program which
+      reads a PLY 3D graphics file and writes an equivalent OBJ graphics file.
+    </p>
+
+    <p>
+      <a href = "../../m_src/ply_to_tri_surface/ply_to_tri_surface.html">
+      PLY_TO_TRI_SURFACE</a>, 
+      a MATLAB program which 
+      can read a PLY file, extract
+      the polygonal surface information, and return it as a
+      TRI_SURFACE dataset.
+    </p>
+
+    <p>
+      <a href = "../../m_src/tri_surface_to_ply/tri_surface_to_ply.html">
+      TRI_SURFACE_TO_PLY</a>, 
+      a MATLAB program which
+      converts a TRI_SURFACE data
+      structure into a PLY data structure.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Greg Turk
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "ply_to_iv.c">ply_to_iv.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "ply_to_iv.sh">ply_to_iv.sh</a>, 
+          commands to compile, link and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>CUBE</b> is a simple definition of a cube.
+      <ul>
+        <li>
+          <a href = "cube.ply">cube.ply</a>, 
+          the original PLY file;
+        </li>
+        <li>
+          <a href = "cube.iv">cube.iv</a>, 
+          the Inventor file created by <b>ply_to_iv</b>.
+        </li>
+      </ul>
+    </p>
+      
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MAIN</b> is the main program for PLY_TO_IV.
+        </li>
+        <li>
+          <b>USAGE</b> prints the usage information when the program is called incorrectly.
+        </li>
+        <li>
+          <b>READ_PLY_FILE</b> reads a PLY file from standard input.
+        </li>
+        <li>
+          <b>WRITE_INVENTOR_FILE</b> writes an Inventor file to standard output.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 15 December 2005.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

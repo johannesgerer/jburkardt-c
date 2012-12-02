@@ -1,0 +1,69 @@
+
+DOT_PRODUCT
+  C/OpenMP version
+
+  A program which computes a vector dot product.
+
+  Number of processors available = 8
+  Number of threads =              1
+
+  Sequential      1000    1.000000e+03     0.0000050068
+  Parallel        1000    1.000000e+03     0.0000169277
+
+  Sequential     10000    1.000000e+04     0.0000450611
+  Parallel       10000    1.000000e+04     0.0000498295
+
+  Sequential    100000    1.000000e+05     0.0004470348
+  Parallel      100000    1.000000e+05     0.0004858971
+
+  Sequential   1000000    1.000000e+06     0.0044810772
+  Parallel     1000000    1.000000e+06     0.0048770905
+
+DOT_PRODUCT
+  Normal end of execution.
+
+DOT_PRODUCT
+  C/OpenMP version
+
+  A program which computes a vector dot product.
+
+  Number of processors available = 8
+  Number of threads =              2
+
+  Sequential      1000    1.000000e+03     0.0000038147
+  Parallel        1000    1.000000e+03     0.0001380444
+
+  Sequential     10000    1.000000e+04     0.0000441074
+  Parallel       10000    1.000000e+04     0.0001490116
+
+  Sequential    100000    1.000000e+05     0.0004279613
+  Parallel      100000    1.000000e+05     0.0004022121
+
+  Sequential   1000000    1.000000e+06     0.0044667721
+  Parallel     1000000    1.000000e+06     0.0027029514
+
+DOT_PRODUCT
+  Normal end of execution.
+
+DOT_PRODUCT
+  C/OpenMP version
+
+  A program which computes a vector dot product.
+
+  Number of processors available = 8
+  Number of threads =              4
+
+  Sequential      1000    1.000000e+03     0.0000040531
+  Parallel        1000    1.000000e+03     0.0001790524
+
+  Sequential     10000    1.000000e+04     0.0000450611
+  Parallel       10000    1.000000e+04     0.0001361370
+
+  Sequential    100000    1.000000e+05     0.0004479885
+  Parallel      100000    1.000000e+05     0.0001478195
+
+  Sequential   1000000    1.000000e+06     0.0045151711
+  Parallel     1000000    1.000000e+06     0.0015499592
+
+DOT_PRODUCT
+  Normal end of execution.

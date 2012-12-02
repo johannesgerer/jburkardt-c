@@ -1,0 +1,180 @@
+
+PRIME_NUMBER_OPEN_MP
+  C/OpenMP version
+
+  Number of processors available = 8
+  Number of threads =              1
+
+TEST01
+  Call PRIME_NUMBER to count the primes from 1 to N.
+
+         N        Pi          Time
+
+         1         0        0.000069
+         2         1        0.000002
+         4         2        0.000002
+         8         4        0.000002
+        16         6        0.000002
+        32        11        0.000003
+        64        18        0.000006
+       128        31        0.000016
+       256        54        0.000049
+       512        97        0.000176
+      1024       172        0.000579
+      2048       309        0.002048
+      4096       564        0.007510
+      8192      1028        0.027221
+     16384      1900        0.067747
+     32768      3512        0.236158
+     65536      6542        0.882062
+    131072     12251        3.317661
+
+TEST01
+  Call PRIME_NUMBER to count the primes from 1 to N.
+
+         N        Pi          Time
+
+         5         3        0.000001
+        50        15        0.000003
+       500        95        0.000102
+      5000       669        0.006838
+     50000      5133        0.528129
+    500000     41538       43.721446
+
+PRIME_NUMBER_OPEN_MP
+  Normal end of execution.
+
+PRIME_NUMBER_OPEN_MP
+  C/OpenMP version
+
+  Number of processors available = 8
+  Number of threads =              2
+
+TEST01
+  Call PRIME_NUMBER to count the primes from 1 to N.
+
+         N        Pi          Time
+
+         1         0        0.000197
+         2         1        0.000055
+         4         2        0.000035
+         8         4        0.000036
+        16         6        0.000035
+        32        11        0.000038
+        64        18        0.000039
+       128        31        0.000044
+       256        54        0.000070
+       512        97        0.000204
+      1024       172        0.000461
+      2048       309        0.001518
+      4096       564        0.005509
+      8192      1028        0.019836
+     16384      1900        0.074032
+     32768      3512        0.182353
+     65536      6542        0.707262
+    131072     12251        2.582886
+
+TEST01
+  Call PRIME_NUMBER to count the primes from 1 to N.
+
+         N        Pi          Time
+
+         5         3        0.000077
+        50        15        0.000077
+       500        95        0.000236
+      5000       669        0.005093
+     50000      5133        0.416419
+    500000     41538       33.758671
+
+PRIME_NUMBER_OPEN_MP
+  Normal end of execution.
+
+PRIME_NUMBER_OPEN_MP
+  C/OpenMP version
+
+  Number of processors available = 8
+  Number of threads =              4
+
+TEST01
+  Call PRIME_NUMBER to count the primes from 1 to N.
+
+         N        Pi          Time
+
+         1         0        0.000316
+         2         1        0.000335
+         4         2        0.000211
+         8         4        0.000212
+        16         6        0.000063
+        32        11        0.000031
+        64        18        0.000030
+       128        31        0.000034
+       256        54        0.000047
+       512        97        0.000097
+      1024       172        0.000273
+      2048       309        0.000922
+      4096       564        0.003106
+      8192      1028        0.013356
+     16384      1900        0.042492
+     32768      3512        0.119637
+     65536      6542        0.392235
+    131072     12251        1.467607
+
+TEST01
+  Call PRIME_NUMBER to count the primes from 1 to N.
+
+         N        Pi          Time
+
+         5         3        0.000680
+        50        15        0.000400
+       500        95        0.000198
+      5000       669        0.003612
+     50000      5133        0.222859
+    500000     41538       19.307789
+
+PRIME_NUMBER_OPEN_MP
+  Normal end of execution.
+
+PRIME_NUMBER_OPEN_MP
+  C/OpenMP version
+
+  Number of processors available = 8
+  Number of threads =              8
+
+TEST01
+  Call PRIME_NUMBER to count the primes from 1 to N.
+
+         N        Pi          Time
+
+         1         0        0.000809
+         2         1        0.000415
+         4         2        0.000186
+         8         4        0.000179
+        16         6        0.000109
+        32        11        0.000085
+        64        18        0.000080
+       128        31        0.000096
+       256        54        0.000128
+       512        97        0.000180
+      1024       172        0.000335
+      2048       309        0.000859
+      4096       564        0.002855
+      8192      1028        0.008567
+     16384      1900        0.026481
+     32768      3512        0.078502
+     65536      6542        0.217723
+    131072     12251        0.783272
+
+TEST01
+  Call PRIME_NUMBER to count the primes from 1 to N.
+
+         N        Pi          Time
+
+         5         3        0.001282
+        50        15        0.001224
+       500        95        0.000668
+      5000       669        0.001941
+     50000      5133        0.121349
+    500000     41538       10.098949
+
+PRIME_NUMBER_OPEN_MP
+  Normal end of execution.

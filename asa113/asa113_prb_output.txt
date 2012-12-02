@@ -1,0 +1,35 @@
+07 November 2010 12:49:12 PM
+
+ASA113_PRB:
+  C version
+  Test the ASA113 library.
+
+TEST01
+  Test the ASA113 classification algorithm.
+
+  First 5 data values:
+
+         0        0.532095        0.894141
+         1        0.189043        0.613426
+         2        0.550977        0.415724
+         3        0.003973        0.605760
+         4        0.894230        0.666812
+
+        Initial CRITVL = 16.986171
+  After TRNSFR, CRITVL = 3.497824
+    After SWAP, CRITVL = 3.497824
+
+  Cluster  Population  Energy
+
+         1        29        0.923415
+         2        17        0.529900
+         3        12        0.220140
+         4        22        0.874656
+         5        20        0.949713
+
+     Total       100        3.497824
+
+ASA113_PRB:
+  Normal end of execution.
+
+07 November 2010 12:49:12 PM

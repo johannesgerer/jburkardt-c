@@ -1,0 +1,358 @@
+28 May 2012 08:32:04 PM
+
+C_OPERATORS:
+  Demonstrate the operators available in C.
+
+TEST_AMP:
+  Demonstrate &, which implements the bitwise AND operator.
+  This is most useful when the data is unsigned characters,
+  that is, binary integers from 0 to 255.
+
+  Type                A      B    A&B
+
+  uchar               3      5      1
+  uchar             242    242    242
+  uchar             242     13      0
+  uchar              13     85      5
+  uchar             242     85     80
+  uchar             255     80     80
+  uchar               0    128      0
+
+TEST_AMPAMP:
+  Demonstrate &&, which implements the logical AND operator.
+  For numeric data, 0 acts as false, nonzero as true.
+
+  Type              A    B    A&&B
+
+  bool              1    1    1
+  bool              1    0    0
+  bool              0    1    0
+  bool              0    0    0
+
+  double            1.000000    1.000000    1.000000
+  double            1.000000    0.000000    0.000000
+  double            0.000000    1.000000    0.000000
+  double            0.000000    0.000000    0.000000
+
+  float             1.000000    1.000000    1.000000
+  float             1.000000    0.000000    0.000000
+  float             0.000000    1.000000    0.000000
+  float             0.000000    0.000000    0.000000
+
+  int               1    1    1
+  int               1    0    0
+  int               0    1    0
+  int               0    0    0
+
+TEST_BANG:
+  Demonstrate !, which implements the logical negation operator.
+  For numeric data, 0 acts as false, nonzero as true.
+
+  Type              A     !A
+
+  bool              1    0
+  bool              0    1
+  double            -1.000000    0.000000
+  double            0.000000    1.000000
+  double            1.000000    0.000000
+  double            3.141593    0.000000
+  float             -1.000000    0.000000
+  float             0.000000    1.000000
+  float             1.000000    0.000000
+  float             3.141593    0.000000
+  int               -1    0
+  int               0    1
+  int               1    0
+  int               2    0
+
+TEST_BAR:
+  Demonstrate |, which implements the bitwise OR operator.
+  This is most useful when the data is unsigned characters,
+  that is, binary integers from 0 to 255.
+
+  Type                A      B    A|B
+
+  uchar               3      5      7
+  uchar             242    242    242
+  uchar             242     13    255
+  uchar              13     85     93
+  uchar             242     85    247
+  uchar             255     80    255
+  uchar               0    128    128
+
+TEST_BARBAR:
+  Demonstrate ||, which implements the logical OR operator.
+  For numeric data, 0 acts as false, nonzero as true.
+
+  Type              A    B    A||B
+
+  bool              1    1    1
+  bool              1    0    1
+  bool              0    1    1
+  bool              0    0    0
+
+  double            1.000000    1.000000    1.000000
+  double            1.000000    0.000000    1.000000
+  double            0.000000    1.000000    1.000000
+  double            0.000000    0.000000    0.000000
+
+  float             1.000000    1.000000    1.000000
+  float             1.000000    0.000000    1.000000
+  float             0.000000    1.000000    1.000000
+  float             0.000000    0.000000    0.000000
+
+  int               1    1    1
+  int               1    0    1
+  int               0    1    1
+  int               0    0    0
+
+TEST_CARET:
+  Demonstrate ^, which implements the bitwise exclusive OR operator.
+  This is most useful when the data is unsigned characters,
+  that is, binary integers from 0 to 255.
+
+  Type                A      B    A^B
+
+  uchar               3      5      6
+  uchar             242    242      0
+  uchar             242     13    255
+  uchar              13     85     88
+  uchar             242     85    167
+  uchar             255     80    175
+  uchar               0    128    128
+
+TEST_LSHIFTLSHIFT:
+  Demonstrate <<, which implements the left shift:
+  A << B results in A * 2^B.
+  Generally, B must be nonnegative.
+  Moreover, B should not be so large that the result overflows.
+
+  Type              A     B    A<<B
+
+  int               11    -1    -2147483648
+  int               11    0    11
+  int               11    1    22
+  int               11    2    44
+  int               11    3    88
+  int               11    4    176
+  int               11    5    352
+  int               11    6    704
+  int               11    7    1408
+  int               11    8    2816
+  int               11    9    5632
+  int               11    10    11264
+  int               11    11    22528
+  int               11    12    45056
+  int               11    13    90112
+  int               11    14    180224
+  int               11    15    360448
+  int               11    16    720896
+  int               11    17    1441792
+  int               11    18    2883584
+  int               11    19    5767168
+  int               11    20    11534336
+  int               11    21    23068672
+  int               11    22    46137344
+  int               11    23    92274688
+  int               11    24    184549376
+  int               11    25    369098752
+  int               11    26    738197504
+  int               11    27    1476395008
+  int               11    28    -1342177280
+  int               11    29    1610612736
+  int               11    30    -1073741824
+  int               11    31    -2147483648
+
+TEST_MINUS:
+  Demonstrate -, which carries out subtraction:
+
+  Type              A     B     A-B
+
+  char              Z   b   -8
+  double            9.250000    3.120000    6.130000
+  float             9.250000    3.120000    6.130000
+  int               11    2    9
+  unsigned char     Z    b    248
+
+TEST_PLUS:
+  Demonstrate +, which carries out addition:
+
+  Type              A     B     A+B
+
+  char              a   b   -61
+  double            1.250000    3.120000    4.370000
+  float             1.250000    3.120000    4.370000
+  int               1    2    3
+  unsigned char     a    b    195
+
+TEST_PLUSPLUS:
+  Demonstrate ++, which increments by 1:
+
+  We execute the following statements:
+
+  A = value;
+  B = A;
+  C = A++;
+
+  Type              A     B    C
+
+  char              b   a  a
+  double            2.250000    1.250000  1.250000
+  float             2.250000    1.250000  1.250000
+  int               2    1  1
+  unsigned char     b    a    a
+
+  We execute the following statements:
+
+  A = value;
+  B = A;
+  C = ++A;
+
+  Type              A     B    C
+
+  char              b   a  b
+  double            2.250000    1.250000  2.250000
+  float             2.250000    1.250000  2.250000
+  int               2    1  2
+  unsigned char     b    a    b
+
+TEST_RSHIFTRSHIFT:
+  Demonstrate >>, which implements the right shift:
+  A >> B results in A / 2^B.
+  Generally, B must be nonnegative.
+  Moreover, B should not be so large that the result underflows.
+
+  When A is negative, the shift might be logical or arithmetic.
+
+  Type              A     B    A>>B
+
+  int               3239    -1    0
+  int               3239    0    3239
+  int               3239    1    1619
+  int               3239    2    809
+  int               3239    3    404
+  int               3239    4    202
+  int               3239    5    101
+  int               3239    6    50
+  int               3239    7    25
+  int               3239    8    12
+  int               3239    9    6
+  int               3239    10    3
+  int               3239    11    1
+  int               3239    12    0
+  int               3239    13    0
+  int               3239    14    0
+  int               3239    15    0
+  int               3239    16    0
+  int               3239    17    0
+  int               3239    18    0
+  int               3239    19    0
+  int               3239    20    0
+  int               3239    21    0
+  int               3239    22    0
+  int               3239    23    0
+  int               3239    24    0
+  int               3239    25    0
+  int               3239    26    0
+  int               3239    27    0
+  int               3239    28    0
+  int               3239    29    0
+  int               3239    30    0
+  int               3239    31    0
+
+  int               -3239    -1    -1
+  int               -3239    0    -3239
+  int               -3239    1    -1620
+  int               -3239    2    -810
+  int               -3239    3    -405
+  int               -3239    4    -203
+  int               -3239    5    -102
+  int               -3239    6    -51
+  int               -3239    7    -26
+  int               -3239    8    -13
+  int               -3239    9    -7
+  int               -3239    10    -4
+  int               -3239    11    -2
+  int               -3239    12    -1
+  int               -3239    13    -1
+  int               -3239    14    -1
+  int               -3239    15    -1
+  int               -3239    16    -1
+  int               -3239    17    -1
+  int               -3239    18    -1
+  int               -3239    19    -1
+  int               -3239    20    -1
+  int               -3239    21    -1
+  int               -3239    22    -1
+  int               -3239    23    -1
+  int               -3239    24    -1
+  int               -3239    25    -1
+  int               -3239    26    -1
+  int               -3239    27    -1
+  int               -3239    28    -1
+  int               -3239    29    -1
+  int               -3239    30    -1
+  int               -3239    31    -1
+
+TEST_SLASH:
+  Demonstrate /, which carries out division:
+
+  Type              A     B     A/B
+
+  char              a   b   0
+  char              a   a   1
+  double            20.000000    3.000000    6.666667
+  float             20.000000    3.000000    6.666667
+  int               20    3    6
+  unsigned char     a    a    1
+
+TEST_STAR:
+  Demonstrate *, which carries out multiplication:
+
+  Type              A     B     A*B
+
+  char              a   b   34
+  double            1.250000    3.120000    3.900000
+  float             1.250000    3.120000    3.900000
+  int               10    -7    -70
+  unsigned char     a    b    34
+
+TEST_TWIDDLE:
+  Demonstrate ~, which implements the ones complement operator.
+  This is most useful when the data is unsigned characters,
+  that is, binary integers from 0 to 255.
+
+  Type                A     ~A   A+~A
+
+  uchar               0    255   255
+  uchar               1    254   255
+  uchar               2    253   255
+  uchar               3    252   255
+  uchar               5    250   255
+  uchar              13    242   255
+  uchar              80    175   255
+  uchar              85    170   255
+  uchar             128    127   255
+  uchar             242     13   255
+  uchar             254      1   255
+  uchar             255      0   255
+
+  char                0     -1    -1
+  char                1     -2    -1
+  char                2     -3    -1
+  char                3     -4    -1
+  char                5     -6    -1
+  char               13    -14    -1
+  char               80    -81    -1
+  char               85    -86    -1
+  char              127   -128    -1
+  char               -1      0    -1
+  char               -2      1    -1
+  char               -3      2    -1
+  char               -4      3    -1
+  char             -128    127    -1
+
+C_OPERATORS:
+  Normal end of execution.
+
+28 May 2012 08:32:04 PM

@@ -1,0 +1,13 @@
+**********************************************************************
+  METIS 4.0.1 Copyright 1998, Regents of the University of Minnesota
+
+Mesh Information ----------------------------------------------------
+  Name: metis.mesh, #Elements: 7434, #Nodes: 4038, Etype: TRI
+
+Forming Dual Graph... -----------------------------------------------
+  Dual Information: #Vertices: 7434, #Edges: 10826
+
+Timing Information --------------------------------------------------
+  I/O:          		   0.051
+  Dual Creation:		   0.013
+**********************************************************************

@@ -1,0 +1,307 @@
+<html>
+
+  <head>
+    <title>
+      KMETIS - Graph Partitioning using METIS
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      KMETIS <br> Graph Partitioning using METIS
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>KMETIS</b> 
+      is a C program which 
+      partitions the nodes of a graph using the <b>METIS</b> library.
+    </p>
+
+    <p>
+      Typically, the graph is being partitioned so that a
+      computational task can be correspondingly divided up among
+      a number of processors for parallel computing.  Thus, it is
+      important that each part of the partition have roughly the
+      same number of elements, and that "connections" between
+      distinct partitions be limited, as much as possible, to
+      reduce the amount of interprocess communication necessary.
+    </p>
+
+    <p>
+      <b>KMETIS</b> uses <i>k</i>-way partitioning, and is best when the 
+      number of parts is more than 8.  The related program <b>PMETIS</b> 
+      uses multilevel recursive bisection and is best when
+      the number of parts is 8 or less.
+    </p>
+
+    <p>
+      <b>KMETIS</b> uses particular formats for storing the graph,
+      mesh or matrix data.  The formats have extended to include
+      the ability to weight certain items.
+    </p>
+
+    <p>
+      <b>KMETIS</b> can be executed on a single processor.  However,
+      <b>KMETIS</b> includes an <b>MPI</b> interface which allows it
+      to be run in parallel as well.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      To partition the nodes of a graph, minimizing the number
+      of edge cuts:
+      <dl>
+        <dt>
+          <b>kmetis</b> <i>graph_file</i> <i>nparts</i>
+        </dt>
+        <dd>
+          reads the node adjacency information in <i>graph_file</i>,
+          assigns each node to processor 0 through <i>nparts-1</i>, 
+          and writes the partitioning to the file
+          <i>graph_file.part.nparts</i>.
+        </dd>
+      </dl>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      <b>KMETIS</b> is part of the METIS family of Multilevel Partitioning
+      Algorithms.  It was produced by the lab of George Karypis, who states
+      <blockquote><i>
+        "It is our general policy to make these tools available to the research 
+        community for use in their own research and/or non-commercial applications."
+      </i></blockquote>
+    </p>
+
+    <p>
+      For further information on licensing and permissions, refer to
+      <a href = "http://www.cs.umn.edu/~metis">
+                 http://www.cs.umn.edu/~metis</a>,
+      the METIS home page.
+    </p>
+
+    <h3 align = "center">
+      Related Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/graphchk/graphchk.html">
+      GRAPHCHK</a>,
+      a C program which
+      can read a METIS GRAPH 
+      file and verify that it has the proper format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2dual/mesh2dual.html">
+      MESH2DUAL</a>,
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by <b>KMETIS</b> or <b>PMETIS</b>.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2nodal/mesh2nodal.html">
+      MESH2NODAL</a>,
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by <b>KMETIS</b> or <b>PMETIS</b>.
+    </p>
+
+    <p>
+      <a href = "../../c_src/metis/metis.html">
+      METIS</a>, 
+      a C library which
+      is used by <b>KMETIS</b>.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_graph/metis_graph.html">
+      METIS_GRAPH</a>,
+      a data directory which
+      contains examples of
+      the graph files used to describe a graph to the <b>METIS</b>
+      family of programs.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mpi/mpi.html">
+      MPI</a>,
+      a message passing interface that allows programs to
+      be written for execution on parallel computers.
+    </p>
+
+    <p>
+      <a href = "../../f_src/neighbors_to_metis_graph/neighbors_to_metis_graph.html">
+      NEIGHBORS_TO_METIS_GRAPH</a>,
+      a FORTRAN90 program which
+      reads information describing the adjacency
+      relations in a tet mesh, and writes out essentially the same information,
+      but in a format that METIS will accept.
+    </p>
+
+    <p>
+      <a href = "../../c_src/oemetis/oemetis.html">
+      OEMETIS</a>,
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/onmetis/onmetis.html">
+      ONMETIS</a>,
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partdmesh/partdmesh.html">
+      PARTDMESH</a>,
+      a C program which
+      can partition the elements of a finite element mesh, by working
+      with the dual graph of the mesh.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partnmesh/partnmesh.html">
+      PARTNMESH</a>,,
+      a C program which
+      can partition the elements of a finite element mesh, by working
+      with the nodal graph of the mesh.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          METIS, a Software Package for Partitioning Unstructured Graphs
+          and Computing Fill-Reduced Orderings of Sparse Matrices;
+        </li>
+        <li>
+          George Karypis, Vipin Kumar,<br>
+          A fast and high quality multilevel scheme for partitioning 
+            irregular graphs,<br>
+          SIAM Journal on Scientific Computing,<br>
+          Volume 20, Number 1, 1998, pages 359-392;
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "kmetis.c">kmetis.c</a>
+        </li>
+        <li>
+          <a href = "kmetis.sh">kmetis.sh</a>, commands to compile,
+          link and load the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "kmetis_prb.sh">kmetis_prb.sh</a>,
+          commands to get a graph file and use <b>KMETIS</b> to
+          partition it into 8 parts.
+        </li>
+        <li>
+          <a href = "kmetis_prb_output.txt">kmetis_prb_output.txt</a>,
+          the output file.
+        </li>
+        <li>
+          <a href = "../../data/metis_graph/4elt.graph">4elt.graph</a>,
+          a graph file of 15,606 vertices and 45,878 edges.
+        </li>
+        <li>
+          <a href = "4elt.graph.part.8">4elt.graph.part.8</a>,
+          the partition created by <b>KMETIS</b>.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>P18</b> is a dumbbell-shaped region with a uniform mesh created by DISTMESH.
+      There are some intermediate files, not given here, required to
+      convert the triangle file into a METIS graph file.
+      <ul>
+        <li>
+          <a href = "p18_nodes.txt">p18_nodes.txt</a>,
+          the node coordinate file.
+        </li>
+        <li>
+          <a href = "p18_triangles.txt">p18_triangles.txt</a>,
+          the triangle file (6,770 triangles).
+        </li>
+        <li>
+          <a href = "p18_triangles.tneighbor.txt">p18_triangles.tneighbor.txt</a>,
+          the triangle neighbor file, created by TRIANGULATION_TRIANGLE_NEIGHBORS.
+        </li>
+        <li>
+          <a href = "p18_triangles.tneighbor.metis_graph">
+          p18_triangles.tneighbor_metis_graph</a>,
+          the METIS graph file created by <b>NEIGHBORS_TO_METIS_GRAPH</b>.
+        </li>
+        <li>
+          <a href = "p18_zones.png">p18_zones.png</a>,
+          an image of the 4 zones created by <b>KMETIS</b>.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>P18_NONUNIFORM</b> is a dumbbell-shaped region with a nonuniform mesh created by DISTMESH.
+      There are some intermediate files, not given here, required to
+      convert the triangle file into a METIS graph file.
+      <ul>
+        <li>
+          <a href = "p18_nonuniform_zones.png">p18_nonuniform_zones.png</a>,
+          an image of the 5 zones created by <b>KMETIS</b>.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 23 August 2008.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

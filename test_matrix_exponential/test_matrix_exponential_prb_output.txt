@@ -1,0 +1,410 @@
+17 October 2012 12:02:41 PM
+
+TEST_MATRIX_EXPONENTIAL_TEST:
+  C version
+  Test the TEST_MATRIX_EXPONENTIAL library.
+  The R8LIB library is needed.
+
+TEST_MATRIX_EXPONENTIAL_TEST01:
+  Retrieve the data for each matrix exponential test.
+
+  Test #1
+
+  This matrix is diagonal.
+  The calculation of the matrix exponential is simple.
+
+  Matrix order N = 2
+
+  Matrix A:
+
+  Col:          0             1     
+  Row
+
+    0:        1.000000        0.000000
+    1:        0.000000        2.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1     
+  Row
+
+    0:        2.718282        0.000000
+    1:        0.000000        7.389056
+
+  Test #2
+
+  This matrix is symmetric.
+  The calculation of the matrix exponential is straightforward.
+
+  Matrix order N = 2
+
+  Matrix A:
+
+  Col:          0             1     
+  Row
+
+    0:        1.000000        3.000000
+    1:        3.000000        2.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1     
+  Row
+
+    0:       39.322810       46.166301
+    1:       46.166301       54.711577
+
+  Test #3
+
+  This example is due to Laub.
+  This matrix is ill-suited for the Taylor series approach.
+  As powers of A are computed, the entries blow up too quickly.
+
+  Matrix order N = 2
+
+  Matrix A:
+
+  Col:          0             1     
+  Row
+
+    0:        0.000000        1.000000
+    1:      -39.000000      -40.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1     
+  Row
+
+    0:        0.377560       -0.377560
+    1:        0.009681       -0.009681
+
+  Test #4
+
+  This example is due to Moler and Van Loan.
+  The example will cause problems for the series summation approach,
+  as well as for diagonal Pade approximations.
+
+  Matrix order N = 2
+
+  Matrix A:
+
+  Col:          0             1     
+  Row
+
+    0:      -49.000000       24.000000
+    1:      -64.000000       31.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1     
+  Row
+
+    0:       -0.735759        0.551819
+    1:       -1.471518        1.103638
+
+  Test #5
+
+  This example is due to Moler and Van Loan.
+  This matrix is strictly upper triangular
+  All powers of A are zero beyond some (low) limit.
+  This example will cause problems for Pade approximations.
+
+  Matrix order N = 4
+
+  Matrix A:
+
+  Col:          0             1             2             3     
+  Row
+
+    0:        0.000000        6.000000        0.000000        0.000000
+    1:        0.000000        0.000000        6.000000        0.000000
+    2:        0.000000        0.000000        0.000000        6.000000
+    3:        0.000000        0.000000        0.000000        0.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1             2             3     
+  Row
+
+    0:        1.000000        6.000000       18.000000       36.000000
+    1:        0.000000        1.000000        6.000000       18.000000
+    2:        0.000000        0.000000        1.000000        6.000000
+    3:        0.000000        0.000000        0.000000        1.000000
+
+  Test #6
+
+  This example is due to Moler and Van Loan.
+  This matrix does not have a complete set of eigenvectors.
+  That means the eigenvector approach will fail.
+
+  Matrix order N = 2
+
+  Matrix A:
+
+  Col:          0             1     
+  Row
+
+    0:        1.000000        1.000000
+    1:        0.000000        1.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1     
+  Row
+
+    0:        2.718282        2.718282
+    1:        0.000000        2.718282
+
+  Test #7
+
+  This example is due to Moler and Van Loan.
+  This matrix is very close to example 5.
+  Mathematically, it has a complete set of eigenvectors.
+  Numerically, however, the calculation will be suspect.
+
+  Matrix order N = 2
+
+  Matrix A:
+
+  Col:          0             1     
+  Row
+
+    0:        1.000000        0.000000
+    1:        0.000000        1.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1     
+  Row
+
+    0:        2.718309        2.718282
+    1:        0.000000        2.718255
+
+  Test #8
+
+  This matrix was an example in Wikipedia.
+
+  Matrix order N = 3
+
+  Matrix A:
+
+  Col:          0             1             2     
+  Row
+
+    0:       21.000000       17.000000        6.000000
+    1:       -5.000000       -1.000000       -6.000000
+    2:        4.000000        4.000000       16.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1             2     
+  Row
+
+    0:  28879845.542113  28879790.943963  4443027.961179
+    1:  -19993735.021605  -19993680.423455  -4443027.961179
+    2:  35544442.082031  35544442.082031  8886110.520508
+
+  Test #9
+
+  This matrix is due to the NAG Library.
+  It is an example for function F01ECF.
+
+  Matrix order N = 4
+
+  Matrix A:
+
+  Col:          0             1             2             3     
+  Row
+
+    0:        1.000000        2.000000        2.000000        2.000000
+    1:        3.000000        1.000000        1.000000        2.000000
+    2:        3.000000        2.000000        1.000000        2.000000
+    3:        3.000000        3.000000        3.000000        1.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1             2             3     
+  Row
+
+    0:      740.703800      610.850000      542.274300      549.175300
+    1:      731.251000      603.552400      535.088400      542.274300
+    2:      823.763000      679.425700      603.552400      610.850000
+    3:      998.435500      823.763000      731.251000      740.703800
+
+  Test #10
+
+  This is Ward's example #1.
+  It is defective and nonderogatory.
+  The eigenvalues are 3, 3 and 6.
+
+  Matrix order N = 3
+
+  Matrix A:
+
+  Col:          0             1             2     
+  Row
+
+    0:        4.000000        2.000000        0.000000
+    1:        1.000000        4.000000        1.000000
+    2:        1.000000        1.000000        4.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1             2     
+  Row
+
+    0:      147.866622      183.765139       71.797032
+    1:      127.781086      183.765139       91.882569
+    2:      127.781086      163.679602      111.968106
+
+  Test #11
+
+  This is Ward's example #2.
+  It is a symmetric matrix.
+  The eigenvalues are 20, 30, 40.
+
+  Matrix order N = 3
+
+  Matrix A:
+
+  Col:          0             1             2     
+  Row
+
+    0:       29.879421        0.781575       -2.289519
+    1:        0.781575       25.726569        8.680738
+    2:       -2.289519        8.680738       34.394009
+
+  Exact Exponential exp(A):
+
+  Col:          0             1             2     
+  Row
+
+    0:  5496313853692378.000000  -18231880972008980.000000  -30475770808580008.000000
+    1:  -18231880972008992.000000  60605228702221080.000000  101291842930248192.000000
+    2:  -30475770808580008.000000  101291842930248192.000000  169294411240849312.000000
+
+  Test #12
+
+  This is Ward's example #3.
+  Ward's algorithm has difficulty estimating the accuracy
+  of its results.  The eigenvalues are -1, -2, -20.
+
+  Matrix order N = 3
+
+  Matrix A:
+
+  Col:          0             1             2     
+  Row
+
+    0:     -131.000000       19.000000       18.000000
+    1:     -390.000000       56.000000       54.000000
+    2:     -387.000000       57.000000       52.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1             2     
+  Row
+
+    0:       -1.509644        0.367879        0.135335
+    1:       -5.632571        1.471518        0.406006
+    2:       -4.934938        1.103638        0.541341
+
+  Test #13
+
+  This is Ward's example #4.
+  This is a version of the Forsythe matrix.
+  The eigenvector problem is badly conditioned.
+  Ward's algorithm has difficulty estimating the accuracy
+  of its results for this problem.
+
+  Matrix order N = 10
+
+  Matrix A:
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:        0.000000        1.000000        0.000000        0.000000        0.000000
+    1:        0.000000        0.000000        1.000000        0.000000        0.000000
+    2:        0.000000        0.000000        0.000000        1.000000        0.000000
+    3:        0.000000        0.000000        0.000000        0.000000        1.000000
+    4:        0.000000        0.000000        0.000000        0.000000        0.000000
+    5:        0.000000        0.000000        0.000000        0.000000        0.000000
+    6:        0.000000        0.000000        0.000000        0.000000        0.000000
+    7:        0.000000        0.000000        0.000000        0.000000        0.000000
+    8:        0.000000        0.000000        0.000000        0.000000        0.000000
+    9:        0.000000        0.000000        0.000000        0.000000        0.000000
+
+  Col:          5             6             7             8             9     
+  Row
+
+    0:        0.000000        0.000000        0.000000        0.000000        0.000000
+    1:        0.000000        0.000000        0.000000        0.000000        0.000000
+    2:        0.000000        0.000000        0.000000        0.000000        0.000000
+    3:        0.000000        0.000000        0.000000        0.000000        0.000000
+    4:        1.000000        0.000000        0.000000        0.000000        0.000000
+    5:        0.000000        1.000000        0.000000        0.000000        0.000000
+    6:        0.000000        0.000000        1.000000        0.000000        0.000000
+    7:        0.000000        0.000000        0.000000        1.000000        0.000000
+    8:        0.000000        0.000000        0.000000        0.000000        1.000000
+    9:        0.000000        0.000000        0.000000        0.000000        0.000000
+
+  Exact Exponential exp(A):
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:        0.000000        0.000000        0.000000        0.000000        0.000000
+    1:        0.000000        0.000000        0.000000        0.000000        0.000000
+    2:        0.000000        0.000000        0.000000        0.000000        0.000000
+    3:        0.000000        0.000000        0.000000        0.000000        0.000000
+    4:        0.000000        0.000000        0.000000        0.000000        0.000000
+    5:        0.000000        0.000000        0.000000        0.000000        0.000000
+    6:        0.000000        0.000000        0.000000        0.000000        0.000000
+    7:        0.000000        0.000000        0.000000        0.000000        0.000000
+    8:        0.000000        0.000000        0.000000        0.000000        0.000000
+    9:        0.000000        0.000000        0.000000        0.000000        0.000000
+
+  Col:          5             6             7             8             9     
+  Row
+
+    0:        0.000000        0.000000        0.000000        0.000000        0.000000
+    1:        0.000000        0.000000        0.000000        0.000000        0.000000
+    2:        0.000000        0.000000        0.000000        0.000000        0.000000
+    3:        0.000000        0.000000        0.000000        0.000000        0.000000
+    4:        0.000000        0.000000        0.000000        0.000000        0.000000
+    5:        0.000000        0.000000        0.000000        0.000000        0.000000
+    6:        0.000000        0.000000        0.000000        0.000000        0.000000
+    7:        0.000000        0.000000        0.000000        0.000000        0.000000
+    8:        0.000000        0.000000        0.000000        0.000000        0.000000
+    9:        0.000000        0.000000        0.000000        0.000000        0.000000
+
+  Test #14
+
+  This is Moler's example.
+  This badly scaled matrix caused problems for MATLAB's expm().
+
+  Matrix order N = 3
+
+  Matrix A:
+
+  Col:          0             1             2     
+  Row
+
+    0:        0.000000        0.000000        0.000000
+    1:  -20066666666.666668       -3.000000  20000000000.000000
+    2:       66.666667        0.000000      -66.666667
+
+  Exact Exponential exp(A):
+
+  Col:          0             1             2     
+  Row
+
+    0:        0.446849        0.000000        0.462811
+    1:  -5743067.779480       -0.015283  -4526542.712784
+    2:        0.447723        0.000000        0.463481
+
+TEST_MATRIX_EXPONENTIAL_TEST:
+  Normal end of execution.
+
+17 October 2012 12:02:41 PM

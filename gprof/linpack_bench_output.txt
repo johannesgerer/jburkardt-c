@@ -1,0 +1,22 @@
+Rolled Double Precision Linpack
+
+     norm. resid      resid           machep         x[0]-1        x[n-1]-1
+       9.5        4.22017976e-12  2.22044605e-16  1.09912079e-13  5.08926234e-13
+
+    times are reported for matrices of order  1000
+      dgefa      dgesl      total       Mflops     unit      ratio
+
+ times for array with leading dimension of  1001
+
+       4.63       0.01       4.64        144   13877.20      82.85
+       4.60       0.01       4.62        145   13805.49      82.42
+       4.61       0.01       4.62        145   13823.38      82.53
+       4.58       0.01       4.59        146   13731.86      81.98
+
+ times for array with leading dimension of1000
+
+        4.60       0.01       4.62        145   13813.54      82.47
+       4.59       0.01       4.60        145   13768.66      82.20
+       4.61       0.01       4.63        144   13844.79      82.66
+       4.60       0.01       4.62        145   13815.26      82.48
+Rolled Double  Precision   145 Mflops ; 10 Reps 

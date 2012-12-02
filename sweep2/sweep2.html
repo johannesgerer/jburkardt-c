@@ -1,0 +1,308 @@
+<html>
+
+  <head>
+    <title>
+      SWEEP2 - Voronoi and Delaunay Calculations
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      SWEEP2 <br> Voronoi and Delaunay Calculations
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>SWEEP2</b> 
+      is a C program which 
+      computes the Voronoi diagram 
+      or Delaunay triangulation of a set of points in the plane,
+      by Steve Fortune.
+    </p>
+
+    <p>
+      Input to the program is a text file containing the coordinates of
+      points in the plane.  Each input line consists of two real values
+      separated by spaces or tab characters.  If the <b>-s</b> option is
+      used, then the points should be sorted by <b>Y</b> coordinate, and
+      an extra initial line should be inserted into the file, having the
+      form
+      <blockquote><i>
+        npoints xmin xmax ymin ymax
+      </i></blockquote>
+      indicating the number of points and their range.
+    </p>
+
+    <p>
+      By default, the program outputs a description of the Voronoi diagram.
+      The description of this structure is fairly complicated.  There
+      are four kinds of records in the output file:
+      <ul>
+        <li>
+          <b>s</b> x y<br>
+          indicates an input point (or "site") at <b>(x,y)</b>;
+        </li>
+        <li>
+          <b>v</b> x y<br>
+          indicates a Voronoi vertex at the point <b>(x,y)</b>;
+        </li>
+        <li>
+          <b>l</b> a b c<br>
+          indicates a line with the equation <b>a*x+b*y=c</b>.  These
+          lines are not actually drawn, but are used in the description
+          of the <i>next</i> object;
+        </li>
+        <li>
+          <b>e</b> l v1 v2<br>
+          indicates a Voronoi edge, which is the segment of the
+          line with index <i>l</i> that extends from Voronoi vertex
+          <i>v1</i> to <i>v2</i>.  If either vertex has the value -1,
+          this indicates that the line segment is actually a semi-infinite
+          ray, which extends to infinity on that side;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      If the <b>-t</b> command line option is specified, then the program 
+      outputs a description of the Delaunay triangulation.  This is
+      a simple item to describe.  Each line of output 
+      lists the indices of three input points that are to be connected
+      to form one of the triangles of the triangulation.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <dl>
+        <dt>
+          <b>sweep2</b> -p -s -t < <i>data.txt</i><br>
+        </dt>
+        <dd>
+          reads the file <i>data.txt</i> for a set of points in the plane 
+          and writes either the Voronoi diagram or the Delaunay triangulation 
+          to the standard output.  Each input line consists of two real values
+          separated by spaces or tab characters.
+        </dd>
+        <dt>
+          Command line options:
+        </dt>
+        <dd>
+          <ul>
+            <li>
+              <b>-p</b>: indicates that the output file should be formatted
+              for use with the UNIX <b>plot</b> command instead of the usual
+              output format;  (In my copy, this switch does nothing,
+              because I don't have <b>plot</b> set up.)
+            </li>
+           <li>
+              <b>-s</b>: indicates that the input file has been sorted by <b>Y</b>
+              coordinate.  In this case, an extra line should be inserted at the
+              head of the input file containing the special information 
+              <blockquote><i>
+                npoints xmin xmax ymin ymax
+              </i></blockquote>
+              indicating the number of points and their range.  This option
+              is for efficiency, since it allows the program to skip the
+              sorting step.
+            </li>
+            <li>
+              <b>-t</b>: indicates that the Delaunay triangulation is to 
+              be output.  If this option is not specified, then the 
+              Voronoi diagram is output.
+            </li>
+          </ul>
+        </dd>
+      </dl>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../cpp_src/geompack/geompack.html">
+      GEOMPACK</a>,
+      a C++ library which 
+      can compute
+      the Delaunay triangulation or Voronoi diagram of a set of points.
+    </p>
+
+    <p>
+      <a href = "../../f_src/sweep2_delaunay_eps/sweep2_delaunay_eps.html">
+      SWEEP2_DELAUNAY_EPS</a>, 
+      a FORTRAN90 program which
+      can create an Encapsulated PostScript File containing an image of the
+      Delaunay triangulation computed by <b>SWEEP2</b>.
+    </p>
+
+    <p>
+      <a href = "../../f_src/sweep2_voronoi_eps/sweep2_voronoi_eps.html">
+      SWEEP2_VORONOI_EPS</a>, 
+      a FORTRAN90 program which
+      can create an Encapsulated PostScript File containing an image of the
+      Voronoi diagram computed by <b>SWEEP2</b>.
+    </p>
+
+    <p>
+      <a href = "../../f_src/table_delaunay/table_delaunay.html">
+      TABLE_DELAUNAY</a>, 
+      a FORTRAN90 program which 
+      can compute
+      the Delaunay triangulation of a set of points stored in a file.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Steve Fortune
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Franz Aurenhammer,<br>
+          Voronoi diagrams - 
+          a study of a fundamental geometric data structure,<br>
+          ACM Computing Surveys,<br>
+          Volume 23, pages 345-405, September 1991.
+        </li>
+        <li>
+          Steve Fortune,<br>
+          A Sweepline Algorithm for Voronoi Diagrams,<br>
+          Algorithmica,<br>
+          Volume 2, pages 153-174, 1987.
+        </li>
+        <li>
+          A copy of the original release of the SWEEP2 code is available through
+          NETLIB at
+          <a href = "http://www.netlib.org/voronoi/sweep2">
+          http://www.netlib.org/voronoi/sweep2</a>
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "main.c">main.c</a>, the main program.
+        </li>
+        <li>
+          <a href = "defs.h">defs.h</a>, an include file;
+        </li>
+        <li>
+          <a href = "edgelist.c">edgelist.c</a>;
+        </li>
+        <li>
+          <a href = "geometry.c">geometry.c</a>;
+        </li>
+        <li>
+          <a href = "heap.c">heap.c</a>;
+        </li>
+        <li>
+          <a href = "memory.c">memory.c</a>.
+        </li>
+        <li>
+          <a href = "output.c">output.c</a>, writes information about
+          the Voronoi diagram or Delaunay triangulation to the output file.
+        </li>
+        <li>
+          <a href = "voronoi.c">voronoi.c</a>;
+        </li>
+        <li>
+          <a href = "sweep2.sh">sweep2.sh</a>, 
+          commands to compile and load the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>DIAMOND</b> is a simple test case of 9 points, for which the Voronoi
+      diagram includes a diamond.  Files you may copy include:
+      <ul>
+        <li>
+          <a href = "diamond.txt">diamond.txt</a>, the data file.
+        </li>
+        <li>
+          <a href = "diamond_vor.txt">diamond_vor.txt</a>, 
+          the Voronoi diagram as computed by SWEEP2;
+        </li>
+        <li>
+          <a href = "diamond_del.txt">diamond_del.txt</a>
+          the Delaunay triangulation as computed by SWEEP2;
+        </li>
+        <li>
+          <a href = "diamond_del.png">diamond_del.png</a>
+          a <a href = "../../data/png/png.html">PNG</a> image of
+          the Delaunay triangulation;
+        </li>
+        <li>
+          <a href = "diamond_vor.png">diamond_vor.png</a>,
+          a <a href = "../../data/png/png.html">PNG</a> image of
+          the Voronoi diagram;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>TEST.TXT</b> is a test case with 100 points.  Files you may copy 
+      include:
+      <ul>
+        <li>
+          <a href = "test.txt">test.txt</a>, the data file.
+        </li>
+        <li>
+          <a href = "test_vor.txt">test_vor.txt</a>, 
+          the Voronoi diagram as computed by SWEEP2;
+        </li>
+        <li>
+          <a href = "test_del.txt">test_del.txt</a>
+          the Delaunay triangulation as computed by SWEEP2;
+        </li>
+        <li>
+          <a href = "test_del.png">test_del.png</a>,
+          a <a href = "../../data/png/png.html">PNG</a> image of
+          the Delaunay triangulation;
+        </li>
+        <li>
+          <a href = "test_vor.png">test_vor.png</a>,
+          a <a href = "../../data/png/png.html">PNG</a> image of
+          the Voronoi diagram;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 14 May 2006.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

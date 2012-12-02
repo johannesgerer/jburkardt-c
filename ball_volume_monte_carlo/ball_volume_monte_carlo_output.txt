@@ -1,0 +1,49 @@
+21 August 2012 09:16:58 AM
+
+BALL_VOLUME_MONTE_CARLO:
+  C version
+  Estimate the volume of the unit sphere using
+  a Monte Carlo procedure.
+
+BALL_VOLUME_MONTE_CARLO:
+  Using default seed for random number generator.
+
+  The spatial dimension is  4
+  The random number seed is 123456789
+
+    Log(N)         N      Estimate         Error
+
+         0         1                 0               4.9
+         1         2                 0               4.9
+         2         4                 0               4.9
+         3         8                 2               2.9
+         4        16                 2               2.9
+         5        32                 3               1.9
+         6        64              4.75              0.18
+         7       128               4.5              0.43
+         8       256            4.4375               0.5
+         9       512            4.6875              0.25
+        10      1024          4.640625              0.29
+        11      2048          4.765625              0.17
+        12      4096         4.9140625             0.021
+        13      8192       4.900390625             0.034
+        14     16384         4.9296875            0.0051
+        15     32768       4.917480469             0.017
+        16     65536       4.959716797             0.025
+        17    131072       4.922973633             0.012
+        18    262144       4.930419922            0.0044
+        19    524288        4.93347168            0.0013
+        20   1048576       4.924087524             0.011
+        21   2097152       4.929832458             0.005
+        22   4194304       4.933078766            0.0017
+        23   8388608       4.935041428           0.00024
+        24  16777216       4.933856964           0.00095
+        25  33554432       4.934381485           0.00042
+
+        oo        oo       4.934802201           0
+
+BALL_VOLUME_MONTE_CARLO:
+  Normal end of execution.
+
+21 August 2012 09:17:03 AM
+

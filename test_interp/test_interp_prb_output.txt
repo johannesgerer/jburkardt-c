@@ -1,0 +1,292 @@
+04 October 2012 02:13:40 PM
+
+TEST_INTERP_PRB
+  C version
+  Test the TEST_INTERP library.
+  This test also requires the R8LIB library.
+
+TEST01
+  P00_STORY prints the problem "story".
+
+  Problem 1
+
+  This example is due to Hans-Joerg Wenz.
+  It is an example of good data, which is dense enough in areas
+  where the expected curvature of the interpolant is large.
+  Good results can be expected with almost any reasonable
+  interpolation method.
+
+  Problem 2
+
+  This example is due to ETY Lee of Boeing.
+  Data near the corners is more dense than in regions of small curvature.
+  A local interpolation method will produce a more plausible
+  interpolant than a nonlocal interpolation method, such as
+  cubic splines.
+
+  Problem 3
+
+  This example is due to Fred Fritsch and Ralph Carlson.
+  This data can cause problems for interpolation methods.
+  There are sudden changes in direction, and at the same time,
+  sparsely-placed data.  This can cause an interpolant to overshoot
+  the data in a way that seems implausible.
+
+  Problem 4
+
+  This example is due to Larry Irvine, Samuel Marin and Philip Smith.
+  This data can cause problems for interpolation methods.
+  There are sudden changes in direction, and at the same time,
+  sparsely-placed data.  This can cause an interpolant to overshoot
+  the data in a way that seems implausible.
+
+  Problem 5
+
+  This example is due to Larry Irvine, Samuel Marin and Philip Smith.
+  This data can cause problems for interpolation methods.
+  There are sudden changes in direction, and at the same time,
+  sparsely-placed data.  This can cause an interpolant to overshoot
+  the data in a way that seems implausible.
+
+  Problem 6
+
+  The data is due to deBoor and Rice.
+  The data represents a temperature dependent property of titanium.
+  The data has been used extensively as an example in spline
+  approximation with variably-spaced knots.
+  DeBoor considers two sets of knots:
+  (595,675,755,835,915,995,1075)
+  and
+  (595,725,850,910,975,1040,1075).
+
+  Problem 7
+
+  This data is a simple symmetric set of 4 points,
+  for which it is interesting to develop the Shepard
+  interpolants for varying values of the exponent p.
+
+  Problem 8
+
+  This is equally spaced data for y = x^2,
+  except for one extra point whose x value is
+  close to another, but whose y value is not so close.
+  A small disagreement in nearby data can be disaster.
+
+TEST02
+  P00_DATA_NUM returns N, the number of data points.
+  P00_DIM_NUM returns M, the dimension of data.
+  P00_DATA returns the actual (MxN) data.
+
+  Problem  1
+  DATA_NUM 18
+  DIM_NUM  2
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        4.000000
+    1:        1.000000        5.000000
+    2:        2.000000        6.000000
+    3:        4.000000        6.000000
+    4:        5.000000        5.000000
+    5:        6.000000        3.000000
+    6:        7.000000        1.000000
+    7:        8.000000        1.000000
+    8:        9.000000        1.000000
+    9:       10.000000        3.000000
+   10:       11.000000        4.000000
+   11:       12.000000        4.000000
+   12:       13.000000        3.000000
+   13:       14.000000        3.000000
+   14:       15.000000        4.000000
+   15:       16.000000        4.000000
+   16:       17.000000        3.000000
+   17:       18.000000        0.000000
+
+  Problem  2
+  DATA_NUM 18
+  DIM_NUM  2
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        0.000000
+    1:        1.340000        5.000000
+    2:        5.000000        8.660000
+    3:       10.000000       10.000000
+    4:       10.600000       10.400000
+    5:       10.700000       12.000000
+    6:       10.705000       28.600000
+    7:       10.800000       30.200000
+    8:       11.400000       30.600000
+    9:       19.600000       30.600000
+   10:       20.200000       30.200000
+   11:       20.295000       28.600000
+   12:       20.300000       12.000000
+   13:       20.400000       10.400000
+   14:       21.000000       10.000000
+   15:       26.000000        8.660000
+   16:       29.660000        5.000000
+   17:       31.000000        0.000000
+
+  Problem  3
+  DATA_NUM 11
+  DIM_NUM  2
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        0.000000
+    1:        2.000000       10.000000
+    2:        3.000000       10.000000
+    3:        5.000000       10.000000
+    4:        6.000000       10.000000
+    5:        8.000000       10.000000
+    6:        9.000000       10.500000
+    7:       11.000000       15.000000
+    8:       12.000000       50.000000
+    9:       14.000000       60.000000
+   10:       15.000000       85.000000
+
+  Problem  4
+  DATA_NUM 8
+  DIM_NUM  2
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        0.000000
+    1:        0.050000        0.700000
+    2:        0.100000        1.000000
+    3:        0.200000        1.000000
+    4:        0.800000        0.300000
+    5:        0.850000        0.050000
+    6:        0.900000        0.100000
+    7:        1.000000        1.000000
+
+  Problem  5
+  DATA_NUM 9
+  DIM_NUM  2
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        0.000000
+    1:        0.100000        0.900000
+    2:        0.200000        0.950000
+    3:        0.300000        0.900000
+    4:        0.400000        0.100000
+    5:        0.500000        0.050000
+    6:        0.600000        0.050000
+    7:        0.800000        0.200000
+    8:        1.000000        1.000000
+
+  Problem  6
+  DATA_NUM 49
+  DIM_NUM  2
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:      595.000000        0.644000
+    1:      605.000000        0.622000
+    2:      615.000000        0.638000
+    3:      625.000000        0.649000
+    4:      635.000000        0.652000
+    5:      645.000000        0.639000
+    6:      655.000000        0.646000
+    7:      665.000000        0.657000
+    8:      675.000000        0.652000
+    9:      685.000000        0.655000
+   10:      695.000000        0.644000
+   11:      705.000000        0.663000
+   12:      715.000000        0.663000
+   13:      725.000000        0.668000
+   14:      735.000000        0.676000
+   15:      745.000000        0.676000
+   16:      755.000000        0.686000
+   17:      765.000000        0.679000
+   18:      775.000000        0.678000
+   19:      785.000000        0.683000
+   20:      795.000000        0.694000
+   21:      805.000000        0.699000
+   22:      815.000000        0.710000
+   23:      825.000000        0.730000
+   24:      835.000000        0.763000
+   25:      845.000000        0.812000
+   26:      855.000000        0.907000
+   27:      865.000000        1.044000
+   28:      875.000000        1.336000
+   29:      885.000000        1.881000
+   30:      895.000000        2.169000
+   31:      905.000000        2.075000
+   32:      915.000000        1.598000
+   33:      925.000000        1.211000
+   34:      935.000000        0.916000
+   35:      945.000000        0.746000
+   36:      955.000000        0.672000
+   37:      965.000000        0.627000
+   38:      975.000000        0.615000
+   39:      985.000000        0.607000
+   40:      995.000000        0.606000
+   41:     1005.000000        0.609000
+   42:     1015.000000        0.603000
+   43:     1025.000000        0.601000
+   44:     1035.000000        0.603000
+   45:     1045.000000        0.601000
+   46:     1055.000000        0.611000
+   47:     1065.000000        0.601000
+   48:     1075.000000        0.608000
+
+  Problem  7
+  DATA_NUM 4
+  DIM_NUM  2
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        1.000000
+    1:        1.000000        2.000000
+    2:        4.000000        2.000000
+    3:        5.000000        1.000000
+
+  Problem  8
+  DATA_NUM 12
+  DIM_NUM  2
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:       -1.000000        1.000000
+    1:       -0.800000        0.640000
+    2:       -0.600000        0.360000
+    3:       -0.400000        0.160000
+    4:       -0.200000        0.040000
+    5:        0.000000        0.000000
+    6:        0.200000        0.040000
+    7:        0.200010        0.050000
+    8:        0.400000        0.160000
+    9:        0.600000        0.360000
+   10:        0.800000        0.640000
+   11:        1.000000        1.000000
+
+TEST_INTERP_PRB
+  Normal end of execution.
+
+04 October 2012 02:13:40 PM

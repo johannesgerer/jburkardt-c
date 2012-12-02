@@ -1,0 +1,33 @@
+27 April 2009 10:33:11 PM
+
+WTIME_PRB
+  C version
+  Demonstrate the use of WTIME to estimate wall clock time.
+
+TEST01
+  Time the RAND routine by computing N values.
+  For a given N, repeat the computation 5 times.
+
+  Data vectors will be of minimum size 1024
+  Data vectors will be of maximum size 1048576
+
+  Times are measured in seconds.
+
+         N      Rep #1      Rep #2      Rep #2      Rep #4      Rep #5
+
+      1024    0.000104    0.000040    0.000039    0.000041    0.000042
+      2048    0.000092    0.000074    0.000073    0.000075    0.000076
+      4096    0.000180    0.000142    0.000140    0.000142    0.000154
+      8192    0.000346    0.000269    0.000266    0.000264    0.000262
+     16384    0.000632    0.000502    0.000496    0.000488    0.000480
+     32768    0.001168    0.000910    0.000944    0.000879    0.000874
+     65536    0.002132    0.001702    0.001703    0.001704    0.001702
+    131072    0.004250    0.003409    0.003469    0.003595    0.003865
+    262144    0.008744    0.007077    0.006952    0.007377    0.006882
+    524288    0.017448    0.014011    0.014309    0.013963    0.014124
+   1048576    0.034903    0.027943    0.027901    0.027646    0.028576
+
+WTIME_PRB
+  Normal end of execution.
+
+27 April 2009 10:33:11 PM

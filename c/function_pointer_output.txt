@@ -1,0 +1,44 @@
+20 April 2009 09:54:23 AM
+
+FUNCTION_POINTER
+  C version
+
+  Examples of function pointers.
+  We define a variable FUNC which can point to a function.
+  Our declaration indicates only that FUNC has two inputs
+  of type double, and returns a double as its value.
+
+  We will now set FUNC to a MIN, a MAX and a SUM function
+  successively, and invoke it with 5 random sets of input.
+
+  FUNC = R8_MIN
+  -----A----  -----B----  C = FUNC ( A, B )
+
+2x,1071900358,2x,-1679603065,2x,1071905061
+2x,1070866899,2x,-492588225,2x,1072459490
+2x,1071901530,2x,-987540826,2x,1066567863
+2x,1070184285,2x,-701654468,2x,1071996006
+2x,1069885384,2x,-1725594683,2x,1072281775
+
+  FUNC = R8_MAX
+  -----A----  -----B----  C = FUNC ( A, B )
+
+2x,1071900358,2x,-1679603065,2x,1071905061
+2x,1070866899,2x,-492588225,2x,1072459490
+2x,1071901530,2x,-987540826,2x,1066567863
+2x,1070184285,2x,-701654468,2x,1071996006
+2x,1069885384,2x,-1725594683,2x,1072281775
+
+  FUNC = R8_SUM
+  -----A----  -----B----  C = FUNC ( A, B )
+
+2x,1070331169,2x,2033292208,2x,1072601639
+2x,1072335702,2x,-219213280,2x,1071774056
+2x,1071289444,2x, 657400365,2x,1068559656
+2x,1070627879,2x,-1868743790,2x,1069295136
+2x,1067872449,2x, 539478817,2x,1071925618
+
+FUNCTION_PONTER:
+  Normal end of execution.
+
+20 April 2009 09:54:23 AM

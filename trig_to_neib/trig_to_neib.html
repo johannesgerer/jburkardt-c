@@ -1,0 +1,277 @@
+<html>
+
+  <head>
+    <title>
+      TRIG_TO_NEIB - Determine Adjacent Neighbors in Triangulation
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      TRIG_TO_NEIB <br> Determine Adjacent Neighbors in Triangulation
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>TRIG_TO_NEIB</b>
+      is a C program which
+      reads files defining the nodes and elements of a triangulation,
+      and computes a list of the node neighbors, and, optionally,
+      information about the Voronoi decomposition of the region,
+      by Lili Ju.
+    </p>
+
+    <p>
+      The input files are a pair of "NODE" and "ELE" files that
+      use a format specified by the <b>triangle</b> program.
+    </p>
+
+    <p>
+      For each node N1, its set of "neighbors" includes every node N2
+      which occurs in some element that also includes node N1.
+    </p>
+
+    <p>
+      The output node neighbor file lists, for each node, the number
+      of node neighbors, followed by the neighbors in counter clockwise order.
+    </p>
+
+    <p>
+      An image of the triangulation can be made using the <b>showme</b>
+      program, or the <b>triangle_display</b> program.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>trig_to_neib</b> <i>nodes.txt</i> <i>elements.txt</i> <i>neib.txt</i> <i>voro.txt</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>nodes.txt</i> is an input file containing node information;
+        </li>
+        <li>
+          <i>elements.txt</i> is an input file containing element information;
+        </li>
+        <li>
+          <i>neib.txt</i> is an output file containing the node neighbor information;
+        </li>
+        <li>
+          <i>voro.txt</i> is an optional output file containing Voronoi information;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this
+      web page are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/showme/showme.html">
+      SHOWME</a>,
+      a C program which 
+      uses the X Window library to display triangulatons,
+      by Jonathan Shewchuk.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangle/triangle.html">
+      TRIANGLE</a>, 
+      a C program which
+      computes a triangulation of a geometric region,
+      by Jonathan Shewchuk.
+    </p>
+
+    <p>
+      <a href = "../../data/triangle_files/triangle_files.html">
+      TRIANGLE_FILES</a>, 
+      a data directory of examples of files used by the
+      <b>triangle</b> and
+      <b>showme</b> programs.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangulation/triangulation.html">
+      TRIANGULATION</a>,
+      a C library which
+      performs various operations on order 3 (linear) or order 6 (quadratic) triangulations.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangulation_triangle_neighbors/triangulation_triangle_neighbors.html">
+      TRIANGULATION_TRIANGLE_NEIGHBORS</a>, 
+      a C program which
+      reads data defining a triangulation, determines the neighboring
+      triangles of each triangle, and writes that information to a file.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Lili Ju
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Lili Ju,<br>
+          Conforming centroidal Voronoi Delaunay triangulation for 
+          quality mesh generation,<br>
+          International Journal of Numerical Analysis and Modeling,<br>
+          Volume 4, Number 3-4, 2007, pages 531-547.
+        </li>
+        <li>
+          Robert Renka,<br>
+          Algorithm 751:
+          TRIPACK, A Constrained Two-Dimensional Delaunay Triangulation Package,<br>
+          ACM Transactions on Mathematical Software,<br>
+          Volume 22, Number 1, March 1996, pages 1-8.
+        </li>
+        <li>
+          Jonathan Shewchuk,<br>
+          Triangle: Engineering a 2D Quality Mesh Generator and
+          Delaunay Triangulator,<br>
+          in Applied Computational Geometry: Towards Geometric Engineering,<br>
+          edited by Ming Lin, Dinesh Manocha,<br>
+          Lecture Notes in Computer Science, Volume 1148,<br>
+          Springer, 1996,<br>
+          ISBN: 354061785X,<br>
+          LC: QA448.D38.A635.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "trig_to_neib.c">trig_to_neib.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "trig_to_neib.sh">trig_to_neib.sh</a>,
+          BASH commands to compile the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>ELL</b> is a set of example data which corresponds to a mesh
+      using 21 nodes and 24 elements, constituting a mesh of an L-shaped domain.
+      <ul>
+        <li>
+          <a href = "ell.node">ell.node</a>
+          the node file.
+        </li>
+        <li>
+          <a href = "ell.ele">ell.ele</a>
+          the element file.
+        </li>
+        <li>
+          <a href = "ell.neib">ell.neib</a>
+          the node neighbor file.
+        </li>
+        <li>
+          <a href = "ell.voro">ell.voro</a>
+          the Voronoi file.
+        </li>
+      </ul>
+    </p>
+
+
+    <p>
+      <b>GREENLAND</b> is a set of example data which corresponds to a mesh
+      using 33,343 nodes and 64,125 elements, constituting a mesh of Greenland.
+      <ul>
+        <li>
+          <a href = "greenland.node">greenland.node</a>
+          the node file.
+        </li>
+        <li>
+          <a href = "greenland.ele">greenland.ele</a>
+          the element file.
+        </li>
+        <li>
+          <a href = "greenland.neib">greenland.neib</a>
+          the node neighbor file.
+        </li>
+        <li>
+          <a href = "greenland.voro">greenland.voro</a>
+          the Voronoi file.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MAIN</b> is the main program for TRIG_TO_NEIB.
+        </li>
+        <li>
+          <b>COMP_CIRCUM</b> computes the circumcenter of a triangle.
+        </li>
+        <li>
+          <b>COMP_NEIB</b> computes the neighbor information.
+        </li>
+        <li>
+          <b>READ_MESH</b> reads the input files that define the mesh.
+        </li>
+        <li>
+          <b>WRITE_NEIB</b> writes the neighbor information to an output file.
+        </li>
+        <li>
+          <b>WRITE_VORO</b> writes the Voronoi information to an output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 08 November 2010.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

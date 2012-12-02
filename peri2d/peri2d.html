@@ -1,0 +1,292 @@
+<html>
+
+  <head>
+    <title>
+      PERI2D - Peridynamics for 2D Time-Dependent Problem
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      PERI2D <br> Peridynamics for 2D Time-Dependent Problem
+    </h1>
+
+    <hr>
+
+    <p>
+      PERI2D</a>
+      is a C program which
+      sets up and solves a 2D time-dependent peridynamics problem,
+      by Miroslav Stoyanov;
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      Typical usage:
+      <pre>
+        ./pdsolver -Nx 10 -Ny 10 -delta 0.2
+      </pre>
+    </p>
+
+    <p>
+      Options:
+      <ul>
+        <li>
+         <b>--help</b>, print this information;
+        </li>
+        <li>
+         <b>-s</b>, this is a steady state problem;
+        </li>
+        <li>
+         <b>-i</b>, this is a time integration problem;
+        </li>
+        <li>
+         <b>-Nx (integer)</b>, specify the number of cells in X direction;
+        </li>
+        <li>
+         <b>-Ny (integer)</b>, specify the number of cells in Y direction;
+        </li>
+        <li>
+         <b>-delta (double)</b>, specify the peridynamics delta (the "horizon");
+        </li>
+        <li>
+         <b>-dt (double)</b>, specify the time discretization parameter dt;
+        </li>
+        <li>
+         <b>-Tend (double)</b>, specify the end time;
+        </li>
+        <li>
+         <b>-maxi (integer)</b>, specify the maximum number of refinement iterations;
+        </li>
+        <li>
+         <b>-refine</b>, use iterative refinement for the steady state (need a metric);
+        </li>
+        <li>
+          <b>-mesh (string)</b>, specify an input file with the first mesh to use;
+        </li>
+        <li>
+         <b>-fmesh (string)</b>, filename into which the final mesh will be written;
+        </li>
+        <li>
+         <b>-o (string)</b>, filename into which the final solution will be written;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Libraries:
+    </h3>
+
+    <p>
+      <b>PERI2D</b> requires the SuiteSparse package of sparse solvers, written by Timothy Davis.
+      This package is available at
+      <a href = "http://www.cise.ufl.edu/research/sparse/SuiteSparse/">
+                 http://www.cise.ufl.edu/research/sparse/SuiteSparse/</a>.
+    </p>
+
+    <p>
+      You may need to make some local modifications.  Suppose, for instance, that you install
+      SuiteSparse within the directory:
+      <pre>
+        /panfs/panasas1/users/jburkardt/software/SuiteSparse
+      </pre>
+      Then you need to go to the directory
+      <pre>
+        /panfs/panasas1/users/jburkardt/software/SuiteSparse/SuiteSparse_config
+      </pre>
+      and modify the file <b>SuiteSparse_config.mk</b> so that the library and include
+      directories are defined as
+      <pre>
+        INSTALL_LIB = 
+        INSTALL_INCLUDE = /panfs/panasas1/users/jburkardt/software/SuiteSparse/Inc
+      </pre>
+    </p>
+
+    <p>
+      Now, you need to create these two directories, by moving to
+      the SuiteSparse directory and typing:
+      <pre>
+        mkdir Lib
+        mkdir Inc
+      </pre>
+    </p>
+
+    <p>
+      Now type
+      <pre>
+        make
+      </pre>
+      and then
+      <pre>
+        make install
+      </pre>
+      Assuming you don't see any error messages, SuiteSparse has been set up.
+      Now you need to tell <b>PERI2D</b> where this is.  In the main <b>PERI2D</b>
+      directory, you should see a file called <b>Make.conf</b>.  Edit this file,
+      and set the values of LSS and ISS to correspond to the locations of the
+      SuiteSparse Lib and Inc directories:
+      <pre>
+        LSS = /panfs/panasas1/users/jburkardt/software/SuiteSparse/Lib
+        ISS = /panfs/panasas1/users/jburkardt/software/SuiteSparse/Inc
+      </pre>
+    </p>
+
+    <p>
+      Now, in the main <b>PERI2D</b> directory, you should type
+      <pre>
+        make
+      </pre>
+      If this command executes properly, then in the PDSolver directory, you
+      should find the executable program <b>pdsolver</b>, which you can now run.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this
+      web page are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>PERI2D</b> is available in
+      <a href = "../../c_src/peri2d/peri2d.html">a C version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/peri1d/peri1d.html">
+      PERI1D</a>,
+      a C program which
+      sets up and solves a 1D time-dependent peridynamics problem,
+      by Miroslav Stoyanov;
+    </p>
+
+    <p>
+      <a href = "../../m_src/peridynamics_1d_steady/peridynamics_1d_steady.html">
+      PERIDYNAMICS_1D_STEADY</a>,
+      a MATLAB library which
+      solves a 1D steady version of the Poisson equation, using the non-local peridynamics model,
+      by Marta D'Elia.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Miroslav Stoyanov
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Qiang Du, Max Gunzburger, Rich Lehoucq, Kun Zhou,<br>
+          Analysis and approximation of nonlocal diffusion problems with volume constraints,<br>
+          SIAM Review, <br>
+          Volume 54, Number 4, pages 667-696, 2012.
+        </li>
+        <li>
+          Max Gunzburger, Rich Lehoucq,<br>
+          A nonlocal vector calculus with application to nonlocal boundary value problems,<br>
+          Multiscale Modeling and Simulation,<br>
+          Volume 8, Number 5, 2010, pages 1581-1598.
+        </li>
+        <li>
+          Miroslav Stoyanov,<br>
+          Quadrature for Peridynamics Problems,<br>
+          <a href = "http://people.sc.fsu.edu/~jburkardt/presentations/peridynamic_quadrature.pdf">
+          peridynamic_quadrature.pdf</a>.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "peri2d.tar.gz">peri2d.tar.gz</a>, a GZIP'd TAR file containing the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      RUN1: <b>./peri2d -Nx 10 -Ny 10 -delta 0.1</b>
+      <ul>
+        <li>
+          <a href = "run1_output.txt">run1_output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      RUN2: <b>./peri2d -Nx 10 -Ny 10 -delta 0.1 -fmesh run2_fmesh.txt</b>
+      <ul>
+        <li>
+          <a href = "run2_output.txt">run2_output.txt</a>,
+          the output file.
+        </li>
+        <li>
+          <a href = "run2_fmesh.txt">run2_fmesh.txt</a>,
+          the final mesh.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      RUN1: <b>./peri2d -Nx 10 -Ny 10 -delta 0.1 -o run3_solution.txt</b>
+      <ul>
+        <li>
+          <a href = "run3_output.txt">run3_output.txt</a>,
+          the output file.
+        </li>
+        <li>
+          <a href = "run3_solution.txt">run3_solution.txt</a>,
+          the solution file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 29 November 2012.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

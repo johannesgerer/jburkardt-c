@@ -1,0 +1,29 @@
+25 July 2008 12:02:49 PM
+
+LINPACK_BENCH
+  C version
+
+  The LINPACK benchmark.
+  Language: C
+  Datatype: Double precision
+  Matrix order N               = 1000
+  Leading matrix dimension LDA = 1001
+
+  resid_max = 0.000000
+  N         = 1000
+  a_max     = 0.499999
+  b_max     = 1.000000
+  eps       = 0.000000
+
+     Norm. Resid      Resid           MACHEP         X[1]          X[N]
+
+        6.491510        0.000000    2.220446e-16        1.000000        1.000000
+
+      Factor     Solve      Total     MFLOPS       Unit      Cray-Ratio
+
+   3.495810   0.010634   3.506444  190.696520   0.010488  62.615071
+
+LINPACK_BENCH_D
+  Normal end of execution.
+
+25 July 2008 12:02:53 PM

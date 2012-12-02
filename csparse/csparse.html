@@ -1,0 +1,460 @@
+<html>
+
+  <head>
+    <title>
+      CSPARSE - A Concise Sparse Matrix Package in C
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      CSPARSE <br> A Concise Sparse Matrix Package in C
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>CSPARSE</b> 
+      is a C library which 
+      implements a number of direct methods for sparse linear systems,
+      by Timothy Davis.
+    </p>
+
+    <p>
+      The algorithms contained in <b>CSPARSE</b> have been chosen with 
+      five goals in mind:
+      <ol>
+        <li>
+          they must embody much of the theory behind sparse matrix algorithms,
+        </li>
+        <li>
+          they must be either asymptotically optimal in their run time
+          and memory usage or be fast in practice,
+        </li>
+        <li>
+          they must be concise so as to be easily understood and short 
+          enough to print in the book,
+        </li>
+        <li>
+          they must cover a wide spectrum of matrix operations,
+        </li>
+        <li>
+          they must be accurate and robust.
+        </li>
+      </ol>
+      The focus is on direct methods; iterative methods and solvers for
+      eigenvalue problems are beyond the scope of this package.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../f_src/dlap/dlap.html">
+      DLAP</a>,
+      a FORTRAN90 library which
+      solves sparse linear systems.
+    </p>
+
+    <p>
+      <a href = "../../f_src/hb_io/hb_io.html">
+      HB_IO</a>,
+      a FORTRAN90 library which
+      reads and writes sparse linear
+      systems stored in the Harwell-Boeing Sparse Matrix format.
+    </p>
+
+    <p>
+      <a href = "../../f77_src/hb_to_st/hb_to_st.html">
+      HB_TO_ST</a>,
+      a FORTRAN77 program which
+      converts the sparse matrix information stored in a Harwell-Boeing
+      file into a sparse triplet file.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mgmres/mgmres.html">
+      MGMRES</a>,
+      a C library which 
+      applies the restarted GMRES algorithm
+      to solve a sparse linear system.
+    </p>
+
+    <p>
+      <a href = "../../f_src/mm_io/mm_io.html">
+      MM_IO</a>,
+      a FORTRAN90 library which
+      reads and writes sparse linear
+      systems stored in the Matrix Market format.
+    </p>
+
+    <p>
+      <a href = "../../data/sparse_cc/sparse_cc.html">
+      SPARSE_CC</a>,
+      a data directory which
+      contains a description and examples of the CC format,
+      ("compressed column") for storing a sparse matrix,
+      including a way to write the matrix as a set of three files.
+    </p>
+
+    <p>
+      <a href = "../../data/sparse_cr/sparse_cr.html">
+      SPARSE_CR</a>,
+      a data directory which
+      contains a description and examples of the CR format,
+      ("compressed row") for storing a sparse matrix,
+      including a way to write the matrix as a set of three files.
+    </p>
+
+    <p>
+      <a href = "../../f_src/sparsekit/sparsekit.html">
+      SPARSEKIT</a>,
+      a FORTRAN90 library which
+      carries out sparse matrix operations, by Yousef Saad.
+    </p>
+
+    <p>
+      <a href = "../../f_src/sparsepak/sparsepak.html">
+      SPARSEPAK</a>, 
+      a FORTRAN90 library which
+      forms an obsolete version of
+      the Waterloo Sparse Matrix Package.
+    </p>
+
+    <p>
+      <a href = "../../data/st/st.html">
+      ST</a>,
+      a data directory which
+      contains examples and an explanation of the Sparse Triplet
+      file format for sparse matrices.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Timothy Davis
+    </p>
+
+    <h3 align = "center">
+      License:
+    </h3>
+
+    <p>
+      <b>CSPARSE</b>: a Concise Sparse matrix package.<br>
+      Copyright (c) 2006, Timothy A. Davis.<br>
+      <a href = "http://www.cise.ufl.edu/research/sparse/CSparse">
+                 http://www.cise.ufl.edu/research/sparse/CSparse </a>
+    </p>
+
+    <p>
+      <b>CSPARSE</b> is free software; you can redistribute it and/or
+      modify it under the terms of the GNU Lesser General Public
+      License as published by the Free Software Foundation; either
+      version 2.1 of the License, or (at your option) any later version.
+    </p>
+
+    <p>
+      <b>CSPARSE</b> is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+      Lesser General Public License for more details.
+    </p>
+
+    <p>
+      You should have received a copy of the GNU Lesser General Public
+      License along with this Module; if not, write to the Free Software
+      Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Timothy Davis,<br>
+          Direct Methods for Sparse Linear Systems,<br>
+          SIAM, 2006,<br>
+          ISBN: 0898716136,<br>
+          LC: QA188.D386.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "csparse.c">csparse.c</a>, 
+          the source code.
+        </li>
+        <li>
+          <a href = "csparse.h">csparse.h</a>, 
+          the include file.
+        </li>
+        <li>
+          <a href = "csparse.sh">csparse.sh</a>, 
+          commands to compile the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>csparse_demo1</b> reads an ST matrix from a file and
+      performs basis matrix operations.
+      <ul>
+        <li>
+          <a href = "csparse_demo1.c">csparse_demo1.c</a>, 
+          the source code for the example.
+        </li>
+        <li>
+          <a href = "csparse_demo1.sh">csparse_demo1.sh</a>, 
+          commands to compile and load the source code.
+        </li>
+        <li>
+          <a href = "../../data/st/kershaw.st">kershaw.st</a>, 
+          an ST file containing the 4 by 4 Kershaw matrix.
+        </li>
+        <li>
+          <a href = "csparse_demo1_output.txt">csparse_demo1_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>csparse_demo2</b> reads an ST matrix from a file and
+      solves a linear system.
+      <ul>
+        <li>
+          <a href = "csparse_demo2.c">csparse_demo2.c</a>, 
+          the source code for the example.
+        </li>
+        <li>
+          <a href = "csparse_demo.c">csparse_demo.c</a>, 
+          the source code for some utility routines.
+        </li>
+        <li>
+          <a href = "csparse_demo2.sh">csparse_demo2.sh</a>, 
+          commands to compile and load the source code.
+        </li>
+        <li>
+          <a href = "../../data/st/kershaw.st">kershaw.st</a>, 
+          an ST file containing the 4 by 4 Kershaw matrix.
+        </li>
+        <li>
+          <a href = "csparse_demo2_output.txt">csparse_demo2_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>csparse_demo3</b> reads an ST matrix from a file,
+      solves a linear system, and performs an update/downdate.
+      <ul>
+        <li>
+          <a href = "csparse_demo3.c">csparse_demo3.c</a>, 
+          the source code for the example.
+        </li>
+        <li>
+          <a href = "csparse_demo.c">csparse_demo.c</a>, 
+          the source code for some utility routines.
+        </li>
+        <li>
+          <a href = "csparse_demo3.sh">csparse_demo3.sh</a>, 
+          commands to compile and load the source code.
+        </li>
+        <li>
+          <a href = "../../data/st/kershaw.st">kershaw.st</a>, 
+          an ST file containing the 4 by 4 Kershaw matrix.
+        </li>
+        <li>
+          <a href = "csparse_demo3_output.txt">csparse_demo3_output.txt</a>, 
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>CS_ADD</b> computes C = alpha*A + beta*B for sparse A and B;
+        </li>
+        <li>
+          <b>CS_AMD</b> approximate minimum degree;
+        </li>
+        <li>
+          <b>CS_CHOL</b> sparse Cholesky;
+        </li>
+        <li>
+          <b>CS_CHOLSOL</b> x=A\b using sparse Cholesky;
+        </li>
+        <li>
+          <b>CS_COUNTS</b> column counts for Cholesky and QR;
+        </li>
+        <li>
+          <b>CS_CUMSUM</b> cumulative sum;
+        </li>
+        <li>
+          <b>CS_DFS</b> depth-first-search;
+        </li>
+        <li>
+          <b>CS_DMPERM</b> Dulmage-Mendelsohn permutation;
+        </li>
+        <li>
+          <b>CS_DROPTOL</b> drop small entries from a sparse matrix;
+        </li>
+        <li>
+          <b>CS_DROPZEROS</b> drop zeros from a sparse matrix;
+        </li>
+        <li>
+          <b>CS_DUPL</b> remove (and sum) duplicates;
+        </li>
+        <li>
+          <b>CS_ENTRY</b> add an entry to a triplet matrix;
+        </li>
+        <li>
+          <b>CS_ETREE</b> find elimination tree;
+        </li>
+        <li>
+          <b>CS_FKEEP</b> drop entries from a sparse matrix;
+        </li>
+        <li>
+          <b>CS_GAXPY</b> sparse matrix times dense matrix;
+        </li>
+        <li>
+          <b>CS_HAPPLY</b> apply Householder reflection;
+        </li>
+        <li>
+          <b>CS_HOUSE</b> compute Householder reflection;
+        </li>
+        <li>
+          <b>CS_IPVEC</b> x(p)=b;
+        </li>
+        <li>
+          <b>CS_LOAD</b> load a sparse matrix from a file;
+        </li>
+        <li>
+          <b>CS_LSOLVE</b> x=L\b;
+        </li>
+        <li>
+          <b>CS_LTSOLVE</b> x=L'\b;
+        </li>
+        <li>
+          <b>CS_LU</b> sparse LU factorization;
+        </li>
+        <li>
+          <b>CS_LUSOL</b> x=A\b using sparse LU factorization;
+        </li>
+        <li>
+          <b>CS_MALLOC</b> memory manager;
+        </li>
+        <li>
+          <b>CS_MAXTRANS</b> maximum transveral (permutation for 
+          zero-free diagonal);
+        </li>
+        <li>
+          <b>CS_MULTIPLY</b> sparse matrix multiply;
+        </li>
+        <li>
+          <b>CS_NORM</b> sparse matrix norm;
+        </li>
+        <li>
+          <b>CS_PERMUTE</b> permute a sparse matrix;
+        </li>
+        <li>
+          <b>CS_PINV</b> invert a permutation vector;
+        </li>
+        <li>
+          <b>CS_POST</b> postorder an elimination tree;
+        </li>
+        <li>
+          <b>CS_PRINT</b> print a sparse matrix;
+        </li>
+        <li>
+          <b>CS_PVEC</b> x=b(p);
+        </li>
+        <li>
+          <b>CS_QR</b> sparse QR;
+        </li>
+        <li>
+          <b>CS_QRSOL</b> solve a least-squares problem;
+        </li>
+        <li>
+          <b>CS_REACH</b> find nonzero pattern of x=L\b for sparse L and b;
+        </li>
+        <li>
+          <b>CS_SCATTER</b> scatter a sparse vector;
+        </li>
+        <li>
+          <b>CS_SCC</b> strongly-connected components;
+        </li>
+        <li>
+          <b>CS_SCHOL</b> symbolic Cholesky;
+        </li>
+        <li>
+          <b>CS_SPLSOLVE</b> x=L\b where L, x, and b are all sparse;
+        </li>
+        <li>
+          <b>CS_SQR</b> symbolic QR (also can be used for LU);
+        </li>
+        <li>
+          <b>CS_SYMPERM</b> symmetric permutation of a sparse matrix;
+        </li>
+        <li>
+          <b>CS_TDFS</b> depth-first-search of a tree;
+        </li>
+        <li>
+          <b>CS_TRANSPOSE</b> transpose a sparse matrix;
+        </li>
+        <li>
+          <b>CS_TRIPLET</b> convert a triplet form to compressed-column form;
+        </li>
+        <li>
+          <b>CS_UPDOWN</b> sparse rank-1 Cholesky update/downdate;
+        </li>
+        <li>
+          <b>CS_USOLVE</b> x=U\b;
+        </li>
+        <li>
+          <b>CS_UTIL</b> various utilities (allocate/free matrices, 
+          workspace, etc);
+        </li>
+        <li>
+          <b>CS_UTSOLVE</b> x=U'\b;
+        </li>
+      </ul>
+    </p>
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 10 March 2006.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

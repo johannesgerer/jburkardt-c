@@ -1,0 +1,275 @@
+<html>
+
+  <head>
+    <title>
+      CNOISE - 1/F^alpha Power Law Noise Generation
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      CNOISE <br> 1/F^alpha Power Law Noise Generation
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>CNOISE</b>
+      is a C library which
+      generates sequences that simulate 1/f^alpha power law noise.  This includes 
+      white noise (alpha = 0), pink noise (alpha = 1) and red or Brownian noise (alpha = 2),
+      as well as noise for values of alpha between 0 and 2,
+      by Miroslav Stoyanov.
+    </p>
+
+    <p>
+      <b>CNOISE</b> is based in part on an algorithm by Kasdin,
+      as cited in the references.
+    </p>
+
+    <p>
+      Kasdin's implementation referenced a number of functions from the
+      Numerical Recipes library (FOUR1, FREE_VECTOR, GASDEV, RAN1,
+      REALFT, VECTOR).  Numerical Recipes is a proprietary library
+      whose components cannot be freely distributed.  The implementation
+      given here relies instead on the free source library "GSL"
+      (the GNU Scientific Library).  Thus anyone can build the
+      code without requiring access to restricted or proprietary software.
+    </p>
+
+    <p>
+      Other features of this version of the algorithm include:
+      <ul>
+        <li>
+          real arithmetic is done in double precision;
+        </li>
+        <li>
+          the GSL Fast Fourier Transform functions do not require
+          that the input data be a power of 2 in size;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      Versions of the algorithm are implemented which generate a vector x
+      of size N with a 1/f^alpha frequency distribution, with three choices
+      for the underlying distribution of the white noise vector:
+      <ul>
+        <li>
+          <b>cnoise_generate_colored_noise_uniform()</b>,
+          a uniform distribution on (-range,+range);
+        </li>
+        <li>
+          <b>cnoise_generate_colored_noise()</b>,
+          a Gaussian distribution with mean 0, standard deviation std;
+        </li>
+        <li>
+          <b>cnoise_generate_colored_noise_truncated()</b>,
+          a Gaussian distribution with mean 0,
+          standard deviation std, truncated to (-range,range).
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      Note that this code was updated on 10 June 2011.  Previously, the random
+      number generator was used in such a way that it was possible to return a value
+      which was exactly zero.  Because the logarithm of these numbers was used in
+      the generation of the noise vectors, this meant that occasionally a floating
+      point exception would be triggered.  A minor adjustment to the algorithm
+      has removed this problem.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>CNOISE</b> is available in
+      <a href = "../../c_src/cnoise/cnoise.html">a C version</a> and
+      <a href = "../../m_src/cnoise/cnoise.html">a MATLAB version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/black_scholes/black_scholes.html">
+      BLACK_SCHOLES</a>,
+      a C library which
+      implements some simple approaches to
+      the Black-Scholes option valuation theory,
+      by Desmond Higham.
+    </p>
+
+    <p>
+      <a href = "../../c_src/colored_noise/colored_noise.html">
+      COLORED_NOISE</a>,
+      a C library which
+      generates samples of noise obeying a 1/f^alpha power law.
+    </p>
+
+    <p>
+      <a href = "../../c_src/pink_noise/pink_noise.html">
+      PINK_NOISE</a>,
+      a C library which
+      computes a "pink noise" signal obeying a 1/f power law.
+    </p>
+
+    <p>
+      <a href = "../../c_src/sde/sde.html">
+      SDE</a>,
+      a C library which
+      illustrates the properties of stochastic differential equations (SDE's), and
+      common algorithms for their analysis,
+      by Desmond Higham;
+    </p>
+
+    <p>
+      <a href = "../../c_src/stochastic_rk/stochastic_rk.html">
+      STOCHASTIC_RK</a>,
+      a C library which
+      applies a Runge-Kutta scheme to a stochastic differential equation.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Miroslav Stoyanov,
+      Department of Scientific Computing,
+      Florida State University.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Martin Gardner,<br>
+          White and brown music, fractal curves and one-over-f fluctuations,<br>
+          Scientific American,<br>
+          Volume 238, Number 4, April 1978, pages 16-32.
+        </li>
+        <li>
+          Jeremy Kasdin,<br>
+          Discrete Simulation of Colored Noise and Stochastic Processes
+          and 1/f^a Power Law Noise Generation,<br>
+          Proceedings of the IEEE,<br>
+          Volume 83, Number 5, 1995, pages 802-827.
+        </li>
+        <li>
+          Edoardo Milotti,<br>
+          1/f noise: a pedagogical review,<br>
+          arXiv:physics/0204033.
+        </li>
+        <li>
+          Sophocles Orfanidis,<br>
+          Introduction to Signal Processing,<br>
+          Prentice-Hall, 1995,<br>
+          ISBN: 0-13-209172-0,<br>
+          LC: TK5102.5.O246.
+        </li>
+        <li>
+          William Press,<br>
+          Flicker Noises in Astronomy and Elsewhere,<br>
+          Comments on Astrophysics,<br>
+          Volume 7, Number 4, 1978, pages 103-119.
+        </li>
+        <li>
+          Miroslav Stoyanov, Max Gunzburger, John Burkardt,<br>
+          Pink Noise, 1/f^alpha Noise, and Their Effect on Solutions
+          of Differential Equations,<br>
+          International Journal for Uncertainty Quantification,<br>
+          Volume 1, Number 3, pages 257-278, 2011.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "cnoise.c">cnoise.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "cnoise.h">cnoise.h</a>, the include file.
+          Information about the parameters for the three user-interface routines
+          is included here.
+        </li>
+        <li>
+          <a href = "README.txt">README.txt</a>,
+          a short description of the code, its installation and use.
+        </li>
+        <li>
+          <a href = "Config.mk">Config.mk</a>,
+          a configuration file referred to by the makefile.
+          Here you will need to set the locations of the GSL include file
+          and compiled library before executing "make".
+        </li>
+        <li>
+          <a href = "Makefile">Makefile</a>,
+          a makefile which will compile the source code, creating
+          the library file "libcnoise.a".
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "example/test.c">test.c</a>
+          a sample calling program.
+        </li>
+        <li>
+          <a href = "example/Makefile">Makefile</a>,
+          a makefile which compiles the calling program, links it with
+          the compiled source code, and runs the executable program.
+        </li>
+        <li>
+          <a href = "example/test_output.txt">test_output.txt</a>,
+          the output file.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 10 June 2011.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

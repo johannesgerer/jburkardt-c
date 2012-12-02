@@ -1,0 +1,161 @@
+<html>
+
+  <head>
+    <title>
+      MANDELBROT_ASCII - Generate an ASCII Image of the Mandelbrot Set
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      MANDELBROT_ASCII <br> Generate an ASCII Image of the Mandelbrot Set
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>MANDELBROT_ASCII</b> 
+      is a C program which
+      generates an ASCII image of the Mandelbrot set using two lines of C code.
+    </p>
+
+    <p>
+      The Mandelbrot set is a set of points C in the complex plane with
+      the property that the iteration 
+      <pre>
+        z(n+1) = z(n)^2 + c
+      </pre>
+      remains bounded.
+    </p>
+
+    <p>
+      All the points in the Mandelbrot set are known to lie within the circle
+      of radius 2 and center at the origin.
+    </p>
+
+    <p>
+      To make a plot of the Mandelbrot set, one starts with a given point C
+      and carries out the iteration for a fixed number of steps.  If the
+      iterates never exceed 2 in magnitude, the point C is taken to be a member
+      of the Mandelbrot set.
+    </p>
+
+    <p>
+      The MANDELBROT_ASCII program makes an image of the Mandelbrot set using
+      ASCII graphics, sometimes called "typewriter graphics".  Moreover,
+      the entire program consists of a pair of cryptic lines of text:
+      <pre>
+main(n){float r,i,R,I,b;for(i=-1;i<1;i+=.06,puts(""))for(r=-2;I=i,(R=r)<1;
+r+=.03,putchar(n+31))for(n=0;b=I*I,26>n++&&R*R+b<4;I=2*R*I+i,R=R*R-b+r);}
+      </pre>
+    </p>
+
+    <p>
+      Working out how the program can do what it does is a true puzzle!
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../data/ascii_art_grayscale/ascii_art_grayscale.html">
+      ASCII_ART_GRAYSCALE</a>,
+      a data directory of examples of grayscale "ASCII Art" files,
+      in which images are created using printable characters.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mandelbrot/mandelbrot.html">
+      MANDELBROT</a>,
+      a C program which
+      generates an ASCII PPM image of the Mandelbrot fractal set;
+    </p>
+
+    <p>
+      <a href = "../../c_src/mandelbrot_ppm/mandelbrot_ppm.html">
+      MANDELBROT_PPM</a>,
+      a C program which
+      generates a binary PPM image of the Mandelbrot fractal set;
+    </p>
+
+    <p>
+      <a href = "../../c_src/pig_latin/pig_latin.html">
+      PIG_LATIN</a>,
+      a C program which
+      converts its input to Pig Latin; a winner of the International
+      Obfuscated C Code Competition in the "Most Humorous" category,
+      by Don Dodson.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Alexander Dewdney,<br>
+          A computer microscope zooms in for a close look at the most complicated 
+          object in mathematics,<br>
+          Scientific American,<br>
+          Volume 257, Number 8, August 1985, pages 16-24.
+        </li>
+        <li>
+          Heinz-Otto Peitgen, Hartmut Juergens, Dietmar Saupe,<br>
+          Chaos and Fractals - New Frontiers in Science,<br>
+          Springer, 1992,<br>
+          ISBN: 0-387-20229-3,<br>
+          LC: Q172.5.C45.P45.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "mandelbrot_ascii.c">mandelbrot_ascii.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "mandelbrot_ascii.sh">mandelbrot_ascii.sh</a>,
+          commands to compile the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "mandelbrot_ascii.txt">mandelbrot_ascii.txt</a>,
+          the ASCII file created by the program.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 13 October 2011.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

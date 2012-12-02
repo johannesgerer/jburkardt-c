@@ -1,0 +1,47 @@
+#Inventor V2.1 ascii
+
+Separator {
+
+Coordinate3 {
+  point [
+    -1 -1 -1,
+    1 -1 -1,
+    1 1 -1,
+    -1 1 -1,
+    -1 -1 1,
+    1 -1 1,
+    1 1 1,
+    -1 1 1,
+  ]
+}
+
+Material {
+  diffuseColor [
+    1 1 1
+  ]
+}
+
+
+MaterialBinding { value PER_VERTEX_INDEXED }
+
+IndexedFaceSet {
+  coordIndex [
+    3, 2, 1, 0, -1,
+    6, 7, 4, 5, -1,
+    5, 1, 2, 6, -1,
+    0, 4, 7, 3, -1,
+    6, 2, 3, 7, -1,
+    4, 0, 1, 5, -1,
+  ]
+  materialIndex [
+    0, 0, 0, 0, -1,
+    0, 0, 0, 0, -1,
+    0, 0, 0, 0, -1,
+    0, 0, 0, 0, -1,
+    0, 0, 0, 0, -1,
+    0, 0, 0, 0, -1,
+  ]
+}
+
+}
+

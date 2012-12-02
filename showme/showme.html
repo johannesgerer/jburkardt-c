@@ -1,0 +1,295 @@
+<html>
+
+  <head>
+    <title>
+      SHOWME - 2D Mesh Display
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      SHOWME <br> 2D Mesh Display
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>SHOWME</b>
+      is a C program which 
+      uses the X Window library to
+      display triangulations and meshes,
+      by Jonathan Shewchuk.
+    </p>
+
+    <p>
+      <b>SHOWME</b> was developed for use with the TRIANGLE
+      program (which produces Delaunay triangulations, Voronoi diagrams,
+      and finite element meshes).  Since data input is done through
+      files with a simple format, it is easy for other programs to
+      generate output that <b>SHOWME</b> can display.  <b>SHOWME</b>
+      can also make PostScript or Encapsulated PostScript 
+      graphics files of the images that it displays.
+    </p>
+
+    <p>
+      <b>SHOWME</b> can produce documentation online.
+      Complete instructions for invoking the program are
+      available with the `-h' switch:
+      <pre>
+        showme -h
+      </pre>
+    </p>
+
+    <p>
+      The instructions are long; you'll probably want to pipe the output to
+      <b>more</b> or redirect it to a file.  If the program is invoked
+      with no arguments, it prints a short list of command options.
+    </p>
+
+    <p>
+      <b>SHOWME</b> can read and display a number of computational
+      objects.  The simplest form is a Planar Straight Line Graph
+      (PSLG), which is usually stored in a POLY file.  This file contains a list of points, line
+      segments, and possibly some information about holes.
+    </p>
+
+    <p>
+      Try out <b>SHOWME</b> on the sample file, A.poly:
+      <pre>
+        triangle -p A.poly
+        showme A.poly &
+      </pre>
+    </p>
+
+    <p>
+      <b>SHOWME</b> will read the Planar Straight Line Graph defined 
+      by A.poly, and write its constrained Delaunay triangulation to 
+      A.1.node and A.1.ele.  <b>SHOWME</b> will display the figure defined by 
+      A.poly.  There are two buttons marked "ele" in the window; 
+      click on the top one.  This will cause <b>SHOWME</b> to load and display 
+      the triangulation, if it has been computed by <b>TRIANGLE</b>.
+    </p>
+
+    <p>
+      For contrast, try running
+      <pre>
+        triangle -pq A
+      </pre>
+      Now, click on the same "ele" button.  A new triangulation will be loaded;
+      this one having no angles smaller than 20 degrees.
+    </p>
+
+    <p>
+      To see a Voronoi diagram, try this:
+      <pre>
+        cp A.poly A.node
+        triangle -v A
+      </pre>
+    </p>
+
+    <p>
+      Click the "ele" button again.  You will see the Delaunay triangulation 
+      of the points in A.poly, without the segments.  Now click the top 
+      "voro" button.  You will see the Voronoi diagram corresponding to 
+      that Delaunay triangulation.  Click the "Reset" button to see the 
+      whole diagram.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../data/poly/poly.html">
+      POLY</a>,
+      a file directory which
+      contains a description and examples of the POLY file format.
+    </p>
+
+    <p>
+      <a href = "../../f_src/test_mesh/test_mesh.html">
+      TEST_MESH</a>,
+      a FORTRAN90 library which 
+      defines a few test meshes.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangle/triangle.html">
+      TRIANGLE</a>, 
+      a C program which
+      computes Voronoi diagrams and Delaunay triangulations,
+      and creates and manipulates files that can be displayed by <b>SHOWME</b>.
+    </p>
+
+    <p>
+      <a href = "../../m_src/triangle_display/triangle_display.html">
+      TRIANGLE_DISPLAY</a>, 
+      a MATLAB program which 
+      displays the nodes and elements of a triangulation
+      on the MATLAB graphics screen, assuming the data has been
+      stored in NODE and ELE files by the TRIANGLE program.
+    </p>
+
+    <p>
+      <a href = "../../data/triangle_files/triangle_files.html">
+      TRIANGLE_FILES</a>, 
+      a data directory which
+      contains examples of files used by the
+      <a href = "../../c_src/triangle/triangle.html">triangle</a> and
+      <a href - "../../c_src/showme/showme.html">showme</a> programs.
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      Jonathan Shewchuk,<br>
+      Computer Science Division,<br>
+      University of California at Berkeley,<br>
+      Berkeley, California, 94720-1776
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Franz Aurenhammer,<br>
+          Voronoi diagrams - 
+          a study of a fundamental geometric data structure,<br>
+          ACM Computing Surveys,<br>
+          Volume 23, pages 345-405, September 1991.
+        </li>
+        <li>
+          Jim Ruppert,<br>
+          A Delaunay Refinement Algorithm for Quality 2-Dimensional
+          Mesh Generation,<br>
+          Journal of Algorithms,<br>
+          Volume 18, Number 3, pages 548-585, May 1995.
+        </li>
+        <li>
+          Jonathan Shewchuk,<br>
+          Triangle: Engineering a 2D Quality Mesh Generator and
+          Delaunay Triangulator,<br>
+          in Applied Computational Geometry: Towards Geometric Engineering,<br>
+          edited by Ming Lin, Dinesh Manocha,<br>
+          Lecture Notes in Computer Science, Volume 1148,<br>
+          Springer, 1996,<br>
+          ISBN: 354061785X,<br>
+          LC: QA448.D38.A635.
+        </li>
+        <li>
+          Jonathan Shewchuk,<br>
+          Delaunay Refinement Algorithms for Triangular Mesh Generation,<br>
+          Computational Geometry, Theory and Applications,<br>
+          Volume 23, pages 21-74, May 2002.
+        </li>
+        <li>
+          <a href = "http://www-2.cs.cmu.edu/~quake/triangle.html">
+          http://www-2.cs.cmu.edu/~quake/triangle.html</a>
+          the TRIANGLE web site.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "showme.c">showme.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "showme.sh">showme.sh</a>, 
+          commands to compile and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>A</b> is a set of data defining the outline of a capital
+      letter A.  Files you may copy include:
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/A.poly">A.poly</a>, 
+          a sample POLY data file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/A.1.poly">A.1.poly</a>, 
+          the new POLY file created by TRIANGLE;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/A.1.node">A.1.node</a>,
+          the node file created by TRIANGLE;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/A.1.ele">A.1.ele</a>;
+          the element file created by TRIANGLE;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/A.1.ele.png">A.1.ele.png</a>;
+          A PNG image of the elements;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>square_circle_hole</b> is a set of data defining a square region, with
+      a circular hole, filled up with CVT points.  Files you may copy 
+      include:
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.poly">square_circle_hole.poly</a>, 
+          a sample POLY data file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.1.poly">square_circle_hole.1.poly</a>, 
+          the new POLY file created by TRIANGLE;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.1.poly.png">
+          square_circle_hole.1.poly.png</a>, 
+          a PNG image of the region and points;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.1.node">square_circle_hole.1.node</a>,
+          the node file created by TRIANGLE;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.1.ele">square_circle_hole.1.ele</a>;
+          the element file created by TRIANGLE;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/square_circle_hole.1.ele.png">
+          square_circle_hole.1.ele.png</a>,
+          a PNG image of the elements;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 03 June 2012.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

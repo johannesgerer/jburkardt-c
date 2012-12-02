@@ -1,0 +1,47 @@
+
+MONTE_CARLO - Master process:
+  Estimate pi by the Monte Carlo method, using MPI.
+
+  Compiled on Oct  9 2002 at 08:27:09.
+
+  The number of processes is 4.
+
+  Points in the unit square will be tested
+  to see if they lie in the unit quarter circle.
+
+  The method will continue to improve the estimate until:
+  PI is computed to within a tolerance = 0.000100,
+  or the number of points examined reaches 1000000.
+  Process 0 is active.
+  Process 1 is active.
+  Process 2 is active.
+  Process 3 is active.
+pi =  3.11466666666666650000
+pi =  3.10533333333333330000
+pi =  3.12533333333333330000
+pi =  3.14666666666666650000
+pi =  3.14186666666666660000
+pi =  3.14755555555555540000
+pi =  3.15200000000000010000
+pi =  3.15099999999999980000
+pi =  3.14014814814814840000
+pi =  3.14320000000000020000
+pi =  3.14084848484848500000
+pi =  3.13377777777777800000
+pi =  3.13579487179487160000
+pi =  3.13904761904761910000
+pi =  3.13902222222222220000
+pi =  3.14033333333333340000
+pi =  3.14039215686274530000
+pi =  3.13985185185185190000
+pi =  3.14315789473684190000
+pi =  3.14253333333333320000
+pi =  3.14184126984126970000
+pi =  3.14181818181818160000
+pi =  3.14168115942029000000
+
+points: 34500
+in: 27097, out: 7403
+
+MONTE_CARLO - Master process:
+  Normal end of execution.

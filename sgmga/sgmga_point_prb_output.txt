@@ -1,0 +1,639 @@
+29 July 2010 09:27:27 AM
+
+SGMGA_POINT_PRB
+  C version
+  Test the SGMGA_POINT function.
+
+SGMGA_POINT_TESTS
+  Call SGMGA_POINT_TEST with various arguments.
+
+  All tests will use a point equality tolerance of 1.490116e-08
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        1.000000
+  LEVEL_WEIGHT:        1.000000        1.000000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         1   Exponential
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0     -1.000000    0.000000
+     1      0.000000   -1.000000
+     2      0.000000    0.000000
+     3      0.000000    1.000000
+     4      1.000000    0.000000
+
+  For LEVEL_MAX = 2
+     0     -1.000000   -1.000000
+     1     -1.000000    0.000000
+     2     -1.000000    1.000000
+     3     -0.707107    0.000000
+     4      0.000000   -1.000000
+     5      0.000000   -0.707107
+     6      0.000000    0.000000
+     7      0.000000    0.707107
+     8      0.000000    1.000000
+     9      0.707107    0.000000
+    10      1.000000   -1.000000
+    11      1.000000    0.000000
+    12      1.000000    1.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000
+  LEVEL_WEIGHT:        1.000000        0.500000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         1   Exponential
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0      0.000000   -1.000000
+     1      0.000000    0.000000
+     2      0.000000    1.000000
+
+  For LEVEL_MAX = 2
+     0     -1.000000    0.000000
+     1      0.000000   -1.000000
+     2      0.000000   -0.707107
+     3      0.000000    0.000000
+     4      0.000000    0.707107
+     5      0.000000    1.000000
+     6      1.000000    0.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        1.000000        1.000000
+  LEVEL_WEIGHT:        1.000000        1.000000        1.000000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         1   Exponential
+         2         1   Exponential
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0     -1.000000    0.000000    0.000000
+     1      0.000000   -1.000000    0.000000
+     2      0.000000    0.000000   -1.000000
+     3      0.000000    0.000000    0.000000
+     4      0.000000    0.000000    1.000000
+     5      0.000000    1.000000    0.000000
+     6      1.000000    0.000000    0.000000
+
+  For LEVEL_MAX = 2
+     0     -1.000000   -1.000000    0.000000
+     1     -1.000000    0.000000   -1.000000
+     2     -1.000000    0.000000    0.000000
+     3     -1.000000    0.000000    1.000000
+     4     -1.000000    1.000000    0.000000
+     5     -0.707107    0.000000    0.000000
+     6      0.000000   -1.000000   -1.000000
+     7      0.000000   -1.000000    0.000000
+     8      0.000000   -1.000000    1.000000
+     9      0.000000   -0.707107    0.000000
+    10      0.000000    0.000000   -1.000000
+    11      0.000000    0.000000   -0.707107
+    12      0.000000    0.000000    0.000000
+    13      0.000000    0.000000    0.707107
+    14      0.000000    0.000000    1.000000
+    15      0.000000    0.707107    0.000000
+    16      0.000000    1.000000   -1.000000
+    17      0.000000    1.000000    0.000000
+    18      0.000000    1.000000    1.000000
+    19      0.707107    0.000000    0.000000
+    20      1.000000   -1.000000    0.000000
+    21      1.000000    0.000000   -1.000000
+    22      1.000000    0.000000    0.000000
+    23      1.000000    0.000000    1.000000
+    24      1.000000    1.000000    0.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000        3.000000
+  LEVEL_WEIGHT:        1.000000        0.500000        0.333333
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         1   Exponential
+         2         1   Exponential
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0      0.000000    0.000000   -1.000000
+     1      0.000000    0.000000    0.000000
+     2      0.000000    0.000000    1.000000
+
+  For LEVEL_MAX = 2
+     0      0.000000   -1.000000    0.000000
+     1      0.000000    0.000000   -1.000000
+     2      0.000000    0.000000   -0.707107
+     3      0.000000    0.000000    0.000000
+     4      0.000000    0.000000    0.707107
+     5      0.000000    0.000000    1.000000
+     6      0.000000    1.000000    0.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000
+  LEVEL_WEIGHT:        1.000000        0.500000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         3   Exponential
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0      0.000000   -0.774597
+     1      0.000000    0.000000
+     2      0.000000    0.774597
+
+  For LEVEL_MAX = 2
+     0     -1.000000    0.000000
+     1      0.000000   -0.960491
+     2      0.000000   -0.774597
+     3      0.000000   -0.434244
+     4      0.000000    0.000000
+     5      0.000000    0.434244
+     6      0.000000    0.774597
+     7      0.000000    0.960491
+     8      1.000000    0.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000
+  LEVEL_WEIGHT:        1.000000        0.500000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         4   Linear
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0      0.000000   -0.774597
+     1      0.000000    0.000000
+     2      0.000000    0.774597
+
+  For LEVEL_MAX = 2
+     0     -1.000000    0.000000
+     1      0.000000   -0.906180
+     2      0.000000   -0.538469
+     3      0.000000    0.000000
+     4      0.000000    0.538469
+     5      0.000000    0.906180
+     6      1.000000    0.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000
+  LEVEL_WEIGHT:        1.000000        0.500000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         7   Linear
+
+  For LEVEL_MAX = 0
+     0      0.000000    1.000000
+
+  For LEVEL_MAX = 1
+     0      0.000000    0.415775
+     1      0.000000    2.294280
+     2      0.000000    6.289945
+
+  For LEVEL_MAX = 2
+     0     -1.000000    1.000000
+     1      0.000000    0.263560
+     2      0.000000    1.000000
+     3      0.000000    1.413403
+     4      0.000000    3.596426
+     5      0.000000    7.085810
+     6      0.000000   12.640801
+     7      1.000000    1.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000
+  LEVEL_WEIGHT:        1.000000        0.500000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         8   Linear           1.500000
+
+  For LEVEL_MAX = 0
+     0      0.000000    2.500000
+
+  For LEVEL_MAX = 1
+     0      0.000000    1.220402
+     1      0.000000    3.808881
+     2      0.000000    8.470717
+
+  For LEVEL_MAX = 2
+     0     -1.000000    2.500000
+     1      0.000000    0.817632
+     2      0.000000    2.472334
+     3      0.000000    2.500000
+     4      0.000000    5.116006
+     5      0.000000    9.044147
+     6      0.000000   15.049882
+     7      1.000000    2.500000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000
+  LEVEL_WEIGHT:        1.000000        0.500000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         2   Exponential
+         1         9   Linear           0.500000        1.500000
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.250000
+
+  For LEVEL_MAX = 1
+     0      0.000000   -0.537986
+     1      0.000000    0.152829
+     2      0.000000    0.760157
+
+  For LEVEL_MAX = 2
+     0     -0.707107    0.250000
+     1      0.000000   -0.769541
+     2      0.000000   -0.370814
+     3      0.000000    0.110027
+     4      0.000000    0.250000
+     5      0.000000    0.562906
+     6      0.000000    0.884088
+     7      0.707107    0.250000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000
+  LEVEL_WEIGHT:        1.000000        0.500000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         6   Linear           2.000000
+         1         4   Linear
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0      0.000000   -0.774597
+     1      0.000000    0.000000
+     2      0.000000    0.774597
+
+  For LEVEL_MAX = 2
+     0     -1.581139    0.000000
+     1      0.000000   -0.906180
+     2      0.000000   -0.538469
+     3      0.000000    0.000000
+     4      0.000000    0.538469
+     5      0.000000    0.906180
+     6      1.581139    0.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000        3.000000
+  LEVEL_WEIGHT:        1.000000        0.500000        0.333333
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         4   Linear
+         2         5   Linear
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0      0.000000    0.000000   -1.224745
+     1      0.000000    0.000000    0.000000
+     2      0.000000    0.000000    1.224745
+
+  For LEVEL_MAX = 2
+     0      0.000000   -0.774597    0.000000
+     1      0.000000    0.000000   -2.020183
+     2      0.000000    0.000000   -0.958572
+     3      0.000000    0.000000    0.000000
+     4      0.000000    0.000000    0.958572
+     5      0.000000    0.000000    2.020183
+     6      0.000000    0.774597    0.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        2.000000        3.000000
+  LEVEL_WEIGHT:        1.000000        0.500000        0.333333
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1        10   Linear     
+         2        10   Linear     
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0      0.000000    0.000000   -1.224745
+     1      0.000000    0.000000    0.000000
+     2      0.000000    0.000000    1.224745
+
+  For LEVEL_MAX = 2
+     0      0.000000   -0.774597    0.000000
+     1      0.000000    0.000000   -2.020183
+     2      0.000000    0.000000   -0.958572
+     3      0.000000    0.000000    0.000000
+     4      0.000000    0.000000    0.958572
+     5      0.000000    0.000000    2.020183
+     6      0.000000    0.774597    0.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          2.000000        1.000000
+  LEVEL_WEIGHT:        0.500000        1.000000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         5   Linear
+         1         5   Linear
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0     -1.224745    0.000000
+     1      0.000000    0.000000
+     2      1.224745    0.000000
+
+  For LEVEL_MAX = 2
+     0     -2.020183    0.000000
+     1     -0.958572    0.000000
+     2      0.000000   -1.224745
+     3      0.000000    0.000000
+     4      0.000000    1.224745
+     5      0.958572    0.000000
+     6      2.020183    0.000000
+
+  For LEVEL_MAX = 3
+     0     -2.651961    0.000000
+     1     -1.673552    0.000000
+     2     -1.224745   -1.224745
+     3     -1.224745    0.000000
+     4     -1.224745    1.224745
+     5     -0.816288    0.000000
+     6      0.000000   -1.224745
+     7      0.000000    0.000000
+     8      0.000000    1.224745
+     9      0.816288    0.000000
+    10      1.224745   -1.224745
+    11      1.224745    0.000000
+    12      1.224745    1.224745
+    13      1.673552    0.000000
+    14      2.651961    0.000000
+
+  For LEVEL_MAX = 4
+     0     -3.190993    0.000000
+     1     -2.266581    0.000000
+     2     -2.020183   -1.224745
+     3     -2.020183    0.000000
+     4     -2.020183    1.224745
+     5     -1.468553    0.000000
+     6     -0.958572   -1.224745
+     7     -0.958572    0.000000
+     8     -0.958572    1.224745
+     9     -0.723551    0.000000
+    10      0.000000   -2.020183
+    11      0.000000   -1.224745
+    12      0.000000   -0.958572
+    13      0.000000    0.000000
+    14      0.000000    0.958572
+    15      0.000000    1.224745
+    16      0.000000    2.020183
+    17      0.723551    0.000000
+    18      0.958572   -1.224745
+    19      0.958572    0.000000
+    20      0.958572    1.224745
+    21      1.468553    0.000000
+    22      2.020183   -1.224745
+    23      2.020183    0.000000
+    24      2.020183    1.224745
+    25      2.266581    0.000000
+    26      3.190993    0.000000
+
+  For LEVEL_MAX = 5
+     0     -3.668471    0.000000
+     1     -2.783290    0.000000
+     2     -2.651961   -1.224745
+     3     -2.651961    0.000000
+     4     -2.651961    1.224745
+     5     -2.025948    0.000000
+     6     -1.673552   -1.224745
+     7     -1.673552    0.000000
+     8     -1.673552    1.224745
+     9     -1.326557    0.000000
+    10     -1.224745   -2.020183
+    11     -1.224745   -1.224745
+    12     -1.224745   -0.958572
+    13     -1.224745    0.000000
+    14     -1.224745    0.958572
+    15     -1.224745    1.224745
+    16     -1.224745    2.020183
+    17     -0.816288   -1.224745
+    18     -0.816288    0.000000
+    19     -0.816288    1.224745
+    20     -0.656810    0.000000
+    21      0.000000   -2.020183
+    22      0.000000   -1.224745
+    23      0.000000   -0.958572
+    24      0.000000    0.000000
+    25      0.000000    0.958572
+    26      0.000000    1.224745
+    27      0.000000    2.020183
+    28      0.656810    0.000000
+    29      0.816288   -1.224745
+    30      0.816288    0.000000
+    31      0.816288    1.224745
+    32      1.224745   -2.020183
+    33      1.224745   -1.224745
+    34      1.224745   -0.958572
+    35      1.224745    0.000000
+    36      1.224745    0.958572
+    37      1.224745    1.224745
+    38      1.224745    2.020183
+    39      1.326557    0.000000
+    40      1.673552   -1.224745
+    41      1.673552    0.000000
+    42      1.673552    1.224745
+    43      2.025948    0.000000
+    44      2.651961   -1.224745
+    45      2.651961    0.000000
+    46      2.651961    1.224745
+    47      2.783290    0.000000
+    48      3.668471    0.000000
+
+SGMGA_POINT_TEST
+  SGMGA_POINT returns an array of the points
+  forming a multidimensional sparse grid with mixed factors.
+
+  Each sparse grid is of spatial dimension DIM_NUM,
+  and is made up of product grids of levels up to LEVEL_MAX.
+
+  IMPORTANCE:          1.000000        0.000000        1.000000
+  LEVEL_WEIGHT:        1.000000        0.000000        1.000000
+
+ Dimension      Rule  Growth rate       Parameters
+
+         0         1   Exponential
+         1         1   Exponential
+         2         1   Exponential
+
+  For LEVEL_MAX = 0
+     0      0.000000    0.000000    0.000000
+
+  For LEVEL_MAX = 1
+     0     -1.000000    0.000000    0.000000
+     1      0.000000    0.000000   -1.000000
+     2      0.000000    0.000000    0.000000
+     3      0.000000    0.000000    1.000000
+     4      1.000000    0.000000    0.000000
+
+  For LEVEL_MAX = 2
+     0     -1.000000    0.000000   -1.000000
+     1     -1.000000    0.000000    0.000000
+     2     -1.000000    0.000000    1.000000
+     3     -0.707107    0.000000    0.000000
+     4      0.000000    0.000000   -1.000000
+     5      0.000000    0.000000   -0.707107
+     6      0.000000    0.000000    0.000000
+     7      0.000000    0.000000    0.707107
+     8      0.000000    0.000000    1.000000
+     9      0.707107    0.000000    0.000000
+    10      1.000000    0.000000   -1.000000
+    11      1.000000    0.000000    0.000000
+    12      1.000000    0.000000    1.000000
+
+  For LEVEL_MAX = 3
+     0     -1.000000    0.000000   -1.000000
+     1     -1.000000    0.000000   -0.707107
+     2     -1.000000    0.000000    0.000000
+     3     -1.000000    0.000000    0.707107
+     4     -1.000000    0.000000    1.000000
+     5     -0.923880    0.000000    0.000000
+     6     -0.707107    0.000000   -1.000000
+     7     -0.707107    0.000000    0.000000
+     8     -0.707107    0.000000    1.000000
+     9     -0.382683    0.000000    0.000000
+    10      0.000000    0.000000   -1.000000
+    11      0.000000    0.000000   -0.923880
+    12      0.000000    0.000000   -0.707107
+    13      0.000000    0.000000   -0.382683
+    14      0.000000    0.000000    0.000000
+    15      0.000000    0.000000    0.382683
+    16      0.000000    0.000000    0.707107
+    17      0.000000    0.000000    0.923880
+    18      0.000000    0.000000    1.000000
+    19      0.382683    0.000000    0.000000
+    20      0.707107    0.000000   -1.000000
+    21      0.707107    0.000000    0.000000
+    22      0.707107    0.000000    1.000000
+    23      0.923880    0.000000    0.000000
+    24      1.000000    0.000000   -1.000000
+    25      1.000000    0.000000   -0.707107
+    26      1.000000    0.000000    0.000000
+    27      1.000000    0.000000    0.707107
+    28      1.000000    0.000000    1.000000
+
+SGMGA_PRB
+  Normal end of execution.
+
+29 July 2010 09:27:27 AM

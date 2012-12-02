@@ -1,0 +1,375 @@
+<html>
+
+  <head>
+    <title>
+      RBOX - Pointsets for Computational Geometry Tests
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055" >
+
+    <h1 align = "center">
+      RBOX <br> Pointsets for Computational Geometry Tests
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>RBOX</b> 
+      is a C program which 
+      generates a set of points
+      in a region, selected at random according to a given distribution.
+    </p>
+
+    <p>
+      These pointsets can be used as test input to computational geometry
+      programs that determine convex hulls, Delaunay triangulations, 
+      Voronoi Diagrams, nearest neighbors, or other such tasks.  In fact,
+      <b>RBOX</b> is was written to generate test data for the
+      <b>QHULL</b> program.
+    </p>
+
+    <p>
+      By default, the points are generated in a cube each of whose
+      coordinates ranges from -0.5 to 0.5.  
+    </p>
+
+    <p>
+      <b>RBOX</b> is invoked as a one line command, with an extensive
+      list of arguments, separated by spaces.  These arguments include
+      <dl>
+        <dt>3000</dt>
+        <dd>
+          the number of points to generate (3000 is just an example);
+        </dd>
+        <dt>Bn</dt>
+        <dd>
+          Bounding box coordinates.  The default is 0.5.
+        </dd>
+        <dt>c</dt>
+        <dd>
+          add a unit cube to the output;
+        </dd>
+        <dt>c Gm</dt>
+        <dd>
+          add a cube of "radius" m to the output;
+        </dd>
+        <dt>D3</dt>
+        <dd>
+          the dimension of the space (D3 requests 3 dimensions);
+        </dd>
+        <dt>d</dt>
+        <dd>
+          add a unit diamond to the output;
+        </dd>
+        <dt>d Gm</dt>
+        <dd>
+          add a diamond of "radius" m to the output;
+        </dd>
+        <dt>h</dt>
+        <dd>
+          Output as homogeneous coordinates for cdd.
+        </dd>
+        <dt>Ln</dt>
+        <dd>
+          lens distribution of radius n.  May be used with 's', 'r', 'G', 'W'.
+        </dd>
+        <dt>l</dt>
+        <dd>
+          generate a regular spiral (available only in 3D);
+        </dd>
+        <dt>Mn,m</dt>
+        <dd>
+          lattice rigidly rotated by [n,-m,0],[m,n,0],[0,0,sqrt(m^2+n^2)].
+        </dd>
+        <dt>Mn,m,r</dt>
+        <dd>
+          lattice rotated by [n,-m,0],[m,n,0],[0,0,r].  "27 M1,0,1"
+          is {0,1,2} x {0,1,2} x {0,1,2}.  
+        </dd>
+        <dt>n</dt>
+        <dd>
+          Do not include the command line in the first line of the output file.
+        </dd>
+        <dt>On</dt>
+        <dd>
+          Offset the data, by adding n to each coordinate.
+        </dd>
+        <dt>Pn,m,r</dt>
+        <dd>
+          add point [n,m,r] to the output first; pad coordinates with 0 ;
+        </dd>
+        <dt>r</dt>
+        <dd>
+          generate a regular polygon;
+        </dd>
+        <dt>r s D2</dt>
+        <dd>
+          generate a regular polygon;
+        </dd>
+        <dt>r s Z1 G0.1</dt>
+        <dd>
+          generates a regular cone;
+        </dd>
+        <dt>s</dt>
+        <dd>
+          generate cospherical points (generate randomly in a cube,
+          then project onto a sphere);
+        </dd>
+        <dt>t</dt>
+        <dd>
+          Use the current time in seconds as the random number seed.
+        </dd>
+        <dt>tn</dt>
+        <dd>
+          Use n as the random number seed
+        </dd>
+        <dt>W0.1</dt>
+        <dd>
+          random distribution within 0.1 of the cube or sphere's surface. 
+        </dd>
+        <dt>x</dt>
+        <dd>
+          generate random points in a simplex.  (r or W commands may be used);
+        </dd>
+        <dt>y</dt>
+        <dd>
+          same as 'x', but include the simplex vertices as well;
+        </dd>
+        <dt>Zn s</dt>
+        <dd>
+          restrict points to a disk around the Z axis, and the sphere
+          of radius n.
+        </dd>
+        <dt>Zn s Gm</dt>
+        <dd>
+          restrict points to a disk around the Z axis, and the sphere
+          of radius n, within a gap of m.
+        </dd>
+        <dt>Zn Gm s</dt>
+        <dd>
+          restrict points to a disk around the Z axis, and the sphere
+          of radius n, with an empty center(?).
+        </dd>
+        <dt>z</dt>
+        <dd>
+          Generate points with integer coordinates.  Use the Bn command
+          to change the default range of 1,000,000.
+        </dd>
+      </dl>
+    </p>
+
+    <p>
+      Examples:
+      <dl>
+        <dt>rbox 10</dt>
+        <dd>
+          10 points in the unit cube centered at the origin;
+        </dd>
+        <dt>rbox 10 s D2</dt>
+        <dd>
+          10 points on the unit circle;
+        </dd>
+        <dt>rbox 100 W0</dt>
+        <dd>
+          100 points on the surface of the unit cube;
+        </dd>
+        <dt>rbox 1000 s D4</dt>
+        <dd>
+          1000 points on a 4D sphere;
+        </dd>
+        <dt>rbox c D5 O0.5</dt>
+        <dd>
+          a 5D hypercube with one corner at the origin;
+        </dd>
+        <dt>rbox d D10</dt>
+        <dd>
+          a diamond in 10D;
+        </dd>
+        <dt>rbox x 1000 r W0</dt>
+        <dd>
+          1000 points on the surface of a simplex;
+        </dd>
+        <dt>rbox y D12</dt>
+        <dd>
+          a 12D simplex;
+        </dd>
+        <dt>rbox l 10</dt>
+        <dd>
+          10 points along a spiral;
+        </dd>
+        <dt>rbox l 10 r</dt>
+        <dd>
+          10 regular points along a spiral, plus the two end points.
+        </dd>
+        <dt>rbox 1000 L10000 D4 s</dt>
+        <dd>
+          1000 random points on the surface of a narrow lens;
+        </dd>
+        <dt>rbox 1000 L100000 s G0.000001</dt>
+        <dd>
+          1000 points near the edge of a narrow lens;
+        </dd>
+        <dt>rbox c G2 d G3</dt>
+        <dd>
+          a cube of radius 2, and a diamond of radius 3;
+        </dd>
+        <dt>rbox 64 M3,4 z</dt>
+        <dd>
+          a rotated {0,1,2,3} x {0,1,2,3} x {0,1,2,3} lattice
+          of integer points;
+        </dd>
+        <dt>rbox P0 P0 P0 P0 P0</dt>
+        <dd>
+          5 copies of the origin in 3D;
+        </dd>
+        <dt>rbox 100 s Z1 G0.1</dt>
+        <dd>
+          two cospherical 100-gons, plus another cospherical point;
+        </dd>
+        <dt>rbox 100 s Z1</dt>
+        <dd>
+          a cone of points;
+        </dd>
+        <dt>rbox 100 s Z0.0000001</dt>
+        <dd>
+          a narrow cone of points, with many precision errors;
+        </dd>
+      </dl>
+    </p>
+
+    <p>
+      The format of the output file is as follows:
+      <ul>
+        <li>
+          <i>Line 1:</i> the spatial dimension, and a comment, which is
+          the command used to generate the file;
+        </li>
+        <li>
+          <i>Line 2:</i> the number of points;
+        </li>
+        <li>
+          <i>Line 3:</i> the x and y coordinates of the first point;
+        </li>
+      </ul>
+      Each following line gives the coordinates for the next point.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../m_src/discrete_pdf_sample/discrete_pdf_sample.html">
+      DISCRETE_PDF_SAMPLE</a>,
+      a MATLAB program which
+      demonstrates how to construct a Probability Density Function (PDF)
+      from a table of sample data, and then to use that PDF to create new samples.
+    </p>
+
+    <p>
+      <a href = "../../c_src/normal/normal.html">
+      NORMAL</a>,
+      a C library which 
+      computes elements of a 
+      sequence of pseudorandom normally distributed values.
+    </p>
+
+    <p>
+      <a href = "../../c_src/qvoronoi/qvoronoi">
+      QVORONOI</a>,
+      a C program which 
+      computes the Voronoi diagram of a set of points; <b>RBOX</b> can be used
+      to generate test input data for this program.
+    </p>
+
+    <p>
+      <a href = "../../f_src/random_data/random_data.html">
+      RANDOM_DATA</a>, 
+      a FORTRAN90 program which 
+      produces random
+      data from a number of regions.
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/rsites/rsites.html">
+      RSITES</a>,
+      a C++ program which 
+      produces random
+      data in an M-dimensional box.
+    </p>
+
+    <p>
+      <a href = "../../data/table/table.html">
+      TABLE</a>,
+      a format which 
+      is "almost" used as the output of <b>RBOX</b>;
+      you just have to remove the first two lines of text.
+    </p>
+
+    <p>
+      <a href = "../../c_src/uniform/uniform.html">
+      UNIFORM</a>,
+      a C library which
+      samples the uniform
+      random distribution.
+    </p>
+
+    <p>
+      <a href = "../../c_src/ziggurat/ziggurat.html">
+      ZIGGURAT</a>, 
+      a C library which 
+      computes elements of uniform, normal or exponential pseudorandom sequence
+      using the ziggurat method.
+    </p>
+
+    <h3 align = "center">
+      References:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Bradford Barber, David Dobkin, Hannu Huhdanpaa,<br>
+          The Quickhull algorithm for convex hulls,<br>
+          ACM Transactions on Mathematical Software,<br>
+          December 1996.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "rbox.c">rbox.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "rbox.h">rbox.h</a>, an include file;
+        </li>
+        <li>
+          <a href = "rbox.sh">rbox.sh</a>, commands to compile
+          link and load the source code;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 23 February 2006.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

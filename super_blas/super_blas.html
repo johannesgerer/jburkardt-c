@@ -1,0 +1,478 @@
+<html>
+
+  <head>
+    <title>
+      SUPER_BLAS - Basic Linear Algebra Subprograms - in C - for SUPER_LU
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      SUPER_BLAS <br> Basic Linear Algebra Subprograms
+      <br> in C <br> for SUPER_LU
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>SUPER_BLAS</b>
+      is C library which
+      is a version of the <b>BLAS</b>, or Basic Linear 
+      Algebra Subprograms, written in C, and tailored for use with the
+      <a href = "../../c_src/super_lu/super_lu.html">
+      SUPER_LU</a> library.      
+    </p>
+
+    <p>
+      The usual release of <b>SUPER_BLAS</b> does not include the
+      full set of BLAS routines.  Most of the real level 1 routines
+      are included, except for SROTG and SSWAP, and DROTG and DSWAP.
+      However, only a few of the complex level 1 routines are included.
+      The situation for level 2 and level 3 is more sketchy.
+    </p>
+
+    <p>
+      Independent of its application with SUPER_LU, the <b>SUPER_BLAS</b>
+      library may be useful for programmers using C and wishing to access
+      a set of BLAS routines.
+    </p>
+
+    <p>
+      Note, however, that to promote compatibility with FORTRAN, 
+      <ul>
+        <li>
+          all routine names are defined with a trailing underscore;
+        </li>
+        <li>
+          all arguments are passed by address;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      The <b>BLAS</b> are a small core library of linear algebra utilities, 
+      which can be highly optimized for various architectures.  Software
+      that relies on the <b>BLAS</b> is thus highly portable, and will typically
+      run very efficiently.  The <b>LINPACK</b> and <b>LAPACK</b> linear algebra
+      libraries make extensive use of the <b>BLAS</b>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/blas1_d/blas1_d.html">
+      BLAS1_D</a>,
+      a C library which
+      contains basic linear algebra routines for vector-vector operations,
+      using double precision real arithmetic;
+    </p>
+
+    <p>
+      <a href = "../../cpp_src/gsl/gsl.html">
+      GSL</a>,
+      C++ programs which
+      illustrate the use of the Gnu Scientific Library,
+      which includes functions to solve linear systems;
+    </p>
+
+    <p>
+      <a href = "../../c_src/super_lu/super_lu.html">
+      SUPER_LU</a>,
+      a C library which
+      applies a fast direct solution method to a sparse linear system.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,<br>
+          LINPACK User's Guide,<br>
+          SIAM, 1979.
+        </li>
+        <li>
+          Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,<br>
+          Basic Linear Algebra Subprograms for FORTRAN usage,<br>
+          ACM Transactions on Mathematical Software,<br>
+          Volume 5, Number 3, pages 308-323, 1979.
+        </li>
+        <li>
+          Thomas Coleman, Charles Van Loan,<br>
+          Handbook for Matrix Computations,<br>
+          Society for Industrial and Applied Mathematics,<br>
+          3600 University City Science Center,<br>
+          Philadelphia, PA 19104-2688.
+        </li>
+        <li>
+          James Demmel, John Gilbert, Xiaoye Li,<br>
+          SuperLU Users's Guide.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "super_blas.c">super_blas.c</a>, 
+          the source code;
+        </li>
+        <li>
+          <a href = "super_blas.h">super_blas.h</a>, 
+          the include file;
+        </li>
+        <li>
+          <a href = "super_blas.sh">super_blas.sh</a>, 
+          commands to compile the source code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <b>SUPER_BLAS1_C_PRB</b> is a set of tests for all the level 1
+      single precision complex BLAS routines available in <b>SUPER_BLAS</b>.
+      <ul>
+        <li>
+          <a href = "super_blas1_c_prb.c">super_blas1_c_prb.c</a>, 
+          the test code;
+        </li>
+        <li>
+          <a href = "super_blas1_c_prb.sh">super_blas1_c_prb.sh</a>, 
+          commands to compile, link and run the test code;
+        </li>
+        <li>
+          <a href = "super_blas1_c_prb_output.txt">super_blas1_c_prb_output.txt</a>, 
+          the output of a run of the test code;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>SUPER_BLAS1_D_PRB</b> is a set of tests for all the level 1
+      double precision real BLAS routines available in <b>SUPER_BLAS</b>.
+      <ul>
+        <li>
+          <a href = "super_blas1_d_prb.c">super_blas1_d_prb.c</a>, 
+          the test code;
+        </li>
+        <li>
+          <a href = "super_blas1_d_prb.sh">super_blas1_d_prb.sh</a>, 
+          commands to compile, link and run the test code;
+        </li>
+        <li>
+          <a href = "super_blas1_d_prb_output.txt">super_blas1_d_prb_output.txt</a>, 
+          the output of a run of the test code;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>SUPER_BLAS1_S_PRB</b> is a set of tests for all the level 1
+      single precision real BLAS routines available in <b>SUPER_BLAS</b>.
+      <ul>
+        <li>
+          <a href = "super_blas1_s_prb.c">super_blas1_s_prb.c</a>, 
+          the test code;
+        </li>
+        <li>
+          <a href = "super_blas1_s_prb.sh">super_blas1_s_prb.sh</a>, 
+          commands to compile, link and run the test code;
+        </li>
+        <li>
+          <a href = "super_blas1_s_prb_output.txt">super_blas1_s_prb_output.txt</a>, 
+          the output of a run of the test code;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>SUPER_BLAS1_Z_PRB</b> is a set of tests for all the level 1
+      double precision complex BLAS routines available in <b>SUPER_BLAS</b>.
+      <ul>
+        <li>
+          <a href = "super_blas1_z_prb.c">super_blas1_z_prb.c</a>, 
+          the test code;
+        </li>
+        <li>
+          <a href = "super_blas1_z_prb.sh">super_blas1_z_prb.sh</a>, 
+          commands to compile, link and run the test code;
+        </li>
+        <li>
+          <a href = "super_blas1_z_prb_output.txt">super_blas1_z_prb_output.txt</a>, 
+          the output of a run of the test code;
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>C_ABS</b> returns the absolute value of a complex number.
+        </li>
+        <li>
+          <b>C_ABS1</b> returns the L1 norm of a complex number.
+        </li>
+        <li>
+          <b>C_DIV</b> carries out complex division.
+        </li>
+        <li>
+          <b>C_EXP</b> returns the result of complex exponentiation.
+        </li>
+        <li>
+          <b>CAXPY</b> adds a multiple of one complex vector to another.
+        </li>
+        <li>
+          <b>CCOPY</b> copies one complex vector to another.
+        </li>
+        <li>
+          <b>CDOTC</b> computes the conjugated dot product of two complex vectors.
+        </li>
+        <li>
+          <b>CGEMV</b> computes the product of a general matrix with a vector.
+        </li>
+        <li>
+          <b>CGERC</b> performs the rank 1 operation  A := alpha*x*conjg( y' ) + A,   
+        </li>
+        <li>
+          <b>CHEMV</b> performs the matrix-vector operation y := alpha*A*x + beta*y,   
+        </li>
+        <li>
+          <b>CHER2</b> performs A := alpha*x*conjg( y' ) + conjg( alpha )*y*conjg( x' ) + A,   
+        </li>
+        <li>
+          <b>CLSOLVE</b> solves a dense UNIT lower triangular system.
+        </li>
+        <li>
+          <b>CMATVEC</b> performs a dense matrix-vector multiply: Mxvec = Mxvec + M * vec.
+        </li>
+        <li>
+          <b>CSCAL</b> scales a vector by a constant.
+        </li>
+        <li>
+          <b>CTRSV</b> solves a unit/nonunit upper or lower triangular linear system.
+        </li>
+        <li>
+          <b>CUSOLVE</b> solves a dense upper triangular system. 
+        </li>
+        <li>
+          <b>D_CNJG</b> returns the complex conjugate of a complex number.
+        </li>
+        <li>
+          <b>D_IMAG</b> returns the imaginary part of a complex number.
+        </li>
+        <li>
+          <b>DASUM</b> returns the sum of the absolute values of the entries of a vector.
+        </li>
+        <li>
+          <b>DAXPY</b> adds a multiple of a vector to another vector.
+        </li>
+        <li>
+          <b>DCABS1</b> returns the L1 norm of a complex number.
+        </li>
+        <li>
+          <b>DCOPY</b> copies one double precision vector to another.
+        </li>
+        <li>
+          <b>DDOT</b> computes the dot product of two double precision vectors.
+        </li>
+        <li>
+          <b>DGEMV</b> adds a general matrix-vector product to a vector.
+        </li>
+        <li>
+          <b>DGER</b> performs the rank 1 operation A := alpha*x*y' + A,   
+        </li>
+        <li>
+          <b>DLSOLVE</b> solves a dense UNIT lower triangular system. 
+        </li>
+        <li>
+          <b>DMATVEC</b> performs a dense matrix-vector multiply: Mxvec = Mxvec + M * vec.
+        </li>
+        <li>
+          <b>DNRM2</b> returns the euclidean norm of a double precision vector.
+        </li>
+        <li>
+          <b>DROT</b> applies a plane rotation.
+        </li>
+        <li>
+          <b>DSCAL</b> multiplies a double precision vector by a constant.
+        </li>
+        <li>
+          <b>DSYMV</b> performs the symmetric matrix-vector operation y := alpha*A*x + beta*y,   
+        </li>
+        <li>
+          <b>DSYR2</b> performs the symmetric rank 2 operation A := alpha*x*y' + alpha*y*x' + A,   
+        </li>
+        <li>
+          <b>DTRSV</b> solves a unit or nonunit upper or lower triangular linear system.
+        </li>
+        <li>
+          <b>DUSOLVE</b> solves a dense upper triangular system. 
+        </li>
+        <li>
+          <b>DZASUM</b> sums the absolute values of the entries of a double precision complex vector.
+        </li>
+        <li>
+          <b>DZNRM2</b> returns the euclidean norm of a double precision complex vector.
+        </li>
+        <li>
+          <b>ICAMAX</b> returns the index of the entry of maximum absolute value in a complex vector.
+        </li>
+        <li>
+          <b>IDAMAX</b> returns the index of the entry of maximum absolute value in a double precision vector.
+        </li>
+        <li>
+          <b>ISAMAX</b> returns the index of the entry of maximum absolute value in a real vector.
+        </li>
+        <li>
+          <b>IZAMAX</b> returns the index of the entry of maximum absolute value in a double precision complex vector.
+        </li>
+        <li>
+          <b>LSAME</b> returns TRUE if CA is the same letter as CB regardless of case.
+        </li>
+        <li>
+          <b>R_CNJG</b> returns the complex conjugate of a complex number
+        </li>
+        <li>
+          <b>R_IMAG</b> returns the imaginary part of a complex number.
+        </li>
+        <li>
+          <b>SASUM</b> sums the absolute values of the entries of a real vector.
+        </li>
+        <li>
+          <b>SAXPY</b> adds a multiple of one vector to another.
+        </li>
+        <li>
+          <b>SCASUM</b> sums the absolute values of the entries of a complex vector.
+        </li>
+        <li>
+          <b>SCNRM2</b> returns the euclidean norm of a complex vector.
+        </li>
+        <li>
+          <b>SCOPY</b> copies one real vector to another.
+        </li>
+        <li>
+          <b>SDOT</b> computes the dot product of two real vectors.
+        </li>
+        <li>
+          <b>SGEMV</b> adds a general matrix-vector product to a vector.
+        </li>
+        <li>
+          <b>SGER</b> performs the rank 1 operation A := alpha*x*y' + A,   
+        </li>
+        <li>
+          <b>SLSOLVE</b> solves a dense UNIT lower triangular system. 
+        </li>
+        <li>
+          <b>SMATVEC</b> performs a dense matrix-vector multiply: Mxvec = Mxvec + M * vec.
+        </li>
+        <li>
+          <b>SNRM2</b> returns the euclidean norm of a real vector.
+        </li>
+        <li>
+          <b>SP_IENV</b> chooses machine-dependent parameters for the local environment. 
+        </li>
+        <li>
+          <b>SROT</b> applies a Givens plane rotation.
+        </li>
+        <li>
+          <b>SSCAL</b> scales a vector by a constant.
+        </li>
+        <li>
+          <b>SSYMV</b> performs the symmetric matrix-vector operation y := alpha*A*x + beta*y.
+        </li>
+        <li>
+          <b>SSYR2</b> performs the symmetric rank 2 operation A := alpha*x*y' + alpha*y*x' + A,   
+        </li>
+        <li>
+          <b>STRSV</b> solves a unit/nonunit upper or lower triangular linear system.
+        </li>
+        <li>
+          <b>SUSOLVE</b> solves a dense upper triangular system. 
+        </li>
+        <li>
+          <b>XERBLA</b>  is an error handler for the LAPACK routines.   
+        </li>
+        <li>
+          <b>Z_ABS</b> returns the absolute value of a double precision complex number.
+        </li>
+        <li>
+          <b>Z_ABS1</b> returns the L1 norm of a double precision complex number.
+        </li>
+        <li>
+          <b>Z_DIV</b> carries out complex double precision division.
+        </li>
+        <li>
+          <b>Z_EXP</b> carries out complex double precision exponentiation.
+        </li>
+        <li>
+          <b>ZAXPY</b> adds a multiple of a complex double precision vector to another.
+        </li>
+        <li>
+          <b>ZCOPY</b> copies one double precision complex vector to another.
+        </li>
+        <li>
+          <b>ZDOTC</b> computes the conjugated dot product of two complex double precision vectors.
+        </li>
+        <li>
+          <b>ZGEMV</b> adds a general matrix-vector product to a vector.
+        </li>
+        <li>
+          <b>ZGERC</b> performs the rank 1 operation A := alpha*x*conjg( y' ) + A,   
+        </li>
+        <li>
+          <b>ZHEMV</b> adds a Hermitian matrix-vector product to a vector.
+        </li>
+        <li>
+          <b>ZHER2</b> performs a hermitian rank 2 update.
+        </li>
+        <li>
+          <b>ZLSOLVE</b> solves a dense UNIT lower triangular system. 
+        </li>
+        <li>
+          <b>ZMATVEC</b> performs a dense matrix-vector multiply: 
+        </li>
+        <li>
+          <b>ZSCAL</b> scales a double precision complex vector by a constant.
+        </li>
+        <li>
+          <b>ZTRSV</b> solves a unit or nonunit, upper or lower triangular linear system.
+        </li>
+        <li>
+          <b>ZUSOLVE</b> solves a dense upper triangular system. 
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 01 April 2007.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+</html>

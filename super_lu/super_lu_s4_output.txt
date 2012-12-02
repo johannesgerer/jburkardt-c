@@ -1,0 +1,35 @@
+
+SUPER_LU_S4:
+  Read a sparse matrix A from standard input,
+  stored in Harwell-Boeing Sparse Matrix format.
+
+  Using SGSSVX:
+    Factor the matrix A;
+    LATER, solve a linear system A * X = B.
+
+  Length of work array LWORK = 0
+  Equilibration option EQUIL = 1
+  Diagonal pivot threshhold value U = 1.000000
+  Tranpose option TRANS = 0
+10x10 grid, with COLMMD order                                                   
+
+  Dimension 100x100; # nonzeros 460
+.. Use approximate minimum degree column ordering.
+
+  LU factorization: SGSSVX returns INFO = 0
+
+  Number of nonzeros in factor L = 835
+  Number of nonzeros in factor U = 978
+  Number of nonzeros in L+U = 1713
+  L\U MB 0.013	total MB needed 0.029	expansions 0
+Factor time  =     0.00
+Factor flops = 1.623300e+04	Mflops =    16.62
+Solve time   =     0.00
+Solve flops = 3.426000e+03	Mflops =     3.51
+
+  Triangular solve: SGSSVX returns INFO = 0
+Factor time  =     0.00
+Solve time   =     0.00
+
+SUPER_LU_S4:
+  Normal end of execution.

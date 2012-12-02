@@ -1,0 +1,816 @@
+24 October 2012 11:03:36 AM
+
+GEOMETRY_PRB
+  C version
+  Test the GEOMETRY library.
+
+TEST0005
+  ANGLE_BOX_2D
+
+  Compute P4 and P5, normal to
+  line through P1 and P2, and
+  line through P2 and P3,
+  and DIST units from P2.
+
+  DIST       1.000000
+  P1:        0.000000        0.000000
+  P2:        3.000000        0.000000
+  P3:        4.000000        2.000000
+  P4:        2.381966        1.000000
+  P5:        3.618034       -1.000000
+
+  DIST       1.000000
+  P1:        0.000000        0.000000
+  P2:        3.000000        0.000000
+  P3:        2.000000       -2.000000
+  P4:        3.618034       -1.000000
+  P5:        2.381966        1.000000
+
+  DIST       1.000000
+  P1:        3.000000        0.000000
+  P2:        3.000000        0.000000
+  P3:        2.000000       -2.000000
+  P4:        2.105573        0.447214
+  P5:        3.894427       -0.447214
+
+TEST001
+  ANGLE_CONTAINS_RAY_2D sees if a ray lies within an angle.
+
+  Vertex A
+
+         0:       1.000000
+         1:       0.000000
+
+  Vertex B
+
+         0:       0.000000
+         1:       0.000000
+
+  Vertex C
+
+         0:       1.000000
+         1:       1.000000
+
+       X            Y       Inside?
+
+             1             0  1
+      0.866025           0.5  1
+           0.5      0.866025  0
+   6.12323e-17             1  0
+          -0.5      0.866025  0
+     -0.866025           0.5  0
+            -1   1.22465e-16  0
+     -0.866025          -0.5  0
+          -0.5     -0.866025  0
+  -1.83697e-16            -1  0
+           0.5     -0.866025  0
+      0.866025          -0.5  0
+             1  -2.44929e-16  0
+
+  Vertex A
+
+         0:       1.000000
+         1:       0.000000
+
+  Vertex B
+
+         0:       0.000000
+         1:       0.000000
+
+  Vertex C
+
+         0:       0.000000
+         1:       1.000000
+
+       X            Y       Inside?
+
+             1             0  1
+      0.866025           0.5  1
+           0.5      0.866025  1
+   6.12323e-17             1  1
+          -0.5      0.866025  0
+     -0.866025           0.5  0
+            -1   1.22465e-16  0
+     -0.866025          -0.5  0
+          -0.5     -0.866025  0
+  -1.83697e-16            -1  0
+           0.5     -0.866025  0
+      0.866025          -0.5  0
+             1  -2.44929e-16  0
+
+  Vertex A
+
+         0:       1.000000
+         1:      -1.000000
+
+  Vertex B
+
+         0:       0.000000
+         1:       0.000000
+
+  Vertex C
+
+         0:       0.000000
+         1:       1.000000
+
+       X            Y       Inside?
+
+             1             0  1
+      0.866025           0.5  1
+           0.5      0.866025  1
+   6.12323e-17             1  1
+          -0.5      0.866025  0
+     -0.866025           0.5  0
+            -1   1.22465e-16  0
+     -0.866025          -0.5  0
+          -0.5     -0.866025  0
+  -1.83697e-16            -1  0
+           0.5     -0.866025  0
+      0.866025          -0.5  1
+             1  -2.44929e-16  1
+
+  Vertex A
+
+         0:       1.000000
+         1:       0.000000
+
+  Vertex B
+
+         0:       0.000000
+         1:       0.000000
+
+  Vertex C
+
+         0:      -1.000000
+         1:       0.000000
+
+       X            Y       Inside?
+
+             1             0  1
+      0.866025           0.5  1
+           0.5      0.866025  1
+   6.12323e-17             1  1
+          -0.5      0.866025  1
+     -0.866025           0.5  1
+            -1   1.22465e-16  1
+     -0.866025          -0.5  0
+          -0.5     -0.866025  0
+  -1.83697e-16            -1  0
+           0.5     -0.866025  0
+      0.866025          -0.5  0
+             1  -2.44929e-16  0
+
+  Vertex A
+
+         0:       1.000000
+         1:       0.000000
+
+  Vertex B
+
+         0:       0.000000
+         1:       0.000000
+
+  Vertex C
+
+         0:       0.000000
+         1:      -1.000000
+
+       X            Y       Inside?
+
+             1             0  1
+      0.866025           0.5  1
+           0.5      0.866025  1
+   6.12323e-17             1  1
+          -0.5      0.866025  1
+     -0.866025           0.5  1
+            -1   1.22465e-16  1
+     -0.866025          -0.5  1
+          -0.5     -0.866025  1
+  -1.83697e-16            -1  1
+           0.5     -0.866025  0
+      0.866025          -0.5  0
+             1  -2.44929e-16  0
+
+  Vertex A
+
+         0:       1.000000
+         1:       0.000000
+
+  Vertex B
+
+         0:       0.000000
+         1:       0.000000
+
+  Vertex C
+
+         0:       1.000000
+         1:      -0.010000
+
+       X            Y       Inside?
+
+             1             0  1
+      0.866025           0.5  1
+           0.5      0.866025  1
+   6.12323e-17             1  1
+          -0.5      0.866025  1
+     -0.866025           0.5  1
+            -1   1.22465e-16  1
+     -0.866025          -0.5  1
+          -0.5     -0.866025  1
+  -1.83697e-16            -1  1
+           0.5     -0.866025  1
+      0.866025          -0.5  1
+             1  -2.44929e-16  0
+
+TEST0477
+  PARALLELOGRAM_AREA_2D finds the area of a
+  parallelogram in 2D.
+
+  Vertices:
+
+  Row:        1             2     
+  Col
+
+    1:        2.000000        7.000000
+    2:        5.000000        7.000000
+    3:        6.000000        9.000000
+    4:        3.000000        9.000000
+
+  AREA = 6.000000
+
+TEST0478
+  PARALLELOGRAM_AREA_3D finds the area of a
+  parallelogram in 3D.
+
+  Vertices:
+
+  Row:        1             2             3     
+  Col
+
+    1:        1.000000        2.000000        3.000000
+    2:        2.414214        3.414214        3.000000
+    3:        1.707107        2.707107        4.000000
+    4:        0.292893        0.292893        4.000000
+
+  AREA = 2.000000
+
+TEST0616
+  For a normal plane, with point PP and NORMAL vector,
+  and in-plane basis vectors PQ and PR,
+  PLANE_NORMAL_QR_TO_XYZ converts QR to XYZ coordinates;
+  PLANE_NORMAL_XYZ_TO_QR converts XYZ to QR coordinates.
+
+  Maximum difference was 0.000000
+
+TEST0617
+  PLANE_NORMAL_TETRAHEDRON_INTERSECT determines
+  the intersection of a plane and tetrahedron.
+
+  Plane normal vector number 1
+
+  0.000000  0.000000  1.000000
+
+  Point on plane:
+
+  0.000000  0.000000  0.000000
+
+  Number of intersection points = 3
+
+     0  0.000000  0.000000  0.000000
+     1  1.000000  0.000000  0.000000
+     2  0.000000  1.000000  0.000000
+
+  Point on plane:
+
+  0.000000  0.000000  0.200000
+
+  Number of intersection points = 3
+
+     0  0.000000  0.000000  0.200000
+     1  0.800000  0.000000  0.200000
+     2  0.000000  0.800000  0.200000
+
+  Point on plane:
+
+  0.000000  0.000000  0.400000
+
+  Number of intersection points = 3
+
+     0  0.000000  0.000000  0.400000
+     1  0.600000  0.000000  0.400000
+     2  0.000000  0.600000  0.400000
+
+  Point on plane:
+
+  0.000000  0.000000  0.600000
+
+  Number of intersection points = 3
+
+     0  0.000000  0.000000  0.600000
+     1  0.400000  0.000000  0.600000
+     2  0.000000  0.400000  0.600000
+
+  Point on plane:
+
+  0.000000  0.000000  0.800000
+
+  Number of intersection points = 3
+
+     0  0.000000  0.000000  0.800000
+     1  0.200000  0.000000  0.800000
+     2  0.000000  0.200000  0.800000
+
+  Point on plane:
+
+  0.000000  0.000000  1.000000
+
+  Number of intersection points = 1
+
+     0  0.000000  0.000000  1.000000
+
+  Point on plane:
+
+  0.000000  0.000000  1.200000
+
+  Number of intersection points = 0
+
+
+  Plane normal vector number 2
+
+  0.707107  0.707107  0.000000
+
+  Point on plane:
+
+  0.000000  0.000000  0.000000
+
+  Number of intersection points = 2
+
+     0  0.000000  0.000000  0.000000
+     1  0.000000  0.000000  1.000000
+
+  Point on plane:
+
+  0.141421  0.141421  0.000000
+
+  Number of intersection points = 4
+
+     0  0.282843  0.000000  0.000000
+     1  0.000000  0.282843  0.000000
+     2  0.282843  0.000000  0.717157
+     3  0.707107  0.707107  0.000000
+
+  Point on plane:
+
+  0.000000  0.113137  0.286863
+
+  Number of intersection points = 3
+
+     0  0.000000  0.000000  0.429985
+     1  0.570015  0.000000  0.429985
+     2  0.000000  0.941230  0.058770
+
+  Point on plane:
+
+  0.000000  0.169706  0.430294
+
+  Number of intersection points = 3
+
+     0  0.000000  0.000000  0.644978
+     1  0.355022  0.000000  0.644978
+     2  0.000000  0.586226  0.413774
+
+  Point on plane:
+
+  0.000000  0.226274  0.573726
+
+  Number of intersection points = 3
+
+     0  0.000000  0.000000  0.859971
+     1  0.140029  0.000000  0.859971
+     2  0.000000  0.231222  0.768778
+
+  Point on plane:
+
+  0.000000  0.282843  0.717157
+
+  Number of intersection points = 0
+
+
+  Point on plane:
+
+  0.000000  0.339411  0.860589
+
+  Number of intersection points = 0
+
+
+TEST171
+  For a quadrilateral in 2D:
+  QUAD_AREA_2D finds the area;
+  QUAD_AREA2_2D finds the area;
+
+  The vertices:
+
+  Row:        1             2     
+  Col
+
+    1:        0.000000        0.000000
+    2:        1.000000        0.000000
+    3:        1.000000        1.000000
+    4:        0.000000        1.000000
+
+  QUAD_AREA_2D area is  1.000000
+  QUAD_AREA2_2D area is 1.000000
+
+TEST1712
+  For a quadrilateral in 3D:
+  QUAD_AREA_3D finds the area.
+
+  The vertices:
+
+  Row:        1             2             3     
+  Col
+
+    1:        2.000000        2.000000        0.000000
+    2:        0.000000        0.000000        0.000000
+    3:        1.000000        1.000000        1.000000
+    4:        3.000000        3.000000        1.000000
+
+  QUAD_AREA_3D area is     2.828427
+  Sum of TRIANGLE_AREA_3D: 2.828427
+
+TEST1835
+  SPHERE_EXP2IMP_3D: explicit sphere => implicit form;
+  SPHERE_IMP2EXP_3D: implicit sphere => explicit form.
+
+  Initial form of explicit sphere:
+
+  P1:      4.000000      2.000000      3.000000
+  P2:      1.000000      5.000000      3.000000
+  P3:      1.000000      2.000000      6.000000
+  P4:     -2.000000      2.000000      3.000000
+
+  Computed form of implicit sphere:
+
+  Imputed radius = 3.000000
+
+  Imputed center:
+
+         0:       1.000000
+         1:       2.000000
+         2:       3.000000
+
+  Computed form of explicit sphere:
+
+  P1:      1.000000      2.000000      6.000000
+  P2:      3.598076      2.000000      1.500000
+  P3:     -0.299038      4.250000      1.500000
+  P4:     -0.299038     -0.250000      1.500000
+
+TEST1836
+  SPHERE_EXP2IMP_ND: explicit sphere => implicit form;
+
+  Initial form of explicit sphere:
+
+  Row:        1             2             3     
+  Col
+
+    1:        4.000000        2.000000        3.000000
+    2:        1.000000        5.000000        3.000000
+    3:        1.000000        2.000000        6.000000
+    4:       -2.000000        2.000000        3.000000
+
+  Computed form of implicit sphere:
+
+  Imputed radius = 3.000000
+  True radius =    3.000000
+
+  Imputed center
+
+         0:       1.000000
+         1:       2.000000
+         2:       3.000000
+
+  True center
+
+         0:       1.000000
+         1:       2.000000
+         2:       3.000000
+
+TEST2101
+  For a triangle in 2D, the circumenter can be computed by:
+  TRIANGLE_CIRCUMCENTER_2D;
+  TRIANGLE_CIRCUMCENTER_2D_2;
+  TRIANGLE_CIRCUMCENTER (any dimension);
+
+  Triangle vertices:
+
+  Row:        1             2     
+  Col
+
+    1:       10.000000        5.000000
+    2:       11.000000        5.000000
+    3:       10.000000        6.000000
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER_2D:
+
+         0:      10.500000
+         1:       5.500000
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER_2D_2:
+
+         0:      10.500000
+         1:       5.500000
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:      10.500000
+         1:       5.500000
+
+  Triangle vertices:
+
+  Row:        1             2     
+  Col
+
+    1:       10.000000        5.000000
+    2:       11.000000        5.000000
+    3:       10.500000        5.866025
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER_2D:
+
+         0:      10.500000
+         1:       5.288675
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER_2D_2:
+
+         0:      10.500000
+         1:       5.288675
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:      10.500000
+         1:       5.288675
+
+  Triangle vertices:
+
+  Row:        1             2     
+  Col
+
+    1:       10.000000        5.000000
+    2:       11.000000        5.000000
+    3:       10.500000       15.000000
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER_2D:
+
+         0:      10.500000
+         1:       9.987500
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER_2D_2:
+
+         0:      10.500000
+         1:       9.987500
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:      10.500000
+         1:       9.987500
+
+  Triangle vertices:
+
+  Row:        1             2     
+  Col
+
+    1:       10.000000        5.000000
+    2:       11.000000        5.000000
+    3:       20.000000        7.000000
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER_2D:
+
+         0:      10.500000
+         1:      28.500000
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER_2D_2:
+
+         0:      10.500000
+         1:      28.500000
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:      10.500000
+         1:      28.500000
+
+TEST21011
+  For a triangle in M dimensions, the circumenter can be computed by:
+  TRIANGLE_CIRCUMCENTER;
+
+  M2 = 2
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       6.901910
+         1:      12.913314
+
+  Distances from circumcenter to vertices:
+
+  0.533001
+  0.533001
+  0.533001
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       5.565308
+         1:       9.746226
+
+  Distances from circumcenter to vertices:
+
+  2.920771
+  2.920771
+  2.920771
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:      10.569922
+         1:       9.275643
+
+  Distances from circumcenter to vertices:
+
+  5.111117
+  5.111117
+  5.111117
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       9.533654
+         1:       6.994492
+
+  Distances from circumcenter to vertices:
+
+  6.227169
+  6.227169
+  6.227169
+
+  M2 = 3
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       5.111665
+         1:      12.725923
+         2:       9.097404
+
+  Distances from circumcenter to vertices:
+
+  0.615037
+  0.615037
+  0.615037
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       5.113120
+         1:      12.726169
+         2:       9.096737
+
+  Distances from circumcenter to vertices:
+
+  0.614953
+  0.614953
+  0.614953
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       9.179777
+         1:      13.415245
+         2:       7.231528
+
+  Distances from circumcenter to vertices:
+
+  4.537578
+  4.537578
+  4.537578
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:      76.449242
+         1:      24.813745
+         2:     -23.622219
+
+  Distances from circumcenter to vertices:
+
+  79.378504
+  79.378504
+  79.378504
+
+  M2 = 4
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       4.334741
+         1:      10.826969
+         2:      10.354699
+         3:       7.188045
+
+  Distances from circumcenter to vertices:
+
+  0.665115
+  0.665115
+  0.665115
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       4.080267
+         1:      10.925792
+         2:      10.301810
+         3:       7.196854
+
+  Distances from circumcenter to vertices:
+
+  0.758041
+  0.758041
+  0.758041
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       7.250969
+         1:       9.694480
+         2:      10.960800
+         3:       7.087093
+
+  Distances from circumcenter to vertices:
+
+  3.158838
+  3.158838
+  3.158838
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:     114.310906
+         1:     -31.881223
+         2:      33.211845
+         3:       3.380955
+
+  Distances from circumcenter to vertices:
+
+  120.135036
+  120.135036
+  120.135036
+
+  M2 = 5
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       2.982041
+         1:      11.870301
+         2:       9.785517
+         3:       5.911761
+         4:       8.731607
+
+  Distances from circumcenter to vertices:
+
+  0.601393
+  0.601393
+  0.601393
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       2.981521
+         1:      11.889935
+         2:       9.880447
+         3:       5.997068
+         4:       8.381688
+
+  Distances from circumcenter to vertices:
+
+  0.439504
+  0.439504
+  0.439504
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       2.987368
+         1:      11.669203
+         2:       8.813211
+         3:       5.038005
+         4:      12.315634
+
+  Distances from circumcenter to vertices:
+
+  4.255241
+  4.255241
+  4.255241
+
+  Circumcenter by TRIANGLE_CIRCUMCENTER:
+
+         0:       3.116511
+         1:       6.793721
+         2:     -14.759695
+         3:     -16.145610
+         4:      99.207927
+
+  Distances from circumcenter to vertices:
+
+  96.853766
+  96.853766
+  96.853766
+
+GEOMETRY_PRB
+  Normal end of execution.
+
+24 October 2012 11:03:36 AM

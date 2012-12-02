@@ -1,0 +1,254 @@
+<html>
+
+  <head>
+    <title>
+      OEMETIS - Reorder Variables in a Sparse Matrix
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      OEMETIS <br> Reorder Variables in a Sparse Matrix
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>OEMETIS</b> 
+      is a C program which 
+      can reorder the variables
+      (rows and columns) in a sparse matrix, so as to produce less
+      fill in during direct elimination.
+    </p>
+
+    <p>
+      It is assumed that the sparse matrix is described abstractly
+      by its adjacency graph.  <b>OEMETIS</b> reads a file, stored 
+      in the <b>METIS GRAPH</b> format, describing the adjacency
+      graph of the sparse matrix, and computes a permutation of
+      the nodes (= variables = rows and columns) that will produce
+      less fill in.
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>oemetis</b> <i>graph_file</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>graph_file</i> contains the adjacency information.
+        </li>
+      </ul>
+     will write the reordering information in <i>graph_file.iperm</i>.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      <b>OEMETIS</b> is part of the METIS family of Multilevel Partitioning
+      Algorithms.  It was produced by the lab of George Karypis, who states
+      <blockquote><i>
+        "It is our general policy to make these tools available to the research 
+        community for use in their own research and/or non-commercial applications."
+      </i></blockquote>
+    </p>
+
+    <p>
+      For further information on licensing and permissions, refer to
+      <a href = "http://www.cs.umn.edu/~metis">
+                 http://www.cs.umn.edu/~metis</a>,
+      the METIS home page.
+    </p>
+
+    <h3 align = "center">
+      Related Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/graphchk/graphchk.html">
+      GRAPHCHK</a>,
+      a C program which 
+      can read a METIS GRAPH 
+      file and verify that it has the proper format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/kmetis/kmetis.html">
+      KMETIS</a>,
+      a C program, using <b>METIS</b>, which
+      can partition the nodes of a graph.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2dual/mesh2dual.html">
+      MESH2DUAL</a>,
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by <b>KMETIS</b> or <b>PMETIS</b>.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mesh2nodal/mesh2nodal.html">
+      MESH2NODAL</a>,
+      a C program which
+      converts a finite element mesh to a graph, for
+      further processing by <b>KMETIS</b> or <b>PMETIS</b>.
+    </p>
+
+    <p>
+      <a href = "../../c_src/metis/metis.html">
+      METIS</a>,
+      a C library which 
+      partitions the nodes
+      of a graph, or the elements of a finite element mesh, or for
+      reorders the variables in a sparse matrix.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_graph/metis_graph.html">
+      METIS_GRAPH</a>,
+      a data directory which
+      contains examples of
+      the graph files used to describe a graph to the <b>METIS</b>
+      family of programs.
+    </p>
+
+    <p>
+      <a href = "../../data/metis_mesh/metis_mesh.html">
+      METIS_MESH</a>,
+      a data directory which
+      contains examples of
+      the mesh files used to describe a finite element mesh 
+      to the <b>METIS</b> family of programs.
+    </p>
+
+    <p>
+      <a href = "../../c_src/mpi/mpi.html">
+      MPI</a>,
+      C programs which
+      illustrate the use of a message passing interface, allowing 
+      parallel execution.
+    </p>
+
+    <p>
+      <a href = "../../f_src/neighbors_to_metis_graph/neighbors_to_metis_graph.html">
+      NEIGHBORS_TO_METIS_GRAPH</a>,
+      a FORTRAN90 program which
+      reads information describing the adjacency
+      relations in a tet mesh, and writes out essentially the same information,
+      but in a format that METIS will accept.
+    </p>
+
+    <p>
+      <a href = "../../c_src/onmetis/onmetis.html">
+      ONMETIS</a>,
+      a C program which
+      reads the adjacency graph of a sparse matrix,
+      stored in <b>METIS GRAPH</b> format,
+      and produces a reordering of the nodes to minimize fill.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partdmesh/partdmesh.html">
+      PARTDMESH</a>,
+      a C program which
+      can partition the elements of a finite element mesh, by working
+      with the dual graph of the mesh.
+    </p>
+
+    <p>
+      <a href = "../../c_src/partnmesh/partnmesh.html">
+      PARTNMESH</a>,
+      a C program which
+      can partition the elements of a finite element mesh, by working
+      with the nodal graph of the mesh.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          George Karypis and Vipin Kumar,<br>
+          METIS, a Software Package for Partitioning Unstructured Graphs
+          and Computing Fill-Reduced Orderings of Sparse Matrices;
+        </li>
+        <li>
+          George Karypis and Vipin Kumar,<br>
+          A fast and high quality multilevel scheme for partitioning 
+          irregular graphs,<br>
+          SIAM Journal on Scientific Computing,<br>
+          Volume 20, Number 1, 1998, pages 359-392;
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "oemetis.c">oemetis.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "oemetis.sh">oemetis.sh</a>,
+          commands to compile the source code and create the library.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "../../data/metis_graph/4elt.graph">4elt.graph</a>,
+          a sample graph.
+        </li>
+        <li>
+          <a href = "4elt.graph.iperm">4elt.graph.iperm</a>,
+          the reordering computed by <b>OEMETIS</b>.
+        </li>
+        <li>
+          <a href = "oemetis_prb.sh">oemetis_prb.sh</a>,
+          commands to compile, link, load and run the test problem.
+        </li>
+        <li>
+          <a href = "oemetis_prb_output.txt">oemetis_prb_output.txt</a>,
+          the output from the test program.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 17 September 2010.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>
