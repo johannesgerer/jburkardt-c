@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g quadrule_prb.c >& compiler.txt
+gcc -c quadrule_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling quadrule_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc quadrule_prb.o /$HOME/libc/$ARCH/quadrule.o -lm
 if [ $? -ne 0 ]; then

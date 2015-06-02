@@ -17,7 +17,11 @@ int main ( int argc, char *argv[] )
 /*
   Purpose:
 
-    PPMA_IO_PRB calls the PPMA_IO test routines.
+    MAIN is the main program for PPMA_IO_PRB.
+
+  Discussion:
+
+    PPMA_IO_PRB tests the PPMA_IO library.
 
   Licensing:
 
@@ -46,7 +50,6 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "PPMA_IO_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

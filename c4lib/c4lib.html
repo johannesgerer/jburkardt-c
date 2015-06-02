@@ -140,7 +140,8 @@
       <a href = "../../cpp_src/c4lib/c4lib.html">a C++ version</a> and
       <a href = "../../f77_src/c4lib/c4lib.html">a FORTRAN77 version</a> and
       <a href = "../../f_src/c4lib/c4lib.html">a FORTRAN90 version</a> and
-      <a href = "../../m_src/c4lib/c4lib.html">a MATLAB version</a>.
+      <a href = "../../m_src/c4lib/c4lib.html">a MATLAB version</a> and
+      <a href = "../../py_src/c4lib/c4lib.html">a Python version</a>.
     </p>
 
     <h3 align = "center">
@@ -323,6 +324,15 @@
           <b>C4_INV</b> inverts a C4.
         </li>
         <li>
+          <b>C4_LE_L1</b> := X <= Y for C4 values, and the L1 norm.
+        </li>
+        <li>
+          <b>C4_LE_L2</b> := X <= Y for C4 values, and the L2 norm.
+        </li>
+        <li>
+          <b>C4_LE_LI</b> := X <= Y for C4 values, and the L-oo norm.
+        </li>
+        <li>
           <b>C4_LOG</b> evaluates the logarithm of a C4.
         </li>
         <li>
@@ -335,10 +345,25 @@
           <b>C4_NEG</b> negates a C4.
         </li>
         <li>
+          <b>C4_NINT</b> returns the nearest complex integer of a C4.
+        </li>
+        <li>
+          <b>C4_NORM_L1</b> evaluates the L1 norm of a C4.
+        </li>
+        <li>
+          <b>C4_NORM_L2</b> evaluates the L2 norm of a C4.
+        </li>
+        <li>
+          <b>C4_NORM_LI</b> evaluates the L-infinity norm of a C4.
+        </li>
+        <li>
           <b>C4_NORMAL_01</b> returns a unit pseudonormal C4.
         </li>
         <li>
           <b>C4_ONE</b> returns the value of 1 as a C4
+        </li>
+        <li>
+          <b>C4_PRINT</b> prints a C4.
         </li>
         <li>
           <b>C4_REAL</b> returns the real part of a C4.
@@ -377,19 +402,121 @@
           <b>C4_ZERO</b> returns the value of 0 as a C4
         </li>
         <li>
+          <b>C4MAT_ADD</b> combines two C4MAT's with complex scale factors.
+        </li>
+        <li>
+          <b>C4MAT_ADD_R4</b> combines two C4MAT's with real scale factors.
+        </li>
+        <li>
+          <b>C4MAT_COPY</b> copies one C4MAT to another.
+        </li>
+        <li>
+          <b>C4MAT_COPY_NEW</b> copies one C4MAT to a "new" C4MAT.
+        </li>
+        <li>
+          <b>C4MAT_FSS</b> factors and solves a system with multiple right hand sides.
+        </li>
+        <li>
+          <b>C4MAT_FSS_NEW</b> factors and solves a system with multiple right hand sides.
+        </li>
+        <li>
+          <b>C4MAT_IDENTITY_NEW</b> sets a C4MAT to the identity.
+        </li>
+        <li>
+          <b>C4MAT_INDICATOR_NEW</b> returns the C4MAT indicator matrix.
+        </li>
+        <li>
+          <b>C4MAT_MINVM</b> returns inverse(A) * B for C4MAT's.
+        </li>
+        <li>
+          <b>C4MAT_MINVM_NEW</b> returns inverse(A) * B for C4MAT's.
+        </li>
+        <li>
+          <b>C4MAT_MM</b> multiplies two C4MAT's.
+        </li>
+        <li>
+          <b>C4MAT_MM_NEW</b> multiplies two C4MAT's.
+        </li>
+        <li>
+          <b>C4MAT_NINT</b> rounds the entries of a C4MAT.
+        </li>
+        <li>
+          <b>C4MAT_NORM_FRO</b> returns the Frobenius norm of a C4MAT.
+        </li>
+        <li>
+          <b>C4MAT_NORM_L1</b> returns the matrix L1 norm of a C4MAT.
+        </li>
+        <li>
+          <b>C4MAT_NORM_LI</b> returns the L-infinity norm of a C4MAT.
+        </li>
+        <li>
+          <b>C4MAT_PRINT</b> prints a C4MAT.
+        </li>
+        <li>
+          <b>C4MAT_PRINT_SOME</b> prints some of a C4MAT.
+        </li>
+        <li>
+          <b>C4MAT_SCALE</b> scales a C4MAT by a complex scale factor.
+        </li>
+        <li>
+          <b>C4MAT_SCALE_R4</b> scales a C4MAT by a real scale factor
+        </li>
+        <li>
+          <b>C4MAT_UNIFORM_01</b> returns a unit pseudorandom C4MAT.
+        </li>
+        <li>
+          <b>C4MAT_ZERO_NEW</b> returns a new zeroed C4MAT.
+        </li>
+        <li>
+          <b>C4VEC_COPY</b> copies a C4VEC to another.
+        </li>
+        <li>
+          <b>C4VEC_COPY_NEW</b> copies a C4VEC to a "new" C4VEC.
+        </li>
+        <li>
+          <b>C4VEC_NINT</b> rounds the entries of a C4VEC.
+        </li>
+        <li>
+          <b>C4VEC_NORM_L2</b> returns the L2 norm of a C4VEC.
+        </li>
+        <li>
+          <b>C4VEC_PRINT</b> prints a C4VEC.
+        </li>
+        <li>
+          <b>C4VEC_PRINT_PART</b> prints "part" of a C4VEC.
+        </li>
+        <li>
+          <b>C4VEC_PRINT_SOME</b> prints "some" of a C4VEC.
+        </li>
+        <li>
+          <b>C4VEC_SORT_A_L2</b> ascending sorts a float complex array by L2 norm.
+        </li>
+        <li>
+          <b>C4VEC_SPIRAL</b> returns N points on a spiral between C1 and C2.
+        </li>
+        <li>
+          <b>C4VEC_UNIFORM_01_NEW</b> returns a unit pseudorandom C4VEC.
+        </li>
+        <li>
+          <b>C4VEC_UNITY</b> returns the N roots of unity in a C4VEC.
+        </li>
+        <li>
           <b>CARTESIAN_TO_C4</b> converts a Cartesian form to a C4.
         </li>
         <li>
           <b>POLAR_TO_C4</b> converts a polar form to a C4.
         </li>
         <li>
-          <b>R4_UNIFORM_01</b> returns a unit pseudorandom R4.
+          <b>R4_CSQRT</b> returns the complex square root of an R4.
         </li>
         <li>
-          <b>SORT_HEAP_EXTERNAL</b> externally sorts a list of items into ascending order.
+          <b>R4POLY2_ROOT</b> returns the two roots of a quadratic polynomial.
         </li>
         <li>
-          <b>TIMESTAMP</b> prints the current YMDHMS date as a time stamp.
+          <b>R4POLY3_ROOT</b> returns the three roots of a cubic polynomial.
+        </li>
+        <li>
+          <b>R4POLY4_ROOT</b> returns the four roots of a quartic polynomial.
         </li>
       </ul>
     </p>
@@ -402,7 +529,7 @@
     <hr>
 
     <i>
-      Last revised on 06 October 2010.
+      Last revised on 09 March 2014.
     </i>
 
     <!-- John Burkardt -->

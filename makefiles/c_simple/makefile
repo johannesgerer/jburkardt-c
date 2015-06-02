@@ -1,10 +1,38 @@
+## Makefile for the "c_simple" example.
 #
-#  On Chili and Kachina, this is where the C compiler is:
+#  Discussion:
+#
+#    This makefile is used to manipulate the "c_simple" code.
+#
+#    make run
+#      asks the makefile to do what is necessary to run the code.
+#    make c_simple
+#      creates the executable program, but does not run it.
+#    make c_simple.o
+#      compiles the c_simple.c source code.
+#    make midpoint.o
+#      compiles the midpoint.c source code.
+#    make f.o
+#      compiles the f.c source code.
+#    make clean
+#      removes the output file, executable program and compiled files.
+#
+#  Licensing:
+#
+#    This code is distributed under the GNU LGPL license.
+#
+#  Modified:
+#
+#    10 May 2013
+#
+#  Author:
+#
+#    John Burkardt
 #
 CC = /usr/bin/gcc
 
-c_simple.out: c_simple
-	./c_simple > c_simple.out
+run: c_simple
+	./c_simple > c_simple_output.txt
 c_simple: c_simple.o midpoint.o f.o
 	$(CC) -o c_simple c_simple.o midpoint.o f.o -lm
 c_simple.o: c_simple.c c_simple.h
@@ -14,7 +42,9 @@ midpoint.o: midpoint.c c_simple.h
 f.o: f.c c_simple.h
 	$(CC) -c f.c
 clean:
-	/bin/rm c_simple.out c_simple c_simple.o midpoint.o f.o
-
-
+	rm -f c_simple_output.txt
+	rm -f c_simple
+	rm -f c_simple.o
+	rm -f midpoint.o
+	rm -f f.o
 

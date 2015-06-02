@@ -6,130 +6,137 @@
 
 # include "polpak.h"
 
-int main ( void );
+int main ( );
 
-void test001 ( void );
-void test002 ( void );
-void test003 ( void );
-void test004 ( void );
-void test005 ( void );
-void test006 ( void );
-void test007 ( void );
-void test008 ( void );
-void test009 ( void );
-
-void test010 ( void );
-void test011 ( void );
-void test0115 ( void );
-void test013 ( void );
-void test012 ( void );
-void test014 ( void );
-void test015 ( void );
-void test016 ( void );
-void test017 ( void );
-void test0175 ( void );
-void test018 ( void );
-void test0185 ( void );
-void test019 ( void );
-
-void test020 ( void );
-void test021 ( void );
-void test0215 ( void );
-void test0216 ( void );
-void test0217 ( void );
-void test0218 ( void );
-void test024 ( void );
-void test0243 ( void );
-void test025 ( void );
-void test0255 ( void );
-void test026 ( void );
-void test0265 ( void );
-void test028 ( void );
-void test027 ( void );
-void test029 ( void );
-
-void test031 ( void );
-void test032 ( void );
-void test033 ( void );
-void test034 ( void );
-void test037 ( void );
-void test052 ( void );
-void test038 ( void );
-
-void test040 ( void );
-void test039 ( void );
-void test041 ( void );
-void test042 ( void );
-void test0427 ( void );
-void test043 ( void );
-void test044 ( void );
-void test045 ( void );
-void test046 ( void );
-void test047 ( void );
-void test048 ( void );
-void test049 ( void );
-
-void test050 ( void );
-void test0505 ( void );
-void test051 ( void );
-void test054 ( void );
-void test055 ( void );
-void test057 ( void );
-void test058 ( void );
-void test059 ( void );
-void test0595 ( void );
-
-void test060 ( void );
-void test061 ( void );
-void test0615 ( void );
-void test0365 ( void );
-void test062 ( void );
-void test0623 ( void );
-void test0625 ( void );
-void test063 ( void );
-void test0635 ( void );
-void test064 ( void );
-void test065 ( void );
-void test066 ( void );
-void test0665 ( void );
-void test0667 ( void );
-void test067 ( void );
-void test0675 ( void );
-void test0676 ( void );
-void test06765 ( void );
-void test022 ( void );
-void test068 ( void );
-void test0685 ( void );
-void test06855 ( void );
-void test036 ( void );
-void test0425 ( void );
-void test06856 ( void );
-void test069 ( void );
-void test0695 ( void );
-void test0696 ( void );
-void test0697 ( void );
-
-void test070 ( void );
-void test071 ( void );
-void test072 ( void );
-void test073 ( void );
-void test074 ( void );
-void test075 ( void );
-void test076 ( void );
-void test077 ( void );
-void test0773 ( void );
-void test0775 ( void );
-void test078 ( void );
+void agud_test ( );
+void align_enum_test ( );
+void bell_test ( );
+void benford_test ( );
+void bernoulli_number_test ( );
+void bernoulli_number2_test ( );
+void bernoulli_number3_test ( );
+void bernoulli_poly_test ( );
+void bernoulli_poly2_test ( );
+void bernstein_poly_test ( );
+void bpab_test ( );
+void cardan_poly_test ( );
+void cardan_poly_coef_test ( );
+void cardinal_cos_test ( );
+void cardinal_sin_test ( );
+void catalan_test ( );
+void catalan_row_next_test ( );
+void charlier_test ( );
+void cheby_t_poly_test ( );
+void cheby_t_poly_coef_test ( );
+void cheby_t_poly_zero_test ( );
+void cheby_u_poly_test ( );
+void cheby_u_poly_coef_test ( );
+void cheby_u_poly_zero_test ( );
+void chebyshev_discrete_test ( );
+void collatz_count_test ( );
+void collatz_count_max_test ( );
+void comb_row_next_test ( );
+void commul_test ( );
+void complete_symmetric_poly_test ( );
+void cos_power_int_test ( );
+void euler_number_test ( );
+void euler_number2_test ( );
+void euler_poly_test ( );
+void eulerian_test ( );
+void f_hofstadter_test ( );
+void fibonacci_direct_test ( );
+void fibonacci_floor_test ( );
+void fibonacci_recursive_test ( );
+void g_hofstadter_test ( );
+void gegenbauer_poly_test ( );
+void gen_hermite_poly_test ( );
+void gen_laguerre_poly_test ( );
+void gud_test ( );
+void h_hofstadter_test ( );
+void hail_test ( );
+void hermite_poly_phys_test ( );
+void hermite_poly_phys_coef_test ( );
+void i4_choose_test ( );
+void i4_factor_test ( );
+void i4_factorial_test ( );
+void i4_factorial2_test ( );
+void i4_is_triangular_test ( );
+void i4_partition_distinct_count_test ( );
+void i4_to_triangle_test ( );
+void jacobi_poly_test ( );
+void jacobi_symbol_test ( );
+void krawtchouk_test ( );
+void laguerre_associated_test ( );
+void laguerre_poly_test ( );
+void laguerre_poly_coef_test ( );
+void legendre_associated_test ( );
+void legendre_associated_normalized_test ( );
+void legendre_function_q_test ( );
+void legendre_poly_test ( );
+void legendre_poly_coef_test ( );
+void legendre_symbol_test ( );
+void lerch_test ( );
+void lgamma_test ( );
+void lock_test ( );
+void meixner_test ( );
+void mertens_test ( );
+void moebius_test ( );
+void motzkin_test ( );
+void normal_01_cdf_inverse_test ( );
+void omega_test ( );
+void pentagon_num_test ( );
+void phi_test ( );
+void plane_partition_num_test ( );
+void poly_bernoulli_test ( );
+void poly_coef_count_test ( );
+void prime_test ( );
+void pyramid_num_test ( );
+void pyramid_square_num_test ( );
+void r8_agm_test ( );
+void r8_beta_test ( );
+void r8_choose_test ( );
+void r8_erf_test ( );
+void r8_erf_inverse_test ( );
+void r8_euler_constant_test ( );
+void r8_factorial_test ( );
+void r8_factorial_log_test ( );
+void r8_hyper_2f1_test ( );
+void r8_psi_test ( );
+void r8poly_degree_test ( );
+void r8poly_print_test ( );
+void r8poly_value_horner_test ( );
+void sigma_test ( );
+void simplex_num_test ( );
+void sin_power_int_test ( );
+void slice_test ( );
+void spherical_harmonic_test ( );
+void stirling1_test ( );
+void stirling2_test ( );
+void tau_test ( );
+void tetrahedron_num_test ( );
+void triangle_num_test ( );
+void triangle_to_i4_test ( );
+void trinomial_test ( );
+void v_hofstadter_test ( );
+void vibonacci_test ( );
+void zeckendorf_test ( );
+void zernike_poly_test ( );
+void zernike_poly_coef_test ( );
+void zeta_test ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    POLPAK_PRB calls the POLPAK tests.
+    MAIN is the main program for POLPAK_PRB.
+
+  Discussion:
+
+    POLPAK_PRB tests the POLPAK library.
 
   Licensing:
 
@@ -137,7 +144,7 @@ int main ( void )
 
   Modified:
 
-    16 May 2012
+    11 April 2015
 
   Author:
 
@@ -150,125 +157,127 @@ int main ( void )
   printf ( "  C version\n" );
   printf ( "  Test the POLPAK library.\n" );
 
-  test001 ( );
-  test002 ( );
-  test003 ( );
-  test004 ( );
-  test005 ( );
-  test006 ( );
-  test007 ( );
-  test008 ( );
-  test009 ( );
-
-  test010 ( );
-  test011 ( );
-  test0115 ( );
-  test013 ( );
-  test012 ( );
-  test014 ( );
-  test015 ( );
-  test016 ( );
-  test017 ( );
-  test0175 ( );
-  test018 ( );
-  test0185 ( );
-  test019 ( );
-
-  test020 ( );
-  test021 ( );
-  test0215 ( );
-  test0216 ( );
-  test0217 ( );
-  test0218 ( );
-  test024 ( );
-  test0243 ( );
-  test025 ( );
-  test0255 ( );
-  test026 ( );
-  test0265 ( );
-  test028 ( );
-  test027 ( );
-  test029 ( );
-
-  test031 ( );
-  test032 ( );
-  test033 ( );
-  test034 ( );
-  test037 ( );
-  test052 ( );
-  test038 ( );
-
-  test040 ( );
-  test039 ( );
-  test041 ( );
-  test042 ( );
-  test0427 ( );
-  test043 ( );
-  test044 ( );
-  test045 ( );
-  test046 ( );
-  test047 ( );
-  test048 ( );
-  test049 ( );
-
-  test050 ( );
-  test0505 ( );
-  test051 ( );
-  test054 ( );
-  test055 ( );
-  test057 ( );
-  test058 ( );
-  test059 ( );
-  test0595 ( );
-
-  test060 ( );
-  test061 ( );
-  test0615 ( );
-  test0365 ( );
-  test062 ( );
-  test0623 ( );
-  test0625 ( );
-  test063 ( );
-  test0635 ( );
-  test064 ( );
-  test065 ( );
-  test066 ( );
-  test0665 ( );
-  test0667 ( );
-  test067 ( );
-  test0675 ( );
-  test0676 ( );
-  test06765 ( );
-  test022 ( );
-  test068 ( );
-  test0685 ( );
-  test06855 ( );
-  test036 ( );
-  test0425 ( );
-  test06856 ( );
-  test069 ( );
-  test0695 ( );
-  test0696 ( );
-  test0697 ( );
-
-  test070 ( );
-  test071 ( );
-  test072 ( );
-  test073 ( );
-  test074 ( );
-  test075 ( );
-  test076 ( );
-  test077 ( );
-  test0773 ( );
-  test0775 ( );
-  test078 ( );
+  agud_test ( );
+  align_enum_test ( );
+  bell_test ( );
+  benford_test ( );
+  bernoulli_number_test ( );
+  bernoulli_number2_test ( );
+  bernoulli_number3_test ( );
+  bernoulli_poly_test ( );
+  bernoulli_poly2_test ( );
+  bernstein_poly_test ( );
+  bpab_test ( );
+  cardan_poly_test ( );
+  cardan_poly_coef_test ( );
+  cardinal_cos_test ( );
+  cardinal_sin_test ( );
+  catalan_test ( );
+  catalan_row_next_test ( );
+  charlier_test ( );
+  cheby_t_poly_test ( );
+  cheby_t_poly_coef_test ( );
+  cheby_t_poly_zero_test ( );
+  cheby_u_poly_test ( );
+  cheby_u_poly_coef_test ( );
+  cheby_u_poly_zero_test ( );
+  chebyshev_discrete_test ( );
+  collatz_count_test ( );
+  collatz_count_max_test ( );
+  comb_row_next_test ( );
+  commul_test ( );
+  complete_symmetric_poly_test ( );
+  cos_power_int_test ( );
+  euler_number_test ( );
+  euler_number2_test ( );
+  euler_poly_test ( );
+  eulerian_test ( );
+  f_hofstadter_test ( );
+  fibonacci_direct_test ( );
+  fibonacci_floor_test ( );
+  fibonacci_recursive_test ( );
+  g_hofstadter_test ( );
+  gegenbauer_poly_test ( );
+  gen_hermite_poly_test ( );
+  gen_laguerre_poly_test ( );
+  gud_test ( );
+  h_hofstadter_test ( );
+  hail_test ( );
+  hermite_poly_phys_test ( );
+  hermite_poly_phys_coef_test ( );
+  i4_choose_test ( );
+  i4_factor_test ( );
+  i4_factorial_test ( );
+  i4_factorial2_test ( );
+  i4_is_triangular_test ( );
+  i4_partition_distinct_count_test ( );
+  i4_to_triangle_test ( );
+  jacobi_poly_test ( );
+  jacobi_symbol_test ( );
+  krawtchouk_test ( );
+  laguerre_associated_test ( );
+  laguerre_poly_test ( );
+  laguerre_poly_coef_test ( );
+  legendre_associated_test ( );
+  legendre_associated_normalized_test ( );
+  legendre_function_q_test ( );
+  legendre_poly_test ( );
+  legendre_poly_coef_test ( );
+  legendre_symbol_test ( );
+  lerch_test ( );
+  lgamma_test ( );
+  lock_test ( );
+  meixner_test ( );
+  mertens_test ( );
+  moebius_test ( );
+  motzkin_test ( );
+  normal_01_cdf_inverse_test ( );
+  omega_test ( );
+  pentagon_num_test ( );
+  phi_test ( );
+  plane_partition_num_test ( );
+  poly_bernoulli_test ( );
+  poly_coef_count_test ( );
+  prime_test ( );
+  pyramid_num_test ( );
+  pyramid_square_num_test ( );
+  r8_agm_test ( );
+  r8_beta_test ( );
+  r8_choose_test ( );
+  r8_erf_test ( );
+  r8_erf_inverse_test ( );
+  r8_euler_constant_test ( );
+  r8_factorial_test ( );
+  r8_factorial_log_test ( );
+  r8_hyper_2f1_test ( );
+  r8_psi_test ( );
+  r8poly_degree_test ( );
+  r8poly_print_test ( );
+  r8poly_value_horner_test ( );
+  sigma_test ( );
+  simplex_num_test ( );
+  sin_power_int_test ( );
+  slice_test ( );
+  spherical_harmonic_test ( );
+  stirling1_test ( );
+  stirling2_test ( );
+  tau_test ( );
+  tetrahedron_num_test ( );
+  triangle_num_test ( );
+  triangle_to_i4_test ( );
+  trinomial_test ( );
+  v_hofstadter_test ( );
+  vibonacci_test ( );
+  zeckendorf_test ( );
+  zernike_poly_test ( );
+  zernike_poly_coef_test ( );
+  zeta_test ( );
 /*
   Terminate.
 */
   printf ( "\n" );
   printf ( "POLPAK_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -276,71 +285,13 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test001 ( void )
+void agud_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST001 tests AGM.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    24 February 2010
-
-  Author:
-
-    John Burkardt
-*/
-{
-  double a;
-  double b;
-  double fx;
-  double fx2;
-  int n_data;
-
-  printf ( "\n" );
-  printf ( "TEST001\n" );
-  printf ( "  AGM computes the arithmetic geometric mean.\n" );
-  printf ( "\n" );
-  printf ( "      A           B          " );
-  printf ( "   AGM                       AGM                   Diff" );
-  printf ( "                             " );
-  printf ( "  (Tabulated)                AGM(A,B)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    agm_values ( &n_data, &a, &b, &fx );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    fx2 = agm ( a, b );
-
-    printf ( "  %10.6f  %10.6f  %24.16f  %24.16f  %10.6e\n",
-      a, b, fx, fx2, r8_abs ( fx - fx2 ) );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test002 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST002 tests AGUD and GUD.
+    AGUD_TEST tests AGUD.
 
   Licensing:
 
@@ -355,15 +306,14 @@ void test002 ( void )
     John Burkardt
 */
 {
-  double gamma;
+  double g;
   int i;
   double x;
   double x2;
 
   printf ( "\n" );
-  printf ( "TEST002\n" );
+  printf ( "AGUD_TEST\n" );
   printf ( "  AGUD computes the inverse Gudermannian;\n" );
-  printf ( "  GUD computes the Gudermannian.\n" );
   printf ( "\n" );
   printf ( "         X     GUD(X)     AGUD(GUD(X))\n" );
   printf ( "\n" );
@@ -371,23 +321,23 @@ void test002 ( void )
   for ( i = 0; i <= 10; i++ )
   {
     x = 1.0 + ( ( double ) i ) / 5.0;
-    gamma = gud ( x );
-    x2 = agud ( gamma );
+    g = gud ( x );
+    x2 = agud ( g );
 
-    printf ( "  %10f  %10f  %10f\n", x, gamma, x2 );
+    printf ( "  %10f  %10f  %10f\n", x, g, x2 );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test003 ( )
+void align_enum_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST003 tests ALIGN_ENUM.
+    ALIGN_ENUM_TEST tests ALIGN_ENUM.
 
   Licensing:
 
@@ -409,7 +359,7 @@ void test003 ( )
   int j;
 
   printf ( "\n" );
-  printf ( "TEST003\n" );
+  printf ( "ALIGN_ENUM_TEST\n" );
   printf ( "  ALIGN_ENUM counts the number of possible\n" );
   printf ( "  alignments of two biological sequences.\n" );
 
@@ -459,115 +409,13 @@ void test003 ( )
 }
 /******************************************************************************/
 
-void test004 ( )
+void bell_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST004 tests ARC_COSINE.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    04 July 2011
-
-  Author:
-
-    John Burkardt
-*/
-{
-  double a;
-  int i;
-  double x;
-  double x2;
-
-  printf ( "\n" );
-  printf ( "TEST004\n" );
-  printf ( "  ARC_COSINE computes the inverse cosine,\n" );
-  printf ( "  and chops input arguments that are out of bounds.\n" );
-  printf ( "\n" );
-  printf ( "         X     ARC_COSINE(X)     COS(ARC_COSINE(X))\n" );
-  printf ( "\n" );
-
-  for ( i = -5; i <= 5; i++ )
-  {
-    x = 1.0 + ( ( double ) i ) / 5.0;
-    a = arc_cosine ( x );
-    x2 = cos ( a );
-
-    printf ( "  %10g  %10g  %10g\n", x, a, x2 );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test005 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST005 tests ATAN4.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 August 2011
-
-  Author:
-
-    John Burkardt
-*/
-{
-# define TEST_NUM 8
-
-  int test;
-  int test_num = TEST_NUM;
-  double x;
-  double x_test[TEST_NUM] = {
-     1.0,  1.0, 0.0, -1.0, 
-    -1.0, -1.0, 0.0,  1.0 };
-  double y;
-  double y_test[TEST_NUM] = {
-    0.0,  1.0,  1.0,  1.0, 
-    0.0, -1.0, -1.0, -1.0 };
-
-  printf ( "\n" );
-  printf ( "TEST005\n" );
-  printf ( "  ATAN4 computes the arc-tangent given Y and X;\n" );
-  printf ( "  ATAN2 is the system version of this routine.\n" );
-  printf ( "\n" );
-  printf ( "       X             Y          ATAN2(Y,X)   ATAN4(Y,X)\n" );
-  printf ( "\n" );
-
-  for ( test = 0; test < test_num; test++ )
-  {
-    x = x_test[test];
-    y = y_test[test];
-    printf ( "  %14g  %14g  %14g  %14g\n", 
-      x, y, atan2 ( y, x ), atan4 ( y, x ) );
-  }
-
-  return;
-# undef TEST_NUM
-}
-/******************************************************************************/
-
-void test006 ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST006 tests BELL.
+    BELL_TEST tests BELL.
 
   Licensing:
 
@@ -588,9 +436,8 @@ void test006 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST006\n" );
+  printf ( "BELL_TEST\n" );
   printf ( "  BELL computes Bell numbers.\n" );
-  printf ( "  BELL_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "  N  exact C(I)  computed C(I)\n" );
   printf ( "\n" );
@@ -619,13 +466,13 @@ void test006 ( )
 }
 /******************************************************************************/
 
-void test007 ( )
+void benford_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST007 tests BENFORD.
+    BENFORD_TEST tests BENFORD.
 
   Licensing:
 
@@ -643,7 +490,7 @@ void test007 ( )
   int i;
 
   printf ( "\n" );
-  printf ( "TEST007\n" );
+  printf ( "BENFORD_TEST\n" );
   printf ( "  BENFORD(I) is the Benford probability of the\n" );
   printf ( "  initial digit sequence I.\n" );
   printf ( "\n" );
@@ -659,13 +506,13 @@ void test007 ( )
 }
 /******************************************************************************/
 
-void test008 ( )
+void bernoulli_number_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST008 tests BERNOULLI_NUMBER.
+    BERNOULLI_NUMBER_TEST tests BERNOULLI_NUMBER.
 
   Licensing:
 
@@ -686,9 +533,8 @@ void test008 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST008\n" );
+  printf ( "BERNOULLI_NUMBER_TEST\n" );
   printf ( "  BERNOULLI_NUMBER computes Bernoulli numbers;\n" );
-  printf ( "  BERNOULLI_NUMBER_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "   I      Exact     BERNOULLI_NUMBER\n" );
   printf ( "\n" );
@@ -713,13 +559,13 @@ void test008 ( )
 }
 /******************************************************************************/
 
-void test009 ( )
+void bernoulli_number2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST009 tests BERNOULLI_NUMBER2.
+    BERNOULLI_NUMBER2_TEST tests BERNOULLI_NUMBER2.
 
   Licensing:
 
@@ -740,9 +586,8 @@ void test009 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST009\n" );
+  printf ( "BERNOULLI_NUMBER2_TEST\n" );
   printf ( "  BERNOULLI_NUMBER2 computes Bernoulli numbers;\n" );
-  printf ( "  BERNOULLI_NUMBER_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "   I      Exact     BERNOULLI_NUMBER2\n" );
   printf ( "\n" );
@@ -767,13 +612,13 @@ void test009 ( )
 }
 /******************************************************************************/
 
-void test010 ( )
+void bernoulli_number3_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST010 tests BERNOULLI_NUMBER3.
+    BERNOULLI_NUMBER3_TEST tests BERNOULLI_NUMBER3.
 
   Licensing:
 
@@ -794,9 +639,8 @@ void test010 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST010\n" );
+  printf ( "BERNOULLI_NUMBER3_TEST\n" );
   printf ( "  BERNOULLI_NUMBER3 computes Bernoulli numbers;\n" );
-  printf ( "  BERNOULLI_NUMBER_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "   I      Exact     BERNOULLI_NUMBER3\n" );
   printf ( "\n" );
@@ -821,13 +665,13 @@ void test010 ( )
 }
 /******************************************************************************/
 
-void test011 ( )
+void bernoulli_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST011 tests BERNOULLI_POLY;
+    BERNOULLI_POLY_TEST tests BERNOULLI_POLY;
 
   Licensing:
 
@@ -850,7 +694,7 @@ void test011 ( )
   x = 0.2;
 
   printf ( "\n" );
-  printf ( "TEST011\n" );
+  printf ( "BERNOULLI_POLY_TEST\n" );
   printf ( "  BERNOULLI_POLY evaluates Bernoulli polynomials;\n" );
   printf ( "\n" );
   printf ( "  X = %g\n", x );
@@ -869,13 +713,13 @@ void test011 ( )
 }
 /******************************************************************************/
 
-void test0115 ( )
+void bernoulli_poly2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0115 tests BERNOULLI_POLY2;
+    BERNOULLI_POLY2_TEST tests BERNOULLI_POLY2;
 
   Licensing:
 
@@ -898,7 +742,7 @@ void test0115 ( )
   x = 0.2;
 
   printf ( "\n" );
-  printf ( "TEST0115\n" );
+  printf ( "BERNOULLI_POLY2_TEST\n" );
   printf ( "  BERNOULLI_POLY2 evaluates Bernoulli polynomials;\n" );
   printf ( "\n" );
   printf ( "  X = %g\n", x );
@@ -917,13 +761,13 @@ void test0115 ( )
 }
 /******************************************************************************/
 
-void test013 ( )
+void bernstein_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST013 tests BERNSTEIN_POLY.
+    BERNSTEIN_POLY_TEST tests BERNSTEIN_POLY.
 
   Licensing:
 
@@ -946,9 +790,8 @@ void test013 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST013:\n" );
+  printf ( "BERNSTEIN_POLY_TEST:\n" );
   printf ( "  BERNSTEIN_POLY evaluates the Bernstein polynomials.\n" );
-  printf ( "  BERNSTEIN_POLY_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "   N   K   X   Exact   B(N,K)(X)\n" );
   printf ( "\n" );
@@ -973,68 +816,13 @@ void test013 ( )
 }
 /******************************************************************************/
 
-void test012 ( )
+void bpab_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST012 tests BETA.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2012
-
-  Author:
-
-    John Burkardt
-*/
-{
-  double fxy;
-  double fxy2;
-  int n_data;
-  double x;
-  double y;
-
-  printf ( "\n" );
-  printf ( "TEST012:\n" );
-  printf ( "  BETA evaluates the Beta function.\n" );
-  printf ( "  BETA_VALUES returns some exact values.\n" );
-  printf ( "\n" );
-  printf ( "     X      Y        Exact F       BETA(X,Y)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    beta_values ( &n_data, &x, &y, &fxy );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    fxy2 = beta ( x, y );
-
-    printf ( "  %10f  %10f  %10g  %10g\n", x, y, fxy, fxy2 );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test014 ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST014 tests BPAB.
+    BPAB_TEST tests BPAB.
 
   Licensing:
 
@@ -1058,7 +846,7 @@ void test014 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST014\n" );
+  printf ( "BPAB_TEST\n" );
   printf ( "  BPAB evaluates Bernstein polynomials.\n" );
   printf ( "\n" );
 
@@ -1084,13 +872,13 @@ void test014 ( )
 }
 /******************************************************************************/
 
-void test015 ( )
+void cardan_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST015 tests CARDAN and CARDAN_POLY_COEF.
+    CARDAN_POLY_TEST tests CARDAN_POLY.
 
   Licensing:
 
@@ -1115,13 +903,76 @@ void test015 ( )
   double s;
   double x;
 
+  n = N_MAX;
+  x = 0.25;
+  s = 0.5;
+
+  printf ( "\n" );
+  printf ( "CARDAN_POLY_TEST\n" );
+  printf ( "  CARDAN_POLY evaluates the Cardan polynomial.\n" );
+  printf ( "\n" );
+  printf ( "  Compare CARDAN_POLY_COEF + R8POLY_VALUE_HORNER\n" );
+  printf ( "  versus CARDAN_POLY alone.\n" );
+  printf ( "\n" );
+  printf ( "  Evaluate polynomials at X = %g\n", x );
+  printf ( "  We use the parameter S = %g\n", s );
+  printf ( "\n" );
+  printf ( "  Order       Horner          Direct\n" );
+  printf ( "\n" );
+
+  cx2 = cardan_poly ( n, x, s );
+
+  for ( n = 0; n <= N_MAX; n++ )
+  {
+    cardan_poly_coef ( n, s, c );
+
+    cx1 = r8poly_value_horner ( n, c, x );
+
+    printf ( "  %2d  %14g  %14g\n", n, cx1, cx2[n] );
+  }
+  free ( cx2 );
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+void cardan_poly_coef_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CARDAN_POLY_COEF_TEST tests CARDAN_POLY_COEF.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 May 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N_MAX 10
+
+  double c[N_MAX+1];
+  double cx1;
+  int i;
+  int n;
+  double s;
+  double x;
+
   s = 1.0;
 
   printf ( "\n" );
-  printf ( "TEST015\n" );
+  printf ( "CARDAN_POLY_COEF_TEST\n" );
   printf ( "  CARDAN_POLY_COEF returns the coefficients of a\n" );
   printf ( "  Cardan polynomial.\n" );
-  printf ( "  CARDAN evaluates a Cardan polynomial directly.\n" );
   printf ( "\n" );
   printf ( "  We use the parameter S = %g\n", s );
   printf ( "\n" );
@@ -1139,43 +990,133 @@ void test015 ( )
     printf ( "\n" );
   }
 
-  s = 0.5;
-  x = 0.25;
-
-  printf ( "\n" );
-  printf ( "  Compare CARDAN_POLY_COEF + R8POLY_VAL_HORNER\n" );
-  printf ( "  versus CARDAN alone.\n" );
-  printf ( "\n" );
-  printf ( "  Evaluate polynomials at X = %g\n", x );
-  printf ( "  We use the parameter S = %g\n", s );
-  printf ( "\n" );
-  printf ( "  Order       Horner          Direct\n" );
-  printf ( "\n" );
-
-  cx2 = cardan ( n, x, s );
-
-  for ( n = 0; n <= N_MAX; n++ )
-  {
-    cardan_poly_coef ( n, s, c );
-
-    cx1 = r8poly_value ( n + 1, c, x );
-
-    printf ( "  %2d  %14g  %14g\n", n, cx1, cx2[n] );
-  }
-  free ( cx2 );
-
   return;
 # undef N_MAX
 }
 /******************************************************************************/
 
-void test016 ( )
+void cardinal_cos_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST016 tests CATALAN.
+    CARDINAL_COS_TEST tests CARDINAL_COS.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 May 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *c;
+  int i;
+  int j;
+  int m = 11;
+  const double r8_pi = 3.141592653589793;
+  double *t;
+
+  printf ( "\n" );
+  printf ( "CARDINAL_COS_TEST\n" );
+  printf ( "  CARDINAL_COS evaluates cardinal cosine functions.\n" );
+  printf ( "  Ci(Tj) = Delta(i,j), where Tj = cos(pi*i/(n+1)).\n" );
+  printf ( "  A simple check of all pairs should form the identity matrix.\n" );
+
+  printf ( "\n" );
+  printf ( "  The CARDINAL_COS test matrix:\n" );
+  printf ( "\n" );
+
+  t = r8vec_linspace_new ( m + 2, 0.0, r8_pi );
+
+  for ( j = 0; j <= m + 1; j++ )
+  {
+    c = cardinal_cos ( j, m, m + 2, t );
+    for ( i = 0; i <= m + 1; i++ )
+    {
+      printf ( "  %4.1f", c[i] );
+    }
+    printf ( "\n" );
+    free ( c );
+  }
+
+  free ( t );
+
+  return;
+}
+/******************************************************************************/
+
+void cardinal_sin_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CARDINAL_SIN_TEST tests CARDINAL_SIN.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 May 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *c;
+  int i;
+  int j;
+  int m = 11;
+  const double r8_pi = 3.141592653589793;
+  double *s;
+  double *t;
+
+  printf ( "\n" );
+  printf ( "CARDINAL_SIN_TEST\n" );
+  printf ( "  CARDINAL_SIN evaluates cardinal sine functions.\n" );
+  printf ( "  Si(Tj) = Delta(i,j), where Tj = cos(pi*i/(n+1)).\n" );
+  printf ( "  A simple check of all pairs should form the identity matrix.\n" );
+
+  printf ( "\n" );
+  printf ( "  The CARDINAL_SIN test matrix:\n" );
+  printf ( "\n" );
+
+  t = r8vec_linspace_new ( m + 2, 0.0, r8_pi );
+
+  for ( j = 0; j <= m + 1; j++ )
+  {
+    s = cardinal_sin ( j, m, m + 2, t );
+    for ( i = 0; i <= m + 1; i++ )
+    {
+      printf ( "  %4.1f", s[i] );
+    }
+    printf ( "\n" );
+    free ( s );
+  }
+
+  free ( t );
+
+  return;
+}
+/******************************************************************************/
+
+void catalan_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CATALAN_TEST tests CATALAN.
 
   Licensing:
 
@@ -1196,9 +1137,8 @@ void test016 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST016\n" );
+  printf ( "CATALAN_TEST\n" );
   printf ( "  CATALAN computes Catalan numbers.\n" );
-  printf ( "  CATALAN_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "  N  exact C(I)  computed C(I)\n" );
   printf ( "\n" );
@@ -1227,13 +1167,13 @@ void test016 ( )
 }
 /******************************************************************************/
 
-void test017 ( )
+void catalan_row_next_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST017 tests CATALAN_ROW_NEXT.
+    CATALAN_ROW_NEXT_TEST tests CATALAN_ROW_NEXT.
 
   Licensing:
 
@@ -1256,7 +1196,7 @@ void test017 ( )
   bool next;
 
   printf ( "\n" );
-  printf ( "TEST017\n" );
+  printf ( "CATALAN_ROW_NEXT_TEST\n" );
   printf ( "  CATALAN_ROW_NEXT computes a row of Catalan''s triangle.\n" );
   printf ( "\n" );
   printf ( "  First, compute row 7:\n" );
@@ -1298,13 +1238,13 @@ void test017 ( )
 }
 /******************************************************************************/
 
-void test0175 ( )
+void charlier_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0175 tests CHARLIER.
+    CHARLIER_TEST tests CHARLIER.
 
   Licensing:
 
@@ -1332,7 +1272,7 @@ void test0175 ( )
   double value[N+1];
 
   printf ( "\n" );
-  printf ( "TEST0175:\n" );
+  printf ( "CHARLIER_TEST:\n" );
   printf ( "  CHARLIER evaluates Charlier polynomials.\n" );
   printf ( "\n" );
   printf ( "       N      A         X        P(N,A,X)\n" );
@@ -1366,13 +1306,13 @@ void test0175 ( )
 }
 /******************************************************************************/
 
-void test018 ( )
+void cheby_t_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST018 tests CHEBY_T_POLY.
+    CHEBY_T_POLY_TEST tests CHEBY_T_POLY.
 
   Licensing:
 
@@ -1397,9 +1337,8 @@ void test018 ( )
   double x_vec[1];
 
   printf ( "\n" );
-  printf ( "TEST018:\n" );
+  printf ( "CHEBY_T_POLY_TEST:\n" );
   printf ( "  CHEBY_T_POLY evaluates the Chebyshev T polynomial.\n" );
-  printf ( "  CHEBY_T_POLY_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     N      X        Exact F       T(N,X)\n" );
   printf ( "\n" );
@@ -1429,66 +1368,13 @@ void test018 ( )
 }
 /******************************************************************************/
 
-void test0185 ( )
+void cheby_t_poly_coef_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0185 tests CHEBY_T_POLY_ZERO.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    15 May 2012
-
-  Author:
-
-    John Burkardt
-*/
-{
-# define N_MAX 4
-
-  double *fx;
-  int i;
-  int n;
-  double *z;
-
-  printf ( "\n" );
-  printf ( "TEST0185:\n" );
-  printf ( "  CHEBY_T_POLY_ZERO returns zeroes of T(N,X).\n" );
-  printf ( "\n" );
-  printf ( "       N      X        T(N,X)\n" );
-  printf ( "\n" );
-
-  for ( n = 1; n <= N_MAX; n++ )
-  {
-    z = cheby_t_poly_zero ( n );
-    fx = cheby_t_poly ( n, n, z );
-    for ( i = 0; i < n; i++ )
-    {
-      printf ( "  %8d  %8g  %14g\n", n, z[i], fx[i+n*n] );
-    }
-    printf ( "\n" );
-    free ( fx );
-    free ( z );
-  }
-
-  return;
-# undef N_MAX
-}
-/******************************************************************************/
-
-void test019 ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST019 tests CHEBY_T_POLY_COEF.
+    CHEBY_T_POLY_COEF_TEST tests CHEBY_T_POLY_COEF.
 
   Licensing:
 
@@ -1509,7 +1395,7 @@ void test019 ( )
   int n = 5;
 
   printf ( "\n" );
-  printf ( "TEST019\n" );
+  printf ( "CHEBY_T_POLY_COEF_TEST\n" );
   printf ( "  CHEBY_T_POLY_COEF determines the  polynomial coefficients\n" );
   printf ( "  of the Chebyshev polynomial T(n,x).\n" );
 
@@ -1546,13 +1432,13 @@ void test019 ( )
 }
 /******************************************************************************/
 
-void test020 ( )
+void cheby_t_poly_zero_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST020 tests CHEBY_U_POLY.
+    CHEBY_T_POLY_ZERO_TEST tests CHEBY_T_POLY_ZERO.
 
   Licensing:
 
@@ -1567,18 +1453,71 @@ void test020 ( )
     John Burkardt
 */
 {
+# define N_MAX 4
+
+  double *fx;
+  int i;
+  int n;
+  double *z;
+
+  printf ( "\n" );
+  printf ( "CHEBY_T_POLY_ZERO_TEST:\n" );
+  printf ( "  CHEBY_T_POLY_ZERO returns zeroes of T(N,X).\n" );
+  printf ( "\n" );
+  printf ( "       N      X        T(N,X)\n" );
+  printf ( "\n" );
+
+  for ( n = 1; n <= N_MAX; n++ )
+  {
+    z = cheby_t_poly_zero ( n );
+    fx = cheby_t_poly ( n, n, z );
+    for ( i = 0; i < n; i++ )
+    {
+      printf ( "  %8d  %8g  %14g\n", n, z[i], fx[i+n*n] );
+    }
+    printf ( "\n" );
+    free ( fx );
+    free ( z );
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+void cheby_u_poly_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CHEBY_U_POLY_TEST tests CHEBY_U_POLY.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    10 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
 # define N_MAX 12
 
   double fx;
-  double fx2[N_MAX+1];
+  double *fx2;
   int n;
   int n_data;
   double x;
+  double x_vec[1];
 
   printf ( "\n" );
-  printf ( "TEST020:\n" );
+  printf ( "CHEBY_U_POLY_TEST:\n" );
   printf ( "  CHEBY_U_POLY evaluates the Chebyshev U polynomial.\n" );
-  printf ( "  CHEBY_U_POLY_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     N      X        Exact F       U(N,X)\n" );
   printf ( "\n" );
@@ -1594,9 +1533,12 @@ void test020 ( )
       break;
     }
 
-    cheby_u_poly ( n, x, fx2 );
+    x_vec[0] = x;
+    fx2 = cheby_u_poly ( 1, n, x_vec );
 
     printf ( "  %8d  %8g  %14g  %14g\n", n, x, fx, fx2[n] );
+
+    free ( fx2 );
 
   }
 
@@ -1605,13 +1547,13 @@ void test020 ( )
 }
 /******************************************************************************/
 
-void test021 ( )
+void cheby_u_poly_coef_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST021 tests CHEBY_U_POLY_COEF.
+    CHEBY_U_POLY_COEF_TEST tests CHEBY_U_POLY_COEF.
 
   Licensing:
 
@@ -1633,7 +1575,7 @@ void test021 ( )
   int j;
 
   printf ( "\n" );
-  printf ( "TEST021\n" );
+  printf ( "CHEBY_U_POLY_COEF_TEST\n" );
   printf ( "  CHEBY_U_POLY_COEF determines the polynomial coefficients\n" );
   printf ( "  of the Chebyshev polynomial U(n,x).\n" );
 
@@ -1669,13 +1611,13 @@ void test021 ( )
 }
 /******************************************************************************/
 
-void test0215 ( )
+void cheby_u_poly_zero_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0215 tests CHEBY_U_POLY_ZERO.
+    CHEBY_U_POLY_ZERO_TEST tests CHEBY_U_POLY_ZERO.
 
   Licensing:
 
@@ -1683,7 +1625,7 @@ void test0215 ( )
 
   Modified:
 
-    15 May 2012
+    10 January 2015
 
   Author:
 
@@ -1692,13 +1634,13 @@ void test0215 ( )
 {
 # define N_MAX 4
 
-  double fx[N_MAX+1];
+  double *fx;
   int i;
   int n;
   double *z;
 
   printf ( "\n" );
-  printf ( "TEST0215:\n" );
+  printf ( "CHEBY_U_POLY_ZERO_TEST:\n" );
   printf ( "  CHEBY_U_POLY_ZERO returns zeroes of U(N,X).\n" );
   printf ( "\n" );
   printf ( "       N      X        U(N,X)\n" );
@@ -1707,14 +1649,13 @@ void test0215 ( )
   for ( n = 1; n <= N_MAX; n++ )
   {
     z = cheby_u_poly_zero ( n );
-
+    fx = cheby_u_poly ( n, n, z );
     for ( i = 0; i < n; i++ )
     {
-      cheby_u_poly ( n, z[i], fx );
-
-      printf ( "  %8d  %8g  %14g\n", n, z[i], fx[n] );
+      printf ( "  %8d  %8g  %14g\n", n, z[i], fx[i+n*n] );
     }
     printf ( "\n" );
+    free ( fx );
     free ( z );
   }
 
@@ -1723,13 +1664,13 @@ void test0215 ( )
 }
 /******************************************************************************/
 
-void test0216 ( )
+void chebyshev_discrete_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0216 tests CHEBYSHEV_DISCRETE.
+    CHEBYSHEV_DISCRETE_TEST tests CHEBYSHEV_DISCRETE.
 
   Licensing:
 
@@ -1755,7 +1696,7 @@ void test0216 ( )
   double value[N+1];
 
   printf ( "\n" );
-  printf ( "TEST0216:\n" );
+  printf ( "CHEBYSHEV_DISCRETE_TEST:\n" );
   printf ( "  CHEBYSHEV_DISCRETE evaluates discrete Chebyshev polynomials.\n" );
   printf ( "\n" );
   printf ( "       N      M         X        T(N,M,X)\n" );
@@ -1782,13 +1723,13 @@ void test0216 ( )
 }
 /******************************************************************************/
 
-void test0217 ( )
+void collatz_count_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0217 tests COLLATZ_COUNT.
+    COLLATZ_COUNT_TEST tests COLLATZ_COUNT.
 
   Licensing:
 
@@ -1809,7 +1750,7 @@ void test0217 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST0217:\n" );
+  printf ( "COLLATZ_COUNT_TEST:\n" );
   printf ( "  COLLATZ_COUNT(N) counts the length of the\n" );
   printf ( "  Collatz sequence beginning with N.\n" );
   printf ( "\n" );
@@ -1837,13 +1778,13 @@ void test0217 ( )
 }
 /******************************************************************************/
 
-void test0218 ( )
+void collatz_count_max_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0218 tests COLLATZ_COUNT_MAX.
+    COLLATZ_COUNT_MAX_TEST tests COLLATZ_COUNT_MAX.
 
   Licensing:
 
@@ -1863,7 +1804,7 @@ void test0218 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST0218:\n" );
+  printf ( "COLLATZ_COUNT_MAX_TEST:\n" );
   printf ( "  COLLATZ_COUNT_MAX(N) returns the length of the\n" );
   printf ( "  longest Collatz sequence from 1 to N.\n" );
   printf ( "\n" );
@@ -1885,13 +1826,13 @@ void test0218 ( )
 }
 /******************************************************************************/
 
-void test024 ( )
+void comb_row_next_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST024 tests COMB_ROW.
+    COMB_ROW_NEXT_TEST tests COMB_ROW_NEXT.
 
   Licensing:
 
@@ -1899,51 +1840,182 @@ void test024 ( )
 
   Modified:
 
-    15 May 2012
+    25 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define N 10
+# define N_MAX 10
 
-  int c[N+1];
+  int c[N_MAX+1];
   int i;
-  int j;
-  bool next;
+  int n;
 
   printf ( "\n" );
-  printf ( "TEST024\n" );
-  printf ( "  COMB_ROW computes a row of Pascal's triangle.\n" );
+  printf ( "COMB_ROW_NEXT_TEST\n" );
+  printf ( "  COMB_ROW_NEXT computes the next row of Pascal's triangle.\n" );
   printf ( "\n" );
 
-  next = false;
-
-  for ( i = 0; i <= N; i++ )
+  for ( n = 0; n <= N_MAX; n++ )
   {
-    comb_row ( next, i, c );
-    next = true;
-    printf ( "  %2d  ", i );
-    for ( j = 0; j <= i; j++ )
+    comb_row_next ( n, c );
+    printf ( "  %2d  ", n );
+    for ( i = 0; i <= n; i++ )
     {
-      printf ( "%5d", c[j] );
+      printf ( "%5d", c[i] );
     }
     printf ( "\n" );
   }
 
   return;
-# undef N
+# undef N_MAX
 }
 /******************************************************************************/
 
-void test0243 ( )
+void commul_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0243 tests COS_POWER_INT.
+    COMMUL_TEST tests COMMUL.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    04 November 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int n;
+  int factor[4];
+  int i;
+  int ncomb;
+  int nfactor;
+
+  printf ( "\n" );
+  printf ( "COMMUL_TEST\n" );
+  printf ( "  COMMUL computes a multinomial coefficient.\n" );
+  printf ( "\n" );
+
+  n = 8;
+  nfactor = 2;
+  factor[0] = 6;
+  factor[1] = 2;
+  ncomb = commul ( n, nfactor, factor );
+  printf ( "\n" );
+  printf ( "  N = %d\n", n );
+  printf ( "  Number of factors = %d\n", nfactor );
+  for ( i = 0; i < nfactor; i++ )
+  {
+    printf ( "  %2d  %8d\n", i, factor[i] );
+  }
+  printf ( "  Value of coefficient = %d\n", ncomb );
+
+  n = 8;
+  nfactor = 3;
+  factor[0] = 2;
+  factor[1] = 2;
+  factor[2] = 4;
+  ncomb = commul ( n, nfactor, factor );
+  printf ( "\n" );
+  printf ( "  N = %d\n", n );
+  printf ( "  Number of factors = %d\n", nfactor );
+  for ( i = 0; i < nfactor; i++ )
+  {
+    printf ( "  %2d  %8d\n", i, factor[i] );
+  }
+  printf ( "  Value of coefficient = %d\n", ncomb );
+
+  n = 13;
+  nfactor = 4;
+  factor[0] = 5;
+  factor[1] = 3;
+  factor[2] = 3;
+  factor[3] = 2;
+  ncomb = commul ( n, nfactor, factor );
+  printf ( "\n" );
+  printf ( "  N = %d\n", n );
+  printf ( "  Number of factors = %d\n", nfactor );
+  for ( i = 0; i < nfactor; i++ )
+  {
+    printf ( "  %2d  %8d\n", i, factor[i] );
+  }
+  printf ( "  Value of coefficient = %d\n", ncomb );
+
+  return;
+}
+/******************************************************************************/
+
+void complete_symmetric_poly_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST02407 tests COMPLETE_SYMMETRIC_POLY.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 November 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int n = 5;
+  int nn;
+  int r;
+  int rr;
+  double value;
+  double x[5] = { 1.0, 2.0, 3.0, 4.0, 5.0 };
+
+  printf ( "\n" );
+  printf ( "COMPLETE_SYMMETRIC_POLY_TEST\n" );
+  printf ( "  COMPLETE_SYMMETRIC_POLY evaluates a complete symmetric.\n" );
+  printf ( "  polynomial in a given set of variables X.\n" );
+ 
+  r8vec_print ( n, x, "  Variable vector X:" );
+
+  printf ( "\n" );
+  printf ( "   N\\R     0       1       2       3       4       5\n" );
+  printf ( "\n" );
+
+  for ( nn = 0; nn <= n; nn++ )
+  {
+    printf ( "  %2d", nn );
+    for ( rr = 0; rr <= 5; rr++ )
+    {
+      value = complete_symmetric_poly ( nn, rr, x );
+      printf ( "  %6.0f", value );
+    }
+    printf ( "\n" );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void cos_power_int_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    COS_POWER_INT_TEST tests COS_POWER_INT.
 
   Licensing:
 
@@ -1966,10 +2038,9 @@ void test0243 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST0243:\n" );
+  printf ( "COS_POWER_INT_TEST:\n" );
   printf ( "  COS_POWER_INT computes the integral of the N-th power\n" );
   printf ( "  of the cosine function.\n" );
-  printf ( "  COS_POWER_INT_VALUES returns selected values.\n" );
   printf ( "\n" );
   printf ( "         A         B       N        Exact    Computed\n" );
   printf ( "\n" );
@@ -1993,121 +2064,13 @@ void test0243 ( )
 }
 /******************************************************************************/
 
-void test025 ( void )
+void euler_number_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST025 tests ERROR_F.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    06 August 2010
-
-  Author:
-
-    John Burkardt
-*/
-{
-  double fx;
-  double fx2;
-  int n_data;
-  double x;
-
-  printf ( "\n" );
-  printf ( "TEST025:\n" );
-  printf ( "  ERROR_F evaluates the error function.\n" );
-  printf ( "  ERF_VALUES returns some exact values.\n" );
-  printf ( "\n" );
-  printf ( "     X      Exact F       ERF(X)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    erf_values ( &n_data, &x, &fx );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    fx2 = error_f ( x );
-
-    printf ( "  %8f  %14f  %14f\n", x, fx, fx2 );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test0255 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST0255 tests ERROR_F_INVERSE.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    05 August 2010
-
-  Author:
-
-    John Burkardt
-*/
-{
-  double fx;
-  int n_data;
-  double x1;
-  double x2;
-
-  printf ( "\n" );
-  printf ( "TEST0255:\n" );
-  printf ( "  ERROR_F_INVERSE inverts the error function.\n" );
-  printf ( "  ERF_VALUES returns some exact values.\n" );
-  printf ( "\n" );
-  printf ( "    FX           X1           X2\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    erf_values ( &n_data, &x1, &fx );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    x2 = error_f_inverse ( fx );
-
-    printf ( "  %8f  %14f  %14f\n", fx, x1, x2 );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test026 ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST026 tests EULER_NUMBER.
+    EULER_NUMBER_TEST tests EULER_NUMBER.
 
   Licensing:
 
@@ -2128,9 +2091,8 @@ void test026 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST026\n" );
+  printf ( "EULER_NUMBER_TEST\n" );
   printf ( "  EULER_NUMBER computes Euler numbers.\n" );
-  printf ( "  EULER_NUMBER_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "  N  exact   EULER_NUMBER\n" );
   printf ( "\n" );
@@ -2156,13 +2118,13 @@ void test026 ( )
 }
 /******************************************************************************/
 
-void test0265 ( )
+void euler_number2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0265 tests EULER_NUMBER2.
+    EULER_NUMBER2_TEST tests EULER_NUMBER2.
 
   Licensing:
 
@@ -2183,9 +2145,8 @@ void test0265 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST0265\n" );
+  printf ( "EULER_NUMBER2_TEST\n" );
   printf ( "  EULER_NUMBER2 computes Euler numbers.\n" );
-  printf ( "  EULER_NUMBER_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "  N  exact   EULER_NUMBER2\n" );
   printf ( "\n" );
@@ -2211,13 +2172,13 @@ void test0265 ( )
 }
 /******************************************************************************/
 
-void test028 ( )
+void euler_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST028 tests EULER_POLY.
+    EULER_POLY_TEST tests EULER_POLY.
 
   Licensing:
 
@@ -2240,7 +2201,7 @@ void test028 ( )
   x = 0.5;
  
   printf ( "\n" );
-  printf ( "TEST028\n" );
+  printf ( "EULER_POLY_TEST\n" );
   printf ( "  EULER_POLY evaluates Euler polynomials.\n" );
   printf ( "\n" );
   printf ( "  N         X              F(X)\n" );
@@ -2257,13 +2218,13 @@ void test028 ( )
 }
 /******************************************************************************/
 
-void test027 ( )
+void eulerian_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST027 tests EULERIAN.
+    EULERIAN_TEST tests EULERIAN.
 
   Licensing:
 
@@ -2285,7 +2246,7 @@ void test027 ( )
   int j;
 
   printf ( "\n" );
-  printf ( "TEST027\n" );
+  printf ( "EULERIAN_TEST\n" );
   printf ( "  EULERIAN evaluates Eulerian numbers.\n" );
   printf ( "\n" );
  
@@ -2305,13 +2266,13 @@ void test027 ( )
 }
 /******************************************************************************/
 
-void test029 ( )
+void f_hofstadter_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST029 tests F_HOFSTADTER.
+    F_HOFSTADTER_TEST tests F_HOFSTADTER.
 
   Licensing:
 
@@ -2330,7 +2291,7 @@ void test029 ( )
   int i;
 
   printf ( "\n" );
-  printf ( "TEST029\n" );
+  printf ( "F_HOFSTADTER_TEST\n" );
   printf ( "  F_HOFSTADTER evaluates Hofstadter's recursive\n" );
   printf ( "  F function.\n" );
   printf ( "\n" );
@@ -2348,13 +2309,13 @@ void test029 ( )
 }
 /******************************************************************************/
 
-void test031 ( )
+void fibonacci_direct_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST031 tests FIBONACCI_DIRECT.
+    FIBONACCI_DIRECT_TEST tests FIBONACCI_DIRECT.
 
   Licensing:
 
@@ -2374,7 +2335,7 @@ void test031 ( )
   int n = 20;
 
   printf ( "\n" );
-  printf ( "TEST031\n" );
+  printf ( "FIBONACCI_DIRECT_TEST\n" );
   printf ( "  FIBONACCI_DIRECT evalutes a Fibonacci number directly.\n" );
   printf ( "\n" );
   
@@ -2389,13 +2350,13 @@ void test031 ( )
 }
 /******************************************************************************/
 
-void test032 ( )
+void fibonacci_floor_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST032 tests FIBONACCI_FLOOR.
+    FIBONACCI_FLOOR_TEST tests FIBONACCI_FLOOR.
 
   Licensing:
 
@@ -2415,7 +2376,7 @@ void test032 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST032\n" );
+  printf ( "FIBONACCI_FLOOR_TEST\n" );
   printf ( "  FIBONACCI_FLOOR computes the largest Fibonacci number\n" );
   printf ( "  less than or equal to a given positive integer.\n" );
   printf ( "\n" );
@@ -2433,13 +2394,13 @@ void test032 ( )
 }
 /******************************************************************************/
 
-void test033 ( )
+void fibonacci_recursive_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST033 tests FIBONACCI_RECURSIVE.
+    FIBONACCI_RECURSIVE_TEST tests FIBONACCI_RECURSIVE.
 
   Licensing:
 
@@ -2460,7 +2421,7 @@ void test033 ( )
   int i;
 
   printf ( "\n" );
-  printf ( "TEST033\n" );
+  printf ( "FIBONACCI_RECURSIVE_TEST\n" );
   printf ( "  FIBONACCI_RECURSIVE computes the Fibonacci sequence.\n" );
   printf ( "\n" );
  
@@ -2476,13 +2437,13 @@ void test033 ( )
 }
 /******************************************************************************/
 
-void test034 ( )
+void g_hofstadter_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST034 tests G_HOFSTADTER.
+    G_HOFSTADTER_TEST tests G_HOFSTADTER.
 
   Licensing:
 
@@ -2500,7 +2461,7 @@ void test034 ( )
   int i;
 
   printf ( "\n" );
-  printf ( "TEST034\n" );
+  printf ( "G_HOFSTADTER_TEST\n" );
   printf ( "  G_HOFSTADTER evaluates Hofstadter's recursive\n" );
   printf ( "  G function.\n" );
   printf ( "\n" );
@@ -2516,13 +2477,13 @@ void test034 ( )
 }
 /******************************************************************************/
 
-void test037 ( )
+void gegenbauer_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST037 tests GEGENBAUER_POLY.
+    GEGENBAUER_POLY_TEST tests GEGENBAUER_POLY.
 
   Licensing:
 
@@ -2546,10 +2507,8 @@ void test037 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST037\n" );
+  printf ( "GEGENBAUER_POLY_TEST\n" );
   printf ( "  GEGENBAUER_POLY evaluates the Gegenbauer polynomials.\n" );
-  printf ( "  GEGENBAUER_POLY_VALUES returns some exact values of\n" );
-  printf ( "  the Gegenbauer polynomials.\n" );
   printf ( "\n" );
   printf ( "        N       A       X       GPV      GEGENBAUER\n" );
   printf ( "\n" );
@@ -2580,13 +2539,78 @@ void test037 ( )
 }
 /******************************************************************************/
 
-void test052 ( )
+void gen_hermite_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST052 tests GEN_LAGUERRE_POLY.
+    GEN_HERMITE_POLY_TEST tests GEN_HERMITE_POLY.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    10 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N 10
+# define N_TEST 6
+
+  double c[N+1];
+  int i;
+  int j;
+  double mu;
+  double mu_test[N_TEST] = { 0.0, 0.0, 0.1, 0.1, 0.5, 1.0 };
+  double x;
+  double x_test[N_TEST] = { 0.0, 1.0, 0.0, 0.5, 0.5, 0.5 };
+
+  printf ( "\n" );
+  printf ( "GEN_HERMITE_POLY_TEST\n" );
+  printf ( "  GEN_HERMITE_POLY evaluates the generalized Hermite\n" );
+  printf ( "  polynomials.\n" );
+
+  for ( i = 0; i < N_TEST; i++ )
+  {
+
+    x = x_test[i];
+    mu = mu_test[i];
+
+    printf ( "\n" );
+    printf ( "  Table of H(N,MU)(X) for\n" );
+    printf ( "\n" );
+    printf ( "    N(max) = %d\n", N );
+    printf ( "    MU =     %g\n", mu );
+    printf ( "    X =      %g\n", x );
+    printf ( "\n" );
+  
+    gen_hermite_poly ( N, x, mu, c );
+ 
+    for ( j = 0; j <= N; j++ )
+    {
+      printf ( "  %6d  %14g\n", j, c[j] );
+    }
+  }
+ 
+  return;
+# undef N
+# undef N_TEST
+}
+/******************************************************************************/
+
+void gen_laguerre_poly_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GEN_LAGUERRE_POLY_TEST tests GEN_LAGUERRE_POLY.
 
   Licensing:
 
@@ -2613,7 +2637,7 @@ void test052 ( )
   double x_test[N_TEST] = { 0.0, 1.0, 0.0, 0.5, 0.5, 0.5 };
 
   printf ( "\n" );
-  printf ( "TEST052\n" );
+  printf ( "GEN_LAGUERRE_POLY_TEST\n" );
   printf ( "  GEN_LAGUERRE_POLY evaluates the generalized Laguerre\n" );
   printf ( "  functions.\n" );
 
@@ -2645,13 +2669,13 @@ void test052 ( )
 }
 /******************************************************************************/
 
-void test038 ( )
+void gud_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST038 tests GUD.
+    GUD_TEST tests GUD.
 
   Licensing:
 
@@ -2672,9 +2696,8 @@ void test038 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST038:\n" );
+  printf ( "GUD_TEST:\n" );
   printf ( "  GUD evaluates the Gudermannian function.\n" );
-  printf ( "  GUD_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     X      Exact F       GUD(X)\n" );
   printf ( "\n" );
@@ -2699,13 +2722,13 @@ void test038 ( )
 }
 /******************************************************************************/
 
-void test040 ( )
+void h_hofstadter_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST040 tests H_HOFSTADTER.
+    H_HOFSTADTER_TEST tests H_HOFSTADTER.
 
   Licensing:
 
@@ -2723,7 +2746,7 @@ void test040 ( )
   int i;
 
   printf ( "\n" );
-  printf ( "TEST040\n" );
+  printf ( "H_HOFSTADTER_TEST\n" );
   printf ( "  H_HOFSTADTER evaluates Hofstadter's recursive\n" );
   printf ( "  H function.\n" );
 
@@ -2740,13 +2763,13 @@ void test040 ( )
 }
 /******************************************************************************/
 
-void test039 ( )
+void hail_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST039 tests HAIL.
+    HAIL_TEST tests HAIL.
 
   Licensing:
 
@@ -2764,7 +2787,7 @@ void test039 ( )
   int i;
 
   printf ( "\n" );
-  printf ( "TEST039\n" );
+  printf ( "HAIL_TEST\n" );
   printf ( "  HAIL(I) computes the length of the hail sequence\n" );
   printf ( "  for I, also known as the 3*N+1 sequence.\n" );
   printf ( "\n" );
@@ -2780,13 +2803,13 @@ void test039 ( )
 }
 /******************************************************************************/
 
-void test041 ( )
+void hermite_poly_phys_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST041 tests HERMITE_POLY.
+    HERMITE_POLY_PHYS_TEST tests HERMITE_POLY_PHYS.
 
   Licensing:
 
@@ -2810,9 +2833,8 @@ void test041 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST041:\n" );
-  printf ( "  HERMITE_POLY evaluates the Hermite polynomial.\n" );
-  printf ( "  HERMITE_POLY_VALUES returns some exact values.\n" );
+  printf ( "HERMITE_POLY_PHYS_TEST:\n" );
+  printf ( "  HERMITE_POLY_PHYS evaluates the physicist's Hermite polynomial.\n" );
   printf ( "\n" );
   printf ( "     N      X        Exact F       H(N)(X)\n" );
   printf ( "\n" );
@@ -2821,14 +2843,14 @@ void test041 ( )
 
   for ( ; ; )
   {
-    hermite_poly_values ( &n_data, &n, &x, &fx );
+    hermite_poly_phys_values ( &n_data, &n, &x, &fx );
 
     if ( n_data == 0 )
     {
       break;
     }
 
-    hermite_poly ( n, x, fx2 );
+    hermite_poly_phys ( n, x, fx2 );
 
     printf ( "  %8d  %8g  %14g  %14g\n", n, x, fx, fx2[n] );
   }
@@ -2838,13 +2860,13 @@ void test041 ( )
 }
 /******************************************************************************/
 
-void test042 ( )
+void hermite_poly_phys_coef_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST042 tests HERMITE_POLY_COEF.
+    HERMITE_POLY_PHYS_COEF_TEST tests HERMITE_POLY_PHYS_COEF.
 
   Licensing:
 
@@ -2866,10 +2888,10 @@ void test042 ( )
   int j;
 
   printf ( "\n" );
-  printf ( "TEST042\n" );
-  printf ( "  HERMITE_POLY_COEF determines Hermite polynomial coefficients.\n" );
+  printf ( "HERMITE_POLY_PHYS_COEF_TEST\n" );
+  printf ( "  HERMITE_POLY_PHYS_COEF determines physicist's Hermite polynomial coefficients.\n" );
 
-  hermite_poly_coef ( N, c );
+  hermite_poly_phys_coef ( N, c );
  
   for ( i = 0; i <= N; i++ )
   {
@@ -2898,13 +2920,13 @@ void test042 ( )
 }
 /******************************************************************************/
 
-void test0427 ( )
+void i4_choose_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0427 tests I4_CHOOSE.
+    I4_CHOOSE_TEST tests I4_CHOOSE.
 
   Licensing:
 
@@ -2924,7 +2946,7 @@ void test0427 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST0427\n" );
+  printf ( "I4_CHOOSE_TEST\n" );
   printf ( "  I4_CHOOSE evaluates C(N,K).\n" );
   printf ( "\n" );
   printf ( "   N     K    CNK\n" );
@@ -2944,13 +2966,68 @@ void test0427 ( )
 }
 /******************************************************************************/
 
-void test043 ( )
+void i4_factor_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST043 tests I4_FACTORIAL.
+    I4_FACTOR_TEST tests I4_FACTOR.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int j;
+  int maxfactor = 10;
+  int n;
+  int n_test[3] = { 60, 664048, 8466763 };
+  int nfactor;
+  int nleft;
+  int factor[10];
+  int power[10];
+
+  printf ( "\n" );
+  printf ( "I4_FACTOR_TEST:\n" );
+  printf ( "  I4_FACTOR tries to factor an I4\n" );
+
+  for ( i = 0; i < 3; i++ )
+  {
+    n = n_test[i];
+    i4_factor ( n, maxfactor, &nfactor, factor, power, &nleft );
+    printf ( "\n" );
+    printf ( "  Factors of N = %d\n", n );
+    for ( j = 0; j < nfactor; j++ )
+    {
+      printf ( "    %d^%d\n", factor[j], power[j] );
+    }
+    if ( nleft != 1 )
+    {
+      printf ( "  Unresolved factor NLEFT = %d\n", nleft );
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void i4_factorial_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_FACTORIAL_TEST tests I4_FACTORIAL.
 
   Licensing:
 
@@ -2971,9 +3048,8 @@ void test043 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST043:\n" );
+  printf ( "I4_FACTORIAL_TEST:\n" );
   printf ( "  I4_FACTORIAL evaluates the factorial function.\n" );
-  printf ( "  I4_FACTORIAL_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     X       Exact F       I4_FACTORIAL(X)\n" );
   printf ( "\n" );
@@ -2999,13 +3075,13 @@ void test043 ( )
 }
 /******************************************************************************/
 
-void test044 ( )
+void i4_factorial2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST044 tests I4_FACTORIAL2.
+    I4_FACTORIAL2_TEST tests I4_FACTORIAL2.
 
   Licensing:
 
@@ -3026,7 +3102,7 @@ void test044 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST044:\n" );
+  printf ( "I4_FACTORIAL2_TEST:\n" );
   printf ( "  I4_FACTORIAL2 evaluates the double factorial function.\n" );
   printf ( "\n" );
   printf ( "   N   Exact  I4_FACTORIAL2(N)\n" );
@@ -3052,13 +3128,13 @@ void test044 ( )
 }
 /******************************************************************************/
 
-void test045 ( )
+void i4_is_triangular_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST045 tests PARTITION_COUNT_VALUES.
+    I4_IS_TRIANGULAR_TEST tests I4_IS_TRIANGULAR.
 
   Licensing:
 
@@ -3066,50 +3142,42 @@ void test045 ( )
 
   Modified:
 
-    18 May 2012
+    25 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-  int c;
-  int n;
-  int n_data;
+  int i;
+  bool l;
 
   printf ( "\n" );
-  printf ( "TEST045:\n" );
-  printf ( "  For the number of partitions of an integer,\n" );
-  printf ( "  PARTITION_COUNT_VALUES returns some exact values.\n" );
+  printf ( "I4_IS_TRIANGULAR_TEST\n" );
+  printf ( "  I4_IS_TRIANGULAR returns 0 or 1 depending on\n" );
+  printf ( "  whether I is triangular.\n" );
   printf ( "\n" );
-  printf ( "     N       Exact F\n" );
+  printf ( "   I  =>   0/1\n" );
   printf ( "\n" );
 
-  n_data = 0;
-
-  for ( ; ; )
+  for ( i = 0; i <= 20; i++ )
   {
-    partition_count_values ( &n_data, &n, &c );
+    l = i4_is_triangular ( i );
 
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    printf ( "  %10d  %10d\n", n, c );
+    printf ( "  %4d  %1d\n", i, l );
   }
-
+ 
   return;
 }
 /******************************************************************************/
 
-void test046 ( )
+void i4_partition_distinct_count_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST046 tests I4_PARTITION_DISTINCT_COUNT.
+    I4_PARTITION_DISTINCT_COUNT_TEST tests I4_PARTITION_DISTINCT_COUNT.
 
   Licensing:
 
@@ -3131,11 +3199,10 @@ void test046 ( )
   int n_max = 20;
 
   printf ( "\n" );
-  printf ( "TEST046:\n" );
+  printf ( "I4_PARTITION_DISTINCT_COUNT_TEST:\n" );
   printf ( "  For the number of partitions of an integer\n" );
   printf ( "  into distinct parts,\n" );
   printf ( "  I4_PARTITION_DISTINCT_COUNT computes any value.\n" );
-  printf ( "  PARTITION_DISTINCT_COUNT_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     N       Exact F    Q(N)\n" );
   printf ( "\n" );
@@ -3165,13 +3232,13 @@ void test046 ( )
 }
 /******************************************************************************/
 
-void test047 ( )
+void i4_to_triangle_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST047 tests I4_POCHHAMMER.
+    I4_TO_TRIANGLE_TEST tests I4_TO_TRIANGLE.
 
   Licensing:
 
@@ -3179,7 +3246,7 @@ void test047 ( )
 
   Modified:
 
-    18 May 2012
+    13 April 2015
 
   Author:
 
@@ -3191,96 +3258,31 @@ void test047 ( )
   int k;
 
   printf ( "\n" );
-  printf ( "TEST047\n" );
-  printf ( "  I4_POCHHAMMER evaluates the integer Pochhammer function.\n" );
-  printf ( "\n" );
-  printf ( "   I   J   I4_Pochhammer(I,J)\n" );
-  printf ( "\n" );
-
-  i = 3;
-  j = 3;
-  k = i4_pochhammer ( i, j );
-
-  printf ( "  %4d  %4d  %4d\n", i, j, k );
-
-  i = 3;
-  j = 4;
-  k = i4_pochhammer ( i, j );
-
-  printf ( "  %4d  %4d  %4d\n", i, j, k );
-
-  i = 3;
-  j = 5;
-  k = i4_pochhammer ( i, j );
-
-  printf ( "  %4d  %4d  %4d\n", i, j, k );
-
-  return;
-}
-/******************************************************************************/
-
-void test048 ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST048 tests I4_IS_TRIANGULAR, I4_TO_TRIANGLE and TRIANGLE_TO_I4.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    13 May 2012
-
-  Author:
-
-    John Burkardt
-*/
-{
-  int i;
-  int i2;
-  int j;
-  int k;
-  int k2;
-  bool l;
-
-  printf ( "\n" );
-  printf ( "TEST048\n" );
+  printf ( "I4_TO_TRIANGLE_TEST\n" );
   printf ( "  I4_TO_TRIANGLE converts a linear index to a\n" );
   printf ( "  triangular one.\n" );
-  printf ( "  TRIANGLE_TO_I4 converts a triangular index to a\n" );
-  printf ( "  linear one.\n" );
-  printf ( "  I4_IS_TRIANGULAR returns 0 or 1 depending on\n" );
-  printf ( "  whether I is triangular.\n" );
   printf ( "\n" );
-  printf ( "   I  =>   J   K  =>   I   0/1\n" );
+  printf ( "     K  =>   I     J\n" );
   printf ( "\n" );
 
-  for ( i = 0; i <= 20; i++ )
+  for ( k = 0; k <= 20; k++ )
   {
-    i4_to_triangle ( i, &j, &k );
+    i4_to_triangle ( k, &i, &j );
 
-    i2 = triangle_to_i4 ( j, k );
-
-    l = i4_is_triangular ( i );
-
-    printf ( "  %4d  %4d  %4d  %4d  %1d\n", i, j, k, i2, l );
+    printf ( "  %4d    %4d  %4d\n", k, i, j );
   }
  
   return;
 }
 /******************************************************************************/
 
-void test049 ( void )
+void jacobi_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST049 tests JACOBI_POLY.
+    JACOBI_POLY_TEST tests JACOBI_POLY.
 
   Licensing:
 
@@ -3305,9 +3307,8 @@ void test049 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST049:\n" );
+  printf ( "JACOBI_POLY_TEST:\n" );
   printf ( "  JACOBI_POLY computes values of the Jacobi polynomial..\n" );
-  printf ( "  JACOBI_POLY_VALUES returns values of the Jacobi polynomial\n" );
   printf ( "\n" );
   printf ( "       N       A       B      X       JPV      JACOBI\n" );
   printf ( "\n" );
@@ -3335,13 +3336,13 @@ void test049 ( void )
 }
 /******************************************************************************/
 
-void test050 ( )
+void jacobi_symbol_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST050 tests JACOBI_SYMBOL.
+    JACOBI_SYMBOL_TEST tests JACOBI_SYMBOL.
 
   Licensing:
 
@@ -3364,7 +3365,7 @@ void test050 ( )
   int q;
 
   printf ( "\n" );
-  printf ( "TEST050\n" );
+  printf ( "JACOBI_SYMBOL_TEST\n" );
   printf ( "  JACOBI_SYMBOL computes the Jacobi symbol\n" );
   printf ( "  (Q/P), which records if Q is a quadratic\n" );
   printf ( "  residue modulo the number P.\n" );
@@ -3386,13 +3387,13 @@ void test050 ( )
 }
 /******************************************************************************/
 
-void test0505 ( )
+void krawtchouk_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0505 tests KRAWTCHOUK.
+    KRAWTCHOUK_TEST tests KRAWTCHOUK.
 
   Licensing:
 
@@ -3421,7 +3422,7 @@ void test0505 ( )
   double value[N+1];
 
   printf ( "\n" );
-  printf ( "TEST0505:\n" );
+  printf ( "KRAWTCHOUK_TEST:\n" );
   printf ( "  KRAWTCHOUK evaluates Krawtchouk polynomials.\n" );
   printf ( "\n" );
   printf ( "        N         P         X          M      K(N,P,X,M)\n" );
@@ -3457,13 +3458,13 @@ void test0505 ( )
 }
 /******************************************************************************/
 
-void test051 ( )
+void laguerre_associated_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST051 tests LAGUERRE_ASSOCIATED.
+    LAGUERRE_ASSOCIATED_TEST tests LAGUERRE_ASSOCIATED.
 
   Licensing:
 
@@ -3490,7 +3491,7 @@ void test051 ( )
   double x_test[N_TEST] = { 0.0, 1.0, 0.0, 0.5, 0.5, 0.5 };
 
   printf ( "\n" );
-  printf ( "TEST051\n" );
+  printf ( "LAGUERRE_ASSOCIATED_TEST\n" );
   printf ( "  LAGUERRE_ASSOCIATED evaluates the associated Laguerre\n" );
   printf ( "  polynomials.\n" );
 
@@ -3521,13 +3522,13 @@ void test051 ( )
 }
 /******************************************************************************/
 
-void test054 ( )
+void laguerre_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST054 tests LAGUERRE_POLY.
+    LAGUERRE_POLY_TEST tests LAGUERRE_POLY.
 
   Licensing:
 
@@ -3551,9 +3552,8 @@ void test054 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST054:\n" );
+  printf ( "LAGUERRE_POLY_TEST:\n" );
   printf ( "  LAGUERRE_POLY evaluates the Laguerre polynomial.\n" );
-  printf ( "  LAGUERRE_POLYNOMIAL_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     N      X        Exact F       L(N,X)\n" );
   printf ( "\n" );
@@ -3579,13 +3579,13 @@ void test054 ( )
 }
 /******************************************************************************/
 
-void test055 ( )
+void laguerre_poly_coef_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST055 tests LAGUERRE_POLY_COEF.
+    LAGUERRE_POLY_COEF_TEST tests LAGUERRE_POLY_COEF.
 
   Licensing:
 
@@ -3608,7 +3608,7 @@ void test055 ( )
   int j;
 
   printf ( "\n" );
-  printf ( "TEST055\n" );
+  printf ( "LAGUERRE_POLY_COEF_TEST\n" );
   printf ( "  LAGUERRE_POLY_COEF determines Laguerre \n" );
   printf ( "  polynomial coefficients.\n" );
 
@@ -3663,13 +3663,188 @@ void test055 ( )
 }
 /******************************************************************************/
 
-void test057 ( )
+void legendre_associated_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST057 tests LEGENDRE_POLY.
+    LEGENDRE_ASSOCIATED_TEST tests LEGENDRE_ASSOCIATED.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    01 September 2010
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N_MAX 20
+
+  double fx2[N_MAX+1];
+  double fx;
+  int m;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "LEGENDRE_ASSOCIATED_TEST:\n" );
+  printf ( "  LEGENDRE_ASSOCIATED evaluates associated Legendre functions.\n" );
+  printf ( "\n" );
+  printf ( "      N       M    X     Exact F     PNM(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    legendre_associated_values ( &n_data, &n, &m, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    legendre_associated ( n, m, x, fx2 );
+
+    printf ( "  %8d  %8d  %8f  %14f  %14f\n", n, m, x, fx, fx2[n] );
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+void legendre_associated_normalized_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEGENDRE_ASSOCIATED_NORMALIZED_TEST tests LEGENDRE_ASSOCIATED_NORMALIZED.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N_MAX 20
+
+  double fx2[N_MAX+1];
+  double fx;
+  int m;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "LEGENDRE_ASSOCIATED_NORMALIZED_TEST:\n" );
+  printf ( "  LEGENDRE_ASSOCIATED_NORMALIZED evaluates \n" );
+  printf ( "  normalized associated Legendre functions.\n" );
+  printf ( "\n" );
+  printf ( "      N       M    X     Exact F     PNM(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    legendre_associated_normalized_sphere_values ( &n_data, &n, &m, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    legendre_associated_normalized ( n, m, x, fx2 );
+
+    printf ( "  %8d  %8d  %8f  %14f  %14f\n", n, m, x, fx, fx2[n] );
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+void legendre_function_q_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEGENDRE_FUNCTION_Q_TEST tests LEGENDRE_FUNCTION_Q.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 May 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N_MAX 12
+
+  double fx;
+  double fx2[N_MAX+1];
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "LEGENDRE_FUNCTION_Q_TEST:\n" );
+  printf ( "  LEGENDRE_FUNCTION_Q evaluates the Legendre Q function.\n" );
+  printf ( "\n" );
+  printf ( "     N      X        Exact F       Q(N,X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    legendre_function_q_values ( &n_data, &n, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    legendre_function_q ( n, x, fx2 );
+
+    printf ( "  %8d  %8g  %14g  %14g\n", n, x, fx, fx2[n] );
+
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+void legendre_poly_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEGENDRE_POLY_TEST tests LEGENDRE_POLY.
 
   Licensing:
 
@@ -3694,9 +3869,8 @@ void test057 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST057:\n" );
+  printf ( "LEGENDRE_POLY_TEST:\n" );
   printf ( "  LEGENDRE_POLY evaluates the Legendre PN function.\n" );
-  printf ( "  LEGENDRE_POLY_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     N      X        Exact F       P(N,X)\n" );
   printf ( "\n" );
@@ -3723,13 +3897,13 @@ void test057 ( )
 }
 /******************************************************************************/
 
-void test058 ( )
+void legendre_poly_coef_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST058 tests LEGENDRE_POLY_COEF.
+    LEGENDRE_POLY_COEF_TEST tests LEGENDRE_POLY_COEF.
 
   Licensing:
 
@@ -3751,7 +3925,7 @@ void test058 ( )
   int j;
 
   printf ( "\n" );
-  printf ( "TEST58\n" );
+  printf ( "LEGENDRE_POLY_COEF_TEST\n" );
   printf ( "  LEGENDRE_POLY_COEF determines the Legendre P \n" );
   printf ( "  polynomial coefficients.\n" );
 
@@ -3784,191 +3958,13 @@ void test058 ( )
 }
 /******************************************************************************/
 
-void test059 ( void )
+void legendre_symbol_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST059 tests LEGENDRE_ASSOCIATED.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    01 September 2010
-
-  Author:
-
-    John Burkardt
-*/
-{
-# define N_MAX 20
-
-  double fx2[N_MAX+1];
-  double fx;
-  int m;
-  int n;
-  int n_data;
-  double x;
-
-  printf ( "\n" );
-  printf ( "TEST059:\n" );
-  printf ( "  LEGENDRE_ASSOCIATED evaluates associated Legendre functions.\n" );
-  printf ( "  LEGENDRE_ASSOCIATED_VALUES returns some exact values.\n" );
-  printf ( "\n" );
-  printf ( "      N       M    X     Exact F     PNM(X)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    legendre_associated_values ( &n_data, &n, &m, &x, &fx );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    legendre_associated ( n, m, x, fx2 );
-
-    printf ( "  %8d  %8d  %8f  %14f  %14f\n", n, m, x, fx, fx2[n] );
-  }
-
-  return;
-# undef N_MAX
-}
-/******************************************************************************/
-
-void test0595 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST0595 tests LEGENDRE_ASSOCIATED_NORMALIZED.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    01 September 2010
-
-  Author:
-
-    John Burkardt
-*/
-{
-# define N_MAX 20
-
-  double fx2[N_MAX+1];
-  double fx;
-  int m;
-  int n;
-  int n_data;
-  double x;
-
-  printf ( "\n" );
-  printf ( "TEST0595:\n" );
-  printf ( "  LEGENDRE_ASSOCIATED_NORMALIZED evaluates \n" );
-  printf ( "  normalized associated Legendre functions.\n" );
-  printf ( "  LEGENDRE_ASSOCIATED_NORMALIZED_VALUES returns some exact values.\n" );
-  printf ( "\n" );
-  printf ( "      N       M    X     Exact F     PNM(X)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    legendre_associated_normalized_values ( &n_data, &n, &m, &x, &fx );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    legendre_associated_normalized ( n, m, x, fx2 );
-
-    printf ( "  %8d  %8d  %8f  %14f  %14f\n", n, m, x, fx, fx2[n] );
-  }
-
-  return;
-# undef N_MAX
-}
-/******************************************************************************/
-
-void test060 ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST060 tests LEGENDRE_FUNCTION_Q.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    19 May 2012
-
-  Author:
-
-    John Burkardt
-*/
-{
-# define N_MAX 12
-
-  double fx;
-  double fx2[N_MAX+1];
-  int n;
-  int n_data;
-  double x;
-
-  printf ( "\n" );
-  printf ( "TEST060:\n" );
-  printf ( "  LEGENDRE_FUNCTION_Q evaluates the Legendre Q function.\n" );
-  printf ( "  LEGENDRE_FUNCTION_Q_VALUES returns some exact values.\n" );
-  printf ( "\n" );
-  printf ( "     N      X        Exact F       Q(N,X)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    legendre_function_q_values ( &n_data, &n, &x, &fx );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    legendre_function_q ( n, x, fx2 );
-
-    printf ( "  %8d  %8g  %14g  %14g\n", n, x, fx, fx2[n] );
-
-  }
-
-  return;
-# undef N_MAX
-}
-/******************************************************************************/
-
-void test061 ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST061 tests LEGENDRE_SYMBOL.
+    LEGENDRE_SYMBOL_TEST tests LEGENDRE_SYMBOL.
 
   Licensing:
 
@@ -3992,7 +3988,7 @@ void test061 ( )
   int q;
 
   printf ( "\n" );
-  printf ( "TEST061\n" );
+  printf ( "LEGENDRE_SYMBOL_TEST\n" );
   printf ( "  LEGENDRE_SYMBOL computes the Legendre\n" );
   printf ( "  symbol (Q/P) which records whether Q is \n" );
   printf ( "  a quadratic residue modulo the prime P.\n" );
@@ -4014,13 +4010,13 @@ void test061 ( )
 }
 /******************************************************************************/
 
-void test0615 ( )
+void lerch_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0615 tests LERCH.
+    LERCH_TEST tests LERCH.
 
   Licensing:
 
@@ -4043,9 +4039,8 @@ void test0615 ( )
   double z;
 
   printf ( "\n" );
-  printf ( "TEST0615:\n" );
+  printf ( "LERCH_TEST:\n" );
   printf ( "  LERCH evaluates the Lerch function.\n" );
-  printf ( "  LERCH_VALUES returns some tabulated values.\n" );
   printf ( "\n" );
   printf ( "       Z       S       A         Lerch           Lerch\n" );
   printf ( "                             Tabulated        Computed\n" );
@@ -4071,13 +4066,13 @@ void test0615 ( )
 }
 /******************************************************************************/
 
-void test0365 ( )
+void lgamma_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0365 tests LGAMMA.
+    LGAMMA_TEST tests LGAMMA.
 
   Licensing:
 
@@ -4098,10 +4093,9 @@ void test0365 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0365:\n" );
+  printf ( "LGAMMA_TEST:\n" );
   printf ( "  LGAMMA is a C math library function which evaluates\n" );
   printf ( "  the logarithm of the Gamma function.\n" );
-  printf ( "  GAMMA_LOG_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     X       Exact F       LGAMMA(X)\n" );
   printf ( "\n" );
@@ -4126,13 +4120,13 @@ void test0365 ( )
 }
 /******************************************************************************/
 
-void test062 ( )
+void lock_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST062 tests LOCK.
+    LOCK_TEST tests LOCK.
 
   Licensing:
 
@@ -4153,7 +4147,7 @@ void test062 ( )
   int i;
 
   printf ( "\n" );
-  printf ( "TEST062\n" );
+  printf ( "LOCK_TEST\n" );
   printf ( "  LOCK counts the combinations on a button lock.\n" );
   printf ( "\n" );
   printf ( "     I      LOCK(I)\n" );
@@ -4171,13 +4165,13 @@ void test062 ( )
 }
 /******************************************************************************/
 
-void test0623 ( )
+void meixner_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0623 tests MEIXNER.
+    MEIXNER_TEST tests MEIXNER.
 
   Licensing:
 
@@ -4207,7 +4201,7 @@ void test0623 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0623:\n" );
+  printf ( "MEIXNER_TEST:\n" );
   printf ( "  MEIXNER evaluates Meixner polynomials.\n" );
   printf ( "\n" );
   printf ( "       N      BETA         C         X        M(N,BETA,C,X)\n" );
@@ -4239,13 +4233,13 @@ void test0623 ( )
 }
 /******************************************************************************/
 
-void test0625 ( )
+void mertens_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0625 tests MERTENS.
+    MERTENS_TEST tests MERTENS.
 
   Licensing:
 
@@ -4265,9 +4259,8 @@ void test0625 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST0625\n" );
+  printf ( "MERTENS_TEST\n" );
   printf ( "  MERTENS computes the Mertens function.\n" );
-  printf ( "  MERTENS_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "      N   Exact   MERTENS(N)\n" );
   printf ( "\n" );
@@ -4289,13 +4282,13 @@ void test0625 ( )
 }
 /******************************************************************************/
 
-void test063 ( )
+void moebius_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST063 tests MOEBIUS.
+    MOEBIUS_TEST tests MOEBIUS.
 
   Licensing:
 
@@ -4315,9 +4308,8 @@ void test063 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST063\n" );
+  printf ( "MOEBIUS_TEST\n" );
   printf ( "  MOEBIUS computes the Moebius function.\n" );
-  printf ( "  MOEBIUS_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "      N   Exact   MOEBIUS(N)\n" );
   printf ( "\n" );
@@ -4340,13 +4332,13 @@ void test063 ( )
 }
 /******************************************************************************/
 
-void test0635 ( )
+void motzkin_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0635 tests MOTZKIN.
+    MOTZKIN_TEST tests MOTZKIN.
 
   Licensing:
 
@@ -4367,7 +4359,7 @@ void test0635 ( )
   int i;
 
   printf ( "\n" );
-  printf ( "TEST0635\n" );
+  printf ( "MOTKIN_TEST\n" );
   printf ( "  MOTZKIN computes the Motzkin numbers A(0:N).\n" );
   printf ( "  A(N) counts the paths from (0,0) to (N,0).\n" );
   printf ( "\n" );
@@ -4386,13 +4378,66 @@ void test0635 ( )
 }
 /******************************************************************************/
 
-void test064 ( )
+void normal_01_cdf_inverse_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST064 tests OMEGA.
+    NORMAL_01_CDF_INVERSE_TEST tests NORMAL_01_CDF_INVERSE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n_data;
+  double x1;
+  double x2;
+
+  printf ( "\n" );
+  printf ( "NORMAL_01_CDF_INVERSE_TEST:\n" );
+  printf ( "  NORMAL_01_CDF_INVERSE inverts the Normal 01 CDF.\n" );
+  printf ( "\n" );
+  printf ( "    FX           X1           X2\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    normal_01_cdf_values ( &n_data, &x1, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    x2 = normal_01_cdf_inverse ( fx );
+
+    printf ( "  %8f  %14f  %14f\n", fx, x1, x2 );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void omega_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    OMEGA_TEST tests OMEGA.
 
   Licensing:
 
@@ -4412,9 +4457,8 @@ void test064 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST064\n" );
+  printf ( "OMEGA_TEST\n" );
   printf ( "  OMEGA computes the OMEGA function.\n" );
-  printf ( "  OMEGA_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "          N   Exact   OMEGA(N)\n" );
   printf ( "\n" );
@@ -4436,13 +4480,13 @@ void test064 ( )
 }
 /******************************************************************************/
 
-void test065 ( )
+void pentagon_num_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST065 tests PENTAGON_NUM.
+    PENTAGON_NUM_TEST tests PENTAGON_NUM.
 
   Licensing:
 
@@ -4460,7 +4504,7 @@ void test065 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST065\n" );
+  printf ( "PENTAGON_NUM_TEST\n" );
   printf ( "  PENTAGON_NUM computes the pentagonal numbers.\n" );
   printf ( "\n" );
  
@@ -4473,13 +4517,13 @@ void test065 ( )
 }
 /******************************************************************************/
 
-void test066 ( )
+void phi_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST066 tests PHI.
+    PHI_TEST tests PHI.
 
   Licensing:
 
@@ -4499,9 +4543,8 @@ void test066 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST066\n" );
+  printf ( "PHI_TEST\n" );
   printf ( "  PHI computes the PHI function.\n" );
-  printf ( "  PHI_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "  N   Exact   PHI(N)\n" );
   printf ( "\n" );
@@ -4525,13 +4568,51 @@ void test066 ( )
 }
 /******************************************************************************/
 
-void test0665 ( )
+void plane_partition_num_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0665 tests POLY_BERNOULLI.
+    PLANE_PARTITION_NUM_TEST tests PLANE_PARTITION_NUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    24 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int n;
+
+  printf ( "\n" );
+  printf ( "PLANE_PARTITION_NUM_TEST\n" );
+  printf ( "  PLANE_PARTITION_NUM counts the number of plane\n" );
+  printf ( "  partitions of an integer.\n" );
+  printf ( "\n" );
+ 
+  for ( n = 1; n <= 10; n++ )
+  {
+    printf ( "  %4d  %6d\n", n, plane_partition_num ( n ) );
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void poly_bernoulli_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    POLY_BERNOULLI_TEST tests POLY_BERNOULLI.
 
   Licensing:
 
@@ -4551,7 +4632,7 @@ void test0665 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST0665\n" );
+  printf ( "POLY_BERNOULLI_TEST\n" );
   printf ( "  POLY_BERNOULLI computes the poly-Bernoulli numbers\n" );
   printf ( "  of negative index, B_n^(-k)\n" );
   printf ( "\n" );
@@ -4573,13 +4654,13 @@ void test0665 ( )
 }
 /******************************************************************************/
 
-void test0667 ( )
+void poly_coef_count_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0667 tests POLY_COEF_COUNT.
+    POLY_COEF_COUNT_TEST tests POLY_COEF_COUNT.
 
   Licensing:
 
@@ -4599,7 +4680,7 @@ void test0667 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST0667\n" );
+  printf ( "POLY_COEF_COUNT_TEST\n" );
   printf ( "  POLY_COEF_COUNT counts the number of coefficients\n" );
   printf ( "  in a polynomial of degree DEGREE and dimension DIM.\n" );
   printf ( "\n" );
@@ -4618,13 +4699,63 @@ void test0667 ( )
 }
 /******************************************************************************/
 
-void test067 ( )
+void prime_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST067 tests PYRAMID_NUM.
+    PRIME_TEST tests PRIME.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int n;
+  int prime_max;
+
+  printf ( "\n" );
+  printf ( "PRIME_TEST\n" );
+  printf ( "  PRIME returns primes from a table.\n" );
+
+  n = -1;
+  prime_max = prime ( n );
+  printf ( "\n" );
+  printf ( "  Number of primes stored is %d\n", prime_max );
+  printf ( "\n" );
+  printf ( "     I    Prime(I)\n" );
+  printf ( "\n" );
+  for ( i = 1; i <= 10; i++ )
+  {
+    printf ( "  %4d  %6d\n", i, prime ( i ) );
+  }
+  printf ( "\n" );
+  for ( i = prime_max - 10; i <= prime_max; i++ )
+  {
+    printf ( "  %4d  %6d\n", i, prime ( i ) );
+  }
+  
+  return;
+}
+/******************************************************************************/
+
+void pyramid_num_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_NUM_TEST tests PYRAMID_NUM.
 
   Licensing:
 
@@ -4642,7 +4773,7 @@ void test067 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST067\n" );
+  printf ( "PYRAMID_NUM_TEST\n" );
   printf ( "  PYRAMID_NUM computes the pyramidal numbers.\n" );
   printf ( "\n" );
  
@@ -4655,13 +4786,13 @@ void test067 ( )
 }
 /******************************************************************************/
 
-void test0675 ( )
+void pyramid_square_num_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0675 tests R8_ACOSH.
+    PYRAMID_SQUARE_NUM_TEST tests PYRAMID_SQUARE_NUM.
 
   Licensing:
 
@@ -4669,46 +4800,36 @@ void test0675 ( )
 
   Modified:
 
-    19 May 2012
+    04 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-  double a;
-  int i;
-  double x;
-  double x2;
+  int n;
 
   printf ( "\n" );
-  printf ( "TEST0675\n" );
-  printf ( "  R8_ACOSH computes the inverse hyperbolic cosine\n" );
-  printf ( "  of a given value.\n" );
+  printf ( "PYRAMID_SQUARE_NUM_TEST\n" );
+  printf ( "  PYRAMID_SQARE_NUM computes the pyramidal square numbers.\n" );
   printf ( "\n" );
-  printf ( "         X  R8_ACOSH(X)      COSH(R8_ACOSH(X))\n" );
-  printf ( "\n" );
-
-  for ( i = 0; i <= 10; i++ )
+ 
+  for ( n = 1; n <= 10; n++ )
   {
-    x = 1.0 + ( ( double ) i ) / 5.0;
-    a = r8_acosh ( x );
-    x2 = cosh ( a );
-
-    printf ( "  %10g  %10g  %10g\n", x, a, x2 );
+    printf ( "  %4d  %6d\n", n, pyramid_square_num ( n ) );
   }
-
+ 
   return;
 }
 /******************************************************************************/
 
-void test0676 ( )
+void r8_agm_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0676 tests R8_ASINH.
+    R8_AGM_TEST tests R8_AGM.
 
   Licensing:
 
@@ -4716,7 +4837,7 @@ void test0676 ( )
 
   Modified:
 
-    11 May 2012
+    14 December 2014
 
   Author:
 
@@ -4724,38 +4845,49 @@ void test0676 ( )
 */
 {
   double a;
-  int i;
-  double x;
-  double x2;
+  double b;
+  double fx;
+  double fx2;
+  int n_data;
 
   printf ( "\n" );
-  printf ( "TEST0676\n" );
-  printf ( "  R8_ASINH computes the inverse hyperbolic sine\n" );
-  printf ( "  of a given value.\n" );
+  printf ( "R8_AGM_TEST\n" );
+  printf ( "  R8_AGM computes the arithmetic geometric mean.\n" );
   printf ( "\n" );
-  printf ( "         X     R8_ASINH(X)     SINH(R8_ASINH(X))\n" );
+  printf ( "      A           B          " );
+  printf ( "   AGM                       AGM                   Diff" );
+  printf ( "                             " );
+  printf ( "  (Tabulated)             R8_AGM(A,B)\n" );
   printf ( "\n" );
 
-  for ( i = 0; i <= 10; i++ )
+  n_data = 0;
+
+  for ( ; ; )
   {
-    x = 1.0 + ( ( double ) i ) / 5.0;
-    a = r8_asinh ( x );
-    x2 = sinh ( a );
+    agm_values ( &n_data, &a, &b, &fx );
 
-    printf ( "  %10f  %10f  %10f\n", x, a, x2 );
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    fx2 = r8_agm ( a, b );
+
+    printf ( "  %10.6f  %10.6f  %24.16f  %24.16f  %10.6e\n",
+      a, b, fx, fx2, fabs ( fx - fx2 ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test06765 ( )
+void r8_beta_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST06765 tests R8_ATANH.
+    R8_BETA_TEST tests R8_BETA.
 
   Licensing:
 
@@ -4763,46 +4895,53 @@ void test06765 ( )
 
   Modified:
 
-    21 April 2012
+    01 January 2015
 
   Author:
 
     John Burkardt
 */
 {
-  double a;
-  int i;
+  double fxy;
+  double fxy2;
+  int n_data;
   double x;
-  double x2;
+  double y;
 
   printf ( "\n" );
-  printf ( "TEST06765\n" );
-  printf ( "  R8_ATANH computes the inverse hyperbolic tangent\n" );
-  printf ( "  of a given value.\n" );
+  printf ( "R8_BETA_TEST:\n" );
+  printf ( "  R8_BETA evaluates the Beta function.\n" );
   printf ( "\n" );
-  printf ( "         X     R8_ATANH(X)     TANH(R8_ATANH(X))\n" );
+  printf ( "     X      Y        Exact F       R8_BETA(X,Y)\n" );
   printf ( "\n" );
 
-  for ( i = -2; i <= 9; i++ )
+  n_data = 0;
+
+  for ( ; ; )
   {
-    x = ( ( double ) i ) / 10.0;
-    a = r8_atanh ( x );
-    x2 = tanh ( a );
+    beta_values ( &n_data, &x, &y, &fxy );
 
-    printf ( "  %14g  %14g  %14g\n", x, a, x2 ); 
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    fxy2 = r8_beta ( x, y );
+
+    printf ( "  %10f  %10f  %10g  %10g\n", x, y, fxy, fxy2 );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test022 ( void )
+void r8_choose_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST022 tests R8_CHOOSE.
+    R8_CHOOSE_TEST tests R8_CHOOSE.
 
   Licensing:
 
@@ -4822,7 +4961,7 @@ void test022 ( void )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST022\n" );
+  printf ( "R8_CHOOSE_TEST\n" );
   printf ( "  R8_CHOOSE evaluates C(N,K) using real arithmetic.\n" );
   printf ( "\n" );
   printf ( "       N       K          CNK\n" );
@@ -4842,13 +4981,178 @@ void test022 ( void )
 }
 /******************************************************************************/
 
-void test068 ( )
+void r8_erf_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST068 tests R8_FACTORIAL.
+    R8_ERF_TEST tests R8_ERF.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 August 2010
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  double fx2;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "R8_ERF_TEST:\n" );
+  printf ( "  R8_ERF evaluates the error function.\n" );
+  printf ( "\n" );
+  printf ( "     X      Exact F       R8_ERF(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    erf_values ( &n_data, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    fx2 = r8_erf ( x );
+
+    printf ( "  %8f  %14f  %14f\n", x, fx, fx2 );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_erf_inverse_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ERF_INVERSE_TEST tests R8_ERF_INVERSE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    05 August 2010
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n_data;
+  double x1;
+  double x2;
+
+  printf ( "\n" );
+  printf ( "R8_ERF_INVERSE_TEST:\n" );
+  printf ( "  R8_ERF_INVERSE inverts the error function.\n" );
+  printf ( "\n" );
+  printf ( "    FX           X1           X2\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    erf_values ( &n_data, &x1, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    x2 = r8_erf_inverse ( fx );
+
+    printf ( "  %8f  %14f  %14f\n", fx, x1, x2 );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_euler_constant_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_EULER_CONSTANT_TEST tests R8_EULER_CONSTANT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double g;
+  double g_approx;
+  int i;
+  int n;
+  double n_r8;
+  int test;
+
+  g = r8_euler_constant ( );
+
+  printf ( "\n" );
+  printf ( "R8_EULER_CONSTANT_TEST:\n" );
+  printf ( "  R8_EULER_CONSTANT returns the Euler-Mascheroni constant\n" );
+  printf ( "  sometimes denoted by 'gamma'.\n" );
+  printf ( "\n" );
+  printf ( "  gamma = limit ( N -> oo ) ( sum ( 1 <= I <= N ) 1 / I ) - log ( N )\n" );
+  printf ( "\n" );
+  printf ( "  Numerically, g = %g\n", g );
+  printf ( "\n" );
+  printf ( "         N      Partial Sum    |gamma - partial sum|\n" );
+  printf ( "\n" );
+
+  n = 1;
+  for ( test = 0; test <= 20; test++ )
+  {
+    n_r8 = ( double ) ( n );
+    g_approx = - log ( n_r8 );
+    for ( i = 1; i <= n; i++ )    
+    {
+      g_approx = g_approx + 1.0 / ( double ) ( i );
+    }
+    printf ( "  %8d  %14.6g  %14.6g\n", n, g_approx, fabs ( g_approx - g ) );
+    n = n * 2;
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_factorial_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FACTORIAL_TEST tests R8_FACTORIAL.
 
   Licensing:
 
@@ -4868,9 +5172,8 @@ void test068 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST068:\n" );
+  printf ( "R8_FACTORIAL_TEST:\n" );
   printf ( "  R8_FACTORIAL evaluates the factorial function.\n" );
-  printf ( "  R8_FACTORIAL_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     N       Exact F       R8_FACTORIAL(N)\n" );
   printf ( "\n" );
@@ -4893,13 +5196,13 @@ void test068 ( )
 }
 /******************************************************************************/
 
-void test0685 ( )
+void r8_factorial_log_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0685 tests R8_FACTORIAL_LOG.
+    R8_FACTORIAL_LOG_TEST tests R8_FACTORIAL_LOG.
 
   Licensing:
 
@@ -4919,10 +5222,9 @@ void test0685 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST0685:\n" );
+  printf ( "R8_FACTORIAL_LOG_TEST:\n" );
   printf ( "  R8_FACTORIAL_LOG evaluates the logarithm of the\n" );
   printf ( "  factorial function.\n" );
-  printf ( "  R8_FACTORIAL_LOG_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     N	   Exact F	 R8_FACTORIAL_LOG(N)\n" );
   printf ( "\n" );
@@ -4945,129 +5247,13 @@ void test0685 ( )
 }
 /******************************************************************************/
 
-void test06855 ( )
+void r8_hyper_2f1_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST06855 tests R8_GAMMA, GAMMA.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2012
-
-  Author:
-
-    John Burkardt
-*/
-{
-  double fx;
-  double fx2;
-  double fx3;
-  int n_data;
-  double x;
-
-  printf ( "\n" );
-  printf ( "TEST06855:\n" );
-  printf ( "  R8_GAMMA evaluates the Gamma function.\n" );
-  printf ( "  GAMMA is a C MATH routine for the Gamma function.\n" );
-  printf ( "  GAMMA_VALUES returns some exact values.\n" );
-  printf ( "\n" );
-  printf ( "         X                  Gamma(X)         "  );
-  printf ( "         Gamma(X)         "  );
-  printf ( "         Gamma(X)\n" );
-  printf ( "                         (Tabulated)         "  );
-  printf ( "       (R8_GAMMA)         " );
-  printf ( "       (GAMMA)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    gamma_values ( &n_data, &x, &fx );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    fx2 = r8_gamma ( x );
-
-    fx3 = gamma ( x );
-
-    printf ( "  %8g  %24.16g  %24.16g  %24.16g\n", fx, fx2, fx3 );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test036 ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST036 tests R8_GAMMA_LOG.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    19 May 2012
-
-  Author:
-
-    John Burkardt
-*/
-{
-  double fx;
-  double fx2;
-  int n_data;
-  double x;
-
-  printf ( "\n" );
-  printf ( "TEST036:\n" );
-  printf ( "  R8_GAMMA_LOG evaluates the logarithm of the Gamma function.\n" );
-  printf ( "  GAMMA_LOG_VALUES returns some exact values.\n" );
-  printf ( "\n" );
-  printf ( "     X       Exact F       R8_GAMMA_LOG(X)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    gamma_log_values ( &n_data, &x, &fx );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-
-    fx2 = r8_gamma_log ( x );
-
-    printf ( "  %8g  %10g  %10g\n", x, fx, fx2 );
-  }
-  return;
-}
-/******************************************************************************/
-
-void test0425 ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST0425 tests R8_HYPER_2F1.
+    R8_HYPER_2F1_TEST tests R8_HYPER_2F1.
 
   Licensing:
 
@@ -5091,8 +5277,8 @@ void test0425 ( )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST0425:\n" );
-  printf ( "   R8_HYPER_2F1 evaluates the hypergeometric function 2F1.\n" );
+  printf ( "R8_HYPER_2F1_TEST:\n" );
+  printf ( "  R8_HYPER_2F1 evaluates the hypergeometric function 2F1.\n" );
   printf ( "\n" );
   printf ( "      A       B       C       X      " );
   printf ( " 2F1                       2F1                     DIFF\n" );
@@ -5114,19 +5300,19 @@ void test0425 ( )
     fx2 = r8_hyper_2f1 ( a, b, c, x );
 
     printf ( "  %6f  %6f  %6f  %6f  %24.16g  %24.16g  %10.4g\n",
-      a, b, c, x, fx, fx2, r8_abs ( fx - fx2 )  );
+      a, b, c, x, fx, fx2, fabs ( fx - fx2 )  );
   }
   return;
 }
 /******************************************************************************/
 
-void test06856 ( )
+void r8_psi_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST06856 tests R8_PSI.
+    R8_PSI_TEST tests R8_PSI.
 
   Licensing:
 
@@ -5147,9 +5333,8 @@ void test06856 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST06856:\n" );
+  printf ( "R8_PSI_TEST:\n" );
   printf ( "  R8_PSI evaluates the Psi function.\n" );
-  printf ( "  PSI_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "         X                  Psi(X)           " );
   printf ( "         Psi(X)          DIFF\n" );
@@ -5170,7 +5355,7 @@ void test06856 ( )
 
     fx2 = r8_psi ( x );
 
-    printf ( "  %8.2g  %24.16g  %24.16g  %10.4g\n", x, fx, fx2, r8_abs ( fx - fx2 ) );
+    printf ( "  %8.2g  %24.16g  %24.16g  %10.4g\n", x, fx, fx2, fabs ( fx - fx2 ) );
 
   }
 
@@ -5178,13 +5363,163 @@ void test06856 ( )
 }
 /******************************************************************************/
 
-void test069 ( )
+void r8poly_degree_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST069 tests SIGMA.
+    R8POLY_DEGREE_TEST tests R8POLY_DEGREE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double c1[4] = { 1.0, 2.0, 3.0, 4.0 }; 
+  double c2[4] = { 1.0, 2.0, 3.0, 0.0 };
+  double c3[4] = { 1.0, 2.0, 0.0, 4.0 };
+  double c4[4] = { 1.0, 0.0, 0.0, 0.0 };
+  double c5[4] = { 0.0, 0.0, 0.0, 0.0 };
+  int d;
+  int m;
+ 
+  printf ( "\n" );
+  printf ( "R8POLY_DEGREE_TEST\n" );
+  printf ( "  R8POLY_DEGREE determines the degree of an R8POLY.\n" );
+
+  m = 3;
+
+  r8poly_print ( m, c1, "  The R8POLY:" );
+  d = r8poly_degree ( m, c1 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  r8poly_print ( m, c2, "  The R8POLY:" );
+  d = r8poly_degree ( m, c2 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  r8poly_print ( m, c3, "  The R8POLY:" );
+  d = r8poly_degree ( m, c3 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  r8poly_print ( m, c4, "  The R8POLY:" );
+  d = r8poly_degree ( m, c4 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  r8poly_print ( m, c5, "  The R8POLY:" );
+  d = r8poly_degree ( m, c5 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  return;
+}
+/******************************************************************************/
+
+void r8poly_print_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8POLY_PRINT_TEST tests R8POLY_PRINT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double c[6] = { 2.0, -3.4, 56.0, 0.0, 0.78, 9.0 };
+  int m = 5;
+
+  printf ( "\n" );
+  printf ( "R8POLY_PRINT_TEST\n" );
+  printf ( "  R8POLY_PRINT prints an R8POLY.\n" );
+
+  r8poly_print ( m, c, "  The R8POLY:" );
+
+  return;
+}
+/******************************************************************************/
+
+void r8poly_value_horner_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8POLY_VALUE_HORNER_TEST tests R8POLY_VALUE_HORNER.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double c[5] = { 24.0, -50.0, +35.0, -10.0, 1.0 };
+  int i;
+  int m = 4;
+  int n = 16;
+  double p;
+  double *x;
+  double x_hi;
+  double x_lo;
+
+  printf ( "\n" );
+  printf ( "R8POLY_VALUE_HORNER_TEST\n" );
+  printf ( "  R8POLY_VALUE_HORNER evaluates a polynomial at\n" );
+  printf ( "  one point, using Horner's method.\n" );
+
+  r8poly_print ( m, c, "  The polynomial coefficients:" );
+
+  x_lo = 0.0;
+  x_hi = 5.0;
+  x = r8vec_linspace_new ( n, x_lo, x_hi );
+
+  printf ( "\n" );
+  printf ( "   I    X    P(X)\n" );
+  printf ( "\n" );
+
+  for ( i = 0; i < n; i++ )
+  {
+    p = r8poly_value_horner ( m, c, x[i] );
+    printf ( "  %2d  %8.4f  %14.6g\n", i, x[i], p );
+  }
+
+  free ( x );
+
+  return;
+}
+/******************************************************************************/
+
+void sigma_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIGMA_TEST tests SIGMA.
 
   Licensing:
 
@@ -5204,9 +5539,8 @@ void test069 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST069\n" );
+  printf ( "SIGMA_TEST\n" );
   printf ( "  SIGMA computes the SIGMA function.\n" );
-  printf ( "  SIGMA_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "  N   Exact   SIGMA(N)\n" );
   printf ( "\n" );
@@ -5229,13 +5563,60 @@ void test069 ( )
 }
 /******************************************************************************/
 
-void test0695 ( )
+void simplex_num_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0695 tests SIN_POWER_INT.
+    SIMPLEX_NUM_TEST tests SIMPLEX_NUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int m;
+  int n;
+  int value;
+
+  printf ( "\n" );
+  printf ( "SIMPLEX_NUM_TEST\n" );
+  printf ( "  SIMPLEX_NUM computes the N-th simplex number\n" );
+  printf ( "  in M dimensions.\n" );
+  printf ( "\n" );
+  printf ( "      M: 0     1     2     3     4     5\n" );
+  printf ( "   N\n" );
+ 
+  for ( n = 0; n <= 10; n++ )
+  {
+    printf ( "  %2d", n );
+    for ( m = 0; m <= 5; m++ )
+    {
+      value = simplex_num ( m, n );
+      printf ( "  %4d", value );
+    }
+    printf ( "\n" );
+  } 
+  return;
+}
+/******************************************************************************/
+
+void sin_power_int_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIN_POWER_INT_TEST tests SIN_POWER_INT.
 
   Licensing:
 
@@ -5258,10 +5639,9 @@ void test0695 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST0695:\n" );
+  printf ( "SIN_POWER_INT_TEST:\n" );
   printf ( "  SIN_POWER_INT computes the integral of the N-th power\n" );
   printf ( "  of the sine function.\n" );
-  printf ( "  SIN_POWER_INT_VALUES returns selected values.\n" );
   printf ( "\n" );
   printf ( "         A         B       N        Exact    Computed\n" );
   printf ( "\n" );
@@ -5285,13 +5665,13 @@ void test0695 ( )
 }
 /******************************************************************************/
 
-void test0696 ( void )
+void slice_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0696 tests SLICE.
+    SLICE_TEST tests SLICE.
 
   Licensing:
 
@@ -5317,7 +5697,7 @@ void test0696 ( void )
   int slice_num;
 
   printf ( "\n" );
-  printf ( "TEST0696:\n" );
+  printf ( "SLICE_TEST:\n" );
   printf ( "  SLICE determines the maximum number of pieces created\n" );
   printf ( "  by SLICE_NUM slices in a DIM_NUM space.\n" );
 
@@ -5338,13 +5718,13 @@ void test0696 ( void )
 }
 /******************************************************************************/
 
-void test0697 ( )
+void spherical_harmonic_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0697 tests SPHERICAL_HARMONIC.
+    SPHERICAL_HARMONIC_TEST tests SPHERICAL_HARMONIC.
 
   Licensing:
 
@@ -5374,9 +5754,8 @@ void test0697 ( )
   double yr2;
 
   printf ( "\n" );
-  printf ( "TEST0697:\n" );
+  printf ( "SPHERICAL_HARMONIC_TEST:\n" );
   printf ( "  SPHERICAL_HARMONIC evaluates spherical harmonic functions.\n" );
-  printf ( "  SPHERICAL_HARMONIC_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "         N         M    THETA      PHI            YR            YI\n" );
   printf ( "\n" );
@@ -5407,13 +5786,13 @@ void test0697 ( )
 }
 /******************************************************************************/
 
-void test070 ( )
+void stirling1_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST070 tests STIRLING1.
+    STIRLING1_TEST tests STIRLING1.
 
   Licensing:
 
@@ -5435,9 +5814,9 @@ void test070 ( )
   int *s1;
 
   printf ( "\n" );
-  printf ( "TEST070\n" );
+  printf ( "STIRLING1_TEST\n" );
   printf ( "  STIRLING1: Stirling numbers of first kind.\n" );
-  printf ( "    Get rows 1 through %d\n", m );
+  printf ( "  Get rows 1 through %d\n", m );
   printf ( "\n" );
  
   s1 = stirling1 ( m, n );
@@ -5458,13 +5837,13 @@ void test070 ( )
 }
 /******************************************************************************/
 
-void test071 ( )
+void stirling2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST071 tests STIRLING2.
+    STIRLING2_TEST tests STIRLING2.
 
   Licensing:
 
@@ -5486,7 +5865,7 @@ void test071 ( )
   int *s2;
 
   printf ( "\n" );
-  printf ( "TEST071\n" );
+  printf ( "STIRLING2_TEST\n" );
   printf ( "  STIRLING2: Stirling numbers of second kind.\n" );
   printf ( "  Get rows 1 through %d\n", m );
   printf ( "\n" );
@@ -5509,13 +5888,13 @@ void test071 ( )
 }
 /******************************************************************************/
 
-void test072 ( )
+void tau_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST072 tests TAU.
+    TAU_TEST tests TAU.
 
   Licensing:
 
@@ -5535,9 +5914,8 @@ void test072 ( )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST072\n" );
+  printf ( "TAU_TEST\n" );
   printf ( "  TAU computes the Tau function.\n" );
-  printf ( "  TAU_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "  N  exact C(I)  computed C(I)\n" );
   printf ( "\n" );
@@ -5560,13 +5938,13 @@ void test072 ( )
 }
 /******************************************************************************/
 
-void test073 ( )
+void tetrahedron_num_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST073 tests TETRAHEDRON_NUM.
+    TETRAHEDRON_NUM_TEST tests TETRAHEDRON_NUM.
 
   Licensing:
 
@@ -5584,7 +5962,7 @@ void test073 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST073\n" );
+  printf ( "TETRAHEDRON_NUM_TEST\n" );
   printf ( "  TETRAHEDRON_NUM computes the tetrahedron numbers.\n" );
   printf ( "\n" );
  
@@ -5597,13 +5975,13 @@ void test073 ( )
 }
 /******************************************************************************/
 
-void test074 ( )
+void triangle_num_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST074 tests TRIANGLE_NUM.
+    TRIANGLE_NUM_TEST tests TRIANGLE_NUM.
 
   Licensing:
 
@@ -5621,7 +5999,7 @@ void test074 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST074\n" );
+  printf ( "TRIANGLE_NUM_TEST\n" );
   printf ( "  TRIANGLE_NUM computes the triangular numbers.\n" );
   printf ( "\n" );
  
@@ -5634,13 +6012,110 @@ void test074 ( )
 }
 /******************************************************************************/
 
-void test075 ( )
+void triangle_to_i4_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST075 tests V_HOFSTADTER.
+    TRIANGLE_TO_I4_TEST tests TRIANGLE_TO_I4.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 April 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int j;
+  int k;
+
+  printf ( "\n" );
+  printf ( "TRIANGLE_TO_I4_TEST\n" );
+  printf ( "  TRIANGLE_TO_I4 converts a triangular index to a\n" );
+  printf ( "  linear one.\n" );
+  printf ( "\n" );
+  printf ( "     I     J   ==> K\n" );
+  printf ( "\n" );
+
+  for ( i = 0; i <= 4; i++ )
+  {
+    for ( j = 0; j <= i; j++ )
+    {
+      k = triangle_to_i4 ( i, j );
+      printf ( "  %4d  %4d    %4d\n", i, j, k );
+    }
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void trinomial_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRINOMIAL_TEST tests TRINOMIAL.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    11 April 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int j;
+  int k;
+  int t;
+
+  printf ( "\n" );
+  printf ( "TRINOMIAL_TEST\n" );
+  printf ( "  TRINOMIAL evaluates the trinomial coefficient:\n" );
+  printf ( "\n" );
+  printf ( "  T(I,J,K) = (I+J+K)! / I! / J! / K!\n" );
+  printf ( "\n" );
+  printf ( "     I     J     K    T(I,J,K)\n" );
+  printf ( "\n" );
+ 
+  for ( k = 0; k <= 4; k++ )
+  {
+    for ( j = 0; j <= 4; j++ )
+    {
+      for ( i = 0; i <= 4; i++ )
+      {
+        t = trinomial ( i, j, k );
+        printf ( "  %4d  %4d  %4d  %8d\n", i, j, k, t );
+      }
+    }
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void v_hofstadter_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    V_HOFSTADTER_TEST tests V_HOFSTADTER.
 
   Licensing:
 
@@ -5659,7 +6134,7 @@ void test075 ( )
   int v;
 
   printf ( "\n" );
-  printf ( "TEST075\n" );
+  printf ( "V_HOFSTADTER_TEST\n" );
   printf ( "  V_HOFSTADTER evaluates Hofstadter's recursive\n" );
   printf ( "  V function.\n" );
   printf ( "\n" );
@@ -5675,13 +6150,13 @@ void test075 ( )
 }
 /******************************************************************************/
 
-void test076 ( )
+void vibonacci_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST076 tests VIBONACCI.
+    VIBONACCI_TEST tests VIBONACCI.
 
   Licensing:
 
@@ -5705,7 +6180,7 @@ void test076 ( )
   int v3[N];
 
   printf ( "\n" );
-  printf ( "TEST076\n" );
+  printf ( "VIBONACCI_TEST\n" );
   printf ( "  VIBONACCI computes a Vibonacci sequence.\n" );
   printf ( "\n" );
   printf ( "  We compute the series 3 times.\n" );
@@ -5729,13 +6204,13 @@ void test076 ( )
 }
 /******************************************************************************/
 
-void test077 ( )
+void zeckendorf_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST077 tests ZECKENDORF.
+    ZECKENDORF_TEST tests ZECKENDORF.
 
   Licensing:
 
@@ -5761,7 +6236,7 @@ void test077 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST077\n" );
+  printf ( "ZECKENDORF_TEST\n" );
   printf ( "  ZECKENDORF computes the Zeckendorf decomposition of\n" );
   printf ( "  an integer N into nonconsecutive Fibonacci numbers.\n" );
   printf ( "\n" );
@@ -5786,13 +6261,13 @@ void test077 ( )
 }
 /******************************************************************************/
 
-void test0773 ( )
+void zernike_poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0773 tests ZERNIKE_POLY and ZERNIKE_POLY_COEF.
+    ZERNIKE_POLY_TEST tests ZERNIKE_POLY.
 
   Licensing:
 
@@ -5816,9 +6291,7 @@ void test0773 ( )
   double z2;
 
   printf ( "\n" );
-  printf ( "TEST0773\n" );
-  printf ( "  ZERNIKE_POLY_COEF returns the coefficients of a\n" );
-  printf ( "  Zernike polynomial.\n" );
+  printf ( "ZERNIKE_POLY_TEST\n" );
   printf ( "  ZERNIKE_POLY evaluates a Zernike polynomial directly.\n" );
   printf ( "\n" );
   printf ( "  Table of polynomial coefficients:\n" );
@@ -5858,7 +6331,7 @@ void test0773 ( )
     for ( m = 0; m <= n; m++ )
     {
       c = zernike_poly_coef ( m, n );
-      z1 = r8poly_value ( n + 1, c, rho );
+      z1 = r8poly_value_horner ( n, c, rho );
 
       z2 = zernike_poly ( m, n, rho );
       printf ( "  %2d  %2d  %16g  %16g\n", n, m, z1, z2 );
@@ -5871,13 +6344,13 @@ void test0773 ( )
 }
 /******************************************************************************/
 
-void test0775 ( )
+void zernike_poly_coef_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0775 tests ZERNIKE_POLY_COEF.
+    ZERNIKE_POLY_COEF_TEST tests ZERNIKE_POLY_COEF.
 
   Licensing:
 
@@ -5897,7 +6370,7 @@ void test0775 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST0775\n" );
+  printf ( "ZERNIKE_POLY_COEF_TEST\n" );
   printf ( "  ZERNIKE_POLY_COEF determines the Zernike\n" );
   printf ( "  polynomial coefficients.\n" );
 
@@ -5914,13 +6387,13 @@ void test0775 ( )
 }
 /******************************************************************************/
 
-void test078 ( )
+void zeta_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST078 tests ZETA.
+    ZETA_TEST tests ZETA.
 
   Licensing:
 
@@ -5944,9 +6417,8 @@ void test078 ( )
   double z2;
 
   printf ( "\n" );
-  printf ( "TEST078\n" );
+  printf ( "ZETA_TEST\n" );
   printf ( "  ZETA computes the Zeta function.\n" );
-  printf ( "  ZETA_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "       N            exact Zeta         computed Zeta\n" );
   printf ( "\n" );

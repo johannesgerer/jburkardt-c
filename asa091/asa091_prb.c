@@ -4,13 +4,13 @@
 
 # include "asa091.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -20,7 +20,7 @@ int main ( void )
 
   Discussion:
 
-    ASA091_PRB calls the ASA091 routines.
+    ASA091_PRB tests the ASA091 library.
 
   Licensing:
 
@@ -36,7 +36,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA091_PRB:\n" );
   printf ( "  C version\n" );
@@ -50,7 +49,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA091_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -94,7 +92,7 @@ void test01 ( void )
   printf ( "  Perform a simple sample calculation using\n" );
   printf ( "  PPCHI2 to invert the Chi-Squared CDF.\n" );
 
-  g = alngam ( v / 2.0, &ifault );
+  g = lgamma ( v / 2.0 );
 
   printf ( "\n" );
   printf ( "  P =                  %24.16f\n", p );
@@ -113,7 +111,7 @@ void test01 ( void )
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -167,12 +165,12 @@ void test02 ( void )
 
     v = ( double ) ( a );
 
-    g = alngam ( v / 2.0, &ifault );
+    g = lgamma ( v / 2.0 );
 
     x2 = ppchi2 ( fx, v, g, &ifault );
 
     printf ( "  %10.4f  %10.4f  %24.16f  %24.16f  %10.4e\n",
-      v, fx, x, x2, r8_abs ( x - x2 ) );
+      v, fx, x, x2, fabs ( x - x2 ) );
   }
 
   return;

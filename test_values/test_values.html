@@ -22,7 +22,7 @@
     </p>
 
     <p>
-      The intent of <b>TEST_VALUES</b> is to provide a means of making
+      The intent of TEST_VALUES is to provide a means of making
       very simple tests for correctness of software designed to compute
       a variety of functions.  The testing can be done automatically.
       The data provided is generally skimpy, and might not test the
@@ -53,7 +53,8 @@
       <a href = "../../f77_src/test_values/test_values.html">a FORTRAN77 version</a> and
       <a href = "../../f_src/test_values/test_values.html">a FORTRAN90 version</a> and
       <a href = "../../math_src/test_values/test_values.html">a MATHEMATICA version</a> and
-      <a href = "../../m_src/test_values/test_values.html">a MATLAB version</a>.
+      <a href = "../../m_src/test_values/test_values.html">a MATLAB version</a> and
+      <a href = "../../py_src/test_values/test_values.html">a Python version</a>.
     </p>
 
     <h3 align = "center">
@@ -75,10 +76,11 @@
     </p>
 
     <p>
-      <a href = "../../cpp_src/gsl/gsl.html">
-      GSL</a>,
-      a C++ library which
-      includes routines that evaluate many special functions. 
+      <a href = "../../c_src/lobatto_polynomial/lobatto_polynomial.html">
+      LOBATTO_POLYNOMIAL</a>,
+      a C library which
+      evaluates Lobatto polynomials, similar to Legendre polynomials
+      except that they are zero at both endpoints.
     </p>
 
     <p>
@@ -91,28 +93,12 @@
     </p>
 
     <p>
-      <a href = "../../cpp_src/prob/prob.html">
+      <a href = "../../c_src/prob/prob.html">
       PROB</a>,
-      a C++ library which
+      a C library which
       computes various statistical functions;
       test values for many of these functions are available in
       TEST_VALUES.
-    </p>
-
-    <p>
-      <a href = "../../f77_src/specfun/specfun.html">
-      SPECFUN</a>,
-      a FORTRAN77 library which
-      computes various special functions, particularly Bessel functions.
-    </p>
-
-    <p>
-      <a href = "../../f_src/steam/steam.html">
-      STEAM</a>,
-      a FORTRAN90 library which 
-      computes various functions related
-      to the physical properties of water; test values for many of these
-      functions are available in TEST_VALUES.
     </p>
 
     <h3 align = "center">
@@ -394,7 +380,7 @@
           <b>BERNOULLI_POLY_VALUES</b> returns some values of the Bernoulli polynomials.
         </li>
         <li>
-          <b>BERNSTEIN_POLY_VALUES</b> returns some values of the Bernstein polynomials.
+          <b>BERNSTEIN_POLY_01_VALUES</b> returns some values of the Bernstein polynomials.
         </li>
         <li>
           <b>BESSEL_I0_INT_VALUES</b> returns some values of the Bessel I0 integral.
@@ -508,10 +494,16 @@
           <b>CBRT_VALUES</b> returns some values of the cube root function.
         </li>
         <li>
-          <b>CHEBY_T_POLY_VALUES</b> returns values of the Chebyshev T polynomial.
+          <b>CHEBY_T_POLY_VALUES</b> returns values of Chebyshev polynomials T(n,x).
         </li>
         <li>
-          <b>CHEBY_U_POLY_VALUES</b> returns values of the Chebyshev U polynomial.
+          <b>CHEBY_U_POLY_VALUES</b> returns values of Chebyshev polynomials U(n,x).
+        </li>
+        <li>
+          <b>CHEBY_V_POLY_VALUES</b> returns values of Chebyshev polynomials V(n,x).
+        </li>
+        <li>
+          <b>CHEBY_W_POLY_VALUES</b> returns values of Chebyshev polynomials W(n,x).
         </li>
         <li>
           <b>CHI_VALUES</b> returns some values of the hyperbolic cosine integral function.
@@ -545,6 +537,9 @@
         </li>
         <li>
           <b>COS_DEGREE_VALUES:</b> values of the cosine function for degree arguments.
+        </li>
+        <li>
+          <b>COS_POWER_INT_VALUES</b> returns some values of the cosine power integral.
         </li>
         <li>
           <b>COSH_VALUES</b> returns some values of the hyperbolic cosine function.
@@ -757,7 +752,7 @@
           <b>LAGUERRE_GENERAL_VALUES</b> returns some values of the generalized Laguerre function.
         </li>
         <li>
-          <b>LAGUERRE_POLY_VALUES</b> returns some values of the Laguerre polynomial.
+          <b>LAGUERRE_POLYNOMIAL_VALUES</b> returns some values of the Laguerre polynomial.
         </li>
         <li>
           <b>LAMBERT_W_VALUES</b> returns some values of the Lambert W function.
@@ -769,7 +764,10 @@
           <b>LEGENDRE_ASSOCIATED_VALUES</b> returns values of associated Legendre functions.
         </li>
         <li>
-          <b>LEGENDRE_ASSOCIATED_NORMALIZED_VALUES:</b> normalied associated Legendre.
+          <b>LEGENDRE_ASSOCIATED_NORMALIZED_SPHERE_VALUES:</b> normalized associated Legendre.
+        </li>
+        <li>
+          <b>LEGENDRE_ASSOCIATED_NORMALIZED_VALUES:</b> normalized associated Legendre.
         </li>
         <li>
           <b>LEGENDRE_FUNCTION_Q_VALUES</b> returns values of the Legendre Q function.
@@ -782,6 +780,12 @@
         </li>
         <li>
           <b>LOBACHEVSKY_VALUES</b> returns some values of the Lobachevsky function.
+        </li>
+        <li>
+          <b>LOBATTO_POLYNOMIAL_VALUES</b> returns values of the completed Lobatto polynomials.
+        </li>
+        <li>
+          <b>LOBATTO_POLYNOMIAL_DERIVATIVES:</b> derivatives of the completed Lobatto polynomials.
         </li>
         <li>
           <b>LOG_VALUES</b> returns some values of the natural logarithm function.
@@ -994,6 +998,24 @@
           <b>TRIGAMMA_VALUES</b> returns some values of the TriGamma function.
         </li>
         <li>
+          <b>TRUNCATED_NORMAL_AB_CDF_VALUES:</b> values of the Truncated Normal AB CDF.
+        </li>
+        <li>
+          <b>TRUNCATED_NORMAL_AB_PDF_VALUES:</b> values of the Truncated Normal AB PDF.
+        </li>
+        <li>
+          <b>TRUNCATED_NORMAL_A_CDF_VALUES:</b> values of the Lower Truncated Normal CDF.
+        </li>
+        <li>
+          <b>TRUNCATED_NORMAL_A_PDF_VALUES:</b> values of the Lower Truncated Normal PDF.
+        </li>
+        <li>
+          <b>TRUNCATED_NORMAL_B_CDF_VALUES:</b> values of the Upper Truncated Normal CDF.
+        </li>
+        <li>
+          <b>TRUNCATED_NORMAL_B_PDF_VALUES:</b> values of the Upper Truncated Normal PDF.
+        </li>
+        <li>
           <b>TSAT_VALUES</b> returns some values of the saturation temperature.
         </li>
         <li>
@@ -1012,8 +1034,7 @@
           <b>WEIBULL_CDF_VALUES</b> returns some values of the Weibull CDF.
         </li>
         <li>
-          <b>ZETA_VALUES</b> returns some values of the Riemann Zeta function.
-        </li>
+          <b>ZETA_VALUES</b> returns some values of the Riemann Zeta function
       </ul>
     </p>
 
@@ -1025,7 +1046,7 @@
     <hr>
 
     <i>
-      Last revised on 13 February 2012.
+      Last revised on 18 November 2014.
     </i>
 
     <!-- John Burkardt -->

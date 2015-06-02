@@ -23,6 +23,7 @@ void test10 ( );
 void test11 ( );
 void test12 ( );
 void test125 ( );
+void test127 ( );
 void test13 ( );
 void test14 ( );
 void test15 ( );
@@ -62,7 +63,7 @@ int main ( )
 
   Discussion:
 
-    TRIANGULATION_PRB tests routines from the TRIANGULATION library.
+    TRIANGULATION_PRB tests the TRIANGULATION library.
 
   Licensing:
 
@@ -70,7 +71,7 @@ int main ( )
 
   Modified:
 
-    19 October 2012
+    02 March 2014
 
   Author:
 
@@ -78,7 +79,6 @@ int main ( )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "TRIANGULATION_PRB\n" );
   printf ( "  C version\n" );
@@ -100,6 +100,7 @@ int main ( )
   test11 ( );
   test12 ( );
   test125 ( );
+  test127 ( );
   test13 ( );
   test14 ( );
   test15 ( );
@@ -131,7 +132,6 @@ int main ( )
   printf ( "\n" );
   printf ( "TRIANGULATION_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -166,7 +166,6 @@ void test01 ( )
   int hole_num;
   int node_num;
   double *node_xy;
-  double quality;
   int triangle_num;
   int *triangle_node;
   int *triangle_neighbor;
@@ -1168,8 +1167,6 @@ void test09 ( )
   return;
 # undef N
 }
-
-
 /******************************************************************************/
 
 void test10 ( )
@@ -1195,7 +1192,6 @@ void test10 ( )
 {
 # define N 10
 
-  int i;
   int j;
   double phy[2*N];
   double ref[2*N];
@@ -1528,6 +1524,141 @@ void test125 ( )
 }
 /******************************************************************************/
 
+void test127 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST127 tests TRIANGULATION_ORDER3_ADJACENCY.
+
+  Discussion:
+
+    41--42--43--44  45--46--47--48
+     | \ | \ | \ |   | \ | \ | \ |
+    33--34--35--36  37--38--39--40
+     | \ |                   | \ |
+    29--30                  31--32
+     | \ |                   | \ |
+    25--26                  27--28
+     | \ |                   | \ |
+    21--22                  23--24
+     | \ |                   | \ |
+    17--18                  19--20
+     | \ |                   | \ |
+     9--10--11--12--13--14--15--16
+     | \ | \ | \ | \ | \ | \ | \ |
+     1---2---3---4---5---6---7---8
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 March 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define ELEMENT_NUM 46
+# define NODE_NUM 48
+  
+  int *adj;
+  int element_node[3*ELEMENT_NUM] = {
+     1,  2,  9,
+     2, 10,  9,
+     2,  3, 10,
+     3, 11, 10,
+     3,  4, 11,
+     4, 12, 11,
+     4,  5, 12,
+     5, 13, 12,
+     5,  6, 13,
+     6, 14, 13,
+     6,  7, 14,
+     7, 15, 14,
+     7,  8, 15,
+     8, 16, 15,
+     9, 10, 17,
+    10, 18, 17,
+    15, 16, 19,
+    16, 20, 19,
+    17, 18, 21,
+    18, 22, 21,
+    19, 20, 23,
+    20, 24, 23,
+    21, 22, 25,
+    22, 26, 25,
+    23, 24, 27,
+    24, 28, 27,
+    25, 26, 29,
+    26, 30, 29,
+    27, 28, 31,
+    28, 32, 31,
+    29, 30, 33,
+    30, 34, 33,
+    31, 32, 39,
+    32, 40, 39,
+    33, 34, 41,
+    34, 42, 41,
+    34, 35, 42,
+    35, 43, 42,
+    35, 36, 43,
+    36, 44, 43,
+    37, 38, 45,
+    38, 46, 45,
+    38, 39, 46,
+    39, 47, 46,
+    39, 40, 47,
+    40, 48, 47 };
+  int element_num = ELEMENT_NUM;
+  int i;
+  int j;
+  int node_num = NODE_NUM;
+
+  printf ( "\n" );
+  printf ( "TEST127\n" );
+  printf ( "  For an order3 triangulation:\n" );
+  printf ( "  TRIANGULATION_ORDER3_ADJACENCY sets the full\n" );
+  printf ( "  adjacency matrix.\n" );
+
+  for ( j = 0; j < element_num; j++ )
+  {
+    for ( i = 0; i < 3; i++ )
+    {
+      element_node[i+j*3] = element_node[i+j*3] - 1;
+    }
+  }
+
+  adj = triangulation_order3_adjacency ( node_num, element_num, element_node );
+
+  printf ( "\n" );
+  printf ( "  Adjacency matrix:\n" );
+  printf ( "\n" );
+  printf ( "                1         2         3         4       \n" );
+  printf ( "      012345678901234567890123456789012345678901234567\n" );
+  printf ( "\n" );
+  for ( i = 0; i < node_num; i++ )
+  {
+    printf ( "  %2d  ", i );
+    for ( j = 0; j < node_num; j++ )
+    {
+      printf ( "%d", adj[i+j*node_num] );
+    }
+    printf ( "\n" );
+  }
+
+  free ( adj );
+
+  return;
+# undef ELEMENT_NUM
+# undef NODE_NUM
+}
+/******************************************************************************/
+
 void test13 ( )
 
 /******************************************************************************/
@@ -1830,7 +1961,6 @@ void test16 ( )
 # define TRIANGLE_NUM 16
 # define TRIANGLE_ORDER 3
 
-  int i;
   int ierror;
   int isave;
   int node_num2;
@@ -2109,7 +2239,6 @@ void test19 ( )
 # define TRIANGLE_NUM 16
 # define TRIANGLE_ORDER 3
 
-  int i;
   int triangle_node[TRIANGLE_ORDER*TRIANGLE_NUM] = {
      3,   4,   1,
      3,   1,   2,
@@ -2425,7 +2554,7 @@ void test213 ( )
   Estimate the integral.
 */
     triangulation_order3_quad ( node_num, node_xy, triangle_order, 
-      triangle_num, triangle_node, &quad_fun, QUAD_NUM, quad_xy, quad_w, 
+      triangle_num, triangle_node,quad_fun, QUAD_NUM, quad_xy, quad_w, 
       &quad_value, &region_area );
 
     printf ( "  %8d  %8d  %14g  %14g\n", node_num, triangle_num, quad_value, region_area );
@@ -2699,7 +2828,7 @@ void test217 ( )
       p, &dnear );
 
     printf ( "\n" );
-    printf ( "  XD       %8d  %8d\n", p[0], p[1] );
+    printf ( "  XD       %8f  %8f\n", p[0], p[1] );
     printf ( "  Naive    %8f  %8f  %8f  %6d\n", 
       node_xy[0+(nnear-1)*DIM_NUM], node_xy[1+(nnear-1)*DIM_NUM], dnear, nnear );
 
@@ -2784,7 +2913,6 @@ void test219 ( )
   int edge;
   int error;
   double gamma;
-  int i;
   int nnear;
   double node_xy[DIM_NUM*NODE_NUM] = {
        0.0, 0.0,
@@ -3525,7 +3653,9 @@ void test33 ( )
   int neighbor_index[NEIGHBOR_NUM] = { 0, 1, 2, 3 };
   int node = 4;
   double v[DIM_NUM*NEIGHBOR_NUM];
+/*
   double v_y[NEIGHBOR_NUM];
+*/
   double node_xy[DIM_NUM*NODE_NUM] = { 
     0.0, 0.0,
     1.0, 0.0,

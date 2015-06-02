@@ -1,7 +1,7 @@
-05 February 2012 09:21:19 AM
+14 November 2013 08:28:07 AM
 
 BOX_BEHNKEN_PRB
-  C++ version
+  C version
   Test the BOX_BEHNKEN library.
 
 TEST01
@@ -9,33 +9,33 @@ TEST01
 
   The ranges:
 
-  Row:       0             1             2       
+  Row:        0             1             2     
   Col
 
-    0:             0            10             5
-    1:             1            11            15
+    0:        0.000000       10.000000        5.000000
+    1:        1.000000       11.000000       15.000000
 
   For dimension DIM_NUM = 3
   the Box-Behnken design is of size 13
 
   The Box-Behnken design:
 
-  Row:       0             1             2       
+  Row:        0             1             2     
   Col
 
-    0:           0.5          10.5            10
-    1:           0.5            10             5
-    2:           0.5            10            15
-    3:           0.5            11             5
-    4:           0.5            11            15
-    5:             0          10.5             5
-    6:             0          10.5            15
-    7:             1          10.5             5
-    8:             1          10.5            15
-    9:             0            10            10
-   10:             0            11            10
-   11:             1            10            10
-   12:             1            11            10
+    0:        0.500000       10.500000       10.000000
+    1:        0.500000       10.000000        5.000000
+    2:        0.500000       10.000000       15.000000
+    3:        0.500000       11.000000        5.000000
+    4:        0.500000       11.000000       15.000000
+    5:        0.000000       10.500000        5.000000
+    6:        0.000000       10.500000       15.000000
+    7:        1.000000       10.500000        5.000000
+    8:        1.000000       10.500000       15.000000
+    9:        0.000000       10.000000       10.000000
+   10:        0.000000       11.000000       10.000000
+   11:        1.000000       10.000000       10.000000
+   12:        1.000000       11.000000       10.000000
 
 TEST02
   R8MAT_WRITE writes a Box-Behnken dataset
@@ -43,18 +43,18 @@ TEST02
 
   The ranges:
 
-  Row:       0             1             2             3       
+  Row:        0             1             2             3     
   Col
 
-    0:             0             0             0             0
-    1:             1             1             1             1
+    0:        0.000000        0.000000        0.000000        0.000000
+    1:        1.000000        1.000000        1.000000        1.000000
 
   For dimension DIM_NUM = 4
   the Box-Behnken design is of size 33
 
-  The data was written to the file "box_behnken_04_33.txt".
+  The data was written to the file "box_behnken_04_33.txt"
 
 BOX_BEHNKEN_PRB
   Normal end of execution.
 
-05 February 2012 09:21:19 AM
+14 November 2013 08:28:07 AM

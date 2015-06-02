@@ -47,7 +47,7 @@ int main ( void )
   printf ( "\n" );
   printf ( "SGMGA_UNIQUE_INDEX_PRB\n" );
   printf ( "  C version\n" );
-  printf ( "  Test the routines in the SGMGA library.\n" );
+  printf ( "  Test the SGMGA library.\n" );
 /*
   Check that we can determine a UNIQUE_INDEX mapping, so that we can
   generate all the points, and then select unique representatives, and
@@ -55,12 +55,11 @@ int main ( void )
 */
   sgmga_unique_index_tests ( );
 /*
-  That's all.
+  Terminate.
 */
   printf ( "\n" );
   printf ( "SGMGA_UNIQUE_INDEX_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
   

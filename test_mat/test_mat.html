@@ -17,7 +17,9 @@
     <p>
       <b>TEST_MAT</b> 
       is a C library which
-      defines various test matrices.
+      defines test matrices for which some of the determinant, eigenvalues, 
+      inverse, null vectors, P*L*U factorization or linear system solution 
+      are already known, including the Vandermonde and Wathen matrix.
     </p>
 
     <p> 
@@ -45,17 +47,15 @@
     </p>
 
     <p>
-      Matrices are available with known inverses, condition numbers, determinants, rank,
-      eigenvalues, and characteristic polynomials.  Other matrix properties
-      include positive definiteness, positivity, zero/one, and
+      Matrices are available with known inverses, condition numbers, 
+      determinants, rank, eigenvalues, and characteristic polynomials.  Other 
+      matrix properties include positive definiteness, positivity, zero/one, and
       adjacency matrices.
     </p>
 
     <p>
       Many of the matrices come from a MATLAB M file collection developed by 
-      Nicholas Higham, Department of Mathematics, University of Manchester, and 
-      maintained in the "test_matrix" file somewhere at 
-      <a href = "http://www.mathworks.com">the MATLAB web site</a>.
+      Nicholas Higham, Department of Mathematics, University of Manchester.
     </p>
 
     <p>
@@ -91,7 +91,8 @@
       <a href = "../../cpp_src/test_mat/test_mat.html">a C++ version</a> and
       <a href = "../../f77_src/test_mat/test_mat.html">a FORTRAN77 version</a> and
       <a href = "../../f_src/test_mat/test_mat.html">a FORTRAN90 version</a> and
-      <a href = "../../m_src/test_mat/test_mat.html">a MATLAB version.</a>
+      <a href = "../../m_src/test_mat/test_mat.html">a MATLAB version</a> and
+      <a href = "../../py_src/test_mat/test_mat.html">a Python version.</a>
     </p>
 
     <h3 align = "center">
@@ -99,12 +100,13 @@
     </h3>
 
     <p>
-      <a href = "../../f_src/arpack/arpack.html">
-      ARPACK</a>,
-      a FORTRAN90 library which
-      uses Arnoldi methods
-      to compute some eigenvalues and eigenvectors of matrices, 
-      which may be very large.
+      <a href = "../../c_src/clapack/clapack.html">
+      CLAPACK</a>,
+      C programs which
+      illustrate the use of the CLAPACK library, 
+      a translation of the FORTRAN77 BLAS and LAPACK 
+      linear algebra libraries, including single and double precision, 
+      real and complex arithmetic.
     </p>
 
     <p>
@@ -118,10 +120,11 @@
     </p>
 
     <p>
-      <a href = "../../f_src/lapack_examples/lapack_examples.html">
-      LAPACK_EXAMPLES</a>,
-      a FORTRAN90 program which
-      demonstrates the use of the LAPACK linear algebra library.
+      <a href = "../../c_src/jacobi_eigenvalue/jacobi_eigenvalue.html">
+      JACOBI_EIGENVALUE</a>,
+      a C library which
+      implements the Jacobi iteration for the iterative determination
+      of the eigenvalues and eigenvectors of a real symmetric matrix.
     </p>
 
     <p>
@@ -145,701 +148,15 @@
     </p>
  
     <p>
-      <a href = "../../m_src/test_matrix/test_matrix.html">
-      TEST_MATRIX</a>,
-      a MATLAB library which
-      contains Nick Higham's original collection of test matrices.
+      <a href = "../../c_src/wathen/wathen.html">
+      WATHEN</a>,
+      a C library which
+      compares storage schemes (full, banded, sparse triplet) and 
+      solution strategies (Linpack full, Linpack banded, 
+      conjugate gradient (CG)) for linear systems involving the Wathen matrix,
+      which can arise when solving a problem using the 
+      finite element method (FEM).
     </p>
- 
-    <h3 align = "center">
-      Reference:
-    </h3>
-
-    <p>
-      <ol>
-        <li>
-          Milton Abramowitz, Irene Stegun,<br>
-          Handbook of Mathematical Functions,<br>
-          National Bureau of Standards, 1964,<br>
-          ISBN: 0-486-61272-4,<br>
-          LC: QA47.A34.
-        </li>
-        <li>
-          MJ Aegerter,<br>
-          Construction of a Set of Test Matrices,<br>
-          Communications of the ACM,<br>
-          Volume 2, Number 8, August 1959, pages 10-12.
-        </li>
-        <li>
-          Marlow Anderson, Todd Feil,<br>
-          Turning Lights Out With Linear Algebra,<br>
-          Mathematics Magazine,<br>
-          Volume 71, Number 4, October 1998, pages 300-303.
-        </li>
-        <li>
-          Wayne Barrett, Tyler Jarvis,<br>
-          Spectral Properties of a Matrix of Redheffer,<br>
-          Linear Algebra and Its Applications,<br>
-          Volume 162-164, February 1992, pages 673-683.
-        </li>
-        <li>
-          Richard Beam, Robert Warming,<br>
-          The asymptotic spectra of banded Toeplitz and 
-          quasi-Toeplitz matrices,<br>
-          SIAM Journal on Scientific and Statistical Computing,<br>
-          Volume 14, Number 4, July 1993, pages 971-1006
-        </li>
-        <li>
-          Dario Bini, Paola Favati,<br>
-          On a matrix algebra related to the discrete Hartley transform,<br>
-          SIAM Journal on Matrix Analysis and Applications,<br>
-          Volume 14, Number 2, April 1993, pages 500-507.
-        </li>
-        <li>
-          John Boothroyd,<br>
-          Algorithm 274:
-          Generation of Hilbert Derived Test Matrix,<br>
-          Communications of the ACM,<br>
-          Volume 9, Number 1, January 1966, page 11.
-        </li>
-        <li>
-          Robert Brawer, Magnus Pirovino,<br>
-          The linear algebra of the Pascal matrix,<br>
-          Linear Algebra and Its Applications,<br>
-          Volume 174, September 1992, pages 13-23.
-        </li>
-        <li>
-          Jacqueline Burm, Paul Fishback,<br>
-          Period-3 Orbits Via Sylvester's Theorem and Resultants,<br>
-          Mathematics Magazine,<br>
-          Volume 74, Number 1, February 2001, pages 47-51.
-        </li>
-        <li>
-          Gregory Call, Daniel Velleman,<br>
-          Pascal's Matrices,<br>
-          American Mathematical Monthly,<br>
-          Volume 100, Number 4, April 1993, pages 372-376.
-        </li>
-        <li>
-          Francoise Chaitin-Chatelin,<br>
-          Eigenvalues of Matrices,<br>
-          John Wiley, 1993,<br>
-          ISBN: 0471935387,<br>
-          LC: QA188.C44.
-        </li>
-        <li>
-          Ke Chen, Peter Giblin, Alan Irving,<br>
-          Mathematical Explorations with MATLAB,<br>
-          Cambridge University Press, 1999,<br>
-          ISBN: 0-521-63920-4.
-        </li>
-        <li>
-          Man-Duen Choi,<br>
-          Tricks or treats with the Hilbert matrix,<br>
-          American Mathematical Monthly,<br>
-          Volume 90, Number 5, May 1983, pages 301-312.
-        </li>
-        <li>
-          TS Chow,<br>
-          A class of Hessenberg matrices with known eigenvalues and
-          inverses,<br>
-          SIAM Review,<br>
-          Volume 11, Number 3, July 1969, pages 391-395.
-        </li>
-        <li>
-          Paul Clement,<br>
-          A class of triple-diagonal matrices for test purposes,<br>
-          SIAM Review,<br>
-          Volume 1, Number 1, January 1959, pages 50-52.
-        </li>
-        <li>
-          Alan Cline, Russell Rew,<br>
-          A set of counterexamples to three condition number estimators,<br>
-          SIAM Journal on Scientific and Statistical Computing,<br>
-          Volume 4, Number 4, December 1983, pages 602-611.
-        </li>
-        <li>
-          David Collison,<br>
-          Algorithm 117: and Algorithm 118:
-          Magic square (even order) and Magic square (odd order),<br>
-          Communications of the ACM,<br>
-          Volume 5, Number 8, August 1962, pages 435-436.
-        </li>
-        <li>
-          George Cybenko, Charles vanLoan,<br>
-          Computing the minimum eigenvalue of a symmetric positive definite
-          Toeplitz matrix,<br>
-          SIAM Journal on Scientific and Statistical Computing,<br>
-          Volume 7, Number 1, January 1986, pages 123-131.
-        </li>
-        <li>
-          George Dantzig,<br>
-          Linear Programming and Extensions,<br>
-          Princeton University Press, 1998,<br>
-          ISBN: 0691059136,<<br>
-          LC: QA265.D3.
-        </li>
-        <li>
-          Philip Davis,<br>
-          Circulant Matrices,<br>
-          Second Edition,<br>
-          Chelsea, 1994,<br>
-          ISBN: 0828403384,<br>
-          LC: QA188.D37.
-        </li>
-        <li>
-          Fred Dorr,<br>
-          An example of ill-conditioning in the numerical solution of
-          singular perturbation problems,<br>
-          Mathematics of Computation,<br>
-          Volume 25, Number 114, April 1971, pages 271-283.
-        </li>
-        <li>
-          Patricia Eberlein,<br>
-          A Two-Parameter Test Matrix,<br>
-          Mathematics of Computation,<br>
-          Volume 18, Number 86, April 1964, pages 296-298.
-        </li>
-        <li>
-          Alan Edelman, Eric Kostlan,<br>
-          The road from Kac's matrix to Kac's random polynomials.<br>
-          in Proceedings of the Fifth SIAM Conference on 
-          Applied Linear Algebra,<br>
-          edited by John Lewis,<br>
-          SIAM, 1994,<br>
-          ISBN: 0898713366,<br>
-          LC: QA184.S58.
-        </li>
-        <li>
-          Graeme Fairweather,<br>
-          On the eigenvalues and eigenvectors of a class of 
-          Hessenberg matrices,<br>
-          SIAM Review,<br>
-          Volume 13, Number 2, April 1971, pages 220-221.
-        </li>
-        <li>
-          WL Frank,<br>
-          Computing eigenvalues of complex matrices by determinant
-          evaluation, and by methods of Danilewski and Wielandt,<br>
-          Journal of the Society for Industrial and Applied Mathematics,<br>
-          Volume 6, 1958, pages 378-392.
-        </li>
-        <li>
-          Charles Gear,<br>
-          A simple set of test matrices for eigenvalue programs,<br>
-          Mathematics of Computation,<br>
-          Volume 23, Number 105, January 1969, pages 119-125.
-        </li>
-        <li>
-          Gene Golub, Charles VanLoan,<br>
-          Matrix Computations,
-          Third Edition,<br>
-          Johns Hopkins, 1996,<br>
-          ISBN: 0-8018-4513-X,<br>
-          LC: QA188.G65.
-        </li>
-        <li>
-          Gene Golub, James Wilkinson,<br>
-          Ill-conditioned eigensystems and the computation of the Jordan
-          canonical form,<br>
-          SIAM Review,<br>
-          Volume 18, Number 4, October 1976, pages 578-619.
-        </li>
-        <li>
-          MJC Gover,<br>
-          The explicit inverse of factorial Hankel matrices,<br>
-          Department of Mathematics, University of Bradford, 1993.
-        </li>
-        <li>
-          Ronald Graham, Neil Sloane,<br>
-          Anti-Hadamard Matrices,<br>
-          Linear Algebra and Applications,<br>
-          Volume 62, November 1984, pages 113-137.
-        </li>
-        <li>
-          Joseph Grcar,<br>
-          Operator coefficient methods for linear equations,<br>
-          Technical Report SAND89-8691,<br>
-          Sandia National Laboratories,<br>
-          Albuquerque, New Mexico, 1989.
-        </li>
-        <li>
-          Robert Gregory, David Karney,<br>
-          A Collection of Matrices for Testing Computational Algorithms,<br>
-          Wiley, 1969,<br>
-          ISBN: 0882756494,<br>
-          LC: QA263.G68.
-        </li>
-        <li>
-          Ernst Hairer, Syvert Norsett, Gerhard Wanner,<br>
-          Solving Ordinary Differential Equations I: Nonstiff Problems,<br>
-          Springer, 1987,<br>
-          ISBN: 3540566708,<br>
-          LC: QA372.H16.
-        </li>
-        <li>
-          Per Hansen, Tony Chan,<br>
-          FORTRAN Subroutines for General Toeplitz Systems,<br>
-          ACM Transactions on Mathematical Software,<br>
-          Volume 18, Number 3, September 1992, pages 256-273.
-        </li>
-        <li>
-          Harry Harman,<br>
-          Modern Factor Analysis,<br>
-          Third Edition,<br>
-          The University of Chicago Press, 1976,<br>
-          ISBN: 0226316521,<br>
-          LC: QA276.H38.
-        </li>
-        <li>
-          John Herndon,<br>
-          Algorithm 52:
-          A Set of Test Matrices,<br>
-          Communications of the ACM,<br>
-          Volume 4, Number 4, April 1961, page 180.
-        </li>
-        <li>
-          Nicholas Higham,<br>
-          A survey of condition number estimation for triangular matrices,<br>
-          SIAM Review,<br>
-          Volume 29, Number 4, December 1987, pages 575-596.
-        </li>
-        <li>
-          Nicholas Higham,<br>
-          Accuracy and Stability of Numerical Algorithms,<br>
-          SIAM, 1996,<br>
-          ISBN: 0898715210,<br>
-          LC: QA297.H53.
-        </li>
-        <li>
-          Nicholas Higham,<br>
-          Algorithm 694: 
-          A Collection of Test Matrices in MATLAB,<br>
-          ACM Transactions on Mathematical Software,<br>
-          Volume 17, Number 3, September 1991, pages 289-305.
-        </li>
-        <li>
-          Nicholas Higham,<br>
-          Stability analysis of algorithms for solving confluent
-          Vandermonde-like systems,<br>
-          SIAM Journal on Matrix Analysis and Applications,<br>
-          Volume 11, Number 1, January 1990, pages 23-41.
-        </li>
-        <li>
-          Nicholas Higham, Desmond Higham,<br>
-          Large growth factors in Gaussian elimination with pivoting,<br>
-          SIAM Journal on Matrix Analysis and Applications,<br>
-          Volume 10, Number 2, April 1989, pages 155-164.
-        </li>
-        <li>
-          John Holte,<br>
-          Carries, Combinatorics, and an Amazing Matrix,<br>
-          The American Mathematical Monthly,<br>
-          Volume 104, Number 2, February 1997, pages 138-149.
-        </li>
-        <li>
-          Roger Horn, Charles Johnson,<br>
-          Matrix Analysis,<br>
-          Cambridge, 1985,<br>
-          ISBN: 0-521-38632-2,<br>
-          LC: QA188.H66.
-        </li>
-        <li>
-          Alston Householder, John Carpenter,<br>
-          The singular values of involutory and of idempotent matrices,<br>
-          Numerische Mathematik,<br>
-          Volume 5, Number 1, December 1963, pages 234-237.
-        </li>
-        <li>
-          Lawrence Huber, Jacqueline Meulman, Willem Heiser,<br>
-          Two Purposes for Matrix Factorization: A Historical Appraisal,<br>
-          SIAM Review,<br>
-          Volume 41, Number 1, March 1999, pages 68-82.
-        </li>
-        <li>
-          William Kahan,<br> 
-          Numerical Linear Algebra,<br> 
-          Canadian Mathematical Bulletin,<br> 
-          Volume 9, 1966, pages 757-801.
-        </li>
-        <li>
-          Sam Karlin,<br>
-          Total Positivity, Volume 1,<br>
-          Stanford University Press, 1968,<br>
-          ISBN: 0804703140,<br>
-          LC: QA355.K33.
-        </li>
-        <li>
-          Charles Kenney, Alan Laub,<br>
-          Controllability and stability radii for companion form systems,<br>
-          Math. Control Signals Systems,<br>
-          Volume 1, 1988, pages 239-256.
-        </li>
-        <li>
-          David Kershaw,<br>
-          The Incomplete Cholesky-Conjugate Gradient Method for the Iterative
-          Solution of Systems of Linear Equations,<br>
-          Journal of Computational Physics,<br>
-          Volume 26, Number 1, January 1978, pages 43-65.
-        </li>
-        <li>
-          Donald Knuth,<br>
-          The Art of Computer Programming,<br>
-          Volume 1, Fundamental Algorithms,<br>
-          Third Edition<br>
-          Addison-Wesley, 1997,<br>
-          ISBN: 0201896834,<br>
-          LC: QA76.6.K64.
-        </li>
-        <li>
-          Maurice Kraitchik,<br>
-          Mathematical Recreations,<br>
-          Norton, 1942,<br>
-          LC: QA95.K72.
-        </li>
-        <li>
-          Henry Lancaster,<br>
-          The Helmert Matrices,<br>
-          American Mathematical Monthly,<br>
-          Volume 72, Number 1, January 1965, pages 4-12.
-        </li>
-        <li>
-          Peter Lauchli,<br>
-          Jordan-Elimination und Ausgleichung nach kleinsten Quadraten,<br>
-          (Jordan elimination and smoothing by least squares),<br>
-          Numerische Mathematik,<br>
-          Volume 3, Number 1, December 1961, pages 226-240.
-        </li>
-        <li>
-          Jon Lee,<br>
-          Hoffman's Circle Untangled,<br>
-          SIAM Review,<br>
-          Volume 39, Number 1, March 1997, pages 98-105.
-        </li>
-        <li>
-          Wim Lenferink, Marc Spijker,<br>
-          On the use of stability regions in the numerical analysis of 
-          initial value problems,<br>
-          Mathematics of Computation,<br>
-          Volume 57, Number 195, July 1991, pages 221-237.
-        </li>
-        <li>
-          M Lietzke, R Stoughton, Marjorie Lietzke,<br>
-          A Comparison of Seeral Method for Inverting Large Symmetric
-          Positive Definite Matrics,<br>
-          Mathematics of Computation<br>
-          Volume 18, Number 87, pages 449-456.
-        </li>
-        <li>
-          Max Lotkin,<br>
-          A set of test matrices,<br>
-          Mathematics Tables and Other Aids to Computation,<br>
-          Volume 9, 1955, pages 153-161.
-        </li>
-        <li>
-          Roger Martin, G Peters, James Wilkinson,<br>
-          HQR, The QR Algorithm for Real Hessenberg Matrices,<br>
-          Numerische Mathematik,<br>
-          Volume 14, Number 3, February 1970, pages 219-231.
-        </li>
-        <li>
-          Roger Martin, James Wilkinson,<br>
-          Similarity Reduction of a General Matrix to Hessenberg Form:
-          ELMHES,<br>
-          Numerische Mathematik,<br>
-          Volume 12, Number 5, December 1968, pages 349-368.
-        </li>
-        <li>
-          John McCarthy,<br>
-          Pick's Theorem: What's the Big Deal?<br>
-          American Mathematical Monthly,<br>
-          Volume 110, Number 1, January 2003, pages 36-45.
-        </li>
-        <li>
-          Noel Nachtigal, Lothar Reichel, Lloyd Trefethen,<br>
-          A hybrid GMRES algorithm for nonsymmetric linear systems,<br>
-          SIAM Journal on Matrix Analysis and Applications,<br>
-          Volume 13, Number 3, June 1992, pages 796-825.
-        </li>
-        <li>
-          John Nash,<br>
-          Compact Numerical Methods for Computers: Linear Algebra and
-          Function Minimisation,<br>
-          Second Edition,<br>
-          Taylor & Francis, 1990,<br>
-          ISBN: 085274319X,<br>
-          LC: QA184.N37.
-        </li>
-        <li>
-          Morris Newman, John Todd,<br>
-          The evaluation of matrix inversion programs,<br>
-          Journal of the Society for Industrial and Applied Mathematics,<br>
-          Volume 6, Number 4, 1958, pages 466-476.
-        </li>
-        <li>
-          Albert Nijenhuis, Herbert Wilf,<br>
-          Combinatorial Algorithms for Computers and Calculators,<br>
-          Second Edition,<br>
-          Academic Press, 1978,<br>
-          ISBN: 0-12-519260-6,<br>
-          LC: QA164.N54.
-        </li>
-        <li>
-          Alexander Ostrowski,<br>
-          On the spectrum of a one-parametric family of matrices,<br>
-          Journal fuer Reine und Angewandte Mathematik,<br>
-          Volume 193, Numbers 3/4, 1954, pages 143-160.
-        </li>
-        <li>
-          Seymour Parter,<br>
-          On the distribution of the singular values of Toeplitz matrices,<br>
-          Linear Algebra and Applications,<br>
-          Volume 80, August 1986, pages 115-130.
-        </li>
-        <li>
-          ML Pei,<br>
-          A test matrix for inversion procedures,<br>
-          Communications of the ACM,<br>
-          Volume 5, Number 10, October 1962, page 508.
-        </li>
-        <li>
-          Charles Pinter,<br>
-          A Book of Abstract Algebra,<br>
-          Second Edition,<br>
-          McGraw Hill, 2003,<br>
-          ISBN: 0072943505,<br>
-          LC: QA162.P56.
-        </li>
-        <li>
-          William Pratt,<br>
-          Digital Image Processing,<br>
-          Second Edition,<br>
-          Wiley, 1991,<br>
-          ISBN13: 978-0471857662,<br>
-          LC: TA1632.P7.
-        </li>
-        <li>
-          Lothar Reichel, Lloyd Trefethen,<br>
-          Eigenvalues and pseudo-eigenvalues of Toeplitz matrices,<br>
-          Linear Algebra and Its Applications,<br>
-          Volume 162-164, February 1992, pages 153-185.
-        </li>
-        <li>
-          Friedrich Roesler,<br>
-          Riemann's hypothesis as an eigenvalue problem,<br>
-          Linear Algebra and Its Applications,<br>
-          Volume 81, September 1986, pages 153-198.
-        </li>
-        <li>
-          Daniel Rutherford,<br>
-          Some continuant determinants arising in physics and chemistry II,<br>
-          Proceedings of the Royal Society Edinburgh,<br>
-          Volume 63, A, 1952, pages 232-241.
-        </li>
-        <li>
-          Heinz Rutishauser,<br>
-          On test matrices,<br>
-          Programmation en Mathematiques Numeriques,<br>
-          Centre National de la Recherche Scientifique,<br>
-          1966, pages 349-365.
-        </li>
-        <li>
-          Herbert Ryser,<br>
-          Combinatorial Mathematics,<br>
-          Mathematical Association of America, 1963,<br>
-          ISBN: 0883850141,<br>
-          LC: QA165.R95.
-        </li>
-        <li>
-          Brian Smith, James Boyle, Jack Dongarra, Burton Garbow, 
-          Yasuhiko Ikebe, Virginia Klema, Cleve Moler,<br>
-          Matrix Eigensystem Routines, EISPACK Guide,<br>
-          Lecture Notes in Computer Science, Volume 6,<br>
-          Springer, 1976,<br>
-          ISBN13: 978-3540075462,<br>
-          LC: QA193.M37.
-        </li>
-        <li>
-          Dennis Stanton, Dennis White,<br>
-          Constructive Combinatorics,<br>
-          Springer, 1986,<br>
-          ISBN: 0387963472,<br>
-          LC: QA164.S79.
-        </li>
-        <li>
-          Pete Stewart,<br>
-          Efficient Generation of Random Orthogonal Matrices With an Application
-          to Condition Estimators,<br>
-          SIAM Journal on Numerical Analysis,<br>
-          Volume 17, Number 3, June 1980, pages 403-409.
-        </li>
-        <li>
-          Pete Stewart,<br>
-          Introduction to Matrix Computations,<br>
-          Academic Press, 1973.
-        </li>
-        <li>
-          Douglas Sweet,<br>
-          The use of pivoting to improve the numerical performance of
-          Toeplitz solvers,<br>
-          In "Advanced Algorithms and Architectures for Signal Processing",<br>
-          Edited by J M Speiser,<br>
-          Proceedings SPIE 696, 1986, pages 8-18.
-        </li>
-        <li>
-          Gabor Szego,<br>
-          Solution to problem 3705,<br>
-          American Mathematical Monthly,<br>
-          Volume 43, Number 4, 1936, pages 246-259
-        </li>
-        <li>
-          Olga Taussky, John Todd,<br>
-          Another look at a matrix of Mark Kac,<br>
-          Linear Algebra and Its Applications,<br>
-          Volume 150, May 1991, pages 341-360.
-        </li>
-        <li>
-          Olga Taussky, Marvin Marcus,<br>
-          Eigenvalues of finite matrices,<br>
-          in Survey of Numerical Analysis,<br>
-          edited by John Todd,<br>
-          McGraw-Hill, 1962,<br>
-          LC: QA297.T6.
-        </li>
-        <li>
-          John Todd,<br>
-          Basic Numerical Mathematics,<br>
-          Volume 2: Numerical Algebra,<br>
-          Birkhauser, 1980,<br>
-          ISBN: 0817608117,<br>
-          LC: QA297.T58.
-        </li>
-        <li>
-          Lloyd Trefethen,<br>
-          Spectral Methods in MATLAB,<br>
-          SIAM, 2000,<br>
-          ISBN: 0898714656,<br>
-          LC: QA377.T65.
-        </li>
-        <li>
-          Lloyd Trefethen, David Bau,<br>
-          Numerical Linear Algebra,<br>
-          SIAM, 1997,<br>
-          ISBN: 0-89871-361-7,<br>
-          LC: QA184.T74.
-        </li>
-        <li>
-          Lloyd Trefethen,<br>
-          Pseudospectra of matrices,<br>
-          in Numerical Analysis 1991,<br>
-          Proceedings of the 14th Dundee Conference,<br>
-          DF Griffiths and GA Watson, editors,<br>
-          Pitman Research Notes in Mathematics, volume 260,<br>
-          Longman Scientific and Technical, Essex, UK, 1992, pages 234-266.
-        </li>
-        <li>
-          William Trench,<br>
-          Numerical solution of the eigenvalue problem for Hermitian
-          Toeplitz matrices,<br>
-          SIAM Journal on Matrix Analysis and Applications,<br>
-          Volume 10, Number 2, April 1989, pages 135-146.
-        </li>
-        <li>
-          HW Turnbull,<br>
-          The Theory of Determinants, Matrices, and Invariants,<br>
-          Blackie, 1929.
-        </li>
-        <li>
-          Evgeny Tyrtyshnikov,<br>
-          Cauchy-Toeplitz matrices and some applications,<br>
-          Linear Algebra and Applications,<br>
-          Volume 149, 15 April 1991, pages 1-18.
-        </li>
-        <li>
-          James Varah,<br>
-          A generalization of the Frank matrix,<br>
-          SIAM Journal on Scientific and Statistical Computing,<br>
-          Volume 7, 1986, pages 835-839.
-        </li>
-        <li>
-          James Varah,<br>
-          The Prolate Matrix,<br>
-          Linear Algebra and Applications,<br>
-          Volume 187, 1993, pages 269-278.
-        </li>
-        <li>
-          Andrew Wathen,<br>
-          Realistic eigenvalue bounds for the Galerkin mass matrix,<br>
-          IMA Journal of Numerical Analysis,<br>
-          Volume 7, Number 4, October 1987, pages 449-457
-        </li>
-        <li>
-          Eric Weisstein,<br>
-          CRC Concise Encyclopedia of Mathematics,<br>
-          CRC Press, 2002,<br>
-          Second edition,<br>
-          ISBN: 1584883472,<br>
-          LC: QA5.W45
-        </li>
-        <li>
-          Joan Westlake,<br>
-          A Handbook of Numerical Matrix Inversion and Solution of 
-          Linear Equations,<br>
-          John Wiley, 1968,<br>
-          ISBN13: 978-0471936756,<br>
-          LC: QA263.W47.
-        </li>
-        <li>
-          James Wilkinson,<br>
-          Error Analysis of Direct Methods of Matrix Inversion,<br>
-          Journal of the ACM,<br>
-          Volume 8, Number 3, July 1961, pages 281-330.
-        </li>
-        <li>
-          James Wilkinson,<br>
-          Error analysis of floating-point computation,<br>
-          Numerische Mathematik,<br>
-          Volume 2, 1960, pages 319-340.
-        </li>
-        <li>
-          James Wilkinson,<br>
-          Rounding Errors in Algebraic Processes,<br>
-          Prentice Hall, 1963,<br>
-          ISBN: 0-486-67999-3,<br>
-          LC: QA76.5.W53.
-        </li>
-        <li>
-          James Wilkinson,<br>
-          The Algebraic Eigenvalue Problem,<br>
-          Oxford University Press, 1988,<br>
-          ISBN: 0198534183,<br>
-          LC: QA218.W5.
-        </li>
-        <li>
-          James Wilkinson, Christian Reinsch,<br>
-          Handbook for Automatic Computation,<br>
-          Volume II, Linear Algebra, Part 2,<br>
-          Springer, 1971,<br>
-          ISBN: 0387054146,<br>
-          LC: QA251.W67.
-        </li>
-        <li>
-          Gerhard Zielke,<br>
-          Testmatrizen mit maximaler Konditionszahl,<br>
-          (Test matrices with maximal condition number),<br>
-          Computing,<br>
-          Volume 13, Number 1, March 1974, pages 33-54.
-        </li>
-        <li>
-          Daniel Zwillinger, Steven Kokoska,<br>
-          Standard Probability and Statistical Tables,<br>
-          CRC Press, 2000,<br>
-          ISBN: 1-58488-059-7,<br>
-          LC: QA273.3.Z95.
-        </li>
-      </ol>
-    </p>
-
 
     <h3 align = "center">
       Source Code:
@@ -888,7 +205,49 @@
     <p>
       <ul>
         <li>
+          <b>A123</b> returns the A123 matrix.
+        </li>
+        <li>
+          <b>A123_DETERMINANT</b> returns the determinant of the A123 matrix.
+        </li>
+        <li>
+          <b>A123_EIGEN_LEFT</b> returns left eigenvectors of the A123 matrix.
+        </li>
+        <li>
+          <b>A123_EIGEN_RIGHT</b> returns right eigenvectors of the A123 matrix.
+        </li>
+        <li>
+          <b>A123_EIGENVALUES</b> returns the eigenvalues of the A123 matrix.
+        </li>
+        <li>
+          <b>A123_INVERSE</b> returns the pseudo-inverse of the A123 matrix.
+        </li>
+        <li>
+          <b>A123_NULL_LEFT</b> returns a left null vector of the A123 matrix.
+        </li>
+        <li>
+          <b>A123_NULL_RIGHT</b> returns a right null vector of the A123 matrix.
+        </li>
+        <li>
+          <b>A123_PLU</b> returns the PLU factors of the A123 matrix.
+        </li>
+        <li>
+          <b>A123_QR</b> returns the QR factors of the A123 matrix.
+        </li>
+        <li>
+          <b>A123_RHS</b> returns the A123 right hand side.
+        </li>
+        <li>
+          <b>A123_SOLUTION</b> returns the A123 solution vector.
+        </li>
+        <li>
+          <b>A123_SVD</b> returns the SVD factors of the A123 matrix.
+        </li>
+        <li>
           <b>AEGERTER</b> returns the AEGERTER matrix.
+        </li>
+        <li>
+          <b>AEGERTER_CONDITION</b> returns the L1 condition of the AEGERTER matrix.
         </li>
         <li>
           <b>AEGERTER_DETERMINANT</b> returns the determinant of the AEGERTER matrix.
@@ -918,6 +277,9 @@
           <b>BAB</b> returns the BAB matrix.
         </li>
         <li>
+          <b>BAB_CONDITION</b> returns the L1 condition of the BAB matrix.
+        </li>
+        <li>
           <b>BAB_DETERMINANT</b> returns the determinant of the BAB matrix.
         </li>
         <li>
@@ -927,10 +289,22 @@
           <b>BAB_INVERSE</b> returns the inverse of the BAB matrix.
         </li>
         <li>
+          <b>BERNSTEIN</b> returns the BERNSTEIN matrix.
+        </li>
+        <li>
+          <b>BERNSTEIN_DETERMINANT</b> returns the determinant of the BERNSTEIN matrix.
+        </li>
+        <li>
+          <b>BERNSTEIN_INVERSE</b> returns the inverse BERNSTEIN matrix.
+        </li>
+        <li>
           <b>BIMARKOV_RANDOM</b> returns a BIMARKOV matrix.
         </li>
         <li>
           <b>BIS</b> returns the BIS matrix.
+        </li>
+        <li>
+          <b>BIS_CONDITION</b> returns the L1 condition of the BIS matrix.
         </li>
         <li>
           <b>BIS_DETERMINANT</b> returns the determinant of the BIS matrix.
@@ -945,7 +319,13 @@
           <b>BODEWIG</b> returns the BODEWIG matrix.
         </li>
         <li>
+          <b>BODEWIG_CONDITION</b> returns the L1 condition of the BODEWIG matrix.
+        </li>
+        <li>
           <b>BODEWIG_DETERMINANT</b> returns the determinant of the BODEWIG matrix.
+        </li>
+        <li>
+          <b>BODEWIG_EIGEN_RIGHT</b> returns the right eigenvectors of the BODEWIG matrix.
         </li>
         <li>
           <b>BODEWIG_EIGENVALUES</b> returns the eigenvalues of the BODEWIG matrix.
@@ -954,10 +334,10 @@
           <b>BODEWIG_INVERSE</b> returns the inverse of the BODEWIG matrix.
         </li>
         <li>
-          <b>BODEWIG_RHS</b> returns the BODEWIG right hand side.
+          <b>BODEWIG_PLU</b> returns the PLU factors of the BODEWIG matrix.
         </li>
         <li>
-          <b>BODEWIG_RIGHT</b> returns the right eigenvectors of the BODEWIG matrix.
+          <b>BODEWIG_RHS</b> returns the BODEWIG right hand side.
         </li>
         <li>
           <b>BODEWIG_SOLUTION</b> returns the BODEWIG_SOLUTION
@@ -978,10 +358,34 @@
           <b>BORDERBAND_DETERMINANT</b> returns the determinant of the BORDERBAND matrix.
         </li>
         <li>
+          <b>BORDERBAND_INVERSE</b> returns the inverse of the BORDERBAND matrix.
+        </li>
+        <li>
           <b>BORDERBAND_PLU</b> returns the PLU factors of the BORDERBAND matrix.
         </li>
         <li>
+          <b>C8_ZERO</b> returns the value of 0 as a C8.
+        </li>
+        <li>
           <b>C8MAT_COPY_NEW</b> copies one C8MAT to a "new" C8MAT.
+        </li>
+        <li>
+          <b>C8MAT_IDENTITY</b> sets a C8MAT to the identity.
+        </li>
+        <li>
+          <b>C8MAT_MM_NEW</b> multiplies two C8MAT's.
+        </li>
+        <li>
+          <b>C8MAT_NORM_FRO</b> returns the Frobenius norm of a C8MAT.
+        </li>
+        <li>
+          <b>C8MAT_PRINT</b> prints a C8MAT.
+        </li>
+        <li>
+          <b>C8MAT_PRINT_SOME</b> prints some of a C8MAT.
+        </li>
+        <li>
+          <b>C8MAT_UNIFORM_01</b> returns a unit pseudorandom C8MAT.
         </li>
         <li>
           <b>C8MAT_ZERO_NEW</b> returns a new zeroed C8MAT.
@@ -1005,10 +409,10 @@
           <b>CARRY_INVERSE</b> returns the inverse of the CARRY matrix.
         </li>
         <li>
-          <b>CARRY_LEFT</b> returns the left eigenvectors of the CARRY matrix.
+          <b>CARRY_EIGEN_LEFT</b> returns the left eigenvectors of the CARRY matrix.
         </li>
         <li>
-          <b>CARRY_RIGHT</b> returns the right eigenvectors of the CARRY matrix.
+          <b>CARRY_EIGEN_RIGHT</b> returns the right eigenvectors of the CARRY matrix.
         </li>
         <li>
           <b>CAUCHY</b> returns the CAUCHY matrix.
@@ -1023,7 +427,10 @@
           <b>CHEBY_DIFF1</b> returns the CHEBY_DIFF1 matrix.
         </li>
         <li>
-          <b>CHEBY_DIFF1_NULL</b> returns a null vector of the CHEBY_DIFF1 matrix.
+          <b>CHEBY_DIFF1_NULL_LEFT</b> returns a left null vector of the CHEBY_DIFF1 matrix.
+        </li>
+        <li>
+          <b>CHEBY_DIFF1_NULL_RIGHT</b> returns a right null vector of the CHEBY_DIFF1 matrix.
         </li>
         <li>
           <b>CHEBY_T</b> returns the CHEBY_T matrix.
@@ -1080,10 +487,10 @@
           <b>CHOW_INVERSE</b> returns the inverse of the CHOW matrix.
         </li>
         <li>
-          <b>CHOW_LEFT</b> returns the left eigenvectors for the CHOW matrix.
+          <b>CHOW_EIGEN_LEFT</b> returns the left eigenvectors for the CHOW matrix.
         </li>
         <li>
-          <b>CHOW_RIGHT</b> returns the right eigenvectors for the CHOW matrix.
+          <b>CHOW_EIGEN_RIGHT</b> returns the right eigenvectors for the CHOW matrix.
         </li>
         <li>
           <b>CIRCULANT</b> returns the CIRCULANT matrix.
@@ -1102,6 +509,12 @@
         </li>
         <li>
           <b>CIRCULANT2_DETERMINANT</b> returns the determinant of the CIRCULANT2 matrix.
+        </li>
+        <li>
+          <b>CIRCULANT2_EIGENVALUES</b> returns the eigenvalues of the CIRCULANT2 matrix.
+        </li>
+        <li>
+          <b>CIRCULANT2_INVERSE</b> returns the inverse of the CIRCULANT2 matrix.
         </li>
         <li>
           <b>CLEMENT1</b> returns the CLEMENT1 matrix.
@@ -1137,7 +550,13 @@
           <b>CLEMENT3_INVERSE</b> returns the inverse of the CLEMENT3 matrix.
         </li>
         <li>
+          <b>COLLEAGUE</b> returns the COLLEAGUE matrix.
+        </li>
+        <li>
           <b>COMBIN</b> returns the COMBIN matrix.
+        </li>
+        <li>
+          <b>COMBIN_CONDITION</b> returns the L1 condition of the COMBIN matrix.
         </li>
         <li>
           <b>COMBIN_DETERMINANT</b> returns the determinant of the COMBIN matrix.
@@ -1149,16 +568,22 @@
           <b>COMBIN_INVERSE</b> returns the inverse of the COMBIN matrix.
         </li>
         <li>
-          <b>COMBIN_RIGHT</b> returns the right eigenvectors of the COMBIN matrix.
+          <b>COMBIN_EIGEN_RIGHT</b> returns the right eigenvectors of the COMBIN matrix.
         </li>
         <li>
           <b>COMPANION</b> returns the COMPANION matrix.
+        </li>
+        <li>
+          <b>COMPANION_CONDITION</b> returns the L1 condition of the COMPANION matrix.
         </li>
         <li>
           <b>COMPANION_DETERMINANT</b> returns the determinant of the COMPANION matrix.
         </li>
         <li>
           <b>COMPANION_INVERSE</b> returns the inverse of the COMPANION matrix.
+        </li>
+        <li>
+          <b>COMPLETE_SYMMETRIC_POLY</b> evaluates a complete symmetric polynomial.
         </li>
         <li>
           <b>COMPLEX3</b> returns the COMPLEX3 matrix.
@@ -1179,6 +604,9 @@
           <b>CONEX1</b> returns the CONEX1 matrix.
         </li>
         <li>
+          <b>CONEX1_CONDITION</b> returns the L1 condition of the CONEX1 matrix.
+        </li>
+        <li>
           <b>CONEX1_DETERMINANT</b> returns the determinant of the CONEX1 matrix.
         </li>
         <li>
@@ -1186,6 +614,9 @@
         </li>
         <li>
           <b>CONEX2</b> returns the CONEX2 matrix.
+        </li>
+        <li>
+          <b>CONEX2_CONDITION</b> returns the L1 condition of the CONEX2 matrix.
         </li>
         <li>
           <b>CONEX2_DETERMINANT</b> returns the determinant of the CONEX2 matrix.
@@ -1197,10 +628,25 @@
           <b>CONEX3</b> returns the CONEX3 matrix.
         </li>
         <li>
+          <b>CONEX3_CONDITION</b> returns the L1 condition of the CONEX3 matrix.
+        </li>
+        <li>
           <b>CONEX3_DETERMINANT</b> returns the determinant of the CONEX3 matrix.
         </li>
         <li>
           <b>CONEX3_INVERSE</b> returns the inverse of the CONEX3 matrix.
+        </li>
+        <li>
+          <b>CONEX4</b> returns the CONEX4 matrix.
+        </li>
+        <li>
+          <b>CONEX4_CONDITION</b> returns the L1 condition of the CONEX4 matrix.
+        </li>
+        <li>
+          <b>CONEX4_DETERMINANT</b> returns the determinant of the CONEX4 matrix.
+        </li>
+        <li>
+          <b>CONEX4_INVERSE</b> returns the inverse of the CONEX4 matrix.
         </li>
         <li>
           <b>CONFERENCE</b> returns the CONFERENCE matrix.
@@ -1218,16 +664,100 @@
           <b>CREATION_DETERMINANT</b> returns the determinant of the CREATION matrix.
         </li>
         <li>
-          <b>CREATION_NULL</b> returns a null vector of the CREATION matrix.
+          <b>CREATION_NULL_LEFT</b> returns a left null vector of the CREATION matrix.
+        </li>
+        <li>
+          <b>CREATION_NULL_RIGHT</b> returns a right null vector of the CREATION matrix.
         </li>
         <li>
           <b>CYCOL_RANDOM</b> returns the CYCOL_RANDOM matrix.
         </li>
         <li>
+          <b>DAUB2</b> returns the DAUB2 matrix.
+        </li>
+        <li>
+          <b>DAUB2_CONDITION</b> returns the L1 condition of the DAUB2 matrix.
+        </li>
+        <li>
+          <b>DAUB2_DETERMINANT</b> returns the determinant of the DAUB2 matrix.
+        </li>
+        <li>
+          <b>DAUB2_INVERSE</b> returns the inverse of the DAUB2 matrix.
+        </li>
+        <li>
+          <b>DAUB4</b> returns the DAUB4 matrix.
+        </li>
+        <li>
+          <b>DAUB4_CONDITION</b> returns the L1 condition of the DAUB4 matrix.
+        </li>
+        <li>
+          <b>DAUB4_DETERMINANT</b> returns the determinant of the DAUB4 matrix.
+        </li>
+        <li>
+          <b>DAUB4_INVERSE</b> returns the inverse of the DAUB4 matrix.
+        </li>
+        <li>
+          <b>DAUB6</b> returns the DAUB6 matrix.
+        </li>
+        <li>
+          <b>DAUB6_CONDITION</b> returns the L1 condition of the DAUB6 matrix.
+        </li>
+        <li>
+          <b>DAUB6_DETERMINANT</b> returns the determinant of the DAUB6 matrix.
+        </li>
+        <li>
+          <b>DAUB6_INVERSE</b> returns the inverse of the DAUB6 matrix.
+        </li>
+        <li>
+          <b>DAUB8</b> returns the DAUB8 matrix.
+        </li>
+        <li>
+          <b>DAUB8_CONDITION</b> returns the L1 condition of the DAUB8 matrix.
+        </li>
+        <li>
+          <b>DAUB8_DETERMINANT</b> returns the determinant of the DAUB8 matrix.
+        </li>
+        <li>
+          <b>DAUB8_INVERSE</b> returns the inverse of the DAUB8 matrix.
+        </li>
+        <li>
+          <b>DAUB10</b> returns the DAUB10 matrix.
+        </li>
+        <li>
+          <b>DAUB10_CONDITION</b> returns the L1 condition of the DAUB10 matrix.
+        </li>
+        <li>
+          <b>DAUB10_DETERMINANT</b> returns the determinant of the DAUB10 matrix.
+        </li>
+        <li>
+          <b>DAUB10_INVERSE</b> returns the inverse of the DAUB10 matrix.
+        </li>
+        <li>
+          <b>DAUB12</b> returns the DAUB12 matrix.
+        </li>
+        <li>
+          <b>DAUB12_CONDITION</b> returns the L1 condition of the DAUB12 matrix.
+        </li>
+        <li>
+          <b>DAUB12_DETERMINANT</b> returns the determinant of the DAUB12 matrix.
+        </li>
+        <li>
+          <b>DAUB12_INVERSE</b> returns the inverse of the DAUB12 matrix.
+        </li>
+        <li>
           <b>DIAGONAL</b> returns the DIAGONAL matrix.
         </li>
         <li>
+          <b>DIAGONAL_CONDITION</b> returns the L1 condition of the DIAGONAL matrix.
+        </li>
+        <li>
           <b>DIAGONAL_DETERMINANT</b> returns the determinant of the DIAGONAL matrix.
+        </li>
+        <li>
+          <b>DIAGONAL_EIGEN_LEFT</b> returns left eigenvectors of the DIAGONAL matrix.
+        </li>
+        <li>
+          <b>DIAGONAL_EIGEN_RIGHT</b> returns right eigenvectors of the DIAGONAL matrix.
         </li>
         <li>
           <b>DIAGONAL_EIGENVALUES</b> returns the eigenvalues of the DIAGONAL matrix.
@@ -1245,7 +775,13 @@
           <b>DIF1_EIGENVALUES</b> returns the eigenvalues of the DIF1 matrix.
         </li>
         <li>
-          <b>DIF1_NULL</b> returns a null vector of the DIF1 matrix.
+          <b>DIF1_INVERSE</b> returns the inverse of the DIF1 matrix.
+        </li>
+        <li>
+          <b>DIF1_NULL_LEFT</b> returns a left null vector of the DIF1 matrix.
+        </li>
+        <li>
+          <b>DIF1_NULL_RIGHT</b> returns a right null vector of the DIF1 matrix.
         </li>
         <li>
           <b>DIF1CYCLIC</b> returns the DIF1CYCLIC matrix.
@@ -1254,13 +790,19 @@
           <b>DIF1CYCLIC_DETERMINANT:</b> determinant of the DIF1CYCLIC matrix.
         </li>
         <li>
-          <b>DIF1CYCLIC_NULL</b> returns a null vector of the DIF1CYCLIC matrix.
+          <b>DIF1CYCLIC_NULL_LEFT</b> returns a left null vector of the DIF1CYCLIC matrix.
+        </li>
+        <li>
+          <b>DIF1CYCLIC_NULL_RIGHT</b> returns a right null vector of the DIF1CYCLIC matrix.
         </li>
         <li>
           <b>DIF2</b> returns the DIF2 matrix.
         </li>
         <li>
           <b>DIF2_CHOLESKY</b> returns the Cholesky factor of the DIF2 matrix.
+        </li>
+        <li>
+          <b>DIF2_CONDITION</b> returns the L1 condition of the DIF2 matrix.
         </li>
         <li>
           <b>DIF2_DETERMINANT</b> returns the determinant of the DIF2 matrix.
@@ -1278,7 +820,7 @@
           <b>DIF2_RHS</b> returns the DIF2 right hand side.
         </li>
         <li>
-          <b>DIF2_RIGHT</b> returns the right eigenvectors of the DIF2 matrix.
+          <b>DIF2_EIGEN_RIGHT</b> returns the right eigenvectors of the DIF2 matrix.
         </li>
         <li>
           <b>DIF2_SOLUTION</b> returns the DIF2 solution matrix.
@@ -1290,13 +832,25 @@
           <b>DIF2CYCLIC_DETERMINANT:</b> determinant of the DIF2CYCLIC matrix.
         </li>
         <li>
-          <b>DIF2CYCLIC_NULL:</b> null vector of the DIF2CYCLIC matrix.
+          <b>DIF2CYCLIC_NULL_LEFT</b> returns a left null vector of the DIF2CYCLIC matrix.
+        </li>
+        <li>
+          <b>DIF2CYCLIC_NULL_RIGHT</b> returns a right null vector of the DIF2CYCLIC matrix.
         </li>
         <li>
           <b>DORR</b> returns the DORR matrix.
         </li>
         <li>
+          <b>DORR_DETERMINANT</b> computes the determinant of the DORR matrix.
+        </li>
+        <li>
+          <b>DORR_INVERSE</b> returns the inverse of the DORR matrix.
+        </li>
+        <li>
           <b>DOWNSHIFT</b> returns the DOWNSHIFT matrix.
+        </li>
+        <li>
+          <b>DOWNSHIFT_CONDITION</b> returns the L1 condition of the DOWNSHIFT matrix.
         </li>
         <li>
           <b>DOWNSHIFT_DETERMINANT</b> returns the determinant of the DOWNSHIFT matrix.
@@ -1317,7 +871,7 @@
           <b>EBERLEIN_EIGENVALUES</b> returns the eigenvalues of the EBERLEIN matrix.
         </li>
         <li>
-          <b>EBERLEIN_NULL</b> returns a left null vector of the EBERLEIN matrix.
+          <b>EBERLEIN_NULL_LEFT</b> returns a left null vector of the EBERLEIN matrix.
         </li>
         <li>
           <b>EULERIAN</b> returns the EULERIAN matrix.
@@ -1332,6 +886,9 @@
           <b>EXCHANGE</b> returns the EXCHANGE matrix.
         </li>
         <li>
+          <b>EXCHANGE_CONDITION</b> returns the L1 condition of the EXCHANGE matrix.
+        </li>
+        <li>
           <b>EXCHANGE_DETERMINANT</b> returns the determinant of the EXCHANGE matrix.
         </li>
         <li>
@@ -1341,7 +898,7 @@
           <b>EXCHANGE_INVERSE</b> returns the inverse of the EXCHANGE matrix.
         </li>
         <li>
-          <b>EXCHANGE_RIGHT</b> returns the right eigenvectors of the EXCHANGE matrix.
+          <b>EXCHANGE_EIGEN_RIGHT</b> returns the right eigenvectors of the EXCHANGE matrix.
         </li>
         <li>
           <b>FIBONACCI1</b> returns the FIBONACCI1 matrix.
@@ -1350,7 +907,10 @@
           <b>FIBONACCI1_DETERMINANT</b> returns the determinant of the FIBONACCI1 matrix.
         </li>
         <li>
-          <b>FIBONACCI1_NULL</b> returns a null vector of the FIBONACCI1 matrix.
+          <b>FIBONACCI1_NULL_LEFT</b> returns a left null vector of the FIBONACCI1 matrix.
+        </li>
+        <li>
+          <b>FIBONACCI1_NULL_RIGHT</b> returns a right null vector of the FIBONACCI1 matrix.
         </li>
         <li>
           <b>FIBONACCI2</b> returns the FIBONACCI2 matrix.
@@ -1372,6 +932,9 @@
         </li>
         <li>
           <b>FIBONACCI3_EIGENVALUES</b> returns the eigenvalues of the FIBONACCI3 matrix.
+        </li>
+        <li>
+          <b>FIBONACCI3_INVERSE</b> returns the inverse of the FIBONACCI3 matrix.
         </li>
         <li>
           <b>FIEDLER</b> returns the FIEDLER matrix.
@@ -1431,6 +994,9 @@
           <b>FRANK_DETERMINANT</b> returns the determinant of the FRANK matrix.
         </li>
         <li>
+          <b>FRANK_EIGENVALUES</b> returns the eigenvalues of the Frank matrix.
+        </li>
+        <li>
           <b>FRANK_INVERSE</b> returns the inverse of the FRANK matrix.
         </li>
         <li>
@@ -1473,6 +1039,9 @@
           <b>GIVENS_INVERSE</b> returns the inverse of the GIVENS matrix.
         </li>
         <li>
+          <b>GIVENS_PLU</b> returns the PLU factors of the GIVENS matrix.
+        </li>
+        <li>
           <b>GK316</b> returns the GK316 matrix.
         </li>
         <li>
@@ -1512,7 +1081,19 @@
           <b>HAMMING</b> computes the HAMMING matrix.
         </li>
         <li>
+          <b>HAMMING_NULL_RIGHT</b> returns a right null vector of the HAMMING matrix.
+        </li>
+        <li>
           <b>HANKEL</b> returns the HANKEL matrix.
+        </li>
+        <li>
+          <b>HANKEL_N</b> returns the HANKEL_N matrix.
+        </li>
+        <li>
+          <b>HANKEL_N_DETERMINANT</b> returns the determinant of the HANKEL_N matrix.
+        </li>
+        <li>
+          <b>HANKEL_N_INVERSE</b> returns the inverse of the HANKEL_N matrix.
         </li>
         <li>
           <b>HANOWA</b> returns the HANOWA matrix.
@@ -1528,6 +1109,9 @@
         </li>
         <li>
           <b>HARMAN</b> returns the HARMAN matrix.
+        </li>
+        <li>
+          <b>HARMAN_CONDITION</b> returns the L1 condition of the HARMAN matrix.
         </li>
         <li>
           <b>HARMAN_DETERMINANT</b> returns the determinant of the HARMAN matrix.
@@ -1617,13 +1201,16 @@
           <b>HOUSEHOLDER_INVERSE</b> returns the inverse of a HOUSEHOLDER matrix.
         </li>
         <li>
-          <b>I4_EVEN</b> returns TRUE if an I4 is even.
-        </li>
-        <li>
           <b>I4_FACTOR</b> factors an I4 into prime factors.
         </li>
         <li>
           <b>I4_HUGE</b> returns a "huge" I4.
+        </li>
+        <li>
+          <b>I4_IS_EVEN</b> returns TRUE if an I4 is even.
+        </li>
+        <li>
+          <b>I4_IS_ODD</b> returns TRUE if an I4 is odd.
         </li>
         <li>
           <b>I4_IS_PRIME</b> reports whether an I4 is prime.
@@ -1641,19 +1228,16 @@
           <b>I4_MODP</b> returns the nonnegative remainder of I4 division.
         </li>
         <li>
-          <b>I4_ODD</b> returns TRUE if an I4 is odd.
-        </li>
-        <li>
-          <b>I4_POCHHAMMER</b> returns the value of ( I * (I+1) * ... * (J-1) * J ).
-        </li>
-        <li>
           <b>I4_POWER</b> returns the value of I^J.
+        </li>
+        <li>
+          <b>I4_RISE</b> computes the rising factorial function [X]^N.
         </li>
         <li>
           <b>I4_SIGN</b> returns the sign of an I4.
         </li>
         <li>
-          <b>I4_UNIFORM</b> returns a scaled pseudorandom I4.
+          <b>I4_UNIFORM_AB</b> returns a scaled pseudorandom I4.
         </li>
         <li>
           <b>I4_WRAP</b> forces an I4 to lie between given limits by wrapping.
@@ -1683,7 +1267,13 @@
           <b>IDEM_RANDOM_EIGENVALUES</b> returns the eigenvalues of the IDEM_RANDOM matrix.
         </li>
         <li>
+          <b>IDEM_RANDOM_EIGEN_RIGHT</b> returns the right eigenvectors of the IDEM_RANDOM matrix.
+        </li>
+        <li>
           <b>IDENTITY</b> returns the IDENTITY matrix.
+        </li>
+        <li>
+          <b>IDENTITY_CONDITION</b> returns the L1 condition of the IDENTITY matrix.
         </li>
         <li>
           <b>IDENTITY_DETERMINANT</b> returns the determinant of the IDENTITY matrix.
@@ -1695,10 +1285,10 @@
           <b>IDENTITY_INVERSE</b> returns the inverse of the IDENTITY matrix.
         </li>
         <li>
-          <b>IDENTITY_LEFT</b> returns the left eigenvectors of the IDENTITY matrix.
+          <b>IDENTITY_EIGEN_LEFT</b> returns the left eigenvectors of the IDENTITY matrix.
         </li>
         <li>
-          <b>IDENTITY_RIGHT</b> returns the right eigenvectors of the IDENTITY matrix.
+          <b>IDENTITY_EIGEN_RIGHT</b> returns the right eigenvectors of the IDENTITY matrix.
         </li>
         <li>
           <b>IJFACT1</b> returns the IJFACT1 matrix.
@@ -1716,6 +1306,9 @@
           <b>ILL3</b> returns the ILL3 matrix.
         </li>
         <li>
+          <b>ILL3_CONDITION</b> returns the L1 condition of the ILL3 matrix.
+        </li>
+        <li>
           <b>ILL3_DETERMINANT</b> returns the determinant of the ILL3 matrix.
         </li>
         <li>
@@ -1723,6 +1316,9 @@
         </li>
         <li>
           <b>ILL3_INVERSE</b> returns the inverse of the ILL3 matrix.
+        </li>
+        <li>
+          <b>ILL3_EIGEN_RIGHT</b> returns the right eigenvectors of the ILL3 matrix.
         </li>
         <li>
           <b>INDICATOR</b> returns the INDICATOR matrix.
@@ -1773,6 +1369,9 @@
           <b>JORDAN</b> returns the JORDAN matrix.
         </li>
         <li>
+          <b>JORDAN_CONDITION</b> returns the L1 condition of the JORDAN matrix.
+        </li>
+        <li>
           <b>JORDAN_DETERMINANT</b> returns the determinant of the JORDAN matrix.
         </li>
         <li>
@@ -1791,7 +1390,13 @@
           <b>KERSHAW</b> returns the KERSHAW matrix.
         </li>
         <li>
+          <b>KERSHAW_CONDITION</b> returns the L1 condition of the KERSHAW matrix.
+        </li>
+        <li>
           <b>KERSHAW_DETERMINANT</b> returns the determinant of the KERSHAW matrix.
+        </li>
+        <li>
+          <b>KERSHAW_EIGEN_RIGHT</b> returns right eigenvectors of the KERSHAW matrix.
         </li>
         <li>
           <b>KERSHAW_EIGENVALUES</b> returns the eigenvalues of the KERSHAW matrix.
@@ -1821,6 +1426,9 @@
           <b>KMS_EIGENVALUES_THETA</b> returns data needed to compute KMS eigenvalues.
         </li>
         <li>
+          <b>KMS_EIGENVALUES_THETA_F</b> evaluates a function for KMS eigenvalues.
+        </li>
+        <li>
           <b>KMS_INVERSE</b> returns the inverse of the KMS matrix.
         </li>
         <li>
@@ -1830,7 +1438,7 @@
           <b>KMS_PLU</b> returns the PLU factorization of the KMS matrix.
         </li>
         <li>
-          <b>KMS_RIGHT</b> returns the right eigenvectors of the KMS matrix.
+          <b>KMS_EIGEN_RIGHT</b> returns the right eigenvectors of the KMS matrix.
         </li>
         <li>
           <b>KRYLOV</b> returns the KRYLOV matrix.
@@ -1857,10 +1465,16 @@
           <b>LEGENDRE</b> returns the LEGENDRE matrix.
         </li>
         <li>
+          <b>LEGENDRE_DETERMINANT</b> returns the determinant of the LEGENDRE matrix.
+        </li>
+        <li>
           <b>LEGENDRE_INVERSE</b> returns the inverse of the LEGENDRE matrix.
         </li>
         <li>
           <b>LEGENDRE_SYMBOL</b> evaluates the Legendre symbol (Q/P).
+        </li>
+        <li>
+          <b>LEGENDRE_VAN</b> returns the LEGENDRE_VAN matrix.
         </li>
         <li>
           <b>LEGENDRE_ZEROS</b> computes the zeros of the Legendre polynomial.
@@ -1902,7 +1516,10 @@
           <b>LINE_ADJ_EIGENVALUES</b> returns the eigenvalues of the LINE_ADJ matrix.
         </li>
         <li>
-          <b>LINE_ADJ_NULL</b> returns a null vector of the LINE_ADJ matrix.
+          <b>LINE_ADJ_NULL_LEFT</b> returns a left null vector of the LINE_ADJ matrix.
+        </li>
+        <li>
+          <b>LINE_ADJ_NULL_RIGHT</b> returns a right null vector of the LINE_ADJ matrix.
         </li>
         <li>
           <b>LINE_LOOP_ADJ</b> returns the LINE_LOOP_ADJ matrix.
@@ -1932,13 +1549,22 @@
           <b>MAXIJ</b> returns the MAXIJ matrix.
         </li>
         <li>
+          <b>MAXIJ_CONDITION</b> returns the L1 conditioni of the MAXIJ matrix.
+        </li>
+        <li>
           <b>MAXIJ_DETERMINANT</b> returns the determinant of the MAXIJ matrix.
         </li>
         <li>
           <b>MAXIJ_INVERSE</b> returns the inverse of the MAXIJ matrix.
         </li>
         <li>
+          <b>MAXIJ_PLU</b> returns the PLU factors of the MAXIJ matrix.
+        </li>
+        <li>
           <b>MERTENS</b> evaluates the Mertens function.
+        </li>
+        <li>
+          <b>MERTENS_VALUES</b> returns some values of the Mertens function.
         </li>
         <li>
           <b>MILNES</b> returns the MILNES matrix.
@@ -1956,6 +1582,9 @@
           <b>MINIJ_CHOLESKY</b> returns the Cholesky factor of the MINIJ matrix.
         </li>
         <li>
+          <b>MINIJ_CONDITION</b> returns the L1 condition of the MINIJ matrix.
+        </li>
+        <li>
           <b>MINIJ_DETERMINANT</b> returns the determinant of the MINIJ matrix.
         </li>
         <li>
@@ -1969,6 +1598,9 @@
         </li>
         <li>
           <b>MOEBIUS</b> returns the value of MU(N), the Moebius function of N.
+        </li>
+        <li>
+          <b>MOEBIUS_VALUES</b> returns some values of the Moebius function.
         </li>
         <li>
           <b>MOLER1</b> returns the MOLER1 matrix.
@@ -1992,7 +1624,10 @@
           <b>MOLER2_EIGENVALUES</b> returns the eigenvalues of the MOLER2 matrix.
         </li>
         <li>
-          <b>MOLER2_NULL</b> returns a null vector for the MOLER2 matrix.
+          <b>MOLER2_NULL_LEFT</b> returns a left null vector for the MOLER2 matrix.
+        </li>
+        <li>
+          <b>MOLER2_NULL_RIGHT</b> returns a right null vector for the MOLER2 matrix.
         </li>
         <li>
           <b>MOLER3</b> returns the MOLER3 matrix.
@@ -2010,13 +1645,28 @@
           <b>MOLER3_PLU</b> returns the PLU factors of the MOLER3 matrix.
         </li>
         <li>
+          <b>MOLER4</b> returns the MOLER4 matrix.
+        </li>
+        <li>
+          <b>MOLER4_CONDITION</b> returns the L1 condition of the MOLER4 matrix.
+        </li>
+        <li>
+          <b>MOLER4_DETERMINANT</b> returns the determinant of the MOLER4 matrix.
+        </li>
+        <li>
+          <b>MOLER4_EIGENVALUES</b> returns the eigenvalues of the MOLER4 matrix.
+        </li>
+        <li>
+          <b>MOLER4_INVERSE</b> returns the inverse of the MOLER4 matrix.
+        </li>
+        <li>
           <b>NEUMANN</b> returns the NEUMANN matrix.
         </li>
         <li>
           <b>NEUMANN_DETERMINANT</b> returns the determinant of the NEUMANN matrix.
         </li>
         <li>
-          <b>NEUMANN_NULL</b> returns a null vector of the NEUMANN matrix.
+          <b>NEUMANN_NULL_RIGHT</b> returns a right null vector of the NEUMANN matrix.
         </li>
         <li>
           <b>ONE</b> returns the ONE matrix.
@@ -2028,10 +1678,13 @@
           <b>ONE_EIGENVALUES</b> returns the eigenvalues of the ONE matrix.
         </li>
         <li>
-          <b>ONE_NULL</b> returns a null vector of the ONE matrix.
+          <b>ONE_NULL_LEFT</b> returns a left null vector of the ONE matrix.
         </li>
         <li>
-          <b>ONE_RIGHT</b> returns the right eigenvectors of the ONE matrix.
+          <b>ONE_NULL_RIGHT</b> returns a right null vector of the ONE matrix.
+        </li>
+        <li>
+          <b>ONE_EIGEN_RIGHT</b> returns the right eigenvectors of the ONE matrix.
         </li>
         <li>
           <b>ORTEGA</b> returns the ORTEGA matrix.
@@ -2046,16 +1699,22 @@
           <b>ORTEGA_INVERSE</b> returns the inverse of the ORTEGA matrix.
         </li>
         <li>
-          <b>ORTEGA_RIGHT</b> returns the (right) eigenvectors of the ORTEGA matrix.
+          <b>ORTEGA_EIGEN_RIGHT</b> returns the (right) eigenvectors of the ORTEGA matrix.
         </li>
         <li>
           <b>ORTH_RANDOM</b> returns the ORTH_RANDOM matrix.
+        </li>
+        <li>
+          <b>ORTH_RANDOM_DETERMINANT</b> returns the determinant of the ORTH_RANDOM matrix.
         </li>
         <li>
           <b>ORTH_RANDOM_INVERSE</b> returns the inverse of the ORTH_RANDOM matrix.
         </li>
         <li>
           <b>ORTH_SYMM</b> returns the ORTH_SYMM matrix.
+        </li>
+        <li>
+          <b>ORTH_SYMM_CONDITION</b> returns the L1 condition of the ORTH_SYMM matrix.
         </li>
         <li>
           <b>ORTH_SYMM_DETERMINANT</b> returns the determinant of the ORTH_SYMM matrix.
@@ -2082,7 +1741,7 @@
           <b>OTO_PLU</b> returns the PLU factors of the OTO matrix.
         </li>
         <li>
-          <b>OTO_RIGHT</b> returns the right eigenvectors of the OTO matrix.
+          <b>OTO_EIGEN_RIGHT</b> returns the right eigenvectors of the OTO matrix.
         </li>
         <li>
           <b>PARLETT</b> returns the PARLETT matrix.
@@ -2101,6 +1760,9 @@
         </li>
         <li>
           <b>PASCAL1</b> returns the PASCAL1 matrix.
+        </li>
+        <li>
+          <b>PASCAL1_CONDITION</b> returns the L1 condition of the PASCAL1 matrix.
         </li>
         <li>
           <b>PASCAL1_DETERMINANT</b> returns the determinant of the PASCAL1 matrix.
@@ -2148,10 +1810,13 @@
           <b>PDS_RANDOM_INVERSE</b> returns the inverse of the PDS_RANDOM matrix.
         </li>
         <li>
-          <b>PDS_RANDOM_RIGHT</b> returns the right eigenvectors of the PDS_RANDOM matrix.
+          <b>PDS_RANDOM_EIGEN_RIGHT</b> returns the right eigenvectors of the PDS_RANDOM matrix.
         </li>
         <li>
           <b>PEI</b> returns the PEI matrix.
+        </li>
+        <li>
+          <b>PEI_CONDITION</b> returns the L1 condition of the PEI matrix.
         </li>
         <li>
           <b>PEI_DETERMINANT</b> returns the determinant of the PEI matrix.
@@ -2163,7 +1828,7 @@
           <b>PEI_INVERSE</b> returns the inverse of the PEI matrix.
         </li>
         <li>
-          <b>PEI_RIGHT</b> returns the right eigenvectors of the PEI matrix.
+          <b>PEI_EIGEN_RIGHT</b> returns the right eigenvectors of the PEI matrix.
         </li>
         <li>
           <b>PERM_CHECK</b> checks that a vector represents a permutation.
@@ -2197,6 +1862,9 @@
         </li>
         <li>
           <b>PICK</b> returns the PICK matrix.
+        </li>
+        <li>
+          <b>PLU</b> returns a PLU matrix.
         </li>
         <li>
           <b>PLU_DETERMINANT</b> returns the determinant of the PLU matrix.
@@ -2235,13 +1903,7 @@
           <b>QUATERNION_K</b> returns a 4 by 4 matrix that behaves like the quaternion unit K.
         </li>
         <li>
-          <b>R4_ABS</b> returns the absolute value of an R4.
-        </li>
-        <li>
           <b>R4_NINT</b> returns the nearest integer to an R4.
-        </li>
-        <li>
-          <b>R8_ABS</b> returns the absolute value of an R8.
         </li>
         <li>
           <b>R8_CHOOSE</b> computes the binomial coefficient C(N,K) as an R8.
@@ -2256,6 +1918,9 @@
           <b>R8_HUGE</b> returns a "huge" R8.
         </li>
         <li>
+          <b>R8_MAX</b> returns the maximum of two R8's.
+        </li>
+        <li>
           <b>R8_MOP</b> returns the I-th power of -1 as an R8 value.
         </li>
         <li>
@@ -2268,7 +1933,7 @@
           <b>R8_SIGN</b> returns the sign of an R8.
         </li>
         <li>
-          <b>R8_UNIFORM</b> returns a scaled pseudorandom R8.
+          <b>R8_UNIFORM_AB</b> returns a scaled pseudorandom R8.
         </li>
         <li>
           <b>R8_UNIFORM_01</b> returns a unit pseudorandom R8.
@@ -2289,6 +1954,9 @@
           <b>R8MAT_DETETMINANT</b> computes the determinant of an R8MAT.
         </li>
         <li>
+          <b>R8MAT_DIAG_GET_VECTOR</b> gets the value of the diagonal of an R8MAT.
+        </li>
+        <li>
           <b>R8MAT_GEDET</b> computes the determinant of an R8MAT factored by R8MAT_GEFA.
         </li>
         <li>
@@ -2307,7 +1975,7 @@
           <b>R8MAT_HOUSE_FORM</b> constructs a Householder matrix from its compact form.
         </li>
         <li>
-          <b>R8MAT_IDENTITY</b> sets the square matrix A to the identity.
+          <b>R8MAT_IDENTITY_NEW</b> sets the square matrix A to the identity.
         </li>
         <li>
           <b>R8MAT_INVERSE</b> computes the inverse of an R8MAT.
@@ -2316,7 +1984,13 @@
           <b>R8MAT_IS_ADJACENCY</b> checks whether an R8MAT is an adjacency matrix.
         </li>
         <li>
-          <b>R8MAT_IS_EIGEN_RIGHT</b> determines the error in a (right) eigensystem.
+          <b>R8MAT_IS_ANTICIRCULANT</b> checks whether an R8MAT is an anticirculant matrix.
+        </li>
+        <li>
+          <b>R8MAT_IS_EIGEN_LEFT</b> determines the error in a left eigensystem.
+        </li>
+        <li>
+          <b>R8MAT_IS_EIGEN_RIGHT</b> determines the error in a right eigensystem.
         </li>
         <li>
           <b>R8MAT_IS_INVERSE</b> determines if one R8MAT is the inverse of another.
@@ -2328,7 +2002,10 @@
           <b>R8MAT_IS_INVERSE_RIGHT</b> determines if one R8MAT is the right inverse of another.
         </li>
         <li>
-          <b>R8MAT_IS_NULL_VECTOR</b> determines if vector x is a null vector of an R8MAT.
+          <b>R8MAT_IS_NULL_LEFT</b> determines if x is a left null vector of an R8MAT.
+        </li>
+        <li>
+          <b>R8MAT_IS_NULL_RIGHT</b> determines if x is a right null vector of an R8MAT.
         </li>
         <li>
           <b>R8MAT_IS_PERM</b> checks whether an R8MAT is a permutation matrix.
@@ -2343,16 +2020,34 @@
           <b>R8MAT_IS_SYMMETRIC</b> checks an R8MAT for symmetry.
         </li>
         <li>
+          <b>R8MAT_IS_TRANSITION</b> checks whether an R8MAT is a transition matrix.
+        </li>
+        <li>
+          <b>R8MAT_IS_TRIANGULAR</b> determines whether an R8MAT is triangular.
+        </li>
+        <li>
           <b>R8MAT_IS_ZERO_ONE</b> checks whether an R8MAT is a zero/one matrix.
         </li>
         <li>
           <b>R8MAT_MM_NEW</b> multiplies two matrices.
         </li>
         <li>
+          <b>R8MAT_MTM_NEW</b> computes C = A' * B.
+        </li>
+        <li>
           <b>R8MAT_NORM_EIS</b> returns the EISPACK norm of an R8MAT.
         </li>
         <li>
           <b>R8MAT_NORM_FRO</b> returns the Frobenius norm of an R8MAT.
+        </li>
+        <li>
+          <b>R8MAT_NORM_L1</b> returns the matrix L1 norm of an R8MAT.
+        </li>
+        <li>
+          <b>R8MAT_NORM_L2</b> returns the matrix L2 norm of an R8MAT.
+        </li>
+        <li>
+          <b>R8MAT_NORM_LI</b> returns the matrix L-oo norm of an R8MAT.
         </li>
         <li>
           <b>R8MAT_PLOT</b> "plots" an R8MAT.
@@ -2376,16 +2071,16 @@
           <b>R8MAT_TRACE</b> computes the trace of an R8MAT.
         </li>
         <li>
-          <b>R8MAT_TRANSPOSE</b> returns the transpose of a matrix.
-        </li>
-        <li>
           <b>R8MAT_TRANSPOSE_IN_PLACE</b> transposes a square matrix in place.
         </li>
         <li>
-          <b>R8MAT_UNIFORM_NEW</b> returns a scaled pseudorandom R8MAT.
+          <b>R8MAT_TRANSPOSE_NEW</b> returns the transpose of a matrix.
         </li>
         <li>
           <b>R8MAT_UNIFORM_01_NEW</b> returns a unit pseudorandom R8MAT.
+        </li>
+        <li>
+          <b>R8MAT_UNIFORM_AB_NEW</b> returns a scaled pseudorandom R8MAT.
         </li>
         <li>
           <b>R8MAT_ZERO_NEW</b> returns a new zeroed R8MAT.
@@ -2403,6 +2098,15 @@
           <b>R8ROW_TO_R8VEC</b> converts an R8ROW into an R8VEC.
         </li>
         <li>
+          <b>R8VEC_AMAX</b> returns the maximum absolute value in an R8VEC.
+        </li>
+        <li>
+          <b>R8VEC_AMIN</b> returns the minimum absolute value in an R8VEC.
+        </li>
+        <li>
+          <b>R8VEC_ASUM</b> sums the absolute values of the entries of an R8VEC.
+        </li>
+        <li>
           <b>R8VEC_COPY</b> copies an R8VEC.
         </li>
         <li>
@@ -2418,6 +2122,12 @@
           <b>R8VEC_INDICATOR_NEW</b> sets an R8VEC to the indicator vector {1,2,3...}.
         </li>
         <li>
+          <b>R8VEC_LINSPACE_NEW</b> creates a vector of linearly spaced values.
+        </li>
+        <li>
+          <b>R8VEC_MAX</b> returns the value of the maximum element in a R8VEC.
+        </li>
+        <li>
           <b>R8VEC_NORM_L2</b> returns the L2 norm of an R8VEC.
         </li>
         <li>
@@ -2430,7 +2140,10 @@
           <b>R8VEC_SORT_BUBBLE_A</b> ascending sorts an R8VEC using bubble sort.
         </li>
         <li>
-          <b>R8VEC_UNIFORM_NEW</b> returns a scaled pseudorandom R8VEC.
+          <b>R8VEC_SUM</b> returns the sum of an R8VEC.
+        </li>
+        <li>
+          <b>R8VEC_UNIFORM_AB_NEW</b> returns a scaled pseudorandom R8VEC.
         </li>
         <li>
           <b>R8VEC_UNIFORM_01_NEW</b> returns a unit pseudorandom R8VEC.
@@ -2460,6 +2173,9 @@
           <b>REF_RANDOM</b> returns a REF_RANDOM matrix.
         </li>
         <li>
+          <b>REF_RANDOM_DETERMINANT:</b> determinant of a REF_RANDOM matrix.
+        </li>
+        <li>
           <b>RIEMANN</b> returns the RIEMANN matrix.
         </li>
         <li>
@@ -2469,7 +2185,10 @@
           <b>RING_ADJ_DETERMINANT</b> returns the determinant of the RING_ADJ matrix.
         </li>
         <li>
-          <b>RING_ADJ_NULL</b> returns a null vector of the RING_ADJ matrix.
+          <b>RING_ADJ_NULL_LEFT</b> returns a left null vector of the RING_ADJ matrix.
+        </li>
+        <li>
+          <b>RING_ADJ_NULL_RIGHT</b> returns a right null vector of the RING_ADJ matrix.
         </li>
         <li>
           <b>RIS</b> returns the RIS matrix.
@@ -2493,7 +2212,7 @@
           <b>RODMAN_INVERSE</b> returns the inverse of the RODMAN matrix.
         </li>
         <li>
-          <b>RODMAN_RIGHT</b> returns the right eigenvectors of the RODMAN matrix.
+          <b>RODMAN_EIGEN_RIGHT</b> returns the right eigenvectors of the RODMAN matrix.
         </li>
         <li>
           <b>ROSSER1</b> returns the ROSSER1 matrix.
@@ -2502,13 +2221,19 @@
           <b>ROSSER1_DETERMINANT</b> returns the determinant of the ROSSER1 matrix.
         </li>
         <li>
+          <b>ROSSER1_EIGEN_LEFT</b> returns the left eigenvectors of the ROSSER1 matrix.
+        </li>
+        <li>
+          <b>ROSSER1_EIGEN_RIGHT</b> returns the right eigenvectors of the ROSSER1 matrix.
+        </li>
+        <li>
           <b>ROSSER1_EIGENVALUES</b> returns the eigenvalues of the ROSSER1 matrix.
         </li>
         <li>
-          <b>ROSSER1_NULL</b> returns a null vector of the ROSSER1 matrix.
+          <b>ROSSER1_NULL_LEFT</b> returns a left null vector of the ROSSER1 matrix.
         </li>
         <li>
-          <b>ROSSER1_RIGHT</b> returns the right eigenvectors of the ROSSER1 matrix.
+          <b>ROSSER1_NULL_RIGHT</b> returns a right null vector of the ROSSER1 matrix.
         </li>
         <li>
           <b>ROUTH</b> returns the ROUTH matrix.
@@ -2523,6 +2248,9 @@
           <b>RUTIS1</b> returns the RUTIS1 matrix.
         </li>
         <li>
+          <b>RUTIS1_CONDITION</b> returns the L1 condition of the RUTIS1 matrix.
+        </li>
+        <li>
           <b>RUTIS1_DETERMINANT</b> returns the determinant of the RUTIS1 matrix.
         </li>
         <li>
@@ -2532,10 +2260,13 @@
           <b>RUTIS1_INVERSE</b> returns the inverse of the RUTIS1 matrix.
         </li>
         <li>
-          <b>RUTIS1_RIGHT</b> returns the right eigenvectors of the RUTIS1 matrix.
+          <b>RUTIS1_EIGEN_RIGHT</b> returns the right eigenvectors of the RUTIS1 matrix.
         </li>
         <li>
           <b>RUTIS2</b> returns the RUTIS2 matrix.
+        </li>
+        <li>
+          <b>RUTIS2_CONDITION</b> returns the L1 condition of the RUTIS2 matrix.
         </li>
         <li>
           <b>RUTIS2_DETERMINANT</b> returns the determinant of the RUTIS2 matrix.
@@ -2547,10 +2278,13 @@
           <b>RUTIS2_INVERSE</b> returns the inverse of the RUTIS2 matrix.
         </li>
         <li>
-          <b>RUTIS2_RIGHT</b> returns the right eigenvectors of the RUTIS2 matrix.
+          <b>RUTIS2_EIGEN_RIGHT</b> returns the right eigenvectors of the RUTIS2 matrix.
         </li>
         <li>
           <b>RUTIS3</b> returns the RUTIS3 matrix.
+        </li>
+        <li>
+          <b>RUTIS3_CONDITION</b> returns the L1 condition of the RUTIS3 matrix.
         </li>
         <li>
           <b>RUTIS3_DETERMINANT</b> returns the determinant of the RUTIS3 matrix.
@@ -2562,10 +2296,10 @@
           <b>RUTIS3_INVERSE</b> returns the inverse of the RUTIS3 matrix.
         </li>
         <li>
-          <b>RUTIS3_LEFT</b> returns the left eigenvectors of the RUTIS3 matrix.
+          <b>RUTIS3_EIGEN_LEFT</b> returns the left eigenvectors of the RUTIS3 matrix.
         </li>
         <li>
-          <b>RUTIS3_RIGHT</b> returns the right eigenvectors of the RUTIS3 matrix.
+          <b>RUTIS3_EIGEN_RIGHT</b> returns the right eigenvectors of the RUTIS3 matrix.
         </li>
         <li>
           <b>RUTIS4</b> returns the RUTIS4 matrix.
@@ -2583,6 +2317,9 @@
           <b>RUTIS5</b> returns the RUTIS5 matrix.
         </li>
         <li>
+          <b>RUTIS5_CONDITION</b> returns the L1 condition of the RUTIS5 matrix.
+        </li>
+        <li>
           <b>RUTIS5_DETERMINANT</b> returns the determinant of the RUTIS5 matrix.
         </li>
         <li>
@@ -2590,6 +2327,9 @@
         </li>
         <li>
           <b>RUTIS5_INVERSE</b> returns the inverse of the RUTIS5 matrix.
+        </li>
+        <li>
+          <b>RUTIS5_EIGEN_RIGHT</b> returns the right eigenvectors of the RUTIS5 matrix.
         </li>
         <li>
           <b>S_LEN_TRIM</b> returns the length of a string to the last nonblank.
@@ -2634,6 +2374,9 @@
           <b>SMOKE2_EIGENVALUES</b> returns the eigenvalues of the SMOKE2 matrix.
         </li>
         <li>
+          <b>SNAKES</b> returns the Snakes and Ladders transition matrix.
+        </li>
+        <li>
           <b>SORT_HEAP_EXTERNAL</b> externally sorts a list of items into ascending order.
         </li>
         <li>
@@ -2667,6 +2410,9 @@
           <b>SUMMATION</b> returns the SUMMATION matrix.
         </li>
         <li>
+          <b>SUMMATION_CONDITION</b> returns the L1 condition of the SUMMATION matrix.
+        </li>
+        <li>
           <b>SUMMATION_DETERMINANT</b> returns the determinant of the SUMMATION matrix.
         </li>
         <li>
@@ -2679,13 +2425,49 @@
           <b>SWEET1</b> returns the SWEET1 matrix.
         </li>
         <li>
+          <b>SWEET1_CONDITION</b> returns the L1 condition of the SWEET1 matrix.
+        </li>
+        <li>
+          <b>SWWEET1_DETERMINANT</b> returns the determinant of the SWEET1 matrix.
+        </li>
+        <li>
+          <b>SWEET1_INVERSE</b> returns the inverse of the SWEET1 matrix.
+        </li>
+        <li>
           <b>SWEET2</b> returns the SWEET2 matrix.
+        </li>
+        <li>
+          <b>SWEET2_CONDITION</b> returns the L1 condition of the SWEET2 matrix.
+        </li>
+        <li>
+          <b>SWWEET2_DETERMINANT</b> returns the determinant of the SWEET2 matrix.
+        </li>
+        <li>
+          <b>SWEET2_INVERSE</b> returns the inverse of the SWEET2 matrix.
         </li>
         <li>
           <b>SWEET3</b> returns the SWEET3 matrix.
         </li>
         <li>
+          <b>SWEET3_CONDITION</b> returns the L1 condition of the SWEET3 matrix.
+        </li>
+        <li>
+          <b>SWWEET3_DETERMINANT</b> returns the determinant of the SWEET3 matrix.
+        </li>
+        <li>
+          <b>SWEET3_INVERSE</b> returns the inverse of the SWEET3 matrix.
+        </li>
+        <li>
           <b>SWEET4</b> returns the SWEET4 matrix.
+        </li>
+        <li>
+          <b>SWEET4_CONDITION</b> returns the L1 condition of the SWEET4 matrix.
+        </li>
+        <li>
+          <b>SWWEET4_DETERMINANT</b> returns the determinant of the SWEET4 matrix.
+        </li>
+        <li>
+          <b>SWEET4_INVERSE</b> returns the inverse of the SWEET4 matrix.
         </li>
         <li>
           <b>SYLVESTER</b> returns the SYLVESTER matrix.
@@ -2694,7 +2476,13 @@
           <b>SYMM_RANDOM</b> returns the SYMM_RANDOM matrix.
         </li>
         <li>
-          <b>SYMM_RANDOM_DETERM</b> returns the determinant of the SYMM_RANDOM matrix.
+          <b>SYMM_RANDOM_DETERMINANT</b> returns the determinant of the SYMM_RANDOM matrix.
+        </li>
+        <li>
+          <b>SYMM_RANDOM_EIGEN_LEFT</b> returns left eigenvectors for the SYMM_RANDOM matrix.
+        </li>
+        <li>
+          <b>SYMM_RANDOM_EIGEN_RIGHT</b> returns right eigenvectors for the SYMM_RANDOM matrix.
         </li>
         <li>
           <b>SYMM_RANDOM_EIGENVALUES</b> returns the eigenvalues of the SYMM_RANDOM matrix.
@@ -2724,6 +2512,9 @@
           <b>TOURNAMENT_RANDOM</b> returns the TOURNAMENT_RANDOM matrix.
         </li>
         <li>
+          <b>TOURNAMENT_RANDOM_DETERMINANT:</b> determinant of the TOURNAMENT_RANDOM matrix.
+        </li>
+        <li>
           <b>TRANSITION_RANDOM</b> returns the TRANSITION_RANDOM matrix.
         </li>
         <li>
@@ -2737,6 +2528,9 @@
         </li>
         <li>
           <b>TRI_UPPER</b> returns the TRI_UPPER matrix.
+        </li>
+        <li>
+          <b>TRI_UPPER_CONDITION</b> returns the L1 condition of the TRI_UPPER matrix.
         </li>
         <li>
           <b>TRI_UPPER_DETERMINANT</b> returns the determinant of the TRI_UPPER matrix.
@@ -2787,6 +2581,9 @@
           <b>UPSHIFT</b> returns the UPSHIFT matrix.
         </li>
         <li>
+          <b>UPSHIFT_CONDITION</b> returns the L1 condition of the UPSHIFT matrix.
+        </li>
+        <li>
           <b>UPSHIFT_DETERMINANT</b> returns the determinant of the UPSHIFT matrix.
         </li>
         <li>
@@ -2805,6 +2602,9 @@
           <b>VAND1_INVERSE</b> returns the inverse of the VAND1 matrix.
         </li>
         <li>
+          <b>VAND1_INVERSE_UL</b> returns the UL factors of the Vandermonde1 inverse.
+        </li>
+        <li>
           <b>VAND2</b> returns the VAND2 matrix.
         </li>
         <li>
@@ -2814,7 +2614,25 @@
           <b>VAND2_INVERSE</b> returns the inverse of the VAND2 matrix.
         </li>
         <li>
+          <b>VAND2_INVERSE_UL</b> returns the UL factors of the Vandermonde2 inverse.
+        </li>
+        <li>
+          <b>VAND2_LU</b> returns the LU factors of the Vandermonde2 matrix.
+        </li>
+        <li>
+          <b>VAND2_PLU</b> returns the PLU factors of the Vandermonde2 matrix.
+        </li>
+        <li>
+          <b>WATHEN</b> returns the WATHEN matrix.
+        </li>
+        <li>
+          <b>WATHEN_ORDER</b> returns the order of the WATHEN matrix.
+        </li>
+        <li>
           <b>WILK03</b> returns the WILK03 matrix.
+        </li>
+        <li>
+          <b>WILK03_CONDITION</b> returns the L1 condition of the WILK03 matrix.
         </li>
         <li>
           <b>WILK03_DETERMINANT</b> returns the determinant of the WILK03 matrix.
@@ -2835,6 +2653,9 @@
           <b>WILK04</b> returns the WILK04 matrix.
         </li>
         <li>
+          <b>WILK04_CONDITION</b> returns the L1 condition of the WILK04 matrix.
+        </li>
+        <li>
           <b>WILK04_DETERMINANT</b> returns the determinant of the WILK04 matrix.
         </li>
         <li>
@@ -2853,7 +2674,10 @@
           <b>WILK05</b> returns the WILK05 matrix.
         </li>
         <li>
-          <b>WILKO5</b> returns the determinant of the WILK05 matrix.
+          <b>WILK05_CONDITION</b> returns the L1 condition of the WILK05 matrix.
+        </li>
+        <li>
+          <b>WILK05_DETERMINANT</b> returns the determinant of the WILK05 matrix.
         </li>
         <li>
           <b>WILK05_INVERSE</b> returns the inverse of the WILK05 matrix.
@@ -2866,6 +2690,9 @@
         </li>
         <li>
           <b>WILK12_EIGENVALUES</b> returns the eigenvalues of the WILK12 matrix.
+        </li>
+        <li>
+          <b>WILK12_EIGEN_RIGHT</b> returns the right eigenvectors of the WILK12 matrix.
         </li>
         <li>
           <b>WILK20</b> returns the WILK20 matrix.
@@ -2883,6 +2710,9 @@
           <b>WILSON</b> returns the WILSON matrix.
         </li>
         <li>
+          <b>WILSON_CONDITION</b> returns the L1 condition of the WILSON matrix.
+        </li>
+        <li>
           <b>WILSON_DETERMINANT</b> returns the determinant of the WILSON matrix.
         </li>
         <li>
@@ -2892,7 +2722,13 @@
           <b>WILSON_INVERSE</b> returns the inverse of the WILSON matrix.
         </li>
         <li>
+          <b>WILSON_PLU</b> returns the PLU factors of the WILSON matrix.
+        </li>
+        <li>
           <b>WILSON_RHS</b> returns the WILSON right hand side.
+        </li>
+        <li>
+          <b>WILSON_EIGEN_RIGHT</b> returns the right eigenvectors of the WILSON matrix.
         </li>
         <li>
           <b>WILSON_SOLUTION</b> returns the WILSON solution.
@@ -2907,10 +2743,13 @@
           <b>ZERO_EIGENVALUES</b> returns the eigenvalues of the ZERO matrix.
         </li>
         <li>
-          <b>ZERO_NULL</b> returns a null vector of the ZERO matrix.
+          <b>ZERO_NULL_RIGHT</b> returns a right null vector of the ZERO matrix.
         </li>
         <li>
-          <b>ZERO_RIGHT</b> returns the right eigenvectors of the ZERO matrix.
+          <b>ZERO_NULL_LEFT</b> returns a left null vector of the ZERO matrix.
+        </li>
+        <li>
+          <b>ZERO_EIGEN_RIGHT</b> returns the right eigenvectors of the ZERO matrix.
         </li>
         <li>
           <b>ZIELKE</b> returns the ZIELKE matrix.
@@ -2926,7 +2765,7 @@
     <hr>
 
     <i>
-      Last revised on 15 June 2011.
+      Last revised on 14 March 2015.
     </i>
 
     <!-- John Burkardt -->

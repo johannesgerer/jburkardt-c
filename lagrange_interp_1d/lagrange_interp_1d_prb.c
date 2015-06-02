@@ -18,21 +18,25 @@ int main ( )
 
 /******************************************************************************/
 /*
-//  Purpose:
-//
-//    LAGRANGE_INTERP_1D_TEST tests LAGRANGE_INTERP_1D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    14 October 2012
-//
-//  Author:
-//
-//    John Burkardt
+  Purpose:
+
+    MAIN is the main program for LAGRANGE_INTERP_1D_PRB.
+
+  Discussion:
+
+    LAGRANGE_INTERP_1D_PRB tests the LAGRANGE_INTERP_1D library
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 October 2012
+
+  Author:
+
+    John Burkardt
 */
 {
   int nd_test_num = 6;
@@ -45,7 +49,7 @@ int main ( )
 
   timestamp ( );
   printf ( "\n" );
-  printf ( "LAGRANGE_INTERP_1D_TEST:\n" );
+  printf ( "LAGRANGE_INTERP_1D_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the LAGRANGE_INTERP_1D library.\n" );
   printf ( "  The R8LIB library is needed.\n" );
@@ -74,7 +78,7 @@ int main ( )
 //  Terminate.
 */
   printf ( "\n" );
-  printf ( "LAGRANGE_INTERP_1D_TEST:\n" );
+  printf ( "LAGRANGE_INTERP_1D_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

@@ -1584,7 +1584,7 @@ double *r8vec_uniform_01 ( int n, int *seed )
   int k;
   double *r;
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {

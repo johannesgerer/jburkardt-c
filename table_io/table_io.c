@@ -198,13 +198,13 @@ int file_column_count ( char *input_filename )
     to be in the file.
 */
 {
-# define LINE_MAX 255
+# define MY_LINE_MAX 255
 
   int column_num;
   char *error;
   FILE *input;
   int got_one;
-  char line[LINE_MAX];
+  char line[MY_LINE_MAX];
 /*
   Open the file.
 */
@@ -214,7 +214,8 @@ int file_column_count ( char *input_filename )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "FILE_COLUMN_COUNT - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_filename );
+    fprintf ( stderr, "  Could not open the input file: \"%s\"\n",
+      input_filename );
     exit ( 1 );
   }
 /*
@@ -224,7 +225,7 @@ int file_column_count ( char *input_filename )
 
   for ( ; ; )
   {
-    error = fgets ( line, LINE_MAX, input );
+    error = fgets ( line, MY_LINE_MAX, input );
 
     if ( !error )
     {
@@ -254,7 +255,7 @@ int file_column_count ( char *input_filename )
 
     for ( ; ; )
     {
-      error = fgets ( line, LINE_MAX, input );
+      error = fgets ( line, MY_LINE_MAX, input );
 
       if ( !error )
       {
@@ -285,7 +286,7 @@ int file_column_count ( char *input_filename )
 
   return column_num;
 
-# undef LINE_MAX
+# undef MY_LINE_MAX
 }
 /******************************************************************************/
 
@@ -321,14 +322,14 @@ int file_row_count ( char *input_filename )
     Output, int FILE_ROW_COUNT, the number of rows found.
 */
 {
-# define LINE_MAX 255
+# define MY_LINE_MAX 255
 
   int bad_num;
   int comment_num;
   char *error;
   FILE *input;
   int i;
-  char line[LINE_MAX];
+  char line[MY_LINE_MAX];
   int record_num;
   int row_num;
 
@@ -343,13 +344,14 @@ int file_row_count ( char *input_filename )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "FILE_ROW_COUNT - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_filename );
+    fprintf ( stderr, "  Could not open the input file: \"%s\"\n",
+      input_filename );
     exit ( 1 );
   }
 
   for ( ; ; )
   {
-    error = fgets ( line, LINE_MAX, input );
+    error = fgets ( line, MY_LINE_MAX, input );
 
     if ( !error )
     {
@@ -377,7 +379,7 @@ int file_row_count ( char *input_filename )
 
   return row_num;
 
-# undef LINE_MAX
+# undef MY_LINE_MAX
 }
 /******************************************************************************/
 
@@ -812,7 +814,7 @@ int *i4mat_data_read ( char *input_filename, int m, int n )
     Output, int I4MAT_DATA_READ[M*N], the data.
 */
 {
-# define LINE_MAX 255
+# define MY_LINE_MAX 255
 
   int error;
   char *got_string;
@@ -829,7 +831,8 @@ int *i4mat_data_read ( char *input_filename, int m, int n )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "I4MAT_DATA_READ - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_filename );
+    fprintf ( stderr, 
+      "  Could not open the input file: \"%s\"\n", input_filename );
     exit ( 1 );
   }
 
@@ -841,7 +844,7 @@ int *i4mat_data_read ( char *input_filename, int m, int n )
 
   while ( j < n )
   {
-    got_string = fgets ( line, LINE_MAX, input );
+    got_string = fgets ( line, MY_LINE_MAX, input );
 
     if ( !got_string )
     {
@@ -874,7 +877,7 @@ int *i4mat_data_read ( char *input_filename, int m, int n )
 
   return table;
 
-# undef LINE_MAX
+# undef MY_LINE_MAX
 }
 /******************************************************************************/
  
@@ -1245,7 +1248,7 @@ void i4mat_write ( char *output_filename, int m, int n, int table[] )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "I4MAT_WRITE - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the output file.\n" );
+    fprintf ( stderr, "  Could not open the output file '%s'\n", output_filename );
     exit ( 1 );
   }
 /*
@@ -1268,17 +1271,165 @@ void i4mat_write ( char *output_filename, int m, int n, int table[] )
 }
 /******************************************************************************/
 
-int *lvec_data_read ( char *input_filename, int n )
+void i4vec_data_read ( char *input_filename, int n, int a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    LVEC_DATA_READ reads the data from an LVEC file.
+    I4VEC_DATA_READ reads the data from an I4VEC file.
 
   Discussion:
 
-    An LVEC is an array of L's.
+    An I4VEC is an array of I4's.
+
+    The file is assumed to contain one record per line.
+
+    Records beginning with the '#' character are comments, and are ignored.
+    Blank lines are also ignored.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *INPUT_FILENAME, the name of the input file.
+
+    Input, int N, the number of points.
+
+    Output, int A[N], the data.
+*/
+{
+# define MY_LINE_MAX 255
+
+  char *got_string;
+  FILE *input;
+  int j;
+  int l;
+  char line[255];;
+
+  input = fopen ( input_filename, "r" );
+
+  if ( !input )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "I4VEC_DATA_READ - Fatal error!\n" );
+    fprintf ( stderr, 
+      "  Could not open the input file: \"%s\"\n", input_filename );
+    exit ( 1 );
+  }
+
+  j = 0;
+
+  while ( j < n )
+  {
+    got_string = fgets ( line, MY_LINE_MAX, input );
+
+    if ( !got_string )
+    {
+      break;
+    }
+
+    if ( line[0] == '#' || s_len_trim ( line ) == 0 )
+    {
+      continue;
+    }
+
+    a[j] = atoi ( line );
+    j = j + 1;
+  }
+
+  fclose ( input );
+
+  return;
+
+# undef MY_LINE_MAX
+}
+/******************************************************************************/
+
+void i4vec_write ( char *output_filename, int n, int table[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_WRITE writes an I4VEC to a file.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *OUTPUT_FILENAME, the output filename.
+
+    Input, int N, the number of points.
+
+    Input, int TABLE[N], the data.
+*/
+{
+  int j;
+  FILE *output;
+/*
+  Open the file.
+*/
+  output = fopen ( output_filename, "wt" );
+
+  if ( !output )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "I4VEC_WRITE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the output file '%s'.\n", output_filename );
+    exit ( 1 );
+  }
+/*
+  Write the data.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    fprintf ( output, "%d\n", table[j] );
+  }
+/*
+  Close the file.
+*/
+  fclose ( output );
+
+  return;
+}
+/******************************************************************************/
+
+int *l4vec_data_read ( char *input_filename, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    L4VEC_DATA_READ reads the data from an L4VEC file.
+
+  Discussion:
+
+    An L4VEC is an array of L4's.
 
     The file is assumed to contain one record per line.
 
@@ -1303,10 +1454,10 @@ int *lvec_data_read ( char *input_filename, int n )
 
     Input, int N, the number of points.
 
-    Output, int LVEC_DATA_READ[N], the data.
+    Output, int L4VEC_DATA_READ[N], the data.
 */
 {
-# define LINE_MAX 255
+# define MY_LINE_MAX 255
 
   char *got_string;
   FILE *input;
@@ -1320,8 +1471,9 @@ int *lvec_data_read ( char *input_filename, int n )
   if ( !input )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "LVEC_DATA_READ - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_filename );
+    fprintf ( stderr, "L4VEC_DATA_READ - Fatal error!\n" );
+    fprintf ( stderr, 
+      "  Could not open the input file: \"%s\"\n", input_filename );
     exit ( 1 );
   }
 
@@ -1331,7 +1483,7 @@ int *lvec_data_read ( char *input_filename, int n )
 
   while ( j < n )
   {
-    got_string = fgets ( line, LINE_MAX, input );
+    got_string = fgets ( line, MY_LINE_MAX, input );
 
     if ( !got_string )
     {
@@ -1343,7 +1495,7 @@ int *lvec_data_read ( char *input_filename, int n )
       continue;
     }
 
-    table[j] = s_to_l ( line );
+    table[j] = s_to_l4 ( line );
     j = j + 1;
   }
 
@@ -1351,21 +1503,21 @@ int *lvec_data_read ( char *input_filename, int n )
 
   return table;
 
-# undef LINE_MAX
+# undef MY_LINE_MAX
 }
 /******************************************************************************/
  
-void lvec_header_read ( char *input_filename, int *n )
+void l4vec_header_read ( char *input_filename, int *n )
  
 /******************************************************************************/
 /*
   Purpose:
 
-    LVEC_HEADER_READ reads the header from an LVEC file.
+    L4VEC_HEADER_READ reads the header from an L4VEC file.
 
   Discussion:
 
-    An LVEC is a vector of L's.
+    An L4VEC is a vector of L4's.
 
   Licensing:
 
@@ -1391,7 +1543,7 @@ void lvec_header_read ( char *input_filename, int *n )
   if ( *n <= 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "LVEC_HEADER_READ - Fatal error!\n" );
+    fprintf ( stderr, "L4VEC_HEADER_READ - Fatal error!\n" );
     fprintf ( stderr, "  FILE_ROW_COUNT failed.\n" );
     exit ( 1 );
   }
@@ -1400,19 +1552,19 @@ void lvec_header_read ( char *input_filename, int *n )
 }
 /******************************************************************************/
 
-void lvec_write ( char *output_filename, int n, int table[] )
+void l4vec_write ( char *output_filename, int n, int table[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    LVEC_WRITE writes an LVEC to a file.
+    L4VEC_WRITE writes an L4VEC to a file.
 
   Discussion:
 
-    An LVEC is a vector of L's.
+    An L4VEC is a vector of L4's.
 
-    An L is an integer value such that 0 represents FALSE and 
+    An L4 is an integer value such that 0 represents FALSE and 
     any nonzero value represents TRUE.
 
   Licensing:
@@ -1446,8 +1598,8 @@ void lvec_write ( char *output_filename, int n, int table[] )
   if ( !output )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "LVEC_WRITE - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the output file.\n" );
+    fprintf ( stderr, "L4VEC_WRITE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the output file '%s'\n", output_filename );
     exit ( 1 );
   }
 /*
@@ -1519,7 +1671,7 @@ float *r4mat_data_read ( char *input_filename, int m, int n )
     Output, float R4MAT_DATA_READ[M*N], the data.
 */
 {
-# define LINE_MAX 255
+# define MY_LINE_MAX 255
 
   int error;
   char *got_string;
@@ -1536,7 +1688,8 @@ float *r4mat_data_read ( char *input_filename, int m, int n )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "R4MAT_DATA_READ - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_filename );
+    fprintf ( stderr, 
+      "  Could not open the input file: \"%s\"\n", input_filename );
     exit ( 1 );
   }
 
@@ -1548,7 +1701,7 @@ float *r4mat_data_read ( char *input_filename, int m, int n )
 
   while ( j < n )
   {
-    got_string = fgets ( line, LINE_MAX, input );
+    got_string = fgets ( line, MY_LINE_MAX, input );
 
     if ( !got_string )
     {
@@ -1581,7 +1734,7 @@ float *r4mat_data_read ( char *input_filename, int m, int n )
 
   return table;
 
-# undef LINE_MAX
+# undef MY_LINE_MAX
 }
 /******************************************************************************/
  
@@ -1683,7 +1836,7 @@ float *r4mat_indicator_new ( int m, int n )
     Output, float R4MAT_INDICATOR_NEW[M*N], the table.
 */
 {
-  double *a;
+  float *a;
   int fac;
   int i;
   int j;
@@ -2118,7 +2271,7 @@ float *r4mat_uniform_01 ( int m, int n, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( m * n * sizeof ( float ) );
+  r = ( float * ) malloc ( m * n * sizeof ( float ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -2191,7 +2344,7 @@ void r4mat_write ( char *output_filename, int m, int n, float table[] )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "R4MAT_WRITE - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the output file.\n" );
+    fprintf ( stderr, "  Could not open the output file '%s'\n", output_filename );
     exit ( 1 );
   }
 /*
@@ -2407,7 +2560,7 @@ double *r8mat_data_read ( char *input_filename, int m, int n )
     Output, double R8MAT_DATA_READ[M*N], the data.
 */
 {
-# define LINE_MAX 255
+# define MY_LINE_MAX 255
 
   int error;
   char *got_string;
@@ -2436,7 +2589,7 @@ double *r8mat_data_read ( char *input_filename, int m, int n )
 
   while ( j < n )
   {
-    got_string = fgets ( line, LINE_MAX, input );
+    got_string = fgets ( line, MY_LINE_MAX, input );
 
     if ( !got_string )
     {
@@ -2469,7 +2622,7 @@ double *r8mat_data_read ( char *input_filename, int m, int n )
 
   return table;
 
-# undef LINE_MAX
+# undef MY_LINE_MAX
 }
 /******************************************************************************/
  
@@ -2634,7 +2787,7 @@ void r8mat_print ( int m, int n, double a[], char *title )
 }
 /******************************************************************************/
 
-void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi, 
+void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi,
   int jhi, char *title )
 
 /******************************************************************************/
@@ -2645,15 +2798,16 @@ void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi,
 
   Discussion:
 
-    An R8MAT is an array of R8's.
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    28 May 2008
+    26 June 2013
 
   Author:
 
@@ -2684,48 +2838,75 @@ void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi,
   int j2hi;
   int j2lo;
 
-  printf ( "\n" );
-  printf ( "%s\n", title );
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+
+  if ( m <= 0 || n <= 0 )
+  {
+    fprintf ( stdout, "\n" );
+    fprintf ( stdout, "  (None)\n" );
+    return;
+  }
 /*
   Print the columns of the matrix, in strips of 5.
 */
   for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
   {
     j2hi = j2lo + INCX - 1;
-    j2hi = i4_min ( j2hi, n );
-    j2hi = i4_min ( j2hi, jhi );
+    if ( n < j2hi )
+    {
+      j2hi = n;
+    }
+    if ( jhi < j2hi )
+    {
+      j2hi = jhi;
+    }
 
-    printf ( "\n" );
+    fprintf ( stdout, "\n" );
 /*
   For each column J in the current range...
 
   Write the header.
 */
-    printf ( "  Col:  ");
+    fprintf ( stdout, "  Col:  ");
     for ( j = j2lo; j <= j2hi; j++ )
     {
-      printf ( "  %7d     ", j );
+      fprintf ( stdout, "  %7d     ", j - 1 );
     }
-    printf ( "\n" );
-    printf ( "  Row\n" );
-    printf ( "\n" );
+    fprintf ( stdout, "\n" );
+    fprintf ( stdout, "  Row\n" );
+    fprintf ( stdout, "\n" );
 /*
   Determine the range of the rows in this strip.
 */
-    i2lo = i4_max ( ilo, 1 );
-    i2hi = i4_min ( ihi, m );
+    if ( 1 < ilo )
+    {
+      i2lo = ilo;
+    }
+    else
+    {
+      i2lo = 1;
+    }
+    if ( m < ihi )
+    {
+      i2hi = m;
+    }
+    else
+    {
+      i2hi = ihi;
+    }
 
     for ( i = i2lo; i <= i2hi; i++ )
     {
 /*
   Print out (up to) 5 entries in row I, that lie in the current strip.
 */
-      printf ( "%5d", i );
+      fprintf ( stdout, "%5d:", i - 1 );
       for ( j = j2lo; j <= j2hi; j++ )
       {
-        printf ( "  %12f", a[i-1+(j-1)*m] );
+        fprintf ( stdout, "  %14g", a[i-1+(j-1)*m] );
       }
-      printf ( "\n" );
+      fprintf ( stdout, "\n" );
     }
   }
 
@@ -2787,6 +2968,52 @@ double *r8mat_read ( char *input_filename, int *m, int *n )
   table = r8mat_data_read ( input_filename, *m, *n );
 
   return table;
+}
+/******************************************************************************/
+
+double *r8mat_read_bin ( char *input_filename, int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_READ_BIN reads an R8MAT from a binary file.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 August 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *INPUT_FILENAME, the output filename.
+
+    Input, int M, the spatial dimension.
+
+    Input, int N, the number of data items.
+
+    Input, double X[M*N], the data.
+*/
+{
+  FILE *input_unit;
+  double *x;
+
+  x = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  input_unit = fopen ( input_filename, "rb" );
+
+  fread ( x, sizeof ( double ), m * n, input_unit );
+
+  fclose ( input_unit );
+
+  return x;
 }
 /******************************************************************************/
 
@@ -3006,7 +3233,7 @@ double *r8mat_uniform_01 ( int m, int n, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( m * n * sizeof ( double ) );
+  r = ( double * ) malloc ( m * n * sizeof ( double ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -3079,7 +3306,7 @@ void r8mat_write ( char *output_filename, int m, int n, double table[] )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "R8MAT_WRITE - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the output file.\n" );
+    fprintf ( stderr, "  Could not open the file '%s'.\n", output_filename );
     exit ( 1 );
   }
 /*
@@ -3102,13 +3329,153 @@ void r8mat_write ( char *output_filename, int m, int n, double table[] )
 }
 /******************************************************************************/
 
-double *r8vec_data_read ( char *input_filename, int n )
+void r8mat_write_bin ( char *output_filename, int m, int n, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_WRITE_BIN writes an R8MAT to a binary file.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 August 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *OUTPUT_FILENAME, the output filename.
+
+    Input, int M, the spatial dimension.
+
+    Input, int N, the number of data items.
+
+    Input, double X[M*N], the data.
+*/
+{
+  FILE *output_unit;
+
+  output_unit = fopen ( output_filename, "wb" );
+
+  if ( !output_unit )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8MAT_WRITE_BIN - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the file '%s'.\n", output_filename );
+    exit ( 1 );
+  }
+
+  fwrite ( x, sizeof ( double ), m * n, output_unit );
+
+  fclose ( output_unit );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_data_read ( char *input_filename, int n, double x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
     R8VEC_DATA_READ reads the data from an R8VEC file.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+    The file is assumed to contain one record per line.
+
+    Records beginning with the '#' character are comments, and are ignored.
+    Blank lines are also ignored.
+
+    There are assumed to be exactly (or at least) N such records.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *INPUT_FILENAME, the name of the input file.
+
+    Input, int N, the number of points.
+
+    Output, double X[N], the data.
+*/
+{
+# define MY_LINE_MAX 255
+
+  int error;
+  char *got_string;
+  FILE *input;
+  int i;
+  int j;
+  int lchar;
+  char line[255];
+
+  input = fopen ( input_filename, "r" );
+
+  if ( !input )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8VEC_DATA_READ - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_filename );
+    exit ( 1 );
+  }
+
+  j = 0;
+
+  while ( j < n )
+  {
+    got_string = fgets ( line, MY_LINE_MAX, input );
+
+    if ( !got_string )
+    {
+      break;
+    }
+
+    if ( line[0] == '#' || s_len_trim ( line ) == 0 )
+    {
+      continue;
+    }
+
+    x[j] = atof ( line );
+
+    j = j + 1;
+  }
+
+  fclose ( input );
+
+  return;
+
+# undef MY_LINE_MAX
+}
+/******************************************************************************/
+
+double *r8vec_data_read_new ( char *input_filename, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_DATA_READ_NEW reads the data from an R8VEC file.
 
   Discussion:
 
@@ -3139,10 +3506,10 @@ double *r8vec_data_read ( char *input_filename, int n )
 
     Input, int N, the number of points.
 
-    Output, double R8VEC_DATA_READ[N], the data.
+    Output, double R8VEC_DATA_READ_NEW[N], the data.
 */
 {
-# define LINE_MAX 255
+# define MY_LINE_MAX 255
 
   int error;
   char *got_string;
@@ -3159,7 +3526,7 @@ double *r8vec_data_read ( char *input_filename, int n )
   if ( !input )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R8VEC_DATA_READ - Fatal error!\n" );
+    fprintf ( stderr, "R8VEC_DATA_READ_NEW - Fatal error!\n" );
     fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_filename );
     exit ( 1 );
   }
@@ -3170,7 +3537,7 @@ double *r8vec_data_read ( char *input_filename, int n )
 
   while ( j < n )
   {
-    got_string = fgets ( line, LINE_MAX, input );
+    got_string = fgets ( line, MY_LINE_MAX, input );
 
     if ( !got_string )
     {
@@ -3197,7 +3564,7 @@ double *r8vec_data_read ( char *input_filename, int n )
 
   return table;
 
-# undef LINE_MAX
+# undef MY_LINE_MAX
 }
 /******************************************************************************/
  
@@ -3290,7 +3657,7 @@ void r8vec_write ( char *output_filename, int n, double x[] )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "R8VEC_WRITE - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the output file.\n" );
+    fprintf ( stderr, "  Could not open the output file '%s'.\n", output_filename );
     exit ( 1 );
   }
 /*
@@ -3298,7 +3665,7 @@ void r8vec_write ( char *output_filename, int n, double x[] )
 */
   for ( j = 0; j < n; j++ )
   {
-    fprintf ( output, "  %24.16g\n", x[j] );
+    fprintf ( output, "g\n", x[j] );
   }
 /*
   Close the file.
@@ -3353,7 +3720,7 @@ void r8vec2_write ( char *output_filename, int n, double x[], double y[] )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "R8VEC2_WRITE - Fatal error!\n" );
-    fprintf ( stderr, "  Could not open the output file.\n" );
+    fprintf ( stderr, "  Could not open the output file '%s'.\n", output_filename );
     exit ( 1 );
   }
 /*
@@ -3419,7 +3786,7 @@ void r8vla2_write ( char *output_filename, int m, int n, double a[m][n] )
   {
     printf ( "\n" );
     printf ( "R8MAT_WRITE - Fatal error!\n" );
-    printf ( "  Could not open the output file.\n" );
+    printf ( "  Could not open the output file '%s'.\n", output_filename );
     return;
   }
 /*
@@ -3450,13 +3817,17 @@ int s_len_trim ( char *s )
 
     S_LEN_TRIM returns the length of a string to the last nonblank.
 
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    26 April 2003
+    05 October 2014
 
   Author:
 
@@ -3476,9 +3847,9 @@ int s_len_trim ( char *s )
   n = strlen ( s );
   t = s + strlen ( s ) - 1;
 
-  while ( 0 < n ) 
+  while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }
@@ -3677,13 +4048,13 @@ int s_to_i4vec ( char *s, int n, int ivec[] )
 }
 /******************************************************************************/
 
-int s_to_l ( char *s )
+int s_to_l4 ( char *s )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    S_TO_L reads an L from a string.
+    S_TO_L4 reads an L4 from a string.
 
   Licensing:
 
@@ -3701,7 +4072,7 @@ int s_to_l ( char *s )
 
     Input, char *S, the string to be read.
 
-    Output, int S_TO_L, the logical value.
+    Output, int S_TO_L4, the logical value.
 */
 {
   int i;
@@ -3713,7 +4084,7 @@ int s_to_l ( char *s )
   if ( length < 1 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "S_TO_L - Fatal error!\n" );
+    fprintf ( stderr, "S_TO_L4 - Fatal error!\n" );
     fprintf ( stderr, "  Input string is empty.\n" );
     exit ( 1 );
   }
@@ -3737,7 +4108,7 @@ int s_to_l ( char *s )
   }
 
   fprintf ( stderr, "\n" );
-  fprintf ( stderr, "S_TO_L - Fatal error!\n" );
+  fprintf ( stderr, "S_TO_L4 - Fatal error!\n" );
   fprintf ( stderr, "  Input did not contain boolean data.\n" );
   exit ( 1 );
 }
@@ -3795,7 +4166,7 @@ float s_to_r4 ( char *s, int *lchar, int *error )
     '17d2'            1700.0
     '-14e-2'         -0.14
     'e2'              100.0
-    '-12.73e-9.23'   -12.73 * 10.0**(-9.23)
+    '-12.73e-9.23'   -12.73 * 10.0^(-9.23)
 
   Licensing:
 
@@ -4186,7 +4557,7 @@ double s_to_r8 ( char *s, int *lchar, int *error )
     '17d2'            1700.0
     '-14e-2'         -0.14
     'e2'              100.0
-    '-12.73e-9.23'   -12.73 * 10.0**(-9.23)
+    '-12.73e-9.23'   -12.73 * 10.0^(-9.23)
 
   Licensing:
 
@@ -4579,7 +4950,7 @@ int s_word_count ( char *s )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*

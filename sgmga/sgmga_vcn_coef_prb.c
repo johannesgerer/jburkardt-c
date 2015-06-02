@@ -48,12 +48,11 @@ int main ( void )
 */
   sgmga_vcn_coef_tests ( );
 /*
-  That's all.
+  Terminate.
 */
   printf ( "\n" );
   printf ( "SGMGA_VCN_COEF_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
   

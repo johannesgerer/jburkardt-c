@@ -2,7 +2,7 @@
 #
 cp blas1_c.h /$HOME/include
 #
-gcc -c -g blas1_c.c >& compiler.txt
+gcc -c -O2 -I/$HOME/include blas1_c.c >& compiler.txt
 if [ $? -ne 0 ]; then
   echo "Errors compiling blas1_c.c."
   exit

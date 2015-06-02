@@ -17,7 +17,11 @@ int main ( void )
 /*
   Purpose:
 
-    RANDLC_PRB calls sample problems for the RANDLC library.
+    MAINI is the main program for RANDLC_PRB.
+
+  Discussion:
+
+    RANDLC_PRB tests the RANDLC library.
 
   Licensing:
 
@@ -33,7 +37,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "RANDLC_PRB\n" );
   printf ( "  C version:\n" );
@@ -49,7 +52,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "RANDLC_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

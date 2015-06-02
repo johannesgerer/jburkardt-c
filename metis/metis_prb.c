@@ -39,6 +39,17 @@ int VerifyWPart ( int nvtxs, idxtype *xadj, idxtype *adjncy,
 **************************************************************************/
 
 void main ( int argc, char *argv[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MAIN is the main program for METIS_PRB.
+
+  Discussion:
+
+    METIS_PRB tests the METIS library.
+*/
 {
   int i, nparts, options[10];
   idxtype *part;

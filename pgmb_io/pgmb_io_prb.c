@@ -18,7 +18,11 @@ int main ( int argc, char *argv[] )
 /*
   Purpose:
 
-    PGMB_IO_PRB calls the PGMB_IO test routines.
+    MAIN is the main program for PGMB_IO_PRB.
+
+  Discussion:
+
+    PGMB_IO_PRB tests the PGMB_IO library.
 
   Licensing:
 
@@ -66,7 +70,6 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "PGMB_IO_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

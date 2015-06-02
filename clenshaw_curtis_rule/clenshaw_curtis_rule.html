@@ -91,10 +91,10 @@
     </h3>
 
     <p>
-      <a href = "../../cpp_src/ccn_rule/ccn_rule.html">
+      <a href = "../../c_src/ccn_rule/ccn_rule.html">
       CCN_RULE</a>,
-      a C++ program which
-      defines a nested Clenshaw Curtis quadrature rule.
+      a C program which
+      defines one of a set of nested Clenshaw Curtis quadrature rules.
     </p>
 
     <p>
@@ -119,59 +119,75 @@
     </p>
 
     <p>
-      <a href = "../../cpp_src/gen_hermite_rule/gen_hermite_rule.html">
-      GEN_HERMITE_RULE</a>,
-      a C++ program which
-      can compute and print a generalized Gauss-Hermite quadrature rule.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/gen_laguerre_rule/gen_laguerre_rule.html">
-      GEN_LAGUERRE_RULE</a>,
-      a C++ program which
-      can compute and print a generalized Gauss-Laguerre quadrature rule.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/hermite_rule/hermite_rule.html">
+      <a href = "../../c_src/hermite_rule/hermite_rule.html">
       HERMITE_RULE</a>,
-      a C++ program which
+      a C program which
       can compute and print a Gauss-Hermite quadrature rule.
     </p>
 
     <p>
-      <a href = "../../cpp_src/int_exactness_legendre/int_exactness_legendre.html">
-      INT_EXACTNESS_LEGENDRE</a>,
-      a C++ program which
-      checks the polynomial exactness of a Gauss-Legendre quadrature rule.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/jacobi_rule/jacobi_rule.html">
-      JACOBI_RULE</a>,
-      a C++ program which
-      can compute and print a Gauss-Jacobi quadrature rule.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/laguerre_rule/laguerre_rule.html">
+      <a href = "../../c_src/laguerre_rule/laguerre_rule.html">
       LAGUERRE_RULE</a>,
-      a C++ program which
-      can compute and print a Gauss-Laguerre quadrature rule.
+      a C program which
+      can compute and print a Gauss-Laguerre quadrature rule
+      for estimating the integral of a function with density exp(-x) 
+      over the interval [0,+oo).
     </p>
 
     <p>
-      <a href = "../../cpp_src/legendre_rule/legendre_rule.html">
+      <a href = "../../c_src/legendre_rule/legendre_rule.html">
       LEGENDRE_RULE</a>,
-      a C++ program which
-      can compute and print a Gauss-Legendre quadrature rule.
+      a C program which
+      computes a 1D Gauss-Legendre quadrature rule.
     </p>
 
     <p>
-      <a href = "../../cpp_src/patterson_rule/patterson_rule.html">
+      <a href = "../../c_src/line_felippa_rule/line_felippa_rule.html">
+      LINE_FELIPPA_RULE</a>,
+      a C library which
+      returns the points and weights of a Felippa quadrature rule
+      over the interior of a line segment in 1D.
+    </p>
+
+    <p>
+      <a href = "../../c_src/line_ncc_rule/line_ncc_rule.html">
+      LINE_NCC_RULE</a>,
+      a C library which
+      computes a Newton Cotes Closed (NCC) quadrature rule for the line,
+      that is, for an interval of the form [A,B], using equally spaced points
+      which include the endpoints.
+    </p>
+
+    <p>
+      <a href = "../../c_src/line_nco_rule/line_nco_rule.html">
+      LINE_NCO_RULE</a>,
+      a C library which
+      computes a Newton Cotes Open (NCO) quadrature rule,
+      using equally spaced points,
+      over the interior of a line segment in 1D.
+    </p>
+
+    <p>
+      <a href = "../../c_src/patterson_rule/patterson_rule.html">
       PATTERSON_RULE</a>,
-      a C++ program which
-      computes a Gauss-Patterson quadrature rule.
+      a C program which
+      returns the points and weights of a 1D Gauss-Patterson quadrature rule 
+      of order 1, 3, 7, 15, 31, 63, 127, 255 or 511.
+    </p>
+
+    <p>
+      <a href = "../../c_src/power_rule/power_rule.html">
+      POWER_RULE</a>,
+      a C program which
+      constructs a power rule, that is, a product quadrature rule 
+      from identical 1D factor rules.
+    </p>
+
+    <p>
+      <a href = "../../c_src/product_rule/product_rule.html">
+      PRODUCT_RULE</a>,
+      a C program which
+      constructs a product quadrature rule from distinct 1D factor rules.
     </p>
 
     <p>

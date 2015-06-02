@@ -20,14 +20,16 @@
 /*************************************************************************
 * Let the game begin
 **************************************************************************/
-main(int argc, char *argv[])
+int main ( int argc, char *argv[] )
 {
-  int i, j, ne, nn, etype, numflag=0;
+  int i;
+  int j, ne, nn, etype, numflag=0;
   idxtype *elmnts, *xadj, *adjncy;
   timer IOTmr, DUALTmr;
   char fileout[256], etypestr[4][5] = {"TRI", "TET", "HEX", "QUAD"};
 
-  if (argc != 2) {
+  if ( argc != 2 )
+  {
     printf("Usage: %s <meshfile>\n",argv[0]);
     exit(0);
   }
@@ -65,8 +67,9 @@ main(int argc, char *argv[])
   printf("  Dual Creation:\t\t %7.3f\n", gettimer(DUALTmr));
   printf("**********************************************************************\n");
 
-  GKfree(&elmnts, &xadj, &adjncy, LTERM);
+  GKfree ( &elmnts, &xadj, &adjncy, LTERM );
 
+  return 0;
 }
 
 

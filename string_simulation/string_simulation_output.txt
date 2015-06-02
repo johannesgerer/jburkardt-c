@@ -1,4 +1,4 @@
-29 November 2012 10:31:56 PM
+25 December 2012 10:44:19 AM
 
 STRING_SIMULATION:
   C version
@@ -11,4 +11,4 @@ STRING_SIMULATION:
 STRING_SIMULATION:
   Normal end of execution.
 
-29 November 2012 10:31:56 PM
+25 December 2012 10:44:19 AM

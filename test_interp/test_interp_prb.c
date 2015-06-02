@@ -20,7 +20,7 @@ int main ( void )
 
   Discussion:
 
-    TEST_INTERP_PRB calls the TEST_INTERP tests.
+    TEST_INTERP_PRB tests the TEST_INTERP library.
 
   Licensing:
 
@@ -36,7 +36,6 @@ int main ( void )
 */
 {
   timestamp (  );
-
   printf ( "\n" );
   printf ( "TEST_INTERP_PRB\n" );
   printf ( "  C version\n" );
@@ -51,7 +50,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "TEST_INTERP_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

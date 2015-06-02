@@ -1,234 +1,341 @@
-# include <stdlib.h>
-# include <stdio.h>
-# include <stdbool.h>
-# include <math.h>
 # include <complex.h>
+# include <math.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <strlen.h>
 
 # include "r8lib.h"
 
-int main ( void );
+int main ( );
 
-void test001 ( void );
-void test002 ( void );
-void test003 ( void );
-void test004 ( void );
-void test005 ( void );
-void test006 ( void );
-void test007 ( void );
-void test008 ( void );
-void test009 ( void );
+void i4int_to_r8int_test ( );
 
-void test010 ( void );
-void test011 ( void );
-void test012 ( void );
-void test013 ( void );
-void test014 ( void );
-void test015 ( void );
-void test016 ( void );
-void test017 ( void );
-void test018 ( void );
-void test019 ( void );
+void perm0_check_test ( );
+void perm0_uniform_test ( );
 
-void test020 ( void );
-void test021 ( void );
-void test022 ( void );
-void test023 ( void );
-void test0235 ( void );
-void test024 ( void );
-void test025 ( void );
-void test026 ( void );
-void test027 ( void );
-void test028 ( void );
-void test029 ( void );
-void test0295 ( void );
+void perm1_check_test ( );
+void perm1_uniform_test ( );
 
-void test031 ( void );
-void test032 ( void );
-void test033 ( void );
-void test034 ( void );
-void test035 ( void );
-void test036 ( void );
-void test0363 ( void );
-void test0365 ( void );
-void test037 ( void );
-void test038 ( void );
-void test0385 ( void );
-void test039 ( void );
-void test0393 ( void );
-void test0395 ( void );
-void test0397 ( void );
+void r8_abs_test ( );
+void r8_acos_test ( );
+void r8_acosh_test ( );
+void r8_asinh_test ( );
+void r8_atan_test ( );
+void r8_atanh_test ( );
+void r8_big_test ( );
+void r8_cas_test ( );
+void r8_ceiling_test ( );
+void r8_choose_test ( );
+void r8_cosd_test ( );
+void r8_cotd_test ( );
+void r8_cscd_test ( );
+void r8_cube_root_test ( );
+void r8_diff_test ( );
+void r8_digit_test ( );
+void r8_e_test ( );
+void r8_epsilon_test ( );
+void r8_epsilon_compute_test ( );
+void r8_factorial_test ( );
+void r8_factorial2_test ( );
+void r8_fall_test ( );
+void r8_fractional_test ( );
+void r8_gamma_test ( );
+void r8_gamma_log_test ( );
+void r8_huge_test ( );
+void r8_log_2_test ( );
+void r8_log_b_test ( );
+void r8_mant_test ( );
+void r8_max_test ( );
+void r8_min_test ( );
+void r8_mod_test ( );
+void r8_modp_test ( );
+void r8_mop_test ( );
+void r8_nint_test ( );
+void r8_normal_01_test ( );
+void r8_pi_test ( );
+void r8_power_test ( );
+void r8_power_fast_test ( );
+void r8_rise_test ( );
+void r8_round2_test ( );
+void r8_roundb_test ( );
+void r8_roundx_test ( );
+void r8_secd_test ( );
+void r8_sign_test ( );
+void r8_sign3_test ( );
+void r8_sind_test ( );
+void r8_swap_test ( );
+void r8_swap3_test ( );
+void r8_tand_test ( );
+void r8_to_r8_discrete_test ( );
+void r8_to_i4_test ( );
+void r8_uniform_01_test ( );
+void r8_uniform_ab_test ( );
+void r8_walsh_1d_test ( );
+void r8_wrap_test ( );
 
-void test040 ( void );
-void test041 ( void );
-void test0415 ( void );
-void test042 ( void );
-void test043 ( void );
-void test044 ( void );
-void test0442 ( void );
-void test0443 ( void );
-void test0445 ( void );
-void test045 ( void );
-void test046 ( void );
-void test047 ( void );
-void test048 ( void );
-void test049 ( void );
+void r82col_print_part_test ( );
 
-void test050 ( void );
-void test051 ( void );
-void test052 ( void );
-void test053 ( void );
-void test054 ( void );
-void test055 ( void );
-void test0555 ( void );
-void test056 ( void );
-void test057 ( void );
-void test058 ( void );
-double test058_f ( int n, double x[] );
-double *test058_hess ( int n, double x[] );
-void test059 ( void );
+void r82poly2_type_test ( );
 
-void test060 ( void );
-void test061 ( void );
-void test062 ( void );
-void test063 ( void );
-void test064 ( void );
-void test065 ( void );
-void test066 ( void );
-double *test067_f ( int m, int n, double x[] );
-double *test067_jac ( int m, int n, double x[] );
-void test067 ( void );
-void test068 ( void );
-void test069 ( void );
+void r82row_order_type_test ( );
+void r82row_part_quick_a_test ( );
+void r82row_print_part_test ( );
+void r82row_sort_heap_index_a_test ( );
+void r82row_sort_quick_a_test ( );
 
-void test070 ( void );
-void test071 ( void );
-void test072 ( void );
-void test073 ( void );
-void test0731 ( void );
-void test0732 ( void );
-void test0733 ( void );
-void test0734 ( void );
-void test0735 ( void );
-void test0736 ( void );
-void test07365 ( void );
-void test0737 ( void );
-void test074 ( void );
-void test075 ( void );
-void test076 ( void );
-void test0764 ( void );
-void test0766 ( void );
-void test077 ( void );
-void test0775 ( void );
-void test0776 ( void );
-void test078 ( void );
-void test079 ( void );
+void r83col_print_part_test ( );
 
-void test080 ( void );
-void test081 ( void );
-void test082 ( void );
-void test083 ( void );
-void test084 ( void );
-void test085 ( void );
-void test086 ( void );
-void test087 ( void );
-void test088 ( void );
-void test089 ( void );
+void r83row_print_part_test ( );
 
-void test090 ( void );
-void test091 ( void );
-void test092 ( void );
-void test093 ( void );
-void test094 ( void );
-void test095 ( void );
-void test098 ( void );
-void test099 ( void );
+void r8block_expand_linear_test ( );
+void r8block_new_test ( );
+void r8block_print_test ( );
 
-void test100 ( void );
-void test100_f ( double x, double *y, double *yp, double *ypp );
-void test101 ( void );
-void test105 ( void );
-void test106 ( void );
-void test107 ( void );
-void test108 ( void );
-void test109 ( void );
+void r8cmat_to_r8mat_new_test ( );
 
-void test110 ( void );
-void test111 ( void );
-void test112 ( void );
-void test113 ( void );
-void test114 ( void );
-void test1143 ( void );
-void test1145 ( void );
-void test1147 ( void );
-void test115 ( void );
-void test116 ( void );
-double test116_f ( double x );
-void test1165 ( void );
-void test1166 ( void );
-void test117 ( void );
-void test118 ( void );
+void r8col_find_test ( );
+void r8col_insert_test ( );
+void r8col_sort_heap_a_test ( );
+void r8col_sort_heap_index_a_test ( );
+void r8col_sort_quick_a_test ( );
+void r8col_sorted_tol_unique_test ( );
+void r8col_sorted_unique_count_test ( );
+void r8col_sorted_tol_undex_test ( );
+void r8col_max_test ( );
+void r8col_mean_test ( );
+void r8col_min_test ( );
+void r8col_permute_test ( );
+void r8col_sortr_a_test ( );
+void r8col_sum_test ( );
+void r8col_swap_test ( );
+void r8col_to_r8vec_test ( );
+void r8col_tol_undex_test ( );
+void r8col_undex_test ( );
+void r8col_unique_count_test ( );
+void r8col_variance_test ( );
 
-void test120 ( void );
-void test121 ( void );
-void test122 ( void );
-void test123 ( void );
-void test124 ( void );
-void test125 ( void );
-void test1251 ( void );
-void test1252 ( void );
-void test1255 ( void );
-void test1256 ( void );
-void test1258 ( void );
-void test126 ( void );
-void test127 ( void );
-void test128 ( void );
-void test129 ( void );
+void r8int_to_i4int_test ( );
 
-void test130 ( void );
-void test131 ( void );
-void test132 ( void );
-void test133 ( void );
-void test134 ( void );
-void test135 ( void );
-void test136 ( void );
-void test137 ( void );
-void test138 ( void );
-void test139 ( void );
+void r8mat_cholesky_inverse_test ( );
+void r8mat_cholesky_solve_test ( );
+void r8mat_cholesky_solve_upper_test ( );
+void r8mat_det_2d_test ( );
+void r8mat_det_3d_test ( );
+void r8mat_det_4d_test ( );
+void r8mat_det_5d_test ( );
+void r8mat_expand_linear_test ( );
+void r8mat_expand_linear2_test ( );
+void r8mat_fs_new_test ( );
+void r8mat_fss_new_test ( );
+void r8mat_givens_post_test ( );
+void r8mat_givens_pre_test ( );
+void r8mat_hess_test ( );
+double r8mat_hess_f ( int n, double x[] );
+double *r8mat_hess_exact ( int n, double x[] );
+void r8mat_house_axh_test ( );
+void r8mat_house_form_test ( );
+void r8mat_house_post_test ( );
+void r8mat_house_pre_test ( );
+void r8mat_indicator_new_test ( );
+void r8mat_inverse_2d_test ( );
+void r8mat_inverse_3d_test ( );
+void r8mat_inverse_4d_test ( );
+void r8mat_jac_test ( );
+double *r8mat_jac_f ( int m, int n, double x[] );
+double *r8mat_jac_exact ( int m, int n, double x[] );
+void r8mat_kronecker_test ( );
+void r8mat_l_inverse_test ( );
+void r8mat_l_print_test ( );
+void r8mat_l1_inverse_test ( );
+void r8mat_lu_test ( );
+void r8mat_max_test ( );
+void r8mat_max_index_test ( );
+void r8mat_maxcol_minrow_test ( );
+void r8mat_maxrow_mincol_test ( );
+void r8mat_min_test ( );
+void r8mat_min_index_test ( );
+void r8mat_mincol_maxrow_test ( );
+void r8mat_minrow_maxcol_test ( );
+void r8mat_mm_test ( );
+void r8mat_mm_new_test ( );
+void r8mat_mv_test ( );
+void r8mat_mv_new_test ( );
+void r8mat_mtv_new_test ( );
+void r8mat_mtv_test ( );
+void r8mat_nint_test ( );
+void r8mat_nonzeros_test ( );
+void r8mat_norm_fro_test ( );
+void r8mat_norm_l1_test ( );
+void r8mat_nullspace_test ( );
+void r8mat_nullspace_size_test ( );
+void r8mat_orth_uniform_new_test ( );
+void r8mat_plot_test ( );
+void r8mat_power_method_test ( );
+void r8mat_print_test ( );
+void r8mat_print_some_test ( );
+void r8mat_ref_test ( );
+void r8mat_rref_test ( );
+void r8mat_solve_test ( );
+void r8mat_solve_2d_test ( );
+void r8mat_solve_3d_test ( );
+void r8mat_solve2_test ( );
+void r8mat_sub_new_test ( );
+void r8mat_symm_jacobi_test ( );
+void r8mat_to_r8cmat_new_test ( );
+void r8mat_to_r8plu_test ( );
+void r8mat_to_r8rmat_test ( );
+void r8mat_trace_test ( );
+void r8mat_transpose_new_test ( );
+void r8mat_transpose_print_test ( );
+void r8mat_u_inverse_test ( );
+void r8mat_u1_inverse_test ( );
+void r8mat_uniform_ab_new_test ( );
 
-void test140 ( void );
-void test141 ( void );
-void test142 ( void );
-void test143 ( void );
-void test144 ( void );
-void test145 ( void );
-void test146 ( void );
-void test1465 ( void );
-void test147 ( void );
-void test1475 ( void );
-void test148 ( void );
-void test149 ( void );
+void r8plu_det_test ( );
+void r8plu_inverse_test ( );
+void r8plu_mul_test ( );
+void r8plu_sol_test ( );
+void r8plu_to_r8mat_test ( );
 
-void test150 ( void );
-void test1504 ( void );
-void test1505 ( void );
-void test151 ( void );
-void test152 ( void );
-void test153 ( void );
-void test154 ( void );
-void test155 ( void );
-void test156 ( void );
-void test157 ( void );
-void test158 ( void );
+void r8poly_degree_test ( );
+void r8poly_deriv_test ( );
+void r8poly_lagrange_coef_test ( );
+void r8poly_lagrange_0_test ( );
+void r8poly_lagrange_1_test ( );
+void r8poly_lagrange_2_test ( );
+void r8poly_lagrange_factor_test ( );
+void r8poly_lagrange_val_test ( );
+void r8poly_print_test ( );
+void r8poly_value_horner_test ( );
+void r8poly_values_horner_test ( );
+
+void r8poly2_ex_test ( );
+void r8poly2_ex2_test ( );
+void r8poly2_val_test ( );
+void r8poly2_f ( double x, double *y, double *yp, double *ypp );
+void r8poly2_val2_test ( );
+
+void r8r8vec_index_insert_unique_test ( );
+
+void r8r8r8vec_index_insert_unique_test ( );
+
+void r8rmat_new_test ( );
+void r8rmat_to_r8mat_test ( );
+
+void r8row_max_test ( );
+void r8row_mean_test ( );
+void r8row_min_test ( );
+void r8row_sum_test ( );
+void r8row_swap_test ( );
+void r8row_to_r8vec_test ( );
+void r8row_variance_test ( );
+
+void r8slmat_print_test ( );
+
+void r8vec_amax_test ( );
+void r8vec_amin_test ( );
+void r8vec_bracket_test ( );
+void r8vec_bracket2_test ( );
+void r8vec_bracket3_test ( );
+void r8vec_bracket5_test ( );
+void r8vec_chebyspace_new_test ( );
+void r8vec_concatenate_new_test ( );
+void r8vec_convolution_test ( );
+void r8vec_convolution_circ_test ( );
+void r8vec_dif_test ( );
+double r8vec_dif_f ( double x );
+void r8vec_direct_product_test ( );
+void r8vec_direct_product2_test ( );
+void r8vec_even_test ( );
+void r8vec_even2_test ( );
+void r8vec_expand_linear_test ( );
+void r8vec_frac_test ( );
+void r8vec_histogram_test ( );
+void r8vec_house_column_test ( );
+void r8vec_index_delete_all_test ( );
+void r8vec_index_delete_dupes_test ( );
+void r8vec_index_delete_one_test ( );
+void r8vec_index_insert_test ( );
+void r8vec_index_insert_unique_test ( );
+void r8vec_index_order_test ( );
+void r8vec_index_search_test ( );
+void r8vec_index_sorted_range_test ( );
+void r8vec_indexed_heap_d_test ( );
+void r8vec_indexed_heap_d_extract_test ( );
+void r8vec_indexed_heap_d_insert_test ( );
+void r8vec_indexed_heap_d_max_test ( );
+void r8vec_indicator0_new_test ( );
+void r8vec_legendre_test ( );
+void r8vec_linspace_new_test ( );
+void r8vec_max_test ( );
+void r8vec_max_index_test ( );
+void r8vec_mean_test ( );
+void r8vec_median_test ( );
+void r8vec_midspace_new_test ( );
+void r8vec_min_test ( );
+void r8vec_min_index_test ( );
+void r8vec_nint_test ( );
+void r8vec_norm_l0_test ( );
+void r8vec_norm_l1_test ( );
+void r8vec_norm_l2_test ( );
+void r8vec_norm_li_test ( );
+void r8vec_normal_01_new_test ( );
+void r8vec_normalize_l1_test ( );
+void r8vec_order_type_test ( );
+void r8vec_permute_test ( );
+void r8vec_permute_uniform_test ( );
+void r8vec_polarize_test ( );
+void r8vec_print_test ( );
+void r8vec_rotate_test ( );
+void r8vec_reverse_test ( );
+void r8vec_search_binary_a_test ( );
+void r8vec_sort_bubble_a_test ( );
+void r8vec_sort_heap_a_test ( );
+void r8vec_sort_heap_d_test ( );
+void r8vec_sort_heap_index_a_new_test ( );
+void r8vec_sort_heap_index_d_new_test ( );
+void r8vec_sort_heap_mask_a_test ( );
+void r8vec_sort_insert_a_test ( );
+void r8vec_sort_insert_index_a_test ( );
+void r8vec_sort_quick_a_test ( );
+void r8vec_sorted_merge_a_test ( );
+void r8vec_sorted_nearest_test ( );
+void r8vec_sorted_range_test ( );
+void r8vec_sorted_split_test ( );
+void r8vec_sorted_undex_test ( );
+void r8vec_sorted_unique_test ( );
+void r8vec_sorted_unique_count_test ( );
+void r8vec_sorted_unique_hist_test ( );
+void r8vec_split_test ( );
+void r8vec_transpose_print_test ( );
+void r8vec_undex_test ( );
+void r8vec_uniform_01_new_test ( );
+void r8vec_uniform_ab_new_test ( );
+void r8vec_variance_test ( );
+
+void r8vec2_sort_a_test ( );
+void r8vec2_sort_d_test ( );
+void r8vec2_sort_heap_index_a_test ( );
+void r8vec2_sorted_unique_test ( );
+void r8vec2_sorted_unique_index_test ( );
+void r8vec2_sum_max_index_test ( );
+
+void roots_to_r8poly_test ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8LIB_PRB calls the R8LIB tests.
+    MAIN is the main program for R8LIB_PRB.
+
+  Discussion:
+
+    R8LIB_PRB tests the R8LIB library.
 
   Licensing:
 
@@ -236,7 +343,7 @@ int main ( void )
 
   Modified:
 
-    14 October 2012
+    23 May 2015
 
   Author:
 
@@ -249,218 +356,319 @@ int main ( void )
   printf ( "  C version\n" );
   printf ( "  Test the R8LIB library.\n" );
 
-  test001 ( );
-  test002 ( );
-  test003 ( );
-  test004 ( );
-  test005 ( );
-  test006 ( );
-  test007 ( );
-  test008 ( );
-  test009 ( );
+  i4int_to_r8int_test ( );
 
-  test010 ( );
-  test011 ( );
-  test012 ( );
-  test013 ( );
-  test014 ( );
-  test015 ( );
-  test016 ( );
-  test017 ( );
-  test018 ( );
-  test019 ( );
+  perm0_check_test ( );
+  perm0_uniform_test ( );
 
-  test020 ( );
-  test021 ( );
-  test022 ( );
-  test023 ( );
-  test0235 ( );
-  test024 ( );
-  test025 ( );
-  test026 ( );
-  test027 ( );
-  test028 ( );
-  test029 ( );
-  test0295 ( );
+  perm1_check_test ( );
+  perm1_uniform_test ( );
 
-  test031 ( );
-  test032 ( );
-  test033 ( );
-  test034 ( );
-  test035 ( );
-  test036 ( );
-  test0363 ( );
-  test0365 ( );
-  test037 ( );
-  test038 ( );
-  test0385 ( );
-  test039 ( );
-  test0393 ( );
-  test0395 ( );
-  test0397 ( );
+  r8_abs_test ( );
+  r8_acos_test ( );
+  r8_acosh_test ( );
+  r8_asinh_test ( );
+  r8_atan_test ( );
+  r8_atanh_test ( );
+  r8_big_test ( );
+  r8_cas_test ( );
+  r8_ceiling_test ( );
+  r8_choose_test ( );
+  r8_cosd_test ( );
+  r8_cotd_test ( );
+  r8_cscd_test ( );
+  r8_cube_root_test ( );
+  r8_diff_test ( );
+  r8_digit_test ( );
+  r8_e_test ( );
+  r8_epsilon_test ( );
+  r8_epsilon_compute_test ( );
+  r8_factorial_test ( );
+  r8_factorial2_test ( );
+  r8_fall_test ( );
+  r8_fractional_test ( );
+  r8_gamma_test ( );
+  r8_gamma_log_test ( );
+  r8_huge_test ( );
+  r8_log_2_test ( );
+  r8_log_b_test ( );
+  r8_mant_test ( );
+  r8_max_test ( );
+  r8_min_test ( );
+  r8_mod_test ( );
+  r8_modp_test ( );
+  r8_mop_test ( );
+  r8_nint_test ( );
+  r8_normal_01_test ( );
+  r8_pi_test ( );
+  r8_power_test ( );
+  r8_power_fast_test ( );
+  r8_rise_test ( );
+  r8_round2_test ( );
+  r8_roundb_test ( );
+  r8_roundx_test ( );
+  r8_secd_test ( );
+  r8_sign_test ( );
+  r8_sign3_test ( );
+  r8_sind_test ( );
+  r8_swap_test ( );
+  r8_swap3_test ( );
+  r8_tand_test ( );
+  r8_to_r8_discrete_test ( );
+  r8_to_i4_test ( );
+  r8_uniform_01_test ( );
+  r8_uniform_ab_test ( );
+  r8_walsh_1d_test ( );
+  r8_wrap_test ( );
 
-  test040 ( );
-  test041 ( );
-  test0415 ( );
-  test042 ( );
-  test043 ( );
-  test044 ( );
-  test0442 ( );
-  test0443 ( );
-  test0445 ( );
-  test045 ( );
-  test046 ( );
-  test047 ( );
-  test048 ( );
-  test049 ( );
+  r82col_print_part_test ( );
 
-  test050 ( );
-  test051 ( );
-  test052 ( );
-  test053 ( );
-  test054 ( );
-  test055 ( );
-  test0555 ( );
-  test056 ( );
-  test057 ( );
-  test058 ( );
-  test059 ( );
+  r82poly2_type_test ( );
 
-  test060 ( );
-  test061 ( );
-  test062 ( );
-  test063 ( );
-  test064 ( );
-  test065 ( );
-  test066 ( );
-  test067 ( );
-  test068 ( );
-  test069 ( );
+  r82row_order_type_test ( );
+  r82row_part_quick_a_test ( );
+  r82row_print_part_test ( );
+  r82row_sort_heap_index_a_test ( );
+  r82row_sort_quick_a_test ( );
 
-  test070 ( );
-  test071 ( );
-  test072 ( );
-  test073 ( );
-  test0731 ( );
-  test0732 ( );
-  test0733 ( );
-  test0734 ( );
-  test0735 ( );
-  test0736 ( );
-  test07365 ( );
-  test0737 ( );
-  test074 ( );
-  test075 ( );
-  test076 ( );
-  test0764 ( );
-  test0766 ( );
-  test077 ( );
-  test0775 ( );
-  test0776 ( );
-  test078 ( );
-  test079 ( );
+  r83col_print_part_test ( );
 
-  test080 ( );
-  test081 ( );
-  test082 ( );
-  test083 ( );
-  test084 ( );
-  test085 ( );
-  test086 ( );
-  test086 ( );
-  test088 ( );
-  test089 ( );
+  r83row_print_part_test ( );
 
-  test090 ( );
-  test091 ( );
-  test092 ( );
-  test093 ( );
-  test094 ( );
-  test095 ( );
-  test098 ( );
-  test099 ( );
+  r8block_expand_linear_test ( );
+  r8block_new_test ( );
+  r8block_print_test ( );
 
-  test100 ( );
-  test101 ( );
-  test105 ( );
-  test106 ( );
-  test107 ( );
-  test108 ( );
-  test109 ( );
+  r8cmat_to_r8mat_new_test ( );
 
-  test110 ( );
-  test111 ( );
-  test112 ( );
-  test113 ( );
-  test114 ( );
-  test1143 ( );
-  test1145 ( );
-  test1147 ( );
-  test115 ( );
-  test116 ( );
-  test1165 ( );
-  test1166 ( );
-  test117 ( );
-  test118 ( );
+  r8col_find_test ( );
+  r8col_insert_test ( );
+  r8col_sort_heap_a_test ( );
+  r8col_sort_heap_index_a_test ( );
+  r8col_sort_quick_a_test ( );
+  r8col_sorted_tol_unique_test ( );
+  r8col_sorted_unique_count_test ( );
+  r8col_sorted_tol_undex_test ( );
+  r8col_max_test ( );
+  r8col_mean_test ( );
+  r8col_min_test ( );
+  r8col_permute_test ( );
+  r8col_sortr_a_test ( );
+  r8col_sum_test ( );
+  r8col_swap_test ( );
+  r8col_to_r8vec_test ( );
+  r8col_tol_undex_test ( );
+  r8col_undex_test ( );
+  r8col_unique_count_test ( );
+  r8col_variance_test ( );
 
-  test120 ( );
-  test121 ( );
-  test122 ( );
-  test123 ( );
-  test124 ( );
-  test125 ( );
-  test1251 ( );
-  test1252 ( );
-  test1255 ( );
-  test1256 ( );
-  test1258 ( );
-  test126 ( );
-  test127 ( );
-  test128 ( );
-  test129 ( );
+  r8r8vec_index_insert_unique_test ( );
 
-  test130 ( );
-  test152 ( );
-  test131 ( );
-  test132 ( );
-  test133 ( );
-  test134 ( );
-  test135 ( );
-  test136 ( );
-  test137 ( );
-  test138 ( );
-  test139 ( );
+  r8r8r8vec_index_insert_unique_test ( );
 
-  test140 ( );
-  test141 ( );
-  test142 ( );
-  test143 ( );
-  test144 ( );
-  test145 ( );
-  test146 ( );
-  test1465 ( );
-  test147 ( );
-  test1475 ( );
-  test148 ( );
-  test149 ( );
+  r8int_to_i4int_test ( );
 
-  test150 ( );
-  test1504 ( );
-  test1505 ( );
-  test151 ( );
-  test153 ( );
-  test154 ( );
-  test155 ( );
-  test156 ( );
-  test157 ( );
-  test158 ( );
+  r8mat_cholesky_inverse_test ( );
+  r8mat_cholesky_solve_test ( );
+  r8mat_cholesky_solve_upper_test ( );
+  r8mat_det_2d_test ( );
+  r8mat_det_3d_test ( );
+  r8mat_det_4d_test ( );
+  r8mat_det_5d_test ( );
+  r8mat_expand_linear_test ( );
+  r8mat_expand_linear2_test ( );
+  r8mat_fs_new_test ( );
+  r8mat_fss_new_test ( );
+  r8mat_givens_post_test ( );
+  r8mat_givens_pre_test ( );
+  r8mat_hess_test ( );
+  r8mat_house_axh_test ( );
+  r8mat_house_form_test ( );
+  r8mat_house_post_test ( );
+  r8mat_house_pre_test ( );
+  r8mat_indicator_new_test ( );
+  r8mat_inverse_2d_test ( );
+  r8mat_inverse_3d_test ( );
+  r8mat_inverse_4d_test ( );
+  r8mat_jac_test ( );
+  r8mat_kronecker_test ( );
+  r8mat_l_inverse_test ( );
+  r8mat_l_print_test ( );
+  r8mat_l1_inverse_test ( );
+  r8mat_lu_test ( );
+  r8mat_max_test ( );
+  r8mat_max_index_test ( );
+  r8mat_maxcol_minrow_test ( );
+  r8mat_maxrow_mincol_test ( );
+  r8mat_min_test ( );
+  r8mat_min_index_test ( );
+  r8mat_mincol_maxrow_test ( );
+  r8mat_minrow_maxcol_test ( );
+  r8mat_mm_test ( );
+  r8mat_mm_new_test ( );
+  r8mat_mv_test ( );
+  r8mat_mv_new_test ( );
+  r8mat_mtv_new_test ( );
+  r8mat_mtv_test ( );
+  r8mat_nint_test ( );
+  r8mat_nonzeros_test ( );
+  r8mat_norm_fro_test ( );
+  r8mat_norm_l1_test ( );
+  r8mat_nullspace_test ( );
+  r8mat_nullspace_size_test ( );
+  r8mat_orth_uniform_new_test ( );
+  r8mat_plot_test ( );
+  r8mat_power_method_test ( );
+  r8mat_print_test ( );
+  r8mat_print_some_test ( );
+  r8mat_ref_test ( );
+  r8mat_rref_test ( );
+  r8mat_solve_test ( );
+  r8mat_solve_2d_test ( );
+  r8mat_solve_3d_test ( );
+  r8mat_solve2_test ( );
+  r8mat_sub_new_test ( );
+  r8mat_symm_jacobi_test ( );
+  r8mat_to_r8cmat_new_test ( );
+  r8mat_to_r8plu_test ( );
+  r8mat_to_r8rmat_test ( );
+  r8mat_trace_test ( );
+  r8mat_transpose_new_test ( );
+  r8mat_transpose_print_test ( );
+  r8mat_u_inverse_test ( );
+  r8mat_u1_inverse_test ( );
+  r8mat_uniform_ab_new_test ( );
+
+  r8plu_det_test ( );
+  r8plu_inverse_test ( );
+  r8plu_mul_test ( );
+  r8plu_sol_test ( );
+  r8plu_to_r8mat_test ( );
+
+  r8poly_degree_test ( );
+  r8poly_deriv_test ( );
+  r8poly_lagrange_coef_test ( );
+  r8poly_lagrange_0_test ( );
+  r8poly_lagrange_1_test ( );
+  r8poly_lagrange_2_test ( );
+  r8poly_lagrange_factor_test ( );
+  r8poly_lagrange_val_test ( );
+  r8poly_print_test ( );
+  r8poly_value_horner_test ( );
+  r8poly_values_horner_test ( );
+
+  r8poly2_ex_test ( );
+  r8poly2_ex2_test ( );
+  r8poly2_val_test ( );
+  r8poly2_val2_test ( );
+
+  r8rmat_new_test ( );
+  r8rmat_to_r8mat_test ( );
+
+  r8row_max_test ( );
+  r8row_mean_test ( );
+  r8row_min_test ( );
+  r8row_sum_test ( );
+  r8row_swap_test ( );
+  r8row_to_r8vec_test ( );
+  r8row_variance_test ( );
+
+  r8slmat_print_test ( );
+
+  r8vec_amax_test ( );
+  r8vec_amin_test ( );
+  r8vec_bracket_test ( );
+  r8vec_bracket2_test ( );
+  r8vec_bracket3_test ( );
+  r8vec_bracket5_test ( );
+  r8vec_chebyspace_new_test ( );
+  r8vec_concatenate_new_test ( );
+  r8vec_convolution_test ( );
+  r8vec_convolution_circ_test ( );
+  r8vec_dif_test ( );
+  r8vec_direct_product_test ( );
+  r8vec_direct_product2_test ( );
+  r8vec_even_test ( );
+  r8vec_even2_test ( );
+  r8vec_expand_linear_test ( );
+  r8vec_frac_test ( );
+  r8vec_histogram_test ( );
+  r8vec_house_column_test ( );
+  r8vec_index_delete_all_test ( );
+  r8vec_index_delete_dupes_test ( );
+  r8vec_index_delete_one_test ( );
+  r8vec_index_insert_test ( );
+  r8vec_index_insert_unique_test ( );
+  r8vec_index_order_test ( );
+  r8vec_index_search_test ( );
+  r8vec_index_sorted_range_test ( );
+  r8vec_indexed_heap_d_test ( );
+  r8vec_indexed_heap_d_extract_test ( );
+  r8vec_indexed_heap_d_insert_test ( );
+  r8vec_indexed_heap_d_max_test ( );
+  r8vec_indicator0_new_test ( );
+  r8vec_legendre_test ( );
+  r8vec_linspace_new_test ( );
+  r8vec_max_test ( );
+  r8vec_max_index_test ( );
+  r8vec_mean_test ( );
+  r8vec_median_test ( );
+  r8vec_midspace_new_test ( );
+  r8vec_min_test ( );
+  r8vec_min_index_test ( );
+  r8vec_nint_test ( );
+  r8vec_norm_l0_test ( );
+  r8vec_norm_l1_test ( );
+  r8vec_norm_l2_test ( );
+  r8vec_norm_li_test ( );
+  r8vec_normal_01_new_test ( );
+  r8vec_normalize_l1_test ( );
+  r8vec_order_type_test ( );
+  r8vec_permute_test ( );
+  r8vec_permute_uniform_test ( );
+  r8vec_polarize_test ( );
+  r8vec_print_test ( );
+  r8vec_rotate_test ( );
+  r8vec_reverse_test ( );
+  r8vec_search_binary_a_test ( );
+  r8vec_sort_bubble_a_test ( );
+  r8vec_sort_heap_a_test ( );
+  r8vec_sort_heap_d_test ( );
+  r8vec_sort_heap_index_a_new_test ( );
+  r8vec_sort_heap_index_d_new_test ( );
+  r8vec_sort_heap_mask_a_test ( );
+  r8vec_sort_insert_a_test ( );
+  r8vec_sort_insert_index_a_test ( );
+  r8vec_sort_quick_a_test ( );
+  r8vec_sorted_merge_a_test ( );
+  r8vec_sorted_nearest_test ( );
+  r8vec_sorted_range_test ( );
+  r8vec_sorted_split_test ( );
+  r8vec_sorted_undex_test ( );
+  r8vec_sorted_unique_test ( );
+  r8vec_sorted_unique_count_test ( );
+  r8vec_sorted_unique_hist_test ( );
+  r8vec_split_test ( );
+  r8vec_transpose_print_test ( );
+  r8vec_undex_test ( );
+  r8vec_uniform_01_new_test ( );
+  r8vec_uniform_ab_new_test ( );
+  r8vec_variance_test ( );
+
+  r8vec2_sort_a_test ( );
+  r8vec2_sort_d_test ( );
+  r8vec2_sort_heap_index_a_test ( );
+  r8vec2_sorted_unique_test ( );
+  r8vec2_sorted_unique_index_test ( );
+  r8vec2_sum_max_index_test ( );
+
+  roots_to_r8poly_test ( );
 /*
   Terminate.
 */
   printf ( "\n" );
   printf ( "R8LIB_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -468,13 +676,264 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test001 ( void )
+void i4int_to_r8int_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST001 tests R8_ABS.
+    I4INT_TO_R8INT_TEST tests I4INT_TO_R8INT;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int ihi = 11;
+  int ilo = 1;
+  int ir;
+  double r;
+  double r2;
+  double rhi = 200.0;
+  double rhi2;
+  double rlo = 100.0;
+  double rlo2;
+  int seed;
+  int test;
+  int test_num = 10;
+
+  printf ( "\n" );
+  printf ( "I4INT_TO_R8INT_TEST\n" );
+  printf ( "  For data in an interval,\n" );
+  printf ( "  I4INT_TO_R8INT converts an integer to a real;\n" );
+  printf ( "\n" );
+  printf ( "  Integer interval: [%d, %d]\n", ilo, ihi );
+  printf ( "  Real interval:    [%g, %g]\n", rlo, rhi );
+  printf ( "\n" );
+  printf ( "         R          I(R)       R(I(R))\n" );
+  printf ( "\n" );
+
+  seed = 123456789;
+
+  rlo2 = rlo - 15.0;
+  rhi2 = rhi + 15.0;
+
+  for ( test = 1; test <= test_num; test++ )
+  {
+    r = r8_uniform_ab ( rlo2, rhi2, &seed );
+    ir = r8int_to_i4int ( rlo, rhi, r, ilo, ihi );
+    r2 = i4int_to_r8int ( ilo, ihi, ir, rlo, rhi );
+    printf ( "  %12g  %6d  %12g\n", r, ir, r2 );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void perm0_check_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PERM0_CHECK_TEST tests PERM0_CHECK.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 May 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int ierror;
+  int n = 5;
+  int p1[5] = { 5, 2, 3, 4, 1 };
+  int p2[5] = { 4, 1, 3, 0, 2 };
+  int p3[5] = { 0, 2, 1, 3, 2 };
+
+  printf ( "\n" );
+  printf ( "PERM0_CHECK_TEST\n" );
+  printf ( "  PERM0_CHECK checks a permutation of 0, ..., N-1.\n" );
+  printf ( "\n" );
+
+  i4vec_transpose_print ( n, p1, "  Permutation 1:" );
+  ierror = perm0_check( n, p1 );
+
+  i4vec_transpose_print ( n, p2, "  Permutation 2:" );
+  ierror = perm0_check( n, p2 );
+
+  i4vec_transpose_print ( n, p3, "  Permutation 3:" );
+  ierror = perm0_check( n, p3 );
+
+  return;
+}
+/******************************************************************************/
+
+void perm0_uniform_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PERM0_UNIFORM_TEST tests PERM0_UNIFORM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 May 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int n = 10;
+  int *p;
+  int seed;
+  int test;
+
+  printf ( "\n" );
+  printf ( "PERM0_UNIFORM_TEST\n" );
+  printf ( "  PERM0_UNIFORM randomly selects a permutation of 0,...,N-1.\n" );
+  printf ( "\n" );
+
+  seed = 123456789;
+
+  for ( test = 1; test <= 5; test++ )
+  {
+    p = perm0_uniform_new ( n, &seed );
+    printf ( "  " );
+    for ( i = 0; i < n; i++ )
+    {
+      printf ( "%4d", p[i] );
+    }
+    printf ( "\n" );
+    free ( p );
+  }
+  return;
+}
+/******************************************************************************/
+
+void perm1_check_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PERM1_CHECK_TEST tests PERM1_CHECK.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 May 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int ierror;
+  int n = 5;
+  int p1[5] = { 5, 2, 3, 4, 1 };
+  int p2[5] = { 4, 1, 3, 0, 2 };
+  int p3[5] = { 0, 2, 1, 3, 2 };
+
+  printf ( "\n" );
+  printf ( "PERM1_CHECK_TEST\n" );
+  printf ( "  PERM1_CHECK checks a permutation of 1, ..., N.\n" );
+  printf ( "\n" );
+
+  i4vec_transpose_print ( n, p1, "  Permutation 1:" );
+  ierror = perm1_check( n, p1 );
+
+  i4vec_transpose_print ( n, p2, "  Permutation 2:" );
+  ierror = perm1_check( n, p2 );
+
+  i4vec_transpose_print ( n, p3, "  Permutation 3:" );
+  ierror = perm1_check( n, p3 );
+
+  return;
+}
+/******************************************************************************/
+
+void perm1_uniform_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PERM1_UNIFORM_TEST tests PERM1_UNIFORM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 May 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int n = 10;
+  int *p;
+  int seed;
+  int test;
+
+  printf ( "\n" );
+  printf ( "PERM1_UNIFORM_TEST\n" );
+  printf ( "  PERM1_UNIFORM randomly selects a permutation of 1,...,N.\n" );
+  printf ( "\n" );
+
+  seed = 123456789;
+
+  for ( test = 1; test <= 5; test++ )
+  {
+    p = perm1_uniform_new ( n, &seed );
+    printf ( "  " );
+    for ( i = 0; i < n; i++ )
+    {
+      printf ( "%4d", p[i] );
+    }
+    printf ( "\n" );
+    free ( p );
+  }
+  return;
+}
+/******************************************************************************/
+
+void r8_abs_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ABS_TEST tests R8_ABS.
 
   Licensing:
 
@@ -500,7 +959,7 @@ void test001 ( void )
   seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST001\n" );
+  printf ( "R8_ABS_TEST\n" );
   printf ( "  R8_ABS returns the absolute value of an R8.\n" );
   printf ( "\n" );
   printf ( "      X         R8_ABS(X)\n" );
@@ -517,13 +976,154 @@ void test001 ( void )
 }
 /******************************************************************************/
 
-void test002 ( )
+void r8_acos_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST002 tests R8_ATAN.
+    R8_ACOS_TEST tests R8_ACOS.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 July 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double c;
+  int test;
+
+  printf ( "\n" );
+  printf ( "R8_ACOS_TEST\n" );
+  printf ( "  R8_ACOS computes the arc-cosine of an angle.\n" ); 
+  printf ( "\n" );
+  printf ( "          C            R8_ACOS(C)        ACOS(C)\n" );
+  printf ( "\n" );
+
+  for ( test = -1; test <= 13; test++ )
+  {
+    c = ( double ) ( test - 6 ) / ( double ) ( 6 );
+
+    if ( -1.0 <= c && c <= 1.0 )
+    {
+      printf ( "  %14.6g  %14.6g  %14.6g\n",
+        c, r8_acos ( c ), acos ( c ) );
+    }
+    else
+    {
+      printf ( "  %14.6g  %14.6g\n", c, r8_acos ( c ) );
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_acosh_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ACOSH_TEST tests R8_ACOSH.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 July 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  int test;
+  double x;
+  double x2;
+
+  printf ( "\n" );
+  printf ( "R8_ACOSH_TEST\n" );
+  printf ( "  R8_ACOSH computes the arc-hyperbolic-cosine of an angle.\n" );
+  printf ( "\n" );
+  printf ( "       X            A=R8_ACOSH(X)    COSH(A)\n" );
+  printf ( "\n" );
+
+  for ( test = 0; test <= 8; test++ )
+  {
+    x = 1.0 + ( double ) ( test ) / 2.0;
+    a = r8_acosh ( x );
+    x2 = cosh ( a );
+    printf ( "  %14.6g  %14.6g  %14.6g\n", x, a, x2 );
+  }
+  return;
+}
+/******************************************************************************/
+
+void r8_asinh_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ASINH_TEST tests R8_ASINH.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    11 May 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  int i;
+  double x;
+  double x2;
+
+  printf ( "\n" );
+  printf ( "R8_ASINH_TEST\n" );
+  printf ( "  R8_ASINH computes the inverse hyperbolic sine\n" );
+  printf ( "  of a given value.\n" );
+  printf ( "\n" );
+  printf ( "         X     R8_ASINH(X)     SINH(R8_ASINH(X))\n" );
+  printf ( "\n" );
+
+  for ( i = 0; i <= 10; i++ )
+  {
+    x = 1.0 + ( ( double ) i ) / 5.0;
+    a = r8_asinh ( x );
+    x2 = sinh ( a );
+
+    printf ( "  %10f  %10f  %10f\n", x, a, x2 );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_atan_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ATAN_TEST tests R8_ATAN.
 
   Licensing:
 
@@ -551,18 +1151,19 @@ void test002 ( )
      0.0, -1.0, -1.0, -1.0 };
 
   printf ( "\n" );
-  printf ( "TEST002\n" );
+  printf ( "R8_ATAN_TEST\n" );
   printf ( "  R8_ATAN computes the arc-tangent given Y and X;\n" );
   printf ( "  ATAN2 is the system version of this routine.\n" );
   printf ( "\n" );
-  printf ( "       X             Y          ATAN2(Y,X)    R8_ATAN(Y,X)\n" );
+  printf ( "          X              Y          ATAN2(Y,X)    R8_ATAN(Y,X)\n" );
   printf ( "\n" );
 
   for ( test = 0; test < TEST_NUM; test++ )
   {
     x = xtest[test];
     y = ytest[test];
-    printf ( "  %14f  %14f  %14f  %14f\n", x, y, atan2 ( y, x ), r8_atan ( y, x ) );
+    printf ( "  %14f  %14f  %14f  %14f\n", 
+      x, y, atan2 ( y, x ), r8_atan ( y, x ) );
   }
 
   return;
@@ -570,13 +1171,91 @@ void test002 ( )
 }
 /******************************************************************************/
 
-void test003 ( )
+void r8_atanh_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST003 tests R8_CAS.
+    R8_ATANH_TEST tests R8_ATANH.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    21 April 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  int i;
+  double x;
+  double x2;
+
+  printf ( "\n" );
+  printf ( "R8_ATANH_TEST\n" );
+  printf ( "  R8_ATANH computes the inverse hyperbolic tangent\n" );
+  printf ( "  of a given value.\n" );
+  printf ( "\n" );
+  printf ( "         X     R8_ATANH(X)     TANH(R8_ATANH(X))\n" );
+  printf ( "\n" );
+
+  for ( i = -2; i <= 9; i++ )
+  {
+    x = ( ( double ) i ) / 10.0;
+    a = r8_atanh ( x );
+    x2 = tanh ( a );
+
+    printf ( "  %14g  %14g  %14g\n", x, a, x2 ); 
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_big_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_BIG_TEST tests R8_BIG.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 November 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  printf ( "\n" );
+  printf ( "R8_BIG_TEST\n" );
+  printf ( "  R8_BIG returns a 'big' R8 value;\n" );
+  printf ( "\n" );
+  printf ( "  R8_BIG = %g\n", r8_big ( ) );
+
+  return;
+}
+/******************************************************************************/
+
+void r8_cas_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_CAS_TEST tests R8_CAS.
 
   Licensing:
 
@@ -597,10 +1276,10 @@ void test003 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST003\n" );
+  printf ( "R8_CAS_TEST\n" );
   printf ( "  R8_CAS evaluates the casine of a number.\n" );
   printf ( "\n" );
-  printf ( "        X           R8_CAS ( X )\n" );
+  printf ( "          X             R8_CAS ( X )\n" );
   printf ( "\n" );
 
   for ( test = 0; test <= TEST_NUM; test++ )
@@ -614,13 +1293,13 @@ void test003 ( )
 }
 /******************************************************************************/
 
-void test004 ( void )
+void r8_ceiling_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST004 tests R8_CEILING.
+    R8_CEILING_TEST tests R8_CEILING.
 
   Licensing:
 
@@ -640,10 +1319,11 @@ void test004 ( void )
   double rval_rounded;
 
   printf ( "\n" );
-  printf ( "TEST004\n" );
+  printf ( "R8_CEILING_TEST\n" );
   printf ( "  R8_CEILING rounds a value up.\n" );
   printf ( "\n" );
-
+  printf ( "         X           R8_CEILING(X)\n" );
+  printf ( "\n" );
   for ( i = -6; i <= 6; i++ )
   {
     rval = ( double ) ( i ) / 5.0;
@@ -655,13 +1335,250 @@ void test004 ( void )
 }
 /******************************************************************************/
 
-void test005 ( void )
+void r8_choose_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST005 tests R8_DIFF.
+    R8_CHOOSE_TEST tests R8_CHOOSE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 July 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double cnk;
+  int k;
+  int n;
+
+  printf ( "\n" );
+  printf ( "R8_CHOOSE_TEST\n" );
+  printf ( "  R8_CHOOSE evaluates C(N,K).\n" );
+  printf ( "\n" );
+  printf ( "         N         K       CNK\n" );
+ 
+  for ( n = 0; n <= 5; n++ )
+  {
+    printf ( "\n" );
+    for ( k = 0; k <= n; k++ )
+    {
+      cnk = r8_choose ( n, k );
+      printf ( "  %8d  %8d  %14.6g\n", n, k, cnk );
+    }
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_cosd_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_COSD_TEST tests R8_COSD.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    04 November 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double angle;
+  int i;
+
+  printf ( "\n" );
+  printf ( "R8_COSD_TEST\n" );
+  printf ( "  R8_COSD computes the cosine of an angle\n" );
+  printf ( "  given in degrees.\n" );
+  printf ( "\n" );
+  printf ( "  ANGLE    R8_COSD(ANGLE)\n" );
+  printf ( "\n" );
+ 
+  for ( i = 0; i <= 360; i = i + 15 )
+  {
+    angle = ( double ) ( i );
+    printf ( "  %8.2f  %14.6g\n", angle, r8_cosd ( angle ) );
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_cotd_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_COTD_TEST tests R8_COTD.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double angle;
+  int i;
+
+  printf ( "\n" );
+  printf ( "R8_COTD_TEST\n" );
+  printf ( "  R8_COTD computes the cotangent of an angle\n" );
+  printf ( "  given in degrees.\n" );
+  printf ( "\n" );
+  printf ( "  ANGLE    R8_COTD(ANGLE)\n" );
+  printf ( "\n" );
+ 
+  for ( i = 0; i <= 360; i = i + 15 )
+  {
+    angle = ( double ) ( i );
+    if ( i % 180 == 0 )
+    {
+      printf ( "  %8.2f    Undefined\n", angle );
+    }
+    else
+    {
+      printf ( "  %8.2f  %14.6g\n", angle, r8_cotd ( angle ) );
+    }
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_cscd_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_CSCD_TEST tests R8_CSCD.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double angle;
+  int i;
+
+  printf ( "\n" );
+  printf ( "R8_CSCD_TEST\n" );
+  printf ( "  R8_CSCD computes the cosecant of an angle\n" );
+  printf ( "  given in degrees.\n" );
+  printf ( "\n" );
+  printf ( "  ANGLE    R8_CSCD(ANGLE)\n" );
+  printf ( "\n" );
+ 
+  for ( i = 0; i <= 360; i = i + 15 )
+  {
+    angle = ( double ) ( i );
+    if ( i % 180 == 0 )
+    {
+      printf ( "  %8.2f    Undefined\n", angle );
+    }
+    else
+    {
+      printf ( "  %8.2f  %14.6g\n", angle, r8_cscd ( angle ) );
+    }
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_cube_root_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_CUBE_ROOT_TEST tests R8_CUBE_ROOT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 July 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  int i;
+  int seed;
+  double x1;
+  double y;
+  double x2;
+
+  printf ( "\n" );
+  printf ( "R8_CUBE_ROOT_TEST\n" );
+  printf ( "  R8_CUBE_ROOT computes the cube root of an R8.\n" );
+  printf ( "\n" );
+  printf ( "       X               Y               Y^3\n" );
+  printf ( "\n" );
+
+  a = -10.0;
+  b = +10.0;
+  seed = 123456789;
+
+  for ( i = 1; i <= 10; i++ )
+  {
+    x1 = r8_uniform_ab ( a, b, &seed );
+    y = r8_cube_root ( x1 );
+    x2 = pow ( y, 3 );
+    printf ( "  %14.6g  %14.6g  %14.6g\n", x1, y, x2 );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_diff_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_DIFF_TEST tests R8_DIFF.
 
   Licensing:
 
@@ -688,19 +1605,20 @@ void test005 ( void )
     1.01,   1.05,  1.10, 3.0,  10.0 };
 
   printf ( "\n" );
-  printf ( "TEST005\n" );
+  printf ( "R8_DIFF_TEST\n" );
   printf ( "  R8_DIFF computes a difference X-Y to a given\n" );
   printf ( "    number of binary places.\n" );
   printf ( "\n" );
   printf ( "  For this test, we use %d binary places.\n", ndig );
   printf ( "\n" );
-  printf ( "       X       Y       X-Y     R8_DIFF(X,Y)\n" );
+  printf ( "      X           Y       X-Y     R8_DIFF(X,Y)\n" );
   printf ( "\n" );
 
   for ( test = 0; test < TEST_NUM; test++ )
   {
     y = y_test[test];
-    printf ( "  %10f  %10f  %10f  %10f\n", x, y, x - y, r8_diff ( x, y, ndig ) );
+    printf ( "  %10f  %10f  %10f  %10f\n", 
+      x, y, x - y, r8_diff ( x, y, ndig ) );
   }
 
   return;
@@ -708,13 +1626,13 @@ void test005 ( void )
 }
 /******************************************************************************/
 
-void test006 ( void )
+void r8_digit_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST006 tests R8_DIGIT.
+    R8_DIGIT_TEST tests R8_DIGIT.
 
   Licensing:
 
@@ -737,7 +1655,7 @@ void test006 ( void )
   x = r8_pi ( );
 
   printf ( "\n" );
-  printf ( "TEST006\n" );
+  printf ( "R8_DIGIT_TEST\n" );
   printf ( "  R8_DIGIT extracts decimal digits.\n" );
   printf ( "\n" );
   printf ( "  Here, we get digits of %24.16f\n", x );
@@ -762,13 +1680,61 @@ void test006 ( void )
 }
 /******************************************************************************/
 
-void test007 ( void )
+void r8_e_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST007 tests R8_EPSILON and R8_EPSILON_COMPUTE.
+    R8_E_TEST tests R8_E.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int n;
+  double value1;
+  double value2;
+
+  printf ( "\n" );
+  printf ( "R8_E_TEST\n" );
+  printf ( "  R8_E returns the value of E.\n" );
+  printf ( "  Compare E to (1+1/n)^n\n" );
+  value1 = r8_e ( );
+  printf ( "  R8_E =      %g\n", value1 );
+  printf ( "\n" );
+  printf ( "         N     Estimate      Error\n" );
+  printf ( "\n" );
+
+  n = 1;
+  for ( i = 0; i <= 20; i++ )
+  {
+    value2 = pow ( ( double ) ( n + 1 ) / ( double ) ( n ), n );
+    printf ( "  %8d  %14.6g  %14.6g\n", n, value2, fabs ( value1 - value2 ) );
+    n = n * 2;
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_epsilon_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_EPSILON_TEST tests R8_EPSILON.
 
   Licensing:
 
@@ -783,42 +1749,245 @@ void test007 ( void )
     John Burkardt
 */
 {
-  double r1;
-  double r2;
+  double r;
   double s;
   double t;
 
   printf ( "\n" );
-  printf ( "TEST007\n" );
+  printf ( "R8_EPSILON_TEST\n" );
   printf ( "  R8_EPSILON produces the R8 roundoff unit.\n" );
-  printf ( "  R8_EPSILON_COMPUTE computes the R8 roundoff unit.\n" );
   printf ( "\n" );
 
-  r1 = r8_epsilon ( );
-  printf ( "  R1 = R8_EPSILON()         = %24.16e\n", r1 );
+  r = r8_epsilon ( );
+  printf ( "  R = R8_EPSILON()         = %24.16e\n", r );
 
-  r2 = r8_epsilon ( );
-  printf ( "  R2 = R8_EPSILON_COMPUTE() = %24.16e\n", r2 );
-
-  s = 1.0 + r2;
+  s = 1.0 + r;
   t = s - 1.0;
-  printf ( "  ( 1 + R2 ) - 1            = %24.16e\n", t );
+  printf ( "  ( 1 + R ) - 1            = %24.16e\n", t );
 
-  s = 1.0 + ( r2 / 2.0 );
+  s = 1.0 + ( r / 2.0 );
   t = s - 1.0;
-  printf ( "  ( 1 + (R2/2) ) - 1        = %14e\n", t );
+  printf ( "  ( 1 + (R/2) ) - 1        = %24.16e\n", t );
 
   return;
 }
 /******************************************************************************/
 
-void test008 ( void )
+void r8_epsilon_compute_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST008 tests R8_FRACTIONAL.
+    R8_EPSILON_COMPUTE_TEST tests R8_EPSILON_COMPUTE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 September 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double r;
+  double s;
+  double t;
+
+  printf ( "\n" );
+  printf ( "R8_EPSILON_COMPUTE_TEST\n" );
+  printf ( "  R8_EPSILON_COMPUTE computes the R8 roundoff unit.\n" );
+  printf ( "\n" );
+
+  r = r8_epsilon_compute ( );
+  printf ( "  R = R8_EPSILON_COMPUTE() = %24.16e\n", r );
+
+  s = 1.0 + r;
+  t = s - 1.0;
+  printf ( "  ( 1 + R ) - 1            = %24.16e\n", t );
+
+  s = 1.0 + ( r / 2.0 );
+  t = s - 1.0;
+  printf ( "  ( 1 + (R/2) ) - 1        = %24.16e\n", t );
+
+  return;
+}
+/******************************************************************************/
+
+void r8_factorial_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FACTORIAL_TEST tests R8_FACTORIAL.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double f1;
+  double f2;
+  int n;
+  int n_data;
+
+  printf ( "\n" );
+  printf ( "R8_FACTORIAL_TEST\n" );
+  printf ( "  R8_FACTORIAL evaluates the factorial.\n" );
+  printf ( "\n" );
+  printf ( "    N                Exact                  Computed\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    r8_factorial_values ( &n_data, &n, &f1 );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    f2 = r8_factorial ( n );
+
+    printf ( "  %4d  %24.16g  %24.16g\n", n, f1, f2 );
+
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_factorial2_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FACTORIAL2_TEST tests R8_FACTORIAL2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double f1;
+  double f2;
+  int n;
+  int n_data;
+
+  printf ( "\n" );
+  printf ( "R8_FACTORIAL2_TEST\n" );
+  printf ( "  R8_FACTORIAL2 evaluates the double factorial.\n" );
+  printf ( "\n" );
+  printf ( "    N                Exact                  Computed\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    r8_factorial2_values ( &n_data, &n, &f1 );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    f2 = r8_factorial2 ( n );
+
+    printf ( "  %4d  %24.16g  %24.16g\n", n, f1, f2 );
+
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_fall_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FALL_TEST tests R8_FALL.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    22 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double f1;
+  double f2;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "R8_FALL_TEST\n" );
+  printf ( "  R8_FALL evaluates the falling factorial Fall(X,N).\n" );
+  printf ( "\n" );
+  printf ( "    X          N                Exact                  Computed\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    r8_fall_values ( &n_data, &x, &n, &f1 );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    f2 = r8_fall ( x, n );
+
+    printf ( "  %8f  %4d  %24.16g  %24.16g\n", x, n, f1, f2 );
+
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_fractional_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FRACTIONAL_TEST tests R8_FRACTIONAL.
 
   Licensing:
 
@@ -842,8 +2011,10 @@ void test008 ( void )
   int test_num = 10;
 
   printf ( "\n" );
-  printf ( "TEST008\n" );
+  printf ( "R8_FRACTIONAL_TEST\n" );
   printf ( "  R8_FRACTIONAL returns the fractional part of an R8.\n" );
+  printf ( "\n" );
+  printf ( "      X           R8_FRACTIONAL(X)\n" );
   printf ( "\n" );
 
   for ( test = 1; test <= test_num; test++ )
@@ -857,13 +2028,116 @@ void test008 ( void )
 }
 /******************************************************************************/
 
-void test009 ( void )
+void r8_gamma_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST009 tests R8_HUGE.
+    R8_GAMMA_TEST tests R8_GAMMA.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 April 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx1;
+  double fx2;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( " R8_GAMMA_TEST:\n" );
+  printf ( "   R8_GAMMA evaluates the Gamma function.\n" );
+  printf ( "\n" );
+  printf ( "      X                GAMMA(X)         R8_GAMMA(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    gamma_values ( &n_data, &x, &fx1 );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    fx2 = r8_gamma ( x );
+
+    printf ( "  %24.16e  %24.16e  %24.16e\n", x, fx1, fx2 );
+  }
+  return;
+}
+/******************************************************************************/
+
+void r8_gamma_log_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_GAMMA_LOG_TEST tests R8_GAMMA_LOG.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 April 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx1;
+  double fx2;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( " R8_GAMMA_LOG_TEST:\n" );
+  printf ( "   R8_GAMMA_LOG_VALUES evaluates\n" );
+  printf ( "   the logarithm of the Gamma function.\n" );
+  printf ( "\n" );
+  printf ( "      X            GAMMA_LOG(X)      R8_GAMMA_LOG(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    gamma_log_values ( &n_data, &x, &fx1 );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    fx2 = r8_gamma_log ( x );
+
+    printf ( "  %24.16e  %24.16e  %24.16e\n", x, fx1, fx2 );
+  }
+  return;
+}
+/******************************************************************************/
+
+void r8_huge_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_HUGE_TEST tests R8_HUGE.
 
   Licensing:
 
@@ -879,7 +2153,7 @@ void test009 ( void )
 */
 {
   printf ( "\n" );
-  printf ( "TEST009\n" );
+  printf ( "R8_HUGE_TEST\n" );
   printf ( "  R8_HUGE returns a large R8 value;\n" );
   printf ( "\n" );
   printf ( "  R8_HUGE =   %e\n", r8_huge ( ) );
@@ -888,13 +2162,13 @@ void test009 ( void )
 }
 /******************************************************************************/
 
-void test010 ( void )
+void r8_log_2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST010 tests R8_LOG_2.
+    R8_LOG_2_TEST tests R8_LOG_2.
 
   Licensing:
 
@@ -920,16 +2194,16 @@ void test010 ( void )
     0.25, 0.20, 0.01 };
 
   printf ( "\n" );
-  printf ( "TEST010\n" );
+  printf ( "R8_LOG_2_TEST\n" );
   printf ( "  R8_LOG_2: computes the logarithm base 2.\n" );
   printf ( "\n" );
-  printf ( "  X       R8_LOG_2\n" );
+  printf ( "        X       R8_LOG_2\n" );
   printf ( "\n" );
 
   for ( test = 0; test < TEST_NUM; test++ )
   {
     x = x_test[test];
-    printf ( "  %12f  %12f\n", x, r8_log_2 ( x ) );
+    printf ( "  %12f  %12g\n", x, r8_log_2 ( x ) );
   }
 
   return;
@@ -937,13 +2211,13 @@ void test010 ( void )
 }
 /******************************************************************************/
 
-void test011 ( void )
+void r8_log_b_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST011 tests R8_LOG_B.
+    R8_LOG_B_TEST tests R8_LOG_B.
 
   Licensing:
 
@@ -970,10 +2244,10 @@ void test011 ( void )
   x = 16.0;
 
   printf ( "\n" );
-  printf ( "TEST011\n" );
+  printf ( "R8_LOG_B_TEST\n" );
   printf ( "  R8_LOG_B computes the logarithm base B.\n" );
   printf ( "\n" );
-  printf ( "  X, B, R8_LOG_B\n" );
+  printf ( "        X     B     R8_LOG_B\n" );
   printf ( "\n" );
 
   for ( test = 0; test < TEST_NUM; test++ )
@@ -988,13 +2262,13 @@ void test011 ( void )
 }
 /******************************************************************************/
 
-void test012 ( void )
+void r8_mant_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST012 tests R8_MANT.
+    R8_MANT_TEST tests R8_MANT.
 
   Licensing:
 
@@ -1017,7 +2291,7 @@ void test012 ( void )
   x = -314.159;
 
   printf ( "\n" );
-  printf ( "TEST012\n" );
+  printf ( "R8_MANT_TEST\n" );
   printf ( "  R8_MANT decomposes a value.\n" );
   printf ( "\n" );
   printf ( "  Number to be decomposed: X = %f\n", x );
@@ -1031,13 +2305,119 @@ void test012 ( void )
 }
 /******************************************************************************/
 
-void test013 ( void )
+void r8_max_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST013 tests R8_MOD.
+    R8_MAX_TEST tests R8_MAX.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 March 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  double c;
+  int i;
+  double r8_hi;
+  double r8_lo;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8_MAX_TEST\n" );
+  printf ( "  R8_MAX returns the maximum of two R8's.\n" );
+  printf ( "\n" );
+  printf ( "       A       B      C=R8_MAX(A,B)\n" );
+  printf ( "\n" );
+
+  r8_lo = -5.0;
+  r8_hi = +5.0;
+  seed = 123456789;
+
+  for ( i = 0; i < 10; i++ )
+  {
+    a = r8_uniform_ab ( r8_lo, r8_hi, &seed );
+    b = r8_uniform_ab ( r8_lo, r8_hi, &seed );
+    c = r8_max ( a, b );
+    printf ( "  %8.4f  %8.4f  %8.4f\n", a, b, c );
+  }
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8_min_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_MIN_TEST tests R8_MIN.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 March 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  double c;
+  int i;
+  double r8_hi;
+  double r8_lo;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8_MIN_TEST\n" );
+  printf ( "  R8_MIN returns the minimum of two R8's.\n" );
+  printf ( "\n" );
+  printf ( "       A       B      C=R8_MIN(A,B)\n" );
+  printf ( "\n" );
+
+  r8_lo = -5.0;
+  r8_hi = +5.0;
+  seed = 123456789;
+
+  for ( i = 0; i < 10; i++ )
+  {
+    a = r8_uniform_ab ( r8_lo, r8_hi, &seed );
+    b = r8_uniform_ab ( r8_lo, r8_hi, &seed );
+    c = r8_min ( a, b );
+    printf ( "  %8.4f  %8.4f  %8.4f\n", a, b, c );
+  }
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8_mod_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_MOD_TEST tests R8_MOD.
 
   Licensing:
 
@@ -1063,7 +2443,7 @@ void test013 ( void )
   double z2;
 
   printf ( "\n" );
-  printf ( "TEST013\n" );
+  printf ( "R8_MOD_TEST\n" );
   printf ( "  R8_MOD returns the remainder after division.\n" );
   printf ( "  R8_MOD ( X, Y ) has the same sign as X.\n" );
   printf ( "\n" );
@@ -1085,13 +2465,13 @@ void test013 ( void )
 }
 /******************************************************************************/
 
-void test014 ( void )
+void r8_modp_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST014 tests R8_MODP.
+    R8_MODP_TEST tests R8_MODP.
 
   Licensing:
 
@@ -1115,7 +2495,7 @@ void test014 ( void )
   double z2;
 
   printf ( "\n" );
-  printf ( "TEST014\n" );
+  printf ( "R8_MODP_TEST\n" );
   printf ( "  R8_MODP returns the remainder after division.\n" );
   printf ( "  R8_MODP ( X, Y ) is positive if Y is.\n" );
   printf ( "\n" );
@@ -1136,13 +2516,62 @@ void test014 ( void )
 }
 /******************************************************************************/
 
-void test015 ( void )
+void r8_mop_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST015 tests R8_NINT
+    R8_MOP_TEST tests R8_MOP.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i4;
+  int i4_max;
+  int i4_min;
+  double r8;
+  int seed = 123456789;
+  int test;
+
+  printf ( "\n" );
+  printf ( "R8_MOP_TEST\n" );
+  printf ( "  R8_MOP evaluates (-1.0)^I4 as an R8.\n" );
+  printf ( "\n" );
+  printf ( "    I4  R8_MOP(I4)\n" );
+  printf ( "\n" );
+
+  i4_min = -100;
+  i4_max = +100;
+
+  for ( test = 1; test <= 10; test++ )
+  {
+    i4 = i4_uniform_ab ( i4_min, i4_max, &seed );
+    r8 = r8_mop ( i4 );
+    printf ( "  %4d  %4.1f\n", i4, r8 );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_nint_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_NINT_TEST tests R8_NINT
 
   Licensing:
 
@@ -1165,8 +2594,10 @@ void test015 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST015\n" );
+  printf ( "R8_NINT_TEST\n" );
   printf ( "  R8_NINT produces the nearest integer.\n" );
+  printf ( "\n" );
+  printf ( "       X        R8_NINT(X)\n" );
   printf ( "\n" );
 
   b = -10.0;
@@ -1182,13 +2613,13 @@ void test015 ( void )
 }
 /******************************************************************************/
 
-void test016 ( void )
+void r8_normal_01_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST016 tests R8_NORMAL_01.
+    R8_NORMAL_01_TEST tests R8_NORMAL_01.
 
   Licensing:
 
@@ -1210,7 +2641,7 @@ void test016 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST016\n" );
+  printf ( "R8_NORMAL_01_TEST\n" );
   printf ( "  R8_NORMAL_01 generates normally distributed random values.\n" );
   printf ( "  Using initial random number seed = %d\n", seed );
   printf ( "\n" );
@@ -1226,13 +2657,13 @@ void test016 ( void )
 }
 /******************************************************************************/
 
-void test017 ( void )
+void r8_pi_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST017 tests R8_PI.
+    R8_PI_TEST tests R8_PI.
 
   Licensing:
 
@@ -1256,7 +2687,7 @@ void test017 ( void )
   one = ( double ) ( 1 );
 
   printf ( "\n" );
-  printf ( "TEST017\n" );
+  printf ( "R8_PI_TEST\n" );
   printf ( "  R8_PI returns the value of PI.\n" );
   printf ( "\n" );
   v1 = r8_pi ( );
@@ -1268,13 +2699,13 @@ void test017 ( void )
 }
 /******************************************************************************/
 
-void test018 ( void )
+void r8_power_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST018 tests R8_POWER.
+    R8_POWER_TEST tests R8_POWER.
 
   Licensing:
 
@@ -1294,7 +2725,7 @@ void test018 ( void )
   double value;
 
   printf ( "\n" );
-  printf ( "TEST018\n" );
+  printf ( "R8_POWER_TEST\n" );
   printf ( "  R8_POWER computes R^P\n" );
   printf ( "\n" );
   printf ( "      R          P       R^P\n" );
@@ -1311,13 +2742,13 @@ void test018 ( void )
 }
 /******************************************************************************/
 
-void test019 ( void )
+void r8_power_fast_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST019 tests R8_POWER_FAST.
+    R8_POWER_FAST_TEST tests R8_POWER_FAST.
 
   Licensing:
 
@@ -1339,7 +2770,7 @@ void test019 ( void )
   double rp;
 
   printf ( "\n" );
-  printf ( "TEST019\n" );
+  printf ( "R8_POWER_FAST_TEST\n" );
   printf ( "  R8_POWER_FAST computes R^P, economizing on\n" );
   printf ( "    multiplications.\n" );
   printf ( "\n" );
@@ -1358,13 +2789,68 @@ void test019 ( void )
 }
 /******************************************************************************/
 
-void test020 ( )
+void r8_rise_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST020 tests R8_ROUND2.
+    R8_RISE_TEST tests R8_RISE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    22 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double f1;
+  double f2;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "R8_RISE_TEST\n" );
+  printf ( "  R8_RISE evaluates the rising factorial Fall(X,N).\n" );
+  printf ( "\n" );
+  printf ( "    X          N                Exact                  Computed\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    r8_rise_values ( &n_data, &x, &n, &f1 );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    f2 = r8_rise ( x, n );
+
+    printf ( "  %8f  %4d  %24.16g  %24.16g\n", x, n, f1, f2 );
+
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_round2_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ROUND2_TEST tests R8_ROUND2.
 
   Licensing:
 
@@ -1387,14 +2873,14 @@ void test020 ( )
   x = r8_pi ( );
 
   printf ( "\n" );
-  printf ( "TEST020\n" );
+  printf ( "R8_ROUND2_TEST\n" );
   printf ( "  R8_ROUND2 rounds a number to a\n" );
-  printf ( "    specified number of base 2 digits.\n" );
+  printf ( "  specified number of base 2 digits.\n" );
   printf ( "\n" );
   printf ( "  Test effect on PI:\n" );
   printf ( "  X = %24.16f\n", x );
   printf ( "\n" );
-  printf ( "  NPLACE  XROUND\n" );
+  printf ( "  NPLACE      XROUND\n" );
   printf ( "\n" );
 
   for ( i = 0; i <= 20; i++ )
@@ -1408,13 +2894,13 @@ void test020 ( )
 }
 /******************************************************************************/
 
-void test021 ( )
+void r8_roundb_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST021 tests R8_ROUNDB.
+    R8_ROUNDB_TEST tests R8_ROUNDB.
 
   Licensing:
 
@@ -1439,7 +2925,7 @@ void test021 ( )
   x = r8_pi ( );
 
   printf ( "\n" );
-  printf ( "TEST021\n" );
+  printf ( "R8_ROUNDB_TEST\n" );
   printf ( "  R8_ROUNDB rounds a number to a \n" );
   printf ( "  specified number of base BASE digits.\n" );
   printf ( "\n" );
@@ -1479,13 +2965,13 @@ void test021 ( )
 }
 /******************************************************************************/
 
-void test022 ( void )
+void r8_roundx_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST022 tests R8_ROUNDX.
+    R8_ROUNDX_TEST tests R8_ROUNDX.
 
   Licensing:
 
@@ -1510,7 +2996,7 @@ void test022 ( void )
   x = r8_pi ( );
 
   printf ( "\n" );
-  printf ( "TEST022\n" );
+  printf ( "R8_ROUNDX_TEST\n" );
   printf ( "  R8_ROUNDX rounds a number to a \n" );
   printf ( "  specified number of decimal digits.\n" );
   printf ( "\n" );
@@ -1551,13 +3037,62 @@ void test022 ( void )
 }
 /******************************************************************************/
 
-void test023 ( void )
+void r8_secd_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST023 tests R8_SIGN.
+    R8_SECD_TEST tests R8_SECD.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double angle;
+  int i;
+
+  printf ( "\n" );
+  printf ( "R8_SECD_TEST\n" );
+  printf ( "  R8_SECD computes the secant of an angle\n" );
+  printf ( "  given in degrees.\n" );
+  printf ( "\n" );
+  printf ( "  ANGLE    R8_SECD(ANGLE)\n" );
+  printf ( "\n" );
+ 
+  for ( i = 0; i <= 360; i = i + 15 )
+  {
+    angle = ( double ) ( i );
+    if ( ( i + 90 ) % 180 == 0 )
+    {
+      printf ( "  %8.2f    Undefined\n", angle );
+    }
+    else
+    {
+      printf ( "  %8.2f  %14.6g\n", angle, r8_secd ( angle ) );
+    }
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_sign_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_SIGN_TEST tests R8_SIGN.
 
   Licensing:
 
@@ -1565,42 +3100,131 @@ void test023 ( void )
 
   Modified:
 
-    29 June 2011
+    28 September 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define TEST_NUM 5
-
+  double r8;
+  double r8_test[5] = { -1.25, -0.25, 0.0, +0.5, +9.0 };
+  double s;
   int test;
-  double x;
-  double x_test[TEST_NUM] = { -1.25, -0.25, 0.0, +0.5, +9.0 };
+  const int test_num = 5;
 
   printf ( "\n" );
-  printf ( "TEST023\n" );
+  printf ( "R8_SIGN_TEST\n" );
   printf ( "  R8_SIGN returns the sign of a number.\n" );
   printf ( "\n" );
+  printf ( "    X        R8_SIGN(X)\n" );
+  printf ( "\n" );
 
-  for ( test = 0; test < TEST_NUM; test++ )
+  for ( test = 0; test < test_num; test++ )
   {
-    x = x_test[test];
-    printf ( "  %8f  %8f\n", x, r8_sign ( x ) );
+    r8 = r8_test[test];
+    s = r8_sign ( r8 );
+    printf ( "  %8.4f  %8.0f\n", r8, s );
   }
 
   return;
-# undef TEST_NUM
 }
 /******************************************************************************/
 
-void test0235 ( void )
+void r8_sign3_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0235 tests R8_SWAP.
+    R8_SIGN3_TEST tests R8_SIGN3.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 September 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double r8;
+  double r8_test[5] = { -1.25, -0.25, 0.0, +0.5, +9.0 };
+  double s;
+  int test;
+  const int test_num = 5;
+
+  printf ( "\n" );
+  printf ( "R8_SIGN3_TEST\n" );
+  printf ( "  R8_SIGN3 returns the three way sign of a number.\n" );
+  printf ( "\n" );
+  printf ( "    X        R8_SIGN3(X)\n" );
+  printf ( "\n" );
+
+  for ( test = 0; test < test_num; test++ )
+  {
+    r8 = r8_test[test];
+    s = r8_sign3 ( r8 );
+    printf ( "  %8.4f  %8.0f\n", r8, s );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_sind_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_SIND_TEST tests R8_SIND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double angle;
+  int i;
+
+  printf ( "\n" );
+  printf ( "R8_SIND_TEST\n" );
+  printf ( "  R8_SIND computes the sine of an angle\n" );
+  printf ( "  given in degrees.\n" );
+  printf ( "\n" );
+  printf ( "  ANGLE    R8_SIND(ANGLE)\n" );
+  printf ( "\n" );
+ 
+  for ( i = 0; i <= 360; i = i + 15 )
+  {
+    angle = ( double ) ( i );
+    printf ( "  %8.2f  %14.6g\n", angle, r8_sind ( angle ) );
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_swap_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_SWAP_TEST tests R8_SWAP.
 
   Licensing:
 
@@ -1619,7 +3243,7 @@ void test0235 ( void )
   double y;
 
   printf ( "\n" );
-  printf ( "TEST0235\n" );
+  printf ( "R8_SWAP_TEST\n" );
   printf ( "  R8_SWAP swaps two reals.\n" );
 
   x = 1.0;
@@ -1643,13 +3267,111 @@ void test0235 ( void )
 }
 /******************************************************************************/
 
-void test024 ( void )
+void r8_swap3_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST024 tests R8_TO_R8_DISCRETE.
+    R8_SWAP3_TEST tests R8_SWAP3.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 January 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  double x;
+  double y;
+  double z;
+
+  printf ( "\n" );
+  printf ( "R8_SWAP3_TEST\n" );
+  printf ( "  R8_SWAP3 swaps three reals.\n" );
+
+  x = 1.0;
+  y = 3.14159;
+  z = 1952.0;
+
+  printf ( "\n" );
+  printf ( "              X       Y       Z\n" );
+  printf ( "\n" );
+  printf ( "  Start: %g  %g  %g\n", x, y, z );
+
+  for ( i = 1; i <= 3; i++ )
+  {
+    r8_swap3 ( &x, &y, &z );
+    printf ( "  Swap %d  %g  %g  %g\n", i, x, y, z );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_tand_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_TAND_TEST tests R8_TAND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double angle;
+  int i;
+
+  printf ( "\n" );
+  printf ( "R8_TAND_TEST\n" );
+  printf ( "  R8_TAND computes the tangent of an angle\n" );
+  printf ( "  given in degrees.\n" );
+  printf ( "\n" );
+  printf ( "  ANGLE    R8_TAND(ANGLE)\n" );
+  printf ( "\n" );
+ 
+  for ( i = 0; i <= 360; i = i + 15 )
+  {
+    angle = ( double ) ( i );
+    if ( ( i + 90 ) % 180 == 0 )
+    {
+      printf ( "  %8.2f    Undefined\n", angle );
+    }
+    else
+    {
+      printf ( "  %8.2f  %14.6g\n", angle, r8_tand ( angle ) );
+    }
+  }
+ 
+  return;
+}
+/******************************************************************************/
+
+void r8_to_r8_discrete_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_TO_R8_DISCRETE_TEST tests R8_TO_R8_DISCRETE.
 
   Licensing:
 
@@ -1676,14 +3398,14 @@ void test024 ( void )
   int test_num = 15;
 
   printf ( "\n" );
-  printf ( "TEST024\n" );
+  printf ( "R8_TO_R8_DISCRETE_TEST\n" );
   printf ( "  R8_TO_R8_DISCRETE maps numbers to a discrete set\n" );
   printf ( "  of equally spaced numbers in an interval.\n" );
   printf ( "\n" );
   printf ( "  Number of discrete values = %d\n", ndx );
   printf ( "  Real interval: [%f, %f]\n", rlo, rhi );
   printf ( "\n" );
-  printf ( "  R   RD\n" );
+  printf ( "      R         RD\n" );
   printf ( "\n" );
 
   seed = 123456789;
@@ -1702,13 +3424,13 @@ void test024 ( void )
 }
 /******************************************************************************/
 
-void test025 ( void )
+void r8_to_i4_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST025 tests R8_TO_I4.
+    R8_TO_I4_TEST tests R8_TO_I4.
 
   Licensing:
 
@@ -1716,7 +3438,7 @@ void test025 ( void )
 
   Modified:
 
-    29 June 2011
+    19 April 2014
 
   Author:
 
@@ -1731,7 +3453,7 @@ void test025 ( void )
   double xmin;
 
   printf ( "\n" );
-  printf ( "TEST025\n" );
+  printf ( "R8_TO_I4_TEST\n" );
   printf ( "  R8_TO_I4 finds an integer IX in [IXMIN,IXMAX]\n" );
   printf ( "  corresponding to X in [XMIN,XMAX].\n" );
 
@@ -1742,7 +3464,7 @@ void test025 ( void )
   ixmin = 10;
   ixmax = 40;
 
-  ix = r8_to_i4 ( x, xmin, xmax, ixmin, ixmax );
+  ix = r8_to_i4 ( xmin, xmax, x, ixmin, ixmax );
 
   printf ( "\n" );
   printf ( "   XMIN %f,   X = %f,  XMAX = %f\n", xmin, x, xmax );
@@ -1752,129 +3474,13 @@ void test025 ( void )
 }
 /******************************************************************************/
 
-void test026 ( void )
+void r8_uniform_01_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST026 tests R8_UNIFORM.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    05 May 2006
-
-  Author:
-
-    John Burkardt
-*/
-{
-  double a;
-  double b;
-  double c;
-  int i;
-  int seed;
-
-  b = 10.0;
-  c = 25.0;
-  seed = 17;
-
-  printf ( "\n" );
-  printf ( "TEST026\n" );
-  printf ( "  R8_UNIFORM produces a random real in a given range.\n" );
-  printf ( "\n" );
-  printf ( "  Using range %f <= A <= %f.\n", b, c );
-  printf ( "\n" );
-
-  printf ( "\n" );
-  printf ( "  I   A\n" );
-  printf ( "\n" );
-  for ( i = 0; i < 10; i++ )
-  {
-    a = r8_uniform_ab ( b, c, &seed );
-    printf ( "%6d  %10f\n", i, a );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test027 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST027 tests R8_UNIFORM_01.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    05 May 2006
-
-  Author:
-
-    John Burkardt
-*/
-{
-  int i;
-  int seed;
-  double x;
-
-  printf ( "\n" );
-  printf ( "TEST027\n" );
-  printf ( "  R8_UNIFORM_01 produces a sequence of random values.\n" );
-
-  seed = 123456789;
-
-  printf ( "\n" );
-  printf ( "  Using random seed %d.\n", seed );
-
-  printf ( "\n" );
-  printf ( "  SEED   R8_UNIFORM_01(SEED)\n" );
-  printf ( "\n" );
-  for ( i = 0; i < 10; i++ )
-  {
-    printf ( "%12d", seed );
-    x = r8_uniform_01 ( &seed );
-    printf ( "  %f\n", x );
-  }
-
-  printf ( "\n" );
-  printf ( "  Verify that the sequence can be restarted.\n" );
-  printf ( "  Set the seed back to its original value, and see that\n" );
-  printf ( "  we generate the same sequence.\n" );
-
-  seed = 123456789;
-  printf ( "\n" );
-  printf ( "  SEED   R8_UNIFORM_01(SEED)\n" );
-  printf ( "\n" );
-
-  for ( i = 0; i < 10; i++ )
-  {
-    printf ( "%12d", seed );
-    x = r8_uniform_01 ( &seed );
-    printf ( "  %f\n", x );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test028 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST028 tests R8_UNIFORM_01.
+    R8_UNIFORM_01_TEST tests R8_UNIFORM_01.
 
   Licensing:
 
@@ -1901,7 +3507,7 @@ void test028 ( void )
   double variance;
 
   printf ( "\n" );
-  printf ( "TEST028\n" );
+  printf ( "R8_UNIFORM_01_TEST\n" );
   printf ( "  R8_UNIFORM_01 samples a uniform random distribution in [0,1].\n" );
   printf ( "  distributed random numbers.\n" );
   printf ( "  Using initial random number seed = %d\n", seed );
@@ -1935,13 +3541,64 @@ void test028 ( void )
 }
 /******************************************************************************/
 
-void test029 ( )
+void r8_uniform_ab_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST029 tests R8_WALSH_1D;
+    R8_UNIFORM_AB_TEST tests R8_UNIFORM_AB.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 May 2006
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  double c;
+  int i;
+  int seed;
+
+  b = 10.0;
+  c = 25.0;
+  seed = 17;
+
+  printf ( "\n" );
+  printf ( "R8_UNIFORM_AB_TEST\n" );
+  printf ( "  R8_UNIFORM_AB produces a random real in a given range.\n" );
+  printf ( "\n" );
+  printf ( "  Using range %f <= A <= %f.\n", b, c );
+  printf ( "\n" );
+
+  printf ( "\n" );
+  printf ( "     I      A\n" );
+  printf ( "\n" );
+  for ( i = 0; i < 10; i++ )
+  {
+    a = r8_uniform_ab ( b, c, &seed );
+    printf ( "  %4d  %10f\n", i, a );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8_walsh_1d_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_WALSH_1D_TEST tests R8_WALSH_1D;
 
   Licensing:
 
@@ -1966,7 +3623,7 @@ void test029 ( )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST029\n" );
+  printf ( "R8_WALSH_1D_TEST\n" );
   printf ( "  R8_WALSH_1D evaluates 1D Walsh functions:\n" );
   printf ( "\n" );
   printf ( "  X  W(+2) W(+1) W(0) W(-1) W(-2) W(-3)\n" );
@@ -1991,13 +3648,13 @@ void test029 ( )
 }
 /******************************************************************************/
 
-void test0295 ( void )
+void r8_wrap_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0295 tests R8_WRAP;
+    R8_WRAP_TEST tests R8_WRAP;
 
   Licensing:
 
@@ -2023,7 +3680,7 @@ void test0295 ( void )
   int test_num = 20;
 
   printf ( "\n" );
-  printf ( "TEST0295\n" );
+  printf ( "R8_WRAP_TEST\n" );
   printf ( "  R8_WRAP \"wraps\" an R8 to lie within an interval:\n" );
   printf ( "\n" );
   printf ( "  Wrapping interval is %g, %g\n", rlo, rhi );
@@ -2043,13 +3700,57 @@ void test0295 ( void )
 }
 /******************************************************************************/
 
-void test031 ( )
+void r82col_print_part_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST031 tests R82POLY2_TYPE.
+    R82COL_PRINT_PART_TEST tests R82COL_PRINT_PART.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 April 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int max_print;
+  int n = 10;
+  double v[10*2] = {
+    11.0,  21.0, 31.0, 41.0, 51.0, 61.0, 71.0, 81.0, 91.0, 101.0, 
+    12.0,  22.0, 32.0, 42.0, 52.0, 62.0, 72.0, 82.0, 92.0, 102.0 };
+
+  printf ( "\n" );
+  printf ( "R82COL_PRINT_PART_TEST\n" );
+  printf ( "  R82COL_PRINT_PART prints part of an R82COL.\n" );
+
+  max_print = 2;
+  r82col_print_part ( n, v, max_print, "  Output with MAX_PRINT = 2" );
+
+  max_print = 5;
+  r82col_print_part ( n, v, max_print, "  Output with MAX_PRINT = 5" );
+
+  max_print = 25;
+  r82col_print_part ( n, v, max_print, "  Output with MAX_PRINT = 25" );
+
+  return;
+}
+/******************************************************************************/
+
+void r82poly2_type_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R82POLY2_TYPE_TEST tests R82POLY2_TYPE.
 
   Licensing:
 
@@ -2100,7 +3801,7 @@ void test031 ( )
   int type;
 
   printf ( "\n" );
-  printf ( "TEST031\n" );
+  printf ( "R82POLY2_TYPE_TEST\n" );
   printf ( "  R82POLY2_TYPE determines the type of a second order\n" );
   printf ( "  equation in two variables.\n" );
   printf ( "\n" );
@@ -2130,13 +3831,13 @@ void test031 ( )
 }
 /******************************************************************************/
 
-void test032 ( )
+void r82row_order_type_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST032 tests R82VEC_ORDER_TYPE.
+    R82ROW_ORDER_TYPE_TEST tests R82ROW_ORDER_TYPE.
 
   Licensing:
 
@@ -2162,8 +3863,8 @@ void test032 ( )
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST032\n" );
-  printf ( "  R82VEC_ORDER_TYPE classifies an R8VEC as\n" );
+  printf ( "R82ROW_ORDER_TYPE_TEST\n" );
+  printf ( "  R82ROW_ORDER_TYPE classifies an R8VEC as\n" );
   printf ( "  -1: no order\n" );
   printf ( "   0: all equal;\n" );
   printf ( "   1: ascending;\n" );
@@ -2183,11 +3884,11 @@ void test032 ( )
         x[i+j*2] = ( double ) ( r8_nint ( 3.0 * x[i+j*2] ) );
       }
     }
-    order = r82vec_order_type ( N, x );
+    order = r82row_order_type ( N, x );
 
     printf ( "  Order type = %d\n", order );
 
-    r82vec_print ( N, x, " " );
+    r82row_print ( N, x, " " );
 
     free ( x );
   }
@@ -2198,13 +3899,13 @@ void test032 ( )
 }
 /******************************************************************************/
 
-void test033 ( )
+void r82row_part_quick_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST033 tests R82VEC_PART_QUICK_A.
+    R82ROW_PART_QUICK_A_TEST tests R82ROW_PART_QUICK_A.
 
   Licensing:
 
@@ -2230,16 +3931,16 @@ void test033 ( )
   int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST033\n" );
-  printf ( "  R82VEC_PART_QUICK_A reorders an R82VEC\n" );
+  printf ( "R82ROW_PART_QUICK_A_TEST\n" );
+  printf ( "  R82ROW_PART_QUICK_A reorders an R82ROW\n" );
   printf ( "  as part of a quick sort.\n" );
   printf ( "  Using initial random number seed = %d\n", seed );
 
   a = r8mat_uniform_ab_new ( 2, N, b, c, &seed );
 
-  r82vec_print ( N, a, "  Before rearrangment:" );
+  r82row_print ( N, a, "  Before rearrangment:" );
 
-  r82vec_part_quick_a ( N, a, &l, &r );
+  r82row_part_quick_a ( N, a, &l, &r );
 
   printf ( "\n" );
   printf ( "  Rearranged array\n" );
@@ -2247,9 +3948,9 @@ void test033 ( )
   printf ( "  Key index =   %d\n", l + 1 );
   printf ( "  Right index = %d\n", r );
 
-  r82vec_print ( l,     a,         "  Left half:" );
-  r82vec_print ( 1,     a+2*l,     "  Key:" );
-  r82vec_print ( N-l-1, a+2*(l+1), "  Right half:" );
+  r82row_print ( l,     a,         "  Left half:" );
+  r82row_print ( 1,     a+2*l,     "  Key:" );
+  r82row_print ( N-l-1, a+2*(l+1), "  Right half:" );
 
   free ( a );
 
@@ -2258,13 +3959,65 @@ void test033 ( )
 }
 /******************************************************************************/
 
-void test034 ( )
+void r82row_print_part_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST034 tests R82VEC_SORT_HEAP_INDEX_A.
+    R82ROW_PRINT_PART_TEST tests R82ROW_PRINT_PART.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int max_print;
+  int n = 10;
+  double v[2*10] = {
+     11.0,  21.0, 
+     12.0,  22.0, 
+     13.0,  23.0, 
+     14.0,  24.0, 
+     15.0,  25.0, 
+     16.0,  26.0, 
+     17.0,  27.0, 
+     18.0,  28.0, 
+     19.0,  29.0, 
+     20.0,  30.0 };
+
+  printf ( "\n" );
+  printf ( "R82ROW_PRINT_PART_TEST\n" );
+  printf ( "  R82ROW_PRINT_PART prints part of an R82ROW.\n" );
+
+  max_print = 2;
+  r82row_print_part ( n, v, max_print, "  Output with MAX_PRINT = 2" );
+
+  max_print = 5;
+  r82row_print_part ( n, v, max_print, "  Output with MAX_PRINT = 5" );
+
+  max_print = 25;
+  r82row_print_part ( n, v, max_print, "  Output with MAX_PRINT = 25" );
+
+  return;
+}
+/******************************************************************************/
+
+void r82row_sort_heap_index_a_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R82ROW_SORT_HEAP_INDEX_A_TEST tests R82ROW_SORT_HEAP_INDEX_A.
 
   Licensing:
 
@@ -2283,15 +4036,14 @@ void test034 ( )
 
   double *a;
   double b = 0.0;
-  int base = 0;
   double c = 10.0;
   int i;
   int *indx;
   int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST034\n" );
-  printf ( "  R82VEC_SORT_HEAP_INDEX_A index sorts an R82VEC\n" );
+  printf ( "R82ROW_SORT_HEAP_INDEX_A_TEST\n" );
+  printf ( "  R82ROW_SORT_HEAP_INDEX_A index sorts an R82ROW\n" );
   printf ( "  using heapsort.\n" );
   printf ( "  Using initial random number seed = %d\n", seed );
 
@@ -2312,9 +4064,9 @@ void test034 ( )
   a[0+6*2] = a[0+10*2];
   a[1+6*2] = a[1+10*2];
 
-  r82vec_print ( N, a, "  Before rearrangement:" );
+  r82row_print ( N, a, "  Before rearrangement:" );
 
-  indx = r82vec_sort_heap_index_a ( N, base, a );
+  indx = r82row_sort_heap_index_a ( N, a );
 
   printf ( "\n" );
   printf ( "         I     Index   A(Index)\n" );
@@ -2322,12 +4074,13 @@ void test034 ( )
 
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %8d  %8d  %12f  %12f\n", i, indx[i], a[0+indx[i]*2], a[1+indx[i]*2] );
+    printf ( "  %8d  %8d  %12f  %12f\n", 
+      i, indx[i], a[0+indx[i]*2], a[1+indx[i]*2] );
   }
 
-  r82vec_permute ( N, indx, base, a );
+  r82row_permute ( N, indx, a );
 
-  r82vec_print ( N, a, "  After rearrangement by R82VEC_PERMUTE:" );
+  r82row_print ( N, a, "  After rearrangement by R82ROW_PERMUTE:" );
 
   free ( a );
   free ( indx );
@@ -2337,13 +4090,13 @@ void test034 ( )
 }
 /******************************************************************************/
 
-void test035 ( )
+void r82row_sort_quick_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST035 tests R82VEC_SORT_QUICK_A.
+    R82ROW_SORT_QUICK_A_TEST tests R82ROW_SORT_QUICK_A.
 
   Licensing:
 
@@ -2367,8 +4120,8 @@ void test035 ( )
   int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST035\n" );
-  printf ( "  R82VEC_SORT_QUICK_A sorts an R82VEC\n" );
+  printf ( "R82ROW_SORT_QUICK_A_TEST\n" );
+  printf ( "  R82ROW_SORT_QUICK_A sorts an R82ROW\n" );
   printf ( "  as part of a quick sort.\n" );
   printf ( "  Using initial random number seed = %d\n", seed );
 
@@ -2384,11 +4137,11 @@ void test035 ( )
   a[2*(7-1)+0] = a[2*(11-1)+0];
   a[2*(7-1)+1] = a[2*(11-1)+1];
 
-  r82vec_print ( N, a, "  Before sorting:" );
+  r82row_print ( N, a, "  Before sorting:" );
 
-  r82vec_sort_quick_a ( N, a );
+  r82row_sort_quick_a ( N, a );
 
-  r82vec_print ( N, a, "  Sorted array:" );
+  r82row_print ( N, a, "  Sorted array:" );
 
   free ( a );
 
@@ -2397,13 +4150,110 @@ void test035 ( )
 }
 /******************************************************************************/
 
-void test036 ( )
+void r83col_print_part_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST036 tests R8BLOCK_EXPAND_LINEAR.
+    R83COL_PRINT_PART_TEST tests R83COL_PRINT_PART.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 April 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int max_print;
+  int n = 10;
+  double v[10*3] = {
+    11.0,  21.0, 31.0, 41.0, 51.0, 61.0, 71.0, 81.0, 91.0, 101.0, 
+    12.0,  22.0, 32.0, 42.0, 52.0, 62.0, 72.0, 82.0, 92.0, 102.0,
+    13.0,  23.0, 33.0, 43.0, 53.0, 63.0, 73.0, 83.0, 93.0, 103.0 };
+
+  printf ( "\n" );
+  printf ( "R83COL_PRINT_PART_TEST\n" );
+  printf ( "  R83COL_PRINT_PART prints part of an R83COL.\n" );
+
+  max_print = 2;
+  r83col_print_part ( n, v, max_print, "  Output with MAX_PRINT = 2" );
+
+  max_print = 5;
+  r83col_print_part ( n, v, max_print, "  Output with MAX_PRINT = 5" );
+
+  max_print = 25;
+  r83col_print_part ( n, v, max_print, "  Output with MAX_PRINT = 25" );
+
+  return;
+}
+/******************************************************************************/
+
+void r83row_print_part_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R83ROW_PRINT_PART_TEST tests R83ROW_PRINT_PART.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 April 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int max_print;
+  int n = 10;
+  double v[3*10] = {
+     11.0,  21.0,  31.0, 
+     12.0,  22.0,  32.0,
+     13.0,  23.0,  33.0,
+     14.0,  24.0,  34.0,
+     15.0,  25.0,  35.0,
+     16.0,  26.0,  36.0,
+     17.0,  27.0,  37.0,
+     18.0,  28.0,  38.0,
+     19.0,  29.0,  39.0,
+     20.0,  30.0,  40.0, };
+
+  printf ( "\n" );
+  printf ( "R83ROW_PRINT_PART_TEST\n" );
+  printf ( "  R83ROW_PRINT_PART prints part of an R83ROW.\n" );
+
+  max_print = 2;
+  r83row_print_part ( n, v, max_print, "  Output with MAX_PRINT = 2" );
+
+  max_print = 5;
+  r83row_print_part ( n, v, max_print, "  Output with MAX_PRINT = 5" );
+
+  max_print = 25;
+  r83row_print_part ( n, v, max_print, "  Output with MAX_PRINT = 25" );
+
+  return;
+}
+/******************************************************************************/
+
+void r8block_expand_linear_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLOCK_EXPAND_LINEAR_TEST tests R8BLOCK_EXPAND_LINEAR.
 
   Licensing:
 
@@ -2441,7 +4291,7 @@ void test036 ( )
   n2 = ( N - 1 ) * ( nfat + 1 ) + 1;
 
   printf ( "\n" );
-  printf ( "TEST036\n" );
+  printf ( "R8BLOCK_EXPAND_LINEAR_TEST\n" );
   printf ( "  R8BLOCK_EXPAND_LINEAR linearly interpolates new data\n" );
   printf ( "  between old values in a 3D block.\n" );
 
@@ -2465,13 +4315,13 @@ void test036 ( )
 }
 /******************************************************************************/
 
-void test0363 ( )
+void r8block_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0363 tests R8BLOCK_NEW and R8BLOCK_DELETE.
+    R8BLOCK_NEW_TEST tests R8BLOCK_NEW.
 
   Licensing:
 
@@ -2496,9 +4346,8 @@ void test0363 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST0363:\n" );
+  printf ( "R8BLOCK_NEW_TEST:\n" );
   printf ( "  R8BLOCK_NEW dynamically creates a 3D array.\n" );
-  printf ( "  R8BLOCK_DELETE deletes it.\n" );
   printf ( "  Array entries can be addressed using the\n" );
   printf ( "  notation \"a[i][j][k]\".\n" );
 /*
@@ -2554,19 +4403,19 @@ void test0363 ( )
 /*
   Free memory.
 */
-  r8block_delete ( a, l, m, n );
+  r8block_delete ( l, m, n, a );
 
   return;
 }
 /******************************************************************************/
 
-void test0365 ( )
+void r8block_print_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0365 tests R8BLOCK_PRINT.
+    R8BLOCK_PRINT_TEST tests R8BLOCK_PRINT.
 
   Licensing:
 
@@ -2593,7 +4442,7 @@ void test0365 ( )
         2.0, 16.0, 54.0, 128.0 };
 
   printf ( "\n" );
-  printf ( "TEST0365\n" );
+  printf ( "R8BLOCK_PRINT_TEST\n" );
   printf ( "  R8BLOCK_PRINT prints an R8BLOCK.\n" );
 
   r8block_print ( L, M, N, x, "  The 3D array:" );
@@ -2605,13 +4454,72 @@ void test0365 ( )
 }
 /******************************************************************************/
 
-void test037 ( )
+void r8cmat_to_r8mat_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST037 tests R8COL_FIND.
+    R8CMAT_TO_R8MAT_NEW_TEST tests R8CMAT_TO_R8MAT_NEW;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double **b;
+  double *c;
+  int m = 5;
+  int n = 4;
+
+  printf ( "\n" );
+  printf ( "R8CMAT_TO_R8MAT_NEW_TEST\n" );
+  printf ( "  R8CMAT_TO_R8MAT_NEW converts an R8CMAT to an R8MAT.\n" );
+  printf ( "\n" );
+  printf ( "  Data is of order (%d,%d).\n", m, n );
+/*
+  Set the R8MAT.
+*/
+  a = r8mat_indicator_new ( m, n );
+  r8mat_print ( m, n, a, "  The R8MAT A:" );
+/*
+  Convert.
+*/
+  b = r8mat_to_r8cmat_new ( m, n, a );
+  r8cmat_print ( m, n, b, "  The R8CMAT B:" );
+/*
+  Recover the matrix.
+*/
+  c = r8cmat_to_r8mat_new ( m, n, b );
+  r8mat_print ( m, n, c, "  The R8MAT C:" );
+/*
+  Free memory.
+*/
+  free ( a );
+  r8cmat_delete ( m, n, b );
+  free ( c );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8col_find_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8COL_FIND_TEST tests R8COL_FIND.
 
   Licensing:
 
@@ -2654,7 +4562,7 @@ void test037 ( )
   col = r8col_find ( M, N, dtab, r8vec );
 
   printf ( "\n" );
-  printf ( "TEST037\n" );
+  printf ( "R8COL_FIND_TEST\n" );
   printf ( "  R8COL_FIND finds a column in a table matching\n" );
   printf ( "  a given set of data.\n" );
   printf ( "\n" );
@@ -2666,13 +4574,13 @@ void test037 ( )
 }
 /******************************************************************************/
 
-void test038 ( )
+void r8col_insert_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST038 tests R8COL_INSERT and R8COL_SORT_HEAP_A.
+    R8COL_INSERT_TEST tests R8COL_INSERT.
 
   Licensing:
 
@@ -2707,9 +4615,8 @@ void test038 ( )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST038\n" );
-  printf ( "  R8COL_SORT_HEAP_A ascending heap sorts a table of columns.\n" );
-  printf ( "  R8COL_INSERT inserts new columns.\n" );
+  printf ( "R8COL_INSERT_TEST\n" );
+  printf ( "  R8COL_INSERT inserts new columns into a sorted R8COL.\n" );
 
   n = 4;
 
@@ -2753,13 +4660,71 @@ void test038 ( )
 }
 /******************************************************************************/
 
-void test0385 ( )
+void r8col_sort_heap_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0385 tests R8COL_SORT_HEAP_INDEX_A.
+    R8COL_SORT_HEAP_A_TEST tests R8COL_SORT_HEAP_A.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 May 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define M 3
+# define N_MAX 10
+
+  double a[M*N_MAX] = {
+    2.0,  6.0, 10.0,
+    4.0,  8.0, 12.0,
+    1.0,  5.0,  9.0,
+    3.0,  7.0, 11.0,
+    0.0,  0.0,  0.0,
+    0.0,  0.0,  0.0,
+    0.0,  0.0,  0.0,
+    0.0,  0.0,  0.0,
+    0.0,  0.0,  0.0,
+    0.0,  0.0,  0.0 };
+  int col;
+  double r8vec1[M] = { 3.0, 7.0, 11.0 };
+  double r8vec2[M] = { 3.0, 4.0, 18.0 };
+  int n;
+
+  printf ( "\n" );
+  printf ( "R8COL_SORT_HEAP_A_TEST\n" );
+  printf ( "  R8COL_SORT_HEAP_A ascending heap sorts a table of columns.\n" );
+
+  n = 4;
+
+  r8mat_print ( M, n, a, "  The unsorted matrix:" );
+
+  r8col_sort_heap_a ( M, n, a );
+
+  r8mat_print ( M, n, a, "  The sorted matrix:" );
+
+  return;
+# undef M
+# undef N_MAX
+}
+/******************************************************************************/
+
+void r8col_sort_heap_index_a_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8COL_SORT_HEAP_INDEX_A_TEST tests R8COL_SORT_HEAP_INDEX_A.
 
   Licensing:
 
@@ -2793,7 +4758,6 @@ void test0385 ( )
     1.0,  5.0,  9.0,
     1.0,  5.0,  9.1,
     1.0,  5.1,  9.0 };
-  int base = 0;
   int i;
   int *indx;
   int j;
@@ -2802,13 +4766,13 @@ void test0385 ( )
   int n = N;
 
   printf ( "\n" );
-  printf ( "TEST0385\n" );
+  printf ( "R8COL_SORT_HEAP_INDEX_A_TEST\n" );
   printf ( "  R8COL_SORT_HEAP_INDEX_A computes an index vector which\n" );
   printf ( "  ascending sorts an R8COL.\n" );
 
   r8mat_transpose_print ( m, n, a, "  The unsorted R8COL (transposed):" );
 
-  indx = r8col_sort_heap_index_a ( m, n, base, a );
+  indx = r8col_sort_heap_index_a ( m, n, a );
 
   printf ( "\n" );
   printf ( "  The implicitly sorted R8COL (transposed)\n" );
@@ -2831,13 +4795,13 @@ void test0385 ( )
 }
 /******************************************************************************/
 
-void test039 ( )
+void r8col_sort_quick_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST039 tests R8COL_SORT_QUICK_A.
+    R8COL_SORT_QUICK_A_TEST tests R8COL_SORT_QUICK_A.
 
   Licensing:
 
@@ -2861,7 +4825,7 @@ void test039 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST039\n" );
+  printf ( "R8COL_SORT_QUICK_A_TEST\n" );
   printf ( "  R8COL_SORT_QUICK_A sorts a table of columns.\n" );
 
   seed = 123456789;
@@ -2882,13 +4846,13 @@ void test039 ( )
 }
 /******************************************************************************/
 
-void test0393 ( )
+void r8col_sorted_tol_unique_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0393 tests R8COL_SORTED_TOL_UNIQUE.
+    R8COL_SORTED_TOL_UNIQUE_TEST tests R8COL_SORTED_TOL_UNIQUE.
 
   Licensing:
 
@@ -2935,7 +4899,7 @@ void test0393 ( )
   int unique_num;
 
   printf ( "\n" );
-  printf ( "TEST0393\n" );
+  printf ( "R8COL_SORTED_TOL_UNIQUE_TEST\n" );
   printf ( "  R8COL_SORTED_TOL_UNIQUE finds tolerably unique columns \n" );
   printf ( "  in a sorted R8COL.\n" );
 
@@ -2964,13 +4928,13 @@ void test0393 ( )
 }
 /******************************************************************************/
 
-void test0395 ( )
+void r8col_sorted_unique_count_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0395 tests R8COL_SORTED_UNIQUE_COUNT.
+    R8COL_SORTED_UNIQUE_COUNT_TEST tests R8COL_SORTED_UNIQUE_COUNT.
 
   Licensing:
 
@@ -3017,7 +4981,7 @@ void test0395 ( )
   int unique_num;
 
   printf ( "\n" );
-  printf ( "TEST0395\n" );
+  printf ( "R8COL_SORTED_UNIQUE_COUNT_TEST\n" );
   printf ( "  R8COL_SORTED_UNIQUE_COUNT counts tolerably unique columns \n" );
   printf ( "  in a sorted R8COL.\n" );
 
@@ -3043,13 +5007,13 @@ void test0395 ( )
 }
 /******************************************************************************/
 
-void test0397 ( )
+void r8col_sorted_tol_undex_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0397 tests R8COL_SORTED_TOL_UNDEX.
+    R8COL_SORTED_TOL_UNDEX_TEST tests R8COL_SORTED_TOL_UNDEX.
 
   Licensing:
 
@@ -3103,7 +5067,7 @@ void test0397 ( )
   int *xdnu;
 
   printf ( "\n" );
-  printf ( "TEST0397\n" );
+  printf ( "R8COL_SORTED_TOL_UNDEX_TEST\n" );
   printf ( "  R8COL_SORTED_TOL_UNDEX produces index vectors which create a sorted\n" );
   printf ( "  list of the tolerably unique columns of a sorted R8COL,\n" );
   printf ( "  and a map from the original R8COL to the (implicit)\n" );
@@ -3166,13 +5130,13 @@ void test0397 ( )
 }
 /******************************************************************************/
 
-void test040 ( void )
+void r8col_max_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST040 tests R8COL_MAX and R8COL_MIN;
+    R8COL_MAX_TEST tests R8COL_MAX;
 
   Licensing:
 
@@ -3192,15 +5156,13 @@ void test040 ( void )
 
   double a[M*N];
   double *amax;
-  double *amin;
   int i;
   int j;
   int k;
 
   printf ( "\n" );
-  printf ( "TEST040\n" );
+  printf ( "R8COL_MAX_TEST\n" );
   printf ( "  R8COL_MAX computes maximums of an R8COL;\n" );
-  printf ( "  R8COL_MIN computes minimums of an R8COL;\n" );
 
   k = 0;
   for ( i = 0; i < M; i++ )
@@ -3216,19 +5178,9 @@ void test040 ( void )
 
   amax = r8col_max ( M, N, a );
 
-  amin = r8col_min ( M, N, a );
-
-  printf ( "\n" );
-  printf ( "  Column, maximum, minimum:\n" );
-  printf ( "\n" );
-
-  for ( j = 0; j < N; j++ )
-  {
-    printf ( "  %3d  %10g  %10g\n", j+1, amax[j], amin[j] );
-  }
+  r8vec_print ( N, amax, "  Column maximums:" );
 
   free ( amax );
-  free ( amin );
 
   return;
 # undef M
@@ -3236,13 +5188,13 @@ void test040 ( void )
 }
 /******************************************************************************/
 
-void test041 ( )
+void r8col_mean_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST041 tests R8COL_MEAN and R8COL_SUM;
+    R8COL_MEAN_TEST tests R8COL_MEAN and R8COL_SUM;
 
   Licensing:
 
@@ -3261,16 +5213,14 @@ void test041 ( )
 # define N 4
 
   double a[M*N];
-  double *colsum;
   int i;
   int j;
   int k;
   double *mean;
 
   printf ( "\n" );
-  printf ( "TEST041\n" );
+  printf ( "R8COL_MEAN_TEST\n" );
   printf ( "  R8COL_MEAN computes means of an R8COL;\n" );
-  printf ( "  R8COL_SUM computes sums of an R8COL;\n" );
 
   k = 0;
   for ( i = 0; i < M; i++ )
@@ -3284,21 +5234,11 @@ void test041 ( )
 
   r8mat_print ( M, N, a, "  The array:" );
 
-  colsum = r8col_sum ( M, N, a );
-
   mean = r8col_mean ( M, N, a );
 
-  printf ( "\n" );
-  printf ( "  Column  sum, mean:\n" );
-  printf ( "\n" );
-
-  for ( j = 0; j < N; j++ )
-  {
-    printf ( "  %3d  %10g  %10g\n", j+1, colsum[j], mean[j] );
-  }
+  r8vec_print ( N, mean, "  The column means:" );
 
   free ( mean );
-  free ( colsum );
 
   return;
 # undef M
@@ -3306,13 +5246,71 @@ void test041 ( )
 }
 /******************************************************************************/
 
-void test0415 ( )
+void r8col_min_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0415 tests R8VEC_PERMUTE.
+    R8COL_MIN_TEST tests R8COL_MIN;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define M 3
+# define N 4
+
+  double a[M*N];
+  double *amin;
+  int i;
+  int j;
+  int k;
+
+  printf ( "\n" );
+  printf ( "R8COL_MIN_TEST\n" );
+  printf ( "  R8COL_MIN computes minimums of an R8COL;\n" );
+
+  k = 0;
+  for ( i = 0; i < M; i++ )
+  {
+    for ( j = 0; j < N; j++ )
+    {
+      k = k + 1;
+      a[i+j*M] = ( double ) k;
+    }
+  }
+
+  r8mat_print ( M, N, a, "  The array:" );
+
+  amin = r8col_min ( M, N, a );
+
+  r8vec_print ( N, amin, "  Column minimums:" );
+
+  free ( amin );
+
+  return;
+# undef M
+# undef N
+}
+/******************************************************************************/
+
+void r8col_permute_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8COL_PERMUTE_TEST tests R8COL_PERMUTE.
 
   Licensing:
 
@@ -3336,19 +5334,18 @@ void test0415 ( )
     13.0, 23.0, 33.0,
     14.0, 24.0, 34.0,
     15.0, 25.0, 35.0 };
-  int base = 1;
-  int perm[N] = { 2, 4, 5, 1, 3 };
+  int perm[N] = { 1, 3, 4, 0, 2 };
 
 
   printf ( "\n" );
-  printf ( "TEST0415\n" );
+  printf ( "R8COL_PERMUTE_TEST\n" );
   printf ( "  R8COL_PERMUTE permutes an R8COL in place.\n" );
 
   r8mat_print ( M, N, a, "  A (unpermuted):" );
 
   i4vec_print ( N, perm, "  The (column) permutation vector:" );
 
-  r8col_permute ( M, N, perm, base, a );
+  r8col_permute ( M, N, perm, a );
 
   r8mat_print ( M, N, a, "  A (permuted):" );
 
@@ -3358,13 +5355,13 @@ void test0415 ( )
 }
 /******************************************************************************/
 
-void test042 ( )
+void r8col_sortr_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST042 tests R8COL_SORTR_A.
+    R8COL_SORTR_A_TEST tests R8COL_SORTR_A.
 
   Licensing:
 
@@ -3389,7 +5386,7 @@ void test042 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST042\n" );
+  printf ( "R8COL_SORTR_A_TEST\n" );
   printf ( "  R8COL_SORTR_A is given an array, and reorders\n" );
   printf ( "  it so that a particular column is sorted.\n" );
 
@@ -3415,13 +5412,13 @@ void test042 ( )
 }
 /******************************************************************************/
 
-void test043 ( )
+void r8col_sum_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST043 tests R8COL_SWAP;
+    R8COL_SUM_TEST tests R8COL_SUM;
 
   Licensing:
 
@@ -3429,7 +5426,7 @@ void test043 ( )
 
   Modified:
 
-    05 June 2012
+    04 June 2012
 
   Author:
 
@@ -3440,15 +5437,14 @@ void test043 ( )
 # define N 4
 
   double a[M*N];
+  double *colsum;
   int i;
-  int icol1;
-  int icol2;
   int j;
   int k;
 
   printf ( "\n" );
-  printf ( "TEST043\n" );
-  printf ( "  R8COL_SWAP swaps two columns of an R8COL;\n" );
+  printf ( "R8COL_SUM_TEST\n" );
+  printf ( "  R8COL_SUM computes sums of an R8COL;\n" );
 
   k = 0;
   for ( i = 0; i < M; i++ )
@@ -3456,21 +5452,17 @@ void test043 ( )
     for ( j = 0; j < N; j++ )
     {
       k = k + 1;
-      a[i+j*M] = ( double ) ( k );
+      a[i+j*M] = ( double ) k;
     }
   }
 
   r8mat_print ( M, N, a, "  The array:" );
 
-  icol1 = 1;
-  icol2 = 3;
+  colsum = r8col_sum ( M, N, a );
 
-  printf ( "\n" );
-  printf ( "  Swap columns %d and %d:\n", icol1, icol2 );
+  r8vec_print ( N, colsum, "  The column sums:" );
 
-  r8col_swap ( M, N, a, icol1, icol2 );
-
-  r8mat_print ( M, N, a, "  The updated matrix:" );
+  free ( colsum );
 
   return;
 # undef M
@@ -3478,13 +5470,64 @@ void test043 ( )
 }
 /******************************************************************************/
 
-void test044 ( )
+void r8col_swap_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST044 tests R8COL_TO_R8VEC.
+    R8COL_SWAP_TEST tests R8COL_SWAP;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int icol1;
+  int icol2;
+  int m = 3;
+  int n = 4;
+
+  printf ( "\n" );
+  printf ( "R8COL_SWAP_TEST\n" );
+  printf ( "  R8COL_SWAP swaps two columns of an R8COL;\n" );
+
+  a = r8mat_indicator_new ( m, n );
+
+  r8mat_print ( m, n, a, "  The array:" );
+
+  icol1 = 1;
+  icol2 = 3;
+
+  printf ( "\n" );
+  printf ( "  Swap columns %d and %d:\n", icol1, icol2 );
+
+  r8col_swap ( m, n, a, icol1, icol2 );
+
+  r8mat_print ( m, n, a, "  The updated matrix:" );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8col_to_r8vec_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8COL_TO_R8VEC_TEST tests R8COL_TO_R8VEC.
 
   Licensing:
 
@@ -3508,7 +5551,7 @@ void test044 ( )
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST044\n" );
+  printf ( "R8COL_TO_R8VEC_TEST\n" );
   printf ( "  R8COL_TO_R8VEC converts an array of columns to a vector.\n" );
   printf ( "\n" );
 
@@ -3534,13 +5577,13 @@ void test044 ( )
 }
 /******************************************************************************/
 
-void test0442 ( void )
+void r8col_tol_undex_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0442 tests R8COL_TOL_UNDEX.
+    R8COL_TOL_UNDEX_TEST tests R8COL_TOL_UNDEX.
 
   Licensing:
 
@@ -3594,7 +5637,7 @@ void test0442 ( void )
   int *xdnu;
 
   printf ( "\n" );
-  printf ( "TEST0442\n" );
+  printf ( "R8COL_TOL_UNDEX_TEST\n" );
   printf ( "  R8COL_TOL_UNDEX produces index vectors which create a sorted\n" );
   printf ( "  list of the tolerably unique columns of an R8COL,\n" );
   printf ( "  and a map from the original R8COL to the (implicit)\n" );
@@ -3654,13 +5697,13 @@ void test0442 ( void )
 }
 /******************************************************************************/
 
-void test0443 ( )
+void r8col_undex_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0443 tests R8COL_UNDEX.
+    R8COL_UNDEX_TEST tests R8COL_UNDEX.
 
   Licensing:
 
@@ -3713,7 +5756,7 @@ void test0443 ( )
   int *xdnu;
 
   printf ( "\n" );
-  printf ( "TEST0443\n" );
+  printf ( "R8COL_UNDEX_TEST\n" );
   printf ( "  R8COL_UNDEX produces index vectors which create a sorted\n" );
   printf ( "  list of the unique columns of an (unsorted) R8COL,\n" );
   printf ( "  and a map from the original R8COL to the (implicit)\n" );
@@ -3767,13 +5810,13 @@ void test0443 ( )
 }
 /******************************************************************************/
 
-void test0445 ( )
+void r8col_unique_count_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0445 tests R8COL_UNIQUE_COUNT.
+    R8COL_UNIQUE_COUNT_TEST tests R8COL_UNIQUE_COUNT.
 
   Licensing:
 
@@ -3820,7 +5863,7 @@ void test0445 ( )
   int unique_num;
 
   printf ( "\n" );
-  printf ( "TEST0445\n" );
+  printf ( "R8COL_UNIQUE_COUNT_TEST\n" );
   printf ( "  R8COL_UNIQUE_COUNT counts unique columns.\n" );
 
   r8mat_transpose_print ( m, n, a, "  The R8COL (transposed):" );
@@ -3836,13 +5879,13 @@ void test0445 ( )
 }
 /******************************************************************************/
 
-void test045 ( )
+void r8col_variance_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST045 tests R8COL_VARIANCE.
+    R8COL_VARIANCE_TEST tests R8COL_VARIANCE.
 
   Licensing:
 
@@ -3867,7 +5910,7 @@ void test045 ( )
   double *variance;
 
   printf ( "\n" );
-  printf ( "TEST045\n" );
+  printf ( "R8COL_VARIANCE_TEST\n" );
   printf ( "  R8COL_VARIANCE computes variances of an R8COL;\n" );
 
   k = 0;
@@ -3901,13 +5944,13 @@ void test045 ( )
 }
 /******************************************************************************/
 
-void test046 ( )
+void r8r8vec_index_insert_unique_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST046 tests R8R8VEC_INDEX_INSERT_UNIQUE.
+    R8R8VEC_INDEX_INSERT_UNIQUE_TEST tests R8R8VEC_INDEX_INSERT_UNIQUE.
 
   Licensing:
 
@@ -3942,7 +5985,7 @@ void test046 ( )
   n = 0;
 
   printf ( "\n" );
-  printf ( "TEST046\n" );
+  printf ( "R8R8VEC_INDEX_INSERT_UNIQUE_TEST\n" );
   printf ( "  R8R8VEC_INDEX_INSERT_UNIQUE inserts unique values into an\n" );
   printf ( "  index sorted array.\n" );
   printf ( "\n" );
@@ -3992,13 +6035,13 @@ void test046 ( )
 }
 /******************************************************************************/
 
-void test047 ( )
+void r8r8r8vec_index_insert_unique_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST047 tests R8R8R8VEC_INDEX_INSERT_UNIQUE.
+    R8R8R8VEC_INDEX_INSERT_UNIQUE_TEST tests R8R8R8VEC_INDEX_INSERT_UNIQUE.
 
   Licensing:
 
@@ -4031,7 +6074,7 @@ void test047 ( )
   n = 0;
 
   printf ( "\n" );
-  printf ( "TEST047\n" );
+  printf ( "R8R8R8VEC_INDEX_INSERT_UNIQUE_TEST\n" );
   printf ( "  R8R8R8VEC_INDEX_INSERT_UNIQUE inserts unique values into\n" );
   printf ( "  an index sorted array.\n" );
   printf ( "\n" );
@@ -4083,13 +6126,13 @@ void test047 ( )
 }
 /******************************************************************************/
 
-void test048 ( )
+void r8int_to_i4int_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST048 tests R8INT_TO_I4INT and I4INT_TO_R8INT;
+    R8INT_TO_I4INT_TEST tests R8INT_TO_I4INT;
 
   Licensing:
 
@@ -4119,9 +6162,8 @@ void test048 ( )
   int test_num = 10;
 
   printf ( "\n" );
-  printf ( "TEST048\n" );
+  printf ( "R8INT_TO_I4INT_TEST\n" );
   printf ( "  For data in an interval,\n" );
-  printf ( "  I4INT_TO_R8INT converts an integer to a real;\n" );
   printf ( "  R8INT_TO_I4INT converts a real to an integer.\n" );
   printf ( "\n" );
   printf ( "  Integer interval: [%d, %d]\n", ilo, ihi );
@@ -4147,13 +6189,13 @@ void test048 ( )
 }
 /******************************************************************************/
 
-void test049 ( void )
+void r8mat_cholesky_inverse_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST049 tests R8MAT_CHOLESKY_FACTOR, R8MAT_CHORESKY_FACTOR and R8MAT_CHOLESKY_SOLVE.
+    R8MAT_CHOLESKY_INVERSE_TEST tests R8MAT_CHOLESKY_INVERSE.
 
   Licensing:
 
@@ -4161,129 +6203,276 @@ void test049 ( void )
 
   Modified:
 
-    21 April 2012
+    10 November 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define N 5
-
-  double a[N*N];
-  double b[N];
-  double *d;
-  int flag;
+  double *a;
+  double *a2;
+  double *a3;
   int i;
   int j;
-  double *l;
-  double *lt;
-  double *r;
-  double *rt;
-  double *x;
-
+  int n = 5;
+ 
   printf ( "\n" );
-  printf ( "TEST049\n" );
+  printf ( "R8MAT_CHOLESKY_INVERSE_TEST\n" );
   printf ( "  For a positive definite symmetric matrix,\n" );
-  printf ( "  R8MAT_CHOLESKY_FACTOR computes the lower\n" );
-  printf ( "  triangular Cholesky factor;\n" );
-  printf ( "  R8MAT_CHORESKY_FACTOR computes the upper\n" );
-  printf ( "  triangular Cholesky factor;\n" );
-  printf ( "  R8MAT_CHOLESKY_SOLVE solves a linear system\n" );
-  printf ( "  using the Cholesky factorization.\n" );
+  printf ( "  R8MAT_CHOLESKY_INVERSE computes the inverse.\n" );
 
-  for ( i = 0; i < N; i++ )
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
   {
-    for ( j = 0; j < N; j++ )
+    for ( j = 0; j < n; j++ )
     {
       if ( i == j )
       {
-        a[i+j*N] = 2.0;
+        a[i+j*n] = 2.0;
       }
       else if ( abs ( i - j ) == 1 )
       {
-        a[i+j*N] = -1.0;
+        a[i+j*n] = -1.0;
       }
       else
       {
-        a[i+j*N] = 0.0;
+        a[i+j*n] = 0.0;
       }
     }
   }
 
-  r8mat_print ( N, N, a, "  Matrix to be factored:" );
-/*
-  Compute L, the lower Cholesky factor.
-*/
-  l = r8mat_cholesky_factor ( N, a, &flag );
+  r8mat_print ( n, n, a, "  Matrix to be inverted:" );
 
-  if ( flag != 0 )
-  {
-    printf ( "\n" );
-    printf ( "  R8MAT_CHOLESKY_FACTOR failed.\n" );
-    return;
-  }
+  a2 = r8mat_copy_new ( n, n, a );
 
-  r8mat_print ( N, N, l, "  Cholesky factor L:" );
+  r8mat_cholesky_inverse ( n, a2 );
 
-  lt = r8mat_transpose_new ( N, N, l );
+  r8mat_print ( n, n, a2, "  Inverse matrix:" );
 
-  d = r8mat_mm_new ( N, N, N, l, lt );
+  a3 = r8mat_mm_new ( n, n, n, a2, a );
+  
+  r8mat_print ( n, n, a3, "  Product inv(A) * A:" );
 
-  r8mat_print ( N, N, d, "  Product L * L':" );
-/*
-  Compute R, the upper Cholesky factor.
-*/
-  r = r8mat_choresky_factor ( N, a, &flag );
-
-  if ( flag != 0 )
-  {
-    printf ( "\n" );
-    printf ( "  R8MAT_CHORESKY_FACTOR failed.\n" );
-    return;
-  }
-
-  r8mat_print ( N, N, r, "  Cholesky factor R:" );
-
-  rt = r8mat_transpose_new ( N, N, r );
-
-  d = r8mat_mm_new ( N, N, N, r, rt );
-
-  r8mat_print ( N, N, d, "  Product R * R':" );
-/*
-  Solve a system.
-*/
-  for ( i = 0; i < N-1; i++ )
-  {
-    b[i] = 0.0;
-  }
-  b[N-1] = ( double ) ( N + 1 );
-
-  r8vec_print ( N, b, "  Right hand side:" );
-
-  x = r8mat_cholesky_solve ( N, l, b );
-
-  r8vec_print ( N, x, "  Computed solution:" );
-
-  free ( d );
-  free ( l );
-  free ( lt );
-  free ( r );
-  free ( rt );
-  free ( x );
+  free ( a );
+  free ( a2 );
+  free ( a3 );
 
   return;
-# undef N
 }
 /******************************************************************************/
 
-void test050 ( )
+void r8mat_cholesky_solve_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST050 tests R8MAT_DET_2D;
+    R8MAT_CHOLESKY_SOLVE_TEST tests R8MAT_CHOLESKY_SOLVE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 October 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double *b;
+  double *d;
+  int flag;
+  int i;
+  int j;
+  double *l;
+  int n = 5;
+  double *r;
+  int test;
+  double *x;
+
+  printf ( "\n" );
+  printf ( "R8MAT_CHOLESKY_SOLVE_TEST\n" );
+  printf ( "  For a positive definite symmetric matrix,\n" );
+  printf ( "  R8MAT_CHOLESKY_SOLVE solves a linear system\n" );
+  printf ( "  using the lower Cholesky factorization.\n" );
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i == j )
+      {
+        a[i+j*n] = 2.0;
+      }
+      else if ( abs ( i - j ) == 1 )
+      {
+        a[i+j*n] = -1.0;
+      }
+      else
+      {
+        a[i+j*n] = 0.0;
+      }
+    }
+  }
+  r8mat_print ( n, n, a, "  Matrix to be factored:" );
+/*
+  Compute the Cholesky factor.
+*/
+  l = r8mat_cholesky_factor ( n, a, &flag );
+
+  if ( flag != 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "  R8MAT_CHOLESKY_FACTOR failed.\n" );
+    return;
+  }
+  r8mat_print ( n, n, l, "  Cholesky factor L:" );
+  d = r8mat_mmt_new ( n, n, n, l, l );
+  r8mat_print ( n, n, d, "  Product L * L':" );
+/*
+  Solve a system.
+*/
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n - 1; i++ )
+  {
+    b[i] = 0.0;
+  }
+  b[n-1] = ( double ) ( n + 1 );
+
+  r8vec_print ( n, b, "  Right hand side:" );
+
+  x = r8mat_cholesky_solve ( n, l, b );
+
+  r8vec_print ( n, x, "  Computed solution:" );
+
+  free ( a );
+  free ( b );
+  free ( d );
+  free ( l );
+  free ( x );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_cholesky_solve_upper_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_CHOLESKY_SOLVE_UPPER_TEST tests R8MAT_CHOLESKY_SOLVE_UPPER.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 October 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double *b;
+  double *d;
+  int flag;
+  int i;
+  int j;
+  double *l;
+  int n = 5;
+  double *r;
+  int test;
+  double *x;
+
+  printf ( "\n" );
+  printf ( "R8MAT_CHOLESKY_SOLVE_UPPER_TEST\n" );
+  printf ( "  For a positive definite symmetric matrix,\n" );
+  printf ( "  R8MAT_CHOLESKY_SOLVE_UPPER solves a linear system\n" );
+  printf ( "  using the upper Cholesky factorization.\n" );
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i == j )
+      {
+        a[i+j*n] = 2.0;
+      }
+      else if ( abs ( i - j ) == 1 )
+      {
+        a[i+j*n] = -1.0;
+      }
+      else
+      {
+        a[i+j*n] = 0.0;
+      }
+    }
+  }
+
+  r8mat_print ( n, n, a, "  Matrix to be factored:" );
+/*
+  Compute the Cholesky factor.
+*/
+
+  r = r8mat_cholesky_factor_upper ( n, a, &flag );
+  if ( flag != 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "  R8MAT_CHOLESKY_FACTOR_UPPER failed.\n" );
+    return;
+  }
+  r8mat_print ( n, n, r, "  Cholesky factor R:" );
+  d = r8mat_mtm_new ( n, n, n, r, r );
+  r8mat_print ( n, n, d, "  Product R' * R:" );
+/*
+  Solve a system.
+*/
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n - 1; i++ )
+  {
+    b[i] = 0.0;
+  }
+  b[n-1] = ( double ) ( n + 1 );
+
+  r8vec_print ( n, b, "  Right hand side:" );
+
+  x = r8mat_cholesky_solve_upper ( n, r, b );
+
+  r8vec_print ( n, x, "  Computed solution:" );
+
+  free ( a );
+  free ( b );
+  free ( d );
+  free ( r );
+  free ( x );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_det_2d_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_DET_2D_TEST tests R8MAT_DET_2D;
 
   Licensing:
 
@@ -4307,7 +6496,7 @@ void test050 ( )
   double x[N] = { 1.0, 10.0 };
 
   printf ( "\n" );
-  printf ( "TEST050\n" );
+  printf ( "R8MAT_DET_2D_TEST\n" );
   printf ( "  R8MAT_DET_2D: determinant of a 2 by 2 matrix;\n" );
 
   a = r8mat_vand2 ( N, x );
@@ -4337,13 +6526,13 @@ void test050 ( )
 }
 /******************************************************************************/
 
-void test051 ( )
+void r8mat_det_3d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST051 tests R8MAT_DET_3D;
+    R8MAT_DET_3D_TEST tests R8MAT_DET_3D;
 
   Licensing:
 
@@ -4367,7 +6556,7 @@ void test051 ( )
   double x[N] = { 1.0, 10.0, 4.0 };
 
   printf ( "\n" );
-  printf ( "TEST051\n" );
+  printf ( "R8MAT_DET_3D_TEST\n" );
   printf ( "  R8MAT_DET_3D: determinant of a 3 by 3 matrix;\n" );
 
   a = r8mat_vand2 ( N, x );
@@ -4397,13 +6586,13 @@ void test051 ( )
 }
 /******************************************************************************/
 
-void test052 ( )
+void r8mat_det_4d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST052 tests R8MAT_DET_4D;
+    R8MAT_DET_4D_TEST tests R8MAT_DET_4D;
 
   Licensing:
 
@@ -4427,7 +6616,7 @@ void test052 ( )
   double x[N] = { 1.0, 10.0, 4.0, 2.0 };
 
   printf ( "\n" );
-  printf ( "TEST052\n" );
+  printf ( "R8MAT_DET_4D\n" );
   printf ( "  R8MAT_DET_4D determinant of a 4 by 4 matrix;\n" );
 
   a = r8mat_vand2 ( N, x );
@@ -4457,13 +6646,13 @@ void test052 ( )
 }
 /******************************************************************************/
 
-void test053 ( )
+void r8mat_det_5d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST053 tests R8MAT_DET_5D;
+    R8MAT_DET_5D_TEST tests R8MAT_DET_5D;
 
   Licensing:
 
@@ -4487,7 +6676,7 @@ void test053 ( )
   double x[N] = { 1.0, 10.0, 4.0, 2.0, 3.0 };
 
   printf ( "\n" );
-  printf ( "TEST053\n" );
+  printf ( "R8MAT_DET_5D_TEST\n" );
   printf ( "  R8MAT_DET_5D determinant of a 5 by 5 matrix;\n" );
 
   a = r8mat_vand2 ( N, x );
@@ -4517,13 +6706,13 @@ void test053 ( )
 }
 /******************************************************************************/
 
-void test054 ( )
+void r8mat_expand_linear_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST054 tests R8MAT_EXPAND_LINEAR.
+    R8MAT_EXPAND_LINEAR_TEST tests R8MAT_EXPAND_LINEAR.
 
   Licensing:
 
@@ -4558,7 +6747,7 @@ void test054 ( )
   n2 = ( N - 1 ) * ( nfat + 1 ) + 1;
 
   printf ( "\n" );
-  printf ( "TEST054\n" );
+  printf ( "R8MAT_EXPAND_LINEAR_TEST\n" );
   printf ( "  R8MAT_EXPAND_LINEAR linearly interpolates new data\n" );
   printf ( "  between old values in a matrix.\n" );
 
@@ -4580,13 +6769,13 @@ void test054 ( )
 }
 /******************************************************************************/
 
-void test055 ( )
+void r8mat_expand_linear2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST055 tests R8MAT_EXPAND_LINEAR2.
+    R8MAT_EXPAND_LINEAR2_TEST tests R8MAT_EXPAND_LINEAR2.
 
   Licensing:
 
@@ -4612,7 +6801,7 @@ void test055 ( )
   int n2 = 5;
 
   printf ( "\n" );
-  printf ( "TEST055\n" );
+  printf ( "R8MAT_EXPAND_LINEAR2_TEST\n" );
   printf ( "  R8MAT_EXPAND_LINEAR2 fills in a large array by\n" );
   printf ( "  interpolating data from a small array.\n" );
   printf ( "\n" );
@@ -4646,13 +6835,94 @@ void test055 ( )
 }
 /******************************************************************************/
 
-void test0555 ( void )
+void r8mat_fs_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0555 tests R8MAT_FSS_NEW.
+    R8MAT_FS_NEW_TEST tests R8MAT_FS_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    21 January 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N 10
+
+  double *a;
+  double *b;
+  int i;
+  int info;
+  int j;
+  int k;
+  int n = N;
+  int seed = 123456789;
+  double *x;
+
+  printf ( "\n" );
+  printf ( "R8MAT_FS_NEW_TEST\n" );
+  printf ( "  For a matrix in general storage,\n" );
+  printf ( "  R8MAT_FS_NEW factors and solves a linear system.\n" );
+  printf ( "\n" );
+  printf ( "  Matrix order N = %d\n", n );
+/*
+  Set the matrix.
+*/
+  a = r8mat_uniform_01_new ( n, n, &seed );
+/*
+  Set the desired solutions.
+*/
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = ( double ) ( i + 1 );
+  }
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j < n; j++ )
+    {
+      b[i] = b[i] + a[i+j*n] * x[j];
+    }
+  }
+/*
+  Factor and solve the system.
+*/
+  free ( x );
+
+  x = r8mat_fs_new ( n, a, b );
+  
+  r8vec_print ( n, x, "  Solution:" );
+
+  free ( a );
+  free ( b );
+  free ( x );
+
+  return;
+# undef N
+# undef NB
+}
+/******************************************************************************/
+
+void r8mat_fss_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_FSS_NEW_TEST tests R8MAT_FSS_NEW.
 
   Licensing:
 
@@ -4682,7 +6952,7 @@ void test0555 ( void )
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST0555\n" );
+  printf ( "R8MAT_FSS_NEW_TEST\n" );
   printf ( "  For a matrix in general storage,\n" );
   printf ( "  R8MAT_FSS_NEW factors and solves multiple linear systems.\n" );
   printf ( "\n" );
@@ -4757,13 +7027,13 @@ void test0555 ( void )
 }
 /******************************************************************************/
 
-void test056 ( )
+void r8mat_givens_post_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST056 tests R8MAT_GIVENS_POST.
+    R8MAT_GIVENS_POST_TEST tests R8MAT_GIVENS_POST.
 
   Licensing:
 
@@ -4789,7 +7059,7 @@ void test056 ( )
   int row;
 
   printf ( "\n" );
-  printf ( "TEST056\n" );
+  printf ( "R8MAT_GIVENS_POST_TEST\n" );
   printf ( "  R8MAT_GIVENS_POST computes a Givens postmultiplier rotation matrix.\n" );
 
   for ( i = 0; i < N; i++ )
@@ -4824,13 +7094,13 @@ void test056 ( )
 }
 /******************************************************************************/
 
-void test057 ( )
+void r8mat_givens_pre_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST057 tests R8MAT_GIVENS_PRE.
+    R8MAT_GIVENS_PRE_TEST tests R8MAT_GIVENS_PRE.
 
   Licensing:
 
@@ -4856,7 +7126,7 @@ void test057 ( )
   int row;
 
   printf ( "\n" );
-  printf ( "TEST057\n" );
+  printf ( "R8MAT_GIVENS_PRE_TEST\n" );
   printf ( "  R8MAT_GIVENS_PRE computes a Givens premultiplier rotation matrix.\n" );
 
   for ( i = 0; i < N; i++ )
@@ -4891,13 +7161,13 @@ void test057 ( )
 }
 /******************************************************************************/
 
-void test058 ( )
+void r8mat_hess_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST058 tests R8MAT_HESS.
+    R8MAT_HESS_TEST tests R8MAT_HESS.
 
   Licensing:
 
@@ -4918,19 +7188,19 @@ void test058 ( )
   double x[N] = { 1.0, 2.0, 3.0 };
 
   printf ( "\n" );
-  printf ( "TEST058\n" );
+  printf ( "R8MAT_HESS_TEST\n" );
   printf ( "  R8MAT_HESS estimates the Hessian matrix\n" );
   printf ( "  of a scalar function.\n" );
 
-  h = r8mat_hess ( test058_f, N, x );
+  h = r8mat_hess ( r8mat_hess_f, N, x );
 
-  r8mat_print ( N, N, h, "  Estimated jacobian:" );
+  r8mat_print ( N, N, h, "  Estimated Hessian:" );
 
   free ( h );
 
-  h = test058_hess ( N, x );
+  h = r8mat_hess_exact ( N, x );
 
-  r8mat_print ( N, N, h, "  Exact jacobian:" );
+  r8mat_print ( N, N, h, "  Exact Hessian:" );
 
   free ( h );
 
@@ -4939,13 +7209,13 @@ void test058 ( )
 }
 /******************************************************************************/
 
-double test058_f ( int n, double x[] )
+double r8mat_hess_f ( int n, double x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST058_F is a sample nonlinear function for treatment by R8MAT_JAC.
+    R8MAT_HESS_F is a sample nonlinear function for treatment by R8MAT_HESS.
 
   Licensing:
 
@@ -4965,7 +7235,7 @@ double test058_f ( int n, double x[] )
 
     Input, double X[N], the parameter values.
 
-    Output, double TEST058_F, the function value.
+    Output, double R8MAT_HESS_F, the function value.
 */
 {
   double f;
@@ -4976,13 +7246,13 @@ double test058_f ( int n, double x[] )
 }
 /******************************************************************************/
 
-double *test058_hess ( int n, double x[] )
+double *r8mat_hess_exact ( int n, double x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST058_HESS is the exact Hessian of TEST058_F.
+    R8MAT_HESS_EXACT is the exact Hessian of R8MAT_HESS_F.
 
   Licensing:
 
@@ -5002,7 +7272,7 @@ double *test058_hess ( int n, double x[] )
 
     Input, double X[N], the parameter values.
 
-    Output, double TEST058_H[N*N], the Hessian values.
+    Output, double R8MAT_HESS_EXACT[N*N], the Hessian values.
 */
 {
   double *h;
@@ -5025,13 +7295,13 @@ double *test058_hess ( int n, double x[] )
 }
 /******************************************************************************/
 
-void test059 ( )
+void r8mat_house_axh_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST059 tests R8MAT_HOUSE_FORM and R8VEC_HOUSE_COLUMN.
+    R8MAT_HOUSE_AXH_TEST tests R8MAT_HOUSE_AXH.
 
   Licensing:
 
@@ -5039,7 +7309,7 @@ void test059 ( )
 
   Modified:
 
-    13 June 2012
+    14 March 2015
 
   Author:
 
@@ -5047,73 +7317,85 @@ void test059 ( )
 */
 {
   double *a;
-  double b = 0.0;
-  double c = 5.0;
+  double *a_col;
+  double *ah;
   double *h;
   double *ha;
-  int i;
-  int j;
   int k;
-  int n = 4;
+  int n = 5;
+  double r8_hi;
+  double r8_lo;
   int seed;
   double *v;
 
   printf ( "\n" );
-  printf ( "TEST059\n" );
-  printf ( "  R8VEC_HOUSE_COLUMN returns the compact form of\n" );
-  printf ( "  a Householder matrix that packs a column\n" );
-  printf ( "  of a matrix.\n" );
-/*
-  Get a random matrix.
-*/
+  printf ( "R8MAT_HOUSE_AXH_TEST\n" );
+  printf ( "  R8MAT_HOUSE_AXH multiplies a matrix A times a\n" );
+  printf ( "  compact Householder matrix.\n" );
+
+  r8_lo = -5.0;
+  r8_hi = +5.0;
   seed = 123456789;
 
-  a = r8mat_uniform_ab_new ( n, n, b, c, &seed );
+  a = r8mat_uniform_ab_new ( n, n, r8_lo, r8_hi, &seed );
 
   r8mat_print ( n, n, a, "  Matrix A:" );
-
-  for ( k = 1; k <= n-1; k++ )
-  {
-    printf ( "\n" );
-    printf ( "  Working on column K = %d\n", k );
-
-    v = r8vec_house_column ( n, a+(k-1)*n, k );
-
-    h = r8mat_house_form ( n, v );
-
-    r8mat_print ( n, n, h, "  Householder matrix H:" );
-
-    ha = r8mat_mm_new ( n, n, n, h, a );
-
-    r8mat_print ( n, n, ha, "  Product H*A:" );
 /*
-  If we set A := HA, then we can successively convert A to upper
-  triangular form.
+  Request V, the compact form of the Householder matrix H
+  such that H*A packs column 3 of A.
+
+  Look at me using a pointer!
 */
-    for ( j = 0; j < n; j++ )
-    {
-      for ( i = 0; i < n; i++ )
-      {
-        a[i+j*n] = ha[i+j*n];
-      }
-    }
-    free ( h );
-    free ( ha );
-    free ( v );
-  }
+  k = 3;
+  a_col = ( a + ( k - 1 ) * n );
+  v = r8vec_house_column ( n, a_col, k );
+
+  r8vec_print ( n, v, "  Compact vector V so H*A packs column 3:" );
+
+  h = r8mat_house_form ( n, v );
+
+  r8mat_print ( n, n, h, "  Householder matrix H:" );
+/*
+  Compute A*H.
+*/
+  ah = r8mat_house_axh_new ( n, a, v );
+
+  r8mat_print ( n, n, ah, "  Indirect product A*H:" );
+
+  free ( ah );
+/*
+  Compare with a direct calculation.
+*/
+  ah = r8mat_mm_new ( n, n, n, a, h );
+
+  r8mat_print ( n, n, ah, "  Direct product A*H:" );
+/*
+  Compute H*A to verify packing.
+*/
+  ha = r8mat_mm_new ( n, n, n, h, a );
+
+  r8mat_print ( n, n, ha, "  Product H*A has packed column 3:" );
+/*
+  Free memory.
+*/
   free ( a );
+  free ( ah );
+  free ( h );
+  free ( ha );
+  free ( v );
 
   return;
+# undef N
 }
 /******************************************************************************/
 
-void test060 ( )
+void r8mat_house_form_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST060 tests R8MAT_HOUSE_FORM.
+    R8MAT_HOUSE_FORM_TEST tests R8MAT_HOUSE_FORM.
 
   Licensing:
 
@@ -5134,7 +7416,7 @@ void test060 ( )
   double v[N] = { 0.0, 0.0, 1.0, 2.0, 3.0 };
 
   printf ( "\n" );
-  printf ( "TEST060\n" );
+  printf ( "R8MAT_HOUSE_FORM_TEST\n" );
   printf ( "  R8MAT_HOUSE_FORM forms a Householder\n" );
   printf ( "  matrix from its compact form.\n" );
 
@@ -5151,13 +7433,13 @@ void test060 ( )
 }
 /******************************************************************************/
 
-void test061 ( )
+void r8mat_house_post_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST061 tests R8MAT_HOUSE_POST.
+    R8MAT_HOUSE_POST_TEST tests R8MAT_HOUSE_POST.
 
   Licensing:
 
@@ -5183,7 +7465,7 @@ void test061 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST061\n" );
+  printf ( "R8MAT_HOUSE_POST_TEST\n" );
   printf ( "  R8MAT_HOUSE_POST computes a Householder postmultiplier;\n" );
 
   seed = 123456789;
@@ -5214,13 +7496,13 @@ void test061 ( )
 }
 /******************************************************************************/
 
-void test062 ( )
+void r8mat_house_pre_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST062 tests R8MAT_HOUSE_PRE.
+    R8MAT_HOUSE_PRE_TEST tests R8MAT_HOUSE_PRE.
 
   Licensing:
 
@@ -5247,7 +7529,7 @@ void test062 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST062\n" );
+  printf ( "R8MAT_HOUSE_PRE_TEST\n" );
   printf ( "  R8MAT_HOUSE_PRE computes a Householder premultiplier;\n" );
 
   seed = 123456789;
@@ -5279,13 +7561,13 @@ void test062 ( )
 }
 /******************************************************************************/
 
-void test063 ( )
+void r8mat_indicator_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST063 tests R8MAT_MAX_INDEX and R8MAT_MIN_INDEX.
+    R8MAT_INDICATOR_NEW_TEST tests R8MAT_INDICATOR_NEW.
 
   Licensing:
 
@@ -5293,56 +7575,38 @@ void test063 ( )
 
   Modified:
 
-    13 June 2012
+    03 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define M 5
-# define N 3
-
   double *a;
-  double b = 0.0;
-  double c = 10.0;
-  int i;
-  int j;
-  int seed;
+  int m = 5;
+  int n = 4;
 
   printf ( "\n" );
-  printf ( "TEST063\n" );
-  printf ( "  R8MAT_MAX_INDEX locates the maximum entry of an R8MAT;\n" );
-  printf ( "  R8MAT_MIN_INDEX locates the minimum entry of an R8MAT;\n" );
+  printf ( "R8MAT_INDICATOR_NEW_TEST\n" );
+  printf ( "  R8MAT_INDICATOR_NEW returns an indicator matrix;\n" );
 
-  seed = 123456789;
+  a = r8mat_indicator_new ( m, n );
 
-  a = r8mat_uniform_ab_new ( M, N, b, c, &seed );
-
-  r8mat_print ( M, N, a, "  Random array:" );
-
-  r8mat_max_index ( M, N, a, &i, &j );
-
-  printf ( "\n" );
-  printf ( "  Maximum I,J indices            %d  %d\n", i, j );
-  r8mat_min_index ( M, N, a, &i, &j );
-  printf ( "  Minimum I,J indices            %d  %d\n", i, j );
+  r8mat_print ( m, n, a, "  Indicator matrix:" );
 
   free ( a );
 
   return;
-# undef M
-# undef N
 }
 /******************************************************************************/
 
-void test064 ( )
+void r8mat_inverse_2d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST064 tests R8MAT_INVERSE_2D.
+    R8MAT_INVERSE_2D_TEST tests R8MAT_INVERSE_2D.
 
   Licensing:
 
@@ -5367,7 +7631,7 @@ void test064 ( )
   int k;
 
   printf ( "\n" );
-  printf ( "TEST064\n" );
+  printf ( "R8MAT_INVERSE_2D_TEST\n" );
   printf ( "  R8MAT_INVERSE_2D inverts a 2 by 2 matrix.\n" );
 
   a[0+0*N] = 1.0;
@@ -5404,13 +7668,13 @@ void test064 ( )
 }
 /******************************************************************************/
 
-void test065 ( )
+void r8mat_inverse_3d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST065 tests R8MAT_INVERSE_3D.
+    R8MAT_INVERSE_3D_TEST tests R8MAT_INVERSE_3D.
 
   Licensing:
 
@@ -5435,7 +7699,7 @@ void test065 ( )
   int k;
 
   printf ( "\n" );
-  printf ( "TEST065\n" );
+  printf ( "R8MAT_INVERSE_3D_TEST\n" );
   printf ( "  R8MAT_INVERSE_3D inverts a 3 by 3 matrix.\n" );
 
   a[0+0*N] = 3.0;
@@ -5478,13 +7742,13 @@ void test065 ( )
 }
 /******************************************************************************/
 
-void test066 ( )
+void r8mat_inverse_4d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST066 tests R8MAT_INVERSE_4D.
+    R8MAT_INVERSE_4D_TEST tests R8MAT_INVERSE_4D.
 
   Licensing:
 
@@ -5509,7 +7773,7 @@ void test066 ( )
   int k;
 
   printf ( "\n" );
-  printf ( "TEST066\n" );
+  printf ( "R8MAT_INVERSE_4D_TEST\n" );
   printf ( "  R8MAT_INVERSE_4D inverts a 4 x 4 matrix.\n" );
 
 
@@ -5559,13 +7823,13 @@ void test066 ( )
 }
 /******************************************************************************/
 
-void test067 ( )
+void r8mat_jac_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST067 tests R8MAT_JAC.
+    R8MAT_JAC_TEST tests R8MAT_JAC.
 
   Licensing:
 
@@ -5588,17 +7852,17 @@ void test067 ( )
   double x[N] = { 1.0, 2.0, 3.0, 4.0 };
 
   printf ( "\n" );
-  printf ( "TEST067\n" );
+  printf ( "R8MAT_JAC_TEST\n" );
   printf ( "  R8MAT_JAC estimates the M by N jacobian matrix\n" );
   printf ( "  of a nonlinear function.\n" );
 
-  fprime = r8mat_jac ( m, N, eps, test067_f, x );
+  fprime = r8mat_jac ( m, N, eps, r8mat_jac_f, x );
 
   r8mat_print ( m, N, fprime, "  Estimated jacobian:" );
 
   free ( fprime );
 
-  fprime = test067_jac ( m, N, x );
+  fprime = r8mat_jac_exact ( m, N, x );
 
   r8mat_print (  m, N, fprime, "  Exact jacobian:" );
 
@@ -5609,13 +7873,13 @@ void test067 ( )
 }
 /******************************************************************************/
 
-double *test067_f ( int m, int n, double x[] )
+double *r8mat_jac_f ( int m, int n, double x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST067_F is a sample nonlinear function for treatment by R8MAT_JAC.
+    R8MAT_JAC_F is a sample nonlinear function for treatment by R8MAT_JAC.
 
   Licensing:
 
@@ -5637,7 +7901,7 @@ double *test067_f ( int m, int n, double x[] )
 
     Input, double X[N], the parameter values.
 
-    Output, double TEST067_F[M], the function values.
+    Output, double R8MAT_JAC_F[M], the function values.
 */
 {
   double *f;
@@ -5652,13 +7916,13 @@ double *test067_f ( int m, int n, double x[] )
 }
 /******************************************************************************/
 
-double *test067_jac ( int m, int n, double x[] )
+double *r8mat_jac_exact ( int m, int n, double x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST067_JAC is the exact jacobian of TEST067_F.
+    R8MAT_JAC_EXACT is the exact jacobian of R8MAT_F.
 
   Licensing:
 
@@ -5680,7 +7944,7 @@ double *test067_jac ( int m, int n, double x[] )
 
     Input, double X[N], the parameter values.
 
-    Output, double FPRIME[M*N], the jacobian values.
+    Output, double R8MAT_JAC_EXACT[M*N], the jacobian values.
 */
 {
   double *fprime;
@@ -5706,13 +7970,68 @@ double *test067_jac ( int m, int n, double x[] )
 }
 /******************************************************************************/
 
-void test068 ( )
+void r8mat_kronecker_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST068 tests R8MAT_L_INVERSE.
+    R8MAT_KRONECKER_TEST tests R8MAT_KRONECKER.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 December 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int m1 = 2;
+  int m2 = 3;
+  int m = m1 * m2;
+  int n1 = 3;
+  int n2 = 2;
+  int n = n1 * n2;
+
+  double a[2*3] = {
+    1.0, 4.0, 
+    2.0, 5.0, 
+    3.0, 6.0 };
+  double b[3*2] = {
+    7.0,  9.0, 11.0, 
+    8.0, 10.0, 12.0 };
+  double *c;
+
+  printf ( "\n" );
+  printf ( "R8MAT_KRONECKER_TEST\n" );
+  printf ( "  R8MAT_KRONECKER computes the Kronecker product\n" );
+  printf ( "  of two matrices.\n" );
+
+  r8mat_print ( m1, n1, a, "  Factor matrix A:" );
+  r8mat_print ( m2, n2, b, "  Factor matrix B:" );
+
+  c = r8mat_kronecker ( m1, n1, a, m2, n2, b );
+
+  r8mat_print ( m, n, c, "  Kronecker product C = kron(A,B)" );
+
+  free ( c );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_l_inverse_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_L_INVERSE_TEST tests R8MAT_L_INVERSE.
 
   Licensing:
 
@@ -5740,7 +8059,7 @@ void test068 ( )
   double *c;
 
   printf ( "\n" );
-  printf ( "TEST068\n" );
+  printf ( "R8MAT_L_INVERSE_TEST\n" );
   printf ( "  R8MAT_L_INVERSE inverts a lower triangular matrix.\n" );
 
   r8mat_print ( N, N, a, "  Matrix A to be inverted:" );
@@ -5761,13 +8080,13 @@ void test068 ( )
 }
 /******************************************************************************/
 
-void test069 ( )
+void r8mat_l_print_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST069 tests R8MAT_L_PRINT.
+    R8MAT_L_PRINT_TEST tests R8MAT_L_PRINT.
 
   Licensing:
 
@@ -5807,7 +8126,7 @@ void test069 ( )
   int n3 = 7;
 
   printf ( "\n" );
-  printf ( "TEST069\n" );
+  printf ( "R8MAT_L_PRINT_TEST\n" );
   printf ( "  R8MAT_L_PRINT prints a lower triangular matrix\n" );
   printf ( "  stored compactly.  Only the (possibly) nonzero\n" );
   printf ( "  elements are printed.\n" );
@@ -5822,13 +8141,13 @@ void test069 ( )
 }
 /******************************************************************************/
 
-void test070 ( )
+void r8mat_l1_inverse_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST070 tests R8MAT_L1_INVERSE.
+    R8MAT_L1_INVERSE_TEST tests R8MAT_L1_INVERSE.
 
   Licensing:
 
@@ -5858,7 +8177,7 @@ void test070 ( )
   double *c;
 
   printf ( "\n" );
-  printf ( "TEST070\n" );
+  printf ( "R8MAT_L1_INVERSE_TEST\n" );
   printf ( "  R8MAT_L1_INVERSE inverts a unit lower triangular matrix.\n" );
 
   r8mat_print ( N, N, a, "  Matrix A to be inverted:" );
@@ -5879,13 +8198,13 @@ void test070 ( )
 }
 /******************************************************************************/
 
-void test071 ( )
+void r8mat_lu_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST071 tests R8MAT_LU.
+    R8MAT_LU_TEST tests R8MAT_LU.
 
   Licensing:
 
@@ -5912,7 +8231,7 @@ void test071 ( )
   double x[N] = { 1.0, 10.0, 4.0, 2.0, 3.0 };
 
   printf ( "\n" );
-  printf ( "TEST071\n" );
+  printf ( "R8MAT_LU_TEST\n" );
   printf ( "  R8MAT_LU computes the LU factors of a matrix.\n" );
 
   a = r8mat_vand2 ( N, x );
@@ -5943,13 +8262,118 @@ void test071 ( )
 }
 /******************************************************************************/
 
-void test072 ( )
+void r8mat_max_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST072 tests R8MAT_MAX and R8MAT_MIN.
+    R8MAT_MAX_TEST tests R8MAT_MAX.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double b = 0.0;
+  double c = 10.0;
+  int m = 5;
+  int n = 3;
+  int seed;
+  double temp;
+
+  printf ( "\n" );
+  printf ( "R8MAT_MAX_TEST\n" );
+  printf ( "  For a real matrix,\n" );
+  printf ( "  R8MAT_MAX computes the maximum value;\n" );
+
+  seed = 123456789;
+
+  a = r8mat_uniform_ab_new ( m, n, b, c, &seed );
+
+  r8mat_print ( m, n, a, "  Random array:" );
+
+  temp = r8mat_max ( m, n, a );
+
+  printf ( "\n" );
+  printf ( "  Maximum value = %g\n", temp );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_max_index_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_MAX_INDEX_TEST tests R8MAT_MAX_INDEX.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define M 5
+# define N 3
+
+  double *a;
+  double b = 0.0;
+  double c = 10.0;
+  int i;
+  int j;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8MAT_MAX_INDEX\n" );
+  printf ( "  R8MAT_MAX_INDEX locates the maximum entry of an R8MAT;\n" );
+
+  seed = 123456789;
+
+  a = r8mat_uniform_ab_new ( M, N, b, c, &seed );
+
+  r8mat_print ( M, N, a, "  Random array:" );
+
+  r8mat_max_index ( M, N, a, &i, &j );
+
+  printf ( "\n" );
+  printf ( "  Maximum I,J indices            %d  %d\n", i, j );
+
+  free ( a );
+
+  return;
+# undef M
+# undef N
+}
+/******************************************************************************/
+
+void r8mat_maxcol_minrow_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_MAXCOL_MINROW_TEST tests R8MAT_MAXCOL_MINROW.
 
   Licensing:
 
@@ -5974,9 +8398,105 @@ void test072 ( )
   double temp2;
 
   printf ( "\n" );
-  printf ( "TEST072\n" );
+  printf ( "R8MAT_MAXCOL_MINROW_TEST\n" );
+  printf ( "  R8MAT_MAXCOL_MINROW computes the maximum over\n" );
+  printf ( "  columns of the mininum over rows;\n" );
+
+  seed = 123456789;
+
+  a = r8mat_uniform_ab_new ( m, n, b, c, &seed );
+
+  r8mat_print ( m, n, a, "  Random array:" );
+
+  printf ( "  MAXCOL_MINROW = %g\n", r8mat_maxcol_minrow ( m, n, a ) );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_maxrow_mincol_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_MAXROW_MINCOL_TEST tests R8MAT_MAXROW_MINCOL_TEST.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double b = 0.0;
+  double c = 10.0;
+  int m = 5;
+  int n = 3;
+  int seed;
+  double temp1;
+  double temp2;
+
+  printf ( "\n" );
+  printf ( "R8MAT_MAXROW_MINCOL_TEST\n" );
+  printf ( "  R8MAT_MAXROW_MINCOL computes the maximum over\n" );
+  printf ( "  rows of the mininum over columns;\n" );
+
+  seed = 123456789;
+
+  a = r8mat_uniform_ab_new ( m, n, b, c, &seed );
+
+  r8mat_print ( m, n, a, "  Random array:" );
+
+  printf ( "  MAXROW_MINCOL = %g\n", r8mat_maxrow_mincol ( m, n, a ) );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_min_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_MIN_TEST tests R8MAT_MAX and R8MAT_MIN.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double b = 0.0;
+  double c = 10.0;
+  int m = 5;
+  int n = 3;
+  int seed;
+  double temp;
+
+  printf ( "\n" );
+  printf ( "R8MAT_MIN_TEST\n" );
   printf ( "  For a real matrix,\n" );
-  printf ( "  R8MAT_MAX computes the maximum value;\n" );
   printf ( "  R8MAT_MIN computes the minimum value;\n" );
 
   seed = 123456789;
@@ -5985,12 +8505,10 @@ void test072 ( )
 
   r8mat_print ( m, n, a, "  Random array:" );
 
-  temp1 = r8mat_min ( m, n, a );
-  temp2 = r8mat_max ( m, n, a );
+  temp = r8mat_min ( m, n, a );
 
   printf ( "\n" );
-  printf ( "  Minimum value = %g\n", temp1 );
-  printf ( "  Maximum value = %g\n", temp2 );
+  printf ( "  Minimum value = %g\n", temp );
 
   free ( a );
 
@@ -5998,13 +8516,66 @@ void test072 ( )
 }
 /******************************************************************************/
 
-void test073 ( )
+void r8mat_min_index_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST073 tests R8MAT_MAXCOL_MINROW, and its variations.
+    R8MAT_MIN_INDEX_TEST tests R8MAT_MIN_INDEX.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define M 5
+# define N 3
+
+  double *a;
+  double b = 0.0;
+  double c = 10.0;
+  int i;
+  int j;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8MAT_MIN_INDEX_TEST\n" );
+  printf ( "  R8MAT_MIN_INDEX locates the minimum entry of an R8MAT;\n" );
+
+  seed = 123456789;
+
+  a = r8mat_uniform_ab_new ( M, N, b, c, &seed );
+
+  r8mat_print ( M, N, a, "  Random array:" );
+
+  printf ( "\n" );
+  r8mat_min_index ( M, N, a, &i, &j );
+  printf ( "  Minimum I,J indices            %d  %d\n", i, j );
+
+  free ( a );
+
+  return;
+# undef M
+# undef N
+}
+/******************************************************************************/
+
+void r8mat_mincol_maxrow_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_MINCOL_MAXROW_TEST tests R8MAT_MINCOL_MAXROW_TEST.
 
   Licensing:
 
@@ -6029,13 +8600,56 @@ void test073 ( )
   double temp2;
 
   printf ( "\n" );
-  printf ( "TEST073\n" );
-  printf ( "  R8MAT_MAXCOL_MINROW computes the maximum over\n" );
-  printf ( "  columns of the mininum over rows;\n" );
-  printf ( "  R8MAT_MAXROW_MINCOL computes the maximum over\n" );
-  printf ( "  rows of the mininum over columns;\n" );
+  printf ( "R8MAT_MINCOL_MAXROW_TEST\n" );
   printf ( "  R8MAT_MINCOL_MAXROW computes the minimum over\n" );
   printf ( "  columns of the maxinum over rows;\n" );
+
+  seed = 123456789;
+
+  a = r8mat_uniform_ab_new ( m, n, b, c, &seed );
+
+  r8mat_print ( m, n, a, "  Random array:" );
+
+  printf ( "  MINCOL_MAXROW = %g\n", r8mat_mincol_maxrow ( m, n, a ) );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_minrow_maxcol_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_MINROW_MAXCOL_TEST tests R8MAT_MINROW_MAXCOL.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double b = 0.0;
+  double c = 10.0;
+  int m = 5;
+  int n = 3;
+  int seed;
+  double temp1;
+  double temp2;
+
+  printf ( "\n" );
+  printf ( "R8MAT_MINROW_MAXCOL_TEST\n" );
   printf ( "  R8MAT_MINROW_MAXCOL computes the minimum over\n" );
   printf ( "  rows of the maxinum over columns;\n" );
   printf ( "\n" );
@@ -6046,24 +8660,21 @@ void test073 ( )
 
   r8mat_print ( m, n, a, "  Random array:" );
 
-  printf ( "  MAXCOL_MINROW = %g\n", r8mat_maxcol_minrow ( m, n, a ) );
   printf ( "  MINROW_MAXCOL = %g\n", r8mat_minrow_maxcol ( m, n, a ) );
-  printf ( "  MAXROW_MINCOL = %g\n", r8mat_maxrow_mincol ( m, n, a ) );
-  printf ( "  MINCOL_MAXROW = %g\n", r8mat_mincol_maxrow ( m, n, a ) );
-
+ 
   free ( a );
 
   return;
 }
 /******************************************************************************/
 
-void test0731 ( )
+void r8mat_mm_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0731 tests R8MAT_MM.
+    R8MAT_MM_NEW_TEST tests R8MAT_MM_NEW.
 
   Licensing:
 
@@ -6096,8 +8707,8 @@ void test0731 ( )
   double *c;
 
   printf ( "\n" );
-  printf ( "TEST0731\n" );
-  printf ( "  R8MAT_MM multiplies two (rectangular) matrices\n" );
+  printf ( "R8MAT_MM_NEW_TEST\n" );
+  printf ( "  R8MAT_MM_NEW multiplies two (rectangular) matrices\n" );
   printf ( "  and returns the result as the function value.\n" );
 
   r8mat_print ( N1, N2, a, "  Matrix A:" );
@@ -6117,13 +8728,13 @@ void test0731 ( )
 }
 /******************************************************************************/
 
-void test0732 ( )
+void r8mat_mm_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0732 tests R8MAT_MXM.
+    R8MAT_MM_TEST tests R8MAT_MM.
 
   Licensing:
 
@@ -6156,15 +8767,15 @@ void test0732 ( )
   double c[N1*N3];
 
   printf ( "\n" );
-  printf ( "TEST0732\n" );
-  printf ( "  R8MAT_MXM multiplies two (rectangular) matrices\n" );
+  printf ( "R8MAT_MM_TEST\n" );
+  printf ( "  R8MAT_MM multiplies two (rectangular) matrices\n" );
   printf ( "  and returns the result as an argument.\n" );
 
   r8mat_print ( N1, N2, a, "  Matrix A:" );
 
   r8mat_print ( N2, N3, b, "  Matrix B:" );
 
-  r8mat_mxm ( N1, N2, N3, a, b, c );
+  r8mat_mm ( N1, N2, N3, a, b, c );
 
   r8mat_print ( N1, N3, c, "  Product C = A * B:" );
 
@@ -6175,13 +8786,13 @@ void test0732 ( )
 }
 /******************************************************************************/
 
-void test0733 ( )
+void r8mat_mv_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0733 tests R8MAT_MV_NEW.
+    R8MAT_MV_NEW_TEST tests R8MAT_MV_NEW.
 
   Licensing:
 
@@ -6210,7 +8821,7 @@ void test0733 ( )
   double *c;
 
   printf ( "\n" );
-  printf ( "TEST0733\n" );
+  printf ( "R8MAT_MV_NEW_TEST\n" );
   printf ( "  R8MAT_MV_NEW multiplies a (rectangular) matrix times a vector,\n" );
   printf ( "  and returns the result as the function value.\n" );
 
@@ -6230,13 +8841,13 @@ void test0733 ( )
 }
 /******************************************************************************/
 
-void test0734 ( )
+void r8mat_mv_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0734 tests R8MAT_MV.
+    R8MAT_MV_TEST tests R8MAT_MV.
 
   Licensing:
 
@@ -6265,7 +8876,7 @@ void test0734 ( )
   double c[N1];
 
   printf ( "\n" );
-  printf ( "TEST0734\n" );
+  printf ( "R8MAT_MV_TEST\n" );
   printf ( "  R8MAT_MV multiplies a (rectangular) matrix times a vector,\n" );
   printf ( "  and returns the result as an argument.\n" );
 
@@ -6283,13 +8894,13 @@ void test0734 ( )
 }
 /******************************************************************************/
 
-void test0735 ( )
+void r8mat_mtv_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0735 tests R8MAT_MTV_NEW.
+    R8MAT_MTV_NEW_TEST tests R8MAT_MTV_NEW.
 
   Licensing:
 
@@ -6318,7 +8929,7 @@ void test0735 ( )
   double *c;
 
   printf ( "\n" );
-  printf ( "TEST0735\n" );
+  printf ( "R8MAT_MTV_NEW_TEST\n" );
   printf ( "  R8MAT_MTV_NEW multiplies a transposed matrix times a vector,\n" );
   printf ( "  and returns the result as the function value.\n" );
 
@@ -6338,13 +8949,13 @@ void test0735 ( )
 }
 /******************************************************************************/
 
-void test0736 ( )
+void r8mat_mtv_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0736 tests R8MAT_MTV.
+    R8MAT_MTV_TEST tests R8MAT_MTV.
 
   Licensing:
 
@@ -6373,7 +8984,7 @@ void test0736 ( )
   double c[N2];
 
   printf ( "\n" );
-  printf ( "TEST0736\n" );
+  printf ( "R8MAT_MTV_TEST\n" );
   printf ( "  R8MAT_MTV multiplies a transposed matrix times a vector,\n" );
   printf ( "  and returns the result as an argument.\n" );
 
@@ -6391,130 +9002,245 @@ void test0736 ( )
 }
 /******************************************************************************/
 
-void test07365 ( )
+void r8mat_nint_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST07365 tests R8MAT_NEW and R8MAT_DELETE.
+    R8MAT_NINT_TEST tests R8MAT_NINT.
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    02 March 2012
+    06 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-  double **a;
-  double **b;
-  int i;
-  int j;
-  int k;
+  double *a;
   int m;
   int n;
+  int seed;
+  double x1;
+  double x2;
 
   printf ( "\n" );
-  printf ( "TEST07365:\n" );
-  printf ( "  R8MAT_NEW dynamically creates a 2D array.\n" );
-  printf ( "  R8MAT_DELETE deletes it.\n" );
-  printf ( "  Array entries can be addressed using the\n" );
-  printf ( "  notation \"a[i][j]\".\n" );
-/*
-  These dimensions could be entered by the user; they could depend on
-  some other calculation; or they could be changed repeatedly during this
-  computation, as long as old memory is deleted by R8MAT_DELETE and new memory
-  requested by R8MAT_NEW.
-*/
-  m = 4;
-  n = 5;
-/*
-  Allocate memory.
-*/
-  printf ( "\n" );
-  printf ( "  Allocating memory for array A of size %d by %d.\n", m, n );
+  printf ( "R8MAT_NINT_TEST\n" );
+  printf ( "  R8MAT_NINT rounds an R8MAT.\n" );
 
-  a = r8mat_new ( m, n );
+  m = 5;
+  n = 4;
+  x1 = -5.0;
+  x2 = +5.0;
+  seed = 123456789;
+  a = r8mat_uniform_ab_new ( m, n, x1, x2, &seed );
+  r8mat_print ( m, n, a, "  Matrix A:" );
+  r8mat_nint ( m, n, a );
+  r8mat_print ( m, n, a, "  Rounded matrix A:" );
 
-  printf ( "\n" );
-  printf ( "  Assigning values to A.\n" );
-/*
-  Store values in A.
-*/
-  for ( i = 0; i < m; i++ )
-  {
-    for ( j = 0; j < n; j++ )
-    {
-      a[i][j] = ( double ) ( 10 * i + j );
-    }
-  }
-/*
-  Print A.
-*/
-  printf ( "\n" );
-  printf ( "  Dynamically allocated matrix A:\n" );
-  printf ( "\n" );
-  for ( i = 0; i < m; i++ )
-  {
-    for ( j = 0; j < n; j++ )
-    {
-      printf ( "  %8g", a[i][j] );
-    }
-    printf ( "\n" );
-  }
-/*
-  Create a new matrix B to store A' * A.
-*/
-  b = r8mat_new ( n, n );
-
-  for ( i = 0; i < n; i++ )
-  {
-    for ( j = 0; j < n; j++ )
-    {
-      b[i][j] = 0.0;
-      for ( k = 0; k < m; k++ )
-      {
-        b[i][j] = b[i][j] + a[k][i] * a[k][j];
-      }
-    }
-  }
-/*
-  Print the matrix.
-*/
-  printf ( "\n" );
-  printf ( "  Dynamically allocated matrix B = A' * A:\n" );
-  printf ( "\n" );
-  for ( i = 0; i < n; i++ )
-  {
-    for ( j = 0; j < n; j++ )
-    {
-      printf ( "  %8g", b[i][j] );
-    }
-    printf ( "\n" );
-  }
-/*
-  Free memory.
-*/
-  r8mat_delete ( a, m, n );
-  r8mat_delete ( b, n, n );
+  free ( a );
 
   return;
 }
 /******************************************************************************/
 
-void test0737 ( )
+void r8mat_nonzeros_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0737 tests R8MAT_NULLSPACE_SIZE and R8MAT_NULLSPACE.
+    R8MAT_NONZEROS_TEST tests R8MAT_NONZEROS.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int m = 5;
+  int n = 4;
+  int c1;
+  int c2;
+
+  printf ( "\n" );
+  printf ( "R8MAT_NONZEROS_TEST\n" );
+  printf ( "  R8MAT_NONZEROS counts nonzeros in an R8MAT.\n" );
+
+  a = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  c1 = 0;
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( ( i % 2 ) == 0 && ( j % 2 ) == 0 )
+      {
+        a[i+j*m] = 1;
+        c1 = c1 + 1;
+      }
+      else
+      {
+        a[i+j*m] = 0;
+      }
+    }
+  }
+
+  r8mat_print ( m, n, a, "  Matrix A:" );
+
+  c2 = r8mat_nonzeros ( m, n, a );
+
+  printf ( "\n" );
+  printf ( "  Expected nonzeros = %d\n", c1 );
+  printf ( "  Computed nonzeros = %d\n", c2 );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_norm_fro_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_NORM_FRO_TEST tests R8MAT_NORM_FRO.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int k;
+  int m = 5;
+  int n = 4;
+  double t1;
+  double t2;
+
+  printf ( "\n" );
+  printf ( "R8MAT_NORM_FRO_TEST\n" );
+  printf ( "  R8MAT_NORM_FRO computes the Frobenius norm of a matrix.\n" );
+
+  a = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  k = 0;
+  t1 = 0.0;
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      k = k + 1;
+      a[i+j*m] = ( double ) ( k );
+      t1 = t1 + k * k;
+    }
+  }
+  t1 = sqrt ( t1 );
+
+  r8mat_print ( m, n, a, "  Matrix A:" );
+
+  t2 = r8mat_norm_fro ( m, n, a );
+
+  printf ( "\n" );
+  printf ( "  Expected Frobenius norm = %g\n", t1 );
+  printf ( "  Computed Frobenius norm = %g\n", t2 );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_norm_l1_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_NORM_L1_TEST tests R8MAT_NORM_L1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int m;
+  int n;
+  int seed;
+  double t;
+  double x1;
+  double x2;
+
+  printf ( "\n" );
+  printf ( "R8MAT_NORM_L1_TEST\n" );
+  printf ( "  R8MAT_NORM_L1 computes the L1 norm of a matrix.\n" );
+
+  m = 5;
+  n = 4;
+  x1 = -5.0;
+  x2 = +5.0;
+  seed = 123456789;
+
+  a = r8mat_uniform_ab_new ( m, n, x1, x2, &seed );
+  r8mat_nint ( m, n, a );
+
+  r8mat_print ( m, n, a, "  Matrix A:" );
+
+  t = r8mat_norm_l1 ( m, n, a );
+
+  printf ( "\n" );
+  printf ( "  L1 norm = %g\n", t );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_nullspace_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_NULLSPACE_TEST tests R8MAT_NULLSPACE.
 
   Licensing:
 
@@ -6547,8 +9273,7 @@ void test0737 ( )
   int nullspace_size;
 
   printf ( "\n" );
-  printf ( "TEST0737\n" );
-  printf ( "  R8MAT_NULLSPACE_SIZE computes the size of the nullspace of a matrix.\n" );
+  printf ( "R8MAT_NULLSPACE_TEST\n" );
   printf ( "  R8MAT_NULLSPACE computes the nullspace of a matrix.\n" );
 
   r8mat_print ( m, n, a, "  Input A:" );
@@ -6562,7 +9287,7 @@ void test0737 ( )
 
   r8mat_print ( n, nullspace_size, nullspace, "  Nullspace vectors:" );
 
-  ax = r8mat_mxm_new ( m, n, nullspace_size, a, nullspace );
+  ax = r8mat_mm_new ( m, n, nullspace_size, a, nullspace );
 
   r8mat_print ( m, nullspace_size, ax, "  Product A * Nullspace vectors:" );
 
@@ -6575,13 +9300,66 @@ void test0737 ( )
 }
 /******************************************************************************/
 
-void test074 ( )
+void r8mat_nullspace_size_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST074 tests R8MAT_ORTH_UNIFORM_NEW.
+    R8MAT_NULLSPACE_SIZE_TEST tests R8MAT_NULLSPACE_SIZE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define M 4
+# define N 7
+
+  double a[M*N] = {
+    1.0, -2.0, 3.0, -1.0,
+    3.0, -6.0, 9.0, -3.0,
+    0.0,  0.0, 0.0,  0.0,
+    2.0, -2.0, 0.0,  1.0,
+    6.0, -8.0, 6.0,  0.0,
+    3.0,  3.0, 6.0,  9.0,
+    1.0,  1.0, 2.0,  3.0 };
+  int m = M;
+  int n = N;
+  int nullspace_size;
+
+  printf ( "\n" );
+  printf ( "R8MAT_NULLSPACE_SIZE_TEST\n" );
+  printf ( "  R8MAT_NULLSPACE_SIZE computes the size of the nullspace of a matrix.\n" );
+
+  r8mat_print ( m, n, a, "  Input A:" );
+
+  nullspace_size = r8mat_nullspace_size ( m, n, a );
+
+  printf ( "\n" );
+  printf ( "  Nullspace size is %d\n", nullspace_size );
+
+  return;
+# undef M
+# undef N
+}
+/******************************************************************************/
+
+void r8mat_orth_uniform_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_ORTH_UNIFORM_NEW_TEST tests R8MAT_ORTH_UNIFORM_NEW.
 
   Licensing:
 
@@ -6603,7 +9381,7 @@ void test074 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST074\n" );
+  printf ( "R8MAT_ORTH_UNIFORM_NEW_TEST\n" );
   printf ( "  R8MAT_ORTH_UNIFORM_NEW computes a random orthogonal matrix.\n" );
 
   seed = 123456789;
@@ -6626,13 +9404,13 @@ void test074 ( )
 }
 /******************************************************************************/
 
-void test075 ( )
+void r8mat_plot_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST075 tests R8MAT_PLOT.
+    R8MAT_PLOT_TEST tests R8MAT_PLOT.
 
   Licensing:
 
@@ -6684,7 +9462,7 @@ void test075 ( )
   }
 
   printf ( "\n" );
-  printf ( "TEST075\n" );
+  printf ( "R8MAT_PLOT_TEST\n" );
   printf ( "  R8MAT_PLOT prints a symbolic picture of a matrix.\n" );
   printf ( "  Typically,\n" );
   printf ( "\n" );
@@ -6706,13 +9484,13 @@ void test075 ( )
 }
 /******************************************************************************/
 
-void test076 ( )
+void r8mat_power_method_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST076 tests R8MAT_POWER_METHOD.
+    R8MAT_POWER_METHOD_TEST tests R8MAT_POWER_METHOD.
 
   Licensing:
 
@@ -6737,7 +9515,7 @@ void test076 ( )
   double v[N];
 
   printf ( "\n" );
-  printf ( "TEST076\n" );
+  printf ( "R8MAT_POWER_METHOD_TEST\n" );
   printf ( "  R8MAT_POWER_METHOD applies the power method\n" );
   printf ( "  to a matrix.\n" );
 
@@ -6779,13 +9557,111 @@ void test076 ( )
 }
 /******************************************************************************/
 
-void test0764 ( )
+void r8mat_print_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST076 tests R8MAT_REF.
+    R8MAT_PRINT_TEST tests R8MAT_PRINT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 August 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define M 6
+# define N 4
+
+  double a[M*N];
+  int i;
+  int j;
+  int m = M;
+  int n = N;
+
+  printf ( "\n" );
+  printf ( "R8MAT_PRINT_TEST\n" );
+  printf ( "  R8MAT_PRINT prints an R8MAT.\n" );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = ( double ) ( ( i + 1 ) * 10 + ( j + 1 ) );
+    }
+  }
+  r8mat_print ( m, n, a, "  The matrix:" );
+
+  return;
+# undef M
+# undef N
+}
+/******************************************************************************/
+
+void r8mat_print_some_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_PRINT_SOME_TEST tests R8MAT_PRINT_SOME.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 August 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define M 6
+# define N 4
+
+  double a[M*N];
+  int i;
+  int j;
+  int m = M;
+  int n = N;
+
+  printf ( "\n" );
+  printf ( "R8MAT_PRINT_SOME_TEST\n" );
+  printf ( "  R8MAT_PRINT_SOME prints some of an R8MAT.\n" );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = ( double ) ( ( i + 1 ) * 10 + ( j + 1 ) );
+    }
+  }
+  r8mat_print_some ( m, n, a, 2, 1, 4, 2, "  Rows 2:4, Cols 1:2:" );
+
+  return;
+# undef M
+# undef N
+}
+/******************************************************************************/
+
+void r8mat_ref_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_REF_TEST tests R8MAT_REF.
 
   Licensing:
 
@@ -6815,7 +9691,7 @@ void test0764 ( )
   int n = N;
 
   printf ( "\n" );
-  printf ( "TEST0764\n" );
+  printf ( "R8MAT_REF_TEST\n" );
   printf ( "  R8MAT_REF computes the row echelon form of a matrix.\n" );
 
   r8mat_print ( m, n, a, "  Input A:" );
@@ -6830,13 +9706,13 @@ void test0764 ( )
 }
 /******************************************************************************/
 
-void test0766 ( )
+void r8mat_rref_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0766 tests R8MAT_RREF.
+    R8MAT_RREF_TEST tests R8MAT_RREF.
 
   Licensing:
 
@@ -6866,7 +9742,7 @@ void test0766 ( )
   int n = N;
 
   printf ( "\n" );
-  printf ( "TEST0766\n" );
+  printf ( "R8MAT_RREF_TEST\n" );
   printf ( "  R8MAT_RREF computes the reduced row echelon form of a matrix.\n" );
 
   r8mat_print ( m, n, a, "  Input A:" );
@@ -6881,13 +9757,13 @@ void test0766 ( )
 }
 /******************************************************************************/
 
-void test077 ( )
+void r8mat_solve_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST077 tests R8MAT_SOLVE.
+    R8MAT_SOLVE_TEST tests R8MAT_SOLVE.
 
   Licensing:
 
@@ -6916,7 +9792,7 @@ void test077 ( )
   int j;
 
   printf ( "\n" );
-  printf ( "TEST077\n" );
+  printf ( "R8MAT_SOLVE_TEST\n" );
   printf ( "  R8MAT_SOLVE solves linear systems.\n" );
 /*
   Print out the matrix to be inverted.
@@ -6953,13 +9829,13 @@ void test077 ( )
 }
 /******************************************************************************/
 
-void test0775 ( )
+void r8mat_solve_2d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0775 tests R8MAT_SOLVE_2D.
+    R8MAT_SOLVE_2D_TEST tests R8MAT_SOLVE_2D.
 
   Licensing:
 
@@ -6986,7 +9862,7 @@ void test0775 ( )
   double *x2;
 
   printf ( "\n" );
-  printf ( "TEST0775\n" );
+  printf ( "R8MAT_SOLVE_2D_TEST\n" );
   printf ( "  R8MAT_SOLVE_2D solves 2D linear systems.\n" );
 
   seed = 123456789;
@@ -7018,13 +9894,13 @@ void test0775 ( )
 }
 /******************************************************************************/
 
-void test0776 ( )
+void r8mat_solve_3d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0776 tests R8MAT_SOLVE_3D.
+    R8MAT_SOLVE_3D_TEST tests R8MAT_SOLVE_3D.
 
   Licensing:
 
@@ -7051,7 +9927,7 @@ void test0776 ( )
   double *x2;
 
   printf ( "\n" );
-  printf ( "TEST0776\n" );
+  printf ( "R8MAT_SOLVE_3D_TEST\n" );
   printf ( "  R8MAT_SOLVE_3D solves 3D linear systems.\n" );
 
   seed = 123456789;
@@ -7083,13 +9959,13 @@ void test0776 ( )
 }
 /******************************************************************************/
 
-void test078 ( )
+void r8mat_solve2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST078 tests R8MAT_SOLVE2.
+    R8MAT_SOLVE2_TEST tests R8MAT_SOLVE2.
 
   Licensing:
 
@@ -7135,7 +10011,7 @@ void test078 ( )
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST078\n" );
+  printf ( "R8MAT_SOLVE2_TEST\n" );
   printf ( "  R8MAT_SOLVE2 is a linear solver.\n" );
   printf ( "\n" );
 
@@ -7192,13 +10068,62 @@ void test078 ( )
 }
 /******************************************************************************/
 
-void test079 ( )
+void r8mat_sub_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST079 tests R8MAT_SYMM_JACOBI;
+    R8MAT_SUB_NEW_TEST tests R8MAT_SUB_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 March 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double *b;
+  double *c;
+  int m = 4;
+  int n = 4;
+
+  printf ( "\n" );
+  printf ( "R8MAT_SUB_NEW_TEST\n" );
+  printf ( "  R8MAT_SUB_NEW computes C = A - B for R8MAT's\n" );
+
+  a = r8mat_indicator_new ( m, n );
+
+  b = r8mat_transpose_new ( m, n, a );
+
+  c = r8mat_sub_new ( m, n, a, b );
+
+  r8mat_print ( m, n, a, "  A:" );
+  r8mat_print ( m, n, b, "  B:" );
+  r8mat_print ( m, n, c, "  C = A-B:" );
+
+  free ( a );
+  free ( b );
+  free ( c );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_symm_jacobi_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_SYMM_JACOBI_TEST tests R8MAT_SYMM_JACOBI;
 
   Licensing:
 
@@ -7221,13 +10146,13 @@ void test079 ( )
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST079\n" );
+  printf ( "R8MAT_SYMM_JACOBI_TEST\n" );
   printf ( "  For a symmetric R8MAT:\n" );
   printf ( "  R8MAT_SYMM_JACOBI diagonalizes;\n" );
 /*
   Choose eigenvalues.
 */
-  x = r8vec_indicator_new ( n );
+  x = r8vec_indicator1_new ( n );
 /*
   Choose eigenvectors.
 */
@@ -7259,13 +10184,72 @@ void test079 ( )
 }
 /******************************************************************************/
 
-void test080 ( )
+void r8mat_to_r8cmat_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST080 tests R8MAT_TO_R8PLU and R8PLU_TO_R8MAT;
+    R8MAT_TO_R8CMAT_NEW_TEST tests R8MAT_TO_R8CMAT_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double **b;
+  double *c;
+  int m = 5;
+  int n = 4;
+
+  printf ( "\n" );
+  printf ( "R8MAT_TO_R8CMAT_NEW_TEST\n" );
+  printf ( "  R8MAT_TO_R8CMAT_NEW converts an R8MAT to an R8CMAT.\n" );
+  printf ( "\n" );
+  printf ( "  Data is of order (%d,%d).\n", m, n );
+/*
+  Set the R8MAT.
+*/
+  a = r8mat_indicator_new ( m, n );
+  r8mat_print ( m, n, a, "  The R8MAT A:" );
+/*
+  Convert.
+*/
+  b = r8mat_to_r8cmat_new ( m, n, a );
+  r8cmat_print ( m, n, b, "  The R8CMAT B:" );
+/*
+  Recover the matrix.
+*/
+  c = r8cmat_to_r8mat_new ( m, n, b );
+  r8mat_print ( m, n, c, "  The R8MAT C:" );
+/*
+  Free memory.
+*/
+  free ( a );
+  r8cmat_delete ( m, n, b );
+  free ( c );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8mat_to_r8plu_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_TO_R8PLU_TEST tests R8MAT_TO_R8PLU.
 
   Licensing:
 
@@ -7292,11 +10276,9 @@ void test080 ( )
   int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST080\n" );
+  printf ( "R8MAT_TO_R8PLU_TEST\n" );
   printf ( "  R8MAT_TO_R8PLU determines the compressed PLU factors\n" );
   printf ( "  of a real general matrix.\n" );
-  printf ( "  R8PLU_TO_R8MAT determines the original matrix from\n" );
-  printf ( "  the compressed PLU factors.\n" );
   printf ( "\n" );
   printf ( "  Matrix order N = %d\n", N );
 /*
@@ -7337,13 +10319,72 @@ void test080 ( )
 }
 /******************************************************************************/
 
-void test081 ( )
+void r8mat_to_r8rmat_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST081 tests R8MAT_TRACE.
+    R8MAT_TO_R8RMAT_TEST tests R8MAT_TO_R8RMAT;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double **b;
+  double *c;
+  int m = 5;
+  int n = 4;
+
+  printf ( "\n" );
+  printf ( "R8MAT_TO_R8RMAT_TEST\n" );
+  printf ( "  R8MAT_TO_R8RMAT converts an R8MAT to an R8RMAT.\n" );
+  printf ( "\n" );
+  printf ( "  Data is of order (%d,%d).\n", m, n );
+/*
+  Set the R8MAT.
+*/
+  a = r8mat_indicator_new ( m, n );
+  r8mat_print ( m, n, a, "  The R8MAT A:" );
+/*
+  Convert.
+*/
+  b = r8mat_to_r8rmat ( m, n, a );
+  r8rmat_print ( m, n, b, "  The R8RMAT B:" );
+/*
+  Recover the matrix.
+*/
+  c = r8rmat_to_r8mat ( m, n, b );
+  r8mat_print ( m, n, c, "  The R8MAT C:" );
+/*
+  Free memory.
+*/
+  free ( a );
+  r8rmat_delete ( m, n, b );
+  free ( c );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8mat_trace_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_TRACE_TEST tests R8MAT_TRACE.
 
   Licensing:
 
@@ -7385,7 +10426,7 @@ void test081 ( )
   }
 
   printf ( "\n" );
-  printf ( "TEST081\n" );
+  printf ( "R8MAT_TRACE_TEST\n" );
   printf ( "  R8MAT_TRACE computes the trace of a matrix\n" );
 
   r8mat_print ( N, N, a, "  Matrix:" );
@@ -7400,13 +10441,56 @@ void test081 ( )
 }
 /******************************************************************************/
 
-void test082 ( )
+void r8mat_transpose_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST082 tests R8MAT_TRANSPOSE_PRINT;
+    R8MAT_TRANSPOSE_NEW_TEST tests R8MAT_TRANSPOSE_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 March 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double *at;
+  int m = 5;
+  int n = 4;
+
+  printf ( "\n" );
+  printf ( "R8MAT_TRANSPOSE_NEW_TEST\n" );
+  printf ( "  R8MAT_TRANSPOSE_NEW transposes an R8MAT.\n" );
+
+  a = r8mat_indicator_new ( m, n );
+  r8mat_print ( m, n, a, "  Matrix A:" );
+
+  at = r8mat_transpose_new ( m, n, a );
+  r8mat_print ( n, m, at, "  Transposed matrix At:" );
+
+  free ( a );
+  free ( at );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_transpose_print_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_TRANSPOSE_PRINT_TEST tests R8MAT_TRANSPOSE_PRINT;
 
   Licensing:
 
@@ -7429,7 +10513,7 @@ void test082 ( )
   int j;
 
   printf ( "\n" );
-  printf ( "TEST082\n" );
+  printf ( "R8MAT_TRANSPOSE_PRINT_TEST\n" );
   printf ( "  R8MAT_TRANSPOSE_PRINT prints an R8MAT,\n" );
   printf ( "  transposed.\n" );
   printf ( "\n" );
@@ -7454,13 +10538,13 @@ void test082 ( )
 }
 /******************************************************************************/
 
-void test083 ( )
+void r8mat_u_inverse_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST083 tests R8MAT_U_INVERSE.
+    R8MAT_U_INVERSE_TEST tests R8MAT_U_INVERSE.
 
   Licensing:
 
@@ -7489,7 +10573,7 @@ void test083 ( )
   int i;
 
   printf ( "\n" );
-  printf ( "TEST083\n" );
+  printf ( "R8MAT_U_INVERSE_TEST\n" );
   printf ( "  R8MAT_U_INVERSE inverts an upper triangular matrix.\n" );
 
   r8mat_print ( N, N, a, "  Input matrix A" );
@@ -7510,13 +10594,13 @@ void test083 ( )
 }
 /******************************************************************************/
 
-void test084 ( )
+void r8mat_u1_inverse_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST084 tests R8MAT_U1_INVERSE.
+    R8MAT_U1_INVERSE_TEST tests R8MAT_U1_INVERSE.
 
   Licensing:
 
@@ -7546,7 +10630,7 @@ void test084 ( )
   double *c;
 
   printf ( "\n" );
-  printf ( "TEST084\n" );
+  printf ( "R8MAT_U1_INVERSE_TEST\n" );
   printf ( "  R8MAT_U1_INVERSE inverts a unit upper triangular matrix.\n" );
 
   r8mat_print ( N, N, a, "  Input matrix A" );
@@ -7567,13 +10651,13 @@ void test084 ( )
 }
 /******************************************************************************/
 
-void test085 ( )
+void r8mat_uniform_ab_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST085 tests R8MAT_UNIFORM.
+    R8MAT_UNIFORM_AB_NEW_TEST tests R8MAT_UNIFORM_AB_NEW.
 
   Licensing:
 
@@ -7597,15 +10681,13 @@ void test085 ( )
   int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST085\n" );
-  printf ( "  R8MAT_UNIFORM sets a matrix to random values.\n" );
+  printf ( "R8MAT_UNIFORM_AB_NEW_TEST\n" );
+  printf ( "  R8MAT_UNIFORM_AB_NEW sets an R8MAT to random values in [A,B].\n" );
   printf ( "\n" );
 
   a = r8mat_uniform_ab_new ( M, N, b, c, &seed );
-/*
-  Print out the matrix to be inverted.
-*/
-  r8mat_print ( M, N, a, "  The random matrix:" );
+
+  r8mat_print ( M, N, a, "  The random R8MAT:" );
 
   free ( a );
 
@@ -7615,13 +10697,13 @@ void test085 ( )
 }
 /******************************************************************************/
 
-void test086 ( )
+void r8plu_det_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST086 tests R8PLU_DET;
+    R8PLU_DET_TEST tests R8PLU_DET;
 
   Licensing:
 
@@ -7648,7 +10730,7 @@ void test086 ( )
   int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST086\n" );
+  printf ( "R8PLU_DET_TEST\n" );
   printf ( "  R8PLU_DET determines the determinant of a matrix from its\n" );
   printf ( "  compressed PLU factors.\n" );
   printf ( "\n" );
@@ -7686,13 +10768,13 @@ void test086 ( )
 }
 /******************************************************************************/
 
-void test087 ( )
+void r8plu_inverse_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST087 tests R8PLU_INVERSE;
+    R8PLU_INVERSE_TEST tests R8PLU_INVERSE;
 
   Licensing:
 
@@ -7718,7 +10800,7 @@ void test087 ( )
   int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST087\n" );
+  printf ( "R8PLU_INVERSE_TEST\n" );
   printf ( "  R8PLU_INVERSE determines the inverse of a matrix from its\n" );
   printf ( "  compressed PLU factors.\n" );
   printf ( "\n" );
@@ -7762,13 +10844,13 @@ void test087 ( )
 }
 /******************************************************************************/
 
-void test088 ( )
+void r8plu_mul_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST088 tests R8PLU_MUL;
+    R8PLU_MUL_TEST tests R8PLU_MUL;
 
   Licensing:
 
@@ -7795,7 +10877,7 @@ void test088 ( )
   double x[N];
 
   printf ( "\n" );
-  printf ( "TEST088\n" );
+  printf ( "R8PLU_MUL_TEST\n" );
   printf ( "  R8PLU_MUL computes the product A*x\n" );
   printf ( "  using the compressed PLU factors of A.\n" );
   printf ( "\n" );
@@ -7836,13 +10918,13 @@ void test088 ( )
 }
 /******************************************************************************/
 
-void test089 ( )
+void r8plu_sol_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST089 tests R8PLU_SOL;
+    R8PLU_SOL_TEST tests R8PLU_SOL;
 
   Licensing:
 
@@ -7869,7 +10951,7 @@ void test089 ( )
   double x[N];
 
   printf ( "\n" );
-  printf ( "TEST089\n" );
+  printf ( "R8PLU_SOL_TEST\n" );
   printf ( "  R8PLU_SOL solves the linear system A*x=b\n" );
   printf ( "  using the compressed PLU factors of A.\n" );
   printf ( "\n" );
@@ -7925,13 +11007,148 @@ void test089 ( )
 }
 /******************************************************************************/
 
-void test090 ( )
+void r8plu_to_r8mat_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST090 tests R8POLY_DERIV.
+    R8PLU_TO_R8MAT_TEST tests R8MAT_TO_R8PLU and R8PLU_TO_R8MAT;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N 5
+
+  double *a;
+  double a2[N*N];
+  double b = 0.0;
+  double c = 1.0;
+  int info;
+  double lu[N*N];
+  int pivot[N];
+  int seed = 123456789;
+
+  printf ( "\n" );
+  printf ( "R8PLU_TO_R8MAT_TEST\n" );
+  printf ( "  R8PLU_TO_R8MAT determines the original matrix from\n" );
+  printf ( "  the compressed PLU factors.\n" );
+  printf ( "\n" );
+  printf ( "  Matrix order N = %d\n", N );
+/*
+  Set the matrix.
+*/
+  a = r8mat_uniform_ab_new ( N, N, b, c, &seed );
+
+  r8mat_print ( N, N, a, "  The matrix A:" );
+/*
+  Factor the matrix.
+*/
+  info = r8mat_to_r8plu ( N, a, pivot, lu );
+
+  if ( info != 0 )
+  {
+    printf ( "\n" );
+    printf ( "Warning!\n" );
+    printf ( "  R8MAT_TO_R8PLU declares the matrix is singular!\n" );
+    printf ( "  The value of INFO is %d\n", info );
+  }
+/*
+  Display the gory details.
+*/
+  i4vec_print ( N, pivot, "  The pivot vector P:" );
+
+  r8mat_print ( N, N, lu, "  The compressed LU factors:" );
+/*
+  Recover the matrix from the PLU factors.
+*/
+  r8plu_to_r8mat ( N, pivot, lu, a2 );
+
+  r8mat_print ( N, N, a2, "  The recovered matrix A2:" );
+
+  free ( a );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8poly_degree_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8POLY_DEGREE_TEST tests R8POLY_DEGREE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double c1[4] = { 1.0, 2.0, 3.0, 4.0 }; 
+  double c2[4] = { 1.0, 2.0, 3.0, 0.0 };
+  double c3[4] = { 1.0, 2.0, 0.0, 4.0 };
+  double c4[4] = { 1.0, 0.0, 0.0, 0.0 };
+  double c5[4] = { 0.0, 0.0, 0.0, 0.0 };
+  int d;
+  int m;
+ 
+  printf ( "\n" );
+  printf ( "R8POLY_DEGREE_TEST\n" );
+  printf ( "  R8POLY_DEGREE determines the degree of an R8POLY.\n" );
+
+  m = 3;
+
+  r8poly_print ( m, c1, "  The R8POLY:" );
+  d = r8poly_degree ( m, c1 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  r8poly_print ( m, c2, "  The R8POLY:" );
+  d = r8poly_degree ( m, c2 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  r8poly_print ( m, c3, "  The R8POLY:" );
+  d = r8poly_degree ( m, c3 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  r8poly_print ( m, c4, "  The R8POLY:" );
+  d = r8poly_degree ( m, c4 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  r8poly_print ( m, c5, "  The R8POLY:" );
+  d = r8poly_degree ( m, c5 );
+  printf ( "  Dimensioned degree = %d,  Actual degree = %d\n", m, d );
+
+  return;
+}
+/******************************************************************************/
+
+void r8poly_deriv_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8POLY_DERIV_TEST tests R8POLY_DERIV.
 
   Licensing:
 
@@ -7954,11 +11171,11 @@ void test090 ( )
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST090\n" );
+  printf ( "R8POLY_DERIV_TEST\n" );
   printf ( "  R8POLY_DERIV computes the coefficients of\n" );
   printf ( "  the derivative of a polynomial.\n" );
 
-  x = r8vec_indicator_new ( N );
+  x = r8vec_indicator1_new ( N );
 
   c = roots_to_r8poly ( N, x );
 
@@ -7982,13 +11199,13 @@ void test090 ( )
 }
 /******************************************************************************/
 
-void test091 ( )
+void r8poly_lagrange_coef_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST091 tests R8POLY_LAGRANGE_COEF.
+    R8POLY_LAGRANGE_COEF_TEST tests R8POLY_LAGRANGE_COEF.
 
   Licensing:
 
@@ -8011,11 +11228,11 @@ void test091 ( )
   double *xpol;
 
   printf ( "\n" );
-  printf ( "TEST091\n" );
+  printf ( "R8POLY_LAGRANGE_COEF_TEST\n" );
   printf ( "  R8POLY_LAGRANGE_COEF returns the coefficients for\n" );
   printf ( "  a Lagrange basis polynomial.\n" );
 
-  xpol = r8vec_indicator_new ( NPOL );
+  xpol = r8vec_indicator1_new ( NPOL );
 
   r8vec_print ( NPOL, xpol, "  Abscissas:" );
 
@@ -8042,13 +11259,13 @@ void test091 ( )
 }
 /******************************************************************************/
 
-void test092 ( )
+void r8poly_lagrange_0_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST092 tests R8POLY_LAGRANGE_COEF and R8POLY_DERIV.
+    R8POLY_LAGRANGE_0_TEST tests R8POLY_LAGRANGE_0.
 
   Licensing:
 
@@ -8065,38 +11282,45 @@ void test092 ( )
 {
 # define NPOL 5
 
-  int d;
-  int ipol;
-  double *pcof;
-  double *pprime;
+  int ival;
+  int nx;
+  double wval;
+  double xhi;
+  double xlo;
   double *xpol;
+  double xval;
 
   printf ( "\n" );
-  printf ( "TEST092\n" );
-  printf ( "  R8POLY_LAGRANGE_COEF returns the coefficients\n" );
-  printf ( "  for a Lagrange basis polynomial.\n" );
-  printf ( "  R8POLY_DERIV computes derivatives of a polynomial.\n" );
+  printf ( "R8POLY_LAGRANGE_0_TEST\n" );
+  printf ( "  R8POLY_LAGRANGE_0 evaluates the Lagrange\n" );
+  printf ( "  factor W(X) at a point.\n" );
+  printf ( "\n" );
+  printf ( "  The number of data points is %d\n", NPOL );
+/*
+  Set the abscissas of the polynomials.
+*/
+  xlo = 0.0E+00;
+  xhi = ( double ) ( NPOL - 1 );
 
-  xpol = r8vec_indicator_new ( NPOL );
+  xpol = r8vec_even_new ( NPOL, xlo, xhi );
 
   r8vec_print ( NPOL, xpol, "  Abscissas:" );
+/*
+  Evaluate W(X).
+*/
+  printf ( "\n" );
+  printf ( "      X          W(X)\n" );
+  printf ( "\n" );
 
-  for ( ipol = 1; ipol <= NPOL; ipol++ )
+  nx = 4 * NPOL - 1;
+
+  for ( ival = 1; ival <= nx; ival++ )
   {
-    pcof = r8poly_lagrange_coef ( NPOL, ipol, xpol );
+    xval = r8vec_even_select ( nx, xlo, xhi, ival );
 
-    r8poly_print ( NPOL-1, pcof, "  The Lagrange basis polynomial:" );
+    wval = r8poly_lagrange_0 ( NPOL, xpol, xval );
 
-    for ( d = 1; d <= NPOL-1; d++ )
-    {
-      pprime = r8poly_deriv ( NPOL-1, pcof, d );
-      printf ( "\n" );
-      printf ( "  The derivative of order %d\n", d );
-      r8poly_print ( NPOL-1-d, pprime, " " );
-      free ( pprime );
-    }
-
-    free ( pcof );
+    printf ( "%12g  %12g\n", xval, wval );
   }
 
   free ( xpol );
@@ -8106,13 +11330,84 @@ void test092 ( )
 }
 /******************************************************************************/
 
-void test093 ( )
+void r8poly_lagrange_1_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST093 tests R8POLY_LAGRANGE_0, R8POLY_LAGRANGE_1 and R8POLY_LAGRANGE_2.
+    R8POLY_LAGRANGE_1_TEST tests R8POLY_LAGRANGE_1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define NPOL 5
+
+  double dwdx;
+  int ival;
+  int nx;
+  double xhi;
+  double xlo;
+  double *xpol;
+  double xval;
+
+  printf ( "\n" );
+  printf ( "R8POLY_LAGRANGE_1_TEST\n" );
+  printf ( "  R8POLY_LAGRANGE_1 evaluates the Lagrange\n" );
+  printf ( "  factor W'(X) at a point.\n" );
+  printf ( "\n" );
+  printf ( "  The number of data points is %d\n", NPOL );
+/*
+  Set the abscissas of the polynomials.
+*/
+  xlo = 0.0E+00;
+  xhi = ( double ) ( NPOL - 1 );
+
+  xpol = r8vec_even_new ( NPOL, xlo, xhi );
+
+  r8vec_print ( NPOL, xpol, "  Abscissas:" );
+/*
+  Evaluate W'(X).
+*/
+  printf ( "\n" );
+  printf ( "      X          W'(X)\n" );
+  printf ( "\n" );
+
+  nx = 4 * NPOL - 1;
+
+  for ( ival = 1; ival <= nx; ival++ )
+  {
+    xval = r8vec_even_select ( nx, xlo, xhi, ival );
+
+    dwdx = r8poly_lagrange_1 ( NPOL, xpol, xval );
+
+    printf ( "%12g  %12g\n", xval, dwdx );
+  }
+
+  free ( xpol );
+
+  return;
+# undef NPOL
+}
+/******************************************************************************/
+
+void r8poly_lagrange_2_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8POLY_LAGRANGE_2_TEST tests R8POLY_LAGRANGE_2.
 
   Licensing:
 
@@ -8130,21 +11425,15 @@ void test093 ( )
 # define NPOL 5
 
   double dw2dx2;
-  double dwdx;
   int ival;
   int nx;
-  double wval;
   double xhi;
   double xlo;
   double *xpol;
   double xval;
 
   printf ( "\n" );
-  printf ( "TEST093\n" );
-  printf ( "  R8POLY_LAGRANGE_0 evaluates the Lagrange\n" );
-  printf ( "  factor W(X) at a point.\n" );
-  printf ( "  R8POLY_LAGRANGE_1 evaluates the Lagrange\n" );
-  printf ( "  factor W'(X) at a point.\n" );
+  printf ( "R8POLY_LAGRANGE_2_TEST\n" );
   printf ( "  R8POLY_LAGRANGE_2 evaluates the Lagrange\n" );
   printf ( "  factor W''(X) at a point.\n" );
   printf ( "\n" );
@@ -8162,7 +11451,7 @@ void test093 ( )
   Evaluate W(X), W'(X), W''.
 */
   printf ( "\n" );
-  printf ( "      X          W(X)          W'(X)        W''(X)\n" );
+  printf ( "      X          W''(X)\n" );
   printf ( "\n" );
 
   nx = 4 * NPOL - 1;
@@ -8171,11 +11460,9 @@ void test093 ( )
   {
     xval = r8vec_even_select ( nx, xlo, xhi, ival );
 
-    wval = r8poly_lagrange_0 ( NPOL, xpol, xval );
-    dwdx = r8poly_lagrange_1 ( NPOL, xpol, xval );
     dw2dx2 = r8poly_lagrange_2 ( NPOL, xpol, xval );
 
-    printf ( "%12g  %12g  %12g  %12g\n", xval, wval, dwdx, dw2dx2 );
+    printf ( "%12g  %12g\n", xval, dw2dx2 );
   }
 
   free ( xpol );
@@ -8185,13 +11472,13 @@ void test093 ( )
 }
 /******************************************************************************/
 
-void test094 ( )
+void r8poly_lagrange_factor_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST094 tests R8POLY_LAGRANGE_FACTOR.
+    R8POLY_LAGRANGE_FACTOR_TEST tests R8POLY_LAGRANGE_FACTOR.
 
   Licensing:
 
@@ -8217,7 +11504,7 @@ void test094 ( )
   double xval;
 
   printf ( "\n" );
-  printf ( "TEST094\n" );
+  printf ( "R8POLY_LAGRANGE_FACTOR_TEST\n" );
   printf ( "  R8POLY_LAGRANGE_FACTOR evaluates the Lagrange\n" );
   printf ( "  factor W(X) at a point.\n" );
   printf ( "\n" );
@@ -8255,13 +11542,13 @@ void test094 ( )
 }
 /******************************************************************************/
 
-void test095 ( )
+void r8poly_lagrange_val_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST095 tests R8POLY_LAGRANGE_VAL.
+    R8POLY_LAGRANGE_VAL_TEST tests R8POLY_LAGRANGE_VAL.
 
   Licensing:
 
@@ -8289,7 +11576,7 @@ void test095 ( )
   double xval;
 
   printf ( "\n" );
-  printf ( "TEST095\n" );
+  printf ( "R8POLY_LAGRANGE_VAL_TEST\n" );
   printf ( "  R8POLY_LAGRANGE_VAL evaluates a Lagrange\n" );
   printf ( "  interpolating polynomial at a point.\n" );
   printf ( "\n" );
@@ -8351,13 +11638,13 @@ void test095 ( )
 }
 /******************************************************************************/
 
-void test098 ( )
+void r8poly_print_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST098 tests R8POLY_VALUE_HORNER.
+    R8POLY_PRINT_TEST tests R8POLY_PRINT.
 
   Licensing:
 
@@ -8365,50 +11652,143 @@ void test098 ( )
 
   Modified:
 
-    15 June 2012
+    03 January 2015
 
   Author:
 
     John Burkardt
 */
 {
-# define N 4
-
-  int i;
-  double p[N+1] = { 24.0, -50.0, +35.0, -10.0, 1.0 };
-  double pval;
-  double x;
+  double c[6] = { 2.0, -3.4, 56.0, 0.0, 0.78, 9.0 };
+  int m = 5;
 
   printf ( "\n" );
-  printf ( "TEST098\n" );
-  printf ( "  R8POLY_VALUE_HORNER evaluates a polynomial at a\n" );
+  printf ( "R8POLY_PRINT_TEST\n" );
+  printf ( "  R8POLY_PRINT prints an R8POLY.\n" );
+
+  r8poly_print ( m, c, "  The R8POLY:" );
+
+  return;
+}
+/******************************************************************************/
+
+void r8poly_value_horner_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8POLY_VALUE_HORNER_TEST tests R8POLY_VALUE_HORNER.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double c[5] = { 24.0, -50.0, +35.0, -10.0, 1.0 };
+  int i;
+  int m = 4;
+  int n = 16;
+  double p;
+  double *x;
+  double x_hi;
+  double x_lo;
+
+  printf ( "\n" );
+  printf ( "R8POLY_VALUE_HORNER_TEST\n" );
+  printf ( "  R8POLY_VALUE_HORNER evaluates a polynomial at\n" );
+  printf ( "  one point, using Horner's method.\n" );
+
+  r8poly_print ( m, c, "  The polynomial coefficients:" );
+
+  x_lo = 0.0;
+  x_hi = 5.0;
+  x = r8vec_linspace_new ( n, x_lo, x_hi );
+
+  printf ( "\n" );
+  printf ( "   I    X    P(X)\n" );
+  printf ( "\n" );
+
+  for ( i = 0; i < n; i++ )
+  {
+    p = r8poly_value_horner ( m, c, x[i] );
+    printf ( "  %2d  %8.4f  %14.6g\n", i, x[i], p );
+  }
+
+  free ( x );
+
+  return;
+}
+/******************************************************************************/
+
+void r8poly_values_horner_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8POLY_VALUES_HORNER_TEST tests R8POLY_VALUE_HORNER.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 December 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double c[5] = { 24.0, -50.0, +35.0, -10.0, 1.0 };
+  int i;
+  int m = 4;
+  int n = 16;
+  double *p;
+  double *x;
+  double x_hi;
+  double x_lo;
+
+  printf ( "\n" );
+  printf ( "R8POLY_VALUES_HORNER_TEST\n" );
+  printf ( "  R8POLY_VALUES_HORNER evaluates a polynomial at a\n" );
   printf ( "  point, using Horner's method.\n" );
 
-  r8poly_print ( N, p, "  The polynomial:" );
+  r8poly_print ( m, c, "  The polynomial:" );
 
-  printf ( "\n" );
-  printf ( "        X            P(X)\n" );
-  printf ( "\n" );
+  x_lo = 0.0;
+  x_hi = 5.0;
+  x = r8vec_linspace_new ( n, x_lo, x_hi );
 
-  for ( i = 0; i <= 15; i++ )
-  {
-    x = ( double ) ( i ) / 3.0;
-    pval = r8poly_value_horner ( N, p, x );
-    printf ( "  %14g  %14g\n", x, pval );
-  }
+  p = r8poly_values_horner ( m, c, n, x );
+
+  r8vec2_print ( n, x, p, "  X, P(X):" );
+
+  free ( p );
+  free ( x );
 
   return;
 # undef N
 }
 /******************************************************************************/
 
-void test099 ( )
+void r8poly2_ex_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST099 tests R8POLY2_EX and R8POLY2_EX2.
+    R8POLY2_EX_TEST tests R8POLY2_EX.
 
   Licensing:
 
@@ -8437,10 +11817,8 @@ void test099 ( )
   double ymin;
 
   printf ( "\n" );
-  printf ( "TEST099\n" );
+  printf ( "R8POLY2_EX_TEST\n" );
   printf ( "  R8POLY2_EX finds the extreme value\n" );
-  printf ( "  of a parabola determined by three points.\n" );
-  printf ( "  R8POLY2_EX2 finds the extreme value\n" );
   printf ( "  of a parabola determined by three points.\n" );
 
   a =  2.0;
@@ -8480,6 +11858,73 @@ void test099 ( )
     printf ( "  R8POLY2_EX returns error code %d.\n", ierror );
   }
 
+  return;
+}
+/******************************************************************************/
+
+void r8poly2_ex2_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8POLY2_EX2_TEST tests R8POLY2_EX2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  double c;
+  int ierror;
+  double x1;
+  double x2;
+  double x3;
+  double xmin;
+  double y1;
+  double y2;
+  double y3;
+  double ymin;
+
+  printf ( "\n" );
+  printf ( "R8POLY2_EX2_TEST\n" );;
+  printf ( "  R8POLY2_EX2 finds the extreme value\n" );
+  printf ( "  of a parabola determined by three points.\n" );
+
+  a =  2.0;
+  b = -4.0;
+  c = 10.0;
+
+  x1 = 1.0;
+  y1 = a * x1 * x1 + b * x1 + c;
+  x2 = 2.0;
+  y2 = a * x2 * x2 + b * x2 + c;
+  x3 = 3.0;
+  y3 = a * x3 * x3 + b * x3 + c;
+
+  printf ( "\n" );
+  printf ( "  Parabolic coefficients A = %g, B = %g, c = %g\n", a, b, c );
+  printf ( "\n" );
+  printf ( "  X, Y data:\n" );
+  printf ( "\n" );
+  printf ( "  %10g.4  %10g.4\n", x1, y1 );
+  printf ( "  %10g.4  %10g.4\n", x2, y2 );
+  printf ( "  %10g.4  %10g.4\n", x3, y3 );
+
+  a = 0.0;
+  b = 0.0;
+  c = 0.0;
+
   ierror = r8poly2_ex2 ( x1, y1, x2, y2, x3, y3, &xmin, &ymin, &a, &b, &c );
 
   if ( ierror == 0 )
@@ -8498,13 +11943,13 @@ void test099 ( )
 }
 /******************************************************************************/
 
-void test100 ( )
+void r8poly2_val_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST100 tests R8POLY2_VAL.
+    R8POLY2_VAL_TEST tests R8POLY2_VAL.
 
   Licensing:
 
@@ -8532,7 +11977,7 @@ void test100 ( )
   double ypp;
 
   printf ( "\n" );
-  printf ( "TEST100\n" );
+  printf ( "R8POLY2_VAL_TEST\n" );
   printf ( "  R8POLY2_VAL evaluates a parabola given\n" );
   printf ( "  3 data points.\n" );
   printf ( "\n" );
@@ -8545,9 +11990,9 @@ void test100 ( )
   x2 = 1.0;
   x3 = 3.0;
 
-  test100_f ( x1, &y1, &yp, &ypp );
-  test100_f ( x2, &y2, &yp, &ypp );
-  test100_f ( x3, &y3, &yp, &ypp );
+  r8poly2_f ( x1, &y1, &yp, &ypp );
+  r8poly2_f ( x2, &y2, &yp, &ypp );
+  r8poly2_f ( x3, &y3, &yp, &ypp );
 
   printf ( "  %g  %g\n", x1, y1 );
   printf ( "  %g  %g\n", x2, y2 );
@@ -8573,8 +12018,8 @@ void test100 ( )
   x2 = -1.0;
   x3 = 3.0;
 
-  test100_f ( x1, &y1, &y2, &ypp );
-  test100_f ( x3, &y3, &yp, &ypp );
+  r8poly2_f ( x1, &y1, &y2, &ypp );
+  r8poly2_f ( x3, &y3, &yp, &ypp );
 
   printf ( "  %g  %g\n", x1, y1 );
   printf ( "  %g  %g\n", x2, y2 );
@@ -8600,7 +12045,7 @@ void test100 ( )
   x2 = -1.0;
   x3 = -1.0;
 
-  test100_f ( x1, &y1, &y2, &y3 );
+  r8poly2_f ( x1, &y1, &y2, &y3 );
 
   printf ( "  %g  %g\n", x1, y1 );
   printf ( "  %g  %g\n", x2, y2 );
@@ -8622,13 +12067,13 @@ void test100 ( )
 }
 /******************************************************************************/
 
-void test100_f ( double x, double *y, double *yp, double *ypp )
+void r8poly2_f ( double x, double *y, double *yp, double *ypp )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST100_F evaluates a parabola for us.
+    R8POLY2_F evaluates a parabola for us.
 
   Licensing:
 
@@ -8651,13 +12096,13 @@ void test100_f ( double x, double *y, double *yp, double *ypp )
 }
 /******************************************************************************/
 
-void test101 ( )
+void r8poly2_val2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST101 tests R8POLY2_VAL2.
+    R8POLY2_VAL2_TEST tests R8POLY2_VAL2.
 
   Licensing:
 
@@ -8684,7 +12129,7 @@ void test101 ( )
   double zval;
 
   printf ( "\n" );
-  printf ( "TEST101\n" );
+  printf ( "R8POLY2_VAL2_TEST\n" );
   printf ( "  R8POLY2_VAL2 evaluates parabolas through\n" );
   printf ( "  3 points in a table\n" );
   printf ( "\n" );
@@ -8731,13 +12176,306 @@ void test101 ( )
 }
 /******************************************************************************/
 
-void test105 ( )
+void r8rmat_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST105 tests R8ROW_MAX and R8ROW_MIN;
+    R8RMAT_NEW_TEST tests R8RMAT_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 September 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double **a;
+  double **b;
+  int i;
+  int j;
+  int k;
+  int m;
+  int n;
+
+  printf ( "\n" );
+  printf ( "R8RMAT_NEW_TEST:\n" );
+  printf ( "  R8RMAT_NEW dynamically creates a 2D row major array.\n" );
+  printf ( "  Array entries can be addressed using the\n" );
+  printf ( "  notation \"a[i][j]\".\n" );
+/*
+  These dimensions could be entered by the user; they could depend on
+  some other calculation; or they could be changed repeatedly during this
+  computation, as long as old memory is deleted by R8RMAT_DELETE and new memory
+  requested by R8RMAT_NEW.
+*/
+  m = 4;
+  n = 5;
+/*
+  Allocate memory.
+*/
+  printf ( "\n" );
+  printf ( "  Allocating memory for array A of size %d by %d.\n", m, n );
+
+  a = r8rmat_new ( m, n );
+
+  printf ( "\n" );
+  printf ( "  Assigning values to A.\n" );
+/*
+  Store values in A.
+*/
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      a[i][j] = ( double ) ( 10 * i + j );
+    }
+  }
+/*
+  Print A.
+*/
+  printf ( "\n" );
+  printf ( "  Dynamically allocated matrix A:\n" );
+  printf ( "\n" );
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      printf ( "  %8g", a[i][j] );
+    }
+    printf ( "\n" );
+  }
+/*
+  Create a new matrix B to store A' * A.
+*/
+  b = r8rmat_new ( n, n );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      b[i][j] = 0.0;
+      for ( k = 0; k < m; k++ )
+      {
+        b[i][j] = b[i][j] + a[k][i] * a[k][j];
+      }
+    }
+  }
+/*
+  Print the matrix.
+*/
+  printf ( "\n" );
+  printf ( "  Dynamically allocated matrix B = A' * A:\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      printf ( "  %8g", b[i][j] );
+    }
+    printf ( "\n" );
+  }
+/*
+  Free memory.
+*/
+  r8rmat_delete ( m, n, a );
+  r8rmat_delete ( n, n, b );
+
+  return;
+}
+/******************************************************************************/
+
+void r8rmat_to_r8mat_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RMAT_TO_R8MAT_TEST tests R8RMAT_TO_R8MAT;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double **b;
+  double *c;
+  int m = 5;
+  int n = 4;
+
+  printf ( "\n" );
+  printf ( "R8RMAT_TO_R8MAT_TEST\n" );
+  printf ( "  R8RMAT_TO_R8MAT converts an R8RMAT to an R8MAT.\n" );
+  printf ( "\n" );
+  printf ( "  Data is of order (%d,%d).\n", m, n );
+/*
+  Set the R8MAT.
+*/
+  a = r8mat_indicator_new ( m, n );
+  r8mat_print ( m, n, a, "  The R8MAT A:" );
+/*
+  Convert.
+*/
+  b = r8mat_to_r8rmat ( m, n, a );
+  r8rmat_print ( m, n, b, "  The R8RMAT B:" );
+/*
+  Recover the matrix.
+*/
+  c = r8rmat_to_r8mat ( m, n, b );
+  r8mat_print ( m, n, c, "  The R8MAT C:" );
+/*
+  Free memory.
+*/
+  free ( a );
+  r8rmat_delete ( m, n, b );
+  free ( c );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8row_max_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8ROW_MAX_TEST tests R8ROW_MAX.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define M 3
+# define N 4
+
+  double a[M*N];
+  double *amax;
+  int i;
+  int j;
+  int k;
+
+  printf ( "\n" );
+  printf ( "R8ROW_MAX_TEST\n" );
+  printf ( "  For an R8ROW (a matrix regarded as rows):\n" );
+  printf ( "  R8ROW_MAX computes maximums;\n" );
+
+  k = 0;
+  for ( i = 0; i < M; i++ )
+  {
+    for ( j = 0; j < N; j++ )
+    {
+      k = k + 1;
+      a[i+j*M] = ( double ) k;
+    }
+  }
+
+  r8mat_print ( M, N, a, "  The original matrix:" );
+
+  amax = r8row_max ( M, N, a );
+
+  r8vec_print ( M, amax, "  Row maximums:" );
+
+  free ( amax );
+
+  return;
+# undef M
+# undef N
+}
+/******************************************************************************/
+
+void r8row_mean_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8ROW_MEAN_TEST tests R8ROW_MEAN ;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define M 3
+# define N 4
+
+  double a[M*N];
+  int i;
+  int j;
+  int k;
+  double *mean;
+
+  printf ( "\n" );
+  printf ( "R8ROW_MEAN_TEST\n" );
+  printf ( "  For an R8ROW (a matrix regarded as rows):\n" );
+  printf ( "  R8ROW_MEAN computes means;\n" );
+
+  k = 0;
+  for ( i = 0; i < M; i++ )
+  {
+    for ( j = 0; j < N; j++ )
+    {
+      k = k + 1;
+      a[i+j*M] = ( double ) k;
+    }
+  }
+
+  r8mat_print ( M, N, a, "  The original matrix:" );
+
+  mean = r8row_mean ( M, N, a );
+
+  r8vec_print ( M, mean, "  The row means:" );
+
+  free ( mean );
+
+  return;
+# undef M
+# undef N
+}
+/******************************************************************************/
+
+void r8row_min_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8ROW_MIN_TEST tests R8ROW_MIN;
 
   Licensing:
 
@@ -8763,9 +12501,8 @@ void test105 ( )
   int k;
 
   printf ( "\n" );
-  printf ( "TEST105\n" );
+  printf ( "R8ROW_MIN_TEST\n" );
   printf ( "  For an R8ROW (a matrix regarded as rows):\n" );
-  printf ( "  R8ROW_MAX computes maximums;\n" );
   printf ( "  R8ROW_MIN computes minimums;\n" );
 
   k = 0;
@@ -8780,20 +12517,10 @@ void test105 ( )
 
   r8mat_print ( M, N, a, "  The original matrix:" );
 
-  amax = r8row_max ( M, N, a );
-
   amin = r8row_min ( M, N, a );
 
-  printf ( "\n" );
-  printf ( "  Row maximum, minimum:\n" );
-  printf ( "\n" );
+  r8vec_print ( M, amin, "  Row minimums:" );
 
-  for ( i = 0; i < M; i++ )
-  {
-    printf ( "  %3d  %10g  %10g\n", i+1, amax[i], amin[i] );
-  }
-
-  free ( amax );
   free ( amin );
 
   return;
@@ -8802,13 +12529,13 @@ void test105 ( )
 }
 /******************************************************************************/
 
-void test106 ( )
+void r8row_sum_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST106 tests R8ROW_MEAN and R8ROW_SUM;
+    R8ROW_SUM_TEST tests R8ROW_SUM;
 
   Licensing:
 
@@ -8830,13 +12557,11 @@ void test106 ( )
   int i;
   int j;
   int k;
-  double *mean;
   double *rowsum;
 
   printf ( "\n" );
-  printf ( "TEST106\n" );
+  printf ( "R8ROW_SUM_TEST\n" );
   printf ( "  For an R8ROW (a matrix regarded as rows):\n" );
-  printf ( "  R8ROW_MEAN computes means;\n" );
   printf ( "  R8ROW_SUM computes sums;\n" );
 
   k = 0;
@@ -8853,19 +12578,9 @@ void test106 ( )
 
   rowsum = r8row_sum ( M, N, a );
 
-  mean = r8row_mean ( M, N, a );
-
-  printf ( "\n" );
-  printf ( "  Row sum, mean:\n" );
-  printf ( "\n" );
-
-  for ( i = 0; i < M; i++ )
-  {
-    printf ( "  %3d  %10g  %10g\n", i+1, rowsum[i], mean[i] );
-  }
+  r8vec_print ( M, rowsum, "  The row sums:" );
 
   free ( rowsum );
-  free ( mean );
 
   return;
 # undef M
@@ -8873,13 +12588,13 @@ void test106 ( )
 }
 /******************************************************************************/
 
-void test107 ( )
+void r8row_swap_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST107 tests R8ROW_SWAP;
+    R8ROW_SWAP_TEST tests R8ROW_SWAP;
 
   Licensing:
 
@@ -8905,7 +12620,7 @@ void test107 ( )
   int k;
 
   printf ( "\n" );
-  printf ( "TEST107\n" );
+  printf ( "R8ROW_SWAP_TEST\n" );
   printf ( "  For an R8ROW (a matrix regarded as rows):\n" );
   printf ( "  R8ROW_SWAP swaps two rows;\n" );
 
@@ -8937,13 +12652,13 @@ void test107 ( )
 }
 /******************************************************************************/
 
-void test108 ( )
+void r8row_to_r8vec_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST108 tests R8ROW_TO_R8VEC.
+    R8ROW_TO_R8VEC_TEST tests R8ROW_TO_R8VEC.
 
   Licensing:
 
@@ -8968,7 +12683,7 @@ void test108 ( )
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST108\n" );
+  printf ( "R8ROW_TO_R8VEC_TEST\n" );
   printf ( "  R8ROW_TO_R8VEC converts an array of rows into a vector.\n" );
 
   for ( i = 0; i < M; i++ )
@@ -8994,13 +12709,13 @@ void test108 ( )
 }
 /******************************************************************************/
 
-void test109 ( )
+void r8row_variance_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST109 tests R8ROW_VARIANCE.
+    R8ROW_VARIANCE_TEST tests R8ROW_VARIANCE.
 
   Licensing:
 
@@ -9025,7 +12740,7 @@ void test109 ( )
   double *variance;
 
   printf ( "\n" );
-  printf ( "TEST109\n" );
+  printf ( "R8ROW_VARIANCE_TEST\n" );
   printf ( "  For an R8ROW (a matrix regarded as rows):\n" );
   printf ( "  R8ROW_VARIANCE computes variances;\n" );
 
@@ -9060,13 +12775,13 @@ void test109 ( )
 }
 /******************************************************************************/
 
-void test110 ( )
+void r8slmat_print_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST110 tests R8SLMAT_PRINT.
+    R8SLMAT_PRINT_TEST tests R8SLMAT_PRINT.
 
   Licensing:
 
@@ -9108,7 +12823,7 @@ void test110 ( )
   int test;
 
   printf ( "\n" );
-  printf ( "TEST110\n" );
+  printf ( "R8SLMAT_PRINT_TEST\n" );
   printf ( "  R8SLMAT_PRINT prints a strictly lower triangular matrix\n" );
   printf ( "  stored compactly.  Only the (possibly) nonzero \n" );
   printf ( "  elements are printed.\n" );
@@ -9143,13 +12858,13 @@ void test110 ( )
 }
 /******************************************************************************/
 
-void test111 ( )
+void r8vec_amax_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST111 tests R8VEC_AMAX and R8VEC_AMIN;
+    R8VEC_AMAX_TEST tests R8VEC_AMAX.
 
   Licensing:
 
@@ -9173,10 +12888,9 @@ void test111 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST111\n" );
+  printf ( "R8VEC_AMAX_TEST\n" );
   printf ( "  For an R8VEC:\n" );
   printf ( "  R8VEC_AMAX:      maximum magnitude entry;\n" );
-  printf ( "  R8VEC_AMIN:      minimum magnitude entry.\n" );
 
   b = - ( double ) N;
   c =  ( double ) N;
@@ -9192,6 +12906,58 @@ void test111 ( )
   aval = r8vec_amax ( N, a );
   printf ( "  Maximum absolute:         %g\n", aval );
 
+  free ( a );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8vec_amin_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_AMIN_TEST tests R8VEC_AMIN;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N 10
+
+  double *a;
+  double aval;
+  double b;
+  double c;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_AMIN_TEST\n" );
+  printf ( "  For an R8VEC:\n" );
+  printf ( "  R8VEC_AMIN:      minimum magnitude entry.\n" );
+
+  b = - ( double ) N;
+  c =  ( double ) N;
+
+  seed = 123456789;
+
+  a = r8vec_uniform_ab_new ( N, b, c, &seed );
+
+  r8vec_print ( N, a, "  Input vector:" );
+
+  printf ( "\n" );
+
   aval = r8vec_amin ( N, a );
   printf ( "  Minimum absolute:         %g\n", aval );
 
@@ -9202,13 +12968,13 @@ void test111 ( )
 }
 /******************************************************************************/
 
-void test112 ( )
+void r8vec_bracket_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST112 tests R8VEC_BRACKET.
+    R8VEC_BRACKET_TEST tests R8VEC_BRACKET.
 
   Licensing:
 
@@ -9235,7 +13001,7 @@ void test112 ( )
   double xval;
 
   printf ( "\n" );
-  printf ( "TEST112\n" );
+  printf ( "R8VEC_BRACKET_TEST\n" );
   printf ( "  R8VEC_BRACKET finds a pair of entries in a\n" );
   printf ( "  sorted real array which bracket a value.\n" );
 
@@ -9267,13 +13033,13 @@ void test112 ( )
 }
 /******************************************************************************/
 
-void test113 ( )
+void r8vec_bracket2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST113 tests R8VEC_BRACKET2.
+    R8VEC_BRACKET2_TEST tests R8VEC_BRACKET2.
 
   Licensing:
 
@@ -9301,7 +13067,7 @@ void test113 ( )
   double xval;
 
   printf ( "\n" );
-  printf ( "TEST113\n" );
+  printf ( "R8VEC_BRACKET2_TEST\n" );
   printf ( "  R8VEC_BRACKET2 finds a pair of entries in a\n" );
   printf ( "  sorted R8VEC which bracket a value.\n" );
 
@@ -9353,13 +13119,13 @@ void test113 ( )
 }
 /******************************************************************************/
 
-void test114 ( )
+void r8vec_bracket3_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST114 tests R8VEC_BRACKET3.
+    R8VEC_BRACKET3_TEST tests R8VEC_BRACKET3.
 
   Licensing:
 
@@ -9385,7 +13151,7 @@ void test114 ( )
   double xval;
 
   printf ( "\n" );
-  printf ( "TEST114\n" );
+  printf ( "R8VEC_BRACKET3_TEST\n" );
   printf ( "  R8VEC_BRACKET3 finds a pair of entries in a\n" );
   printf ( "  sorted real array which bracket a value.\n" );
 
@@ -9421,13 +13187,13 @@ void test114 ( )
 }
 /******************************************************************************/
 
-void test1143 ( )
+void r8vec_bracket5_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1143 tests R8VEC_BRACKET5.
+    R8VEC_BRACKET5_TEST tests R8VEC_BRACKET5.
 
   Licensing:
 
@@ -9452,11 +13218,11 @@ void test1143 ( )
   double xval;
 
   printf ( "\n" );
-  printf ( "TEST1143\n" );
+  printf ( "R8VEC_BRACKET5_TEST\n" );
   printf ( "  R8VEC_BRACKET5 finds a pair of entries in a\n" );
   printf ( "  sorted R8VEC which bracket a value.\n" );
 
-  x = r8vec_indicator_new ( n );
+  x = r8vec_indicator1_new ( n );
   x[5] = x[4];
 
   r8vec_print ( n, x, "  Sorted array:" );
@@ -9491,13 +13257,13 @@ void test1143 ( )
 }
 /******************************************************************************/
 
-void test1145 ( void )
+void r8vec_chebyspace_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1145 tests R8VEC_CHEBYSPACE_NEW.
+    R8VEC_CHEBYSPACE_NEW_TEST tests R8VEC_CHEBYSPACE_NEW.
 
   Licensing:
 
@@ -9518,7 +13284,7 @@ void test1145 ( void )
   double r2;
 
   printf ( "\n" );
-  printf ( "TEST1145\n" );
+  printf ( "R8VEC_CHEBYSPACE_NEW_TEST\n" );
   printf ( "  R8VEC_CHEBYSPACE_NEW computes N Chebyshev points in [R1,R2].\n" );
 
   r1 = -1.0;
@@ -9551,13 +13317,57 @@ void test1145 ( void )
 }
 /******************************************************************************/
 
-void test1147 ( void )
+void r8vec_concatenate_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1147 tests R8VEC_CONVOLUTION
+    R8VEC_CONCATENATE_NEW_TEST tests R8VEC_CONCATENATE_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 October 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int n1 = 5;
+  int n2 = 3;
+  int n3 = n1 + n2;
+
+  double a1[5] = { 91.1, 31.2, 71.3, 51.4, 31.5 };
+  double a2[3] = { 42.6, 22.7, 12.8 };
+  double *a3;
+
+  printf ( "\n" );
+  printf ( "R8VEC_CONCATENATE_NEW_TEST\n" );
+  printf ( "  R8VEC_CONCATENATE_NEW concatenates two R8VECs\n" );
+
+  r8vec_print ( n1, a1, "  Array 1:" );
+  r8vec_print ( n2, a2, "  Array 2:" );
+  a3 = r8vec_concatenate_new ( n1, a1, n2, a2 );
+  r8vec_print ( n3, a3, "  Array 3 = Array 1 + Array 2:" );
+
+  free ( a3 );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_convolution_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_CONVOLUTION_TEST tests R8VEC_CONVOLUTION
 
   Licensing:
 
@@ -9584,7 +13394,7 @@ void test1147 ( void )
   double z_correct[M+N-1] = { -1.0, 3.0, 10.0, 17.0, 29.0, 12.0 };
 
   printf ( "\n" );
-  printf ( "TEST1147\n" );
+  printf ( "R8VEC_CONVOLUTION_TEST\n" );
   printf ( "  R8VEC_CONVOLUTION computes the convolution\n" );
   printf ( "  of two vectors.\n" );
 
@@ -9605,13 +13415,13 @@ void test1147 ( void )
 }
 /******************************************************************************/
 
-void test115 ( void )
+void r8vec_convolution_circ_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST115 tests R8VEC_CONVOLUTION_CIRC
+    R8VEC_CONVOLUTION_CIRC_TEST tests R8VEC_CONVOLUTION_CIRC
 
   Licensing:
 
@@ -9634,7 +13444,7 @@ void test115 ( void )
   double z_correct[N] = { 37.0, 44.0, 43.0, 26.0 };
 
   printf ( "\n" );
-  printf ( "TEST115\n" );
+  printf ( "R8VEC_CONVOLUTION_CIRC_TEST\n" );
   printf ( "  R8VEC_CONVOLUTION_CIRC computes the circular convolution\n" );
   printf ( "  of two vectors.\n" );
 
@@ -9654,13 +13464,13 @@ void test115 ( void )
 }
 /******************************************************************************/
 
-void test116 ( )
+void r8vec_dif_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST116 tests R8VEC_DIF.
+    R8VEC_DIF_TEST tests R8VEC_DIF.
 
   Licensing:
 
@@ -9684,7 +13494,7 @@ void test116 ( )
   double xi;
 
   printf ( "\n" );
-  printf ( "TEST116\n" );
+  printf ( "R8VEC_DIF_TEST\n" );
   printf ( "  R8VEC_DIF estimates derivatives.\n" );
   printf ( "\n" );
   printf ( "  Estimate the derivative of order N = %d\n", n );
@@ -9701,7 +13511,7 @@ void test116 ( )
   for ( i = 0; i <= n; i++ )
   {
     xi = x + ( double ) ( 2 * i - n ) * h;
-    fdif = fdif + cof[i] * test116_f ( xi );
+    fdif = fdif + cof[i] * r8vec_dif_f ( xi );
   }
 
   printf ( "\n" );
@@ -9713,13 +13523,13 @@ void test116 ( )
 }
 /******************************************************************************/
 
-double test116_f ( double x )
+double r8vec_dif_f ( double x )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST116_F evaluates the function used in TEST116.
+    R8VEC_DIF_F evaluates the function used in R8VEC_DIF_TEST.
 
   Licensing:
 
@@ -9742,13 +13552,13 @@ double test116_f ( double x )
 }
 /******************************************************************************/
 
-void test1165 ( )
+void r8vec_direct_product_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1165 tests R8VEC_DIRECT_PRODUCT.
+    R8VEC_DIRECT_PRODUCT_TEST tests R8VEC_DIRECT_PRODUCT.
 
   Licensing:
 
@@ -9774,7 +13584,7 @@ void test1165 ( )
   double x[factor_num*point_num];
 
   printf ( "\n" );
-  printf ( "TEST1165\n" );
+  printf ( "R8VEC_DIRECT_PRODUCT_TEST\n" );
   printf ( "  R8VEC_DIRECT_PRODUCT forms the entries of a\n" );
   printf ( "  direct product of a given number of R8VEC factors.\n" );
 
@@ -9837,13 +13647,13 @@ void test1165 ( )
 }
 /******************************************************************************/
 
-void test1166 ( )
+void r8vec_direct_product2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1166 tests R8VEC_DIRECT_PRODUCT2.
+    R8VEC_DIRECT_PRODUCT2_TEST tests R8VEC_DIRECT_PRODUCT2.
 
   Licensing:
 
@@ -9869,7 +13679,7 @@ void test1166 ( )
   double w[point_num];
 
   printf ( "\n" );
-  printf ( "TEST1166\n" );
+  printf ( "R8VEC_DIRECT_PRODUCT2_TEST\n" );
   printf ( "  R8VEC_DIRECT_PRODUCT2 forms the entries of a\n" );
   printf ( "  direct product of a given number of R8VEC factors.\n" );
 
@@ -9924,13 +13734,13 @@ void test1166 ( )
 }
 /******************************************************************************/
 
-void test117 ( )
+void r8vec_even_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST117 tests R8VEC_EVEN.
+    R8VEC_EVEN_TEST tests R8VEC_EVEN.
 
   Licensing:
 
@@ -9952,7 +13762,7 @@ void test117 ( )
   double xlo = 0.0;
 
   printf ( "\n" );
-  printf ( "TEST117\n" );
+  printf ( "R8VEC_EVEN_TEST\n" );
   printf ( "  R8VEC_EVEN computes N evenly spaced values\n" );
   printf ( "  between XLO and XHI.\n" );
   printf ( "\n" );
@@ -9971,13 +13781,13 @@ void test117 ( )
 }
 /******************************************************************************/
 
-void test118 ( )
+void r8vec_even2_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST118 tests R8VEC_EVEN2.
+    R8VEC_EVEN2_TEST tests R8VEC_EVEN2.
 
   Licensing:
 
@@ -10004,7 +13814,7 @@ void test118 ( )
   double xval[MAXVAL];
 
   printf ( "\n" );
-  printf ( "TEST118:\n" );
+  printf ( "R8VEC_EVEN2_TEST:\n" );
   printf ( "  R8VEC_EVEN2 interpolates a specified number of\n" );
   printf ( "  points pairs of values in a vector.\n" );
   printf ( "\n" );
@@ -10051,13 +13861,13 @@ void test118 ( )
 }
 /******************************************************************************/
 
-void test120 ( )
+void r8vec_expand_linear_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST120 tests R8VEC_EXPAND_LINEAR.
+    R8VEC_EXPAND_LINEAR_TEST tests R8VEC_EXPAND_LINEAR.
 
   Licensing:
 
@@ -10080,7 +13890,7 @@ void test120 ( )
   double *xfat;
 
   printf ( "\n" );
-  printf ( "TEST120\n" );
+  printf ( "R8VEC_EXPAND_LINEAR_TEST\n" );
   printf ( "  R8VEC_EXPAND_LINEAR linearly interpolates new data\n" );
   printf ( "  between old values.\n" );
   printf ( "\n" );
@@ -10103,13 +13913,13 @@ void test120 ( )
 }
 /******************************************************************************/
 
-void test121 ( )
+void r8vec_frac_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST121 tests R8VEC_FRAC.
+    R8VEC_FRAC_TEST tests R8VEC_FRAC.
 
   Licensing:
 
@@ -10132,7 +13942,7 @@ void test121 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST121\n" );
+  printf ( "R8VEC_FRAC_TEST\n" );
   printf ( "  R8VEC_FRAC: K-th smallest R8VEC entry;\n" );
 
   seed = 123456789;
@@ -10158,13 +13968,13 @@ void test121 ( )
 }
 /******************************************************************************/
 
-void test122 ( )
+void r8vec_histogram_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST122 tests R8VEC_HISTOGRAM.
+    R8VEC_HISTOGRAM_TEST tests R8VEC_HISTOGRAM.
 
   Licensing:
 
@@ -10194,7 +14004,7 @@ void test122 ( )
   int test_num = 2;
 
   printf ( "\n" );
-  printf ( "TEST122\n" );
+  printf ( "R8VEC_HISTOGRAM_TEST\n" );
   printf ( "  R8VEC_HISTOGRAM histograms a real vector.\n" );
 
   for ( test = 1; test <= test_num; test++ )
@@ -10256,13 +14066,95 @@ void test122 ( )
 }
 /******************************************************************************/
 
-void test123 ( )
+void r8vec_house_column_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST123 tests R8VEC_INDEX_INSERT, R8VEC_INDEX_DELETE_ALL, R8VEC_INDEX_DELETE_DUPES.
+    R8VEC_HOUSE_COLUMN_TEST tests R8VEC_HOUSE_COLUMN.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double b = 0.0;
+  double c = 5.0;
+  double *h;
+  double *ha;
+  int i;
+  int j;
+  int k;
+  int n = 4;
+  int seed;
+  double *v;
+
+  printf ( "\n" );
+  printf ( "R8VEC_HOUSE_COLUMN_TEST\n" );
+  printf ( "  R8VEC_HOUSE_COLUMN returns the compact form of\n" );
+  printf ( "  a Householder matrix that packs a column\n" );
+  printf ( "  of a matrix.\n" );
+/*
+  Get a random matrix.
+*/
+  seed = 123456789;
+
+  a = r8mat_uniform_ab_new ( n, n, b, c, &seed );
+
+  r8mat_print ( n, n, a, "  Matrix A:" );
+
+  for ( k = 1; k <= n-1; k++ )
+  {
+    printf ( "\n" );
+    printf ( "  Working on column K = %d\n", k );
+
+    v = r8vec_house_column ( n, a+(k-1)*n, k );
+
+    h = r8mat_house_form ( n, v );
+
+    r8mat_print ( n, n, h, "  Householder matrix H:" );
+
+    ha = r8mat_mm_new ( n, n, n, h, a );
+
+    r8mat_print ( n, n, ha, "  Product H*A:" );
+/*
+  If we set A := HA, then we can successively convert A to upper
+  triangular form.
+*/
+    for ( j = 0; j < n; j++ )
+    {
+      for ( i = 0; i < n; i++ )
+      {
+        a[i+j*n] = ha[i+j*n];
+      }
+    }
+    free ( h );
+    free ( ha );
+    free ( v );
+  }
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_index_delete_all_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_INDEX_DELETE_ALL_TEST tests R8VEC_INDEX_DELETE_ALL.
 
   Licensing:
 
@@ -10290,17 +14182,189 @@ void test123 ( )
   n = 0;
 
   printf ( "\n" );
-  printf ( "TEST123\n" );
-  printf ( "  R8VEC_INDEX_INSERT inserts values into an\n" );
-  printf ( "  index sorted array.\n" );
+  printf ( "R8VEC_INDEX_DELETE_ALL_TEST\n" );
   printf ( "  R8VEC_INDEX_DELETE_ALL deletes all copies of a\n" );
   printf ( "  particular value.\n" );
+
+  xval = 8.0;
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  xval = 7.0;
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  seed = 123456789;
+
+  for ( i = 1; i <= 20; i++ )
+  {
+    xval = r8_uniform_ab ( 0.0, 20.0, &seed );
+    xval = ( double ) ( r8_nint ( xval ) );
+    printf ( "  %g\n", xval );
+    r8vec_index_insert ( &n, x, indx, xval );
+  }
+
+  xval = 7.0;
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  xval = 8.0;
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  printf ( "\n" );
+  printf ( "  Indexed list of entries:\n" );
+  printf ( "\n" );
+  printf ( "  I  INDX(I)  X(I)  X(INDX(I))\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %3d  %3d  %6g  %6g\n", i+1, indx[i], x[i], x[indx[i]-1] );
+  }
+
+  printf ( "\n" );
+  printf ( "  Call R8VEC_INDEX_DELETE_ALL to delete all values of 7:\n" );
+
+  xval = 7.0;
+  r8vec_index_delete_all ( n, x, indx, xval, &n, x, indx );
+
+  printf ( "\n" );
+  printf ( "  Indexed list of entries:\n" );
+  printf ( "\n" );
+  printf ( "  I  INDX(I)  X(I)  X(INDX(I))\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %3d  %3d  %6g  %6g\n", i+1, indx[i], x[i], x[indx[i]-1] );
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+void r8vec_index_delete_dupes_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_INDEX_DELETE_DUPES_TEST tests R8VEC_INDEX_DELETE_DUPES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N_MAX 25
+
+  int i;
+  int indx[N_MAX];
+  int n;
+  int n2;
+  int seed;
+  double x[N_MAX];
+  double xval;
+
+  n = 0;
+
+  printf ( "\n" );
+  printf ( "R8VEC_INDEX_DELETE_DUPES_TEST\n" );
+  printf ( "  R8VEC_INDEX_DELETE_DUPES deletes duplicates.\n" );
+
+  xval = 8.0;
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  xval = 7.0;
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  seed = 123456789;
+
+  for ( i = 1; i <= 20; i++ )
+  {
+    xval = r8_uniform_ab ( 0.0, 20.0, &seed );
+    xval = ( double ) ( r8_nint ( xval ) );
+    printf ( "  %g\n", xval );
+    r8vec_index_insert ( &n, x, indx, xval );
+  }
+
+  xval = 7.0;
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  xval = 8.0;
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  printf ( "\n" );
+  printf ( "  Indexed list of entries:\n" );
+  printf ( "\n" );
+  printf ( "  I  INDX(I)  X(I)  X(INDX(I))\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %3d  %3d  %6g  %6g\n", i+1, indx[i], x[i], x[indx[i]-1] );
+  }
+
+  printf ( "\n" );
+  printf ( "  Call R8VEC_INDEX_DELETE_DUPES to delete duplicates:\n" );
+
+  r8vec_index_delete_dupes ( n, x, indx, &n, x, indx );
+
+  printf ( "\n" );
+  printf ( "  Indexed list of unique entries:\n" );
+  printf ( "\n" );
+  printf ( "  I  INDX(I)  X(I)\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %3d  %3d  %6g\n", i+1, indx[i], x[i] );
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+void r8vec_index_delete_one_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_INDEX_DELETE_ONE_TEST tests R8VEC__INDEX_DELETE_ONE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N_MAX 25
+
+  int i;
+  int indx[N_MAX];
+  int n;
+  int n2;
+  int seed;
+  double x[N_MAX];
+  double xval;
+
+  n = 0;
+
+  printf ( "\n" );
+  printf ( "R8VEC_INDEX_DELETE_ONE_TEST\n" );
   printf ( "  R8VEC_INDEX_DELETE_ONE deletes one copies of a\n" );
   printf ( "  particular value.\n" );
-  printf ( "  R8VEC_INDEX_DELETE_DUPES deletes duplicates.\n" );
-  printf ( "\n" );
-  printf ( "  Generate some random values:\n" );
-  printf ( "\n" );
 
   xval = 8.0;
   r8vec_index_insert ( &n, x, indx, xval );
@@ -10341,10 +14405,79 @@ void test123 ( )
   r8vec_index_delete_one ( n, x, indx, xval, &n, x, indx );
 
   printf ( "\n" );
-  printf ( "  Call R8VEC_INDEX_DELETE_ALL to delete all values of 7:\n" );
+  printf ( "  Indexed list of entries:\n" );
+  printf ( "\n" );
+  printf ( "  I  INDX(I)  X(I)  X(INDX(I))\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %3d  %3d  %6g  %6g\n", i+1, indx[i], x[i], x[indx[i]-1] );
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+void r8vec_index_insert_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_INDEX_INSERT_TEST tests R8VEC_INDEX_INSERT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N_MAX 25
+
+  int i;
+  int indx[N_MAX];
+  int n;
+  int n2;
+  int seed;
+  double x[N_MAX];
+  double xval;
+
+  n = 0;
+
+  printf ( "\n" );
+  printf ( "R8VEC_INDEX_INSERT_TEST\n" );
+  printf ( "  R8VEC_INDEX_INSERT inserts values into an\n" );
+  printf ( "  index sorted array.\n" );
+
+  xval = 8.0;
+  r8vec_index_insert ( &n, x, indx, xval );
 
   xval = 7.0;
-  r8vec_index_delete_all ( n, x, indx, xval, &n, x, indx );
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  seed = 123456789;
+
+  for ( i = 1; i <= 20; i++ )
+  {
+    xval = r8_uniform_ab ( 0.0, 20.0, &seed );
+    xval = ( double ) ( r8_nint ( xval ) );
+    printf ( "  %g\n", xval );
+    r8vec_index_insert ( &n, x, indx, xval );
+  }
+
+  xval = 7.0;
+  r8vec_index_insert ( &n, x, indx, xval );
+
+  xval = 8.0;
+  r8vec_index_insert ( &n, x, indx, xval );
 
   printf ( "\n" );
   printf ( "  Indexed list of entries:\n" );
@@ -10356,19 +14489,73 @@ void test123 ( )
     printf ( "  %3d  %3d  %6g  %6g\n", i+1, indx[i], x[i], x[indx[i]-1] );
   }
 
-  printf ( "\n" );
-  printf ( "  Call R8VEC_INDEX_DELETE_DUPES to delete duplicates:\n" );
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
 
-  r8vec_index_delete_dupes ( n, x, indx, &n, x, indx );
+void r8vec_index_insert_unique_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_INDEX_INSERT_UNIQUE_TEST tests R8VEC_INDEX_INSERT_UNIQUE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N_MAX 20
+
+  double b;
+  double c;
+  int equal;
+  int i;
+  int indx[N_MAX];
+  int less;
+  int more;
+  int n;
+  int seed;
+  double x[N_MAX];
+  double xval;
+
+  n = 0;
 
   printf ( "\n" );
-  printf ( "  Indexed list of unique entries:\n" );
-  printf ( "\n" );
-  printf ( "  I  INDX(I)  X(I)\n" );
-  printf ( "\n" );
-  for ( i = 0; i < n; i++ )
+  printf ( "R8VEC_INDEX_INSERT_UNIQUE_TEST\n" );
+  printf ( "  R8VEC_INDEX_INSERT_UNIQUE inserts unique values into an\n" );
+  printf ( "  index sorted array.\n" );
+
+  b = 0.0;
+  c = 20.0;
+  seed = 123456789;
+
+  for ( i = 1; i <= N_MAX; i++ )
   {
-    printf ( "  %3d  %3d  %6g\n", i+1, indx[i], x[i] );
+    xval = r8_uniform_ab ( b, c, &seed );
+    xval = ( double ) ( r8_nint ( xval ) );
+    printf ( "    %6g\n", xval );
+    r8vec_index_insert_unique ( &n, x, indx, xval );
+  }
+
+  printf ( "\n" );
+  printf ( "  Indexed list of entries:\n" );
+  printf ( "\n" );
+  printf ( "  I  INDX(I)  X(I)  X(INDX(I))\n" );
+  printf ( "\n" );
+  for ( i = 1; i <= n; i++ )
+  {
+    printf ( "  %3d  %3d  %6g  %6g\n", i+1, indx[i], x[i], x[indx[i]-1] );
   }
 
   return;
@@ -10376,13 +14563,13 @@ void test123 ( )
 }
 /******************************************************************************/
 
-void test124 ( )
+void r8vec_index_order_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST124 tests R8VEC_INDEX_INSERT_UNIQUE and R8VEC_INDEX_ORDER.
+    R8VEC_INDEX_ORDER_TEST tests R8VEC_INDEX_ORDER.
 
   Licensing:
 
@@ -10409,9 +14596,7 @@ void test124 ( )
   n = 0;
 
   printf ( "\n" );
-  printf ( "TEST124\n" );
-  printf ( "  R8VEC_INDEX_INSERT_UNIQUE inserts unique values into an\n" );
-  printf ( "  index sorted array.\n" );
+  printf ( "R8VEC_INDEX_ORDER_TEST\n" );
   printf ( "  R8VEC_INDEX_ORDER sorts an index sorted array.\n" );
   printf ( "\n" );
   printf ( "  Generate some random values:\n" );
@@ -10449,13 +14634,13 @@ void test124 ( )
 }
 /******************************************************************************/
 
-void test125 ( )
+void r8vec_index_search_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST125 tests R8VEC_INDEX_INSERT_UNIQUE and R8VEC_INDEX_SEARCH.
+    R8VEC_INDEX_SEARCH_TEST tests R8VEC_INDEX_SEARCH.
 
   Licensing:
 
@@ -10487,14 +14672,9 @@ void test125 ( )
   n = 0;
 
   printf ( "\n" );
-  printf ( "TEST125\n" );
-  printf ( "  R8VEC_INDEX_INSERT_UNIQUE inserts unique values into an\n" );
-  printf ( "  index sorted array.\n" );
+  printf ( "R8VEC_INDEX_SEARCH_TEST\n" );
   printf ( "  R8VEC_INDEX_SEARCH searches for an entry \n" );
   printf ( "  with a given value.\n" );
-  printf ( "\n" );
-  printf ( "  Generate some random values:\n" );
-  printf ( "\n" );
 
   b = 0.0;
   c = 20.0;
@@ -10536,13 +14716,13 @@ void test125 ( )
 }
 /******************************************************************************/
 
-void test1251 ( void )
+void r8vec_index_sorted_range_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1251 tests R8VEC_INDEX_SORTED_RANGE.
+    R8VEC_INDEX_SORTED_RANGE_TEST tests R8VEC_INDEX_SORTED_RANGE.
 
   Licensing:
 
@@ -10570,7 +14750,7 @@ void test1251 ( void )
   int test;
 
   printf ( "\n" );
-  printf ( "TEST1251\n" );
+  printf ( "R8VEC_INDEX_SORTED_RANGE_TEST\n" );
   printf ( "  R8VEC_INDEX_SORTED_RANGE seeks the range I_LO:I_HI\n" );
   printf ( "  of entries of sorted indexed R so that\n" );
   printf ( "  R_LO <= R(INDX(I)) <= R_HI for I_LO <= I <= I_HI.\n" );
@@ -10628,13 +14808,13 @@ void test1251 ( void )
 }
 /******************************************************************************/
 
-void test1252 ( void )
+void r8vec_indexed_heap_d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1252 tests R8VEC_INDEXED_HEAP_D;
+    R8VEC_INDEXED_HEAP_D_TEST tests R8VEC_INDEXED_HEAP_D;
 
   Licensing:
 
@@ -10659,7 +14839,7 @@ void test1252 ( void )
   int n = 10;
 
   printf ( "\n" );
-  printf ( "TEST1252\n" );
+  printf ( "R8VEC_INDEXED_HEAP_D_TEST\n" );
   printf ( "  R8VEC_INDEXED_HEAP_D creates a descending heap\n" );
   printf ( "  from an indexed vector.\n" );
 /*
@@ -10695,13 +14875,13 @@ void test1252 ( void )
 }
 /******************************************************************************/
 
-void test1255 ( )
+void r8vec_indexed_heap_d_extract_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1255 tests R8VEC_INDEXED_HEAP_D_EXTRACT and related routines.
+    R8VEC_INDEXED_HEAP_D_EXTRACT_TEST tests R8VEC_INDEXED_HEAP_D_EXTRACT.
 
   Licensing:
 
@@ -10727,17 +14907,13 @@ void test1255 ( )
   int n_max = 20;
 
   printf ( "\n" );
-  printf ( "TEST1255\n" );
+  printf ( "R8VEC_INDEXED_HEAP_D_EXTRACT_TEST\n" );
   printf ( "  For an indexed R8VEC,\n" );
-  printf ( "  R8VEC_INDEXED_HEAP_D_INSERT inserts a value into the heap.\n" );
   printf ( "  R8VEC_INDEXED_HEAP_D_EXTRACT extracts the maximum value;\n" );
-  printf ( "  R8VEC_INDEXED_HEAP_D_MAX reports the maximum value.\n" );
-  printf ( "\n" );
-  printf ( "  These 3 operations are enough to model a priority queue.\n" );
 /*
   Set the data array.  To keep things easy, we will use the indicator vector.
 */
-  a = r8vec_indicator_new ( m );
+  a = r8vec_indicator1_new ( m );
 /*
   The index array will initially be a random subset of the numbers 1 to M,
   in random order.
@@ -10831,13 +15007,271 @@ void test1255 ( )
 }
 /******************************************************************************/
 
-void test1256 ( )
+void r8vec_indexed_heap_d_insert_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1256 tests R8VEC_LEGENDRE.
+    R8VEC_INDEXED_HEAP_D_INSERT_TEST tests R8VEC_INDEXED_HEAP_D_INSERT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 August 2010
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int i;
+  int indx[20];
+  int indx_extract;
+  int indx_insert;
+  int indx_max;
+  int m = 20;
+  int n;
+  int n_max = 20;
+
+  printf ( "\n" );
+  printf ( "R8VEC_INDEXED_HEAP_D_INSERT_TEST\n" );
+  printf ( "  For an indexed R8VEC,\n" );
+  printf ( "  R8VEC_INDEXED_HEAP_D_INSERT inserts a value into the heap.\n" );
+/*
+  Set the data array.  To keep things easy, we will use the indicator vector.
+*/
+  a = r8vec_indicator1_new ( m );
+/*
+  The index array will initially be a random subset of the numbers 1 to M,
+  in random order.
+*/
+  n = 5;
+  indx[0]  =  8;
+  indx[1]  =  1;
+  indx[2]  =  7;
+  indx[3]  = 13;
+  indx[4]  =  4;
+  indx[5]  =  6;
+  indx[6]  = 14;
+  indx[7]  =  0;
+  indx[8]  = 18;
+  indx[9]  = 19;
+  indx[10] =  2;
+
+  r8vec_print ( m, a, "  The data vector:" );
+  i4vec_print ( n, indx, "  The index vector:" );
+  printf ( "\n" );
+  printf ( "  A(INDX):\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %4d  %10f\n", i, a[indx[i]] );
+  }
+/*
+  Create a descending heap from the indexed array.
+*/
+  r8vec_indexed_heap_d ( n, a, indx );
+
+  i4vec_print ( n, indx, "  The index vector after heaping:" );
+  printf ( "\n" );
+  printf ( "  A(INDX) after heaping:\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %4d  %10f\n", i, a[indx[i]] );
+  }
+/*
+  Insert five entries, and monitor the maximum.
+*/
+  for ( i = 0; i < 5; i++ )
+  {
+    indx_insert = indx[n];
+
+    printf ( "\n" );
+    printf ( "  Inserting value %f\n", a[indx_insert] );
+
+    r8vec_indexed_heap_d_insert ( &n, a, indx, indx_insert );
+
+    indx_max = r8vec_indexed_heap_d_max ( n, a, indx );
+
+    printf ( "  Current maximum is %f\n", a[indx_max] );
+  }
+  r8vec_print ( m, a, "  The data vector after insertions:" );
+  i4vec_print ( n, indx, "  The index vector after insertions:" );
+  printf ( "\n" );
+  printf ( "  A(INDX) after insertions:\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %4d  %10f\n", i, a[indx[i]] );
+  }
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_indexed_heap_d_max_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_INDEXED_HEAP_D_MAX_TEST tests R8VEC_INDEXED_HEAP_D_MAX.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 August 2010
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int i;
+  int indx[20];
+  int indx_extract;
+  int indx_insert;
+  int indx_max;
+  int m = 20;
+  int n;
+  int n_max = 20;
+
+  printf ( "\n" );
+  printf ( "R8VEC_INDEXED_HEAP_D_MAX_TEST\n" );
+  printf ( "  For an indexed R8VEC,\n" );;
+  printf ( "  R8VEC_INDEXED_HEAP_D_MAX reports the maximum value.\n" );
+/*
+  Set the data array.  To keep things easy, we will use the indicator vector.
+*/
+  a = r8vec_indicator1_new ( m );
+/*
+  The index array will initially be a random subset of the numbers 1 to M,
+  in random order.
+*/
+  n = 5;
+  indx[0]  =  8;
+  indx[1]  =  1;
+  indx[2]  =  7;
+  indx[3]  = 13;
+  indx[4]  =  4;
+  indx[5]  =  6;
+  indx[6]  = 14;
+  indx[7]  =  0;
+  indx[8]  = 18;
+  indx[9]  = 19;
+  indx[10] =  2;
+
+  r8vec_print ( m, a, "  The data vector:" );
+  i4vec_print ( n, indx, "  The index vector:" );
+  printf ( "\n" );
+  printf ( "  A(INDX):\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %4d  %10f\n", i, a[indx[i]] );
+  }
+/*
+  Create a descending heap from the indexed array.
+*/
+  r8vec_indexed_heap_d ( n, a, indx );
+
+  i4vec_print ( n, indx, "  The index vector after heaping:" );
+  printf ( "\n" );
+  printf ( "  A(INDX) after heaping:\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %4d  %10f\n", i, a[indx[i]] );
+  }
+/*
+  Insert five entries, and monitor the maximum.
+*/
+  for ( i = 0; i < 5; i++ )
+  {
+    indx_insert = indx[n];
+
+    printf ( "\n" );
+    printf ( "  Inserting value %f\n", a[indx_insert] );
+
+    r8vec_indexed_heap_d_insert ( &n, a, indx, indx_insert );
+
+    indx_max = r8vec_indexed_heap_d_max ( n, a, indx );
+
+    printf ( "  Current maximum is %f\n", a[indx_max] );
+  }
+  r8vec_print ( m, a, "  The data vector after insertions:" );
+  i4vec_print ( n, indx, "  The index vector after insertions:" );
+  printf ( "\n" );
+  printf ( "  A(INDX) after insertions:\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %4d  %10f\n", i, a[indx[i]] );
+  }
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_indicator0_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_INDICATOR0_NEW_TEST tests R8VEC_INDICATOR0_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 September 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int n;
+  double *v;
+
+  printf ( "\n" );
+  printf ( "R8VEC_INDICATOR0_NEW_TEST\n" );
+  printf ( "  R8VEC_INDICATOR0_NEW returns an indicator vector.\n" );
+
+  n = 10;
+  v = r8vec_indicator0_new ( n );
+  r8vec_print ( n, v, "  Indicator0 vector:" );
+  free ( v );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8vec_legendre_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_LEGENDRE_TEST tests R8VEC_LEGENDRE.
 
   Licensing:
 
@@ -10858,7 +15292,7 @@ void test1256 ( )
   double r2;
 
   printf ( "\n" );
-  printf ( "TEST1256\n" );
+  printf ( "R8VEC_LEGENDRE_TEST\n" );
   printf ( "  R8VEC_LEGENDRE_NEW computes N Legendre points in [R1,R2].\n" );
 
   r1 = -1.0;
@@ -10891,13 +15325,13 @@ void test1256 ( )
 }
 /******************************************************************************/
 
-void test1258 ( )
+void r8vec_linspace_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1258 tests R8VEC_LINSPACE_NEW and R8VEC_MIDSPACE_NEW.
+    R8VEC_LINSPACE_NEW_TEST tests R8VEC_LINSPACE_NEW.
 
   Licensing:
 
@@ -10918,10 +15352,9 @@ void test1258 ( )
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST1258\n" );
+  printf ( "R8VEC_LINSPACE_NEW_TEST\n" );
   printf ( "  For a R8VEC:\n" );
   printf ( "  R8VEC_LINSPACE_NEW: evenly spaced points between A and B;\n" );
-  printf ( "  R8VEC_MIDSPACE_NEW: evenly spaced midpoints between A and B\n" );
 
   a = 10.0;
   b = 20.0;
@@ -10930,21 +15363,17 @@ void test1258 ( )
   r8vec_print ( n, x, "  r8vec_linspace ( 5, 10, 20 )" );
   free ( x );
 
-  x = r8vec_midspace_new ( n, a, b );
-  r8vec_print ( n, x, "  r8vec_midspace ( 5, 10, 20 )" );
-  free ( x );
-
   return;
 }
 /******************************************************************************/
 
-void test126 ( )
+void r8vec_max_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST126 tests R8VEC_MAX and R8VEC_MIN.
+    R8VEC_MAX_TEST tests R8VEC_MAX.
 
   Licensing:
 
@@ -10959,49 +15388,42 @@ void test126 ( )
     John Burkardt
 */
 {
-# define N 10
-
   double *a;
   int i;
+  int  n;
   double rmax;
   double rmin;
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST126\n" );
+  printf ( "R8VEC_MAX_TEST\n" );
   printf ( "  R8VEC_MAX produces the maximum entry in a real array.\n" );
-  printf ( "  R8VEC_MIN produces the minimum entry.\n" );
 
+  n = 10;
   seed = 123456789;
 
-  printf ( "\n" );
-  printf ( "  Using random seed %d.\n", seed );
+  a = r8vec_uniform_01_new ( n, &seed );
 
-  a = r8vec_uniform_01_new ( N, &seed );
+  r8vec_print ( n, a, "  The array:" );
 
-  r8vec_print ( N, a, "  The array:" );
-
-  rmax = r8vec_max ( N, a );
-  rmin = r8vec_min ( N, a );
+  rmax = r8vec_max ( n, a );
 
   printf ( "\n" );
   printf ( "  R8VEC_MAX reports the maximum value is %g.\n", rmax );
-  printf ( "  R8VEC_MIN reports the minimum value is %g.\n", rmin );
 
   free ( a );
 
   return;
-# undef N
 }
 /******************************************************************************/
 
-void test127 ( )
+void r8vec_max_index_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST127 tests R8VEC_MAX_INDEX and R8VEC_MIN_INDEX.
+    R8VEC_MAX_INDEX_TEST tests R8VEC_MAX_INDEX.
 
   Licensing:
 
@@ -11026,10 +15448,9 @@ void test127 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST127\n" );
+  printf ( "R8VEC_MAX_INDEX_TEST\n" );
   printf ( "  For an R8VEC:\n" );
   printf ( "  R8VEC_MAX_INDEX: index of maximum entry;\n" );
-  printf ( "  R8VEC_MIN_INDEX: index of minimum entry;\n" );
 
   b = - ( double ) ( N );
   c =   ( double ) ( N );
@@ -11045,9 +15466,6 @@ void test127 ( )
   ival = r8vec_max_index ( N, a );
   printf ( "  Maximum index:           %d\n", ival );
 
-  ival = r8vec_min_index ( N, a );
-  printf ( "  Minimum index:           %d\n", ival );
-
   free ( a );
 
   return;
@@ -11055,13 +15473,63 @@ void test127 ( )
 }
 /******************************************************************************/
 
-void test128 ( )
+void r8vec_mean_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST128 tests R8VEC_MEAN and R8VEC_MEDIAN;
+    R8VEC_MEAN_TEST tests R8VEC_MEAN.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 March 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double mean;
+  int n = 10;
+  double r8_hi;
+  double r8_lo;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_MEAN_TEST\n" );
+  printf ( "  R8VEC_MEAN computes the mean of an R8VEC.\n" );
+
+  r8_lo = - 5.0;
+  r8_hi = + 5.0;
+  seed = 123456789;
+  a = r8vec_uniform_ab_new ( n, r8_lo, r8_hi, &seed );
+
+  r8vec_print ( n, a, "  Input vector:" );
+
+  mean = r8vec_mean ( n, a );
+
+  printf ( "\n" );
+  printf ( "  Mean:    %g\n", mean );
+ 
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_median_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_MEDIAN_TEST tests R8VEC_MEDIAN;
 
   Licensing:
 
@@ -11081,15 +15549,13 @@ void test128 ( )
   double *a;
   double b;
   double c;
-  double mean;
   double median;
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST128\n" );
+  printf ( "R8VEC_MEDIAN_TEST\n" );
   printf ( "  For an R8VEC:\n" );
   printf ( "  R8VEC_MEAN:      mean value;\n" );
-  printf ( "  R8VEC_MEDIAN:    median value;\n" );
 
   b = - ( double ) ( N );
   c = ( double ) ( N );
@@ -11102,8 +15568,6 @@ void test128 ( )
 
   printf ( "\n" );
 
-  mean = r8vec_mean ( N, a );
-  printf ( "  Mean:    %g\n", mean );
   median = r8vec_median ( N, a );
   printf ( "  Median:  %g\n", median );
 
@@ -11114,13 +15578,257 @@ void test128 ( )
 }
 /******************************************************************************/
 
-void test129 ( )
+void r8vec_midspace_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST129 tests R8VEC_NORM_L1, R8VEC_NORM_L2, R8VEC_NORM_LI.
+    R8VEC_MIDSPACE_NEW_TEST tests R8VEC_MIDSPACE_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  int n = 5;
+  double *x;
+
+  printf ( "\n" );
+  printf ( "R8VEC_MIDSPACE_NEW_TEST\n" );
+  printf ( "  For a R8VEC:\n" );
+  printf ( "  R8VEC_MIDSPACE_NEW: evenly spaced midpoints between A and B\n" );
+
+  a = 10.0;
+  b = 20.0;
+
+  x = r8vec_midspace_new ( n, a, b );
+  r8vec_print ( n, x, "  r8vec_midspace ( 5, 10, 20 )" );
+  free ( x );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_min_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_MIN_TEST tests R8VEC_MIN.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int i;
+  int  n;
+  double rmax;
+  double rmin;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_MIN_TEST\n" );
+  printf ( "  R8VEC_MIN produces the minimum entry.\n" );
+
+  n = 10;
+  seed = 123456789;
+
+  a = r8vec_uniform_01_new ( n, &seed );
+
+  r8vec_print ( n, a, "  The array:" );
+
+  rmin = r8vec_min ( n, a );
+
+  printf ( "\n" );
+  printf ( "  R8VEC_MIN reports the minimum value is %g.\n", rmin );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_min_index_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_MIN_INDEX_TEST tests R8VEC_MIN_INDEX.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N 10
+
+  double *a;
+  double aval;
+  double b;
+  double c;
+  int ival;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_MIN_INDEX_TEST\n" );
+  printf ( "  For an R8VEC:\n" );
+  printf ( "  R8VEC_MIN_INDEX: index of minimum entry;\n" );
+
+  b = - ( double ) ( N );
+  c =   ( double ) ( N );
+
+  seed = 123456789;
+
+  a = r8vec_uniform_ab_new ( N, b, c, &seed );
+
+  r8vec_print ( N, a, "  Input vector:" );
+
+  printf ( "\n" );
+
+  ival = r8vec_min_index ( N, a );
+  printf ( "  Minimum index:           %d\n", ival );
+
+  free ( a );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8vec_nint_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_NINT_TEST tests R8VEC_NINT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int n;
+  int seed;
+  double x1;
+  double x2;
+
+  printf ( "\n" );
+  printf ( "R8VEC_NINT_TEST\n" );
+  printf ( "  R8VEC_NINT rounds an R8VEC.\n" );
+
+  n = 5;
+  x1 = -5.0;
+  x2 = +5.0;
+  seed = 123456789;
+  a = r8vec_uniform_ab_new ( n, x1, x2, &seed );
+  r8vec_print ( n, a, "  Vector A:" );
+  r8vec_nint ( n, a );
+  r8vec_print ( n, a, "  Rounded vector A:" );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_norm_l0_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_NORM_L0_TEST tests R8VEC_NORM_L0.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double a_hi;
+  double a_lo;
+  int n;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_NORM_L0_TEST\n" );
+  printf ( "  R8VEC_NORM_L0 computes the L0 'norm' of an R8VEC.\n" );
+
+  n = 10;
+  a_lo = - 2.0;
+  a_hi = + 2.0;
+  seed = 123456789;
+
+  a = r8vec_uniform_ab_new ( n, a_lo, a_hi, &seed );
+  r8vec_nint ( n, a );
+
+  r8vec_print ( n, a, "  Input vector:" );
+
+  printf ( "\n" );
+  printf ( "  L0 norm:           %g\n", r8vec_norm_l0 ( n, a ) );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_norm_l1_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_NORM_L1_TEST tests R8VEC_NORM_L1.
 
   Licensing:
 
@@ -11143,11 +15851,8 @@ void test129 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST129\n" );
-  printf ( "  For an R8VEC:\n" );
-  printf ( "  R8VEC_NORM_L1:   L1 norm.\n" );
-  printf ( "  R8VEC_NORM_L2:   L2 norm.\n" );
-  printf ( "  R8VEC_NORM_LI:   L-infinity norm.\n" );
+  printf ( "R8VEC_NORM_L1_TEST\n" );
+  printf ( "  R8VEC_NORM_L1 computes the L1 norm of an R8VEC.\n" );
 
   b = - ( double ) ( N );
   c = ( double ) ( N );
@@ -11160,7 +15865,107 @@ void test129 ( )
 
   printf ( "\n" );
   printf ( "  L1 norm:           %g\n", r8vec_norm_l1 ( N, a ) );
+
+  free ( a );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8vec_norm_l2_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_NORM_L2_TEST tests R8VEC_NORM_L2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N 10
+
+  double *a;
+  double b;
+  double c;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_NORM_L2_TEST\n" );
+  printf ( "  R8VEC_NORM_L2 computes the L2 norm of an R8VEC.\n" );
+
+  b = - ( double ) ( N );
+  c = ( double ) ( N );
+
+  seed = 123456789;
+
+  a = r8vec_uniform_ab_new ( N, b, c, &seed );
+
+  r8vec_print ( N, a, "  Input vector:" );
+
+  printf ( "\n" );
   printf ( "  L2 norm:           %g\n", r8vec_norm_l2 ( N, a ) );
+
+  free ( a );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8vec_norm_li_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_NORM_LI_TEST tests R8VEC_NORM_LI.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N 10
+
+  double *a;
+  double b;
+  double c;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_NORM_LI_TEST\n" );
+  printf ( "  R8VEC_NORM_LI computes the Loo norm of an R8VEC.\n" );
+
+  b = - ( double ) ( N );
+  c = ( double ) ( N );
+
+  seed = 123456789;
+
+  a = r8vec_uniform_ab_new ( N, b, c, &seed );
+
+  r8vec_print ( N, a, "  Input vector:" );
+
+  printf ( "\n" );
   printf ( "  L-Infinity norm:   %g\n", r8vec_norm_li ( N, a ) );
 
   free ( a );
@@ -11170,13 +15975,13 @@ void test129 ( )
 }
 /******************************************************************************/
 
-void test130 ( )
+void r8vec_normal_01_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST130 tests R8VEC_NORMAL_01.
+    R8VEC_NORMAL_01_NEW_TEST tests R8VEC_NORMAL_01_NEW.
 
   Licensing:
 
@@ -11203,7 +16008,7 @@ void test130 ( )
   double x_var;
 
   printf ( "\n" );
-  printf ( "TEST130\n" );
+  printf ( "R8VEC_NORMAL_01_NEW_TEST\n" );
   printf ( "  R8VEC_NORMAL_01 computes a vector of normally\n" );
   printf ( "  distributed random numbers.\n" );
   printf ( "  Using initial random number seed = %d\n", seed );
@@ -11232,10 +16037,6 @@ void test130 ( )
   printf ( "  The results should be identical.\n" );
   printf ( "\n" );
 
-  n = -1;
-  x = r8vec_normal_01_new ( n, &seed );
-  free ( x );
-
   seed = 123456789;
 
   n = 1;
@@ -11254,10 +16055,6 @@ void test130 ( )
   printf ( "  Call 1 time for 5 values.\n" );
   printf ( "  The results should be identical.\n" );
   printf ( "\n" );
-
-  n = -1;
-  x = r8vec_normal_01_new ( n, &seed );
-  free ( x );
 
   seed = 123456789;
 
@@ -11278,10 +16075,6 @@ void test130 ( )
   printf ( "  Call for 2, 1, and 2 values.\n" );
   printf ( "  The results should be identical.\n" );
   printf ( "\n" );
-
-  n = -1;
-  x = r8vec_normal_01_new ( n, &seed );
-  free ( x );
 
   seed = 123456789;
 
@@ -11338,13 +16131,13 @@ void test130 ( )
 }
 /******************************************************************************/
 
-void test152 ( )
+void r8vec_normalize_l1_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST152 tests R8VEC_NORMALIZE_L1.
+    R8VEC_NORMALIZE_L1_TEST tests R8VEC_NORMALIZE_L1.
 
   Licensing:
 
@@ -11367,7 +16160,7 @@ void test152 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST152\n" );
+  printf ( "R8VEC_NORMALIZE_L1_TEST\n" );
   printf ( "  For an R8VEC:\n" );
   printf ( "  R8VEC_NORMALIZE_L1:  make unit sum;\n" );
 
@@ -11391,13 +16184,13 @@ void test152 ( )
 }
 /******************************************************************************/
 
-void test131 ( )
+void r8vec_order_type_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST131 tests R8VEC_ORDER_TYPE.
+    R8VEC_ORDER_TYPE_TEST tests R8VEC_ORDER_TYPE.
 
   Licensing:
 
@@ -11421,7 +16214,7 @@ void test131 ( )
   double x[N];
 
   printf ( "\n" );
-  printf ( "TEST131\n" );
+  printf ( "R8VEC_ORDER_TYPE_TEST\n" );
   printf ( "  R8VEC_ORDER_TYPE classifies a real vector as\n" );
   printf ( "  -1: no order\n" );
   printf ( "   0: all equal;\n" );
@@ -11479,8 +16272,7 @@ void test131 ( )
     order = r8vec_order_type ( N, x );
 
     printf ( "\n" );
-    printf ( "The following vector has order type %g.\n", order );
-    printf ( "\n" );
+    printf ( "  The following vector has order type %d.\n", order );
 
     r8vec_print ( N, x, "" );
   }
@@ -11491,13 +16283,13 @@ void test131 ( )
 }
 /******************************************************************************/
 
-void test132 ( )
+void r8vec_permute_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST132 tests R8VEC_PERMUTE.
+    R8VEC_PERMUTE_TEST tests R8VEC_PERMUTE.
 
   Licensing:
 
@@ -11505,47 +16297,91 @@ void test132 ( )
 
   Modified:
 
-    19 June 2012
+    26 October 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define N 5
-
-  int base = 1;
   int i;
-  int perm[N] = { 2, 4, 5, 1, 3 };
-  double x[N] = { 1.0, 2.0, 3.0, 4.0, 5.0 };
+  int n = 5;
+  int p[5] = { 1, 3, 4, 0, 2 };
+  double x[5] = { 1.1, 2.2, 3.3, 4.4, 5.5 };
 
   printf ( "\n" );
-  printf ( "TEST132\n" );
-  printf ( "  R8VEC_PERMUTE permutes an R8VEC in place.\n" );
-  printf ( "\n" );
-  printf ( "  I, Perm(I), X(I)\n" );
-  printf ( "\n" );
-  for ( i = 0; i < N; i++ )
-  {
-    printf ( "  %6d  %6d  %12g\n", i+1, perm[i], x[i] );
-  }
+  printf ( "R8VEC_PERMUTE_TEST\n" );
+  printf ( "  R8VEC_PERMUTE permutes an R8VEC.\n" );
 
-  r8vec_permute ( N, perm, base, x );
+  r8vec_print ( n, x, "  Original array X[]:" );
 
-  r8vec_print ( N, x, "  Permuted array:" );
+  i4vec_print ( n, p, "  Permutation vector P[]:" );
+
+  r8vec_permute ( n, p, x );
+
+  r8vec_print ( n, x, "  Permuted array X[P[]]:" );
 
   return;
-# undef N
 }
 /******************************************************************************/
 
-void test133 ( )
+void r8vec_permute_uniform_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST133 tests R8VEC_POLARIZE.
+    R8VEC_PERMUTE_UNIFORM_TEST tests R8VEC_PERMUTE_UNIFORM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 May 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int i;
+  int n = 10;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_PERMUTE_UNIFORM_TEST\n" );
+  printf ( "  R8VEC_PERMUTE_UNIFORM randomly reorders an R8VEC.\n" );
+
+  a = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = ( double ) ( 101 + i );
+  }
+  seed = 123456789;
+
+  r8vec_print ( n, a, "  A, before rearrangement:" );
+
+  r8vec_permute_uniform ( n, a, &seed );
+
+  r8vec_print ( n, a, "  A, after random permutation:" );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_polarize_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_POLARIZE_TEST tests R8VEC_POLARIZE.
 
   Licensing:
 
@@ -11574,8 +16410,8 @@ void test133 ( )
   double pap;
 
   printf ( "\n" );
-  printf ( "TEST133\n" );
-  printf ( "  R8VEC_POLARIZE decomposes a vector into\n" );
+  printf ( "R8VEC_POLARIZE_TEST\n" );
+  printf ( "  R8VEC_POLARIZE decomposes an R8VEC into\n" );
   printf ( "  components parallel and normal to a direction.\n" );
 
   r8vec_print ( N, a, "  Original vector:" );
@@ -11610,13 +16446,47 @@ void test133 ( )
 }
 /******************************************************************************/
 
-void test134 ( )
+void r8vec_print_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST134 tests R8VEC_ROTATE.
+    R8VEC_PRINT_TEST tests R8VEC_PRINT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 August 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a[4] = { 123.456, 0.000005, -1.0E+06, 3.14159265 };
+  int n = 4;
+
+  printf ( "\n" );
+  printf ( "R8VEC_PRINT_TEST\n" );
+  printf ( "  R8VEC_PRINT prints an R8VEC.\n" );
+
+  r8vec_print ( n, a, "  The R8VEC:" );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_rotate_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_ROTATE_TEST tests R8VEC_ROTATE.
 
   Licensing:
 
@@ -11637,7 +16507,7 @@ void test134 ( )
   int m = 2;
 
   printf ( "\n" );
-  printf ( "TEST134\n" );
+  printf ( "R8VEC_ROTATE_TEST\n" );
   printf ( "  R8VEC_ROTATE rotates an R8VEC in place.\n" );
   printf ( "\n" );
   printf ( "  Rotate entries %d places to the right.\n", m );
@@ -11653,13 +16523,13 @@ void test134 ( )
 }
 /******************************************************************************/
 
-void test135 ( )
+void r8vec_reverse_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST135 tests R8VEC_REVERSE.
+    R8VEC_REVERSE_TEST tests R8VEC_REVERSE.
 
   Licensing:
 
@@ -11679,10 +16549,10 @@ void test135 ( )
   double *a;
 
   printf ( "\n" );
-  printf ( "TEST135\n" );
+  printf ( "R8VEC_REVERSE_TEST\n" );
   printf ( "  R8VEC_REVERSE reverses an R8VEC.\n" );
 
-  a = r8vec_indicator_new ( N );
+  a = r8vec_indicator1_new ( N );
 
   r8vec_print ( N, a, "  Original array:" );
 
@@ -11697,13 +16567,13 @@ void test135 ( )
 }
 /******************************************************************************/
 
-void test136 ( )
+void r8vec_search_binary_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST136 tests R8VEC_SEARCH_BINARY_A;
+    R8VEC_SEARCH_BINARY_A_TEST tests R8VEC_SEARCH_BINARY_A;
 
   Licensing:
 
@@ -11727,9 +16597,9 @@ void test136 ( )
   int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST136\n" );
+  printf ( "R8VEC_SEARCH_BINARY_A_TEST\n" );
   printf ( "  For ascending order:\n" );
-  printf ( "  R8VEC_SEARCH_BINARY_A searches a sorted array;\n" );
+  printf ( "  R8VEC_SEARCH_BINARY_A searches a sorted R8VEC;\n" );
   printf ( "\n" );
   printf ( "  Using initial random number seed = %d\n", seed );
 
@@ -11768,13 +16638,13 @@ void test136 ( )
 }
 /******************************************************************************/
 
-void test137 ( )
+void r8vec_sort_bubble_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST137 tests R8VEC_SORT_BUBBLE_A.
+    R8VEC_SORT_BUBBLE_A_TEST tests R8VEC_SORT_BUBBLE_A.
 
   Licensing:
 
@@ -11796,8 +16666,8 @@ void test137 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST137\n" );
-  printf ( "  R8VEC_SORT_BUBBLE_A sorts a real array.\n" );
+  printf ( "R8VEC_SORT_BUBBLE_A_TEST\n" );
+  printf ( "  R8VEC_SORT_BUBBLE_A sorts an R8VEC.\n" );
 
   seed = 123456789;
 
@@ -11819,13 +16689,13 @@ void test137 ( )
 }
 /******************************************************************************/
 
-void test138 ( )
+void r8vec_sort_heap_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST138 tests R8VEC_SORT_HEAP_A.
+    R8VEC_SORT_HEAP_A_TEST tests R8VEC_SORT_HEAP_A.
 
   Licensing:
 
@@ -11848,7 +16718,7 @@ void test138 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST138\n" );
+  printf ( "R8VEC_SORT_HEAP_A_TEST\n" );
   printf ( "  R8VEC_SORT_HEAP_A ascending sorts an R8VEC.\n" );
   printf ( "\n" );
 
@@ -11871,13 +16741,13 @@ void test138 ( )
 }
 /******************************************************************************/
 
-void test139 ( )
+void r8vec_sort_heap_d_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST139 tests R8VEC_SORT_HEAP_D.
+    R8VEC_SORT_HEAP_D_TEST tests R8VEC_SORT_HEAP_D.
 
   Licensing:
 
@@ -11900,7 +16770,7 @@ void test139 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST139\n" );
+  printf ( "R8VEC_SORT_HEAP_D_TEST\n" );
   printf ( "  R8VEC_SORT_HEAP_D descending sorts an R8VEC.\n" );
   printf ( "\n" );
 
@@ -11923,13 +16793,13 @@ void test139 ( )
 }
 /******************************************************************************/
 
-void test140 ( )
+void r8vec_sort_heap_index_a_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST140 tests R8VEC_SORT_HEAP_INDEX_A_NEW and R8VEC_SORT_HEAP_INDEX_D_NEW.
+    R8VEC_SORT_HEAP_INDEX_A_NEW_TEST tests R8VEC_SORT_HEAP_INDEX_A_NEW.
 
   Licensing:
 
@@ -11948,17 +16818,14 @@ void test140 ( )
 
   double *a;
   double b;
-  int base;
   double c;
   int i;
   int *indx;
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST140\n" );
+  printf ( "R8VEC_SORT_HEAP_INDEX_A_NEW_TEST\n" );
   printf ( "  R8VEC_SORT_HEAP_INDEX_A_NEW creates an ascending\n" );
-  printf ( "  sort index for an R8VEC.\n" );
-  printf ( "  R8VEC_SORT_HEAP_INDEX_D_NEW creates a descending\n" );
   printf ( "  sort index for an R8VEC.\n" );
 
   b = 0.0;
@@ -11995,12 +16862,52 @@ void test140 ( )
   printf ( "  Call R8VEC_PERMUTE to carry out the permutation explicitly.\n" );
   printf ( "\n" );
 
-  base = 0;
-  r8vec_permute ( N, indx, base, a );
+  r8vec_permute ( N, indx, a );
 
   r8vec_print ( N, a, "  I, A(I)" );
 
+  free ( a );
   free ( indx );
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8vec_sort_heap_index_d_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_SORT_HEAP_INDEX_D_NEW_TEST tests R8VEC_SORT_HEAP_INDEX_D_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N 20
+
+  double *a;
+  double b;
+  double c;
+  int i;
+  int *indx;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_SORT_HEAP_INDEX_D_NEW_TEST\n" );
+  printf ( "  R8VEC_SORT_HEAP_INDEX_D_NEW creates a descending\n" );
+  printf ( "  sort index for an R8VEC.\n" );
 
   b = 0.0;
   c = 3.0 * ( double ) ( N );
@@ -12039,13 +16946,13 @@ void test140 ( )
 }
 /******************************************************************************/
 
-void test141 ( )
+void r8vec_sort_heap_mask_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST141 tests R8VEC_SORT_HEAP_MASK_A.
+    R8VEC_SORT_HEAP_MASK_A_TEST tests R8VEC_SORT_HEAP_MASK_A.
 
   Licensing:
 
@@ -12065,15 +16972,14 @@ void test141 ( )
 
   double *a;
   double b;
-  int base;
   double c;
   int i;
   int *indx;
-  int mask[MASK_NUM] = { 2, 4, 7, 8, 9, 12, 13, 16, 18, 19 };
+  int mask[MASK_NUM] = { 1, 3, 6, 7, 8, 11, 12, 15, 17, 18 };
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST141\n" );
+  printf ( "R8VEC_SORT_HEAP_MASK_A_TEST\n" );
   printf ( "  R8VEC_SORT_HEAP_MASK_A creates an ascending\n" );
   printf ( "  sort index for a masked R8VEC.\n" );
 
@@ -12098,7 +17004,8 @@ void test141 ( )
   printf ( "\n" );
   for ( i = 0; i < MASK_NUM; i++ )
   {
-    printf ( "  %6d  %6d  %6d  %14g\n", i+1, indx[i], mask[indx[i]-1], a[mask[indx[i]-1]-1] );
+    printf ( "  %6d  %6d  %6d  %14g\n", 
+      i, indx[i], mask[indx[i]], a[mask[indx[i]]] );
   }
 
   printf ( "\n" );
@@ -12106,14 +17013,13 @@ void test141 ( )
   printf ( "  explicitly on the MASK vector.\n" );
   printf ( "\n" );
 
-  base = 1;
-  i4vec_permute ( MASK_NUM, indx, base, mask );
+  i4vec_permute ( MASK_NUM, indx, mask );
 /*
   Essentially, INDX becomes the identity vector now.
 */
   free ( indx );
 
-  indx = i4vec_indicator_new ( MASK_NUM );
+  indx = i4vec_indicator1_new ( MASK_NUM );
 
   i4vec_print ( MASK_NUM, mask, "  The reordered mask array:" );
 
@@ -12129,13 +17035,13 @@ void test141 ( )
 }
 /******************************************************************************/
 
-void test142 ( )
+void r8vec_sort_insert_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST142 tests R8VEC_SORT_INSERT_A.
+    R8VEC_SORT_INSERT_A_TEST tests R8VEC_SORT_INSERT_A.
 
   Licensing:
 
@@ -12158,7 +17064,7 @@ void test142 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST142\n" );
+  printf ( "R8VEC_SORT_INSERT_A_TEST\n" );
   printf ( "  R8VEC_SORT_INSERT_A ascending sorts an R8VEC.\n" );
 
   b = 0.0;
@@ -12180,13 +17086,13 @@ void test142 ( )
 }
 /******************************************************************************/
 
-void test143 ( )
+void r8vec_sort_insert_index_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST143 tests R8VEC_SORT_INSERT_INDEX_A.
+    R8VEC_SORT_INSERT_INDEX_A_TEST tests R8VEC_SORT_INSERT_INDEX_A.
 
   Licensing:
 
@@ -12205,14 +17111,13 @@ void test143 ( )
 
   double *a;
   double b;
-  int base = 1;
   double c;
   int i;
   int *indx;
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST143\n" );
+  printf ( "R8VEC_SORT_INSERT_INDEX_A_TEST\n" );
   printf ( "  R8VEC_SORT_INSERT_INDEX_A creates an ascending\n" );
   printf ( "  sort index for an R8VEC.\n" );
 
@@ -12244,14 +17149,14 @@ void test143 ( )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6d  %12g\n", i+1, indx[i], a[indx[i]-1] );
+    printf ( "  %6d  %6d  %12g\n", i+1, indx[i], a[indx[i]] );
   }
 
   printf ( "\n" );
   printf ( "  Call R8VEC_PERMUTE to carry out the permutation explicitly.\n" );
   printf ( "\n" );
 
-  r8vec_permute ( N, indx, base, a );
+  r8vec_permute ( N, indx, a );
 
   r8vec_print_some ( N, a, 1, 10, "  Permuted data" );
 
@@ -12263,13 +17168,13 @@ void test143 ( )
 }
 /******************************************************************************/
 
-void test144 ( )
+void r8vec_sort_quick_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST144 tests R8VEC_SORT_QUICK_A.
+    R8VEC_SORT_QUICK_A_TEST tests R8VEC_SORT_QUICK_A.
 
   Licensing:
 
@@ -12292,7 +17197,7 @@ void test144 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST144\n" );
+  printf ( "R8VEC_SORT_QUICK_A_TEST\n" );
   printf ( "  R8VEC_SORT_QUICK_A sorts an R8VEC\n" );
   printf ( "  using quick sort.\n" );
 
@@ -12315,13 +17220,13 @@ void test144 ( )
 }
 /******************************************************************************/
 
-void test145 ( )
+void r8vec_sorted_merge_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST145 tests R8VEC_SORTED_MERGE_A;
+    R8VEC_SORTED_MERGE_A_TEST tests R8VEC_SORTED_MERGE_A;
 
   Licensing:
 
@@ -12345,7 +17250,7 @@ void test145 ( )
   int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST145\n" );
+  printf ( "R8VEC_SORTED_MERGE_A_TEST\n" );
   printf ( "  For ascending order:\n" );
   printf ( "  R8VEC_SORTED_MERGE_A merges two sorted R8VEC's;\n" );
   printf ( "\n" );
@@ -12374,13 +17279,13 @@ void test145 ( )
 }
 /******************************************************************************/
 
-void test146 ( )
+void r8vec_sorted_nearest_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST146 tests R8VEC_SORTED_NEAREST.
+    R8VEC_SORTED_NEAREST_TEST tests R8VEC_SORTED_NEAREST.
 
   Licensing:
 
@@ -12406,9 +17311,9 @@ void test146 ( )
   double xval;
 
   printf ( "\n" );
-  printf ( "TEST146\n" );
+  printf ( "R8VEC_SORTED_NEAREST_TEST\n" );
   printf ( "  R8VEC_SORTED_NEAREST finds the nearest entry\n" );
-  printf ( "  in a sorted real array.\n" );
+  printf ( "  in a sorted R8VEC.\n" );
 
   b = 0.0;
   c = 10.0;
@@ -12439,13 +17344,13 @@ void test146 ( )
 }
 /******************************************************************************/
 
-void test1465 ( void )
+void r8vec_sorted_range_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1465 tests R8VEC_SORTED_RANGE.
+    R8VEC_SORTED_RANGE_TEST tests R8VEC_SORTED_RANGE.
 
   Licensing:
 
@@ -12472,9 +17377,9 @@ void test1465 ( void )
   int test;
 
   printf ( "\n" );
-  printf ( "TEST1465\n" );
+  printf ( "R8VEC_SORTED_RANGE_TEST\n" );
   printf ( "  R8VEC_SORTED_RANGE seeks the range of indices\n" );
-  printf ( "  in a sorted vector R so that\n" );
+  printf ( "  in a sorted R8VEC so that\n" );
   printf ( "  R_LO <= R(I_LO:I_HI) <= R_HI.\n" );
 
   seed = 123456789;
@@ -12520,13 +17425,13 @@ void test1465 ( void )
 }
 /******************************************************************************/
 
-void test147 ( )
+void r8vec_sorted_split_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST147 tests R8VEC_SORTED_SPLIT and R8VEC_SPLIT.
+    R8VEC_SORTED_SPLIT_TEST tests R8VEC_SORTED_SPLIT.
 
   Licensing:
 
@@ -12553,12 +17458,10 @@ void test147 ( )
   double split;
 
   printf ( "\n" );
-  printf ( "TEST147\n" );
-  printf ( "  R8VEC_SORTED_SPLIT splits a sorted vector into\n" );
+  printf ( "R8VEC_SORTED_SPLIT_TEST\n" );
+  printf ( "  R8VEC_SORTED_SPLIT splits a sorted R8VEC into\n" );
   printf ( "  entries less than and greater than a\n" );
   printf ( "  splitting value.\n" );
-  printf ( "  R8VEC_SPLIT splits an unsorted vector\n" );
-  printf ( "  in the same way.\n" );
   printf ( "\n" );
 
   b = 0.0;
@@ -12587,34 +17490,19 @@ void test147 ( )
   printf ( "  Lower index I_LT = %d\n", i_lt );
   printf ( "  Upper index I_GT = %d\n", i_gt );
 
-  printf ( "\n" );
-  printf ( "  Now repeat test with R8VEC_SPLIT.\n" );
-  printf ( "\n" );
-
-  r8vec_permute_uniform ( n, a, &seed );
-
-  r8vec_print ( n, a, "  The shuffled array:" );
-
-  isplit = r8vec_split ( n, a, split );
-
-  r8vec_print ( n, a, "  The split array:" );
-
-  printf ( "\n" );
-  printf ( "  Array entries <= SPLIT up to index %d\n", isplit );
-
   free ( a );
 
   return;
 }
 /******************************************************************************/
 
-void test1475 ( )
+void r8vec_sorted_undex_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8LIB_TEST1475 tests R8VEC_UNDEX.
+    R8VEC_SORTED_UNDEX_TEST tests R8VEC_SORTED_UNDEX.
 
   Licensing:
 
@@ -12641,7 +17529,7 @@ void test1475 ( )
   double *xu_val;
 
   printf ( "\n" );
-  printf ( "R8LIB_TEST1475\n" );
+  printf ( "R8VEC_SORTED_UNDEX_TEST\n" );
   printf ( "  R8VEC_SORTED_UNDEX produces index vectors which create a sorted\n" );
   printf ( "  list of the unique elements of a sorted R8VEC,\n" );
   printf ( "  and a map from the original vector to the (implicit)\n" );
@@ -12710,13 +17598,13 @@ void test1475 ( )
 }
 /******************************************************************************/
 
-void test148 ( )
+void r8vec_sorted_unique_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST148 tests R8VEC_SORTED_UNIQUE;
+    R8VEC_SORTED_UNIQUE_TEST tests R8VEC_SORTED_UNIQUE;
 
   Licensing:
 
@@ -12724,61 +17612,57 @@ void test148 ( )
 
   Modified:
 
-    19 June 2012
+    06 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define N 20
-
   double *a;
-  double *a_nint;
   double *a_unique;
   double b;
   double c;
   int i;
+  int n = 20;
   int seed;
   double tol = 0.25;
   int unique_num;
 
   printf ( "\n" );
-  printf ( "TEST148\n" );
+  printf ( "R8VEC_SORTED_UNIQUE_TEST\n" );
   printf ( "  R8VEC_SORTED_UNIQUE finds unique entries in a sorted R8VEC;\n" );
 
   b = 0.0;
-  c = ( double ) ( N );
+  c = ( double ) ( n );
   seed = 123456789;
 
-  a = r8vec_uniform_ab_new ( N, b, c, &seed );
+  a = r8vec_uniform_ab_new ( n, b, c, &seed );
 
-  a_nint = r8vec_nint ( N, a );
+  r8vec_nint ( n, a );
 
-  r8vec_print_some ( N, a_nint, 1, 10, "  Unsorted array:" );
+  r8vec_print_some ( n, a, 1, 10, "  Unsorted array:" );
 
-  r8vec_sort_heap_a ( N, a_nint );
+  r8vec_sort_heap_a ( n, a );
 
-  a_unique = r8vec_sorted_unique ( N, a_nint, tol, &unique_num );
+  a_unique = r8vec_sorted_unique ( n, a, tol, &unique_num );
 
   r8vec_print ( unique_num, a_unique, "  Unique entries" );
 
   free ( a );
-  free ( a_nint );
   free ( a_unique );
 
   return;
-# undef N
 }
 /******************************************************************************/
 
-void test149 ( )
+void r8vec_sorted_unique_count_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST149 tests R8VEC_SORTED_UNIQUE_COUNT;
+    R8VEC_SORTED_UNIQUE_COUNT_TEST tests R8VEC_SORTED_UNIQUE_COUNT;
 
   Licensing:
 
@@ -12804,7 +17688,7 @@ void test149 ( )
   double tol = 0.25;
 
   printf ( "\n" );
-  printf ( "TEST149\n" );
+  printf ( "R8VEC_SORTED_UNIQUE_COUNT_TEST\n" );
   printf ( "  R8VEC_SORTED_UNIQUE_COUNT counts unique entries in a sorted R8VEC;\n" );
 
   b = 0.0;
@@ -12831,13 +17715,13 @@ void test149 ( )
 }
 /******************************************************************************/
 
-void test150 ( )
+void r8vec_sorted_unique_hist_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST150 tests R8VEC_SORTED_UNIQUE_HIST.
+    R8VEC_SORTED_UNIQUE_HIST_TEST tests R8VEC_SORTED_UNIQUE_HIST.
 
   Licensing:
 
@@ -12866,7 +17750,7 @@ void test150 ( )
   double tol = 0.25;
 
   printf ( "\n" );
-  printf ( "TEST150\n" );
+  printf ( "R8VEC_SORTED_UNIQUE_HIST_TEST\n" );
   printf ( "  R8VEC_SORTED_UNIQUE_HIST stores the unique entries\n" );
   printf ( "  and their multiplicities.\n" );
 
@@ -12910,13 +17794,80 @@ void test150 ( )
 }
 /******************************************************************************/
 
-void test1504 ( void )
+void r8vec_split_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8LIB_TEST1504 tests R8VEC_TRANSPOSE_PRINT.
+    R8VEC_SPLIT_TEST tests R8VEC_SPLIT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  double b;
+  double c;
+  int i;
+  int i_gt;
+  int i_lt;
+  int isplit;
+  int n = 25;
+  int seed;
+  double split;
+
+  printf ( "\n" );
+  printf ( "R8VEC_SPLIT_TEST\n" );
+  printf ( "  R8VEC_SPLIT splits an R8VEC into\n" );
+  printf ( "  entries less than and greater than a\n" );
+  printf ( "  splitting value.\n" );
+  printf ( "\n" );
+
+  b = 0.0;
+  c = 10.0;
+  seed = 123456789;
+
+  a = r8vec_uniform_ab_new ( n, b, c, &seed );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = 0.5 * ( double ) ( r8_nint ( a[i] ) );
+  }
+
+  split = 0.5 * ( a[0] + a[n-1] );
+
+  r8vec_print ( n, a, "  The array:" );
+
+  isplit = r8vec_split ( n, a, split );
+
+  r8vec_print ( n, a, "  The split array:" );
+
+  printf ( "\n" );
+  printf ( "  Array entries <= SPLIT up to index %d\n", isplit );
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_transpose_print_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_TRANSPOSE_PRINT_TEST tests R8VEC_TRANSPOSE_PRINT.
 
   Licensing:
 
@@ -12938,7 +17889,7 @@ void test1504 ( void )
   seed = 123456789;
 
   printf ( "\n" );
-  printf ( "R8LIB_TEST1504\n" );
+  printf ( "R8VEC_TRANSPOSE_PRINT_TEST\n" );
   printf ( "  R8VEC_TRANSPOSE_PRINT prints an R8VEC \"tranposed\",\n" );
   printf ( "  that is, placing multiple entries on a line.\n" );
 
@@ -12952,13 +17903,13 @@ void test1504 ( void )
 }
 /******************************************************************************/
 
-void test1505 ( )
+void r8vec_undex_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8LIB_TEST1505 tests R8VEC_UNDEX.
+    R8VEC_UNDEX_TEST tests R8VEC_UNDEX.
 
   Licensing:
 
@@ -12985,7 +17936,7 @@ void test1505 ( )
   double *xu_val;
 
   printf ( "\n" );
-  printf ( "R8LIB_TEST1505\n" );
+  printf ( "R8VEC_UNDEX_TEST\n" );
   printf ( "  R8VEC_UNDEX produces index vectors which create a sorted\n" );
   printf ( "  list of the unique elements of an (unsorted) R8VEC,\n" );
   printf ( "  and a map from the original vector to the (implicit)\n" );
@@ -13054,13 +18005,13 @@ void test1505 ( )
 }
 /******************************************************************************/
 
-void test151 ( )
+void r8vec_uniform_01_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST151 tests R8VEC_UNIFORM.
+    R8VEC_UNIFORM_01_NEW_TEST tests R8VEC_UNIFORM_01_NEW.
 
   Licensing:
 
@@ -13075,22 +18026,16 @@ void test151 ( )
     John Burkardt
 */
 {
-# define N 20
+# define N 10
 
-  double b = 10.0;
-  double c = 20.0;
   int j;
   double *r;
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST151\n" );
-  printf ( "  R8VEC_UNIFORM returns a random real vector\n" );
-  printf ( "  with entries in a given range [ B, C ]\n" );
-  printf ( "\n" );
-  printf ( "  For this problem:\n" );
-  printf ( "  B = %g\n", b );
-  printf ( "  C = %g\n", c );
+  printf ( "R8VEC_UNIFORM_01_NEW_TEST\n" );
+  printf ( "  R8VEC_UNIFORM_01_NEW returns a random R8VEC\n" );
+  printf ( "  with entries in a given range [ 0.0, 1.0 ]\n" );
   printf ( "\n" );
 
   seed = 123456789;
@@ -13101,9 +18046,9 @@ void test151 ( )
     printf ( "  Input SEED = %d\n", seed );
     printf ( "\n" );
 
-    r = r8vec_uniform_ab_new ( N, b, c, &seed );
+    r = r8vec_uniform_01_new ( N, &seed );
 
-    r8vec_print_some ( N, r, 1, 10, "  Random vector:" );
+    r8vec_print ( N, r, "  Random R8VEC:" );
 
     free ( r );
   }
@@ -13113,13 +18058,122 @@ void test151 ( )
 }
 /******************************************************************************/
 
-void test153 ( )
+void r8vec_uniform_ab_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST153 tests R8VEC2_SORT_A and R8VEC2_SORT_D.
+    R8VEC_UNIFORM_AB_NEW_TEST tests R8VEC_UNIFORM_AB_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define N 10
+
+  double a = 10.0;
+  double b = 20.0;
+  int j;
+  double *r;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC_UNIFORM_AB_NEW_TEST\n" );
+  printf ( "  R8VEC_UNIFORM_AB_NEW returns a random R8VEC\n" );
+  printf ( "  with entries in a given range [ A, B ]\n" );
+  printf ( "\n" );
+  printf ( "  For this problem:\n" );
+  printf ( "  A = %g\n", a );
+  printf ( "  B = %g\n", b );
+  printf ( "\n" );
+
+  seed = 123456789;
+
+  for ( j = 1; j <= 3; j++ )
+  {
+    printf ( "\n" );
+    printf ( "  Input SEED = %d\n", seed );
+    printf ( "\n" );
+
+    r = r8vec_uniform_ab_new ( N, a, b, &seed );
+
+    r8vec_print ( N, r, "  Random R8VEC:" );
+
+    free ( r );
+  }
+
+  return;
+# undef N
+}
+/******************************************************************************/
+
+void r8vec_variance_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_VARIANCE_TEST tests R8VEC_VARIANCE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 March 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a;
+  int n = 10;
+  double r8_hi;
+  double r8_lo;
+  int seed;
+  double variance;
+
+  printf ( "\n" );
+  printf ( "R8VEC_VARIANCE_TEST\n" );
+  printf ( "  R8VEC_VARIANCE computes the variance of an R8VEC.\n" );
+
+  r8_lo = - 5.0;
+  r8_hi = + 5.0;
+  seed = 123456789;
+  a = r8vec_uniform_ab_new ( n, r8_lo, r8_hi, &seed );
+
+  r8vec_print ( n, a, "  Input vector:" );
+
+  variance = r8vec_variance ( n, a );
+
+  printf ( "\n" );
+  printf ( "  Variance:    %g\n", variance );
+ 
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec2_sort_a_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC2_SORT_A_TEST tests R8VEC2_SORT_A.
 
   Licensing:
 
@@ -13142,10 +18196,9 @@ void test153 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST153\n" );
+  printf ( "R8VEC2_SORT_A_TEST\n" );
   printf ( "  For a pair of R8VEC's:\n" );
   printf ( "  R8VEC2_SORT_A ascending sorts;\n" );
-  printf ( "  R8VEC2_SORT_D descending sorts;\n" );
 
   b = 1.0;
   c = 3.0;
@@ -13173,6 +18226,68 @@ void test153 ( )
 
   r8vec2_print ( n, a1, a2, "  Arrays after ascending sort:" );
 
+  free ( a1 );
+  free ( a2 );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec2_sort_d_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC2_SORT_D_TEST tests R8VEC2_SORT_D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 June 2012
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double *a1;
+  double *a2;
+  double b;
+  double c;
+  int n = 10;
+  int seed;
+
+  printf ( "\n" );
+  printf ( "R8VEC2_SORT_D_TEST\n" );
+  printf ( "  For a pair of R8VEC's:\n" );
+  printf ( "  R8VEC2_SORT_D descending sorts;\n" );
+
+  b = 1.0;
+  c = 3.0;
+  seed = 123456789;
+
+  a1 = r8vec_uniform_ab_new ( n, b, c, &seed );
+
+  b = 5.0;
+  c = 10.0;
+
+  a2 = r8vec_uniform_ab_new ( n, b, c, &seed );
+
+  a1[2] = a1[0];
+  a2[2] = a2[0];
+
+  a1[5] = a1[1];
+  a2[5] = a2[1];
+
+  a1[8] = a1[0];
+  a2[8] = a2[0];
+
+  r8vec2_print ( n, a1, a2, "  The pair of arrays:" );
+
   r8vec2_sort_d ( n, a1, a2 );
 
   r8vec2_print ( n, a1, a2, "  Arrays after descending sort:" );
@@ -13184,13 +18299,13 @@ void test153 ( )
 }
 /******************************************************************************/
 
-void test154 ( )
+void r8vec2_sort_heap_index_a_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST154 tests R8VEC2_SORT_HEAP_INDEX_A.
+    R8VEC2_SORT_HEAP_INDEX_A_TEST tests R8VEC2_SORT_HEAP_INDEX_A.
 
   Licensing:
 
@@ -13207,7 +18322,6 @@ void test154 ( )
 {
 # define N 20
 
-  int base = 0;
   int i;
   int *indx;
   int seed = 123456789;
@@ -13215,7 +18329,7 @@ void test154 ( )
   double y[N];
 
   printf ( "\n" );
-  printf ( "TEST154\n" );
+  printf ( "R8VEC2_SORT_HEAP_INDEX_A_TEST\n" );
   printf ( "  R8VEC2_SORT_HEAP_INDEX_A creates a sort index\n" );
   printf ( "  for an (X,Y) array.\n" );
 
@@ -13261,8 +18375,8 @@ void test154 ( )
   printf ( "\n" );
   printf ( "  R8VEC_PERMUTE carries out the permutation.\n" );
 
-  r8vec_permute ( N, indx, base, x );
-  r8vec_permute ( N, indx, base, y );
+  r8vec_permute ( N, indx, x );
+  r8vec_permute ( N, indx, y );
 
   printf ( "\n" );
   printf ( "         I X(I), Y(I)\n" );
@@ -13277,13 +18391,13 @@ void test154 ( )
 }
 /******************************************************************************/
 
-void test155 ( )
+void r8vec2_sorted_unique_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST155 tests R8VEC2_SORTED_UNIQUE.
+    R8VEC2_SORTED_UNIQUE_TEST tests R8VEC2_SORTED_UNIQUE.
 
   Licensing:
 
@@ -13307,7 +18421,7 @@ void test155 ( )
   int unique_num;
 
   printf ( "\n" );
-  printf ( "TEST155\n" );
+  printf ( "R8VEC2_SORTED_UNIQUE_TEST\n" );
   printf ( "  For a pair of R8VEC's:\n" );
   printf ( "  R8VEC2_SORTED_UNIQUE counts unique entries.\n" );
 
@@ -13348,13 +18462,13 @@ void test155 ( )
 }
 /******************************************************************************/
 
-void test156 ( )
+void r8vec2_sorted_unique_index_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST156 tests R8VEC2_SORTED_UNIQUE_INDEX.
+    R8VEC2_SORTED_UNIQUE_INDEX_TEST tests R8VEC2_SORTED_UNIQUE_INDEX.
 
   Licensing:
 
@@ -13380,7 +18494,7 @@ void test156 ( )
   int unique_num;
 
   printf ( "\n" );
-  printf ( "TEST156\n" );
+  printf ( "R8VEC2_SORTED_UNIQUE_INDEX_TEST\n" );
   printf ( "  For a pair of R8VEC's:\n" );
   printf ( "  R8VEC2_SORTED_UNIQUE_INDEX indexes unique entries.\n" );
 
@@ -13426,13 +18540,13 @@ void test156 ( )
 }
 /******************************************************************************/
 
-void test157 ( )
+void r8vec2_sum_max_index_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST157 tests R8VEC2_SUM_MAX_INDEX.
+    R8VEC2_SUM_MAX_INDEX_TEST tests R8VEC2_SUM_MAX_INDEX.
 
   Licensing:
 
@@ -13456,7 +18570,7 @@ void test157 ( )
   int seed;
 
   printf ( "\n" );
-  printf ( "TEST157\n" );
+  printf ( "R8VEC2_SUM_MAX_INDEX_TEST\n" );
   printf ( "  For a pair of R8VEC's:\n" );
   printf ( "  R8VEC2_SUM_MAX_INDEX: index of the sum vector\n" );
   printf ( "  with maximum value.\n" );
@@ -13486,13 +18600,13 @@ void test157 ( )
 }
 /******************************************************************************/
 
-void test158 ( )
+void roots_to_r8poly_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST158 tests R8VECS_PRINT.
+    ROOTS_TO_R8POLY_TEST tests ROOTS_TO_R8POLY.
 
   Licensing:
 
@@ -13500,30 +18614,30 @@ void test158 ( )
 
   Modified:
 
-    26 June 2012
+    11 March 2015
 
   Author:
 
     John Burkardt
 */
 {
-  int m = 5;
-  int na = 15;
-
-  double a[15] = {
-    11.0, 12.0, 13.0, 
-    21.0, 22.0, 
-    31.0, 32.0, 33.0, 34.0, 35.0, 36.0, 37.0, 
-    41.0, 42.0, 
-    51.0 };
-
-  int nvec[6] = { 1, 4, 6, 13, 15, 16 };
+  double *c;
+  int n = 5;
+  double x[5] = { 1.0, -4.0, 3.0, 0.0, 3.0 };
 
   printf ( "\n" );
-  printf ( "TEST158\n" );
-  printf ( "  R8VECS_PRINT prints a packed R8VEC.\n" );
+  printf ( "ROOTS_TO_R8POLY_TEST:\n" );
+  printf ( "  ROOTS_TO_R8POLY is given N real roots,\n" );
+  printf ( "  and constructs the coefficient vector\n" );
+  printf ( "  of the corresponding polynomial.\n" );
 
-  r8vecs_print ( m, nvec, na, a, "  Packed R8VEC:" );
+  r8vec_print ( n, x, "  N real roots:" );
+
+  c = roots_to_r8poly ( n, x );
+
+  r8poly_print ( n, c, "  Corresponding polynomial:" );
+
+  free ( c );
 
   return;
 }

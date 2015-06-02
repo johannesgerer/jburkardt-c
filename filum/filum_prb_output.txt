@@ -1,4 +1,4 @@
-22 November 2011 09:40:02 AM
+24 April 2013 11:38:45 AM
 
 FILUM_PRB:
   C version
@@ -27,7 +27,7 @@ TEST06
        0  make.money.fast
 
 TEST14
-  FILE_NAME_INC increments a string
+  FILENAME_INC increments a string
 
      Input             Output
 
@@ -59,4 +59,4 @@ TEST22
 FILUM_PRB:
   Normal end of execution.
 
-22 November 2011 09:40:02 AM
+24 April 2013 11:38:45 AM

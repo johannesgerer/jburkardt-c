@@ -16,9 +16,11 @@ int main ( int argc, char *argv[] )
 /*
   Purpose:
 
-    LATINIZE_PRB tests the LATINIZE routines.
+    MAIN is the main program for LATINIZE_PRB.
 
   Discussion:
+
+    LATINIZE_PRB tests the LATINIZE library.
 
     The dataset is presumed to be an M by N array of real numbers,
     where M is the spatial dimension, and N is the number of sample points.
@@ -44,7 +46,6 @@ int main ( int argc, char *argv[] )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "LATINIZE_PRB\n" );
   printf ( "  C version\n" );
@@ -64,7 +65,6 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "LATINIZE_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

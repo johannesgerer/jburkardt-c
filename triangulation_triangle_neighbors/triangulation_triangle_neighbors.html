@@ -99,12 +99,22 @@
     </p>
 
     <p>
+      <a href = "../../c_src/mesh_to_xml/mesh_to_xml.html">
+      MESH_TO_XML</a>,
+      a C program which
+      reads information defining a 1D, 2D or 3D mesh, namely
+      a file of node coordinates and a file of elements defined by
+      node indices, and creates a corresponding XML file for input
+      to DOLFIN or FENICS.
+    </p>
+
+    <p>
       <a href = "../../cpp_src/neighbors_to_metis_graph/neighbors_to_metis_graph.html">
       NEIGHBORS_TO_METIS_GRAPH</a>,
       a C++ program which 
       reads a triangle mesh neighbor file created by <b>TRIANGULATION_TRIANGLE_NEIGHBORS</b>
       and writes a modified version of the same data suitable for input
-      to the mesh partitioning program <b>METIS.</b>
+      to the mesh partitioning program METIS.
     </p>
 
     <p>
@@ -152,20 +162,6 @@
     </p>
 
     <p>
-      <a href = "../../cpp_src/triangulation_corner/triangulation_corner.html">
-      TRIANGULATION_CORNER</a>,
-      a C++ program which 
-      patches triangulations so that no triangle has two sides on the boundary.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/triangulation_delaunay_discrepancy/triangulation_delaunay_discrepancy.html">
-      TRIANGULATION_DELAUNAY_DISCREPANCY</a>, 
-      a C++ program which 
-      measures the amount by which a triangulation fails the local Delaunay test;
-    </p>
-
-    <p>
       <a href = "../../cpp_src/triangulation_display_opengl/triangulation_display_opengl.html">
       TRIANGULATION_DISPLAY_OPENGL</a>, 
       a C++ program which
@@ -189,11 +185,13 @@
     </p>
 
     <p>
-      <a href = "../../cpp_src/triangulation_mask/triangulation_mask.html">
-      TRIANGULATION_MASK</a>, 
-      a C++ program which
-      takes an existing triangulation and deletes triangles and
-      their corresponding nodes as requested by the user.
+      <a href = "../../c_src/triangulation_node_to_element/triangulation_node_to_element.html">
+      TRIANGULATION_NODE_TO_ELEMENT</a>,
+      a C program which 
+      reads files describing a set of nodes, their triangulation, and the
+      value of one or more quantities at each node, and outputs a file
+      that averages the quantities for each element.  This operation 
+      in effect creates an "order1" finite element model of the data.
     </p>
 
     <p>
@@ -269,6 +267,14 @@
       reads data defining a triangulation, replaces each triangle
       by four congruent smaller ones, and writes the new triangulation
       information to a file.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangulation_svg/triangulation_svg.html">
+      TRIANGULATION_SVG</a>,
+      a C program which
+      creates a Scalable Vector Graphics (SVG) image of a triangulation, 
+      which can be displayed by a web browser.
     </p>
 
     <p>

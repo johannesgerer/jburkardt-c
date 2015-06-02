@@ -17,7 +17,11 @@ int main ( void )
 /*
   Purpose:
 
-    MAIN tests the TEST_INTERP_2D library.
+    MAIN is the main program for TEST_INTERP_2D_PRB.
+
+  Discussion:
+
+    TEST_INTERP_2D_PRB tests the TEST_INTERP_2D library.
 
   Licensing:
 
@@ -33,7 +37,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "TEST_INTERP_2D_PRB\n" );
   printf ( "  C version\n" );
@@ -48,7 +51,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "TEST_INTERP_2D_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

@@ -1,9 +1,9 @@
-# include <stdlib.h>
-# include <stdio.h>
-# include <math.h>
-# include <time.h>
-# include <string.h>
 # include <complex.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <time.h>
 
 # include "i4lib.h"
 
@@ -105,17 +105,17 @@ int i4_bit_hi1 ( int n )
     Output, int I4_BIT_HI1, the location of the high order bit.
 */
 {
-  int bit;
+  int value;
 
-  bit = 0;
+  value = 0;
 
   while ( 0 < n )
   {
-    bit = bit + 1;
+    value = value + 1;
     n = n / 2;
   }
 
-  return bit;
+  return value;
 }
 /******************************************************************************/
 
@@ -542,7 +542,7 @@ int i4_choose ( int n, int k )
 
   Modified:
 
-    03 May 2008
+    09 December 2013
 
   Author:
 
@@ -569,7 +569,16 @@ int i4_choose ( int n, int k )
   int mx;
   int value;
 
-  mn = i4_min ( k, n - k );
+  if ( k < n - k )
+  {
+    mn = k;
+    mx = n - k;
+  }
+  else
+  {
+    mn = n - k;
+    mx = k;
+  }
 
   if ( mn < 0 )
   {
@@ -581,7 +590,6 @@ int i4_choose ( int n, int k )
   }
   else
   {
-    mx = i4_max ( k, n - k );
     value = mx + 1;
 
     for ( i = 2; i <= mn; i++ )
@@ -630,7 +638,7 @@ int i4_div_rounded ( int a, int b )
 {
   int a_abs;
   int b_abs;
-  static int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int value;
 
   if ( a == 0 && b == 0 )
@@ -673,6 +681,62 @@ int i4_div_rounded ( int a, int b )
       value = - value;
     }
   }
+  return value;
+}
+/******************************************************************************/
+
+int i4_division ( int a, int b )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_DIVISION returns the result of integer division.
+
+  Discussion:
+
+    This routine computes C = A / B, where the result is rounded to the
+    integer value nearest 0.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int A, the number to be divided.
+
+    Input, int B, the divisor.
+
+    Output, int I4_DIVISION, the result.
+*/
+{
+  int a_abs;
+  int b_abs;
+  int s;
+  int value;
+
+  if ( a * b < 0 )
+  {
+    s = -1;
+  }
+  else
+  {
+    s = +1;
+  }
+
+  a_abs = abs ( a );
+  b_abs = abs ( b );
+  value = s * ( a_abs / b_abs );
+
   return value;
 }
 /******************************************************************************/
@@ -735,41 +799,6 @@ int i4_divp ( int i, int j )
 }
 /******************************************************************************/
 
-int i4_even ( int i )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_EVEN returns TRUE if an I4 is even.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    23 October 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I, the integer to be tested.
-
-    Output, int I4_EVEN, is TRUE if I is even.
-*/
-{
-  int value;
-
-  value = ( ( i % 2 ) == 0 );
-
-  return value;
-}
-/******************************************************************************/
-
 int i4_factorial ( int n )
 
 /******************************************************************************/
@@ -824,40 +853,40 @@ int i4_factorial ( int n )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int i4_factorial2 ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    I4_FACTORIAL2 computes the double factorial function.
-//
-//  Discussion:
-//
-//    FACTORIAL2( N ) = Product ( N * (N-2) * (N-4) * ... * 2 )  (N even)
-//                    = Product ( N * (N-2) * (N-4) * ... * 1 )  (N odd)
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the argument of the double factorial function.
-//    If N is less than 1, I4_FACTORIAL2 is returned as 1.
-//
-//    Output, int I4_FACTORIAL2, the value of the double factorial function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_FACTORIAL2 computes the double factorial function.
+
+  Discussion:
+
+    FACTORIAL2( N ) = Product ( N * (N-2) * (N-4) * ... * 2 )  (N even)
+                    = Product ( N * (N-2) * (N-4) * ... * 1 )  (N odd)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the argument of the double factorial function.
+    If N is less than 1, I4_FACTORIAL2 is returned as 1.
+
+    Output, int I4_FACTORIAL2, the value of the double factorial function.
+*/
 {
   int n_copy;
   int value;
@@ -878,6 +907,310 @@ int i4_factorial2 ( int n )
   }
 
   return value;
+}
+/******************************************************************************/
+
+void i4_factorial2_values ( int *n_data, int *n, int *fn )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_FACTORIAL2_VALUES returns values of the double factorial function.
+
+  Formula:
+
+    FACTORIAL2( N ) = Product ( N * (N-2) * (N-4) * ... * 2 )  (N even)
+                    = Product ( N * (N-2) * (N-4) * ... * 1 )  (N odd)
+
+    In Mathematica, the function can be evaluated by:
+
+      n!!
+
+  Example:
+
+     N    N!!
+
+     0     1
+     1     1
+     2     2
+     3     3
+     4     8
+     5    15
+     6    48
+     7   105
+     8   384
+     9   945
+    10  3840
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+    Daniel Zwillinger,
+    CRC Standard Mathematical Tables and Formulae,
+    30th Edition,
+    CRC Press, 1996, page 16.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, int *N, the argument of the function.
+
+    Output, int *FN, the value of the function.
+*/
+{
+# define N_MAX 16
+
+  static int fn_vec[N_MAX] = {
+          1,
+          1,
+          2,
+          3,
+          8,
+         15,
+         48,
+        105,
+        384,
+        945,
+       3840,
+      10395,
+      46080,
+     135135,
+     645120,
+    2027025 };
+
+  static int n_vec[N_MAX] = {
+     0,
+     1,  2,  3,  4,  5,
+     6,  7,  8,  9, 10,
+    11, 12, 13, 14, 15 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *n = 0;
+    *fn = 0;
+  }
+  else
+  {
+    *n = n_vec[*n_data-1];
+    *fn = fn_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+int i4_fall ( int x, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_FALL computes the falling factorial function [X]_N.
+
+  Discussion:
+
+    Note that the number of "injections" or 1-to-1 mappings from
+    a set of N elements to a set of M elements is [M]_N.
+
+    The number of permutations of N objects out of M is [M]_N.
+
+    Moreover, the Stirling numbers of the first kind can be used
+    to convert a falling factorial into a polynomial, as follows:
+
+      [X]_N = S^0_N + S^1_N * X + S^2_N * X^2 + ... + S^N_N X^N.
+
+  Formula:
+
+    [X]_N = X * ( X - 1 ) * ( X - 2 ) * ... * ( X - N + 1 ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int X, the argument of the falling factorial function.
+
+    Input, int N, the order of the falling factorial function.
+    If N = 0, FALL = 1, if N = 1, FALL = X.  Note that if N is
+    negative, a "rising" factorial will be computed.
+
+    Output, int I4_FALL, the value of the falling factorial function.
+*/
+{
+  int i;
+  int value;
+
+  value = 1;
+
+  if ( 0 < n )
+  {
+    for ( i = 1; i <= n; i++ )
+    {
+      value = value * x;
+      x = x - 1;
+    }
+  }
+  else if ( n < 0 )
+  {
+    for ( i = -1; n <= i; i-- )
+    {
+      value = value * x;
+      x = x + 1;
+    }
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+void i4_fall_values ( int *n_data, int *m, int *n, int *fmn )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_FALL_VALUES returns values of the integer falling factorial function.
+
+  Discussion:
+
+    The definition of the falling factorial function is
+
+      (m)_n = (m)! / (m-n)!
+            = ( m ) * ( m - 1 ) * ( m - 2 ) ... * ( m - n + 1 )
+            = Gamma ( m + 1 ) / Gamma ( m - n + 1 )
+
+    We assume 0 <= N <= M.
+
+    In Mathematica, the function can be evaluated by:
+
+      FactorialPower[m,n]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 December 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, int *M, N, the arguments of the function.
+
+    Output, int *FMN, the value of the function.
+*/
+{
+# define N_MAX 15
+
+  static int fmn_vec[N_MAX] = {
+     1, 5, 20, 60, 120, 
+     120, 0, 1, 10, 4000, 
+     90, 4896, 24, 912576, 0 };
+
+  static int m_vec[N_MAX] = {
+    5, 5, 5, 5, 5, 
+    5, 5, 50, 10, 4000, 
+    10, 18, 4, 98, 1 };
+
+  static int n_vec[N_MAX] = {
+    0, 1, 2, 3, 4, 
+    5, 6, 0, 1, 1, 
+    2, 3, 4, 3, 7  };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *m = 0;
+    *n = 0;
+    *fmn = 0;
+  }
+  else
+  {
+    *m = m_vec[*n_data-1];
+    *n = n_vec[*n_data-1];
+    *fmn = fmn_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
 }
 /******************************************************************************/
 
@@ -985,11 +1318,11 @@ int i4_fraction ( int i, int j )
     Output, int K, the value of the ratio.
 */
 {
-  int k;
+  int value;
 
-  k = i / j;
+  value = i / j;
 
-  return k;
+  return value;
 }
 /******************************************************************************/
 
@@ -1094,7 +1427,7 @@ int i4_gcdb ( int i, int j, int k )
     and vice versa.
 
     If I and J are nonzero, and have no common divisor of the
-    form K**N, I4_GCDB is returned as 1.
+    form K^N, I4_GCDB is returned as 1.
 
     Otherwise, I4_GCDB is returned as the largest common divisor
     of the form K^N shared by I and J.
@@ -1174,7 +1507,7 @@ int i4_gcdb ( int i, int j, int k )
 }
 /******************************************************************************/
 
-int i4_huge ( void )
+int i4_huge ( )
 
 /******************************************************************************/
 /*
@@ -1199,13 +1532,13 @@ int i4_huge ( void )
     Output, int I4_HUGE, a "huge" integer.
 */
 {
-  static int value = 2147483647;
+  const int value = 2147483647;
 
   return value;
 }
 /******************************************************************************/
 
-double i4_huge_normalizer ( void )
+double i4_huge_normalizer ( )
 
 /******************************************************************************/
 /*
@@ -1239,7 +1572,77 @@ double i4_huge_normalizer ( void )
     for I4_HUGE.
 */
 {
-  double value = 4.656612873077392578125E-10;
+  const double value = 4.656612873077392578125E-10;
+
+  return value;
+}
+/******************************************************************************/
+
+int i4_is_even ( int i )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_IS_EVEN returns TRUE if an I4 is even.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 October 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, the integer to be tested.
+
+    Output, int I4_IS_EVEN, is TRUE if I is even.
+*/
+{
+  int value;
+
+  value = ( ( i % 2 ) == 0 );
+
+  return value;
+}
+/******************************************************************************/
+
+int i4_is_odd ( int i )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_IS_ODD returns TRUE if an I4 is odd.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 October 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, the integer to be tested.
+
+    Output, int I4_IS_ODD, is TRUE if I is odd.
+*/
+{
+  int value;
+
+  value = ( ( i % 2 ) != 0 );
 
   return value;
 }
@@ -1276,21 +1679,27 @@ int i4_is_power_of_2 ( int n )
     Output, int I4_IS_POWER_OF_2, is TRUE if N is a power of 2.
 */
 {
+  int value;
+
   if ( n <= 0 )
   {
-    return 0;
+    value = 0;
+    return value;
   }
 
   while ( n != 1 )
   {
     if ( ( n % 2 ) == 1 )
     {
-      return 0;
+      value = 0;
+      return value;
     }
     n = n / 2;
   }
 
-  return 1;
+  value = 1;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -1326,7 +1735,7 @@ int i4_is_prime ( int n )
 
     Input, int N, the integer to be tested.
 
-    Output, bool I4_IS_PRIME, is TRUE if N is prime, and FALSE
+    Output, int I4_IS_PRIME, is TRUE (1) if N is prime, and FALSE (0)
     otherwise.
 */
 {
@@ -1701,13 +2110,14 @@ int i4_log_r8 ( int x, double b )
 */
 {
   double b_abs;
-  double x_abs;
+  const int i4_huge = 2147483647;
   int value;
   int value_sign;
+  double x_abs;
 
   if ( x == 0 )
   {
-    value = -i4_huge ( );
+    value = - i4_huge;
     return value;
   }
 
@@ -1781,7 +2191,7 @@ void i4_mant ( double x, int *s, int *j, int *k, int *l )
 
     On return:
 
-      X = S * (J/K) * 2**L
+      X = S * (J/K) * 2^L
 
     where
 
@@ -1865,7 +2275,7 @@ void i4_mant ( double x, int *s, int *j, int *k, int *l )
 
   for ( ; ; )
   {
-    *j = 2 * (*j);
+    *j = 2 * ( *j );
 
     if ( 1.0 <= x )
     {
@@ -1878,7 +2288,7 @@ void i4_mant ( double x, int *s, int *j, int *k, int *l )
       break;
     }
 
-    *k = 2 * (*k);
+    *k = 2 * ( *k );
     x = x * 2.0;
   }
 
@@ -2131,7 +2541,7 @@ void i4_moddiv ( int n, int d, int *m, int *r )
   }
 
   *m = n / d;
-  *r = n - d * (*m);
+  *r = n - d * ( *m );
 
   return;
 }
@@ -2257,37 +2667,6 @@ int i4_mop ( int i )
   }
 
   return value;
-}
-/******************************************************************************/
-
-int i4_odd ( int i )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_ODD returns TRUE if an I4 is odd.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    23 October 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I, the integer to be tested.
-
-    Output, int I4_ODD, is TRUE if I is odd.
-*/
-{
-  return ( ( i % 2 ) != 0 );
 }
 /******************************************************************************/
 
@@ -2418,6 +2797,186 @@ int i4_reverse_bytes ( int x )
 }
 /******************************************************************************/
 
+int i4_rise ( int x, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_RISE computes the rising factorial function [X]^N.
+
+  Discussion:
+
+    [X}^N = X * ( X + 1 ) * ( X + 2 ) * ... * ( X + N - 1 ).
+
+    Note that the number of ways of arranging N objects in M ordered
+    boxes is [M}^N.  (Here, the ordering in each box matters).  Thus,
+    2 objects in 2 boxes have the following 6 possible arrangements:
+
+      -/12, 1/2, 12/-, -/21, 2/1, 21/-.
+
+    Moreover, the number of non-decreasing maps from a set of
+    N to a set of M ordered elements is [M]^N / N!.  Thus the set of
+    nondecreasing maps from (1,2,3) to (a,b,c,d) is the 20 elements:
+
+      aaa, abb, acc, add, aab, abc, acd, aac, abd, aad
+      bbb, bcc, bdd, bbc, bcd, bbd, ccc, cdd, ccd, ddd.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int X, the argument of the rising factorial function.
+
+    Input, int N, the order of the rising factorial function.
+    If N = 0, RISE = 1, if N = 1, RISE = X.  Note that if N is
+    negative, a "falling" factorial will be computed.
+
+    Output, int I4_RISE, the value of the rising factorial function.
+*/
+{
+  int i;
+  int value;
+
+  value = 1;
+
+  if ( 0 < n )
+  {
+    for ( i = 1; i <= n; i++ )
+    {
+      value = value * x;
+      x = x + 1;
+    }
+  }
+  else if ( n < 0 )
+  {
+    for ( i = -1; n <= i; i-- )
+    {
+      value = value * x;
+      x = x - 1;
+    }
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+void i4_rise_values ( int *n_data, int *m, int *n, int *fmn )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_RISE_VALUES returns values of the integer rising factorial function.
+
+  Discussion:
+
+    The integer rising factorial function is sometimes symbolized by (m)_n.
+
+    The definition is
+
+      (m)_n = (m-1+n)! / (m-1)!
+            = ( m ) * ( m + 1 ) * ( m + 2 ) ... * ( m - 1 + n )
+            = Gamma ( m + n ) / Gamma ( m )
+
+    We assume 0 <= N <= M.
+
+    In Mathematica, the function can be evaluated by:
+
+      Pochhammer[m,n]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 December 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, int *M, N, the arguments of the function.
+
+    Output, int *FMN, the value of the function.
+*/
+{
+# define N_MAX 15
+
+  static int fmn_vec[N_MAX] = {
+     1, 5, 30, 210, 1680, 
+     15120, 151200, 1, 10, 4000, 
+     110, 6840, 840, 970200, 5040 };
+
+  static int m_vec[N_MAX] = {
+    5, 5, 5, 5, 5, 
+    5, 5, 50, 10, 4000, 
+    10, 18, 4, 98, 1 };
+
+  static int n_vec[N_MAX] = {
+    0, 1, 2, 3, 4, 
+    5, 6, 0, 1, 1, 
+    2, 3, 4, 3, 7  };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *m = 0;
+    *n = 0;
+    *fmn = 0;
+  }
+  else
+  {
+    *m = m_vec[*n_data-1];
+    *n = n_vec[*n_data-1];
+    *fmn = fmn_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
 int i4_sign ( int i )
 
 /******************************************************************************/
@@ -2426,13 +2985,20 @@ int i4_sign ( int i )
 
     I4_SIGN returns the sign of an I4.
 
+  Discusssion:
+
+    This is the "two-way" sign, that is:
+
+      I < 0        =>  sign(I) = -1
+          0 <= I   =>  sign(I) = +1
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    23 October 2007
+    28 September 2014
 
   Author:
 
@@ -2450,6 +3016,59 @@ int i4_sign ( int i )
   if ( i < 0 )
   {
     value = -1;
+  }
+  else
+  {
+    value = 1;
+  }
+  return value;
+}
+/******************************************************************************/
+
+int i4_sign3 ( int i )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_SIGN3 returns the three-way sign of an I4.
+
+  Discusssion:
+
+    This is the "three-way" sign, that is:
+
+      I < 0        =>  sign(I) = -1
+      I = 0        =>  sign(I) =  0
+          0 <  I   =>  sign(I) = +1
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 September 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, the integer whose three-way sign is desired.
+
+    Output, int I4_SIGN3, the sign of I.
+*/
+{
+  int value;
+
+  if ( i < 0 )
+  {
+    value = -1;
+  }
+  else if ( i == 0 )
+  {
+    value = 0;
   }
   else
   {
@@ -2568,7 +3187,6 @@ double i4_to_angle ( int i )
     12   1/24    15
     13   3/24    45
     14   5/24    75
-    etc
 
   Licensing:
 
@@ -2590,15 +3208,15 @@ double i4_to_angle ( int i )
     between 0 and 360.
 */
 {
-  double angle;
   int i1;
   int i2;
   int i3;
   int i4;
+  int value;
 
   if ( 0 <= abs ( i ) && abs ( i ) <= 2 )
   {
-    angle = 120.0 * ( double ) ( abs ( i ) );
+    value = 120.0 * ( double ) ( abs ( i ) );
   }
   else
   {
@@ -2607,10 +3225,10 @@ double i4_to_angle ( int i )
     i3 = 2 * ( i2 - 1 ) + 1;
     i4 = 3 * i4_power ( 2, ( i1 + 1 ) );
 
-    angle = 360.0 * ( double ) ( i3 ) / ( double ) ( i4 );
+    value = 360.0 * ( double ) ( i3 ) / ( double ) ( i4 );
   }
 
-  return angle;
+  return value;
 }
 /******************************************************************************/
 
@@ -2983,19 +3601,20 @@ char i4_to_isbn ( int i )
 }
 /******************************************************************************/
 
-int i4_to_l ( int i4 )
+int i4_to_l4 ( int i4 )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4_TO_L converts an I4 to a logical value.
+    I4_TO_L4 converts an I4 to an L4.
 
   Discussion:
 
     0 is FALSE, and anything else if TRUE.
 
     An I4 is an integer value.
+    An L4 is a logical value.
 
   Licensing:
 
@@ -3013,7 +3632,7 @@ int i4_to_l ( int i4 )
 
     Input, int I4, an integer.
 
-    Output, int I4_TO_L, the logical value of I4.
+    Output, int I4_TO_L4, the logical value of I4.
 */
 {
   int value;
@@ -3021,6 +3640,294 @@ int i4_to_l ( int i4 )
   value = ( i4 != 0 );
 
   return value;
+}
+/******************************************************************************/
+
+void i4_to_pascal ( int k, int *i, int *j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_TO_PASCAL converts a linear index to Pascal triangle coordinates.
+
+  Discussion:
+
+    We describe the grid points in Pascal's triangle in two ways:
+
+    As a linear index K:
+
+                     1
+                   2   3
+                 4   5   6
+               7   8   9   10
+
+    As elements (I,J) of Pascal's triangle:
+
+                     0,0
+                  1,0   0,1
+               2,0   1,1    0,2
+            3,0   2,1   1,2    0,3
+
+  Example:
+
+     K  I  J
+
+     1  0  0
+     2  1  0
+     3  0  1
+     4  2  0
+     5  1  1
+     6  0  2
+     7  3  0
+     8  2  1
+     9  1  2
+    10  0  3
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int K, the linear index of the (I,J) element.
+    1 <= K.
+
+    Output, int *I, *J, the Pascal indices.
+*/
+{
+  int d;
+
+  if ( k <= 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "I4_TO_PASCAL - Fatal error!\n" );
+    fprintf ( stderr, "  K must be positive.\n" );
+    exit ( 1 );
+  }
+
+  d = i4_to_pascal_degree ( k );
+
+  *j = k - ( d * ( d + 1 ) ) / 2 - 1;
+  *i = d - *j;
+
+  return;
+}
+/******************************************************************************/
+
+int i4_to_pascal_degree ( int k )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_TO_PASCAL_DEGREE converts a linear index to a Pascal triangle degree.
+
+  Discussion:
+
+    We describe the grid points in Pascal's triangle in two ways:
+
+    As a linear index K:
+
+                     1
+                   2   3
+                 4   5   6
+               7   8   9   10
+
+    As elements (I,J) of Pascal's triangle:
+
+                     0,0
+                  1,0   0,1
+               2,0   1,1    0,2
+            3,0   2,1   1,2    0,3
+
+    The quantity D represents the "degree" of the corresponding monomial,
+    that is, D = I + J.
+
+    We can compute D directly from K using the quadratic formula.
+
+  Example:
+
+     K  I  J  D
+
+     1  0  0  0
+
+     2  1  0  1
+     3  0  1  1
+
+     4  2  0  2
+     5  1  1  2
+     6  0  2  2
+
+     7  3  0  3
+     8  2  1  3
+     9  1  2  3
+    10  0  3  3
+
+    11  4  0  4
+    12  3  1  4
+    13  2  2  4
+    14  1  3  4
+    15  0  4  4
+
+    16  5  0  5
+    17  4  1  5
+    18  3  2  5
+    19  2  3  5
+    20  1  4  5
+    21  0  5  5
+
+    22  6  0  6
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int K, the linear index of the (I,J) element.
+    1 <= K.
+
+    Output, int I4_TO_PASCAL_DEGREE, the degree (sum) of the corresponding 
+     Pascal indices.
+*/
+{
+  double arg;
+  int d;
+
+  if ( k <= 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "I4_TO_PASCAL_DEGREE - Fatal error!\n" );
+    fprintf ( stderr, "  K must be positive.\n" );
+    exit ( 1 );
+  }
+
+  arg = ( double ) ( 1 + 8 * ( k - 1 ) );
+
+  d = ( int ) ( 0.5 * ( -1.0 + sqrt ( arg ) ) );
+
+  return d;
+}
+/******************************************************************************/
+
+void i4_to_triangle ( int k, int *i, int *j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_TO_TRIANGLE converts an integer to triangular coordinates.
+
+  Discussion:
+
+    Triangular coordinates are handy when storing a naturally triangular
+    array (such as the lower half of a matrix) in a linear array.
+
+    Thus, for example, we might consider storing
+
+    (0,0)
+    (1,0) (1,1)
+    (2,0) (2,1) (2,2)
+    (3,0) (3,1) (3,2) (3,3)
+
+    as the linear array
+
+    (0,0) (1,0) (1,1) (2,0) (2,1) (2,2) (3,0) (3,1) (3,2) (3,3)
+
+    Here, the quantities in parenthesis represent the natural row and
+    column indices of a single number when stored in a rectangular array.
+
+    In this routine, we are given the location K of an item in the
+    linear array, and wish to determine the row I and column J
+    of the item when stored in the triangular array.
+
+  Example:
+
+    K  I  J
+
+    0  0  0
+    1  1  0
+    2  1  1
+    3  2  0
+    4  2  1
+    5  2  2
+    6  3  0
+    7  3  1
+    8  3  2
+    9  3  3
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 January 2009
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int K, the linear index of the (I,J) element, which
+    must be nonnegative.
+
+    Output, int *I, *J, the row and column indices.
+*/
+{
+  int c;
+  int r;
+
+  if ( k < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "I4_TO_TRIANGLE - Fatal error!\n" );
+    fprintf ( stderr, "  K < 0.\n" );
+    fprintf ( stderr, "  K = %d\n", k );
+    exit ( 1 );
+  }
+  else if ( k == 0 )
+  {
+    *i = 0;
+    *j = 0;
+    return;
+  }
+/*
+   ( N - 1 )^2 + ( N - 1 ) < 2 * K <= N^2 + N
+*/
+  r = ( int ) ( sqrt ( ( double ) ( 2 * ( k + 1 ) ) ) );
+
+  if ( r * r + r < 2 * ( k + 1 ) )
+  {
+    r = r + 1;
+  }
+
+  r = r - 1;
+
+  c = k - ( r * ( r + 1 ) ) / 2;
+
+  *i = r;
+  *j = c;
+
+  return;
 }
 /******************************************************************************/
 
@@ -3089,7 +3996,7 @@ int i4_uniform_ab ( int a, int b, int *seed )
 */
 {
   int c;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
   float r;
   int value;
@@ -3363,7 +4270,7 @@ int i4_wrap ( int ival, int ilo, int ihi )
 
   Modified:
 
-    17 July 2008
+    26 December 2012
 
   Author:
 
@@ -3383,8 +4290,16 @@ int i4_wrap ( int ival, int ilo, int ihi )
   int value;
   int wide;
 
-  jlo = i4_min ( ilo, ihi );
-  jhi = i4_max ( ilo, ihi );
+  if ( ilo < ihi )
+  {
+   jlo = ilo;
+   jhi = ihi;
+  }
+  else
+  {
+    jlo = ihi;
+    jhi = ilo;
+  }
 
   wide = jhi + 1 - jlo;
 
@@ -3472,7 +4387,8 @@ void i43mat_flip_cols ( int m, int n, int a[] )
 
   Discussion:
 
-    An I43MAT is a matrix, each of whose entries is an I43, a triple of integers.
+    An I43MAT is a matrix, each of whose entries is an I43, a triple 
+    of integers.
 
     An I43MAT can be stored as a 3 x M x N array, where M counts the "columns"
     and N counts the "rows".
@@ -3783,6 +4699,163 @@ void i4block_print ( int l, int m, int n, int a[], char *title )
   }
 
   return;
+}
+/******************************************************************************/
+
+int *i4block_zero_new ( int l, int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4BLOCK_ZERO_NEW returns a new zeroed I4BLOCK.
+
+  Discussion:
+
+    An I4BLOCK is a triple dimensioned array of I4 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int L, M, N, the number of rows, columns, and levels.
+
+    Output, int I4BLOCK_ZERO_NEW[L*M*N], the new zeroed matrix.
+*/
+{
+  int *a;
+  int i;
+  int j;
+  int k;
+
+  a = ( int * ) malloc ( l * m * n * sizeof ( int ) );
+
+  for ( k = 0; k < n; k++ )
+  {
+    for ( j = 0; j < m; j++ )
+    {
+      for ( i = 0; i < l; i++ )
+      {
+        a[i+j*l+k*l*m] = 0;
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+void i4cmat_delete ( int **a, int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4CMAT_DELETE frees the memory set aside by I4CMAT_NEW.
+
+  Discussion:
+
+    This function releases the memory associated with an array that was 
+    created by a command like
+      int **a;
+      a = i4cmat_new ( m, n );
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 September 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int **A, the array.
+
+    Input, int M, N, the number of rows and columns.
+*/
+{
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    free ( a[j] );
+  }
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+int **i4cmat_new ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4CMAT_NEW sets up an I4CMAT of the desired dimensions.
+
+  Discussion:
+
+    An I4CMAT is a column-major dynamically dimensioned 2D integer array.
+
+    A declaration of the form
+      int **a;
+    is necesary.  Then an assignment of the form:
+      a = i4cmat_new ( m, n );
+    allows the user to assign entries to the matrix using typical
+    2D array notation:
+      a[2][3] = 17;
+      y = a[1][0];
+    and so on.
+
+    However, for a column major matrix, the first index is the column, the
+    second the row.  Thus a[i][j] references row j, column i!
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 September 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Output, int **I4CMAT_NEW, the array.
+*/
+{
+  int **a;
+  int j;
+
+  a = ( int ** ) malloc ( m * n * sizeof ( int * ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    a[j] = ( int * ) malloc ( m * sizeof ( int ) );
+  }
+  return a;
 }
 /******************************************************************************/
 
@@ -4989,11 +6062,7 @@ void i4i4_sort_a ( int i1, int i2, int *j1, int *j2 )
 {
   int k1;
   int k2;
-/*
-  Copy arguments, so that the user can make "reasonable" calls like:
 
-    i4i4_sort_a ( i1, i2, &i1, &i2 );
-*/
   k1 = i1;
   k2 = i2;
 
@@ -5042,11 +6111,7 @@ void i4i4i4_sort_a ( int i1, int i2, int i3, int *j1, int *j2, int *j3 )
   int k1;
   int k2;
   int k3;
-/*
-  Copy arguments, so that the user can make "reasonable" calls like:
 
-    i4i4i4_sort_a ( i1, i2, i3, &i1, &i2, &i3 );
-*/
   k1 = i1;
   k2 = i2;
   k3 = i3;
@@ -5476,53 +6541,6 @@ int *i4mat_copy_new ( int m, int n, int a1[] )
     }
   }
   return a2;
-}
-/******************************************************************************/
-
-void i4mat_delete ( int **a, int m, int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4MAT_DELETE frees the memory set aside by I4MAT_NEW.
-
-  Discussion:
-
-    This function releases the memory associated with an array that was 
-    created by a command like
-      int **a;
-      a = i4mat_new ( m, n );
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    11 September 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int **A, the array.
-
-    Input, int M, N, the number of rows and columns.
-*/
-{
-  int i;
-
-  for ( i = 0; i < m; i++ )
-  {
-    free ( a[i] );
-  }
-
-  free ( a );
-
-  return;
 }
 /******************************************************************************/
 
@@ -6008,10 +7026,11 @@ int i4mat_max ( int m, int n, int a[] )
 */
 {
   int i;
+  const int i4_huge = 2147483647;
   int j;
   int value;
 
-  value = - i4_huge ( );
+  value = - i4_huge;
 
   for ( j = 0; j < n; j++ )
   {
@@ -6124,10 +7143,11 @@ int i4mat_min ( int m, int n, int a[] )
 */
 {
   int i;
+  const int i4_huge = 2147483647;
   int j;
   int value;
 
-  value = i4_huge ( );
+  value = i4_huge;
 
   for ( j = 0; j < n; j++ )
   {
@@ -6259,58 +7279,6 @@ int *i4mat_mm ( int n1, int n2, int n3, int a[], int b[] )
 }
 /******************************************************************************/
 
-int **i4mat_new ( int m, int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4MAT_NEW sets up an I4MAT of the desired dimensions.
-
-  Discussion:
-
-    A declaration of the form
-      int **a;
-    is necesary.  Then an assignment of the form:
-      a = i4mat_new ( m, n );
-    allows the user to assign entries to the matrix using typical
-    2D array notation:
-      a[2][3] = 17;
-      y = a[1][0];
-    and so on.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    11 September 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int M, N, the number of rows and columns.
-
-    Output, int **I4MAT_NEW, the array.
-*/
-{
-  int **a;
-  int i;
-
-  a = ( int ** ) malloc ( m * n * sizeof ( int * ) );
-
-  for ( i = 0; i < m; i++ )
-  {
-    a[i] = ( int * ) malloc ( n * sizeof ( int ) );
-  }
-  return a;
-}
-/******************************************************************************/
-
 void i4mat_perm_uniform ( int n, int a[], int *seed )
 
 /******************************************************************************/
@@ -6362,7 +7330,7 @@ void i4mat_perm_uniform ( int n, int a[], int *seed )
 /*
   Permute the rows and columns together.
 */
-  for ( k1 = 0; k1 < n; k1++ )
+  for ( k1 = 0; k1 < n - 1; k1++ )
   {
     k2 = i4_uniform_ab ( k1, n - 1, seed );
 
@@ -6499,11 +7467,6 @@ void i4mat_print ( int m, int n, int a[], char *title )
     Input, char *TITLE, a title.
 */
 {
-  int i;
-  int j;
-  int jhi;
-  int jlo;
-
   i4mat_print_some ( m, n, a, 1, 1, m, n, title );
 
   return;
@@ -6575,8 +7538,14 @@ void i4mat_print_some ( int m, int n, int a[], int ilo, int jlo, int ihi,
   for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
   {
     j2hi = j2lo + INCX - 1;
-    j2hi = i4_min ( j2hi, n );
-    j2hi = i4_min ( j2hi, jhi );
+    if ( n < j2hi )
+    {
+      j2hi = n;
+    }
+    if ( jhi < j2hi )
+    {
+      j2hi = jhi;
+    }
 
     fprintf ( stdout, "\n" );
 /*
@@ -6595,8 +7564,22 @@ void i4mat_print_some ( int m, int n, int a[], int ilo, int jlo, int ihi,
 /*
   Determine the range of the rows in this strip.
 */
-    i2lo = i4_max ( ilo, 1 );
-    i2hi = i4_min ( ihi, m );
+    if ( 1 < ilo )
+    {
+      i2lo = ilo;
+    }
+    else
+    {
+      i2lo = 1;
+    }
+    if ( m < ihi )
+    {
+      i2hi = m;
+    }
+    else
+    {
+      i2hi = ihi;
+    }
 
     for ( i = i2lo; i <= i2hi; i++ )
     {
@@ -6742,11 +7725,6 @@ void i4mat_transpose_print ( int m, int n, int a[], char *title )
     Input, char *TITLE, a title.
 */
 {
-  int i;
-  int j;
-  int jhi;
-  int jlo;
-
   i4mat_transpose_print_some ( m, n, a, 1, 1, m, n, title );
 
   return;
@@ -6818,8 +7796,14 @@ void i4mat_transpose_print_some ( int m, int n, int a[], int ilo, int jlo,
   for ( i2lo = ilo; i2lo <= ihi; i2lo = i2lo + INCX )
   {
     i2hi = i2lo + INCX - 1;
-    i2hi = i4_min ( i2hi, m );
-    i2hi = i4_min ( i2hi, ihi );
+    if ( m < i2hi )
+    {
+      i2hi = m;
+    }
+    if ( ihi < i2hi )
+    {
+      i2hi = ihi;
+    }
 
     fprintf ( stdout, "\n" );
 /*
@@ -6838,8 +7822,16 @@ void i4mat_transpose_print_some ( int m, int n, int a[], int ilo, int jlo,
 /*
   Determine the range of the rows in this strip.
 */
-    j2lo = i4_max ( jlo, 1 );
-    j2hi = i4_min ( jhi, n );
+    j2lo = jlo;
+    if ( j2lo < 1 )
+    {
+      j2lo = 1;
+    }
+    j2hi = jhi;
+    if ( n < jhi )
+    {
+      j2hi = n;
+    }
 
     for ( j = j2lo; j <= j2hi; j++ )
     {
@@ -6935,13 +7927,13 @@ int *i4mat_u1_inverse ( int n, int a[] )
 }
 /******************************************************************************/
 
-void i4mat_uniform ( int m, int n, int a, int b, int *seed, int x[] )
+void i4mat_uniform_ab ( int m, int n, int a, int b, int *seed, int x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4MAT_UNIFORM returns a scaled pseudorandom I4MAT.
+    I4MAT_UNIFORM_AB returns a scaled pseudorandom I4MAT.
 
   Discussion:
 
@@ -7011,7 +8003,7 @@ void i4mat_uniform ( int m, int n, int a, int b, int *seed, int x[] )
 {
   int c;
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int j;
   int k;
   float r;
@@ -7020,7 +8012,7 @@ void i4mat_uniform ( int m, int n, int a, int b, int *seed, int x[] )
   if ( *seed == 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "I4MAT_UNIFORM - Fatal error!\n" );
+    fprintf ( stderr, "I4MAT_UNIFORM_AB - Fatal error!\n" );
     fprintf ( stderr, "  Input value of SEED = 0.\n" );
     exit ( 1 );
   }
@@ -7077,13 +8069,13 @@ void i4mat_uniform ( int m, int n, int a, int b, int *seed, int x[] )
 }
 /******************************************************************************/
 
-int *i4mat_uniform_new ( int m, int n, int a, int b, int *seed )
+int *i4mat_uniform_ab_new ( int m, int n, int a, int b, int *seed )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4MAT_UNIFORM_NEW returns a scaled pseudorandom I4MAT.
+    I4MAT_UNIFORM_AB_NEW returns a scaled pseudorandom I4MAT.
 
   Discussion:
 
@@ -7148,12 +8140,12 @@ int *i4mat_uniform_new ( int m, int n, int a, int b, int *seed )
     value should not be 0.  On output, SEED has 
     been updated.
 
-    Output, int I4MAT_UNIFORM_NEW[M*N], a matrix of pseudorandom values.
+    Output, int I4MAT_UNIFORM_AB_NEW[M*N], a matrix of pseudorandom values.
 */
 {
   int c;
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int j;
   int k;
   float r;
@@ -7163,7 +8155,7 @@ int *i4mat_uniform_new ( int m, int n, int a, int b, int *seed )
   if ( *seed == 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "I4MAT_UNIFORM_NEW - Fatal error!\n" );
+    fprintf ( stderr, "I4MAT_UNIFORM_AB_NEW - Fatal error!\n" );
     fprintf ( stderr, "  Input value of SEED = 0.\n" );
     exit ( 1 );
   }
@@ -7177,7 +8169,7 @@ int *i4mat_uniform_new ( int m, int n, int a, int b, int *seed )
     b = c;
   }
 
-  x = malloc ( m * n * sizeof ( int ) );
+  x = ( int * ) malloc ( m * n * sizeof ( int ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -7219,6 +8211,107 @@ int *i4mat_uniform_new ( int m, int n, int a, int b, int *seed )
   }
 
   return x;
+}
+/******************************************************************************/
+
+void i4rmat_delete ( int **a, int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4RMAT_DELETE frees the memory set aside by I4RMAT_NEW.
+
+  Discussion:
+
+    This function releases the memory associated with an array that was 
+    created by a command like
+      int **a;
+      a = i4rmat_new ( m, n );
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 September 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int **A, the array.
+
+    Input, int M, N, the number of rows and columns.
+*/
+{
+  int i;
+
+  for ( i = 0; i < m; i++ )
+  {
+    free ( a[i] );
+  }
+
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+int **i4rmat_new ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4RMAT_NEW sets up an I4RMAT of the desired dimensions.
+
+  Discussion:
+
+    An I4RMAT is a row-major dynamically dimensioned 2D integer array.
+
+    A declaration of the form
+      int **a;
+    is necesary.  Then an assignment of the form:
+      a = i4rmat_new ( m, n );
+    allows the user to assign entries to the matrix using typical
+    2D array notation:
+      a[2][3] = 17;
+      y = a[1][0];
+    and so on.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 September 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Output, int **I4RMAT_NEW, the array.
+*/
+{
+  int **a;
+  int i;
+
+  a = ( int ** ) malloc ( m * n * sizeof ( int * ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    a[i] = ( int * ) malloc ( n * sizeof ( int ) );
+  }
+  return a;
 }
 /******************************************************************************/
 
@@ -8059,7 +9152,51 @@ double *i4row_variance ( int m, int n, int a[] )
 
   return variance;
 }
+/******************************************************************************/
 
+void i4vec_add ( int n, int a[], int b[], int c[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_ADD computes C = A + B for I4VEC's.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 September 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries.
+
+    Input, int A[N], the first vector.
+
+    Input, int B[N], the second vector.
+
+    Output, int C[N], the sum of the vectors.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n; i++ )
+  {
+    c[i] = a[i] + b[i];
+  }
+  return;
+}
 /******************************************************************************/
 
 int *i4vec_add_new ( int n, int a[], int b[] )
@@ -9071,6 +10208,113 @@ int i4vec_compare ( int n, int a[], int b[] )
 }
 /******************************************************************************/
 
+void i4vec_concatenate ( int n1, int a[], int n2, int b[], int c[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_CONCATENATE concatenates two I4VEC's.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 December 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, the number of entries in the first vector.
+
+    Input, int A[N1], the first vector.
+
+    Input, int N2, the number of entries in the second vector.
+
+    Input, int B[N2], the second vector.
+
+    Output, int C[N1+N2], the concatenated vector.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n1; i++ )
+  {
+    c[i] = a[i];
+  }
+  for ( i = 0; i < n2; i++ )
+  {
+    c[n1+i] = b[i];
+  }
+
+  return;
+}
+/******************************************************************************/
+
+int *i4vec_concatenate_new ( int n1, int a[], int n2, int b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_CONCATENATE_NEW concatenates two I4VEC's.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 November 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, the number of entries in the first vector.
+
+    Input, int A[N1], the first vector.
+
+    Input, int N2, the number of entries in the second vector.
+
+    Input, int B[N2], the second vector.
+
+    Output, int I4VEC_CONCATENATE_NEW[N1+N2], the concatenated vector.
+*/
+{
+  int i;
+  int *c;
+
+  c = ( int * ) malloc ( ( n1 + n2 ) * sizeof ( int ) );
+
+  for ( i = 0; i < n1; i++ )
+  {
+    c[i] = a[i];
+  }
+  for ( i = 0; i < n2; i++ )
+  {
+    c[n1+i] = b[i];
+  }
+
+  return c;
+}
+/******************************************************************************/
+
 void i4vec_copy ( int n, int a1[], int a2[] )
 
 /******************************************************************************/
@@ -9166,7 +10410,7 @@ int *i4vec_cum_new ( int n, int a[] )
 /*
   Purpose:
 
-    I4VEC_CUM_NEW computes the cumulutive sum of the entries of an I4VEC.
+    I4VEC_CUM_NEW computes the cumulative sum of the entries of an I4VEC.
 
   Discussion:
 
@@ -9225,7 +10469,7 @@ int *i4vec_cum0_new ( int n, int a[] )
 /*
   Purpose:
 
-    I4VEC_CUM0_NEW computes the cumulutive sum of the entries of an I4VEC.
+    I4VEC_CUM0_NEW computes the cumulative sum of the entries of an I4VEC.
 
   Discussion:
 
@@ -9278,6 +10522,47 @@ int *i4vec_cum0_new ( int n, int a[] )
   }
 
   return a_cum;
+}
+/******************************************************************************/
+
+void i4vec_decrement ( int n, int a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_DECREMENT decrements an I4VEC.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vectors.
+
+    Input/output, int A[N], the vector to be decremented.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = a[i] - 1;
+  }
+  return;
 }
 /******************************************************************************/
 
@@ -9735,8 +11020,8 @@ int i4vec_eq ( int n, int a1[], int a2[] )
 
     Input, int A1[N], A2[N], two vectors to compare.
 
-    Output, int I4VEC_EQ, is TRUE if every pair of elements A1(I) and A2(I) are equal,
-    and FALSE otherwise.
+    Output, int I4VEC_EQ, is TRUE if every pair of elements A1(I) and A2(I) 
+    are equal, and FALSE otherwise.
 */
 {
   int i;
@@ -10016,7 +11301,6 @@ int i4vec_frac ( int n, int a[], int k )
   int j;
   int left;
   int temp;
-  int w;
   int x;
 
   if ( n <= 0 )
@@ -10680,6 +11964,113 @@ int *i4vec_histogram ( int n, int a[], int histo_num )
 }
 /******************************************************************************/
 
+int *i4vec_histogram_masked ( int n, int a[], int histo_num, int mask[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_HISTOGRAM_MASKED computes a histogram of the elements of an I4VEC.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+    A histogram will be made for all vector entries with MASK = 1,
+    whose values are between 0 and HISTO_NUM - 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 October 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of elements of A.
+
+    Input, int A[N], the array to examine.
+
+    Input, int HISTO_NUM, the maximum value for which a
+    histogram entry will be computed.
+
+    Input, int MASK[N], the mask value for each entry.
+
+    Output, int I4VEC_HISTOGRAM[HISTO_NUM], counts the number
+    of entries with MASK = 1, with values of 0 through HISTO_NUM - 1.
+*/
+{
+  int *histo_gram;
+  int i;
+
+  histo_gram = ( int * ) malloc ( histo_num * sizeof ( int ) );
+
+  for ( i = 0; i < histo_num; i++ )
+  {
+    histo_gram[i] = 0;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    if ( mask[i] == 1 )
+    {
+      if ( 0 <= a[i] && a[i] < histo_num )
+      {
+        histo_gram[a[i]] = histo_gram[a[i]] + 1;
+      }
+    }
+  }
+  return histo_gram;
+}
+/******************************************************************************/
+
+void i4vec_increment ( int n, int a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_INCREMENT increments an I4VEC.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vectors.
+
+    Input/output, int A[N], the vector to be incremented.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = a[i] + 1;
+  }
+  return;
+}
+/******************************************************************************/
+
 int i4vec_index ( int n, int a[], int aval )
 
 /******************************************************************************/
@@ -10719,9 +12110,9 @@ int i4vec_index ( int n, int a[], int aval )
   int i;
   int index;
 
-  for ( i = 1; i <= n; i++ )
+  for ( i = 0; i < n; i++ )
   {
-    if ( a[i-1] == aval )
+    if ( a[i] == aval )
     {
       index = i;
       return index;
@@ -11782,13 +13173,13 @@ int i4vec_indexed_heap_d_max ( int n, int a[], int indx[] )
 }
 /******************************************************************************/
 
-void i4vec_indicator ( int n, int a[] )
+void i4vec_indicator0 ( int n, int a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4VEC_INDICATOR sets an I4VEC to the indicator vector.
+    I4VEC_INDICATOR0 sets an I4VEC to the indicator vector (0,1,2,...).
 
   Discussion:
 
@@ -11800,7 +13191,7 @@ void i4vec_indicator ( int n, int a[] )
 
   Modified:
 
-    24 March 2009
+    27 September 2014
 
   Author:
 
@@ -11810,7 +13201,92 @@ void i4vec_indicator ( int n, int a[] )
 
     Input, int N, the number of elements of A.
 
-    Output, int A[N], the initialized array.
+    Output, int A[N], the array.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = i;
+  }
+  return;
+}
+/******************************************************************************/
+
+int *i4vec_indicator0_new ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_INDICATOR0_NEW sets an I4VEC to the indicator vector (0,1,2,...).
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 September 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of elements of A.
+
+    Output, int I4VEC_INDICATOR0_NEW[N], the array.
+*/
+{
+  int *a;
+  int i;
+
+  a = ( int * ) malloc ( n * sizeof ( int ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = i;
+  }
+  return a;
+}
+/******************************************************************************/
+
+void i4vec_indicator1 ( int n, int a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_INDICATOR1 sets an I4VEC to the indicator vector (1,2,3,...).
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 September 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of elements of A.
+
+    Output, int A[N], the array.
 */
 {
   int i;
@@ -11823,13 +13299,13 @@ void i4vec_indicator ( int n, int a[] )
 }
 /******************************************************************************/
 
-int *i4vec_indicator_new ( int n )
+int *i4vec_indicator1_new ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4VEC_INDICATOR_NEW sets an I4VEC to the indicator vector.
+    I4VEC_INDICATOR1_NEW sets an I4VEC to the indicator vector (1,2,3,...).
 
   Discussion:
 
@@ -11841,7 +13317,7 @@ int *i4vec_indicator_new ( int n )
 
   Modified:
 
-    26 August 2008
+    27 September 2014
 
   Author:
 
@@ -11851,7 +13327,7 @@ int *i4vec_indicator_new ( int n )
 
     Input, int N, the number of elements of A.
 
-    Output, int I4VEC_INDICATOR_NEW[N], the array.
+    Output, int I4VEC_INDICATOR1_NEW[N], the array.
 */
 {
   int *a;
@@ -11885,7 +13361,7 @@ void i4vec_insert ( int n, int a[], int pos, int value )
 
   Modified:
 
-    20 September 2005
+    02 November 2014
 
   Author:
 
@@ -11899,14 +13375,14 @@ void i4vec_insert ( int n, int a[], int pos, int value )
     to contain N entries.  On output, A actually contains N+1 entries.
 
     Input, int POS, the position to be assigned the new entry.
-    1 <= POS <= N+1.
+    0 <= POS <= N.
 
     Input, int VALUE, the value to be inserted at the given position.
 */
 {
   int i;
 
-  if ( pos < 1 || n+1 < pos )
+  if ( pos < 0 || n < pos )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "I4VEC_INSERT - Fatal error!\n" );
@@ -11915,11 +13391,11 @@ void i4vec_insert ( int n, int a[], int pos, int value )
   }
   else
   {
-    for ( i = n+1; pos+1 <= i; i-- )
+    for ( i = n; pos < i; i-- )
     {
-      a[i-1] = a[i-2];
+      a[i] = a[i-1];
     }
-    a[pos-1] = value;
+    a[pos] = value;
   }
 
   return;
@@ -12913,6 +14389,50 @@ int i4vec_odd_any ( int n, int a[] )
 }
 /******************************************************************************/
 
+int *i4vec_one_new ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_ONE_NEW creates an I4VEC whose entries are 1.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 October 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Output, int I4VEC_ONE_NEW[N], a vector of zeroes.
+*/
+{
+  int *a;
+  int i;
+
+  a = ( int * ) malloc ( n * sizeof ( int ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = 1;
+  }
+  return a;
+}
+/******************************************************************************/
+
 int i4vec_order_type ( int n, int x[] )
 
 /******************************************************************************/
@@ -13381,20 +14901,23 @@ void i4vec_permute ( int n, int p[], int a[] )
 {
   int a_temp;
   int i;
+  int ierror;
   int iget;
   int iput;
   int istart;
 
-  if ( !perm_check ( n, p ) )
+  ierror = perm0_check ( n, p );
+
+  if ( ierror != 0 )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "I4VEC_PERMUTE - Fatal error!\n" );
-    fprintf ( stderr, "  PERM_CHECK rejects this permutation.\n" );
+    fprintf ( stderr, "  PERM0_CHECK rejects this permutation.\n" );
     exit ( 1 );
   }
 /*
   In order for the sign negation trick to work, we need to assume that the
-  entries of P are strictly positive.  Presumably, the lowest number is BASE.
+  entries of P are strictly positive.  Presumably, the lowest number is 0.
   So temporarily add 1 to each entry to force positivity.
 */
   for ( i = 0; i < n; i++ )
@@ -13433,7 +14956,7 @@ void i4vec_permute ( int n, int p[], int a[] )
         {
           fprintf ( stderr, "\n" );
           fprintf ( stderr, "I4VEC_PERMUTE - Fatal error!\n" );
-          fprintf ( stderr, "  Entry IPUT = %d of the permutation has\n", iput );
+          fprintf ( stderr, "  Entry IPUT = %d has\n", iput );
           fprintf ( stderr, "  an illegal value IGET = %d.\n", iget );
           exit ( 1 );
         }
@@ -13455,7 +14978,7 @@ void i4vec_permute ( int n, int p[], int a[] )
     p[i] = - p[i];
   }
 /*
-  Restore the base of the entries.
+  Restore the entries.
 */
   for ( i = 0; i < n; i++ )
   {
@@ -13501,7 +15024,7 @@ void i4vec_permute_uniform ( int n, int a[], int *seed )
 {
   int *p;
 
-  p = perm_uniform_new ( n, seed );
+  p = perm0_uniform_new ( n, seed );
 
   i4vec_permute ( n, p, a );
 
@@ -14589,7 +16112,6 @@ int *i4vec_sort_heap_index_a ( int n, int a[] )
 
   if ( n == 1 )
   {
-    indx[0] = indx[0];
     return indx;
   }
 
@@ -15091,7 +16613,7 @@ void i4vec_sort_shell_a ( int n, int a[] )
   }
 /*
   Determine the smallest MAXPOW so that
-    N <= ( 3**MAXPOW - 1 ) / 2
+    N <= ( 3^MAXPOW - 1 ) / 2
 */
   maxpow = 1;
   base = 3;
@@ -15746,7 +17268,7 @@ void i4vec_transpose_print ( int n, int a[], char *title )
 
   Modified:
 
-    25 July 2010
+    02 June 2015
 
   Author:
 
@@ -15767,26 +17289,27 @@ void i4vec_transpose_print ( int n, int a[], char *title )
   int title_len;
 
   title_len = strlen ( title );
-
-  for ( ilo = 1; ilo <= n; ilo = ilo + 5 )
+  if ( 0 < title_len )
   {
-    ihi = i4_min ( ilo + 5 - 1, n );
-    if ( ilo == 1 )
-    {
-      printf ( "%s\n", title );
-    }
-    else
-    {
-      for ( i = 1; i <= title_len; i++ )
-      {
-        printf ( " " );
-      }
-    }
-    for ( i = ilo; i <= ihi; i++ )
-    {
-      printf ( "%12d", a[i-1] );
-    }
     printf ( "\n" );
+    printf ( "%s\n", title );
+  }
+
+  if ( 0 < n )
+  {
+    for ( ilo = 1; ilo <= n; ilo = ilo + 5 )
+    {
+      ihi = i4_min ( ilo + 5 - 1, n );
+      for ( i = ilo; i <= ihi; i++ )
+      {
+        printf ( "%12d", a[i-1] );
+      }
+      printf ( "\n" );
+    }
+  }
+  else
+  {
+    printf ( "  (empty vector)\n" );
   }
 
   return;
@@ -15922,13 +17445,13 @@ void i4vec_undex ( int x_num, int x_val[], int x_unique_num, int undx[],
 }
 /******************************************************************************/
 
-void i4vec_uniform ( int n, int a, int b, int *seed, int x[] )
+void i4vec_uniform_ab ( int n, int a, int b, int *seed, int x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4VEC_UNIFORM returns a scaled pseudorandom I4VEC.
+    I4VEC_UNIFORM_AB returns a scaled pseudorandom I4VEC.
 
   Discussion:
 
@@ -15941,7 +17464,7 @@ void i4vec_uniform ( int n, int a, int b, int *seed, int x[] )
 
   Modified:
 
-    24 May 2012
+    06 January 2014
 
   Author:
 
@@ -15990,7 +17513,7 @@ void i4vec_uniform ( int n, int a, int b, int *seed, int x[] )
 {
   int c;
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
   float r;
   int value;
@@ -15998,7 +17521,7 @@ void i4vec_uniform ( int n, int a, int b, int *seed, int x[] )
   if ( *seed == 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "I4VEC_UNIFORM - Fatal error!\n" );
+    fprintf ( stderr, "I4VEC_UNIFORM_AB - Fatal error!\n" );
     fprintf ( stderr, "  Input value of SEED = 0.\n" );
     exit ( 1 );
   }
@@ -16052,13 +17575,13 @@ void i4vec_uniform ( int n, int a, int b, int *seed, int x[] )
 }
 /******************************************************************************/
 
-int *i4vec_uniform_new ( int n, int a, int b, int *seed )
+int *i4vec_uniform_ab_new ( int n, int a, int b, int *seed )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4VEC_UNIFORM_NEW returns a scaled pseudorandom I4VEC.
+    I4VEC_UNIFORM_AB_NEW returns a scaled pseudorandom I4VEC.
 
   Discussion:
 
@@ -16071,7 +17594,7 @@ int *i4vec_uniform_new ( int n, int a, int b, int *seed )
 
   Modified:
 
-    24 May 2012
+    13 January 2014
 
   Author:
 
@@ -16115,12 +17638,13 @@ int *i4vec_uniform_new ( int n, int a, int b, int *seed )
     Input/output, int *SEED, the "seed" value, which should NOT be 0.
     On output, SEED has been updated.
 
-    Output, int I4VEC_UNIFORM_NEW[N], a vector of random values between A and B.
+    Output, int I4VEC_UNIFORM_AB_NEW[N], a vector of random values 
+    between A and B.
 */
 {
   int c;
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
   float r;
   int value;
@@ -16129,7 +17653,7 @@ int *i4vec_uniform_new ( int n, int a, int b, int *seed )
   if ( *seed == 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "I4VEC_UNIFORM_NEW - Fatal error!\n" );
+    fprintf ( stderr, "I4VEC_UNIFORM_AB_NEW - Fatal error!\n" );
     fprintf ( stderr, "  Input value of SEED = 0.\n" );
     exit ( 1 );
   }
@@ -16143,7 +17667,7 @@ int *i4vec_uniform_new ( int n, int a, int b, int *seed )
     b = c;
   }
 
-  x = malloc ( n * sizeof ( int ) );
+  x = ( int * ) malloc ( n * sizeof ( int ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -16980,20 +18504,84 @@ void i4vec2_sorted_unique ( int n, int a1[], int a2[], int *unique_num )
 }
 /******************************************************************************/
 
-int l_to_i4 ( int l )
+int i4vec2_sorted_unique_count ( int n, int a1[], int a2[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    L_TO_I4 converts an L to an I4.
+    I4VEC2_SORTED_UNIQUE_COUNT counts unique elements in an I4VEC2.
+
+  Discussion:
+
+    Item I is stored as the pair A1(I), A2(I).
+
+    The items must have been sorted, or at least it must be the
+    case that equal items are stored in adjacent vector locations.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of items.
+
+    Input, int A1[N], A2[N], the array of N items.
+
+    Output, int I4VEC2_SORTED_UNIQUE_NUM, the number of unique items.
+*/
+{
+  int i;
+  int iu;
+  int unique_num;
+
+  unique_num = 0;
+
+  if ( n <= 0 )
+  {
+    return unique_num;
+  }
+
+  iu = 0;
+  unique_num = 1;
+
+  for ( i = 1; i < n; i++ )
+  {
+    if ( a1[i] != a1[iu] ||
+         a2[i] != a2[iu] )
+    {
+      iu = i;
+      unique_num = unique_num + 1;
+    }
+  }
+
+  return unique_num;
+}
+/******************************************************************************/
+
+int l4_to_i4 ( int l )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    L4_TO_I4 converts an L4 to an I4.
 
   Discussion:
 
     0 is FALSE, and anything else if TRUE.
 
     An I4 is an integer value.
-    An L is a logical value.
+    An L4 is a logical value.
 
   Licensing:
 
@@ -17011,7 +18599,7 @@ int l_to_i4 ( int l )
 
     Input, int L, a logical value.
 
-    Output, int L_TO_I4, the integer value of L.
+    Output, int L4_TO_I4, the integer value of L.
 */
 {
   int value;
@@ -17029,18 +18617,17 @@ int l_to_i4 ( int l )
 }
 /******************************************************************************/
 
-int perm_check ( int n, int p[] )
+int l4_xor ( int l1, int l2 )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    PERM_CHECK checks that a vector represents a permutation.
+    L4_XOR returns the exclusive OR of two L4's.
 
   Discussion:
 
-    The routine verifies that each of the integers from 0 to
-    to N-1 occurs among the N entries of the permutation.
+    An L4 is a logical value.
 
   Licensing:
 
@@ -17048,7 +18635,80 @@ int perm_check ( int n, int p[] )
 
   Modified:
 
-    03 June 2009
+    04 May 2014
+
+  Author:
+
+   John Burkardt
+
+  Parameters:
+
+    Input, int L1, L2, two values whose exclusive OR is needed.
+
+    Output, int L4_XOR, the exclusive OR of L1 and L2.
+*/
+{
+  int value;
+  int value1;
+  int value2;
+
+  value1 = (     l1   && ( ! l2 ) );
+  value2 = ( ( ! l1 ) &&     l2   );
+
+  value = ( value1 || value2 );
+
+  return value;
+}
+/******************************************************************************/
+
+int pascal_to_i4 ( int i, int j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PASCAL_TO_I4 converts Pacal triangle coordinates to a linear index.
+
+  Discussion:
+
+    We describe the grid points in a Pascal triangle in two ways:
+
+    As a linear index K:
+
+                     1
+                   2   3
+                 4   5   6
+               7   8   9   10
+
+    As elements (I,J) of Pascal's triangle:
+
+                     0,0
+                  1,0   0,1
+               2,0   1,1    0,2
+            3,0   2,1   1,2    0,3
+
+  Example:
+
+     K  I  J
+
+     1  0  0
+     2  1  0
+     3  0  1
+     4  2  0
+     5  1  1
+     6  0  2
+     7  3  0
+     8  2  1
+     9  1  2
+    10  0  3
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 April 2015
 
   Author:
 
@@ -17056,38 +18716,37 @@ int perm_check ( int n, int p[] )
 
   Parameters:
 
-    Input, int N, the number of entries.
+    Input, int I, J, the row and column indices.  I and J 
+    must be nonnegative.
 
-    Input, int P[N], the array to check.
-
-    Output, int PERM_CHECK, is TRUE if the permutation is OK.
+    Output, int PASCAL_TO_I4, the linear index of the (I,J) element.
 */
 {
-  int found;
-  int i;
-  int seek;
+  int d;
+  int k;
 
-  for ( seek = 0; seek < n; seek++ )
+  if ( i < 0 )
   {
-    found = 0;
-
-    for ( i = 0; i < n; i++ )
-    {
-      if ( p[i] == seek )
-      {
-        found = 1;
-        break;
-      }
-    }
-
-    if ( found = 0 )
-    {
-      return 0;
-    }
-
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "PASCAL_TO_I4 - Fatal error!\n" );
+    fprintf ( stderr, "  I < 0.\n" );
+    fprintf ( stderr, "  I = %d\n", i );
+    exit ( 1 );
+  }
+  else if ( j < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "PASCAL_TO_I4 - Fatal error!\n" );
+    fprintf ( stderr, "  J < 0.\n" );
+    fprintf ( stderr, "  J = %d\n", j );
+    exit ( 1 );
   }
 
-  return 1;
+  d = i + j;
+
+  k = ( d * ( d + 1 ) ) / 2 + j + 1;
+
+  return k;
 }
 /******************************************************************************/
 
@@ -17129,7 +18788,7 @@ void perm_cycle ( int n, int p[], int *isgn, int *ncycle, int iopt )
   Author:
 
     Original FORTRAN77 version by Albert Nijenhuis, Herbert Wilf.
-    C++ version by John Burkardt.
+    C version by John Burkardt.
 
   Reference:
 
@@ -17166,20 +18825,19 @@ void perm_cycle ( int n, int p[], int *isgn, int *ncycle, int iopt )
     1, the permutation will be tagged.
 */
 {
-  int error;
   int i;
   int i1;
   int i2;
+  int ierror;
   int is;
 
-  error = perm_check ( n, p );
+  ierror = perm0_check ( n, p );
 
-  if ( error )
+  if ( ierror != 0 )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "PERM_CYCLE - Fatal error!\n" );
-    fprintf ( stderr, "  The input array does not represent\n" );
-    fprintf ( stderr, "  a proper permutation.\n" );
+    fprintf ( stderr, "  PERM0_CHECK rejects this permutation.\n" );
     exit ( 1 );
   }
 
@@ -17211,13 +18869,18 @@ void perm_cycle ( int n, int p[], int *isgn, int *ncycle, int iopt )
 }
 /******************************************************************************/
 
-int *perm_uniform_new ( int n, int *seed )
+int perm0_check ( int n, int p[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    PERM_UNIFORM_NEW selects a random permutation of N objects.
+    PERM0_CHECK checks a permutation of (0,...,N-1)
+
+  Discussion:
+
+    The routine verifies that each of the integers from 0 to
+    to N-1 occurs among the N entries of the permutation.
 
   Licensing:
 
@@ -17225,7 +18888,75 @@ int *perm_uniform_new ( int n, int *seed )
 
   Modified:
 
-    05 June 2010
+    24 May 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries.
+
+    Input, int P[N], the array to check.
+
+    Output, int PERM0_CHECK:
+    0, P is a legal permutation of (0,...,N-1).
+    1, P is not a legal permutation of (0,...,N-1);
+*/
+{
+  int ierror;
+  int location;
+  int value;
+
+  ierror = 0;
+
+  for ( value = 0; value < n; value++ )
+  {
+    ierror = 1;
+
+    for ( location = 0; location < n; location++ )
+    {
+      if ( p[location] == value )
+      {
+        ierror = 0;
+        break;
+      }
+    }
+
+    if ( ierror != 0 )
+    {
+      printf ( "\n" );
+      printf ( "PERM0_CHECK - Warning!\n" );
+      printf ( "  Permutation is missing value %d\n", value );
+      break;
+    }
+
+  }
+
+  return ierror;
+}
+/******************************************************************************/
+
+int *perm0_uniform_new ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PERM0_UNIFORM_NEW selects a random permutation of 0,...,N-1.
+
+  Discussion;
+
+    The algorithm is known as the Fisher-Yates or Knuth shuffle.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 May 2015
 
   Author:
 
@@ -17244,8 +18975,7 @@ int *perm_uniform_new ( int n, int *seed )
 
     Input/output, int *SEED, a seed for the random number generator.
 
-    Output, int PERM_UNIFORM_NEW[N], a permutation of
-    (BASE, BASE+1, ..., BASE+N-1).
+    Output, int PERM0_UNIFORM_NEW[N], a permutation of ( 0, 1, ..., N-1).
 */
 {
   int i;
@@ -17260,7 +18990,140 @@ int *perm_uniform_new ( int n, int *seed )
     p[i] = i;
   }
 
+  for ( i = 0; i < n - 1; i++ )
+  {
+    j = i4_uniform_ab ( i, n - 1, seed );
+    k    = p[i];
+    p[i] = p[j];
+    p[j] = k;
+  }
+
+  return p;
+}
+/******************************************************************************/
+
+int perm1_check ( int n, int p[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PERM1_CHECK checks a permutation of (1,...,N).
+
+  Discussion:
+
+    The routine verifies that each of the integers from 1 to
+    to N occurs among the N entries of the permutation.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 May 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries.
+
+    Input, int P[N], the array to check.
+
+    Output, int PERM1_CHECK:
+    0, P is a legal permutation of (1,...,N).
+    1, P is not a legal permutation of (1,...,N);
+*/
+{
+  int ierror;
+  int location;
+  int value;
+
+  ierror = 0;
+
+  for ( value = 1; value <= n; value++ )
+  {
+    ierror = 1;
+
+    for ( location = 0; location < n; location++ )
+    {
+      if ( p[location] == value )
+      {
+        ierror = 0;
+        break;
+      }
+    }
+
+    if ( ierror != 0 )
+    {
+      printf ( "\n" );
+      printf ( "PERM1_CHECK - Fatal error!\n" );
+      printf ( "  Permutation is missing value %d\n", value );
+      break;
+    }
+
+  }
+
+  return ierror;
+}
+/******************************************************************************/
+
+int *perm1_uniform_new ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PERM1_UNIFORM_NEW selects a random permutation of 1,...,N.
+
+  Discussion;
+
+    The algorithm is known as the Fisher-Yates or Knuth shuffle.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 May 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Albert Nijenhuis, Herbert Wilf,
+    Combinatorial Algorithms,
+    Academic Press, 1978, second edition,
+    ISBN 0-12-519260-6.
+
+  Parameters:
+
+    Input, int N, the number of objects to be permuted.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, int PERM1_UNIFORM_NEW[N], a permutation of ( 1, ..., N).
+*/
+{
+  int i;
+  int j;
+  int k;
+  int *p;
+
+  p = ( int * ) malloc ( n * sizeof ( int ) );
+
   for ( i = 0; i < n; i++ )
+  {
+    p[i] = i + 1;
+  }
+
+  for ( i = 0; i < n - 1; i++ )
   {
     j = i4_uniform_ab ( i, n - 1, seed );
     k    = p[i];
@@ -17511,63 +19374,6 @@ int prime ( int n )
 }
 /******************************************************************************/
 
-int r4_nint ( float x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R4_NINT returns the nearest integer to an R4.
-
-  Example:
-
-        X         R4_NINT
-
-      1.3         1
-      1.4         1
-      1.5         1 or 2
-      1.6         2
-      0.0         0
-     -0.7        -1
-     -1.1        -1
-     -1.6        -2
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    05 May 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, float X, the value.
-
-    Output, int R4_NINT, the nearest integer to X.
-*/
-{
-  int s;
-  int value;
-
-  if ( x < 0.0 )
-  {
-    s = - 1;
-  }
-  else
-  {
-    s = + 1;
-  }
-  value = s * ( int ) ( fabs ( x ) + 0.5 );
-
-  return value;
-}
-/******************************************************************************/
-
 double r8_abs ( double x )
 
 /******************************************************************************/
@@ -17663,6 +19469,105 @@ int r8_nint ( double x )
   value = s * ( int ) ( fabs ( x ) + 0.5 );
 
   return value;
+}
+/******************************************************************************/
+
+double r8_uniform_ab ( double a, double b, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_UNIFORM_AB returns a pseudorandom R8 scaled to [A,B].
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    21 November 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double A, B, the limits of the interval.
+
+    Input/output, int *SEED, the "seed" value, which should NOT be 0.
+    On output, SEED has been updated.
+
+    Output, double R8_UNIFORM_AB, a number strictly between A and B.
+*/
+{
+  const int i4_huge = 2147483647;
+  int k;
+  double r;
+  double value;
+
+  k = *seed / 127773;
+
+  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
+
+  if ( *seed < 0 )
+  {
+    *seed = *seed + i4_huge;
+  }
+
+  r = ( ( double ) ( *seed ) ) * 4.656612875E-10;
+
+  value = a + ( b - a ) * r;
+
+  return value;
+}
+/******************************************************************************/
+
+void r8vec_print ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_PRINT prints an R8VEC.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2009
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of components of the vector.
+
+    Input, double A[N], the vector to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+  fprintf ( stdout, "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    fprintf ( stdout, "  %8d: %14g\n", i, a[i] );
+  }
+
+  return;
 }
 /******************************************************************************/
 
@@ -17857,7 +19762,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*
@@ -17902,4 +19807,112 @@ void timestamp ( void )
 
   return;
 # undef TIME_SIZE
+}
+/******************************************************************************/
+
+int triangle_to_i4 ( int i, int j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_TO_I4 converts a triangular coordinate to an integer.
+
+  Discussion:
+
+    Triangular coordinates are handy when storing a naturally triangular
+    array (such as the lower half of a matrix) in a linear array.
+
+    Thus, for example, we might consider storing
+
+    (0,0)
+    (1,0) (1,1)
+    (2,0) (2,1) (2,2)
+    (3,0) (3,1) (3,2) (3,3)
+
+    as the linear array
+
+    (0,0) (1,0) (1,1) (2,0) (2,1) (2,2) (3,0) (3,1) (3,2) (3,3)
+
+    Here, the quantities in parenthesis represent the natural row and
+    column indices of a single number when stored in a rectangular array.
+
+    Thus, our goal is, given the row I and column J of the data,
+    to produce the value K which indicates its position in the linear
+    array.
+
+    The triangular numbers are the indices associated with the
+    diagonal elements of the original array, T(0,0), T(1,1), T(2,2), 
+    T(3,3) and so on.
+
+    The formula is:
+
+      K = J + ( ( I * ( I + 1 ) ) / 2
+
+  Example:
+
+    I  J  K
+
+    0  0  0
+    1  0  1
+    1  1  2
+    2  0  3
+    2  1  4
+    2  2  5
+    3  0  6
+    3  1  7
+    3  2  8
+    3  3  9
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 January 2009
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, J, the row and column indices.  I and J must
+    be nonnegative, and J must not be greater than I.
+
+    Output, int TRIANGLE_TO_I4, the linear index of the (I,J) element.
+*/
+{
+  int value;
+
+  if ( i < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "TRIANGLE_TO_I4 - Fatal error!\n" );
+    fprintf ( stderr, "  I < 0.\n" );
+    fprintf ( stderr, "  I = %d\n", i );
+    exit ( 1 );
+  }
+  else if ( j < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "TRIANGLE_TO_I4 - Fatal error!\n" );
+    fprintf ( stderr, "  J < 0.\n" );
+    fprintf ( stderr, "  J = %d\n", j );
+    exit ( 1 );
+  }
+  else if ( i < j )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "TRIANGLE_TO_I4 - Fatal error!\n" );
+    fprintf ( stderr, "  I < J.\n" );
+    fprintf ( stderr, "  I = %d\n", i );
+    fprintf ( stderr, "  J = %d\n", j );
+    exit ( 1 );
+  }
+
+  value = j + (  i * ( i + 1 ) ) / 2;
+
+  return value;
 }

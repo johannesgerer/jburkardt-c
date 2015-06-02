@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g uniform_prb.c >& compiler.txt
+gcc -c uniform_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling uniform_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc uniform_prb.o /$HOME/libc/$ARCH/uniform.o -lm
 if [ $? -ne 0 ]; then

@@ -126,6 +126,123 @@ int bakvec ( int n, double t[], double e[], int m, double z[] )
 }
 /******************************************************************************/
 
+void balbak ( int n, int low, int igh, double scale[], int m, double z[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALBAK determines eigenvectors by undoing the BALANC transformation.
+
+  Discussion:
+
+    This subroutine forms the eigenvectors of a real general matrix by
+    back transforming those of the corresponding balanced matrix
+    determined by BALANC.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 July 2013
+
+  Author:
+
+    Original FORTRAN77 version by Smith, Boyle, Dongarra, Garbow, Ikebe,
+    Klema, Moler.
+    C version by John Burkardt.
+
+  Reference:
+
+    Parlett and Reinsch,
+    Numerische Mathematik,
+    Volume 13, pages 293-304, 1969.
+
+    James Wilkinson, Christian Reinsch,
+    Handbook for Automatic Computation,
+    Volume II, Linear Algebra, Part 2,
+    Springer, 1971,
+    ISBN: 0387054146,
+    LC: QA251.W67.
+
+    Brian Smith, James Boyle, Jack Dongarra, Burton Garbow,
+    Yasuhiko Ikebe, Virginia Klema, Cleve Moler,
+    Matrix Eigensystem Routines, EISPACK Guide,
+    Lecture Notes in Computer Science, Volume 6,
+    Springer Verlag, 1976,
+    ISBN13: 978-3540075462,
+    LC: QA193.M37.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int LOW, IGH, column indices determined by BALANC.
+
+    Input, double SCALE[N], contains information determining
+    the permutations and scaling factors used by BALANC.
+
+    Input, int M, the number of columns of Z to be
+    back-transformed.
+
+    Input/output, double Z[N*M], contains the real and imaginary 
+    parts of the eigenvectors, which, on return, have been back-transformed.
+*/
+{
+  int i;
+  int ii;
+  int j;
+  int k;
+  double s;
+  double t;
+
+  if ( m <= 0 )
+  {
+    return;
+  }
+
+  if ( igh != low )
+  {
+    for ( i = low - 1; i <= igh - 1; i++ )
+    {
+      for ( j = 0; j < m; j++ )
+      {
+        z[i+j*n] = z[i+j*n] * scale[i];
+      }
+    }
+  }
+
+  for ( ii = 1; ii <= n; ii++ )
+  {
+    i = ii;
+
+    if ( i < low || igh < i )
+    {
+      if ( i < low )
+      {
+        i = low - ii;
+      }
+
+      k = ( int ) ( scale[i-1] );
+
+      if ( k != i )
+      {
+        for ( j = 0; j < m; j++ )
+        {
+          t          = z[i-1+j*n];
+          z[i-1+j*n] = z[k-1+j*n];
+          z[k-1+j*n] = t;
+        }
+      }
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
 void bandr ( int n, int mb, double a[], double d[], double e[], double e2[], 
   int matz, double z[] )
 
@@ -909,7 +1026,7 @@ double r8_abs ( double x )
 }
 /******************************************************************************/
 
-double r8_epsilon ( void )
+double r8_epsilon ( )
 
 /******************************************************************************/
 /*
@@ -942,7 +1059,7 @@ double r8_epsilon ( void )
     Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  static double value = 2.220446049250313E-016;
+  const double value = 2.220446049250313E-016;
 
   return value;
 }

@@ -29,7 +29,7 @@ int main ( )
 
   Discussion:
 
-    CORDIC_PRB calls the CORDIC routines.
+    CORDIC_PRB tests the CORDIC library.
 
   Licensing:
 
@@ -45,7 +45,6 @@ int main ( )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "CORDIC_PRB:\n" );
   printf ( "  C version,\n" );
@@ -67,7 +66,6 @@ int main ( )
   printf ( "\n" );
   printf ( "CORDIC_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

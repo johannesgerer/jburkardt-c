@@ -1,0 +1,260 @@
+06 May 2014 09:14:01 AM
+
+POLYGON_TRIANGULATE_PRB
+  C version.
+  Test the POLYGON_TRIANGULATE library.
+
+TEST01
+  Triangulate the comb_10 polygon.
+
+  DEBUG: EAR:
+
+         0: F
+         1: T
+         2: F
+         3: T
+         4: F
+         5: T
+         6: F
+         7: T
+         8: F
+         9: F
+
+  Triangles
+
+  Col:       0       1       2       3       4       5       6       7
+  Row
+
+    0:       2       4       6       8       9       2       4       6
+    1:       0       2       4       6       6       9       9       9
+    2:       1       3       5       7       8       0       2       4
+
+TEST02
+  Read polygon coordinates in "comb_nodes.txt"
+
+  DEBUG: EAR:
+
+         0: F
+         1: T
+         2: F
+         3: T
+         4: F
+         5: T
+         6: F
+         7: T
+         8: F
+         9: F
+  Write triangulation to "comb_elements.txt"
+
+TEST02
+  Read polygon coordinates in "hand_nodes.txt"
+
+  DEBUG: EAR:
+
+         0: T
+         1: T
+         2: T
+         3: T
+         4: T
+         5: T
+         6: F
+         7: F
+         8: F
+         9: F
+        10: F
+        11: T
+        12: T
+        13: T
+        14: T
+        15: T
+        16: T
+        17: T
+        18: F
+        19: F
+        20: F
+        21: F
+        22: F
+        23: F
+        24: T
+        25: F
+        26: T
+        27: T
+        28: T
+        29: T
+        30: F
+        31: T
+        32: F
+        33: F
+        34: F
+        35: F
+        36: T
+        37: T
+        38: T
+        39: T
+        40: T
+        41: F
+        42: T
+        43: F
+        44: F
+        45: F
+        46: T
+        47: T
+        48: T
+        49: T
+        50: F
+        51: T
+        52: F
+        53: F
+        54: T
+        55: T
+        56: T
+        57: T
+        58: T
+  Write triangulation to "hand_elements.txt"
+
+TEST02
+  Read polygon coordinates in "i18_nodes.txt"
+
+  DEBUG: EAR:
+
+         0: T
+         1: F
+         2: T
+         3: T
+         4: F
+         5: T
+         6: F
+         7: F
+         8: F
+         9: F
+        10: T
+        11: T
+        12: F
+        13: T
+        14: F
+        15: F
+        16: T
+        17: F
+  Write triangulation to "i18_elements.txt"
+
+TEST03
+  Read node coordinates in "comb_nodes.txt"
+
+  DEBUG: EAR:
+
+         0: F
+         1: T
+         2: F
+         3: T
+         4: F
+         5: T
+         6: F
+         7: T
+         8: F
+         9: F
+
+  Write edges to "comb_edges.txt"
+  Write diagonals to "comb_diagonals.txt"
+  Write gnuplot commands to "comb_commands.txt"
+
+TEST03
+  Read node coordinates in "hand_nodes.txt"
+
+  DEBUG: EAR:
+
+         0: T
+         1: T
+         2: T
+         3: T
+         4: T
+         5: T
+         6: F
+         7: F
+         8: F
+         9: F
+        10: F
+        11: T
+        12: T
+        13: T
+        14: T
+        15: T
+        16: T
+        17: T
+        18: F
+        19: F
+        20: F
+        21: F
+        22: F
+        23: F
+        24: T
+        25: F
+        26: T
+        27: T
+        28: T
+        29: T
+        30: F
+        31: T
+        32: F
+        33: F
+        34: F
+        35: F
+        36: T
+        37: T
+        38: T
+        39: T
+        40: T
+        41: F
+        42: T
+        43: F
+        44: F
+        45: F
+        46: T
+        47: T
+        48: T
+        49: T
+        50: F
+        51: T
+        52: F
+        53: F
+        54: T
+        55: T
+        56: T
+        57: T
+        58: T
+
+  Write edges to "hand_edges.txt"
+  Write diagonals to "hand_diagonals.txt"
+  Write gnuplot commands to "hand_commands.txt"
+
+TEST03
+  Read node coordinates in "i18_nodes.txt"
+
+  DEBUG: EAR:
+
+         0: T
+         1: F
+         2: T
+         3: T
+         4: F
+         5: T
+         6: F
+         7: F
+         8: F
+         9: F
+        10: T
+        11: T
+        12: F
+        13: T
+        14: F
+        15: F
+        16: T
+        17: F
+
+  Write edges to "i18_edges.txt"
+  Write diagonals to "i18_diagonals.txt"
+  Write gnuplot commands to "i18_commands.txt"
+
+POLYGON_TRIANGULATE_PRB
+  Normal end of execution.
+
+06 May 2014 09:14:01 AM

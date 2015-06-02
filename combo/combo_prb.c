@@ -76,7 +76,6 @@ int main ( )
 //
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "COMBO_PRB\n" );
   printf ( "  C version\n" );
@@ -134,7 +133,6 @@ int main ( )
   printf ( "\n" );
   printf ( "COMBO_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -360,7 +358,7 @@ void test04 ( )
 //
 //  Purpose:
 //
-//    TEST04 tests BINOMIAL.
+//    TEST04 tests I4_CHOOSE.
 //
 //  Licensing:
 //
@@ -380,13 +378,13 @@ void test04 ( )
 
   printf ( "\n" );
   printf ( "TEST04\n" );
-  printf ( "  BINOMIAL computes binomial coefficients.\n" );
+  printf ( "  I4_CHOOSE computes binomial coefficients.\n" );
 
   for ( i = -1; i <= 5; i++ )
   {
     for ( j = - 1; j <= 5; j++ )
     {
-      printf ( "  %4d  %4d  %12d\n", i, j, binomial ( i, j ) );
+      printf ( "  %4d  %4d  %12d\n", i, j, i4_choose ( i, j ) );
     }
   }
   return;

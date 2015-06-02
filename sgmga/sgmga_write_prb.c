@@ -53,12 +53,11 @@ int main ( void )
 */
   sgmga_write_tests ( );
 /*
-  That's all.
+  Terminate.
 */
   printf ( "\n" );
   printf ( "SGMGA_WRITE_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
   

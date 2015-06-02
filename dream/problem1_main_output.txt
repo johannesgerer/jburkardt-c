@@ -1,0 +1,51 @@
+07 August 2013 04:34:52 PM
+
+PROBLEM1_MAIN
+  C version
+
+INITIALIZE - Note:
+  The RNGLIB package has been initialized.
+
+TEST01
+  Call PRIOR_SAMPLE many times.
+  Compare statistics to PDF parameters.
+  Note that the covariance estimate can be very bad
+  unless the matrix is strongly diagonal.
+
+  Parameter dimension is 5
+  Number of samples is 10000
+
+ Index       Min            Ave              Max             MU
+
+     0        -4.56132      -0.0245422         3.48482               0
+     1        -5.10168      -0.0218223         5.50887               0
+     2        -5.93947      -0.0484467         6.15872               0
+     3        -8.01079      -0.0283803         7.79471               0
+     4        -7.89581      -0.0393701         9.62248               0
+
+  Sample covariance:
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:        1.009119        0.505379        0.513965        0.472940        0.536441
+    1:        0.505379        2.028637        0.533270        0.503469        0.528182
+    2:        0.513965        0.533270        2.954266        0.472260        0.587384
+    3:        0.472940        0.503469        0.472260        3.956809        0.484053
+    4:        0.536441        0.528182        0.587384        0.484053        5.181147
+
+  PDF covariance:
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:        1.000000        0.500000        0.500000        0.500000        0.500000
+    1:        0.500000        2.000000        0.500000        0.500000        0.500000
+    2:        0.500000        0.500000        3.000000        0.500000        0.500000
+    3:        0.500000        0.500000        0.500000        4.000000        0.500000
+    4:        0.500000        0.500000        0.500000        0.500000        5.000000
+
+PROBLEM1_MAIN
+  Normal end of execution.
+
+07 August 2013 04:34:52 PM

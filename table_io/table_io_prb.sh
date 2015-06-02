@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g table_io_prb.c >& compiler.txt
+gcc -c table_io_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling table_io_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc table_io_prb.o /$HOME/libc/$ARCH/table_io.o -lm
 if [ $? -ne 0 ]; then

@@ -613,7 +613,6 @@ char *bar_digit_code_left ( int digit )
 */
 {
   char *codel;
-  int i;
 
   codel = ( char * ) malloc ( 8 * sizeof ( char ) );
 
@@ -699,7 +698,6 @@ char *bar_digit_code_right ( int digit )
 */
 {
   char *coder;
-  int i;
 
   coder = ( char * ) malloc ( 8 * sizeof ( char ) );
 
@@ -907,8 +905,8 @@ complex c4_add ( complex c1, complex c2 )
 {
   complex c3;
 
-  c3 = ( complex ) ( crealf ( c1 ) + crealf ( c2 ),
-                     cimagf ( c1 ) + cimagf ( c2 ) );
+  c3 = ( crealf ( c1 ) + crealf ( c2 ) )
+     + ( cimagf ( c1 ) + cimagf ( c2 ) ) * I;
 
   return c3;
 }
@@ -994,7 +992,7 @@ complex c4_complement ( complex c1 )
 {
   complex complement;
 
-  complement = ( complex ) ( crealf ( c1 ), - cimagf ( c1 ) );
+  complement = crealf ( c1 ) - cimagf ( c1 ) * I;
 
   return complement;
 }
@@ -1037,10 +1035,10 @@ complex c4_div ( complex c1, complex c2 )
 
   norm = sqrt ( crealf ( c2 ) * crealf ( c2 ) + cimagf ( c2 ) * cimagf ( c2 ) );
 
-  c3 = ( complex ) ( crealf ( c1 ) * crealf ( c2 ) 
-                   + cimagf ( c1 ) * cimagf ( c2 ),
-                     cimagf ( c1 ) * crealf ( c2 ) 
-                   - crealf ( c1 ) * cimagf ( c2 ) ) / norm;
+  c3 = ( ( crealf ( c1 ) * crealf ( c2 ) 
+         + cimagf ( c1 ) * cimagf ( c2 ) )
+       + ( cimagf ( c1 ) * crealf ( c2 ) 
+         - crealf ( c1 ) * cimagf ( c2 ) ) * I ) / norm;
 
   return c3;
 }
@@ -1083,7 +1081,7 @@ complex c4_inverse ( complex c1 )
 
   norm = sqrt ( crealf ( c1 ) * crealf ( c1 ) + cimagf ( c1 ) * cimagf ( c1 ) );
 
-  inverse = ( complex ) ( crealf ( c1 ) / norm, - cimagf ( c1 ) / norm );
+  inverse = ( crealf ( c1 ) - cimagf ( c1 ) * I ) / norm;
 
   return inverse;
 }
@@ -1163,10 +1161,10 @@ complex c4_mul ( complex c1, complex c2 )
 {
   complex c3;
 
-  c3 = ( complex ) ( crealf ( c1 ) * crealf ( c2 ) 
-                   - cimagf ( c1 ) * cimagf ( c2 ),
-                     crealf ( c1 ) * cimagf ( c2 )
-                   + cimagf ( c1 ) * crealf ( c2 ) );
+  c3 = ( crealf ( c1 ) * crealf ( c2 ) 
+       - cimagf ( c1 ) * cimagf ( c2 ) )
+     + ( crealf ( c1 ) * cimagf ( c2 )
+       + cimagf ( c1 ) * crealf ( c2 ) ) * I;
 
   return c3;
 }
@@ -2141,7 +2139,7 @@ double gauss_sum ( int ndim, int n, double amplitude[], double center[],
 }
 /******************************************************************************/
 
-int get_seed ( void )
+int get_seed ( )
 
 /******************************************************************************/
 /*
@@ -2167,7 +2165,6 @@ int get_seed ( void )
 */
 {
   time_t clock;
-  int i;
   int i4_huge = 2147483647;
   int ihour;
   int imin;
@@ -5381,6 +5378,364 @@ int isbn_to_i4 ( char c )
 }
 /******************************************************************************/
 
+void l4mat_print ( int m, int n, int a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    L4MAT_PRINT prints an L4MAT.
+
+  Discussion:
+
+    An L4MAT is an array of L4 values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 November 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows in A.
+
+    Input, int N, the number of columns in A.
+
+    Input, int A[M*N], the matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  l4mat_print_some ( m, n, a, 0, 0, m - 1, n - 1, title );
+
+  return;
+}
+/******************************************************************************/
+
+void l4mat_print_some ( int m, int n, int a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    L4MAT_PRINT_SOME prints some of an L4MAT.
+
+  Discussion:
+
+    An L4MAT is an array of L4 values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 November 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, int A[M*N], an M by N matrix to be printed.
+
+    Input, int ILO, JLO, the first row and column to print.
+
+    Input, int IHI, JHI, the last row and column to print.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+  int i2hi;
+  int i2lo;
+  int inc;
+  int incx = 35;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+
+  for ( j2lo = i4_max ( jlo, 0 ); j2lo <= i4_min ( jhi, n - 1 ); j2lo = j2lo + incx )
+  {
+    j2hi = j2lo + incx - 1;
+    if ( n - 1 < j2hi )
+    {
+      j2hi = n - 1;
+    }
+    if ( jhi < j2hi )
+    {
+      j2hi = jhi;
+    }
+
+    inc = j2hi + 1 - j2lo;
+
+    printf ( "\n" );
+
+    if ( 100 <= j2hi )
+    {
+      printf ( "      " );
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        printf ( " %1d", j / 100 );
+      }
+      printf ( "\n" );
+    }
+
+    if ( 10 <= j2hi )
+    {
+      printf ( "      " );
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        printf ( " %1d", ( ( j / 10 ) % 10 ) );
+      }
+      printf ( "\n" );
+    }
+
+    printf ( "  Col " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( " %1d", ( j % 10 ) );
+    }
+    printf ( "\n" );
+
+    printf ( "  Row\n" );
+    printf ( "\n" );
+
+    i2lo = 0;
+    if ( i2lo < ilo )
+    {
+      i2lo = ilo;
+    }
+    i2hi = m - 1;
+    if ( ihi < i2hi )
+    {
+      i2hi = ihi;
+    }
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%5d:", i );
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        printf ( " %1d", a[i+j*m] );
+      }
+      printf ( "\n" );
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+void l4mat_transpose_print ( int m, int n, int a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    L4MAT_TRANSPOSE_PRINT prints an L4MAT, transposed.
+
+  Discussion:
+
+    An L4MAT is an array of L4 values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 November 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, int A[M*N], an M by N matrix to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  l4mat_transpose_print_some ( m, n, a, 0, 0, m - 1, n - 1, title );
+
+  return;
+}
+/******************************************************************************/
+
+void l4mat_transpose_print_some ( int m, int n, int a[], int ilo, int jlo, 
+  int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    L4MAT_TRANSPOSE_PRINT_SOME prints some of an L4MAT, transposed.
+
+  Discussion:
+
+    An L4MAT is an array of L4 values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 November 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, int A[M*N], an M by N matrix to be printed.
+
+    Input, int ILO, JLO, the first row and column to print.
+
+    Input, int IHI, JHI, the last row and column to print.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+  int i2hi;
+  int i2lo;
+  int inc;
+  int incx = 35;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+
+  for ( i2lo = i4_max ( ilo, 0 ); i2lo <= i4_min ( ihi, m - 1 ); i2lo = i2lo + incx )
+  {
+    i2hi = i2lo + incx - 1;
+    i2hi = i4_min ( i2hi, m - 1 );
+    i2hi = i4_min ( i2hi, ihi );
+
+    inc = i2hi + 1 - i2lo;
+
+    printf ( "\n" );
+
+    if ( 100 <= i2hi )
+    {
+      printf ( "      " );
+      for ( i = i2lo; i <= i2hi; i++ )
+      {
+        printf ( " %1d", i / 100 );
+      }
+      printf ( "\n" );
+    }
+
+    if ( 10 <= i2hi )
+    {
+      printf ( "      " );
+      for ( i = i2lo; i <= i2hi; i++ )
+      {
+        printf ( " %1d", ( ( i / 10 ) % 10 ) );
+      }
+      printf ( "\n" );
+    }
+
+    printf ( "  Row " );
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( " %1d", ( i % 10 ) );
+    }
+    printf ( "\n" );
+
+    printf ( "  Col\n" );
+    printf ( "\n" );
+
+    j2lo = i4_max ( jlo, 0 );
+    j2hi = i4_min ( jhi, n - 1 );
+
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%5d:", j );
+      for ( i = i2lo; i <= i2hi; i++ )
+      {
+        printf ( " %1d", a[i+j*m] );
+      }
+      printf ( "\n" );
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+void l4vec_print ( int n, int a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    L4VEC_PRINT prints an L4VEC.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 May 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of components of the vector.
+
+    Input, int A[N], the (logical) vector to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ ) 
+  {
+    if ( a[i] == 0 )
+    {
+      printf ( "  %8d: F\n", i );
+    }
+    else
+    {
+      printf ( "  %8d: T\n", i );
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
 int lcm_12n ( int n )
 
 /******************************************************************************/
@@ -5444,302 +5799,6 @@ int lcm_12n ( int n )
   }
 
   return value;
-}
-/******************************************************************************/
-
-void lmat_print ( int m, int n, int a[], char *title )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    LMAT_PRINT prints an LMAT.
-
-  Discussion:
-
-    An LMAT is an array of L values.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    03 November 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int M, the number of rows in A.
-
-    Input, int N, the number of columns in A.
-
-    Input, int A[M*N], the matrix.
-
-    Input, char *TITLE, a title.
-*/
-{
-  lmat_print_some ( m, n, a, 0, 0, m - 1, n - 1, title );
-
-  return;
-}
-/******************************************************************************/
-
-void lmat_print_some ( int m, int n, int a[], int ilo, int jlo, int ihi, 
-  int jhi, char *title )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    LMAT_PRINT_SOME prints some of an LMAT.
-
-  Discussion:
-
-    An LMAT is an array of L values.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    03 November 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int M, N, the number of rows and columns.
-
-    Input, int A[M*N], an M by N matrix to be printed.
-
-    Input, int ILO, JLO, the first row and column to print.
-
-    Input, int IHI, JHI, the last row and column to print.
-
-    Input, char *TITLE, a title.
-*/
-{
-  int i;
-  int i2hi;
-  int i2lo;
-  int inc;
-  int incx = 35;
-  int j;
-  int j2;
-  int j2hi;
-  int j2lo;
-
-  printf ( "\n" );
-  printf ( "%s\n", title );
-
-  for ( j2lo = i4_max ( jlo, 0 ); j2lo <= i4_min ( jhi, n - 1 ); j2lo = j2lo + incx )
-  {
-    j2hi = j2lo + incx - 1;
-    j2hi = i4_min ( j2hi, n - 1 );
-    j2hi = i4_min ( j2hi, jhi );
-
-    inc = j2hi + 1 - j2lo;
-
-    printf ( "\n" );
-
-    if ( 100 <= j2hi )
-    {
-      printf ( "      " );
-      for ( j = j2lo; j <= j2hi; j++ )
-      {
-        printf ( " %1d", j / 100 );
-      }
-      printf ( "\n" );
-    }
-
-    if ( 10 <= j2hi )
-    {
-      printf ( "      " );
-      for ( j = j2lo; j <= j2hi; j++ )
-      {
-        printf ( " %1d", ( ( j / 10 ) % 10 ) );
-      }
-      printf ( "\n" );
-    }
-
-    printf ( "  Col " );
-    for ( j = j2lo; j <= j2hi; j++ )
-    {
-      printf ( " %1d", ( j % 10 ) );
-    }
-    printf ( "\n" );
-
-    printf ( "  Row\n" );
-    printf ( "\n" );
-
-    i2lo = i4_max ( ilo, 0 );
-    i2hi = i4_min ( ihi, m - 1 );
-
-    for ( i = i2lo; i <= i2hi; i++ )
-    {
-      printf ( "%5d:", i );
-      for ( j = j2lo; j <= j2hi; j++ )
-      {
-        printf ( " %1d", a[i+j*m] );
-      }
-      printf ( "\n" );
-    }
-  }
-  return;
-}
-/******************************************************************************/
-
-void lmat_transpose_print ( int m, int n, int a[], char *title )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    LMAT_TRANSPOSE_PRINT prints an LMAT, transposed.
-
-  Discussion:
-
-    An LMAT is an array of L values.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    03 November 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int M, N, the number of rows and columns.
-
-    Input, int A[M*N], an M by N matrix to be printed.
-
-    Input, char *TITLE, a title.
-*/
-{
-  lmat_transpose_print_some ( m, n, a, 0, 0, m - 1, n - 1, title );
-
-  return;
-}
-/******************************************************************************/
-
-void lmat_transpose_print_some ( int m, int n, int a[], int ilo, int jlo, 
-  int ihi, int jhi, char *title )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    LMAT_TRANSPOSE_PRINT_SOME prints some of an LMAT, transposed.
-
-  Discussion:
-
-    An LMAT is an array of L values.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    03 November 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int M, N, the number of rows and columns.
-
-    Input, int A[M*N], an M by N matrix to be printed.
-
-    Input, int ILO, JLO, the first row and column to print.
-
-    Input, int IHI, JHI, the last row and column to print.
-
-    Input, char *TITLE, a title.
-*/
-{
-  int i;
-  int i2;
-  int i2hi;
-  int i2lo;
-  int inc;
-  int incx = 35;
-  int j;
-  int j2hi;
-  int j2lo;
-
-  printf ( "\n" );
-  printf ( "%s\n", title );
-
-  for ( j2lo = i4_max ( ilo, 0 ); j2lo <= i4_min ( ihi, m - 1 ); j2lo = j2lo + incx )
-  {
-    i2hi = i2lo + incx - 1;
-    i2hi = i4_min ( i2hi, m - 1 );
-    i2hi = i4_min ( i2hi, ihi );
-
-    inc = i2hi + 1 - i2lo;
-
-    printf ( "\n" );
-
-    if ( 100 <= i2hi )
-    {
-      printf ( "      " );
-      for ( i = i2lo; i <= i2hi; i++ )
-      {
-        printf ( " %1d", i / 100 );
-      }
-      printf ( "\n" );
-    }
-
-    if ( 10 <= i2hi )
-    {
-      printf ( "      " );
-      for ( i = i2lo; i <= i2hi; i++ )
-      {
-        printf ( " %1d", ( ( i / 10 ) % 10 ) );
-      }
-      printf ( "\n" );
-    }
-
-    printf ( "  Row " );
-    for ( i = i2lo; i <= i2hi; i++ )
-    {
-      printf ( " %1d", ( i % 10 ) );
-    }
-    printf ( "\n" );
-
-    printf ( "  Col\n" );
-    printf ( "\n" );
-
-    j2lo = i4_max ( jlo, 0 );
-    j2hi = i4_min ( jhi, n - 1 );
-
-    for ( j = j2lo; j <= j2hi; j++ )
-    {
-      printf ( "%5d:", j );
-      for ( i = i2lo; i <= i2hi; i++ )
-      {
-        printf ( " %1d", a[i+j*m] );
-      }
-      printf ( "\n" );
-    }
-  }
-  return;
 }
 /******************************************************************************/
 
@@ -5815,49 +5874,6 @@ int luhn_check ( int digit_num, int digit[] )
   free ( digit_copy );
 
   return check_sum;
-}
-/******************************************************************************/
-
-void lvec_print ( int n, int a[], char *title )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    LVEC_PRINT prints a logical vector.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    23 July 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the number of components of the vector.
-
-    Input, int A[N], the vector to be printed.
-
-    Input, char *TITLE, a title.
-*/
-{
-  int i;
-
-  printf ( "\n" );
-  printf ( "%s\n", title );
-  printf ( "\n" );
-  for ( i = 0; i < n; i++ ) 
-  {
-    printf ( "  %8d: %d\n", i, !( a[i] == 0 ) );
-  }
-
-  return;
 }
 /******************************************************************************/
 
@@ -5991,7 +6007,7 @@ int perm_check ( int n, int p[], int base )
       }
     }
 
-    if ( found = 0 )
+    if ( found == 0 )
     {
       return 0;
     }
@@ -6973,7 +6989,7 @@ double r8_abs ( double x )
 }
 /******************************************************************************/
 
-double r8_huge ( void )
+double r8_huge ( )
 
 /******************************************************************************/
 /*
@@ -7816,7 +7832,6 @@ double r8vec_max ( int n, double r8vec[] )
 */
 {
   int i;
-  double *r8vec_pointer;
   double value;
 
   value = -r8_huge ( );
@@ -8157,7 +8172,7 @@ unsigned long rand_initialize ( unsigned long seed )
   {
     printf ( "\n" );
     printf ( "RAND_INITIALIZE:\n" );
-    printf ( "  Initialize RAND with user SEED = %d\n", seed );
+    printf ( "  Initialize RAND with user SEED = %lud\n", seed );
   }
   else
   {
@@ -8165,7 +8180,7 @@ unsigned long rand_initialize ( unsigned long seed )
 
     printf ( "\n" );
     printf ( "RAND_INITIALIZE:\n" );
-    printf ( "  Initialize RAND with arbitrary SEED = %d\n", seed );
+    printf ( "  Initialize RAND with arbitrary SEED = %lud\n", seed );
   }
 /*
   Now set the seed.
@@ -8225,7 +8240,7 @@ unsigned long random_initialize ( unsigned long seed )
     {
       printf ( "\n" );
       printf ( "RANDOM_INITIALIZE:\n" );
-      printf ( "  Initialize RANDOM with user SEED = %d\n", seed );
+      printf ( "  Initialize RANDOM with user SEED = %lud\n", seed );
     }
   }
   else
@@ -8235,7 +8250,7 @@ unsigned long random_initialize ( unsigned long seed )
     {
       printf ( "\n" );
       printf ( "RANDOM_INITIALIZE:\n" );
-      printf ( "  Initialize RANDOM with arbitrary SEED = %d\n", seed );
+      printf ( "  Initialize RANDOM with arbitrary SEED = %lud\n", seed );
     }
   }
 /*
@@ -8663,13 +8678,17 @@ int s_len_trim ( char *s )
 
     S_LEN_TRIM returns the length of a string to the last nonblank.
 
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    26 April 2003
+    05 October 2014
 
   Author:
 
@@ -8689,9 +8708,9 @@ int s_len_trim ( char *s )
   n = strlen ( s );
   t = s + strlen ( s ) - 1;
 
-  while ( 0 < n ) 
+  while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }

@@ -13,10 +13,12 @@ void ising_2d_agree ( int m, int n, int c1[], int c5[] );
 int *ising_2d_initialize ( int m, int n, double thresh, int *seed );
 void ising_2d_stats ( int step, int m, int n, int c1[] );
 void neighbor_2d_stats ( int step, int m, int n, int c1[], int c5[] );
+void plot_file ( int m, int n, int c1[], char *title, char *plot_filename,
+  char *png_filename );
 void r8mat_uniform_01 ( int m, int n, int *seed, double r[] );
 void timestamp ( void );
 void transition ( int m, int n, int iterations, double prob[], 
-  double thresh, int *seed );
+  double thresh, int *seed, int c1[] );
 
 /******************************************************************************/
 
@@ -28,19 +30,29 @@ int main ( int argc, char *argv[] )
 
     MAIN is the main program for ISING_2D_SIMULATION.
 
+  Usage:
+
+    ising_2d_simulation  m  n  iterations  thresh  seed
+
+    * M, N, the number of rows and columns.
+    * ITERATIONS, the number of iterations.
+    * THRESH, the threshhold.
+    * SEED, a seed for the random number generator.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license. 
 
   Modified:
 
-    23 November 2011
+    30 June 2013
 
   Author:
 
     John Burkardt
 */
 {
+  int *c1;
   int i;
   int iterations;
   int m;
@@ -116,9 +128,27 @@ int main ( int argc, char *argv[] )
   }
   printf ( "\n" );
 /*
+  Initialize the system.
+*/
+  c1 = ising_2d_initialize ( m, n, thresh, &seed );
+/*
+  Write the initial state to a gnuplot file.
+*/
+  plot_file ( m, n, c1, "Initial Configuration", "ising_2d_initial.txt", 
+    "ising_2d_initial.png" );
+/*
   Do the simulation.
 */
-  transition ( m, n, iterations, prob, thresh, &seed );
+  transition ( m, n, iterations, prob, thresh, &seed, c1 );
+/*
+  Write the final state to a gnuplot file.
+*/
+  plot_file ( m, n, c1, "Final Configuration", "ising_2d_final.txt", 
+    "ising_2d_final.png" );
+/*
+  Free memory.
+*/
+  free ( c1 );
 /*
   Terminate.
 */
@@ -632,6 +662,99 @@ void neighbor_2d_stats ( int step, int m, int n, int c1[], int c5[] )
 }
 /******************************************************************************/
 
+void plot_file ( int m, int n, int c1[], char *title, char *plot_filename,
+  char *png_filename )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PLOT_FILE writes the current configuration to a GNUPLOT plot file.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 June 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, int C1[M*N], the current state of the system.
+
+    Input, char *TITLE, a title for the plot.
+
+    Input, char *PLOT_FILENAME, a name for the GNUPLOT
+    command file to be created.
+
+    Input, char *PNG_FILENAME, the name of the PNG graphics
+    file to be created.
+*/
+{
+  int i;
+  int j;
+  FILE *plot_unit;
+  double ratio;
+  int x1;
+  int x2;
+  int y1;
+  int y2;
+
+  plot_unit = fopen ( plot_filename, "wt" );
+
+  ratio = ( double ) ( n ) / ( double ) ( m );
+
+  fprintf ( plot_unit, "set term png\n" );
+  fprintf ( plot_unit, "set output \"%s\"\n", png_filename );
+  fprintf ( plot_unit, "set xrange [ 0 : %d ]\n", m );
+  fprintf ( plot_unit, "set yrange [ 0 : %d ]\n", n );
+  fprintf ( plot_unit, "set nokey\n" );
+  fprintf ( plot_unit, "set title \"%s\"\n", title );
+  fprintf ( plot_unit, "unset tics\n" );
+
+  fprintf  ( plot_unit, "set size ratio %g\n", ratio );
+  for ( j = 0; j < n; j++ )
+  {
+    y1 = j;
+    y2 = j + 1;
+    for ( i = 0; i < m; i++ )
+    {
+      x1 = m - i - 1;
+      x2 = m - i;
+      if ( c1[i+j*m] < 0 )
+      {
+        fprintf ( plot_unit, 
+          "set object rectangle from %d, %d to %d, %d fc rgb 'blue'\n", 
+          x1, y1, x2, y2 );
+      }
+      else
+      {
+        fprintf ( plot_unit, 
+          "set object rectangle from %d, %d to %d, %d fc rgb 'red'\n", 
+          x1, y1, x2, y2 );
+      }
+    }
+  }
+
+  fprintf  ( plot_unit, "plot 1\n" );
+  fprintf  ( plot_unit, "quit\n" );
+
+  fclose ( plot_unit );
+
+  printf ( "\n" );
+  printf ( "  Created the gnuplot graphics file \"%s\"\n", plot_filename );
+
+  return;
+}
+/******************************************************************************/
+
 void r8mat_uniform_01 ( int m, int n, int *seed, double r[] )
 
 /******************************************************************************/
@@ -647,8 +770,8 @@ void r8mat_uniform_01 ( int m, int n, int *seed, double r[] )
 
     This routine implements the recursion
 
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      unif = seed / ( 2**31 - 1 )
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
 
     The integer arithmetic never requires more than 32 bits,
     including a sign bit.
@@ -769,7 +892,7 @@ void timestamp ( void )
 /******************************************************************************/
 
 void transition ( int m, int n, int iterations, double prob[], 
-  double thresh, int *seed )
+  double thresh, int *seed, int c1[] )
 
 /******************************************************************************/
 /*
@@ -803,9 +926,10 @@ void transition ( int m, int n, int iterations, double prob[],
 
     Input/output, int *SEED, a seed for the random number 
     generator.
+
+    Input/output, int *C1[M*N], the current state of the system.
 */
 {
-  int *c1;
   int *c5;
   int i;
   int j;
@@ -814,8 +938,6 @@ void transition ( int m, int n, int iterations, double prob[],
 
   c5 = ( int * ) malloc ( m * n * sizeof ( int ) );
   r = ( double * ) malloc ( m * n * sizeof ( double ) );
-
-  c1 = ising_2d_initialize ( m, n, thresh, seed );
 
   step = 0;
   ising_2d_stats ( step, m, n, c1 );
@@ -848,7 +970,6 @@ void transition ( int m, int n, int iterations, double prob[],
     }
     ising_2d_stats ( step, m, n, c1 );
   }
-  free ( c1 );
   free ( c5 );
   free ( r );
 

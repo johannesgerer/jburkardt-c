@@ -462,7 +462,6 @@ double betain ( double x, double p, double q, double beta, int *ifault )
 {
   double acu = 0.1E-14;
   double ai;
-  double betain;
   double cx;
   int indx;
   int ns;

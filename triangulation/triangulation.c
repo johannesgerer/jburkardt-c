@@ -2466,6 +2466,106 @@ void lvec_print ( int n, int a[], char *title )
 }
 /******************************************************************************/
 
+void mesh_base_one ( int node_num, int element_order, int element_num,
+  int element_node[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MESH_BASE_ONE ensures that the element definition is one-based.
+
+  Discussion:
+
+    The ELEMENT_NODE array contains nodes indices that form elements.
+    The convention for node indexing might start at 0 or at 1.
+
+    If this function detects 0-based indexing, it converts to 1-based.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 October 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int NODE_NUM, the number of nodes.
+
+    Input, int ELEMENT_ORDER, the order of the elements.
+
+    Input, int ELEMENT_NUM, the number of elements.
+
+    Input/output, int ELEMENT_NODE[ELEMENT_ORDER*ELEMENT_NUM], the element
+    definitions.
+*/
+{
+  int element;
+  const int i4_huge = 2147483647;
+  int node;
+  int node_max;
+  int node_min;
+  int order;
+
+  node_min = + i4_huge;
+  node_max = - i4_huge;
+  for ( element = 0; element < element_num; element++ )
+  {
+    for ( order = 0; order < element_order; order++ )
+    {
+      node = element_node[order+element*element_order];
+      if ( node < node_min )
+      {
+        node_min = node;
+      }
+      if ( node_max < node )
+      {
+        node_max = node;
+      }
+    }
+  }
+
+  if ( node_min == 0 && node_max == node_num - 1 )
+  {
+    printf ( "\n" );
+    printf ( "MESH_BASE_ONE:\n" );
+    printf ( "  The element indexing appears to be 0-based!\n" );
+    printf ( "  This will be converted to 1-based.\n" );
+    for ( element = 0; element < element_num; element++ )
+    {
+      for ( order = 0; order < element_order; order++ )
+      {
+        element_node[order+element*element_order] =
+          element_node[order+element*element_order] + 1;
+      }
+    }
+  }
+  else if ( node_min == 1 && node_max == node_num )
+  {
+    printf ( "\n" );
+    printf ( "MESH_BASE_ONE:\n" );
+    printf ( "  The element indexing appears to be 1-based!\n" );
+    printf ( "  No conversion is necessary.\n" );
+  }
+  else
+  {
+    printf ( "\n" );
+    printf ( "MESH_BASE_ONE - Warning!\n" );
+    printf ( "  The element indexing is not of a recognized type.\n" );
+    printf ( "  NODE_MIN = %d\n", node_min );
+    printf ( "  NODE_MAX = %d\n", node_max );
+    printf ( "  NODE_NUM = %d\n", node_num );
+  }
+  return;
+}
+/******************************************************************************/
+
 void mesh_base_zero ( int node_num, int element_order, int element_num,
   int element_node[] )
 
@@ -2491,7 +2591,7 @@ void mesh_base_zero ( int node_num, int element_order, int element_num,
 
   Modified:
 
-    02 October 2009
+    18 October 2014
 
   Author:
 
@@ -2510,20 +2610,27 @@ void mesh_base_zero ( int node_num, int element_order, int element_num,
 */
 {
   int element;
+  const int i4_huge = 2147483647;
   int node;
   int node_max;
   int node_min;
   int order;
 
-  node_min = node_num + 1;
-  node_max = -1;
+  node_min = + i4_huge;
+  node_max = - i4_huge;
   for ( element = 0; element < element_num; element++ )
   {
     for ( order = 0; order < element_order; order++ )
     {
       node = element_node[order+element*element_order];
-      node_min = i4_min ( node_min, node );
-      node_max = i4_max ( node_max, node );
+      if ( node < node_min )
+      {
+        node_min = node;
+      }
+      if ( node_max < node )
+      {
+        node_max = node;
+      }
     }
   }
 
@@ -4538,7 +4645,7 @@ double r8_acos ( double c )
 }
 /******************************************************************************/
 
-double r8_epsilon ( void )
+double r8_epsilon ( )
 
 /******************************************************************************/
 /*
@@ -4571,13 +4678,13 @@ double r8_epsilon ( void )
     Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  static double value = 2.220446049250313E-016;
+  const double value = 2.220446049250313E-016;
 
   return value;
 }
 /******************************************************************************/
 
-double r8_huge ( void )
+double r8_huge ( )
 
 /******************************************************************************/
 /*
@@ -6043,13 +6150,17 @@ int s_len_trim ( char *s )
 
     S_LEN_TRIM returns the length of a string to the last nonblank.
 
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    26 April 2003
+    05 October 2014
 
   Author:
 
@@ -6066,12 +6177,12 @@ int s_len_trim ( char *s )
   int n;
   char *t;
 
-  n = ( int ) strlen ( s );
-  t = s + ( int ) strlen ( s ) - 1;
+  n = strlen ( s );
+  t = s + strlen ( s ) - 1;
 
   while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }
@@ -6560,7 +6671,7 @@ int swapec ( int i, int *top, int *btri, int *bedg, int node_num,
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*
@@ -8851,6 +8962,77 @@ void triangulation_order3_adj_set2 ( int node_num, int triangle_num,
 }
 /******************************************************************************/
 
+int *triangulation_order3_adjacency ( int node_num, int element_num, 
+  int element_node[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGULATION_ORDER3_ADJACENCY computes the full adjacency matrix
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 March 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int NODE_NUM, the number of nodes in the
+    triangulation.
+
+    Input, int ELEMENT_NUM, the number of triangles in
+    the triangulation.
+
+    Input, int ELEMENT_NODE[3*ELEMENT_NUM],
+    the nodes making up each triangle.
+
+    Output, int TRIANGULATION_ORDER3_ADJACENCY[NODE_NUM*NODE_NUM], the adjacency
+    matrix.  ADJ(I,J) is 1 if nodes I and J are adjacent, that is,
+    they are immediate neighbors on an edge of the triangulation.
+*/
+{
+  int *adj;
+  int element;
+  int i;
+  int j;
+  int k;
+
+  adj = ( int * ) malloc ( node_num * node_num * sizeof ( int ) );
+
+  for ( j = 0; j < node_num; j++ )
+  {
+    for ( i = 0; i < node_num; i++ )
+    {
+      adj[i+j*node_num] = 0;
+    }
+  }
+
+  for ( element = 0; element < element_num; element++ )
+  {
+    i = element_node[0+element*3];
+    j = element_node[1+element*3];
+    k = element_node[2+element*3];
+
+    adj[i+j*node_num] = 1;
+    adj[i+k*node_num] = 1;
+    adj[j+i*node_num] = 1;
+    adj[j+k*node_num] = 1;
+    adj[k+i*node_num] = 1;
+    adj[k+j*node_num] = 1;
+  }
+
+  return adj;
+}
+/******************************************************************************/
+
 int triangulation_order3_boundary_edge_count ( int triangle_num,
   int triangle_node[] )
 
@@ -9062,7 +9244,7 @@ int *triangulation_order3_boundary_node ( int node_num, int triangle_num,
 
   Modified:
 
-    12 June 2005
+    25 January 2013
 
   Author:
 
@@ -9169,6 +9351,8 @@ int *triangulation_order3_boundary_node ( int node_num, int triangle_num,
     }
 
   }
+
+  free ( edge );
 
   return node_boundary;
 }
@@ -12628,7 +12812,7 @@ int *triangulation_order6_boundary_node ( int node_num, int triangle_num,
 
   Modified:
 
-    14 June 2005
+    25 January 2013
 
   Author:
 
@@ -12740,6 +12924,8 @@ int *triangulation_order6_boundary_node ( int node_num, int triangle_num,
     }
 
   }
+
+  free ( edge );
 
   return node_boundary;
 }

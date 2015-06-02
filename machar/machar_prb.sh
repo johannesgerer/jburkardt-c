@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g machar_prb.c >& compiler.txt
+gcc -c machar_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling machar_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc machar_prb.o /$HOME/libc/$ARCH/machar.o -lm
 if [ $? -ne 0 ]; then

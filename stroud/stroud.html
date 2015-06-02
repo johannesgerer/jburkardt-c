@@ -17,7 +17,11 @@
     <p>
       <b>STROUD</b> 
       is a C library which 
-      implements multidimensional quadrature rules of Arthur Stroud.
+      defines quadrature rules for a variety of M-dimensional regions, 
+      including the interior of the square, cube and hypercube, the pyramid,
+      cone and ellipse, the hexagon, the M-dimensional octahedron,
+      the circle, sphere and hypersphere, the triangle, tetrahedron and simplex,
+      and the surface of the circle, sphere and hypersphere.
     </p>
 
     <p>
@@ -176,94 +180,11 @@
     </h3>
 
     <p>
-      <a href = "../../cpp_src/dunavant/dunavant.html">
-      DUNAVANT</a>,
-      a C++ library which
-      defines Dunavant rules for quadrature
-      on a triangle.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/fekete/fekete.html">
-      FEKETE</a>, 
-      a C++ library which
-      defines a Fekete rule for quadrature or interpolation over a triangle.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/felippa/felippa.html">
-      FELIPPA</a>,
-      a C++ library which 
-      defines quadrature rules for lines, triangles, quadrilaterals,
-      pyramids, wedges, tetrahedrons and hexahedrons.
-    </p>
-
-    <p>
       <a href = "../../c_src/gm_rule/gm_rule.html">
       GM_RULE</a>,
       a C library which
       defines a Grundmann-Moeller rule for quadrature over a triangle, tetrahedron, or general
       M-dimensional simplex.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/keast/keast.html">
-      KEAST</a>, 
-      a C++ library which 
-      defines a number of quadrature rules for a tetrahedron.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/ncc_tetrahedron/ncc_tetrahedron.html">
-      NCC_TETRAHEDRON</a>, 
-      a C++ library which
-      defines Newton-Cotes closed quadrature
-      rules on a tetrahedron.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/ncc_triangle/ncc_triangle.html">
-      NCC_TRIANGLE</a>, 
-      a C++ library which
-      defines Newton-Cotes closed quadrature rules on a triangle.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/nco_tetrahedron/nco_tetrahedron.html">
-      NCO_TETRAHEDRON</a>, 
-      a C++ library which
-      defines Newton-Cotes open quadrature
-      rules on a tetrahedron.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/nco_triangle/nco_triangle.html">
-      NCO_TRIANGLE</a>, 
-      a C++ library which
-      defines Newton-Cotes open quadrature
-      rules on a triangle.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/nint_exactness/nint_exactness.html">
-      NINT_EXACTNESS</a>, 
-      a C++ program which 
-      demonstrates how to measure the
-      polynomial exactness of a multidimensional quadrature rule.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/product_rule/product_rule.html">
-      PRODUCT_RULE</a>, 
-      a C++ program which
-      constructs a product rule from 1D factor rules.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/pyramid_rule/pyramid_rule.html">
-      PYRAMID_RULE</a>,
-      a C++ program which 
-      computes a quadrature rule for a pyramid.
     </p>
 
     <p>
@@ -317,18 +238,35 @@
     </p>
 
     <p>
-      <a href = "../../cpp_src/triangle_exactness/triangle_exactness.html">
-      TRIANGLE_EXACTNESS</a>, 
-      a C++ program which 
-      investigates the polynomial
-      exactness of a quadrature rule for the triangle.
+      <a href = "../../c_src/tetrahedron_ncc_rule/tetrahedron_ncc_rule.html">
+      TETRAHEDRON_NCC_RULE</a>,
+      a C library which
+      defines Newton-Cotes Closed (NCC) quadrature rules 
+      over the interior of a tetrahedron in 3D.
     </p>
 
     <p>
-      <a href = "../../cpp_src/wandzura/wandzura.html">
-      WANDZURA</a>, 
-      a C++ library which 
-      defines Wandzura rules for quadrature on a triangle.
+      <a href = "../../c_src/tetrahedron_nco_rule/tetrahedron_nco_rule.html">
+      TETRAHEDRON_NCO_RULE</a>,
+      a C library which
+      defines Newton-Cotes Open (NCO) quadrature rules
+      over the interior of a tetrahedron in 3D.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangle_ncc_rule/triangle_ncc_rule.html">
+      TRIANGLE_NCC_RULE</a>,
+      a C library which
+      defines Newton-Cotes Closed (NCC) quadrature rules
+      over the interior of a triangle in 2D.
+    </p>
+
+    <p>
+      <a href = "../../c_src/triangle_nco_rule/triangle_nco_rule.html">
+      TRIANGLE_NCO_RULE</a>,
+      a C library which
+      defines Newton-Cotes Open (NCO) quadrature rules
+      over the interior of a triangle in 2D.
     </p>
 
     <h3 align = "center">

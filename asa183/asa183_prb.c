@@ -30,7 +30,7 @@ int main ( void )
 
   Discussion:
 
-    ASA183_PRB calls sample problems for the ASA183 library.
+    ASA183_PRB tests the ASA183 library.
 
   Licensing:
 
@@ -46,20 +46,17 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA183_PRB\n" );
-  printf ( "  C++ version\n" );
-  printf ( "  Test the routines in the ASA183 library.\n" );
+  printf ( "  C version\n" );
+  printf ( "  Test the ASA183 library.\n" );
 
   test01 ( );
   test02 ( );
   test03 ( );
-
   test04 ( );
   test05 ( );
   test06 ( );
-
   test07 ( );
   test08 ( );
   test09 ( );
@@ -73,7 +70,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA183_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

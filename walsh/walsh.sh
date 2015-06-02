@@ -2,12 +2,11 @@
 #
 cp walsh.h /$HOME/include
 #
-gcc -c -g -I /$HOME/include walsh.c >& compiler.txt
+gcc -c -I /$HOME/include walsh.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling walsh.c."
   exit
 fi
-rm compiler.txt
 #
 mv walsh.o ~/libc/$ARCH/walsh.o
 #

@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g test_mat_prb.c >& compiler.txt
+gcc -c test_mat_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling test_mat_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc test_mat_prb.o /$HOME/libc/$ARCH/test_mat.o -lm
 if [ $? -ne 0 ]; then

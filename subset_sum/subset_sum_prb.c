@@ -18,6 +18,10 @@ int main ( void )
 
     MAIN is the main program for SUBSET_SUM_PRB.
 
+  Discussion:
+
+    SUBSET_SUM_PRB tests the SUBSET_SUM library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -55,7 +59,7 @@ int main ( void )
 
   timestamp ( );
   printf ( "\n" );
-  printf ( "SUBSET_SUM_TEST:\n" );
+  printf ( "SUBSET_SUM_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the SUBSET_SUM library.\n" );
 /*
@@ -226,7 +230,7 @@ int main ( void )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "SUBSET_SUM_TEST\n" );
+  printf ( "SUBSET_SUM_PRB\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

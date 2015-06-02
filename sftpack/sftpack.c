@@ -395,7 +395,7 @@ complex *c4mat_uniform_01_new ( int m, int n, int *seed )
     exit ( 1 );
   }
 
-  c = malloc ( m * n * sizeof ( complex ) );
+  c = ( complex * ) malloc ( m * n * sizeof ( complex ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -744,7 +744,7 @@ complex *c4vec_uniform_01_new ( int n, int *seed )
     exit ( 1 );
   }
 
-  c = malloc ( n * sizeof ( complex ) );
+  c = ( complex * ) malloc ( n * sizeof ( complex ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -1165,7 +1165,7 @@ doublecomplex *c8mat_uniform_01_new ( int m, int n, int *seed )
     exit ( 1 );
   }
 
-  c = malloc ( m * n * sizeof ( doublecomplex ) );
+  c = ( doublecomplex * ) malloc ( m * n * sizeof ( doublecomplex ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -1512,7 +1512,7 @@ doublecomplex *c8vec_uniform_01_new ( int n, int *seed )
     exit ( 1 );
   }
 
-  c = malloc ( n * sizeof ( doublecomplex ) );
+  c = ( doublecomplex * ) malloc ( n * sizeof ( doublecomplex ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -3334,7 +3334,7 @@ double *r8vec_uniform_new ( int n, double b, double c, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {

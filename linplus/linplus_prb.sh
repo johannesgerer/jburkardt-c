@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g linplus_prb.c >& compiler.txt
+gcc -c linplus_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling linplus_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc linplus_prb.o /$HOME/libc/$ARCH/linplus.o -lm
 if [ $? -ne 0 ]; then

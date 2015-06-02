@@ -140,7 +140,8 @@
       <a href = "../../cpp_src/c8lib/c8lib.html">a C++ version</a> and
       <a href = "../../f77_src/c8lib/c8lib.html">a FORTRAN77 version</a> and
       <a href = "../../f_src/c8lib/c8lib.html">a FORTRAN90 version</a> and
-      <a href = "../../m_src/c8lib/c8lib.html">a MATLAB version</a>.
+      <a href = "../../m_src/c8lib/c8lib.html">a MATLAB version</a> and
+      <a href = "../../m_src/c8lib/c8lib.html">a Python version</a>..
     </p>
 
     <h3 align = "center">
@@ -275,7 +276,7 @@
           <b>C8_ADD</b> adds two C8's.
         </li>
         <li>
-          <b>C8_ARGUMENT</b> returns the argument of a C8.
+          <b>C8_ARG</b> returns the argument of a C8.
         </li>
         <li>
           <b>C8_ASIN</b> evaluates the inverse sine of a C8.
@@ -323,10 +324,19 @@
           <b>C8_INV</b> inverts a C8.
         </li>
         <li>
+          <b>C8_LE_L1</b> := X <= Y for C8 values, and the L1 norm.
+        </li>
+        <li>
+          <b>C8_LE_L2</b> := X <= Y for C8 values, and the L2 norm.
+        </li>
+        <li>
+          <b>C8_LE_LI</b> := X <= Y for C8 values, and the L-oo norm.
+        </li>
+        <li>
           <b>C8_LOG</b> evaluates the logarithm of a C8.
         </li>
         <li>
-          <b>C8_MAGNITUDE</b> returns the magnitude of a C8.
+          <b>C8_MAG</b> returns the magnitude of a C8.
         </li>
         <li>
           <b>C8_MUL</b> multiplies two C8's.
@@ -335,10 +345,25 @@
           <b>C8_NEG</b> negates a C8.
         </li>
         <li>
+          <b>C8_NINT</b> returns the nearest complex integer of a C8.
+        </li>
+        <li>
+          <b>C8_NORM_L1</b> evaluates the L1 norm of a C8.
+        </li>
+        <li>
+          <b>C8_NORM_L2</b> evaluates the L2 norm of a C8.
+        </li>
+        <li>
+          <b>C8_NORM_LI</b> evaluates the L-infinity norm of a C8.
+        </li>
+        <li>
           <b>C8_NORMAL_01</b> returns a unit pseudonormal C8.
         </li>
         <li>
           <b>C8_ONE</b> returns the value of 1 as a C8
+        </li>
+        <li>
+          <b>C8_PRINT</b> prints a C8.
         </li>
         <li>
           <b>C8_REAL</b> returns the real part of a C8.
@@ -377,16 +402,52 @@
           <b>C8_ZERO</b> returns the value of 0 as a C8
         </li>
         <li>
+          <b>C8MAT_ADD</b> combines two C8MAT's with complex scale factors.
+        </li>
+        <li>
+          <b>C8MAT_ADD_R8</b> combines two C8MAT's with real scale factors.
+        </li>
+        <li>
+          <b>C8MAT_COPY</b> copies one C8MAT to another.
+        </li>
+        <li>
           <b>C8MAT_COPY_NEW</b> copies one C8MAT to a "new" C8MAT.
         </li>
         <li>
-          <b>C8MAT_IDENTITY</b> sets a C8MAT to the identity.
+          <b>C8MAT_FSS</b> factors and solves a system with multiple right hand sides.
+        </li>
+        <li>
+          <b>C8MAT_FSS_NEW</b> factors and solves a system with multiple right hand sides.
+        </li>
+        <li>
+          <b>C8MAT_IDENTITY_NEW</b> sets a C8MAT to the identity.
+        </li>
+        <li>
+          <b>C8MAT_INDICATOR_NEW</b> returns the C8MAT indicator matrix.
+        </li>
+        <li>
+          <b>C8MAT_MINVM</b> returns inverse(A) * B for C8MAT's.
+        </li>
+        <li>
+          <b>C8MAT_MINVM_NEW</b> returns inverse(A) * B for C8MAT's.
+        </li>
+        <li>
+          <b>C8MAT_MM</b> multiplies two C8MAT's.
         </li>
         <li>
           <b>C8MAT_MM_NEW</b> multiplies two C8MAT's.
         </li>
         <li>
+          <b>C8MAT_NINT</b> rounds the entries of a C8MAT.
+        </li>
+        <li>
           <b>C8MAT_NORM_FRO</b> returns the Frobenius norm of a C8MAT.
+        </li>
+        <li>
+          <b>C8MAT_NORM_L1</b> returns the matrix L1 norm of a C8MAT.
+        </li>
+        <li>
+          <b>C8MAT_NORM_LI</b> returns the L-infinity norm of a C8MAT.
         </li>
         <li>
           <b>C8MAT_PRINT</b> prints a C8MAT.
@@ -395,16 +456,43 @@
           <b>C8MAT_PRINT_SOME</b> prints some of a C8MAT.
         </li>
         <li>
+          <b>C8MAT_SCALE</b> scales a C8MAT by a complex scale factor.
+        </li>
+        <li>
+          <b>C8MAT_SCALE_R8</b> scales a C8MAT by a real scale factor
+        </li>
+        <li>
           <b>C8MAT_UNIFORM_01</b> returns a unit pseudorandom C8MAT.
         </li>
         <li>
           <b>C8MAT_ZERO_NEW</b> returns a new zeroed C8MAT.
         </li>
         <li>
+          <b>C8VEC_COPY</b> copies a C8VEC to another.
+        </li>
+        <li>
           <b>C8VEC_COPY_NEW</b> copies a C8VEC to a "new" C8VEC.
         </li>
         <li>
+          <b>C8VEC_NINT</b> rounds the entries of a C8VEC.
+        </li>
+        <li>
+          <b>C8VEC_NORM_L2</b> returns the L2 norm of a C8VEC.
+        </li>
+        <li>
+          <b>C8VEC_PRINT</b> prints a C8VEC.
+        </li>
+        <li>
           <b>C8VEC_PRINT_PART</b> prints "part" of a C8VEC.
+        </li>
+        <li>
+          <b>C8VEC_PRINT_SOME</b> prints "some" of a C8VEC.
+        </li>
+        <li>
+          <b>C8VEC_SORT_A_L2</b> ascending sorts a double complex array by L2 norm.
+        </li>
+        <li>
+          <b>C8VEC_SPIRAL</b> returns N points on a spiral between C1 and C2.
         </li>
         <li>
           <b>C8VEC_UNIFORM_01_NEW</b> returns a unit pseudorandom C8VEC.
@@ -419,13 +507,16 @@
           <b>POLAR_TO_C8</b> converts a polar form to a C8.
         </li>
         <li>
-          <b>R8_UNIFORM_01</b> returns a unit pseudorandom R8.
+          <b>R8_CSQRT</b> returns the complex square root of an R8.
         </li>
         <li>
-          <b>SORT_HEAP_EXTERNAL</b> externally sorts a list of items into ascending order.
+          <b>R8POLY2_ROOT</b> returns the two roots of a quadratic polynomial.
         </li>
         <li>
-          <b>TIMESTAMP</b> prints the current YMDHMS date as a time stamp.
+          <b>R8POLY3_ROOT</b> returns the three roots of a cubic polynomial.
+        </li>
+        <li>
+          <b>R8POLY4_ROOT</b> returns the four roots of a quartic polynomial.
         </li>
       </ul>
     </p>
@@ -438,7 +529,7 @@
     <hr>
 
     <i>
-      Last revised on 09 July 2011.
+      Last revised on 05 March 2013.
     </i>
 
     <!-- John Burkardt -->

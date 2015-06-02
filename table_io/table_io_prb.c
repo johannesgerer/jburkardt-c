@@ -19,7 +19,11 @@ int main ( void )
 /*
   Purpose:
 
-    TABLE_IO_PRB calls the TABLE_IO test routines.
+    MAIN is the main program for TABLE_IO_PRB.
+
+  Discussion:
+
+    TABLE_IO_PRB tests the TABLE_IO library.
 
   Licensing:
 
@@ -35,7 +39,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "TABLE_IO_PRB\n" );
   printf ( "  C version\n" );
@@ -53,7 +56,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "TABLE_IO_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

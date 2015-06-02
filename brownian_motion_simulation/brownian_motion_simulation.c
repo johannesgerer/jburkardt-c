@@ -494,7 +494,7 @@ int *i4vec_uniform_new ( int n, int a, int b, int *seed )
     b = c;
   }
 
-  x = malloc ( n * sizeof ( int ) );
+  x = ( int * ) malloc ( n * sizeof ( int ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -980,7 +980,7 @@ double *r8vec_uniform_01_new ( int n, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {

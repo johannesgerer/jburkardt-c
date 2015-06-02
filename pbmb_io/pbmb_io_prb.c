@@ -22,7 +22,7 @@ int main ( int argc, char *argv[] )
 
   Discussion:
 
-    PBMB_IO_PRB calls the PBMB_IO test routines.
+    PBMB_IO_PRB tests the PBMB_IO library.
 
   Licensing:
 
@@ -70,7 +70,6 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "PBMB_IO_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

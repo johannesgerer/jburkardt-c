@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g triangle_io_prb.c >& compiler.txt
+gcc -c triangle_io_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling triangle_io_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc triangle_io_prb.o /$HOME/libc/$ARCH/triangle_io.o -lm
 if [ $? -ne 0 ]; then

@@ -1,0 +1,42 @@
+08 January 2014 09:00:25 PM
+
+DISK_INTEGRALS_PRB
+  C version
+  Test the DISK_INTEGRALS library.
+
+TEST01
+  Estimate monomial integrals using Monte Carlo
+  over the interior of the unit disk in 2D.
+
+  Number of sample points used is 4192
+
+  If any exponent is odd, the integral is zero.
+  We will restrict this test to randomly chosen even exponents.
+
+  Ex  Ey     MC-Estimate           Exact      Error
+
+   8   6      0.00102498     0.000958738    6.62e-05
+   0   0         3.14159         3.14159    4.44e-16
+   4   6      0.00622888      0.00613592    9.30e-05
+   8   8     0.000391285     0.000372843    1.84e-05
+   4   0         0.37843        0.392699    1.43e-02
+   6   0        0.233868        0.245437    1.16e-02
+   8   6      0.00102498     0.000958738    6.62e-05
+   0   8         0.17128        0.171806    5.25e-04
+   0   8         0.17128        0.171806    5.25e-04
+   6   8     0.000977643     0.000958738    1.89e-05
+   0   2        0.788787        0.785398    3.39e-03
+   0   8         0.17128        0.171806    5.25e-04
+   2   6       0.0244521       0.0245437    9.16e-05
+   0   0         3.14159         3.14159    4.44e-16
+   8   4      0.00326548      0.00306796    1.98e-04
+   2   4       0.0494336       0.0490874    3.46e-04
+   4   6      0.00622888      0.00613592    9.30e-05
+   0   8         0.17128        0.171806    5.25e-04
+   2   0        0.766794        0.785398    1.86e-02
+   2   8        0.014115       0.0143172    2.02e-04
+
+DISK_INTEGRALS_PRB
+  Normal end of execution.
+
+08 January 2014 09:00:25 PM

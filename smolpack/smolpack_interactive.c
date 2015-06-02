@@ -25,7 +25,7 @@ double f7 ( int dim, double x[] );
 void init_erf ( void );
 double integral ( int fnum, int dim );
 double my_erfc ( double x );
-void timestamp ( void );
+void timestamp ( );
 void tuple_next ( int m1, int m2, int n, int *rank, int x[] );
 
 /******************************************************************************/
@@ -733,7 +733,7 @@ double integral ( int fnum, int dim )
 */
   else if ( fnum == 3 )
   {
-    ivec = malloc ( dim * sizeof ( int ) );
+    ivec = ( int * ) malloc ( dim * sizeof ( int ) );
 
     total = 0.0;
     rank = 0;

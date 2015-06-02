@@ -10,18 +10,18 @@
 # include <complex.h>
 # include <time.h>
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
-void test05 ( void );
-void test06 ( void );
-void timestamp ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
+void test05 ( );
+void test06 ( );
+void timestamp ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -73,7 +73,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -129,7 +129,7 @@ void test01 ( void )
   printf ( "  Scalar A:\n" );
   printf ( "\n" );
 
-  printf ( "  (%g, %g)\n", a );
+  printf ( "  (%g, %g)\n", creal ( a ), cimag ( a ) );
 
   printf ( "\n" );
   printf ( "  Vector B:\n" );
@@ -137,7 +137,7 @@ void test01 ( void )
 
   for ( i = 0; i < 3; i++ )
   {
-    printf ( "  (%g, %g)\n", b[i] );
+    printf ( "  (%g, %g)\n", creal ( b[i] ), cimag ( b[i] ) );
   }
 
   printf ( "\n" );
@@ -148,7 +148,7 @@ void test01 ( void )
   {
     for ( j = 0; j < 2; j++ )
     {
-      printf ( "  (%g, %g)", c[i][j] );
+      printf ( "  (%g, %g)", creal ( c[i][j] ), cimag ( c[i][j] ) );
     }
     printf ( "\n" );
   }
@@ -157,7 +157,7 @@ void test01 ( void )
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -201,7 +201,7 @@ void test02 ( void )
   printf ( "  Scalar A:\n" );
   printf ( "\n" );
 
-  printf ( "  (%g, %g)\n", a );
+  printf ( "  (%g, %g)\n", creal ( a ), cimag ( a ) );
 
   printf ( "\n" );
   printf ( "  Vector B:\n" );
@@ -209,7 +209,7 @@ void test02 ( void )
 
   for ( i = 0; i < 3; i++ )
   {
-    printf ( "  (%g, %g)\n", b[i] );
+    printf ( "  (%g, %g)\n", creal ( b[i] ), cimag ( b[i] ) );
   }
 
   printf ( "\n" );
@@ -220,7 +220,7 @@ void test02 ( void )
   {
     for ( j = 0; j < 2; j++ )
     {
-      printf ( "  (%g, %g)", c[i][j] );
+      printf ( "  (%g, %g)", creal ( c[i][j] ), cimag ( c[i][j] ) );
     }
     printf ( "\n" );
   }
@@ -229,7 +229,7 @@ void test02 ( void )
 }
 /******************************************************************************/
 
-void test03 ( void )
+void test03 ( )
 
 /******************************************************************************/
 /*
@@ -270,7 +270,7 @@ void test03 ( void )
   printf ( "  a =                  (%14.6g,%14.6g)\n", a );
   printf ( "  - a =                (%14.6g,%14.6g)\n", - a );
   printf ( "  a + 3 =              (%14.6g,%14.6g)\n", a + 3 );
-  printf ( "  a + (0,5) =          (%14.6g,%14.6g)\n", a + ( 0, 5 ) );
+  printf ( "  a + (0,5) =          (%14.6g,%14.6g)\n", a + 5 * I );
   printf ( "  4 * a =              (%14.6g,%14.6g)\n", 4 * a );
   printf ( "  a / 8 =              (%14.6g,%14.6g)\n", a / 8 );
   printf ( "  a * a =              (%14.6g,%14.6g)\n", a * a );
@@ -308,7 +308,7 @@ void test03 ( void )
 }
 /******************************************************************************/
 
-void test04 ( void )
+void test04 ( )
 
 /******************************************************************************/
 /*
@@ -364,7 +364,7 @@ void test04 ( void )
   printf ( "  Scalar A:\n" );
   printf ( "\n" );
 
-  printf ( "  (%g, %g)\n", a );
+  printf ( "  (%g, %g)\n", creal ( a ), cimag ( a ) );
 
   printf ( "\n" );
   printf ( "  Vector B:\n" );
@@ -372,7 +372,7 @@ void test04 ( void )
 
   for ( i = 0; i < 3; i++ )
   {
-    printf ( "  (%g, %g)\n", b[i] );
+    printf ( "  (%g, %g)\n", creal ( b[i] ), cimag ( b[i] ) );
   }
 
   printf ( "\n" );
@@ -383,7 +383,7 @@ void test04 ( void )
   {
     for ( j = 0; j < 2; j++ )
     {
-      printf ( "  (%g, %g)", c[i][j] );
+      printf ( "  (%g, %g)", creal ( c[i][j] ), cimag ( c[i][j] ) );
     }
     printf ( "\n" );
   }
@@ -392,13 +392,13 @@ void test04 ( void )
 }
 /******************************************************************************/
 
-void test05 ( void )
+void test05 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST05 demonstrate declaration and initialization for double complex variables.
+    TEST05: declaration and initialization for double complex variables.
 
   Licensing:
 
@@ -464,7 +464,7 @@ void test05 ( void )
 }
 /******************************************************************************/
 
-void test06 ( void )
+void test06 ( )
 
 /******************************************************************************/
 /*
@@ -486,7 +486,6 @@ void test06 ( void )
 */
 {
   double complex a = {1.0 + 2.0 * I};
-  int i;
 
   printf ( "\n" );
   printf ( "TEST06\n" );
@@ -520,30 +519,45 @@ void test06 ( void )
   printf ( "  carg(a) =                %14.6g\n",         carg ( a ) );
   printf ( "  casin(a) =              (%14.6g,%14.6g)\n", casin ( a ) );
   printf ( "  casinh(a) =             (%14.6g,%14.6g)\n", casinh ( a ) );
-  printf ( "  catan(a) =              (%14.6g,%14.6g)\n", catan ( a ) );
-  printf ( "  catanh(a) =             (%14.6g,%14.6g)\n", catanh ( a ) );
-  printf ( "  ccos(a) =               (%14.6g,%14.6g)\n", ccos ( a ) );
-  printf ( "  ccosh(a) =              (%14.6g,%14.6g)\n", ccosh ( a ) );
-  printf ( "  cexp(a) =               (%14.6g,%14.6g)\n", cexp ( a ) );
+  printf ( "  catan(a) =              (%14.6g,%14.6g)\n", 
+    creal ( catan ( a ) ), cimag ( catan ( a ) ) );
+  printf ( "  catanh(a) =             (%14.6g,%14.6g)\n", 
+    creal ( catanh ( a ) ), cimag ( catanh ( a ) ) );
+  printf ( "  ccos(a) =               (%14.6g,%14.6g)\n", 
+    creal ( ccos ( a ) ), cimag ( ccos ( a ) ) );
+  printf ( "  ccosh(a) =              (%14.6g,%14.6g)\n", 
+    creal ( ccosh ( a ) ), cimag ( ccosh ( a ) ) );
+  printf ( "  cexp(a) =               (%14.6g,%14.6g)\n", 
+    creal ( cexp ( a ) ), cimag ( cexp ( a ) ) );
   printf ( "  cimag(a) =               %14.6g\n",         cimag ( a ) );
-  printf ( "  clog(a) =               (%14.6g,%14.6g)\n", clog ( a ) );
-  printf ( "  (double complex)(1) =   (%14.6g,%14.6g)\n", (double complex) ( 1 ) );
-  printf ( "  (double complex)(4.0) = (%14.6g,%14.6g)\n", (double complex) ( 4.0 ) );
-  printf ( "  conj(a) =               (%14.6g,%14.6g)\n", conj ( a ) );
-  printf ( "  cproj(a) =              (%14.6g,%14.6g)\n", cproj ( a ) );
+  printf ( "  clog(a) =               (%14.6g,%14.6g)\n", 
+    creal ( clog ( a ) ), cimag ( clog ( a ) ) );
+  printf ( "  (double complex)(1) =   (%14.6g,%14.6g)\n", 
+    creal ( ( double complex ) ( 1 ) ), cimag ( ( double complex ) ( 1 ) ) );
+  printf ( "  (double complex)(4.0) = (%14.6g,%14.6g)\n", 
+    creal ( ( double complex ) ( 4.0 ) ), cimag ( ( double complex ) ( 4.0 ) ) );
+  printf ( "  conj(a) =               (%14.6g,%14.6g)\n", 
+    creal ( conj ( a ) ), cimag ( conj ( a ) ) );
+  printf ( "  cproj(a) =              (%14.6g,%14.6g)\n", 
+    creal ( cproj ( a ) ), cimag ( cproj ( a ) ) );
   printf ( "  creal(a) =               %14.6g\n",         creal ( a ) );
-  printf ( "  csin(a) =               (%14.6g,%14.6g)\n", csin ( a ) );
-  printf ( "  csinh(a) =              (%14.6g,%14.6g)\n", csinh ( a ) );
-  printf ( "  csqrt(a) =              (%14.6g,%14.6g)\n", csqrt ( a ) );
-  printf ( "  ctan(a) =               (%14.6g,%14.6g)\n", ctan ( a ) );
-  printf ( "  ctanh(a) =              (%14.6g,%14.6g)\n", ctanh ( a ) );
+  printf ( "  csin(a) =               (%14.6g,%14.6g)\n", 
+    creal ( csin ( a ) ), cimag ( csin ( a ) ) );
+  printf ( "  csinh(a) =              (%14.6g,%14.6g)\n", 
+    creal ( csinh ( a ) ), cimag ( csinh ( a ) ) );
+  printf ( "  csqrt(a) =              (%14.6g,%14.6g)\n", 
+    creal ( csqrt ( a ) ), cimag ( csqrt ( a ) ) );
+  printf ( "  ctan(a) =               (%14.6g,%14.6g)\n", 
+    creal ( ctan ( a ) ), cimag ( ctan ( a ) ) );
+  printf ( "  ctanh(a) =              (%14.6g,%14.6g)\n", 
+    creal ( ctanh ( a ) ), cimag ( ctanh ( a ) ) );
   printf ( "  (int)(a) =               %10d\n",           ( int ) ( a ) );
 
   return;
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*

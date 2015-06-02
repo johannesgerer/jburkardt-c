@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c scanf_demo.c >& compiler.txt
+gcc -c scanf_demo.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling scanf_demo.c"
   exit
 fi
-rm compiler.txt
 #
 gcc scanf_demo.o
 if [ $? -ne 0 ]; then

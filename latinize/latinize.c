@@ -1431,13 +1431,17 @@ int s_len_trim ( char *s )
 
     S_LEN_TRIM returns the length of a string to the last nonblank.
 
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    26 April 2003
+    05 October 2014
 
   Author:
 
@@ -1457,9 +1461,9 @@ int s_len_trim ( char *s )
   n = strlen ( s );
   t = s + strlen ( s ) - 1;
 
-  while ( 0 < n ) 
+  while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }
@@ -1523,7 +1527,7 @@ double s_to_r8 ( char *s, int *lchar, int *error )
     '17d2'            1700.0
     '-14e-2'         -0.14
     'e2'              100.0
-    '-12.73e-9.23'   -12.73 * 10.0**(-9.23)
+    '-12.73e-9.23'   -12.73 * 10.0^(-9.23)
 
   Licensing:
 

@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+gcc -c -g -I/$HOME/include asa314_prb.c >& compiler.txt
+if [ $? -ne 0 ]; then
+  echo "Errors compiling asa314_prb.c"
+  exit
+fi
+rm compiler.txt
+#
+gcc asa314_prb.o /$HOME/libc/$ARCH/asa314.o -lm
+if [ $? -ne 0 ]; then
+  echo "Errors linking and loading asa314_prb.o."
+  exit
+fi
+#
+rm asa314_prb.o
+#
+mv a.out asa314_prb
+./asa314_prb > asa314_prb_output.txt
+if [ $? -ne 0 ]; then
+  echo "Errors running asa314_prb."
+  exit
+fi
+rm asa314_prb
+#
+echo "Program output written to asa314_prb_output.txt"

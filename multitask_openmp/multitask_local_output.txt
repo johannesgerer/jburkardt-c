@@ -1,4 +1,4 @@
-19 October 2011 03:02:52 PM
+10 September 2013 03:33:30 PM
 
 MULTITASK_OPENMP:
   C/OpenMP version
@@ -10,15 +10,15 @@ MULTITASK_OPENMP:
   Number of sines computed was 20000
   Last sine computed was 12731.8
 
-  Elapsed time = 16.1824
-  Task 1 time = 7.75924
-  Task 2 time = 8.42309
+  Elapsed time = 36.6864
+  Task 1 time = 13.7542
+  Task 2 time = 22.9323
 
 MULTITASK_OPENMP:
   Normal end of execution.
 
-19 October 2011 03:03:08 PM
-19 October 2011 03:03:08 PM
+10 September 2013 03:34:07 PM
+10 September 2013 03:34:07 PM
 
 MULTITASK_OPENMP:
   C/OpenMP version
@@ -30,15 +30,15 @@ MULTITASK_OPENMP:
   Number of sines computed was 20000
   Last sine computed was 12731.8
 
-  Elapsed time = 8.72061
-  Task 1 time = 8.0489
-  Task 2 time = 8.72034
+  Elapsed time = 22.9376
+  Task 1 time = 13.8271
+  Task 2 time = 22.9375
 
 MULTITASK_OPENMP:
   Normal end of execution.
 
-19 October 2011 03:03:17 PM
-19 October 2011 03:03:17 PM
+10 September 2013 03:34:30 PM
+10 September 2013 03:34:30 PM
 
 MULTITASK_OPENMP:
   C/OpenMP version
@@ -50,11 +50,11 @@ MULTITASK_OPENMP:
   Number of sines computed was 20000
   Last sine computed was 12731.8
 
-  Elapsed time = 8.72005
-  Task 1 time = 8.06171
-  Task 2 time = 8.71977
+  Elapsed time = 22.9382
+  Task 1 time = 13.7935
+  Task 2 time = 22.9381
 
 MULTITASK_OPENMP:
   Normal end of execution.
 
-19 October 2011 03:03:25 PM
+10 September 2013 03:34:53 PM

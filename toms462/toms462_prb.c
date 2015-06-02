@@ -15,7 +15,11 @@ int main ( )
 /*
   Purpose:
 
-    TOMS462_PRB tests BIVNOR.
+    MAIN is the main program for TOMS462_PRB.
+
+  Discussion:
+
+    TOMS462_PRB tests the TOMS462 library.
 
   Licensing:
 
@@ -31,7 +35,6 @@ int main ( )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "TOMS462_PRB\n" );
   printf ( "  C version\n" );
@@ -45,7 +48,6 @@ int main ( )
   printf ( "\n" );
   printf ( "TOMS462_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

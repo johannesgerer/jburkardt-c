@@ -17,7 +17,11 @@ int main ( void )
 /*
   Purpose:
 
-    MAIN tests the PINK_NOISE routines.
+    MAIN is the main program for PINK_NOISE_PRB.
+
+  Discussion:
+
+    PINK_NOISE_PRB tests the PINK_NOISE library.
 
   Licensing:
 

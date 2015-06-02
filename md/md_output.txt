@@ -1,17 +1,13 @@
-30 July 2009 01:17:04 PM
+27 December 2014 11:27:41 AM
 
 MD
   C version
-
   A molecular dynamics program.
 
-  NP, the number of particles in the simulation is 1000
-  STEP_NUM, the number of time steps, is 400
-  DT, the size of each time step, is 0.000100
-
-  Initializing positions, velocities, and accelerations.
-
-  Computing initial forces and energies.
+  ND, the spatial dimension, is 3
+  NP, the number of particles in the simulation, is 500
+  STEP_NUM, the number of time steps, is 500
+  DT, the size of each time step, is 0.100000
 
   At each step, we report the potential and kinetic energies.
   The sum of these energies should be a constant.
@@ -21,22 +17,22 @@ MD
       Step      Potential       Kinetic        (P+K-E0)/E0
                 Energy P        Energy K       Relative Energy Error
 
-         0   498159.395148        0.000000    0.000000e+00
-        40   498159.346708        0.048449    1.624444e-11
-        80   498159.193718        0.201438    1.508825e-11
-       120   498158.936053        0.459101    1.188494e-11
-       160   498158.573609        0.821542    5.568270e-12
-       200   498158.106242        1.288904   -4.902485e-12
-       240   498157.533764        1.861374   -2.056351e-11
-       280   498156.855949        2.539178   -4.243722e-11
-       320   498156.072525        3.322587   -7.159004e-11
-       360   498155.183182        4.211912   -1.090527e-10
-       400   498154.187567        5.207504   -1.557399e-10
+         0   124433.847243        0.000000    0.000000e+00
+        50   124620.809533     1361.660522    1.244535e-02
+       100   124731.781595     1374.648255    1.344154e-02
+       150   124747.480913     1370.055876    1.353080e-02
+       200   124749.545621     1371.804833    1.356145e-02
+       250   124749.956884     1371.964335    1.356604e-02
+       300   124749.982752     1372.758320    1.357262e-02
+       350   124750.000000     1372.960786    1.357439e-02
+       400   124750.000000     1373.210025    1.357639e-02
+       450   124750.000000     1373.210025    1.357639e-02
+       500   124750.000000     1373.210025    1.357639e-02
 
   Elapsed cpu time for main computation:
-  173.163567 seconds.
+  73.200000 seconds.
 
 MD
   Normal end of execution.
 
-30 July 2009 01:20:01 PM
+27 December 2014 11:28:55 AM

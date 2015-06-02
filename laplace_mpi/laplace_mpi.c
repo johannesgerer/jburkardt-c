@@ -8,13 +8,12 @@
 # define nodeedge 24     /* a task works on a nodeedge x nodeedge matrix */
 # define nblock n/nodeedge   /* number of tasks per row of matrix            */
 # define nproc nblock*nblock /* total number of tasks (processors)           */
-# define w (double)1.2       /* convergence factor                           */
 
 int main ( int argc, char **argv );
-void doblack ( double M[][nodeedge+2] );
-void dored ( double M[][nodeedge+2] );
+void doblack ( double w, double M[][nodeedge+2] );
+void dored ( double w, double M[][nodeedge+2] );
 void exchange ( double M[][nodeedge+2], int comm[], int rank );
-void iterate ( double M[][nodeedge+2], double result[][n], int rank, int comm[] );
+void iterate ( double w, double M[][nodeedge+2], double result[][n], int rank, int comm[] );
 void setcomm ( int rank, int comm[] );
 void setex ( double ex[], double M[][nodeedge+2], int which );
 void initialize_matrix ( double M[][nodeedge+2] );
@@ -43,7 +42,7 @@ int main ( int argc, char **argv )
 
     Each matrix element is updated based on the values of the four
     neighboring matrix elements.  This process is repeated until the data
-    converges - until the average change in any matrix element (compared
+    converges, that is, until the average change in any matrix element (compared
     to the value 20 iterations previous) is smaller than a specified value.
 
     To ensure reproducible results between runs, a red/black
@@ -71,7 +70,7 @@ int main ( int argc, char **argv )
 
     Geoffrey Fox, Mark Johnson, Gregory Lyzenga, Steve Otto, John Salmon, 
     David Walker,
-    Solving problems on concurrent Processors,
+    Solving Problems on Concurrent Processors,
     Volume 1: General Techniques and Regular Problems, 
     Prentice Hall, 1988,
     ISBN: 0-13-8230226,
@@ -90,6 +89,8 @@ int main ( int argc, char **argv )
 
     Local, double RESULT[n][n], the results for the complete problem,
     kept by process 0.
+
+    Local, double W, the SOR factor, which must be strictly between 0 and 2.
 */ 
 {
   int comm[4];
@@ -100,15 +101,16 @@ int main ( int argc, char **argv )
   int ntasks;
   int rank;
   double result[n][n];
+  double w;
   double wtime;
 
   MPI_Init ( &argc, &argv );
 
-  wtime = MPI_Wtime ( );
-
   MPI_Comm_rank ( MPI_COMM_WORLD, &rank );
 
   MPI_Comm_size ( MPI_COMM_WORLD, &ntasks );
+
+  wtime = MPI_Wtime ( );
 
   if ( rank == 0 ) 
   {
@@ -136,28 +138,30 @@ int main ( int argc, char **argv )
     printf ( "  MPI has been set up.\n" );
   }
 /* 
-  Initialize M.
-*/ 
-  initialize_matrix ( M );
-
+  Initialize the matrix M.
+*/
   if ( rank == 0 ) 
   {
-    printf ( "  Matrix is set\n" );
+    printf ( "  Initialize the matrix M.\n" );
   }
+  initialize_matrix ( M );
 /* 
   Figure out who I communicate with.
-*/ 
-  setcomm ( rank, comm );
-
+*/
   if ( rank == 0 ) 
   {
-    printf ( "  Communications are set up\n" );
-    printf ( "  Beginning to iterate\n" );
+    printf ( "  Set the list of neighbors.\n" );
   }
+  setcomm ( rank, comm );
 /* 
-  Update M until convergence.
+  Update M, using SOR value W, until convergence.
 */
-  iterate ( M, result, rank, comm );
+  if ( rank == 0 ) 
+  {
+    printf ( "  Begin the iteration.\n" );
+  }
+  w = 1.2;
+  iterate ( w, M, result, rank, comm );
 /* 
   Report timing 
 */ 
@@ -198,7 +202,7 @@ int main ( int argc, char **argv )
 }
 /******************************************************************************/
 
-void doblack ( double M[][nodeedge+2] )
+void doblack ( double w, double M[][nodeedge+2] )
 
 /******************************************************************************/
 /*
@@ -208,7 +212,7 @@ void doblack ( double M[][nodeedge+2] )
 
   Modified:
 
-    14 November 2011
+    16 February 2013
 
   Author:
 
@@ -216,6 +220,8 @@ void doblack ( double M[][nodeedge+2] )
     MPI C version by Xianneng Shen.
 
   Parameters:
+
+    Input, double W, the SOR factor, which must be strictly between 0 and 2.
 
     Input/output, double M[nodeedge+2][nodeedge+2], the part of the results 
     kept by this process.
@@ -249,7 +255,7 @@ void doblack ( double M[][nodeedge+2] )
 }
 /******************************************************************************/
 
-void dored ( double M[][nodeedge+2] )
+void dored ( double w, double M[][nodeedge+2] )
 
 /******************************************************************************/   
 /*
@@ -259,7 +265,7 @@ void dored ( double M[][nodeedge+2] )
 
   Modified:
 
-    15 November 2011
+    16 February 2013
 
   Author:
 
@@ -267,6 +273,8 @@ void dored ( double M[][nodeedge+2] )
     MPI C version by Xianneng Shen.
 
   Parameters:
+
+    Input, double W, the SOR factor, which must be strictly between 0 and 2.
 
     Input/output, double M[nodeedge+2][nodeedge+2], the part of the results 
     kept by this process.
@@ -524,7 +532,7 @@ void initialize_matrix ( double M[][nodeedge+2] )
 }
 /******************************************************************************/
 
-void iterate ( double M[][nodeedge+2], double result[][n], int rank, 
+void iterate ( double w, double M[][nodeedge+2], double result[][n], int rank, 
   int comm[] )
 
 /******************************************************************************/
@@ -535,7 +543,7 @@ void iterate ( double M[][nodeedge+2], double result[][n], int rank,
 
   Modified:
 
-    14 November 2011
+    16 February 2013
 
   Author:
 
@@ -543,6 +551,8 @@ void iterate ( double M[][nodeedge+2], double result[][n], int rank,
     MPI C version by Xianneng Shen.
 
   Parameters:
+
+    Input, double W, the SOR factor, which must be strictly between 0 and 2.
 
     Input/output, double M[nodeedge+2][nodeedge+2], the part of the results 
     kept by this process.
@@ -602,9 +612,9 @@ void iterate ( double M[][nodeedge+2], double result[][n], int rank,
   with neighbors, update black squares.
 */
     exchange ( M, comm, rank );
-    dored ( M );
+    dored ( w, M );
     exchange ( M, comm, rank );
-    doblack ( M );
+    doblack ( w, M );
 /*
   Check for convergence every 20 iterations.
   Find the average absolute change in elements of M.
@@ -731,7 +741,9 @@ void setcomm ( int rank, int comm[] )
 */
 {
   int i;
-
+/*
+  Start out by assuming all four neighbors exist.
+*/
   for ( i = 0; i < 4; i++ ) 
   {
     comm[i] = 1;

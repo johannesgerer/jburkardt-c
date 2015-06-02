@@ -1,8 +1,8 @@
-07 December 2011 02:18:48 PM
+26 July 2014 11:20:47 AM
 
-MULTIGRID_POISSON_1D:
+MULTIGRID_POISSON_1D_PRB:
   C version
-  Test the MULTIGRID_POISSON_1D multigrid library.
+  Test the MULTIGRID_POISSON_1D library.
 
 TEST01_MONO
   MONOGRID_POISSON_1D solves a 1D Poisson BVP
@@ -208,7 +208,7 @@ TEST02_MULTI
   Maximum error = 0.000281309
   Number of iterations = 73
 
-MULTIGRID_POISSON_1D:
+MULTIGRID_POISSON_1D_PRB:
   Normal end of execution.
 
-07 December 2011 02:18:48 PM
+26 July 2014 11:20:47 AM

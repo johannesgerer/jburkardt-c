@@ -170,11 +170,11 @@ void data_to_dif ( int ntab, double xtab[], double ytab[], double diftab[] )
     {
       if ( xtab[i] - xtab[j] == 0.0 )
       {
-        printf ( "\n" );
-        printf ( "DATA_TO_DIF - Fatal error!\n" );
-        printf ( "  Two entries of XTAB are equal!\n" );
-        printf ( "  XTAB[%d] = %f\n", i, xtab[i] );
-        printf ( "  XTAB[%d] = %f\n", j, xtab[j] );
+        fprintf ( stderr, "\n" );
+        fprintf ( stderr, "DATA_TO_DIF - Fatal error!\n" );
+        fprintf ( stderr, "  Two entries of XTAB are equal!\n" );
+        fprintf ( stderr, "  XTAB[%d] = %f\n", i, xtab[i] );
+        fprintf ( stderr, "  XTAB[%d] = %f\n", j, xtab[j] );
         exit ( 1 );
       }
     }
@@ -233,10 +233,10 @@ void data_to_dif_display ( int ntab, double xtab[], double ytab[],
 
   if ( !r8vec_distinct ( ntab, xtab ) )
   {
-    printf ( "\n" );
-    printf ( "DATA_TO_DIF_DISPLAY - Fatal error!\n" );
-    printf ( "  Two entries of XTAB are equal!\n" );
-    return;
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "DATA_TO_DIF_DISPLAY - Fatal error!\n" );
+    fprintf ( stderr, "  Two entries of XTAB are equal!\n" );
+    exit ( 1 );
   }
 
   printf ( "\n" );
@@ -329,10 +329,10 @@ void data_to_r8poly ( int ntab, double xtab[], double ytab[], double c[] )
 {
   if ( !r8vec_distinct ( ntab, xtab ) )
   {
-    printf ( "\n" );
-    printf ( "DATA_TO_R8POLY - Fatal error!\n" );
-    printf ( "  Two entries of XTAB are equal.\n" );
-    return;
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "DATA_TO_R8POLY - Fatal error!\n" );
+    fprintf ( stderr, "  Two entries of XTAB are equal.\n" );
+    exit ( 1 );
   }
 
   data_to_dif ( ntab, xtab, ytab, c );
@@ -505,7 +505,7 @@ void dif_basis ( int ntab, double xtab[], double *diftab )
 /*
   Purpose:
 
-    DIF_BASIS computes all Lagrange basis polynomials in divided difference form.
+    DIF_BASIS: all Lagrange basis polynomials in divided difference form.
 
   Discussion:
 
@@ -588,13 +588,193 @@ void dif_basis ( int ntab, double xtab[], double *diftab )
 }
 /******************************************************************************/
 
+void dif_basis_deriv ( int nd, double xd[], double xdp[], double ddp[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIF_BASIS_DERIV: Lagrange basis derivative difference tables.
+
+  Discussion:
+
+    Given ND points XD, a Lagrange basis polynomial L(J)(X) is associated
+    with each point XD(J).
+
+    This function computes a table DDP(*,*) whose J-th column contains
+    the difference table for the first derivative of L(J)(X).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 June 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carl deBoor,
+    A Practical Guide to Splines,
+    Springer, 2001,
+    ISBN: 0387953663,
+    LC: QA1.A647.v27.
+
+  Parameters:
+
+    Input, int ND, the number of data points.
+
+    Input, double XD[ND], the X values upon which the 
+    Lagrange basis polynomials are to be based.
+
+    Output, double XDP[ND-1], the X values upon with
+    the derivative difference table is based.  In fact, these are
+    all 0.
+
+    Output, double DDP[(ND-1)*ND], the divided difference 
+    tables for all the Lagrange basis polynomials.  Column J of DDP
+    contains the table for basis polynomial associated with XD(J).
+*/
+{
+  double *dd;
+  int i;
+  int j;
+  double *yd;
+/*
+  Process the vectors one column at a time.
+*/
+  dd = ( double * ) malloc ( nd * sizeof ( double ) );
+  yd = ( double * ) malloc ( nd * sizeof ( double ) );
+
+  for ( j = 0; j < nd; j++ )
+  {
+/*
+  Set the data.
+*/
+    for ( i = 0; i < nd; i++ )
+    {
+      yd[i] = 0.0;
+    }
+    yd[j] = 1.0;
+/*
+  Compute the divided difference table.
+*/
+    data_to_dif ( nd, xd, yd, dd );
+/*
+  Compute the divided difference table for the derivative.
+*/
+    dif_deriv_table ( nd, xd, dd, xdp, ddp + j * ( nd - 1 ) );
+  }
+
+  free ( dd );
+  free ( yd );
+
+  return;
+}
+/******************************************************************************/
+
+void dif_basis_derivk ( int nd, double xd[], int k, double xdp[], double ddp[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIF_BASIS_DERIVK: Lagrange basis K-th derivative difference tables.
+
+  Discussion:
+
+    Given ND points XD, a Lagrange basis polynomial L(J)(X) is associated
+    with each point XD(J).
+
+    This function computes a table DDP(*,*) whose J-th column contains
+    the difference table for the K-th derivative of L(J)(X).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 June 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carl deBoor,
+    A Practical Guide to Splines,
+    Springer, 2001,
+    ISBN: 0387953663,
+    LC: QA1.A647.v27.
+
+  Parameters:
+
+    Input, int ND, the number of data points.
+
+    Input, double XD[ND], the X values upon which the 
+    Lagrange basis polynomials are to be based.
+
+    Input, int K, the index of the derivative.
+
+    Output, double XDP[ND-1], the X values upon with
+    the derivative difference table is based.  In fact, these are
+    all 0.
+
+    Output, double DDP[(ND-1)*ND], the divided difference 
+    tables for all the Lagrange basis polynomials.  Column J of DDP
+    contains the table for basis polynomial associated with XD(J).
+*/
+{
+  double *dd;
+  int i;
+  int j;
+  double *yd;
+/*
+  Process the vectors one column at a time.
+*/
+  dd = ( double * ) malloc ( nd * sizeof ( double ) );
+  yd = ( double * ) malloc ( nd * sizeof ( double ) );
+
+  for ( j = 0; j < nd; j++ )
+  {
+/*
+  Set the data.
+*/
+    for ( i = 0; i < nd; i++ )
+    {
+      yd[i] = 0.0;
+    }
+    yd[j] = 1.0;
+/*
+  Compute the divided difference table.
+*/
+    data_to_dif ( nd, xd, yd, dd );
+/*
+  Compute the divided difference table for the derivative.
+*/
+    dif_derivk_table ( nd, xd, dd, k, xdp, ddp + j * ( nd - k ) );
+  }
+
+  free ( dd );
+  free ( yd );
+
+  return;
+}
+/******************************************************************************/
+
 void dif_basis_i ( int ival, int ntab, double xtab[], double diftab[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    DIF_BASIS_I computes the I-th Lagrange basis polynomial in divided difference form.
+    DIF_BASIS_I: I-th Lagrange basis polynomial in divided difference form.
 
   Discussion:
 
@@ -651,11 +831,11 @@ void dif_basis_i ( int ival, int ntab, double xtab[], double diftab[] )
 */
   if ( ival < 1 || ntab < ival )
   {
-    printf ( "\n" );
-    printf ( "DIF_BASIS_I - Fatal error!\n" );
-    printf ( "  IVAL must be between 1 and %d.\n", ntab );
-    printf ( "  but your value is %d\n", ival );
-    return;
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "DIF_BASIS_I - Fatal error!\n" );
+    fprintf ( stderr, "  IVAL must be between 1 and %d.\n", ntab );
+    fprintf ( stderr, "  but your value is %d\n", ival );
+    exit ( 1 );
   }
 /*
   Initialize DIFTAB to Delta(I,J).
@@ -674,7 +854,7 @@ void dif_basis_i ( int ival, int ntab, double xtab[], double diftab[] )
 }
 /******************************************************************************/
 
-void dif_deriv_table ( int nd, double xd[], double yd[], int *ndp, double xdp[], 
+void dif_deriv_table ( int nd, double xd[], double yd[],  double xdp[], 
   double ydp[] )
 
 /******************************************************************************/
@@ -689,7 +869,7 @@ void dif_deriv_table ( int nd, double xd[], double yd[], int *ndp, double xdp[],
 
   Modified:
 
-    23 June 2011
+    01 June 2013
 
   Author:
 
@@ -712,12 +892,10 @@ void dif_deriv_table ( int nd, double xd[], double yd[], int *ndp, double xdp[],
 
     Input, double YD[ND], the divided difference table.
 
-    Output, int *NDP, the size of the output table, which is ND-1.
-
-    Input, double XDP[NDP], the abscissas for the divided
+    Output, double XDP[ND-1], the abscissas for the divided
     difference table for the derivative.
 
-    Output, double YDP[NDP], the divided difference
+    Output, double YDP[ND-1], the divided difference
     table for the derivative.
 */
 {
@@ -744,20 +922,127 @@ void dif_deriv_table ( int nd, double xd[], double yd[], int *ndp, double xdp[],
 /*
   Construct the derivative.
 */
-  *ndp = nd - 1;
-
-  for ( i = 0; i < *ndp; i++ )
+  for ( i = 0; i < nd - 1; i++ )
   {
     xdp[i] = 0.0;
   }
 
-  for ( i = 0; i < *ndp; i++ )
+  for ( i = 0; i < nd - 1; i++ )
   {
     ydp[i] = ( double ) ( i + 1 ) * yd_temp[i+1];
   }
 
   free ( xd_temp );
   free ( yd_temp );
+
+  return;
+}
+/******************************************************************************/
+
+void dif_derivk_table ( int nd, double xd[], double dd[], int k, 
+  double xdk[], double ddk[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIF_DERIVK_TABLE computes the divided difference table for K-th derivative.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 June 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carl deBoor,
+    A Practical Guide to Splines,
+    Springer, 2001,
+    ISBN: 0387953663,
+    LC: QA1.A647.v27.
+
+  Parameters:
+
+    Input, int ND, the size of the input table.
+
+    Input, double XD[ND], the abscissas for the divided
+    difference table.
+
+    Input, double DD[ND], the divided difference table.
+
+    Input, int K, the index of the derivative.  0 <= K.
+
+    Input, double XDK[ND-K], the abscissas for the divided
+    difference table for the derivative.
+
+    Output, double DDK[NDP], the divided difference
+    table for the derivative.
+*/
+{
+  double *dd_temp;
+  int i;
+  int j;
+  int ndk;
+  double *xd_temp;
+
+  if ( k < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "DIF_DERIVK_TABLE - Fatal error!\n" );
+    fprintf ( stderr, "  K < 0.\n" );
+    exit ( 1 );
+  }
+
+  if ( nd <= k )
+  {
+    return;
+  }
+/*
+  Shift the abscissas to zero.
+*/
+  ndk = nd;
+
+  xd_temp = ( double * ) malloc ( ndk * sizeof ( double ) );
+  dd_temp = ( double * ) malloc ( ndk * sizeof ( double ) );
+
+  for ( i = 0; i < ndk; i++ )
+  {
+    xd_temp[i] = xd[i];
+  }
+  for ( i = 0; i < ndk; i++ )
+  {
+    dd_temp[i] = dd[i];
+  }
+
+  dif_shift_zero ( ndk, xd_temp, dd_temp );
+/*
+  Repeatedly differentiate.
+*/
+  for ( j = 1; j <= k; j++ )
+  {
+    ndk = ndk - 1;
+
+    for ( i = 0; i < ndk; i++ )
+    {
+      dd_temp[i] = ( double ) ( i + 1 ) * dd_temp[i+1];
+    }
+  }
+
+  for ( i = 0; i < ndk; i++ )
+  {
+    ddk[i] = dd_temp[i];
+    xdk[i] = 0.0;
+  }
+
+  free ( xd_temp );
+  free ( dd_temp );
 
   return;
 }
@@ -1166,6 +1451,88 @@ double *dif_vals ( int nd, double xd[], double yd[], int nv, double xv[] )
     }
   }
   return yv;
+}
+/******************************************************************************/
+
+int i4_max ( int i1, int i2 )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_MAX returns the maximum of two I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 August 2006
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I1, I2, are two integers to be compared.
+
+    Output, int I4_MAX, the larger of I1 and I2.
+*/
+{
+  int value;
+
+  if ( i2 < i1 )
+  {
+    value = i1;
+  }
+  else
+  {
+    value = i2;
+  }
+  return value;
+}
+/******************************************************************************/
+
+int i4_min ( int i1, int i2 )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_MIN returns the smaller of two I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 August 2006
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I1, I2, two integers to be compared.
+
+    Output, int I4_MIN, the smaller of I1 and I2.
+*/
+{
+  int value;
+
+  if ( i1 < i2 )
+  {
+    value = i1;
+  }
+  else
+  {
+    value = i2;
+  }
+  return value;
 }
 /******************************************************************************/
 
@@ -1648,6 +2015,144 @@ void r8_swap ( double *x, double *y )
 }
 /******************************************************************************/
 
+void r8mat_transpose_print ( int m, int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_TRANSPOSE_PRINT prints an R8MAT, transposed.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 May 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double A[M*N], an M by N matrix to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8mat_transpose_print_some ( m, n, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8mat_transpose_print_some ( int m, int n, double a[], int ilo, int jlo,
+  int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_TRANSPOSE_PRINT_SOME prints some of an R8MAT, transposed.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 August 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double A[M*N], an M by N matrix to be printed.
+
+    Input, int ILO, JLO, the first row and column to print.
+
+    Input, int IHI, JHI, the last row and column to print.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2;
+  int i2hi;
+  int i2lo;
+  int inc;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+
+  if ( m <= 0 || n <= 0 )
+  {
+    fprintf ( stdout, "\n" );
+    fprintf ( stdout, "  (None)\n" );
+    return;
+  }
+
+  for ( i2lo = i4_max ( ilo, 1 ); i2lo <= i4_min ( ihi, m ); i2lo = i2lo + INCX )
+  {
+    i2hi = i2lo + INCX - 1;
+    i2hi = i4_min ( i2hi, m );
+    i2hi = i4_min ( i2hi, ihi );
+
+    inc = i2hi + 1 - i2lo;
+
+    fprintf ( stdout, "\n" );
+    fprintf ( stdout, "  Row:" );
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      fprintf ( stdout, "  %7d     ", i - 1 );
+    }
+    fprintf ( stdout, "\n" );
+    fprintf ( stdout, "  Col\n" );
+    fprintf ( stdout, "\n" );
+
+    j2lo = i4_max ( jlo, 1 );
+    j2hi = i4_min ( jhi, n );
+
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      fprintf ( stdout, "%5d:", j - 1 );
+      for ( i2 = 1; i2 <= inc; i2++ )
+      {
+        i = i2lo - 1 + i2;
+        fprintf ( stdout, "  %14f", a[(i-1)+(j-1)*m] );
+      }
+      fprintf ( stdout, "\n" );
+    }
+  }
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
 void r8poly_ant_cof ( int n, double poly_cof[], double poly_cof2[] )
 
 /******************************************************************************/
@@ -1738,8 +2243,8 @@ double r8poly_ant_val ( int n, double poly_cof[], double xval )
     Input, double XVAL, the point where the antiderivative is to be
     evaluated.
 
-    Output, double R8POLY_ANT_VAL, the value of the antiderivative of the polynomial
-    at XVAL.
+    Output, double R8POLY_ANT_VAL, the value of the antiderivative of 
+    the polynomial at XVAL.
 */
 {
   int i;
@@ -1898,11 +2403,11 @@ void r8poly_basis_1 ( int ival, int ntab, double xtab[], double poly_cof[] )
 */
   if ( ival < 1 || ntab < ival )
   {
-    printf ( "\n" );
-    printf ( "R8POLY_BASIS_1 - Fatal error!\n" );
-    printf ( "  IVAL must be between 1 and %d.\n", ntab );
-    printf ( "  but your value is %d.\n", ival );
-    return;
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8POLY_BASIS_1 - Fatal error!\n" );
+    fprintf ( stderr, "  IVAL must be between 1 and %d.\n", ntab );
+    fprintf ( stderr, "  but your value is %d.\n", ival );
+    exit ( 1 );
   }
 /*
   Initialize POLY_COF to the IVAL-th column of the identity matrix.
@@ -2579,7 +3084,6 @@ void roots_to_r8poly ( int nroots, double roots[], int *nc, double c[] )
 */
 {
   int i;
-  int j;
   double *xtab;
 
   *nc = nroots + 1;
@@ -2619,13 +3123,17 @@ int s_len_trim ( char *s )
 
     S_LEN_TRIM returns the length of a string to the last nonblank.
 
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    21 February 2011
+    05 October 2014
 
   Author:
 
@@ -2647,7 +3155,7 @@ int s_len_trim ( char *s )
 
   while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }

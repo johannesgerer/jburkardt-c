@@ -80,7 +80,7 @@ int main ( )
 
   Discussion:
 
-    FN_PRB calls the FN tests.
+    FN_PRB tests the FN library.
 
   Licensing:
 
@@ -168,7 +168,6 @@ int main ( )
   printf ( "\n" );
   printf ( "FN_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

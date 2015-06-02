@@ -18,6 +18,10 @@ int main ( void )
 /*
   Purpose:
 
+    MAIN is the main program for FD1D_HEAT_EXPLICIT_PRB.
+
+  Discussion:
+
     FD1D_HEAT_EXPLICIT_TEST tests the FD1D_HEAT_EXPLICIT library.
 
   Licensing:

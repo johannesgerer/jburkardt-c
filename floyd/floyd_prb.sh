@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g -I/$HOME/include floyd_prb.c >& compiler.txt
+gcc -c -I/$HOME/include floyd_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling floyd_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc floyd_prb.o /$HOME/libc/$ARCH/floyd.o -lm
 if [ $? -ne 0 ]; then

@@ -1,26 +1,139 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+# include <complex.h>
 # include <time.h>
 # include <string.h>
 
 # include "matrix_exponential.h"
+# include "c8lib.h"
 # include "r8lib.h"
 
 /******************************************************************************/
 
-double *expm11 ( int n, double a[] )
+double complex *c8mat_expm1 ( int n, double complex a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    EXPM11 is essentially MATLAB's built-in matrix exponential algorithm.
+    C8MAT_EXPM1 is essentially MATLAB's built-in matrix exponential algorithm.
 
-  Discussion:
+  Licensing:
 
-    The GCC compiler feels that the name "expm1" belongs to it, so I 
-    give up and use the ridiculous alternative of "expm11".
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 March 2013
+
+  Author:
+
+    Cleve Moler, Charles Van Loan
+
+  Reference:
+
+    Cleve Moler, Charles VanLoan,
+    Nineteen Dubious Ways to Compute the Exponential of a Matrix,
+    Twenty-Five Years Later,
+    SIAM Review,
+    Volume 45, Number 1, March 2003, pages 3-49.
+
+  Parameters:
+
+    Input, int N, the dimension of the matrix.
+
+    Input, double complex A[N*N], the matrix.
+
+    Output, double complex C8MAT_EXPM1[N*N], the estimate for exp(A).
+*/
+{
+  double complex *a2;
+  double a_norm;
+  double c;
+  double complex *d;
+  double complex *e;
+  int ee;
+  int k;
+  const double one = 1.0;
+  int p;
+  const int q = 6;
+  int s;
+  double t;
+  double complex *x;
+
+  a2 = c8mat_copy_new ( n, n, a );
+
+  a_norm = c8mat_norm_li ( n, n, a2 );
+
+  ee = ( int ) ( r8_log_2 ( a_norm ) ) + 1;
+  
+  s = i4_max ( 0, ee + 1 );
+
+  t = 1.0 / pow ( 2.0, s );
+
+  c8mat_scale_r8 ( n, n, t, a2 );
+
+  x = c8mat_copy_new ( n, n, a2 );
+
+  c = 0.5;
+
+  e = c8mat_identity_new ( n );
+
+  c8mat_add_r8 ( n, n, one, e, c, a2, e );
+
+  d = c8mat_identity_new ( n );
+
+  c8mat_add_r8 ( n, n, one, d, -c, a2, d );
+
+  p = 1;
+
+  for ( k = 2; k <= q; k++ )
+  {
+    c = c * ( double ) ( q - k + 1 ) / ( double ) ( k * ( 2 * q - k + 1 ) );
+
+    c8mat_mm ( n, n, n, a2, x, x );
+
+    c8mat_add_r8 ( n, n, c, x, one, e, e );
+
+    if ( p )
+    {
+      c8mat_add_r8 ( n, n, c, x, one, d, d );
+    }
+    else
+    {
+      c8mat_add_r8 ( n, n, -c, x, one, d, d );
+    }
+
+    p = !p;
+  }
+/*
+  E -> inverse(D) * E
+*/
+  c8mat_minvm ( n, n, d, e, e );
+/*
+  E -> E^(2*S)
+*/
+  for ( k = 1; k <= s; k++ )
+  {
+    c8mat_mm ( n, n, n, e, e, e );
+  }
+
+  free ( a2 );
+  free ( d );
+  free ( x );
+
+  return e;
+}
+/******************************************************************************/
+
+double *r8mat_expm1 ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_EXPM1 is essentially MATLAB's built-in matrix exponential algorithm.
 
   Licensing:
 
@@ -48,7 +161,7 @@ double *expm11 ( int n, double a[] )
 
     Input, double A[N*N], the matrix.
 
-    Output, double EXPM1[N*N], the estimate for exp(A).
+    Output, double R8MAT_EXPM1[N*N], the estimate for exp(A).
 */
 {
   double *a2;
@@ -130,13 +243,13 @@ double *expm11 ( int n, double a[] )
 }
 /******************************************************************************/
 
-double *expm2 ( int n, double a[] )
+double *r8mat_expm2 ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    EXPM2 uses the Taylor series for the matrix exponential.
+    R8MAT_EXPM2 uses the Taylor series for the matrix exponential.
 
   Discussion:
 
@@ -172,7 +285,7 @@ double *expm2 ( int n, double a[] )
 
     Input, double A[N*N], the matrix.
 
-    Output, double EXPM2[N*N], the estimate for exp(A).
+    Output, double R8MAT_EXPM2[N*N], the estimate for exp(A).
 */
 {
   double *e;
@@ -206,13 +319,13 @@ double *expm2 ( int n, double a[] )
 }
 /******************************************************************************/
 
-double *expm3 ( int n, double a[] )
+double *r8mat_expm3 ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    EXPM3 approximates the matrix exponential using an eigenvalue approach.
+    R8MAT_EXPM3 approximates the matrix exponential using an eigenvalue approach.
 
   Discussion:
 
@@ -251,7 +364,7 @@ double *expm3 ( int n, double a[] )
 
     Input, double A[N*N], the matrix.
 
-    Output, double EXPM3[N*N], the estimate for exp(A).
+    Output, double R8MAT_EXPM3[N*N], the estimate for exp(A).
 */
 {
   double *e = NULL;

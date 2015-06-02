@@ -1,4 +1,5 @@
 int bakvec ( int n, double t[], double e[], int m, double z[] );
+void balbak ( int n, int low, int igh, double scale[], int m, double z[] );
 void bandr ( int n, int mb, double a[], double d[], double e[], double e2[], 
   int matz, double z[] );
 void cbabk2 ( int n, int low, int igh, double scale[], int m, double zr[], 

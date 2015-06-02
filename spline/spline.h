@@ -47,6 +47,7 @@ double r8_abs ( double x );
 double r8_max ( double x, double y );
 double r8_min ( double x, double y );
 double r8_uniform_01 ( int *seed );
+double *r8ge_fs_new ( int n, double a[], double b[] );
 void r8vec_bracket ( int n, double x[], double xval, int *left, int *right );
 void r8vec_bracket3 ( int n, double t[], double tval, int *left );
 double *r8vec_even_new ( int n, double alo, double ahi );
@@ -60,9 +61,12 @@ void r8vec_zero ( int n, double a[] );
 double spline_b_val ( int ndata, double tdata[], double ydata[], double tval );
 double spline_beta_val ( double beta1, double beta2, int ndata, double tdata[],
   double ydata[], double tval );
-double spline_constant_val ( int ndata, double tdata[], double ydata[], double tval );
-double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg, double ybcbeg, 
-  int ibcend, double ybcend );
+double spline_constant_val ( int ndata, double tdata[], double ydata[], 
+  double tval );
+double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg, 
+  double ybcbeg, int ibcend, double ybcend );
+double *penta ( int n, double a1[], double a2[], double a3[], double a4[], 
+  double a5[], double b[] );
 double spline_cubic_val ( int n, double t[], double y[], double ypp[], 
   double tval, double *ypval, double *yppval );
 void spline_cubic_val2 ( int n, double t[], double tval, int *left, double y[], 

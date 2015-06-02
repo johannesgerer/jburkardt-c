@@ -2,7 +2,7 @@
 #
 #  Compile the program with GCC.
 #
-/usr/local/bin/gcc -fopenmp hello_openmp.c -lm
+gcc -fopenmp hello_openmp.c -lm
 #
 mv a.out hello
 #

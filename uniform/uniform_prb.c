@@ -1,45 +1,55 @@
+# include <complex.h>
 # include <stdlib.h>
 # include <stdio.h>
 
 # include "uniform.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
-void test05 ( void );
-void test06 ( void );
-void test065 ( void );
-void test07 ( void );
-void test08 ( void );
-void test09 ( void );
-
-void test10 ( void );
-void test11 ( void );
-void test111 ( void );
-void test112 ( void );
-void test118 ( void );
-void test119 ( void );
-void test12 ( void );
-void test13 ( void );
-void test14 ( void );
-void test15 ( void );
-void test16 ( void );
-void test17 ( void );
-void test18 ( void );
-void test19 ( void );
-void test20 ( void );
+int main ( );
+void bvec_uniform_new_test ( );
+void c4_uniform_01_test ( );
+void c4mat_uniform_01_new_test ( );
+void c4vec_uniform_01_new_test ( );
+void c8_uniform_01_test ( );
+void c8mat_uniform_01_new_test ( );
+void c8vec_uniform_01_new_test ( );
+void ch_uniform_ab_test ( );
+void get_seed_test ( );
+void i4_seed_advance_test ( );
+void i4_uniform_0i_test ( );
+void i4_uniform_ab_test ( );
+void i4mat_uniform_ab_new_test ( );
+void i4vec_uniform_ab_new_test ( );
+void l4_uniform_test ( );
+void l4mat_uniform_new_test ( );
+void l4vec_uniform_new_test ( );
+void lcrg_anbn_test ( );
+void lcrg_seed_test ( );
+void r4_uniform_01_test ( );
+void r4_uniform_ab_test ( );
+void r4mat_uniform_ab_new_test ( );
+void r4vec_uniform_ab_new_test ( );
+void r8_uniform_01_test ( );
+void r8_uniform_ab_test ( );
+void r8col_uniform_abvec_new_test ( );
+void r8mat_uniform_ab_new_test ( );
+void r8row_uniform_abvec_new_test ( );
+void r8vec_uniform_01_new_test ( );
+void r8vec_uniform_ab_new_test ( );
+void r8vec_uniform_abvec_new_test ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    UNIFORM_PRB calls sample problems for the UNIFORM library.
+    MAIN is the main program for UNIFORM_PRB.
+
+  Discussion:
+
+    UNIFORM_PRB tests the UNIFORM library.
 
   Licensing:
 
@@ -47,7 +57,7 @@ int main ( void )
 
   Modified:
 
-    21 May 2008
+    28 December 2014
 
   Author:
 
@@ -55,44 +65,59 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "UNIFORM_PRB\n" );
   printf ( "  C version:\n" );
   printf ( "  Test the UNIFORM library.\n" );
 
-  test01 ( );
-  test02 ( );
-  test03 ( );
-  test04 ( );
-  test05 ( );
-  test06 ( );
-  test065 ( );
-  test07 ( );
-  test08 ( );
-  test09 ( );
+  bvec_uniform_new_test ( );
 
-  test10 ( );
-  test11 ( );
-  test111 ( );
-  test112 ( );
-  test118 ( );
-  test119 ( );
-  test12 ( );
-  test13 ( );
-  test14 ( );
-  test15 ( );
-  test16 ( );
-  test17 ( );
-  test18 ( );
-  test19 ( );
+  c4_uniform_01_test ( );
+  c4mat_uniform_01_new_test ( );
+  c4vec_uniform_01_new_test ( );
 
-  test20 ( );
+  c8_uniform_01_test ( );
+  c8mat_uniform_01_new_test ( );
+  c8vec_uniform_01_new_test ( );
 
+  ch_uniform_ab_test ( );
+
+  get_seed_test ( );
+
+  i4_seed_advance_test ( );
+
+  i4_uniform_0i_test ( );
+  i4_uniform_ab_test ( );
+  i4mat_uniform_ab_new_test ( );
+  i4vec_uniform_ab_new_test ( );
+
+  l4_uniform_test ( );
+  l4mat_uniform_new_test ( );
+  l4vec_uniform_new_test ( );
+
+  lcrg_anbn_test ( );
+  lcrg_seed_test ( );
+
+  r4_uniform_01_test ( );
+  r4_uniform_ab_test ( );
+  r4mat_uniform_ab_new_test ( );
+  r4vec_uniform_ab_new_test ( );
+
+  r8_uniform_01_test ( );
+  r8_uniform_ab_test ( );
+  r8mat_uniform_ab_new_test ( );
+  r8vec_uniform_01_new_test ( );
+  r8vec_uniform_ab_new_test ( );
+
+  r8col_uniform_abvec_new_test ( );
+  r8row_uniform_abvec_new_test ( );
+  r8vec_uniform_abvec_new_test ( );
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "UNIFORM_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -100,13 +125,59 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void bvec_uniform_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST01 tests C4_UNIFORM_01.
+    BVEC_UNIFORM_NEW_TEST tests BVEC_UNIFORM_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int *b;
+  int i;
+  int n = 10;
+  int seed;
+
+  seed = 123456789;
+
+  printf ( "\n" );
+  printf ( "BVEC_UNIFORM_NEW_TEST\n" );
+  printf ( "  BVEC_UNIFORM_NEW computes a binary vector.\n" );
+  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
+  printf ( "\n" );
+
+  for ( i = 0; i < 10; i++ )
+  {
+    b = bvec_uniform_new ( n, &seed );
+    bvec_print ( n, b, "" );
+    free ( b );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void c4_uniform_01_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C4_UNIFORM_01_TEST tests C4_UNIFORM_01.
 
   Licensing:
 
@@ -123,38 +194,36 @@ void test01 ( void )
 {
   int i;
   int seed;
-  int seed_init = 123456789;
-  complex value;
+  float complex value;
+
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST01\n" );
+  printf ( "C4_UNIFORM_01_TEST\n" );
   printf ( "  C4_UNIFORM_01 computes pseudorandom complex values\n" );
   printf ( "  uniformly distributed in the unit circle.\n" );
-
-  seed = seed_init;
+  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
 
   printf ( "\n" );
-  printf ( "  The initial seed is %d\n", seed_init );
-  printf ( "\n" );
-
   for ( i = 1; i <= 10; i++ )
   {
     value = c4_uniform_01 ( &seed );
 
-    printf ( "  %6d  %12f  %12f\n", i, value.real, value.imag );
+    printf ( "  %6d  %12f  %12f\n", i, creal ( value ), cimag ( value ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test02 ( void )
+void c4mat_uniform_01_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST02 tests C4VEC_UNIFORM_01_NEW.
+    C4MAT_UNIFORM_01_NEW_TEST tests C4MAT_UNIFORM_01_NEW.
 
   Licensing:
 
@@ -162,51 +231,46 @@ void test02 ( void )
 
   Modified:
 
-    12 January 2007
+    14 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-  complex *cvec;
-  int i;
+  float complex *c;
+  int m;
   int n;
   int seed;
-  int seed_init = 123456789;
+
+  m = 5;
+  n = 2;
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST02\n" );
-  printf ( "  C4VEC_UNIFORM_01_NEW computes pseudorandom complex values\n" );
+  printf ( "C4MAT_UNIFORM_01_NEW_TEST\n" );
+  printf ( "  C4MAT_UNIFORM_01_NEW computes pseudorandom complex values\n" );
   printf ( "  uniformly distributed in the unit circle.\n" );
-
-  seed = seed_init;
-
   printf ( "\n" );
-  printf ( "  The initial seed is %d\n", seed_init );
-  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
 
-  n = 10;
-  cvec = c4vec_uniform_01_new ( n, &seed );
+  c = c4mat_uniform_01_new ( m, n, &seed );
 
-  for ( i = 0; i < n; i++ )
-  {
-    printf ( "  %8d  %12f  %12f\n", i, cvec[i].real, cvec[i].imag );
-  }
+  c4mat_print ( m, n, c, "  Uniform C4MAT:" );
 
-  free ( cvec );
+  free ( c );
 
   return;
 }
 /******************************************************************************/
 
-void test03 ( void )
+void c4vec_uniform_01_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST03 tests C8_UNIFORM_01.
+    C4VEC_UNIFORM_01_NEW_TEST tests C4VEC_UNIFORM_01_NEW.
 
   Licensing:
 
@@ -221,40 +285,83 @@ void test03 ( void )
     John Burkardt
 */
 {
+  float complex *c;
+  int n;
+  int seed;
+
+  n = 10;
+  seed = 123456789;
+
+  printf ( "\n" );
+  printf ( "C4VEC_UNIFORM_01_NEW_TEST\n" );
+  printf ( "  C4VEC_UNIFORM_01_NEW computes pseudorandom complex values\n" );
+  printf ( "  uniformly distributed in the unit circle.\n" );
+  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
+
+  c = c4vec_uniform_01_new ( n, &seed );
+
+  c4vec_print ( n, c, "  Uniform C4VEC:" );
+
+  free ( c );
+
+  return;
+}
+/******************************************************************************/
+
+void c8_uniform_01_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8_UNIFORM_01_TEST tests C8_UNIFORM_01.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
   int i;
   int seed;
-  int seed_init = 123456789;
-  doublecomplex value;
+  double complex value;
+
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST03\n" );
-  printf ( "  C8_UNIFORM_01 computes pseudorandom C8 values\n" );
+  printf ( "C8_UNIFORM_01_TEST\n" );
+  printf ( "  C8_UNIFORM_01 computes pseudorandom complex values\n" );
   printf ( "  uniformly distributed in the unit circle.\n" );
-
-  seed = seed_init;
+  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
 
   printf ( "\n" );
-  printf ( "  The initial seed is %d\n", seed_init );
-  printf ( "\n" );
-
   for ( i = 1; i <= 10; i++ )
   {
     value = c8_uniform_01 ( &seed );
 
-    printf ( "  %6d  %12f  %12f\n", i, value.real, value.imag );
+    printf ( "  %6d  %12f  %12f\n", i, creal ( value ), cimag ( value ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test04 ( void )
+void c8mat_uniform_01_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST04 tests C8VEC_UNIFORM_01_NEW.
+    C8MAT_UNIFORM_01_NEW_TEST tests C8MAT_UNIFORM_01_NEW.
 
   Licensing:
 
@@ -262,51 +369,91 @@ void test04 ( void )
 
   Modified:
 
-    12 January 2007
+    16 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-  doublecomplex *cvec;
-  int i;
+  double complex *c;
+  int m;
   int n;
   int seed;
-  int seed_init = 123456789;
+
+  m = 5;
+  n = 2;
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST04\n" );
-  printf ( "  C8VEC_UNIFORM_01_NEW computes pseudorandom C8 values\n" );
+  printf ( "C8MAT_UNIFORM_01_NEW_TEST\n" );
+  printf ( "  C8MAT_UNIFORM_01_NEW computes pseudorandom complex values\n" );
   printf ( "  uniformly distributed in the unit circle.\n" );
-
-  seed = seed_init;
-
   printf ( "\n" );
-  printf ( "  The initial seed is %d\n", seed_init );
-  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
 
-  n = 10;
-  cvec = c8vec_uniform_01_new ( n, &seed );
+  c = c8mat_uniform_01_new ( m, n, &seed );
 
-  for ( i = 0; i < n; i++ )
-  {
-    printf ( "  %8d  %12f  %12f\n", i, cvec[i].real, cvec[i].imag );
-  }
+  c8mat_print ( m, n, c, "  Uniform C4MAT:" );
 
-  free ( cvec );
+  free ( c );
 
   return;
 }
 /******************************************************************************/
 
-void test05 ( void )
+void c8vec_uniform_01_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST05 tests CH_UNIFORM_AB.
+    C8VEC_UNIFORM_01_NEW_TEST tests C8VEC_UNIFORM_01_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double complex *c;
+  int n;
+  int seed;
+
+  n = 10;
+  seed = 123456789;
+
+  printf ( "\n" );
+  printf ( "C8VEC_UNIFORM_01_NEW_TEST\n" );
+  printf ( "  C8VEC_UNIFORM_01_NEW computes pseudorandom complex values\n" );
+  printf ( "  uniformly distributed in the unit circle.\n" );
+  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
+
+  c = c8vec_uniform_01_new ( n, &seed );
+
+  c8vec_print ( n, c, "  Uniform C4VEC:" );
+
+  free ( c );
+
+  return;
+}
+/******************************************************************************/
+
+void ch_uniform_ab_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CH_UNIFORM_AB_TEST tests CH_UNIFORM_AB.
 
   Licensing:
 
@@ -325,21 +472,19 @@ void test05 ( void )
   char clo;
   int i;
   int seed;
-  int seed_init = 123456789;
-
-  printf ( "\n" );
-  printf ( "TEST05\n" );
-  printf ( "  CH_UNIFORM_AB computes pseudorandom characters\n" );
-  printf ( "  in an interval [CLO,CHI].\n" );
 
   clo = 'A';
   chi = 'J';
-  seed = seed_init;
+  seed = 123456789;
 
+  printf ( "\n" );
+  printf ( "CH_UNIFORM_AB_TEST\n" );
+  printf ( "  CH_UNIFORM_AB computes pseudorandom characters\n" );
+  printf ( "  in an interval [CLO,CHI].\n" );
   printf ( "\n" );
   printf ( "  The lower endpoint CLO = '%c'.\n", clo );
   printf ( "  The upper endpoint CHI = '%c'.\n", chi );
-  printf ( "  The initial seed is %d\n", seed_init );
+  printf ( "  The initial seed is %d\n", seed );
   printf ( "\n" );
 
   for ( i = 1; i <= 10; i++ )
@@ -351,13 +496,13 @@ void test05 ( void )
 }
 /******************************************************************************/
 
-void test06 ( void )
+void get_seed_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST06 tests GET_SEED.
+    GET_SEED_TEST tests GET_SEED.
 
   Licensing:
 
@@ -379,8 +524,12 @@ void test06 ( void )
   int seed;
   int seed_old;
 
+  oops = 0;
+  seed = 12345678;
+  seed_old = seed;
+
   printf ( "\n" );
-  printf ( "TEST06\n" );
+  printf ( "GET_SEED_TEST\n" );
   printf ( "  GET_SEED picks an initial seed value for R8_UNIFORM_01.\n" );
   printf ( "  The value chosen should vary over time, because\n" );
   printf ( "  the seed is based on reading the clock.\n" );
@@ -388,11 +537,6 @@ void test06 ( void )
   printf ( "  This is just the \"calendar\" clock, which does\n" );
   printf ( "  not change very fast, so calling GET_SEED several\n" );
   printf ( "  times in a row may result in the same value.\n" );
-
-  oops = 0;
-  seed = 12345678;
-  seed_old = seed;
-
   printf ( "\n" );
   printf ( "  Initial seed is %d\n", seed );
   printf ( "\n" );
@@ -445,13 +589,13 @@ void test06 ( void )
 }
 /******************************************************************************/
 
-void test065 ( void )
+void i4_seed_advance_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST065 tests I4_SEED_ADVANCE.
+    I4_SEED_ADVANCE_TEST tests I4_SEED_ADVANCE.
 
   Licensing:
 
@@ -470,14 +614,14 @@ void test065 ( void )
   int seed_new;
   int step;
 
+  seed_new = 12345;
+
   printf ( "\n" );
-  printf ( "TEST065\n" );
+  printf ( "I4_SEED_ADVANCE_TEST\n" );
   printf ( "  I4_SEED_ADVANCE advances the seed.\n" );
   printf ( "\n" );
   printf ( "  Step        SEED input       SEED output\n" );
   printf ( "\n" );
-
-  seed_new = 12345;
 
   for ( step = 1; step <= 10; step++ )
   {
@@ -491,145 +635,13 @@ void test065 ( void )
 }
 /******************************************************************************/
 
-void test07 ( void )
+void i4_uniform_0i_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST07 tests I4_UNIFORM_AB.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    29 June 2006
-
-  Author:
-
-    John Burkardt
-*/
-{
-# define A 6
-# define B 10
-
-  int a = A;
-  int b = B;
-  int freq[B+1-A];
-  int i;
-  int j;
-  int seed;
-  int seed_init = 123456789;
-
-  printf ( "\n" );
-  printf ( "TEST07\n" );
-  printf ( "  I4_UNIFORM_AB computes pseudorandom values\n" );
-  printf ( "  in an interval [A,B].\n" );
-
-  seed = seed_init;
-
-  printf ( "\n" );
-  printf ( "  The lower endpoint A = %d\n", a );
-  printf ( "  The upper endpoint B = %d\n", b );
-  printf ( "  The initial seed is %d\n", seed_init );
-  printf ( "\n" );
-
-  for ( i = a; i <= b; i++ )
-  {
-    freq[i-a] = 0;
-  }
-  for ( i = 1; i <= 10000; i++ )
-  {
-    j = i4_uniform_ab ( a, b, &seed );
-    if ( j < a ) 
-    {
-      printf ( "  Illegal value J = %d\n", j );
-    }
-    else if ( j <= b )
-    {
-      freq[j-a] = freq[j-a] + 1;
-    }
-    else
-    {
-      printf ( "  Illegal value J = %d\n", j );
-    }
-  }
-
-  printf ( "\n" );
-  printf ( "         I    Frequency\n" );
-  printf ( "\n" );
-  for ( i = a; i <= b; i++ )
-  {
-    printf ( "  %8d  %8d\n", i, freq[i-a] );
-  }
-
-  return;
-# undef A
-# undef B
-}
-/******************************************************************************/
-
-void test08 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST08 tests I4_UNIFORM_AB.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 January 2007
-
-  Author:
-
-    John Burkardt
-*/
-{
-  int a = -100;
-  int b = 200;
-  int i;
-  int j;
-  int seed;
-  int seed_init = 123456789;
-
-  printf ( "\n" );
-  printf ( "TEST08\n" );
-  printf ( "  I4_UNIFORM_AB computes pseudorandom values\n" );
-  printf ( "  in an interval [A,B].\n" );
-
-  seed = seed_init;
-
-  printf ( "\n" );
-  printf ( "  The lower endpoint A = %d\n", a );
-  printf ( "  The upper endpoint B = %d\n", b );
-  printf ( "  The initial seed is %d\n", seed_init );
-  printf ( "\n" );
-
-  for ( i = 1; i <= 20; i++ )
-  {
-    j = i4_uniform_ab ( a, b, &seed );
-
-    printf ( "  %8d  %d\n", i, j );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test09 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST09 tests I4_UNIFORM_0I
+    I4_UNIFORM_0I_TEST tests I4_UNIFORM_0I
 
   Licensing:
 
@@ -652,13 +664,12 @@ void test09 ( void )
   float variance;
   int x[N];
 
-  printf ( "\n" );
-  printf ( "TEST09\n" );
-  printf ( "  I4_UNIFORM_0I samples a uniform random\n" );
-  printf ( "  integer distribution in [0,2**31-1].\n" );
-
   seed = 123456789;
 
+  printf ( "\n" );
+  printf ( "I4_UNIFORM_0I_TEST\n" );
+  printf ( "  I4_UNIFORM_0I samples a uniform random\n" );
+  printf ( "  integer distribution in [0,2^31-1].\n" );
   printf ( "\n" );
   printf ( "  Starting with seed = %d\n", seed );
 
@@ -691,13 +702,13 @@ void test09 ( void )
 }
 /******************************************************************************/
 
-void test10 ( void )
+void i4_uniform_ab_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST10 tests I4VEC_UNIFORM_AB_NEW.
+    I4_UNIFORM_AB_TEST tests I4_UNIFORM_AB.
 
   Licensing:
 
@@ -705,139 +716,139 @@ void test10 ( void )
 
   Modified:
 
-    29 June 2006
+    27 October 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define A 6
-# define B 10
-# define N 10000
-
-  int a = A;
-  int b = B;
-  int freq[B+1-A];
+  int a = -100;
+  int b = 200;
   int i;
-  int *i4vec;
   int j;
-  int seed;
-  int seed_init = 123456789;
+  int seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST10\n" );
+  printf ( "I4_UNIFORM_AB_TEST\n" );
+  printf ( "  I4_UNIFORM_AB computes pseudorandom values\n" );
+  printf ( "  in an interval [A,B].\n" );
+  printf ( "\n" );
+  printf ( "  The lower endpoint A = %d\n", a );
+  printf ( "  The upper endpoint B = %d\n", b );
+  printf ( "  The initial seed is %d\n", seed );
+  printf ( "\n" );
+
+  for ( i = 1; i <= 20; i++ )
+  {
+    j = i4_uniform_ab ( a, b, &seed );
+    printf ( "  %8d  %d\n", i, j );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void i4mat_uniform_ab_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4MAT_UNIFORM_AB_NEW_TEST tests I4MAT_UNIFORM_AB_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int a = -100;
+  int b = 200;
+  int m = 5;
+  int n = 4;
+  int seed = 123456789;
+  int *v;
+
+  printf ( "\n" );
+  printf ( "I4MAT_UNIFORM_AB_NEW_TEST\n" );
+  printf ( "  I4MAT_UNIFORM_AB_NEW computes pseudorandom values\n" );
+  printf ( "  in an interval [A,B].\n" );
+  printf ( "\n" );
+  printf ( "  The lower endpoint A = %d\n", a );
+  printf ( "  The upper endpoint B = %d\n", b );
+  printf ( "  The initial seed is %d\n", seed );
+
+  v = i4mat_uniform_ab_new ( m, n, a, b, &seed );
+
+  i4mat_print ( m, n, v, "  Uniform I4MAT:" );
+
+  free ( v );
+
+  return;
+}
+/******************************************************************************/
+
+void i4vec_uniform_ab_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_UNIFORM_AB_NEW_TEST tests I4VEC_UNIFORM_AB_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 October 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int a = -100;
+  int b = 200;
+  int n = 20;
+  int seed = 123456789;
+  int *v;
+
+  printf ( "\n" );
+  printf ( "I4VEC_UNIFORM_AB_NEW_TEST\n" );
   printf ( "  I4VEC_UNIFORM_AB_NEW computes pseudorandom values\n" );
   printf ( "  in an interval [A,B].\n" );
-
-  seed = seed_init;
-
   printf ( "\n" );
   printf ( "  The lower endpoint A = %d\n", a );
   printf ( "  The upper endpoint B = %d\n", b );
-  printf ( "  The initial seed is %d\n", seed_init );
-  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
 
-  for ( i = a; i <= b; i++ )
-  {
-    freq[i-a] = 0;
-  }
+  v = i4vec_uniform_ab_new ( n, a, b, &seed );
 
-  i4vec = i4vec_uniform_ab_new ( N, a, b, &seed );
+  i4vec_print ( n, v, "  Uniform I4VEC:" );
 
-  for ( i = 0; i < N; i++ )
-  {
-    j = i4vec[i];
-    if ( j < a ) 
-    {
-      printf ( "  Illegal value J = %d\n", j );
-    }
-    else if ( j <= b )
-    {
-      freq[j-a] = freq[j-a] + 1;
-    }
-    else
-    {
-      printf ( "  Illegal value J = %d\n", j );
-    }
-  }
-
-  printf ( "\n" );
-  printf ( "         I    Frequency\n" );
-  printf ( "\n" );
-  for ( i = a; i <= b; i++ )
-  {
-    printf ( "  %8d  %8d\n", i, freq[i-a] );
-  }
-
-  free ( i4vec );
-
-  return;
-# undef A
-# undef B
-# undef N
-}
-/******************************************************************************/
-
-void test11 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST11 tests I8_UNIFORM_AB.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 May 2007
-
-  Author:
-
-    John Burkardt
-*/
-{
-  long long int a;
-  long long int b;
-  long long int i;
-  long long int seed;
-  long long int seed_init = 123456789LL;
-
-  printf ( "\n" );
-  printf ( "TEST11\n" );
-  printf ( "  I8_UNIFORM_AB computes pseudorandom values\n" );
-  printf ( "  in an interval [A,B].\n" );
-
-  a = 100000LL;
-  b = 800000LL;
-
-  seed = seed_init;
-
-  printf ( "\n" );
-  printf ( "  The lower endpoint A = %d\n", a );
-  printf ( "  The upper endpoint B = %d\n", b );
-  printf ( "  The initial seed is    %d\n", seed_init );
-  printf ( "\n" );
-
-  for ( i = 1; i <= 10; i++ )
-  {
-    printf ( "  %8d  %24d\n", i, i8_uniform_ab ( a, b, &seed ) );
-  }
+  free ( v );
 
   return;
 }
 /******************************************************************************/
 
-void test111 ( void )
+void l4_uniform_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST111 tests L_UNIFORM.
+    L4_UNIFORM_TEST tests L4_UNIFORM.
 
   Licensing:
 
@@ -854,34 +865,32 @@ void test111 ( void )
 {
   int i;
   int seed;
-  int seed_init = 123456789;
+
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST111\n" );
-  printf ( "  L_UNIFORM computes pseudorandom logical values.\n" );
-
-  seed = seed_init;
-
+  printf ( "L4_UNIFORM_TEST\n" );
+  printf ( "  L4_UNIFORM computes pseudorandom logical values.\n" );
   printf ( "\n" );
-  printf ( "  The initial seed is %d\n", seed_init );
+  printf ( "  The initial seed is %d\n", seed );
   printf ( "\n" );
 
   for ( i = 1; i <= 10; i++ )
   {
-    printf ( "  %8d  %d\n", i, l_uniform ( &seed ) );
+    printf ( "  %8d  %d\n", i, l4_uniform ( &seed ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test112 ( void )
+void l4mat_uniform_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST112 tests LVEC_UNIFORM_NEW.
+    L4MAT_UNIFORM_NEW_TEST tests L4MAT_UNIFORM_NEW.
 
   Licensing:
 
@@ -889,110 +898,88 @@ void test112 ( void )
 
   Modified:
 
-    01 December 2007
+    23 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-  int i;
-  int *lvec;
+  int *l;
+  int m = 5;
+  int n = 4;
+  int seed;
+
+  seed = 123456789;
+
+  printf ( "\n" );
+  printf ( "L4MAT_UNIFORM_NEW_TEST\n" );
+  printf ( "  L4MAT_UNIFORM_NEW computes a vector of\n" );
+  printf ( "  pseudorandom logical values.\n" );
+  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
+
+  l = l4mat_uniform_new ( m, n, &seed );
+
+  l4mat_print ( m, n, l, "  Uniform L4MAT:" );
+
+  free ( l );
+
+  return;
+}
+/******************************************************************************/
+
+void l4vec_uniform_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    L4VEC_UNIFORM_NEW_TEST tests L4VEC_UNIFORM_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int *l;
   int n = 10;
   int seed;
-  int seed_init = 123456789;
+
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST112\n" );
-  printf ( "  LVEC_UNIFORM_NEW computes a vector of\n" );
+  printf ( "L4VEC_UNIFORM_NEW_TEST\n" );
+  printf ( "  L4VEC_UNIFORM_NEW computes a vector of\n" );
   printf ( "  pseudorandom logical values.\n" );
-
-  seed = seed_init;
-
   printf ( "\n" );
-  printf ( "  The initial seed is %d\n", seed_init );
+  printf ( "  The initial seed is %d\n", seed );
 
-  lvec = lvec_uniform_new ( n, &seed );
+  l = l4vec_uniform_new ( n, &seed );
 
-  printf ( "\n" );
+  l4vec_print ( n, l, "  Uniform L4VEC:" );
 
-  for ( i = 0; i < n; i++ )
-  {
-    printf ( "  %8d  %d\n", i + 1, lvec[i] );
-  }
-
-  free ( lvec );
+  free ( l );
 
   return;
 }
 /******************************************************************************/
 
-void test118 ( void )
+void lcrg_anbn_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST118 tests LCRG_ANBN.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    22 April 2008
-
-  Author:
-
-    John Burkardt
-*/
-{
-  int a;
-  int an;
-  int b;
-  int bn;
-  int c;
-  int n;
-
-  printf ( "\n" );
-  printf ( "TEST118\n" );
-  printf ( "  LCRG_ANBN determines a linear congruential random\n" );
-  printf ( "  number generator equivalent to N steps of a given one.\n" );
-/*
-  These parameters define the old (1969) IBM 360 random number generator:
-*/
-  a = 16807;
-  b = 0;
-  c = 2147483647;
-
-  printf ( "\n" );
-  printf ( "  LCRG parameters:\n" );
-  printf ( "\n" );
-  printf ( "  A = %12d\n", a );
-  printf ( "  B = %12d\n", b );
-  printf ( "  C = %12d\n", c );
-  printf ( "\n" );
-  printf ( "             N             A             B\n" );
-  printf ( "\n" );
-
-  for ( n = 0; n <= 10; n++ )
-  {
-    lcrg_anbn ( a, b, c, n, &an, &bn );
-    printf ( "  %12d  %12d  %12d\n", n, an, bn );
-  }
-
-  return;
-}
-/******************************************************************************/
-
-void test119 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST119 tests LCRG_ANBN.
+    LCRG_ANBN_TEST tests LCRG_ANBN.
 
   Licensing:
 
@@ -1019,11 +1006,6 @@ void test119 ( void )
   int v;
   int *x;
   int *y;
-
-  printf ( "\n" );
-  printf ( "TEST119\n" );
-  printf ( "  LCRG_ANBN determines a linear congruential random\n" );
-  printf ( "  number generator equivalent to N steps of a given one.\n" );
 /*
   These parameters define the old (1969) IBM 360 random number generator:
 */
@@ -1032,11 +1014,27 @@ void test119 ( void )
   c = 2147483647;
 
   printf ( "\n" );
+  printf ( "LCRG_ANBN_TEST\n" );
+  printf ( "  LCRG_ANBN determines a linear congruential random\n" );
+  printf ( "  number generator equivalent to N steps of a given one.\n" );
+
+  printf ( "\n" );
   printf ( "  LCRG parameters:\n" );
   printf ( "\n" );
   printf ( "  A  = %12d\n", a );
   printf ( "  B  = %12d\n", b );
   printf ( "  C  = %12d\n", c );
+
+  printf ( "\n" );
+  printf ( "             N             A             B\n" );
+  printf ( "\n" );
+
+  for ( n = 0; n <= 10; n++ )
+  {
+    lcrg_anbn ( a, b, c, n, &an, &bn );
+    printf ( "  %12d  %12d  %12d\n", n, an, bn );
+  }
+
   printf ( "\n" );
   printf ( "                           N            In           Out\n" );
   printf ( "\n" );
@@ -1097,13 +1095,13 @@ void test119 ( void )
 }
 /******************************************************************************/
 
-void test12 ( void )
+void lcrg_seed_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST12 tests LCRG_SEED
+    LCRG_SEED_TEST tests LCRG_SEED
 
   Licensing:
 
@@ -1128,9 +1126,15 @@ void test12 ( void )
   int seed_out;
   int seed_start;
   float u;
+/*
+  These parameters define the old (1969) IBM 360 random number generator:
+*/
+  a = 16807;
+  b = 0;
+  c = 2147483647;
 
   printf ( "\n" );
-  printf ( "TEST12\n" );
+  printf ( "LCRG_SEED_TEST\n" );
   printf ( "  LCRG_SEED directly computes the updated value of a\n" );
   printf ( "  seed used by an linear congruential random number\n" );
   printf ( "  generator.\n" );
@@ -1138,12 +1142,6 @@ void test12 ( void )
   printf ( "       I          SEED          SEED          SEED    U\n" );
   printf ( "                 Input        Output          LCRG\n" );
   printf ( "\n" );
-/*
-  These parameters define the old (1969) IBM 360 random number generator:
-*/
-  a = 16807;
-  b = 0;
-  c = 2147483647;
 /*
   This seed value was used in Pierre L'Ecuyer's article.
 */
@@ -1173,13 +1171,56 @@ void test12 ( void )
 }
 /******************************************************************************/
 
-void test13 ( void )
+void r4_uniform_01_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST13 tests R4_UNIFORM_AB.
+    R4_UNIFORM_01_TEST tests R4_UNIFORM_01.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    29 June 2006
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int seed;
+
+  seed = 123456789;
+
+  printf ( "\n" );
+  printf ( "R4_UNIFORM_01_TEST\n" );
+  printf ( "  R4_UNIFORM_01 computes pseudorandom values \n" );
+  printf ( "  in the interval [0,1].\n" );
+  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
+  printf ( "\n" );
+
+  for ( i = 1; i <= 10; i++ )
+  {
+    printf ( "  %6d  %14f\n", i, r4_uniform_01 ( &seed ) );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r4_uniform_ab_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R4_UNIFORM_AB_TEST tests R4_UNIFORM_AB.
 
   Licensing:
 
@@ -1198,21 +1239,19 @@ void test13 ( void )
   float b;
   int i;
   int seed;
-  int seed_init = 123456789;
-
-  printf ( "\n" );
-  printf ( "TEST13\n" );
-  printf ( "  R4_UNIFORM_AB computes pseudorandom values\n" );
-  printf ( "  in an interval [A,B].\n" );
 
   a = 5.0;
   b = 10.0;
-  seed = seed_init;
+  seed = 123456789;
 
+  printf ( "\n" );
+  printf ( "R4_UNIFORM_AB_TEST\n" );
+  printf ( "  R4_UNIFORM_AB computes pseudorandom values\n" );
+  printf ( "  in an interval [A,B].\n" );
   printf ( "\n" );
   printf ( "  The lower endpoint A = %f\n", a );
   printf ( "  The upper endpoint B = %f\n", b );
-  printf ( "  The initial seed is %d\n", seed_init );
+  printf ( "  The initial seed is %d\n", seed );
   printf ( "\n" );
 
   for ( i = 1; i <= 10; i++ )
@@ -1224,13 +1263,106 @@ void test13 ( void )
 }
 /******************************************************************************/
 
-void test14 ( void )
+void r4mat_uniform_ab_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST14 tests R4_UNIFORM_01.
+    R4MAT_UNIFORM_AB_NEW_TEST tests R4MAT_UNIFORM_AB_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    24 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  float a = -5.0;
+  float b = +10.0;
+  int m = 5;
+  int n = 4;
+  int seed = 123456789;
+  float *v;
+
+  printf ( "\n" );
+  printf ( "R4MAT_UNIFORM_AB_NEW_TEST\n" );
+  printf ( "  R4MAT_UNIFORM_AB_NEW computes pseudorandom values\n" );
+  printf ( "  in an interval [A,B].\n" );
+  printf ( "\n" );
+  printf ( "  The lower endpoint A = %g\n", a );
+  printf ( "  The upper endpoint B = %g\n", b );
+  printf ( "  The initial seed is %d\n", seed );
+
+  v = r4mat_uniform_ab_new ( m, n, a, b, &seed );
+
+  r4mat_print ( m, n, v, "  Uniform R4MAT:" );
+
+  free ( v );
+
+  return;
+}
+/******************************************************************************/
+
+void r4vec_uniform_ab_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R4VEC_UNIFORM_AB_NEW_TEST tests R4VEC_UNIFORM_AB_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    24 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  float a = -5.0;
+  float b = +10.0;
+  int n = 20;
+  int seed = 123456789;
+  float *v;
+
+  printf ( "\n" );
+  printf ( "R4VEC_UNIFORM_AB_NEW_TEST\n" );
+  printf ( "  R4VEC_UNIFORM_AB_NEW computes pseudorandom values\n" );
+  printf ( "  in an interval [A,B].\n" );
+  printf ( "\n" );
+  printf ( "  The lower endpoint A = %g\n", a );
+  printf ( "  The upper endpoint B = %g\n", b );
+  printf ( "  The initial seed is %d\n", seed );
+
+  v = r4vec_uniform_ab_new ( n, a, b, &seed );
+
+  r4vec_print ( n, v, "  Uniform R4VEC:" );
+
+  free ( v );
+
+  return;
+}
+/******************************************************************************/
+
+void r8_uniform_01_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_UNIFORM_01_TEST tests R8_UNIFORM_01.
 
   Licensing:
 
@@ -1247,35 +1379,33 @@ void test14 ( void )
 {
   int i;
   int seed;
-  int seed_init = 123456789;
+
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST14\n" );
-  printf ( "  R4_UNIFORM_01 computes pseudorandom values \n" );
+  printf ( "R8_UNIFORM_01_TEST\n" );
+  printf ( "  R8_UNIFORM_01 computes pseudorandom values \n" );
   printf ( "  in the interval [0,1].\n" );
-
-  seed = seed_init;
+  printf ( "\n" );
+  printf ( "  The initial seed is %d\n", seed );
 
   printf ( "\n" );
-  printf ( "  The initial seed is %d\n", seed_init );
-  printf ( "\n" );
-
   for ( i = 1; i <= 10; i++ )
   {
-    printf ( "  %6d  %14f\n", i, r4_uniform_01 ( &seed ) );
+    printf ( "  %6d  %14f\n", i, r8_uniform_01 ( &seed ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test15 ( void )
+void r8_uniform_ab_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST15 tests R8_UNIFORM_AB.
+    R8_UNIFORM_AB_TEST tests R8_UNIFORM_AB.
 
   Licensing:
 
@@ -1294,21 +1424,19 @@ void test15 ( void )
   double b;
   int i;
   int seed;
-  int seed_init = 123456789;
-
-  printf ( "\n" );
-  printf ( "TEST15\n" );
-  printf ( "  R8_UNIFORM_AB computes pseudorandom values\n" );
-  printf ( "  in an interval [A,B].\n" );
 
   a = 5.0;
   b = 10.0;
-  seed = seed_init;
+  seed = 123456789;
 
+  printf ( "\n" );
+  printf ( "R8_UNIFORM_AB_TEST\n" );
+  printf ( "  R8_UNIFORM_AB computes pseudorandom values\n" );
+  printf ( "  in an interval [A,B].\n" );
   printf ( "\n" );
   printf ( "  The lower endpoint A = %f\n", a );
   printf ( "  The upper endpoint B = %f\n", b );
-  printf ( "  The initial seed is %d\n", seed_init );
+  printf ( "  The initial seed is %d\n", seed );
   printf ( "\n" );
 
   for ( i = 1; i <= 10; i++ )
@@ -1320,13 +1448,13 @@ void test15 ( void )
 }
 /******************************************************************************/
 
-void test16 ( void )
+void r8mat_uniform_ab_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST16 tests R8_UNIFORM_01.
+    R8MAT_UNIFORM_AB_NEW_TEST tests R8MAT_UNIFORM_AB_NEW.
 
   Licensing:
 
@@ -1334,44 +1462,46 @@ void test16 ( void )
 
   Modified:
 
-    29 June 2006
+    25 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-  int i;
-  int seed;
-  int seed_init = 123456789;
+  double a = -5.0;
+  double b = +10.0;
+  int m = 5;
+  int n = 4;
+  int seed = 123456789;
+  double *v;
 
   printf ( "\n" );
-  printf ( "TEST16\n" );
-  printf ( "  R8_UNIFORM_01 computes pseudorandom values \n" );
-  printf ( "  in the interval [0,1].\n" );
-
-  seed = seed_init;
-
+  printf ( "R8MAT_UNIFORM_AB_NEW_TEST\n" );
+  printf ( "  R8MAT_UNIFORM_AB_NEW computes pseudorandom values\n" );
+  printf ( "  in an interval [A,B].\n" );
   printf ( "\n" );
-  printf ( "  The initial seed is %d\n", seed_init );
-  printf ( "\n" );
+  printf ( "  The lower endpoint A = %g\n", a );
+  printf ( "  The upper endpoint B = %g\n", b );
+  printf ( "  The initial seed is %d\n", seed );
 
-  for ( i = 1; i <= 10; i++ )
-  {
-    printf ( "  %6d  %14f\n", i, r8_uniform_01 ( &seed ) );
-  }
+  v = r8mat_uniform_ab_new ( m, n, a, b, &seed );
+
+  r8mat_print ( m, n, v, "  Uniform R8MAT:" );
+
+  free ( v );
 
   return;
 }
 /******************************************************************************/
 
-void test17 ( void )
+void r8vec_uniform_01_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST17 tests R8_UNIFORM_01;
+    R8VEC_UNIFORM_01_NEW_TEST tests R8VEC_UNIFORM_01_NEW.
 
   Licensing:
 
@@ -1379,187 +1509,42 @@ void test17 ( void )
 
   Modified:
 
-    29 June 2006
+    29 October 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define N 1000
-
-  int i;
+  int n = 10;
   int seed;
-  int seed_in;
-  int seed_out;
-  double u[N];
-  double u_avg;
-  double u_var;
+  double *v;
+
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST17\n" );
-  printf ( "  R8_UNIFORM_01 computes a sequence of uniformly distributed\n" );
-  printf ( "  pseudorandom numbers.\n" );
-
-  seed = 12345;
-
+  printf ( "R8VEC_UNIFORM_01_NEW_TEST\n" );
+  printf ( "  R8VEC_UNIFORM_01_NEW computes a random R8VEC.\n" );
   printf ( "\n" );
-  printf ( "  Initial SEED = %d\n", seed );
+  printf ( "  Initial seed is %d\n", seed );
 
-  printf ( "\n" );
-  printf ( "  First 10 values:\n" );
-  printf ( "\n" );
-  printf ( "       I         Input        Output   R8_UNIFORM_01\n" );
-  printf ( "                  SEED          SEED\n" );
-  printf ( "\n" );
+  v = r8vec_uniform_01_new ( n, &seed );
 
-  for ( i = 0; i < 10; i++ )
-  {
-    seed_in = seed;
-    u[i] = r8_uniform_01 ( &seed );
-    seed_out = seed;
-    printf ( "  %6d  %12d  %12d  %10f\n", i + 1, seed_in, seed_out, u[i] );
-  }
-
-  printf ( "\n" );
-  printf ( "  Now call R8_UNIFORM_01 %d times.\n", N );
-
-  u_avg = 0.0;
-  for ( i = 0; i < N; i++ )
-  {
-    u[i] = r8_uniform_01 ( &seed );
-    u_avg = u_avg + u[i];
-  }
-
-  u_avg = u_avg / ( ( double ) N );
-
-  u_var = 0.0;
-  for ( i = 0; i < N; i++ )
-  {
-    u_var = u_var + ( u[i] - u_avg ) * ( u[i] - u_avg );
-  }
-  u_var = u_var / ( ( double ) ( N - 1 ) );
-
-  printf ( "\n" );
-  printf ( "  Average value = %f\n", u_avg );
-  printf ( "  Expecting       %f\n", 0.5 );
-
-  printf ( "\n" );
-  printf ( "  Variance =      %f\n", u_var );
-  printf ( "  Expecting       %f\n", 1.0 / 12.0 );
-
-  return;
-# undef N
-}
-/******************************************************************************/
-
-void test18 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST18 tests R8_UNIFORM_01.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    29 June 2006
-
-  Author:
-
-    John Burkardt
-*/
-{
-  int i;
-  int seed;
-  int seed_in;
-  int seed_out;
-  int seed_save;
-  double x;
-
-  printf ( "\n" );
-  printf ( "TEST18\n" );
-  printf ( "  R8_UNIFORM_01 computes a sequence of pseudorandom numbers\n" );
-  printf ( "  but all computations depend on the seed value.\n" );
-  printf ( "  In this test, we show how a sequence of \"random\"\n" );
-  printf ( "  values can be manipulated by accessing the seed.\n" );
-
-  seed = 1066;
-
-  printf ( "\n" );
-  printf ( "  Set SEED to %d\n", seed );
-  printf ( "\n" );
-  printf ( "  Now call R8_UNIFORM_01 10 times, and watch SEED.\n" );
-  printf ( "\n" );
-  printf ( "       I         Input        Output   R8_UNIFORM_01\n" );
-  printf ( "                  SEED          SEED\n" );
-  printf ( "\n" );
-
-  for ( i = 1; i <= 10; i++ )
-  {
-    seed_in = seed;
-
-    if ( i == 5 )
-    {
-      seed_save = seed;
-    }
-    x = r8_uniform_01 ( &seed );
-    seed_out = seed;
-    printf ( "  %6d  %12d  %12d  %10f\n", i, seed_in, seed_out, x );
-  }
-
-  seed = seed_save;
-
-  printf ( "\n" );
-  printf ( "  Reset SEED to its value at step 5, = %d\n", seed );
-  printf ( "\n" );
-  printf ( "  Now call R8_UNIFORM_01 10 times, and watch how SEED\n" );
-  printf ( "  and R8_UNIFORM_01 restart themselves.\n" );
-  printf ( "\n" );
-  printf ( "       I         Input        Output   R8_UNIFORM_01\n" );
-  printf ( "                  SEED          SEED\n" );
-  printf ( "\n" );
-
-  for ( i = 1; i <= 10; i++ )
-  {
-    seed_in = seed;
-    x = r8_uniform_01 ( &seed );
-    seed_out = seed;
-    printf ( "  %6d  %12d  %12d  %10f\n", i, seed_in, seed_out, x );
-  }
-
-  seed = -12345678;
-
-  printf ( "\n" );
-  printf ( "  What happens with an initial negative SEED?\n" );
-  printf ( "\n" );
-  printf ( "       I         Input        Output   R8_UNIFORM_01\n" );
-  printf ( "                  SEED          SEED\n" );
-  printf ( "\n" );
-
-  for ( i = 1; i <= 10; i++ )
-  {
-    seed_in = seed;
-    x = r8_uniform_01 ( &seed );
-    seed_out = seed;
-    printf ( "  %6d  %12d  %12d  %10f\n", i, seed_in, seed_out, x );
-  }
+  r8vec_print ( n, v, "  Uniform R8VEC:" );
+  
+  free ( v );
 
   return;
 }
 /******************************************************************************/
 
-void test19 ( void )
+void r8vec_uniform_ab_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST19 tests R8_UNIFORM_01 and R8MAT_UNIFORM_01_NEW.
+    R8VEC_UNIFORM_AB_NEW_TEST tests R8VEC_UNIFORM_AB_NEW.
 
   Licensing:
 
@@ -1567,74 +1552,104 @@ void test19 ( void )
 
   Modified:
 
-    29 June 2006
+    29 October 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define M 100
-# define N 10
+  double a;
+  double b;
+  int n = 10;
+  int seed;
+  double *v;
 
-  double a[M*N];
-  double *b;
+  a = -1.0;
+  b = 5.0;
+  seed = 123456789;
+
+  printf ( "\n" );
+  printf ( "R8VEC_UNIFORM_AB_NEW_TEST\n" );
+  printf ( "  R8VEC_UNIFORM_AB_NEW computes a random R8VEC.\n" );
+  printf ( "\n" );
+  printf ( "  %g <= X <= %g\n", a, b );
+  printf ( "  Initial seed is %d\n", seed );
+
+  v = r8vec_uniform_ab_new ( n, a, b, &seed );
+
+  r8vec_print ( n, v, "  Uniform R8VEC:" );
+  
+  free ( v );
+
+  return;
+}
+/******************************************************************************/
+
+void r8col_uniform_abvec_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8COL_UNIFORM_ABVEC_NEW_TEST tests R8COL_UNIFORM_ABVEC_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    28 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a[5] = { 0.0, 0.20, 10.0, 52.0, -1.0 };
+  double b[5] = { 1.0, 0.25, 20.0, 54.0, +1.0 };
   int i;
   int j;
-  int k;
+  int m = 5;
+  int n = 4;
   int seed;
-  int seed_init = 123456789;
+  double *v;
+
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST19\n" );
-  printf ( "  R8_UNIFORM_01 computes pseudorandom values one at a time.\n" );
-  printf ( "  R8MAT_UNIFORM_01_NEW computes a matrix of values.\n" );
+  printf ( "R8COL_UNIFORM_ABVEC_NEW_TEST\n" );
+  printf ( "  R8COL_UNIFORM_ABVEC_NEW computes a random R8COL.\n" );
   printf ( "\n" );
-  printf ( "  For the same initial seed, the results should be identical,\n" );
-  printf ( "  but R8MAT_UNIFORM_01_NEW might be faster.\n" );
-  printf ( "\n" );
-  printf ( "  Initial seed is %d\n", seed_init );
+  printf ( "  Initial seed is %d\n", seed );
 
-  seed = seed_init;
-  for ( j = 0; j < N; j++ )
+  v = r8col_uniform_abvec_new ( m, n, a, b, &seed );
+
+  printf ( "\n" );
+  for ( i = 0; i < m; i++ )
   {
-    for ( i = 0; i < M; i++ )
+    printf ( "  %4d  %8.4f:  ", i, a[i] );
+    for ( j = 0; j < n; j++ )
     {
-      a[i+j*M] = r8_uniform_01 ( &seed );
+      printf ( "  %8.4f", v[i+j*m] );
     }
-  }
-
-  seed = seed_init;
-  b = r8mat_uniform_01_new ( M, N, &seed );
-
-  printf ( "\n" );
-  printf ( "      I       J      A[I,J]        B[I,J]\n" );
-  printf ( "                 (R8_UNIFORM_01)  (R8MAT_UNIFORM_01_NEW)\n" );
-  printf ( "\n" );
-
-  for ( k = 0; k < 11; k++ )
-  {
-    i = ( k * ( M - 1 ) ) / 10;
-    j = ( k * ( N - 1 ) ) / 10;
-
-    printf ( "  %6d  %6d  %12f  %12f\n", i, j, a[i+j*M], b[i+j*M] );
+    printf ( "    :%8.4f\n", b[i] );
   }
   
-  free ( b );
+  free ( v );
 
   return;
-# undef M
-# undef N
 }
 /******************************************************************************/
 
-void test20 ( void )
+void r8row_uniform_abvec_new_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST20 tests R8_UNIFORM_01 and R8VEC_UNIFORM_01_NEW.
+    R8ROW_UNIFORM_ABVEC_NEW_TEST tests R8ROWL_UNIFORM_ABVEC_NEW.
 
   Licensing:
 
@@ -1642,54 +1657,109 @@ void test20 ( void )
 
   Modified:
 
-    29 June 2006
+    28 December 2014
 
   Author:
 
     John Burkardt
 */
 {
-# define N 10
-
-  double a[N];
-  double *b;
+  double a[5] = { 0.0, 0.20, 10.0, 52.0, -1.0 };
+  double b[5] = { 1.0, 0.25, 20.0, 54.0, +1.0 };
   int i;
   int j;
-  int k;
+  int m = 4;
+  int n = 5;
   int seed;
-  int seed_init = 123456789;
+  double *v;
+
+  seed = 123456789;
 
   printf ( "\n" );
-  printf ( "TEST20\n" );
-  printf ( "  R8_UNIFORM_01 computes pseudeorandom values one at a time.\n" );
-  printf ( "  R8VEC_UNIFORM_01_NEW computes a vector of values.\n" );
+  printf ( "R8ROW_UNIFORM_ABVEC_NEW_TEST\n" );
+  printf ( "  R8ROW_UNIFORM_ABVEC_NEW computes a random R8ROW.\n" );
   printf ( "\n" );
-  printf ( "  For the same initial seed, the results should be identical,\n" );
-  printf ( "  but R8VEC_UNIFORM_01_NEW might be faster.\n" );
+  printf ( "  Initial seed is %d\n", seed );
   printf ( "\n" );
-  printf ( "  Initial seed is %d\n", seed_init );
 
-  seed = seed_init;
-  for ( i = 0; i < N; i++ )
+  v = r8row_uniform_abvec_new ( m, n, a, b, &seed );
+
+  for ( j = 0; j < n; j++ )
   {
-    a[i] = r8_uniform_01 ( &seed );
+    printf ( "  %8.4f", b[j] );
+  }
+  printf ( "\n" );
+  printf ( "\n" );
+
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      printf ( "  %8.4f", v[i+j*m] );
+    }
+    printf ( "\n" );
   }
 
-  seed = seed_init;
-  b = r8vec_uniform_01_new ( N, &seed );
-
   printf ( "\n" );
-  printf ( "      I      A[I]          B[I]\n" );
-  printf ( "         (R8_UNIFORM_01)  (R8VEC_UNIFORM_01)\n" );
-  printf ( "\n" );
-
-  for ( i = 1; i < N; i++ )
+  for ( j = 0; j < n; j++ )
   {
-    printf ( "  %6d  %12f  %12f\n", i, a[i], b[i] );
+    printf ( "  %8.4f", a[j] );
   }
-  
-  free ( b );
+  printf ( "\n" );
+
+  free ( v );
 
   return;
-# undef N
+}
+/******************************************************************************/
+
+void r8vec_uniform_abvec_new_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_UNIFORM_ABVEC_NEW_TEST tests R8VEC_UNIFORM_ABVEC_NEW.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    28 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a[5] = { 0.0, 0.20, 10.0, 52.0, -1.0 };
+  double b[5] = { 1.0, 0.25, 20.0, 54.0, +1.0 };
+  int i;
+  int n = 5;
+  int seed;
+  double *v;
+
+  seed = 123456789;
+
+  printf ( "\n" );
+  printf ( "R8VEC_UNIFORM_ABVEC_NEW_TEST\n" );
+  printf ( "  R8VEC_UNIFORM_ABVEC_NEW computes a random R8VEC.\n" );
+  printf ( "\n" );
+  printf ( "  Initial seed is %d\n", seed );
+
+  v = r8vec_uniform_abvec_new ( n, a, b, &seed );
+
+  printf ( "\n" );
+  printf ( "   I         A         X         B\n" );
+  printf ( "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    printf ( "  %4d  %8.4f  %8.4f  %8.4f\n", i, a[i], v[i], b[i] );
+  }
+  
+  free ( v );
+
+  return;
 }

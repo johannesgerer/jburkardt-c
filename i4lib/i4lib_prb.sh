@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g i4lib_prb.c >& compiler.txt
+gcc -c i4lib_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling i4lib_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc i4lib_prb.o /$HOME/libc/$ARCH/i4lib.o -lm
 if [ $? -ne 0 ]; then

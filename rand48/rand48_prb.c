@@ -26,7 +26,7 @@ int main ( void )
 
   Discussion:
 
-    RAND48_PRB calls sample problems for the RAND48 routines.
+    RAND48_PRB tests the RAND48 library.
 
   Licensing:
 
@@ -42,7 +42,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "RAND48_PRB\n" );
   printf ( "  C version:\n" );
@@ -63,7 +62,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "RAND48_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

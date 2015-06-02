@@ -1,0 +1,54 @@
+10 September 2013 01:13:00 PM
+
+
+ 2-D Poisson's equation using Jacobi algorithm
+ =============================================
+ MPI version: 1-D domains, non-blocking send/receive
+ Number of processes         = 8
+ Number of interior vertices = 32
+ Desired fractional accuracy = 0.001000
+
+ Step   10	Error = 0.367305
+ Step   20	Error = 0.235421
+ Step   30	Error = 0.151743
+ Step   40	Error = 0.0901794
+ Step   50	Error = 0.0593202
+ Step   60	Error = 0.0416661
+ Step   70	Error = 0.0304947
+ Step   80	Error = 0.0274211
+ Step   90	Error = 0.0187165
+ Step  100	Error = 0.0148585
+ Step  110	Error = 0.012273
+ Step  120	Error = 0.0560924
+ Step  130	Error = 0.00868621
+ Step  140	Error = 0.00722147
+ Step  150	Error = 0.00619213
+ Step  160	Error = 0.00566769
+ Step  170	Error = 0.00555193
+ Step  180	Error = 0.0041483
+ Step  190	Error = 0.00357291
+ Step  200	Error = 0.00318158
+ Step  210	Error = 0.00299901
+ Step  220	Error = 0.00978962
+ Step  230	Error = 0.00253276
+ Step  240	Error = 0.00212854
+ Step  250	Error = 0.00191541
+ Step  260	Error = 0.00179351
+ Step  270	Error = 0.00178592
+ Step  280	Error = 0.00247084
+ Step  290	Error = 0.00202235
+ Step  300	Error = 0.00186736
+ Step  310	Error = 0.00259851
+ Step  320	Error = 0.00138354
+ Step  330	Error = 0.00119437
+ Step  340	Error = 0.00113441
+ Step  350	Error = 0.00122436
+ Step  360	Error = 0.00565808
+ Step  370	Error = 0.00116724
+
+  Wall clock time = 0.014819 secs
+
+POISSON_MPI:
+  Normal end of execution.
+
+10 September 2013 01:13:00 PM

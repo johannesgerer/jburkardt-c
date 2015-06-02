@@ -8,4 +8,4 @@ int i4vec_sum ( int n, int a[] );
 double r8_uniform_01 ( int *seed );
 void rcont2 ( int nrow, int ncol, int nrowt[], int ncolt[], int *key,
   int *seed, int matrix[],  int *ierror );
-void timestamp ( void );
+void timestamp ( );

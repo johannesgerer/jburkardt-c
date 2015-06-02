@@ -18,6 +18,10 @@ int main ( void )
 
     MAIN is the main program for TRIANGLE_GRID_PRB.
 
+  Discussion:
+
+    TRIANGLE_GRID_PRB tests the TRIANGLE_GRID library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.

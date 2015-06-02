@@ -96,15 +96,15 @@ int indexn_row ( int n, int i_min[], int i[], int i_max[], int index_min );
 int isbn_check ( char *isbn );
 void isbn_fill ( char *isbn );
 int isbn_to_i4 ( char c );
-int lcm_12n ( int n );
-void lmat_print ( int m, int n, int a[], char *title );
-void lmat_print_some ( int m, int n, int a[], int ilo, int jlo, int ihi, 
+void l4mat_print ( int m, int n, int a[], char *title );
+void l4mat_print_some ( int m, int n, int a[], int ilo, int jlo, int ihi, 
   int jhi, char *title );
-void lmat_transpose_print ( int m, int n, int a[], char *title );
-void lmat_transpose_print_some ( int m, int n, int a[], int ilo, int jlo, 
+void l4mat_transpose_print ( int m, int n, int a[], char *title );
+void l4mat_transpose_print_some ( int m, int n, int a[], int ilo, int jlo, 
   int ihi, int jhi, char *title );
+void l4vec_print ( int n, int a[], char *title );
+int lcm_12n ( int n );
 int luhn_check ( int digit_num, int digit[] );
-void lvec_print ( int n, int a[], char *title );
 int pause_input ( );
 void pause_seconds ( int seconds );
 int perm_check ( int n, int p[], int base );

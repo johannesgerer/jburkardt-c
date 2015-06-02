@@ -29,7 +29,7 @@ int main ( void )
 
   Discussion:
 
-    TOMS655_PRB calls a set of problems for DIVDIF.
+    TOMS655_PRB tests the TOMS655 library.
 
   Licensing:
 
@@ -50,12 +50,10 @@ int main ( void )
   int nt;
 
   timestamp ( );
-
   printf ( "\n" );
   printf ( "TOMS655_PRB\n" );
   printf ( "  C version\n" );
-  printf ( "\n" );
-  printf ( "  Tests for the routines in the TOMS655 library.\n" );
+  printf ( "  Test the TOMS655 library.\n" );
  
   test01 ( );
   test02 ( );
@@ -84,11 +82,12 @@ int main ( void )
     }
     test10 ( nt, kind, alpha, beta );
   }
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "TOMS655_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -613,7 +612,7 @@ void test06 ( void )
 /*
   Purpose:
 
-    TEST06 tests CEIQF.
+    TEST06 tests CLIQF and EIQFS.
 
   Licensing:
 

@@ -25,7 +25,11 @@ int main ( void )
 /*
   Purpose:
 
-    FD1D_WAVE_PRB tests the FD1D finite difference wave computation.
+    MAIN is the main program for FD1D_WAVE_PRB.
+
+  Discussion:
+
+    FD1D_WAVE_PRB tests the FD1D_WAVE library.
 
   Licensing:
 
@@ -41,7 +45,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "FD1D_WAVE_PRB\n" );
   printf ( "  C version\n" );
@@ -146,6 +149,7 @@ void fd1d_wave_test01 ( void )
   {
     t = t_vec[i];
     u3 = fd1d_wave_step ( x_num, t, alpha, u_x1_01, u_x2_01, u1, u2 );
+
     for ( j = 0; j < x_num; j++ )
     {
       u[i+j*t_num] = u3[j];
@@ -157,10 +161,10 @@ void fd1d_wave_test01 ( void )
 /*
   Write the solution to a file.
 */
-  r8mat_write ( "test01_plot.txt", t_num, x_num, u );
+  r8mat_write ( "test01_data.txt", t_num, x_num, u );
 
   printf ( "\n" );
-  printf ( "  Plot data written to \"test01_plot.txt\".\n" );
+  printf ( "  Plot data written to \"test01_data.txt\".\n" );
 
   free ( t_vec );
   free ( u );
@@ -438,10 +442,10 @@ void fd1d_wave_test02 ( void )
 /*
   Write the solution to a file.
 */
-  r8mat_write ( "test02_plot.txt", t_num, x_num, u );
+  r8mat_write ( "test02_data.txt", t_num, x_num, u );
 
   printf ( "\n" );
-  printf ( "  Plot data written to \"test02_plot.txt\".\n" );
+  printf ( "  Plot data written to \"test02_data.txt\".\n" );
 
   free ( t_vec );
   free ( u );
@@ -554,7 +558,7 @@ double *u_t1_02 ( int x_num, double x_vec[] )
 */
 {
   int j;
-  double pi = 3.141592653589793;
+  const double pi = 3.141592653589793;
   double *u;
 
   u = ( double * ) malloc ( x_num * sizeof ( double ) );

@@ -26,7 +26,7 @@ int main ( void )
 
   Discussion:
 
-    HERMITE_PRB tests HERMITE.
+    HERMITE_PRB tests the HERMITE library.
 
   Licensing:
 
@@ -42,7 +42,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "HERMITE_PRB\n" );
   printf ( "  C version\n" );
@@ -62,7 +61,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "HERMITE_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

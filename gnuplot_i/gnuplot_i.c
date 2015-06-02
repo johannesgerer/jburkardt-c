@@ -193,7 +193,7 @@ gnuplot_ctrl * gnuplot_init ( void )
     /* 
      * Structure initialization:
      */
-    handle = malloc(sizeof(gnuplot_ctrl)) ;
+    handle = ( gnuplot_ctrl * ) malloc ( sizeof ( gnuplot_ctrl ) ) ;
     handle->nplots = 0 ;
     gnuplot_setstyle(handle, "points") ;
     handle->ntmp = 0 ;

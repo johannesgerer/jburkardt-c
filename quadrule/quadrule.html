@@ -23,7 +23,7 @@
     </p>
 
     <p>
-      <b>QUADRULE</b> returns the abscissas and weights for a variety of
+      QUADRULE returns the abscissas and weights for a variety of
       one dimensional quadrature rules for approximating the integral
       of a function.  The best rule is generally Gauss-Legendre quadrature,
       but other rules offer special features, including the ability to
@@ -52,8 +52,8 @@
       <a href = "../../cpp_src/quadrule/quadrule.html">a C++ version</a> and
       <a href = "../../f77_src/quadrule/quadrule.html">a FORTRAN77 version</a> and
       <a href = "../../f_src/quadrule/quadrule.html">a FORTRAN90 version</a> and
-      <a href = "../../math_src/quadrule/quadrule.html">a MATHEMATICA version</a> and
-      <a href = "../../m_src/quadrule/quadrule.html">a MATLAB version</a>.
+      <a href = "../../m_src/quadrule/quadrule.html">a MATLAB version</a> and
+      <a href = "../../py_src/quadrule/quadrule.html">a Python version</a>.
     </p>
 
     <h3 align = "center">
@@ -61,47 +61,17 @@
     </h3>
 
     <p>
+      <a href = "../../c_src/ccn_rule/ccn_rule.html">
+      CCN_RULE</a>,
+      a C program which
+      defines one of a set of nested Clenshaw Curtis quadrature rules.
+    </p>
+
+    <p>
       <a href = "../../c_src/clenshaw_curtis_rule/clenshaw_curtis_rule.html">
       CLENSHAW_CURTIS_RULE</a>,
       a C program which
       defines a Clenshaw Curtis quadrature rule.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/dunavant/dunavant.html">
-      DUNAVANT</a>,
-      a C++ library which
-      defines Dunavant rules for quadrature on a triangle.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/fekete/fekete.html">
-      FEKETE</a>,
-      a C++ library which
-      defines a Fekete rule for quadrature or interpolation over a triangle.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/felippa/felippa.html">
-      FELIPPA</a>,
-      a C++ library which
-      defines quadrature rules for lines, triangles, quadrilaterals,
-      pyramids, wedges, tetrahedrons and hexahedrons.
-    </p>
-
-    <p>
-      <a href = "../../f_src/intlib/intlib.html">
-      INTLIB</a>,
-      a FORTRAN90 library which
-      numerically estimates integrals.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/keast/keast.html">
-      KEAST</a>,
-      a C++ library which
-      defines a number of quadrature rules
-      for a tetrahedron.
     </p>
 
     <p>
@@ -114,74 +84,76 @@
     </p>
 
     <p>
+      <a href = "../../c_src/laguerre_rule/laguerre_rule.html">
+      LAGUERRE_RULE</a>,
+      a C program which
+      can compute and print a Gauss-Laguerre quadrature rule
+      for estimating the integral of a function with density exp(-x) 
+      over the interval [0,+oo).
+    </p>
+
+    <p>
+      <a href = "../../c_src/legendre_rule/legendre_rule.html">
+      LEGENDRE_RULE</a>,
+      a C program which
+      computes a 1D Gauss-Legendre quadrature rule.
+    </p>
+
+    <p>
       <a href = "../../c_src/legendre_rule_fast/legendre_rule_fast.html">
       LEGENDRE_RULE_FAST</a>,
       a C program which
-      uses a fast (order N) algorithm to compute a Gauss-Legendre quadrature rule of given order.
+      uses a fast (order N) algorithm to compute a Gauss-Legendre quadrature 
+      rule of given order.
     </p>
 
     <p>
-      <a href = "../../cpp_src/ncc_tetrahedron/ncc_tetrahedron.html">
-      NCC_TETRAHEDRON</a>,
-      a C++ library which
-      defines Newton-Cotes closed quadrature
-      rules on a tetrahedron.
+      <a href = "../../c_src/line_felippa_rule/line_felippa_rule.html">
+      LINE_FELIPPA_RULE</a>,
+      a C library which
+      returns the points and weights of a Felippa quadrature rule
+      over the interior of a line segment in 1D.
     </p>
 
     <p>
-      <a href = "../../cpp_src/ncc_triangle/ncc_triangle.html">
-      NCC_TRIANGLE</a>,
-      a C++ library which
-      defines Newton-Cotes closed quadrature
-      rules on a triangle.
+      <a href = "../../c_src/line_nco_rule/line_nco_rule.html">
+      LINE_NCO_RULE</a>,
+      a C library which
+      computes a Newton Cotes Open (NCO) quadrature rule,
+      using equally spaced points,
+      over the interior of a line segment in 1D.
     </p>
 
     <p>
-      <a href = "../../cpp_src/nco_tetrahedron/nco_tetrahedron.html">
-      NCO_TETRAHEDRON</a>,
-      a C++ library which
-      defines Newton-Cotes open quadrature
-      rules on a tetrahedron.
+      <a href = "../../c_src/patterson_rule/patterson_rule.html">
+      PATTERSON_RULE</a>,
+      a C program which
+      returns the points and weights of a 1D Gauss-Patterson quadrature rule 
+      of order 1, 3, 7, 15, 31, 63, 127, 255 or 511.
     </p>
 
     <p>
-      <a href = "../../cpp_src/nco_triangle/nco_triangle.html">
-      NCO_TRIANGLE</a>,
-      a C++ library which
-      defines Newton-Cotes open quadrature
-      rules on a triangle.
+      <a href = "../../c_src/power_rule/power_rule.html">
+      POWER_RULE</a>,
+      a C program which
+      constructs a power rule, that is, a product quadrature rule 
+      from identical 1D factor rules.
     </p>
 
     <p>
-      <a href = "../../cpp_src/nint_exactness/nint_exactness.html">
-      NINT_EXACTNESS</a>,
-      a C++ program which
-      demonstrates how to measure the
-      polynomial exactness of a multidimensional quadrature rule.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/nintlib/nintlib.html">
-      NINTLIB</a>,
-      a C++ library which
-      contains a variety
-      of routines for numerical estimation of integrals in multiple dimensions.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/product_rule/product_rule.html">
+      <a href = "../../c_src/product_rule/product_rule.html">
       PRODUCT_RULE</a>,
-      a C++ program which
-      can create a multidimensional quadrature rule as a product of
-      one dimensional rules.
+      a C program which
+      constructs a product quadrature rule from distinct 1D factor rules.
     </p>
 
     <p>
-      <a href = "../../f_src/quadpack/quadpack.html">
-      QUADPACK</a>,
-      a FORTRAN90 library which
-      contains a variety of routines for
-      numerical estimation of integrals in 1D.
+      <a href = "../../c_src/quadmom/quadmom.html">
+      QUADMOM</a>,
+      a C library which
+      computes a Gaussian quadrature rule for a weight function rho(x)
+      based on the Golub-Welsch procedure that only requires knowledge
+      of the moments of rho(x).
     </p>
 
     <p>
@@ -209,16 +181,6 @@
     </p>
 
     <p>
-      <a href = "../../m_src/quadrature_test/quadrature_test.html">
-      QUADRATURE_TEST</a>,
-      a MATLAB program which
-      reads the definition of a
-      multidimensional quadrature rule from three files, applies
-      the rule to a number of test integrals, and prints the
-      results.
-    </p>
-
-    <p>
       <a href = "../../c_src/sandia_rules/sandia_rules.html">
       SANDIA_RULES</a>,
       a C library which
@@ -236,6 +198,15 @@
     </p>
 
     <p>
+      <a href = "../../c_src/sparse_grid_hw/sparse_grid_hw.html">
+      SPARSE_GRID_HW</a>,
+      a C library which
+      creates sparse grids based on Gauss-Legendre, Gauss-Hermite,
+      Gauss-Patterson, or a nested variation of Gauss-Hermite rules,
+      by Florian Heiss and Viktor Winschel.
+    </p>
+
+    <p>
       <a href = "../../c_src/stroud/stroud.html">
       STROUD</a>,
       a C library which
@@ -248,50 +219,6 @@
       TEST_INT</a>,
       a C library which
       defines test integrands for 1D quadrature rules.
-    </p>
-
-    <p>
-      <a href = "../../c_src/test_int_2d/test_int_2d.html">
-      TEST_INT_2D</a>,
-      a C library which
-      defines test integrands for 2D quadrature rules.
-    </p>
-
-    <p>
-      <a href = "../../c_src/test_int_laguerre/test_int_laguerre.html">
-      TEST_INT_LAGUERRE</a>,
-      a C library which
-      defines test integrands for the interval [a,+oo) and weight exp(-x);
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/test_nint/test_nint.html">
-      TEST_NINT</a>,
-      a C++ library which
-      defines a number of functions that may be used as test integrands for
-      quadrature rules in multiple dimensions.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/test_tri_int/test_tri_int.html">
-      TEST_TRI_INT</a>,
-      a C++ library which
-      can be used to test algorithms for quadrature over a triangle.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/triangle_exactness/triangle_exactness.html">
-      TRIANGLE_EXACTNESS</a>,
-      a C++ program which
-      investigates the polynomial
-      exactness of a quadrature rule for the triangle.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/wandzura/wandzura.html">
-      WANDZURA</a>,
-      a C++ library which
-      defines Wandzura rules for quadrature on a triangle.
     </p>
 
     <h3 align = "center">

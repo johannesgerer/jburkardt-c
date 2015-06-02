@@ -1,0 +1,55 @@
+22 September 2013 11:56:15 AM
+
+POISSON_MPI!!
+  C version
+  2-D Poisson equation using Jacobi algorithm
+  ===========================================
+  MPI version: 1-D domains, non-blocking send/receive
+  Number of processes         = 8
+  Number of interior vertices = 32
+  Desired fractional accuracy = 0.001000
+
+  N = 32, n = 352, my_n = 24, Step   10  Error = 0.367305
+  N = 32, n = 861, my_n = 86, Step   20  Error = 0.235421
+  N = 32, n = 1007, my_n = 124, Step   30  Error = 0.151743
+  N = 32, n = 1024, my_n = 128, Step   40  Error = 0.0901794
+  N = 32, n = 1024, my_n = 128, Step   50  Error = 0.0593202
+  N = 32, n = 1024, my_n = 128, Step   60  Error = 0.0416661
+  N = 32, n = 1024, my_n = 128, Step   70  Error = 0.0304947
+  N = 32, n = 1024, my_n = 128, Step   80  Error = 0.0274211
+  N = 32, n = 1024, my_n = 128, Step   90  Error = 0.0187165
+  N = 32, n = 1024, my_n = 128, Step  100  Error = 0.0148585
+  N = 32, n = 1024, my_n = 128, Step  110  Error = 0.012273
+  N = 32, n = 1024, my_n = 128, Step  120  Error = 0.0560924
+  N = 32, n = 1024, my_n = 128, Step  130  Error = 0.00868621
+  N = 32, n = 1024, my_n = 128, Step  140  Error = 0.00722147
+  N = 32, n = 1024, my_n = 128, Step  150  Error = 0.00619213
+  N = 32, n = 1024, my_n = 128, Step  160  Error = 0.00566769
+  N = 32, n = 1024, my_n = 128, Step  170  Error = 0.00555193
+  N = 32, n = 1024, my_n = 128, Step  180  Error = 0.0041483
+  N = 32, n = 1024, my_n = 128, Step  190  Error = 0.00357291
+  N = 32, n = 1024, my_n = 128, Step  200  Error = 0.00318158
+  N = 32, n = 1024, my_n = 128, Step  210  Error = 0.00299901
+  N = 32, n = 1024, my_n = 128, Step  220  Error = 0.00978962
+  N = 32, n = 1024, my_n = 128, Step  230  Error = 0.00253276
+  N = 32, n = 1024, my_n = 128, Step  240  Error = 0.00212854
+  N = 32, n = 1024, my_n = 128, Step  250  Error = 0.00191541
+  N = 32, n = 1024, my_n = 128, Step  260  Error = 0.00179351
+  N = 32, n = 1024, my_n = 128, Step  270  Error = 0.00178592
+  N = 32, n = 1024, my_n = 128, Step  280  Error = 0.00247084
+  N = 32, n = 1024, my_n = 128, Step  290  Error = 0.00202235
+  N = 32, n = 1024, my_n = 128, Step  300  Error = 0.00186736
+  N = 32, n = 1024, my_n = 128, Step  310  Error = 0.00259851
+  N = 32, n = 1024, my_n = 128, Step  320  Error = 0.00138354
+  N = 32, n = 1024, my_n = 128, Step  330  Error = 0.00119437
+  N = 32, n = 1024, my_n = 128, Step  340  Error = 0.00113441
+  N = 32, n = 1024, my_n = 128, Step  350  Error = 0.00122436
+  N = 32, n = 1024, my_n = 128, Step  360  Error = 0.00565808
+  N = 32, n = 1024, my_n = 128, Step  370  Error = 0.00116724
+
+  Wall clock time = 0.047698 secs
+
+POISSON_MPI:
+  Normal end of execution.
+
+22 September 2013 11:56:15 AM

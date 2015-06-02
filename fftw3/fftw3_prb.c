@@ -4,7 +4,7 @@
 
 # include <fftw3.h>
 
-int main ( void );
+int main ( );
 void test01 ( void );
 void test02 ( void );
 void test03 ( void );
@@ -14,13 +14,21 @@ void timestamp ( void );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    FFTW3_PRB demonstrates the use of FFTW3.
+    MAIN is the main program for FFTW3_PRB.
+
+  Discussion:
+
+    FFTW3_PRB tests the FFTW3 library.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -32,7 +40,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "FFTW3_PRB\n" );
   printf ( "  C version\n" );
@@ -48,7 +55,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "FFTW3_PRB\n" );
   printf ( "  Normal end of execution.\n" );
- 
   printf ( "\n" );
   timestamp ( );
 
@@ -73,6 +79,10 @@ void test01 ( void )
 
     We have FFTW3 compute the inverse Fourier transform of "OUT" to get
     "IN2", which should be the original input data, scaled by N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -185,6 +195,10 @@ void test02 ( void )
   Purpose:
 
     TEST02: apply FFT to real 1D data.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -309,6 +323,10 @@ void test03 ( void )
 
       a[i*ny+j][0] is the real      part of A(I,J).
       a[i*ny+j][1] is the imaginary part of A(I,J)..
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -448,6 +466,10 @@ void test04 ( void )
       a[i*nyh+j][0] is the real      part of A(I,J).
       a[i*nyh+j][1] is the imaginary part of A(I,J)..
 
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
   Modified:
 
     05 November 2007
@@ -480,7 +502,7 @@ void test04 ( void )
 /*
   Create the input array, an NX by NY array of doubles.
 */
-  in = malloc ( sizeof ( double ) * nx * ny );
+  in = ( double * ) malloc ( sizeof ( double ) * nx * ny );
 
   srand ( seed );
 
@@ -532,7 +554,7 @@ void test04 ( void )
 /*
   Recreate the input array.
 */
-  in2 = malloc ( sizeof ( double ) * nx * ny );
+  in2 = ( double * ) malloc ( sizeof ( double ) * nx * ny );
 
   plan_backward = fftw_plan_dft_c2r_2d ( nx, ny, out, in2, FFTW_ESTIMATE );
 
@@ -583,6 +605,10 @@ double frand ( void )
     but this seems to result in integer overflow for RAND_MAX + 1,
     resulting in negative values for the random numbers.
 
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
   Modified:
 
     23 October 2005
@@ -621,6 +647,10 @@ void timestamp ( void )
   Example:
 
     31 May 2001 09:45:54 AM
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 

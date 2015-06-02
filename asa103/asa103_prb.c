@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    ASA103_PRB calls the ASA103 routines.
+    ASA103_PRB tests the ASA103 library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA103_PRB:\n" );
   printf ( "  C version\n" );
@@ -48,7 +47,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA103_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

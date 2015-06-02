@@ -17,7 +17,11 @@ int main ( )
 /*
   Purpose:
 
-    MAIN is the main program for COMBINATION_LOCK.
+    MAIN is the main program for COMBINATION_LOCK_PRB.
+
+  Discussion:
+
+    COMBINATION_LOCK_PRB tests the COMBINATION_LOCK library.
 
   Licensing:
 
@@ -34,7 +38,7 @@ int main ( )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "COMBINATION_LOCK\n" );
+  printf ( "COMBINATION_LOCK_PRB\n" );
   printf ( "  C version\n" );
   printf ( "  Test the COMBINATION_LOCK libary.\n" );
 
@@ -44,7 +48,7 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "COMBINATION_LOCK\n" );
+  printf ( "COMBINATION_LOCK_PRB\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

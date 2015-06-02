@@ -58,7 +58,6 @@ int main ( )
   printf ( "\n" );
   printf ( "QR_SOLVE_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

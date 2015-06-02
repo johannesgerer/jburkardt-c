@@ -17,7 +17,32 @@
 
 # include "toms322.h"
 
+/******************************************************************************/
+
 int main ( void )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MAIN is the main program for TOMS322_PRB.
+
+  Discussion:
+
+    TOMS322_PRB calls the TOMS322 tests.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 November 2013
+
+  Author:
+
+    John Burkardt
+*/
 {
   int df;
   int df_num;
@@ -25,6 +50,11 @@ int main ( void )
   double t;
   char test_type;
 
+  printf ( "\n" );
+  printf ( "TOMS322_PRB:\n" );
+  printf ( "  C version\n" );
+  printf ( "  Test the TOMS322 library.\n" );
+  printf ( "\n" );
   printf("Enter test type, degrees of freedom, and value, or 'q' to quit -\nfor example 'f 1 10 10.04' or 't 10 3.169'\n");
   test_type = getchar();
   while(test_type != 'q')
@@ -54,5 +84,12 @@ int main ( void )
       }
     test_type = getchar();
     }
+/*
+  Terminate.
+*/
+  printf ( "\n" );
+  printf ( "TOMS322_PRB:\n" );
+  printf ( "  Normal end of execution\n" );
+
   return 0;
 }

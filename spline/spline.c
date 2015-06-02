@@ -3443,6 +3443,150 @@ double r8_uniform_01 ( int *seed )
 }
 /******************************************************************************/
 
+double *r8ge_fs_new ( int n, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GE_FS_NEW factors and solves a R8GE system.
+
+  Discussion:
+
+    The R8GE storage format is used for a "general" M by N matrix.  
+    A physical storage space is made for each logical entry.  The two 
+    dimensional logical array is mapped to a vector, in which storage is 
+    by columns.
+
+    The function does not save the LU factors of the matrix, and hence cannot
+    be used to efficiently solve multiple linear systems, or even to
+    factor A at one time, and solve a single linear system at a later time.
+
+    The function uses partial pivoting, but no pivot vector is required.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    10 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input/output, double A[N*N].
+    On input, A is the coefficient matrix of the linear system.
+    On output, A is in unit upper triangular form, and
+    represents the U factor of an LU factorization of the
+    original coefficient matrix.
+
+    Input, double B[N], the right hand side of the linear system.
+
+    Output, double R8GE_FS_NEW[N], the solution of the linear system.
+*/
+{
+  int i;
+  int ipiv;
+  int j;
+  int jcol;
+  double piv;
+  double t;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+  }
+
+  for ( jcol = 1; jcol <= n; jcol++ )
+  {
+/*
+  Find the maximum element in column I.
+*/
+    piv = r8_abs ( a[jcol-1+(jcol-1)*n] );
+    ipiv = jcol;
+    for ( i = jcol+1; i <= n; i++ )
+    {
+      if ( piv < r8_abs ( a[i-1+(jcol-1)*n] ) )
+      {
+        piv = r8_abs ( a[i-1+(jcol-1)*n] );
+        ipiv = i;
+      }
+    }
+
+    if ( piv == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8GE_FS_NEW - Fatal error!\n" );
+      fprintf ( stderr, "  Zero pivot on step %d\n", jcol );
+      exit ( 1 );
+    }
+/*
+  Switch rows JCOL and IPIV, and X.
+*/
+    if ( jcol != ipiv )
+    {
+      for ( j = 1; j <= n; j++ )
+      {
+        t                 = a[jcol-1+(j-1)*n];
+        a[jcol-1+(j-1)*n] = a[ipiv-1+(j-1)*n];
+        a[ipiv-1+(j-1)*n] = t;
+      }
+      t         = x[jcol-1];
+      x[jcol-1] = x[ipiv-1];
+      x[ipiv-1] = t;
+    }
+/*
+  Scale the pivot row.
+*/
+    t = a[jcol-1+(jcol-1)*n];
+    a[jcol-1+(jcol-1)*n] = 1.0;
+    for ( j = jcol+1; j <= n; j++ )
+    {
+      a[jcol-1+(j-1)*n] = a[jcol-1+(j-1)*n] / t;
+    }
+    x[jcol-1] = x[jcol-1] / t;
+/*
+  Use the pivot row to eliminate lower entries in that column.
+*/
+    for ( i = jcol+1; i <= n; i++ )
+    {
+      if ( a[i-1+(jcol-1)*n] != 0.0 )
+      {
+        t = - a[i-1+(jcol-1)*n];
+        a[i-1+(jcol-1)*n] = 0.0;
+        for ( j = jcol+1; j <= n; j++ )
+        {
+          a[i-1+(j-1)*n] = a[i-1+(j-1)*n] + t * a[jcol-1+(j-1)*n];
+        }
+        x[i-1] = x[i-1] + t * x[jcol-1];
+      }
+    }
+  }
+/*
+  Back solve.
+*/
+  for ( jcol = n; 2 <= jcol; jcol-- )
+  {
+    for ( i = 1; i < jcol; i++ )
+    {
+      x[i-1] = x[i-1] - a[i-1+(jcol-1)*n] * x[jcol-1];
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
 void r8vec_bracket ( int n, double x[], double xval, int *left,
   int *right )
 
@@ -4126,7 +4270,7 @@ double *r8vec_uniform_new ( int n, double b, double c, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -4650,11 +4794,18 @@ double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg,
 
   Modified:
 
-    06 February 2004
+    07 June 2013
 
   Author:
 
     John Burkardt
+
+  Reference:
+
+    Carl deBoor,
+    A Practical Guide to Splines,
+    Springer, 2001,
+    ISBN: 0387953663.
 
   Parameters:
 
@@ -4668,25 +4819,32 @@ double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg,
     Input, double Y[N], the data values to be interpolated.
 
     Input, int IBCBEG, left boundary condition flag:
-      0: the cubic spline should be a quadratic over the first interval;
-      1: the first derivative at the left endpoint should be YBCBEG;
-      2: the second derivative at the left endpoint should be YBCBEG.
+    0: the cubic spline should be a quadratic over the first interval;
+    1: the first derivative at the left endpoint should be YBCBEG;
+    2: the second derivative at the left endpoint should be YBCBEG;
+    3: Not-a-knot: the third derivative is continuous at T(2).
 
     Input, double YBCBEG, the values to be used in the boundary
     conditions if IBCBEG is equal to 1 or 2.
 
     Input, int IBCEND, right boundary condition flag:
-      0: the cubic spline should be a quadratic over the last interval;
-      1: the first derivative at the right endpoint should be YBCEND;
-      2: the second derivative at the right endpoint should be YBCEND.
+    0: the cubic spline should be a quadratic over the last interval;
+    1: the first derivative at the right endpoint should be YBCEND;
+    2: the second derivative at the right endpoint should be YBCEND;
+    3: Not-a-knot: the third derivative is continuous at T(N-1).
 
     Input, double YBCEND, the values to be used in the boundary
     conditions if IBCEND is equal to 1 or 2.
 
-    Output, double SPLINE_CUBIC_SET[N], the second derivatives of the cubic spline.
+    Output, double SPLINE_CUBIC_SET[N], the second derivatives 
+    of the cubic spline.
 */
 {
-  double *a;
+  double *a1;
+  double *a2;
+  double *a3;
+  double *a4;
+  double *a5;
   double *b;
   int i;
   double *ypp;
@@ -4699,7 +4857,7 @@ double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg,
     fprintf ( stderr, "SPLINE_CUBIC_SET - Fatal error!\n" );
     fprintf ( stderr, "  The number of data points N must be at least 2.\n" );
     fprintf ( stderr, "  The input value is %d.\n", n );
-    return NULL;
+    exit ( 1 );
   }
 
   for ( i = 0; i < n - 1; i++ )
@@ -4711,31 +4869,51 @@ double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg,
       fprintf ( stderr, "  The knots must be strictly increasing, but\n" );
       fprintf ( stderr, "  T(%d) = %g\n", i, t[i] );
       fprintf ( stderr, "  T(%d) = %g\n", i+1, t[i+1] );
-      return NULL;
+      exit ( 1 );
     }
   }
-  a = ( double * ) malloc ( 3 * n * sizeof ( double ) );
+  a1 = ( double * ) malloc ( n * sizeof ( double ) );
+  a2 = ( double * ) malloc ( n * sizeof ( double ) );
+  a3 = ( double * ) malloc ( n * sizeof ( double ) );
+  a4 = ( double * ) malloc ( n * sizeof ( double ) );
+  a5 = ( double * ) malloc ( n * sizeof ( double ) );
   b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a1[i] = 0.0;
+    a2[i] = 0.0;
+    a3[i] = 0.0;
+    a4[i] = 0.0;
+    a5[i] = 0.0;
+  }
 /*
   Set up the first equation.
 */
   if ( ibcbeg == 0 )
   {
     b[0] = 0.0;
-    a[1+0*3] = 1.0;
-    a[0+1*3] = -1.0;
+    a3[0] = 1.0;
+    a4[0] = -1.0;
   }
   else if ( ibcbeg == 1 )
   {
     b[0] = ( y[1] - y[0] ) / ( t[1] - t[0] ) - ybcbeg;
-    a[1+0*3] = ( t[1] - t[0] ) / 3.0;
-    a[0+1*3] = ( t[1] - t[0] ) / 6.0;
+    a3[0] = ( t[1] - t[0] ) / 3.0;
+    a4[0] = ( t[1] - t[0] ) / 6.0;
   }
   else if ( ibcbeg == 2 )
   {
     b[0] = ybcbeg;
-    a[1+0*3] = 1.0;
-    a[0+1*3] = 0.0;
+    a3[0] = 1.0;
+    a4[0] = 0.0;
+  }
+  else if ( ibcbeg == 3 )
+  {
+    b[0] = 0.0;
+    a3[0] = - ( t[2] - t[1] );
+    a4[0] =   ( t[2]        - t[0] );
+    a5[0] = - (        t[1] - t[0] );
   }
   else
   {
@@ -4743,20 +4921,18 @@ double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg,
     fprintf ( stderr, "SPLINE_CUBIC_SET - Fatal error!\n" );
     fprintf ( stderr, "  IBCBEG must be 0, 1 or 2.\n" );
     fprintf ( stderr, "  The input value is %d.\n", ibcbeg );
-    free ( a );
-    free ( b );
-    return NULL;
+    exit ( 1 );
   }
 /*
   Set up the intermediate equations.
 */
-  for ( i = 1; i < n-1; i++ )
+  for ( i = 1; i < n - 1; i++ )
   {
     b[i] = ( y[i+1] - y[i] ) / ( t[i+1] - t[i] )
       - ( y[i] - y[i-1] ) / ( t[i] - t[i-1] );
-    a[2+(i-1)*3] = ( t[i] - t[i-1] ) / 6.0;
-    a[1+ i   *3] = ( t[i+1] - t[i-1] ) / 3.0;
-    a[0+(i+1)*3] = ( t[i+1] - t[i] ) / 6.0;
+    a2[i] = ( t[i+1] - t[i]   ) / 6.0;
+    a3[i] = ( t[i+1] - t[i-1] ) / 3.0;
+    a4[i] = ( t[i]   - t[i-1] ) / 6.0;
   }
 /*
   Set up the last equation.
@@ -4764,20 +4940,27 @@ double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg,
   if ( ibcend == 0 )
   {
     b[n-1] = 0.0;
-    a[2+(n-2)*3] = -1.0;
-    a[1+(n-1)*3] = 1.0;
+    a2[n-1] = -1.0;
+    a3[n-1] = 1.0;
   }
   else if ( ibcend == 1 )
   {
     b[n-1] = ybcend - ( y[n-1] - y[n-2] ) / ( t[n-1] - t[n-2] );
-    a[2+(n-2)*3] = ( t[n-1] - t[n-2] ) / 6.0;
-    a[1+(n-1)*3] = ( t[n-1] - t[n-2] ) / 3.0;
+    a2[n-1] = ( t[n-1] - t[n-2] ) / 6.0;
+    a3[n-1] = ( t[n-1] - t[n-2] ) / 3.0;
   }
   else if ( ibcend == 2 )
   {
     b[n-1] = ybcend;
-    a[2+(n-2)*3] = 0.0;
-    a[1+(n-1)*3] = 1.0;
+    a2[n-1] = 0.0;
+    a3[n-1] = 1.0;
+  }
+  else if ( ibcbeg == 3 )
+  {
+    b[n-1] = 0.0;
+    a1[n-1] = - ( t[n-1] - t[n-2] );
+    a2[n-1] =   ( t[n-1]          - t[n-3] );
+    a3[n-1] = - (          t[n-2] - t[n-3] );
   }
   else
   {
@@ -4785,9 +4968,7 @@ double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg,
     fprintf ( stderr, "SPLINE_CUBIC_SET - Fatal error!\n" );
     fprintf ( stderr, "  IBCEND must be 0, 1 or 2.\n" );
     fprintf ( stderr, "  The input value is %d.\n", ibcend );
-    free ( a );
-    free ( b );
-    return NULL;
+    exit ( 1 );
   }
 /*
   Solve the linear system.
@@ -4801,23 +4982,101 @@ double *spline_cubic_set ( int n, double t[], double y[], int ibcbeg,
   }
   else
   {
-    ypp = d3_np_fs ( n, a, b );
-
-    if ( !ypp )
-    {
-      fprintf ( stderr, "\n" );
-      fprintf ( stderr, "SPLINE_CUBIC_SET - Fatal error!\n" );
-      fprintf ( stderr, "  The linear system could not be solved.\n" );
-      free ( a );
-      free ( b );
-      return NULL;
-    }
-
+    ypp = penta ( n, a1, a2, a3, a4, a5, b );
   }
 
-  free ( a );
+  free ( a1 );
+  free ( a2 );
+  free ( a3 );
+  free ( a4 );
+  free ( a5 );
   free ( b );
+
   return ypp;
+}
+/******************************************************************************/
+
+double *penta ( int n, double a1[], double a2[], double a3[], double a4[], 
+  double a5[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PENTA solves a pentadiagonal system of linear equations.
+
+  Discussion:
+
+    The matrix A is pentadiagonal.  It is entirely zero, except for
+    the main diagaonal, and the two immediate sub- and super-diagonals.
+
+    The entries of Row I are stored as:
+
+      A(I,I-2) -> A1(I)
+      A(I,I-1) -> A2(I)
+      A(I,I)   -> A3(I)
+      A(I,I+1) -> A4(I)
+      A(I,I-2) -> A5(I)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 June 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Cheney, Kincaid,
+    Numerical Mathematics and Computing,
+    1985, pages 233-236.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A1[N], A2[N], A3[N], A4[N], A5[N], the nonzero
+    elements of the matrix.  Note that the data in A2, A3 and A4
+    is overwritten by this routine during the solution process.
+
+    Input, double B[N], the right hand side of the linear system.
+
+    Output, double PENTA[N], the solution of the linear system.
+*/
+{
+  int i;
+  double *x;
+  double xmult;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 1; i < n - 1; i++ )
+  {
+    xmult = a2[i] / a3[i-1];
+    a3[i] = a3[i] - xmult * a4[i-1];
+    a4[i] = a4[i] - xmult * a5[i-1];
+    b[i] = b[i] - xmult * b[i-1];
+    xmult = a1[i+1] / a3[i-1];
+    a2[i+1] = a2[i+1] - xmult * a4[i-1];
+    a3[i+1] = a3[i+1] - xmult * a5[i-1];
+    b[i+1] = b[i+1] - xmult * b[i-1];
+  }
+
+  xmult = a2[n-1] / a3[n-2];
+  a3[n-1] = a3[n-1] - xmult * a4[n-2];
+  x[n-1] = ( b[n-1] - xmult * b[n-2] ) / a3[n-1];
+  x[n-2] = ( b[n-2] - a4[n-2] * x[n-1] ) / a3[n-2];
+  for ( i = n - 3; 0 <= i; i-- )
+  {
+    x[i] = ( b[i] - a4[i] * x[i+1] - a5[i] * x[i+2] ) / a3[i];
+  }
+
+  return x;
 }
 /******************************************************************************/
 

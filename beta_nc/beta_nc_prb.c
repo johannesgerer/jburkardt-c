@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    BETA_NC_PRB calls the BETA_NC routines.
+    BETA_NC_PRB tests the BETA_NC library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "BETA_NC_PRB:\n" );
   printf ( "  C version\n" );
@@ -48,7 +47,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "BETA_NC_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

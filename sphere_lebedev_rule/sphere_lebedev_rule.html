@@ -17,7 +17,8 @@
     <p>
       <b>SPHERE_LEBEDEV_RULE</b> 
       is a C library which
-      computes a Lebedev quadrature rule for the unit sphere.
+      computes a Lebedev quadrature rule 
+      over the surface of the unit sphere in 3D.
     </p>
 
     <p>
@@ -94,19 +95,35 @@
     </h3>
 
     <p>
-      <a href = "../../f_src/sphere_cvt/sphere_cvt.html">
-      SPHERE_CVT</a>,
-      a FORTRAN90 library which 
-      creates a mesh of well-separated points on a unit sphere using Centroidal Voronoi
-      Tessellations.
+      <a href = "../../c_src/circle_rule/circle_rule.html">
+      CIRCLE_RULE</a>,
+      a C library which
+      computes quadrature rules 
+      over the circumference of a circle in 2D.
     </p>
 
     <p>
-      <a href = "../../f_src/sphere_design_rule/sphere_design_rule.html">
-      SPHERE_DESIGN_RULE</a>,
-      a FORTRAN90 library which 
-      returns point sets on the surface of the unit sphere, known as "designs",
-      which can be useful for estimating integrals on the surface, among other uses.
+      <a href = "../../c_src/cube_felippa_rule/cube_felippa_rule.html">
+      CUBE_FELIPPA_RULE</a>,
+      a C library which
+      returns the points and weights of a Felippa quadrature rule
+      over the interior of a cube in 3D.
+    </p>
+
+    <p>
+      <a href = "../../c_src/pyramid_felippa_rule/pyramid_felippa_rule.html">
+      PYRAMID_FELIPPA_RULE</a>,
+      a C library which
+      returns Felippa's quadratures rules for approximating integrals
+      over the interior of a pyramid in 3D.
+    </p>
+
+    <p>
+      <a href = "../../c_src/sphere_exactness/sphere_exactness.html">
+      SPHERE_EXACTNESS</a>,
+      a C program which
+      tests the monomial exactness of a quadrature rule
+      on the surface of the unit sphere in 3D.
     </p>
 
     <p>
@@ -114,64 +131,64 @@
       SPHERE_GRID</a>, 
       a C library which 
       provides a number of ways of generating grids of points, or of
-      points and lines, or of points and lines and faces, over the unit sphere.
+      points and lines, or of points and lines and faces,  
+      over the surface of the unit sphere in 3D.
     </p>
 
     <p>
       <a href = "../../datasets/sphere_lebedev_rule/sphere_lebedev_rule.html">
       SPHERE_LEBEDEV_RULE</a>, 
       a dataset directory which 
-      contains sets of points on a sphere which can be used for
-      quadrature rules of a known precision;
-    </p>
-
-    <p>
-      <a href = "../../m_src/sphere_lebedev_rule_display/sphere_lebedev_rule_display.html">
-      SPHERE_LEBEDEV_RULE_DISPLAY</a>, 
-      a MATLAB program which 
-      reads a file defining a Lebedev quadrature rule for the sphere and
-      displays the point locations.
+      contains quadrature rules
+      over the surface of the unit sphere in 3D.
     </p>
 
     <p>
       <a href = "../../c_src/sphere_quad/sphere_quad.html">
       SPHERE_QUAD</a>,
       a C library which 
-      approximates an integral over the surface of the unit sphere 
-      by applying a triangulation to the surface;
+      approximates an integral by applying a triangulation
+      over the surface of the unit sphere in 3D.
     </p>
 
     <p>
-      <a href = "../../f_src/sphere_voronoi/sphere_voronoi.html">
-      SPHERE_VORONOI</a>,
-      a FORTRAN90 program which 
-      computes and plots the Voronoi diagram of points on the unit sphere.
+      <a href = "../../c_src/square_felippa_rule/square_felippa_rule.html">
+      SQUARE_FELIPPA_RULE</a>,
+      a C library which
+      returns the points and weights of a Felippa quadrature rule
+      over the interior of a square in 2D.
     </p>
 
-    <p> 
-      <a href = "../../m_src/sphere_xyz_display/sphere_xyz_display.html">
-      SPHERE_XYZ_DISPLAY</a>, 
-      a MATLAB program which
-      reads XYZ information defining points in 3D, 
-      and displays a unit sphere and the points in the MATLAB 3D graphics window.
+    <p>
+      <a href = "../../c_src/tetrahedron_felippa_rule/tetrahedron_felippa_rule.html">
+      TETRAHEDRON_FELIPPA_RULE</a>,
+      a C library which
+      returns Felippa's quadratures rules for approximating integrals
+      over the interior of a tetrahedron in 3D.
     </p>
 
-    <p> 
-      <a href = "../../cpp_src/sphere_xyz_display_opengl/sphere_xyz_display_opengl.html">
-      SPHERE_XYZ_DISPLAY_OPENGL</a>, 
-      a C++ program which
-      reads XYZ information defining points in 3D, 
-      and displays a unit sphere and the points, using OpenGL.
+    <p>
+      <a href = "../../c_src/triangle_fekete_rule/triangle_fekete_rule.html">
+      TRIANGLE_FEKETE_RULE</a>,
+      a C library which
+      defines Fekete rules for interpolation or quadrature 
+      over the interior of a triangle in 2D.
     </p>
 
-    <p> 
-      <a href = "../../m_src/sphere_xyzf_display/sphere_xyzf_display.html">
-      SPHERE_XYZF_DISPLAY</a>, 
-      a MATLAB program which
-      reads XYZF information defining points and faces, 
-      and displays a unit sphere, the points, and the faces,
-      in the MATLAB 3D graphics window.  This can be used, for instance, to
-      display Voronoi diagrams or Delaunay triangulations on the unit sphere.
+    <p>
+      <a href = "../../c_src/triangle_felippa_rule/triangle_felippa_rule.html">
+      TRIANGLE_FELIPPA_RULE</a>,
+      a C library which
+      returns Felippa's quadratures rules for approximating integrals
+      over the interior of a triangle in 2D.
+    </p>
+
+    <p>
+      <a href = "../../c_src/wedge_felippa_rule/wedge_felippa_rule.html">
+      WEDGE_FELIPPA_RULE</a>,
+      a C library which
+      returns quadratures rules for approximating integrals
+      over the interior of the unit wedge in 3D.
     </p>
 
     <h3 align = "center">

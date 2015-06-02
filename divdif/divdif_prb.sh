@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g -I/$HOME/include divdif_prb.c >& compiler.txt
+gcc -c -I/$HOME/include divdif_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling divdif_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc divdif_prb.o /$HOME/libc/$ARCH/divdif.o -lm
 if [ $? -ne 0 ]; then

@@ -6,7 +6,7 @@
 
 /******************************************************************************/
 
-double cpu_time ( void )
+double cpu_time ( )
 
 /******************************************************************************/
 /*
@@ -100,7 +100,7 @@ int *time_numbers ( )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*
@@ -110,7 +110,7 @@ void timestamp ( void )
 
   Example:
 
-    31 May 2001 09:45:54 AM
+    17 June 2014 09:45:54 AM
 
   Licensing:
 
@@ -118,7 +118,7 @@ void timestamp ( void )
 
   Modified:
 
-    24 September 2003
+    17 June 2014
 
   Author:
 
@@ -147,7 +147,7 @@ void timestamp ( void )
 }
 /******************************************************************************/
 
-char *timestring ( void )
+char *timestring ( )
 
 /******************************************************************************/
 /*
@@ -165,7 +165,7 @@ char *timestring ( void )
 
   Modified:
 
-    24 September 2003
+    15 January 2014
 
   Author:
 
@@ -186,7 +186,7 @@ char *timestring ( void )
   now = time ( NULL );
   tm = localtime ( &now );
 
-  s = malloc ( TIME_SIZE * sizeof ( char ) );
+  s = ( char * ) malloc ( TIME_SIZE * sizeof ( char ) );
 
   len = strftime ( s, TIME_SIZE, "%d %B %Y %I:%M:%S %p", tm );
 

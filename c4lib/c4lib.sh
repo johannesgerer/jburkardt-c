@@ -2,7 +2,7 @@
 #
 cp c4lib.h /$HOME/include
 #
-gcc -c -g c4lib.c >& compiler.txt
+gcc -c -g -I/$HOME/include c4lib.c >& compiler.txt
 if [ $? -ne 0 ]; then
   echo "Errors compiling c4lib.c."
   exit

@@ -2,14 +2,14 @@
 # include <math.h>
 # include <time.h>
 
-int main ( void );
+int main ( );
 double f ( double x );
 double g ( double x );
-void timestamp ( void );
+void timestamp ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -95,7 +95,7 @@ int main ( void )
 
   Modified:
 
-    29 November 2012
+    25 December 2012
 
   Author:
 
@@ -127,13 +127,13 @@ int main ( void )
 
   double alpha;
   double c = 0.25;
-  FILE *commands;
-  FILE *data;
+  FILE *command_unit;
+  FILE *data_unit;
   double dt;
   double dx;
   int i;
   int j;
-  double k;
+  double t;
   double t1 = 0.0;
   double t2 = 3.0;
   double u[m+1][n+1];
@@ -166,10 +166,10 @@ int main ( void )
   Use the initial condition for U.
 */
   u[0][0] = 0.0;
-  for ( i = 1; i < n; i++ )
+  for ( j = 1; j < n; j++ )
   {
-    x = i * dx;
-    u[0][i] = f ( x );
+    x = j * dx;
+    u[0][j] = f ( x );
   }
   u[0][n] = 0.0;
 /*
@@ -177,65 +177,67 @@ int main ( void )
   Use the initial condition for dUdT.
 */
   u[1][0] = 0.0;
-  for ( i = 1; i < n; i++ )
+  for ( j = 1; j < n; j++ )
   {
-    x = i * dx;
-    u[1][i] = 
-        ( alpha / 2.0 ) * u[0][i-1]
-      + ( 1.0 - alpha ) * u[0][i] 
-      + ( alpha / 2.0 ) * u[0][i+1]
-      + k * g ( x );
+    x = j * dx;
+    u[1][j] = 
+        ( alpha / 2.0 ) * u[0][j-1]
+      + ( 1.0 - alpha ) * u[0][j] 
+      + ( alpha / 2.0 ) * u[0][j+1]
+      + dt * g ( x );
   }
   u[1][n] = 0.0;
 /*
   Time steps 2 through M:
 */
-  for ( j = 2; j <= m; j++ )
+  for ( i = 2; i <= m; i++ )
   {
-    u[j][0] = 0.0;
-    for ( i = 1; i < n; i++ )
+    u[i][0] = 0.0;
+    for ( j = 1; j < n; j++ )
     {
-      u[j][i] = 
-                        alpha   * u[j-1][i-1]
-        + 2.0 * ( 1.0 - alpha ) * u[j-1][i] 
-        +               alpha   * u[j-1][i+1]
-        -                         u[j-2][i];
+      u[i][j] = 
+                        alpha   * u[i-1][j-1]
+        + 2.0 * ( 1.0 - alpha ) * u[i-1][j] 
+        +               alpha   * u[i-1][j+1]
+        -                         u[i-2][j];
     }
-    u[j][n] = 0.0;
+    u[i][n] = 0.0;
   }
 /*
   Write data file.
 */
-  data = fopen ( "string_data.txt", "wt" );
+  data_unit = fopen ( "string_data.txt", "wt" );
 
-  for ( i = 0; i <= n; i++ )
+  for ( i = 0; i <= m; i++ )
   {
-    x = i * dx;
-    fprintf ( data, "  %f", x );
-    for ( j = 0; j <= m; j++ )
+    t = i * dt;
+    for ( j = 0; j <= n; j++ )
     {
-      fprintf ( data, "  %f", u[j][i] );
+      x = j * dx;
+      fprintf ( data_unit, "  %f  %f  %f\n", x, t, u[i][j] );
     }
-    fprintf ( data, "\n" );
+    fprintf ( data_unit, "\n" );
   }
-  fclose ( data );
+  fclose ( data_unit );
 
   printf ( "\n" );
   printf ( "  Plot data written to the file \"string_data.txt\".\n" );
 /*
   Write gnuplot command file.
 */
-  commands = fopen ( "string_commands.txt", "wt" );
+  command_unit = fopen ( "string_commands.txt", "wt" );
 
-  fprintf ( commands, "set term png medium\n" );
-  fprintf ( commands, "set output \"string.png\"\n" );
-  fprintf ( commands, "set grid\n" );
-  fprintf ( commands, "set style data lines\n" );
-  fprintf ( commands, "unset key\n" );
-  fprintf ( commands, "plot for [i=2:%d] \"string_data.txt\" using 1:i\n", m + 2 );
-  fprintf ( commands, "quit\n" );
+  fprintf ( command_unit, "set term png\n" );
+  fprintf ( command_unit, "set output \"string.png\"\n" );
+  fprintf ( command_unit, "set grid\n" );
+  fprintf ( command_unit, "set style data lines\n" );
+  fprintf ( command_unit, "unset key\n" );
+  fprintf ( command_unit, "set xlabel '<---X--->'\n" );
+  fprintf ( command_unit, "set ylabel '<---Time--->'\n" );
+  fprintf ( command_unit, "splot \"string_data.txt\" using 1:2:3 with lines\n" );
+  fprintf ( command_unit, "quit\n" );
 
-  fclose ( commands );
+  fclose ( command_unit );
 
   printf ( "  Gnuplot command data written to the file \"string_commands.txt\".\n" );
 /*
@@ -332,7 +334,7 @@ double g ( double x )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*

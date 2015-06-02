@@ -94,8 +94,27 @@
     </p>
 
     <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>TRIANGLE</b> is available in
+      <a href = "../../c_src/triangle/triangle.html">a C version</a>.
+    </p>
+
+    <h3 align = "center">
       Related Data and Programs:
     </h3>
+
+    <p>
+      <a href = "../../c_src/fem_to_triangle/fem_to_triangle.html">
+      FEM_TO_TRIANGLE</a>,
+      a C program which
+      reads FEM files defining a 2D mesh of triangles, namely
+      a file of node coordinates and a file of elements defined by
+      node indices, and creates a corresponding pair of node
+      and element files for use by Jonathan Shewchuk's triangle program.
+    </p>
 
     <p>
       <a href = "../../data/poly/poly.html">
@@ -275,6 +294,40 @@
         <li>
           <a href = "../../data/triangle_files/A.1.ele">A.1.ele</a>;
           the output element file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>AIRFOIL_INTERIOR</b> defines the boundary of an airfoil, whose
+      interior we want to mesh.  We use the command
+      <pre>
+        triangle -a0.05 airfoil_interior.poly
+      </pre>
+      <ul>
+        <li>
+          <a href = "../../data/triangle_files/airfoil_interior.poly">airfoil_interior.poly</a>,
+          the POLY file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/airfoil_interior_elements.png">airfoil_interior_elements.png</a>,
+          a PNG image of the level 1 mesh.
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/airfoil_interior.node">airfoil_interior.node</a>,
+          the level 0 node file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/airfoil_interior.1.ele">airfoil_interior.1.ele</a>,
+          the level 1 element file.
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/airfoil_interior.1.node">airfoil_interior.1.node</a>,
+          the level 1 node file;
+        </li>
+        <li>
+          <a href = "../../data/triangle_files/airfoil_interior.1.poly">airfoil_interior.1.poly</a>;
+          the level 1 poly file;
         </li>
       </ul>
     </p>
@@ -509,7 +562,7 @@
     <hr>
 
     <i>
-      Last revised on 03 June 2012.
+      Last revised on 09 October 2014.
     </i>
 
     <!-- John Burkardt -->

@@ -25,7 +25,11 @@ int main ( long argc, char **argv )
 /*
   Purpose:
 
-    MAIN calls the PBMLIB test routines.
+    MAIN is the main program for PBMLIB_PRB.
+
+  Discussion:
+
+    PBMLIB_PRB tests the PBMLIB library.
 
   Licensing:
 
@@ -44,7 +48,7 @@ int main ( long argc, char **argv )
   printf ( "\n" );
   printf ( "PBMLIB_PRB:\n" );
   printf ( "  C version\n" );
-  printf ( "  Tests for PBMLIB, portable bit map read/write routines.\n" );
+  printf ( "  Test the PBMLIB library.\n" );
   printf ( "\n" );
 
   test01 ( "pbmlib.pbma" );
@@ -64,11 +68,12 @@ int main ( long argc, char **argv )
 
   test11 ( "pbmlib.ppmb" );
   test12 ( "pbmlib.ppmb" );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "PBMLIB_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

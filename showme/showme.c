@@ -743,9 +743,7 @@ void info()
   exit(0);
 }
 
-void set_filenames(filename, lowermeshnumber)
-char *filename;
-int lowermeshnumber;
+void set_filenames( char *filename, int lowermeshnumber)
 {
   char numberstring[100];
   int i;
@@ -783,9 +781,7 @@ int lowermeshnumber;
   }
 }
 
-void parsecommandline(argc, argv)
-int argc;
-char **argv;
+void parsecommandline( int argc, char **argv)
 {
   int increment;
   int meshnumber;
@@ -893,8 +889,7 @@ char **argv;
   set_filenames(filename, loweriteration);
 }
 
-void free_inc(inc)
-int inc;
+void free_inc ( int inc )
 {
   if (loaded[inc][NODE]) {
     free(nodeptr[inc]);
@@ -928,8 +923,7 @@ int inc;
   }
 }
 
-void move_inc(inc)
-int inc;
+void move_inc(int inc)
 {
   int i;
 
@@ -974,8 +968,7 @@ int inc;
   firstnumber[inc] = -1;
 }
 
-void unload_inc(inc)
-int inc;
+void unload_inc(int inc)
 {
   int i;
 
@@ -995,10 +988,7 @@ void showme_init()
   unload_inc(1);
 }
 
-char *readline(string, infile, infilename)
-char *string;
-FILE *infile;
-char *infilename;
+char *readline(char *string, FILE *infile, char *infilename)
 {
   char *result;
 
@@ -1018,8 +1008,7 @@ char *infilename;
   return result;
 }
 
-char *findfield(string)
-char *string;
+char *findfield( char *string)
 {
   char *result;
 
@@ -1039,16 +1028,8 @@ char *string;
   return result;
 }
 
-int load_node(fname, firstnumber, nodes, dim, ptr, xmin, ymin, xmax, ymax)
-char *fname;
-int *firstnumber;
-int *nodes;
-int *dim;
-REAL **ptr;
-REAL *xmin;
-REAL *ymin;
-REAL *xmax;
-REAL *ymax;
+int load_node(char *fname, int *firstnumber, int *nodes, int *dim, REAL **ptr, 
+  REAL *xmin, REAL *ymin, REAL *xmax, REAL *ymax)
 {
   FILE *infile;
   char inputline[INPUTLINESIZE];
@@ -1182,22 +1163,9 @@ REAL *ymax;
   return 0;
 }
 
-int load_poly(inc, fname, firstnumber, pnodes, dim, edges, holes, nodeptr,
-              edgeptr, holeptr, xmin, ymin, xmax, ymax)
-int inc;
-char *fname;
-int *firstnumber;
-int *pnodes;
-int *dim;
-int *edges;
-int *holes;
-REAL **nodeptr;
-int **edgeptr;
-REAL **holeptr;
-REAL *xmin;
-REAL *ymin;
-REAL *xmax;
-REAL *ymax;
+int load_poly ( int inc, char *fname, int *firstnumber, int *pnodes, int *dim, int *edges, 
+  int *holes, REAL **nodeptr, int **edgeptr, REAL **holeptr, REAL *xmin, REAL *ymin, 
+  REAL *xmax, REAL *ymax )
 {
   FILE *infile;
   char inputline[INPUTLINESIZE];
@@ -1469,13 +1437,7 @@ REAL *ymax;
   return 0;
 }
 
-int load_ele(fname, firstnumber, nodes, elems, corners, ptr)
-char *fname;
-int firstnumber;
-int nodes;
-int *elems;
-int *corners;
-int **ptr;
+int load_ele ( char *fname, int firstnumber, int nodes, int *elems, int *corners, int **ptr )
 {
   FILE *infile;
   char inputline[INPUTLINESIZE];
@@ -1557,13 +1519,8 @@ int **ptr;
   return 0;
 }
 
-int load_edge(fname, firstnumber, nodes, edges, edgeptr, normptr)
-char *fname;
-int firstnumber;
-int nodes;
-int *edges;
-int **edgeptr;
-REAL **normptr;
+int load_edge ( char *fname, int firstnumber, int nodes, int *edges, int **edgeptr, 
+  REAL **normptr)
 {
   FILE *infile;
   char inputline[INPUTLINESIZE];
@@ -1678,18 +1635,8 @@ REAL **normptr;
   return 0;
 }
 
-int load_part(fname, dim, firstnumber, elems, nodeptr, eleptr, parts,
-              partition, partcenter, partshift)
-char *fname;
-int dim;
-int firstnumber;
-int elems;
-REAL *nodeptr;
-int *eleptr;
-int *parts;
-int **partition;
-REAL **partcenter;
-REAL **partshift;
+int load_part ( char *fname, int dim, int firstnumber, int elems, REAL *nodeptr, 
+  int *eleptr, int *parts, int **partition, REAL **partcenter, REAL **partshift )
 {
   FILE *infile;
   char inputline[INPUTLINESIZE];
@@ -1805,10 +1752,7 @@ REAL **partshift;
   return 0;
 }
 
-int load_adj(fname, subdomains, ptr)
-char *fname;
-int *subdomains;
-int **ptr;
+int load_adj ( char *fname, int *subdomains, int **ptr )
 {
   FILE *infile;
   char inputline[INPUTLINESIZE];
@@ -1843,11 +1787,7 @@ int **ptr;
   return 0;
 }
 
-void findpartshift(parts, explosion, partcenter, partshift)
-int parts;
-REAL explosion;
-REAL *partcenter;
-REAL *partshift;
+void findpartshift ( int parts, REAL explosion, REAL *partcenter, REAL *partshift )
 {
   int i;
 
@@ -1859,9 +1799,7 @@ REAL *partshift;
   }
 }
 
-int load_image(inc, image)
-int inc;
-int image;
+int load_image ( int inc, int image )
 {
   int error;
 
@@ -1934,9 +1872,7 @@ int image;
   return error;
 }
 
-void choose_image(inc, image)
-int inc;
-int image;
+void choose_image ( int inc, int image )
 {
   if (!loaded[inc][image]) {
     if ((image == ELE) || (image == EDGE) || (image == PART)
@@ -1969,11 +1905,7 @@ int image;
   current_image = image;
 }
 
-Window make_button(name, x, y, width)
-char *name;
-int x;
-int y;
-int width;
+Window make_button ( char *name, int x, int y, int width )
 {
   XSetWindowAttributes attr;
   XSizeHints hints;
@@ -2005,8 +1937,7 @@ int width;
   return button;
 }
 
-void make_buttons(y)
-int y;
+void make_buttons ( int y )
 {
   int i;
 
@@ -2061,8 +1992,7 @@ int y;
   XMapWindow(display, epswin);
 }
 
-void fill_button(button)
-Window button;
+void fill_button ( Window button )
 {
   int x, y;
   unsigned int w, h, d, b;
@@ -2191,9 +2121,7 @@ void draw_buttons()
   XDrawString(display, epswin, fontgc, 2, 13, "EPS", 3);
 }
 
-void showme_window(argc, argv)
-int argc;
-char **argv;
+void showme_window ( int argc, char **argv )
 {
   XSetWindowAttributes attr;
   XSizeHints hints;
@@ -2296,14 +2224,8 @@ char **argv;
   XFlush(display);
 }
 
-void draw_node(nodes, dim, ptr, xscale, yscale, xoffset, yoffset)
-int nodes;
-int dim;
-REAL *ptr;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
+void draw_node ( int nodes, int dim, REAL *ptr, REAL xscale, REAL yscale, 
+  REAL xoffset, REAL yoffset )
 {
   int i;
   int index;
@@ -2318,19 +2240,8 @@ REAL yoffset;
   }
 }
 
-void draw_poly(nodes, dim, edges, holes, nodeptr, edgeptr, holeptr,
-               xscale, yscale, xoffset, yoffset)
-int nodes;
-int dim;
-int edges;
-int holes;
-REAL *nodeptr;
-int *edgeptr;
-REAL *holeptr;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
+void draw_poly ( int nodes, int dim, int edges, int holes, REAL *nodeptr, int *edgeptr, 
+  REAL *holeptr, REAL xscale, REAL yscale, REAL xoffset, REAL yoffset )
 {
   int i;
   int index;
@@ -2372,18 +2283,8 @@ REAL yoffset;
   XSetForeground(display, linegc, showme_foreground);
 }
 
-void draw_ele(inc, elems, corners, ptr, partition, shift,
-              xscale, yscale, xoffset, yoffset)
-int inc;
-int elems;
-int corners;
-int *ptr;
-int *partition;
-REAL *shift;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
+void draw_ele ( int inc, int elems, int corners, int *ptr, int *partition, REAL *shift,
+  REAL xscale, REAL yscale, REAL xoffset, REAL yoffset)
 {
   int i, j;
   int index;
@@ -2457,18 +2358,8 @@ REAL yoffset;
   XSetForeground(display, linegc, showme_foreground);
 }
 
-void draw_edge(nodes, dim, edges, nodeptr, edgeptr, normptr,
-               xscale, yscale, xoffset, yoffset)
-int nodes;
-int dim;
-int edges;
-REAL *nodeptr;
-int *edgeptr;
-REAL *normptr;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
+void draw_edge ( int nodes, int dim, int edges, REAL *nodeptr, int *edgeptr, REAL *normptr,
+  REAL xscale, REAL yscale, REAL xoffset, REAL yoffset )
 {
   int i;
   int index;
@@ -2526,16 +2417,8 @@ REAL yoffset;
   }
 }
 
-void draw_adj(dim, subdomains, ptr, center, xscale, yscale,
-              xoffset, yoffset)
-int dim;
-int subdomains;
-int *ptr;
-REAL *center;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
+void draw_adj ( int dim, int subdomains, int *ptr, REAL *center, REAL xscale, REAL yscale,
+  REAL xoffset, REAL yoffset )
 {
   int i, j;
   REAL *point1, *point2;
@@ -2566,13 +2449,7 @@ REAL yoffset;
   XSetForeground(display, linegc, showme_foreground);
 }
 
-void draw(inc, image, xmin, ymin, xmax, ymax)
-int inc;
-int image;
-REAL xmin;
-REAL ymin;
-REAL xmax;
-REAL ymax;
+void draw ( int inc, int image, REAL xmin, REAL ymin, REAL xmax, REAL ymax )
 {
   draw_buttons();
   XClearWindow(display, mainwindow);
@@ -2651,10 +2528,7 @@ REAL ymax;
   }
 }
 
-void addps(instring, outstring, eps)
-char *instring;
-char *outstring;
-int eps;
+void addps ( char *instring, char *outstring, int eps )
 {
   strcpy(outstring, instring);
   if (eps) {
@@ -2664,12 +2538,7 @@ int eps;
   }
 }
 
-int print_head(fname, file, llcornerx, llcornery, eps)
-char *fname;
-FILE **file;
-int llcornerx;
-int llcornery;
-int eps;
+int print_head ( char *fname, FILE **file, int llcornerx, int llcornery, int eps )
 {
   if (!quiet) {
     printf("Writing %s\n", fname);
@@ -2704,16 +2573,8 @@ int eps;
   return 0;
 }
 
-void print_node(nodefile, nodes, dim, ptr, xscale, yscale,
-                xoffset, yoffset)
-FILE *nodefile;
-int nodes;
-int dim;
-REAL *ptr;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
+void print_node ( FILE *nodefile, int nodes, int dim, REAL *ptr, REAL xscale, REAL yscale,
+  REAL xoffset, REAL yoffset )
 {
   int i;
   int index;
@@ -2728,20 +2589,8 @@ REAL yoffset;
   }
 }
 
-void print_poly(polyfile, nodes, dim, edges, holes, nodeptr, edgeptr, holeptr,
-                xscale, yscale, xoffset, yoffset)
-FILE *polyfile;
-int nodes;
-int dim;
-int edges;
-int holes;
-REAL *nodeptr;
-int *edgeptr;
-REAL *holeptr;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
+void print_poly ( FILE *polyfile, int nodes, int dim, int edges, int holes, REAL *nodeptr, 
+  int *edgeptr, REAL *holeptr, REAL xscale, REAL yscale, REAL xoffset, REAL yoffset )
 {
   int i;
   int index;
@@ -2768,24 +2617,9 @@ REAL yoffset;
   }
 }
 
-void print_ele(elefile, nodes, dim, elems, corners, nodeptr, eleptr,
-               partition, shift,
-               xscale, yscale, xoffset, yoffset, llcornerx, llcornery)
-FILE *elefile;
-int nodes;
-int dim;
-int elems;
-int corners;
-REAL *nodeptr;
-int *eleptr;
-int *partition;
-REAL *shift;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
-int llcornerx;
-int llcornery;
+void print_ele ( FILE *elefile, int nodes, int dim, int elems, int corners, REAL *nodeptr, 
+  int *eleptr, int *partition, REAL *shift, REAL xscale, REAL yscale, REAL xoffset, 
+  REAL yoffset, int llcornerx, int llcornery )
 {
   int i, j;
   int index, colorindex;
@@ -2840,21 +2674,9 @@ int llcornery;
   }
 }
 
-void print_edge(edgefile, nodes, dim, edges, nodeptr, edgeptr, normptr,
-                xscale, yscale, xoffset, yoffset, llcornerx, llcornery)
-FILE *edgefile;
-int nodes;
-int dim;
-int edges;
-REAL *nodeptr;
-int *edgeptr;
-REAL *normptr;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
-int llcornerx;
-int llcornery;
+void print_edge ( FILE *edgefile, int nodes, int dim, int edges, REAL *nodeptr, 
+  int *edgeptr, REAL *normptr, REAL xscale, REAL yscale, REAL xoffset, REAL yoffset, 
+  int llcornerx, int llcornery )
 {
   int i;
   int index;
@@ -2914,19 +2736,8 @@ int llcornery;
   }
 }
 
-void print_adj(adjfile, dim, subdomains, ptr, center, xscale, yscale,
-               xoffset, yoffset, llcornerx, llcornery)
-FILE *adjfile;
-int dim;
-int subdomains;
-int *ptr;
-REAL *center;
-REAL xscale;
-REAL yscale;
-REAL xoffset;
-REAL yoffset;
-int llcornerx;
-int llcornery;
+void print_adj ( FILE *adjfile, int dim, int subdomains, int *ptr, REAL *center, REAL xscale, 
+  REAL yscale, REAL xoffset, REAL yoffset, int llcornerx, int llcornery )
 {
   int i, j;
   REAL *point1, *point2;
@@ -2976,14 +2787,7 @@ int llcornery;
   }
 }
 
-void print(inc, image, xmin, ymin, xmax, ymax, eps)
-int inc;
-int image;
-REAL xmin;
-REAL ymin;
-REAL xmax;
-REAL ymax;
-int eps;
+void print ( int inc, int image, REAL xmin, REAL ymin, REAL xmax, REAL ymax, int eps )
 {
   REAL xxscale, yyscale, xxoffset, yyoffset;
   char psfilename[FILENAMESIZE];
@@ -3097,9 +2901,7 @@ int eps;
   fclose(psfile);
 }
 
-int main(argc, argv)
-int argc;
-char **argv;
+int main ( int argc, char **argv )
 {
   REAL xmin, ymin, xmax, ymax;
   REAL xptr, yptr, xspan, yspan;
@@ -3107,10 +2909,10 @@ char **argv;
   int new_image;
   int new_inc;
 
-  parsecommandline(argc, argv);
-  showme_init();
-  choose_image(start_inc, start_image);
-  showme_window(argc, argv);
+  parsecommandline ( argc, argv );
+  showme_init ( );
+  choose_image ( start_inc, start_image );
+  showme_window ( argc, argv );
 
   if (current_image != NOTHING) {
     xmin = xlo[current_inc][current_image];

@@ -16,6 +16,10 @@ int main ( int argc, char *argv[] )
 
     MAIN is the main program for IMAGE_DENOISE_PRB.
 
+  Discussion:
+
+    IMAGE_DENOISE_PRB tests the IMAGE_DENOISE library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -42,7 +46,6 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "IMAGE_DENOISE_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

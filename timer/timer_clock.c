@@ -3,14 +3,14 @@
 # include <math.h>
 # include <time.h>
 
-int main ( void );
-void test01 ( void );
-double cpu_time ( void );
-void timestamp ( void );
+int main ( );
+void test01 ( );
+double cpu_time ( );
+void timestamp ( );
 
 /*******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /*******************************************************************************/
 /*
@@ -64,11 +64,12 @@ int main ( void )
   printf ( "  The number of clock ticks per second is %d\n", CLOCKS_PER_SEC );
 
   test01 ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "TIMER_CLOCK\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -76,7 +77,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -151,7 +152,7 @@ void test01 ( void )
 }
 /******************************************************************************/
 
-double cpu_time ( void )
+double cpu_time ( )
 
 /******************************************************************************/
 /*
@@ -191,7 +192,7 @@ double cpu_time ( void )
 }
 /*******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /*******************************************************************************/
 /*

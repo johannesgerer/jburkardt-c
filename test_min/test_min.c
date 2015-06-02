@@ -3876,7 +3876,7 @@ double r8_add ( double x, double y )
 }
 /******************************************************************************/
 
-double r8_epsilon ( void )
+double r8_epsilon ( )
 
 /******************************************************************************/
 /*
@@ -3898,7 +3898,7 @@ double r8_epsilon ( void )
 
   Modified:
 
-    11 August 2010
+    01 September 2012
 
   Author:
 
@@ -3909,23 +3909,7 @@ double r8_epsilon ( void )
     Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  double one;
-  double temp;
-  double test;
-  double value;
-
-  one = ( double ) ( 1 );
-
-  value = one;
-  temp = value / 2.0;
-  test = r8_add ( one, temp );
-
-  while ( one < test )
-  {
-    value = temp;
-    temp = value / 2.0;
-    test = r8_add ( one, temp );
-  }
+  const double value = 2.220446049250313E-016;
 
   return value;
 }
@@ -3972,7 +3956,7 @@ double r8_sign ( double x )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*

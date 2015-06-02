@@ -3,7 +3,7 @@
 # include <time.h>
 
 int main ( int argc, char *argv[] );
-void timestamp ( void );
+void timestamp ( );
 
 /**********************************************************************/
 
@@ -69,7 +69,7 @@ int main ( int argc, char *argv[] )
     printf ( "  %6d  %6d\n", i, a[i] );
   }
 
-  b = malloc ( 10 * sizeof ( int ) );
+  b = ( int * ) malloc ( 10 * sizeof ( int ) );
 
   for ( i = 0; i < 10; i++ )
   {
@@ -113,7 +113,7 @@ int main ( int argc, char *argv[] )
     }
   }
 
-  d = malloc ( 5*7*sizeof ( int ) );
+  d = ( int * ) malloc ( 5 * 7 * sizeof ( int ) );
 
   for ( j = 0; j < 7; j++ )
   {
@@ -143,7 +143,7 @@ int main ( int argc, char *argv[] )
 /*
   Same thing, but now row major.
 */
-  e = malloc ( 5*7*sizeof ( int ) );
+  e = ( int * ) malloc ( 5 * 7 * sizeof ( int ) );
 
   for ( j = 0; j < 7; j++ )
   {
@@ -176,7 +176,6 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "ARRAYS:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -184,7 +183,7 @@ int main ( int argc, char *argv[] )
 }
 /********************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /********************************************************************/
 /*

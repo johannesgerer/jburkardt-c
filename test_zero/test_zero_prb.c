@@ -12,27 +12,27 @@
 int main ( )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    MAIN is the main program for TEST_ZERO_PRB.
-//
-//  Discussion:
-//
-//    TEST_ZERO_PRB demonstrates the use of the TEST_ZERO scalar test functions.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    14 May 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*
+  Purpose:
+
+    MAIN is the main program for TEST_ZERO_PRB.
+
+  Discussion:
+
+    TEST_ZERO_PRB tests the TEST_ZERO library.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 May 2011
+
+  Author:
+
+    John Burkardt
+*/
 {
   double fatol = 1.0E-06;
   double fx;
@@ -57,7 +57,6 @@ int main ( )
   double xrtol = 1.0E-06;
 
   timestamp ( );
-
   printf ( "\n" );
   printf ( "TEST_ZERO_PRB\n" );
   printf ( "  C++ version\n" );
@@ -233,7 +232,6 @@ int main ( )
   printf ( "\n" );
   printf ( "TEST_ZERO_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

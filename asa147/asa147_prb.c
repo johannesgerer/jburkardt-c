@@ -4,12 +4,12 @@
 
 # include "asa147.h"
 
-int main ( void );
-void test01 ( void );
+int main ( );
+void test01 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    ASA147_PRB calls the ASA147 routines.
+    ASA147_PRB tests the ASA147 library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA147_PRB:\n" );
   printf ( "  C version\n" );
@@ -48,7 +47,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA147_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -56,7 +54,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*

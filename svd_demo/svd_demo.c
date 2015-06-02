@@ -9,8 +9,6 @@
 
 int main ( int argc, char *argv[] );
 int get_seed ( void );
-void get_svd_linpack ( int m, int n, double a[], double u[], double s[], 
-  double v[] );
 double *pseudo_inverse ( int m, int n, double u[], double s[], 
   double v[] );
 void pseudo_linear_solve_test ( int m, int n, double a[], 
@@ -22,6 +20,8 @@ double r8mat_norm_fro ( int m, int n, double a[] );
 void r8mat_print ( int m, int n, double a[], char *title );
 void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi, 
   int jhi, char *title );
+void r8mat_svd_linpack ( int m, int n, double a[], double u[], double s[], 
+  double v[] );
 double *r8mat_uniform_01_new ( int m, int n, int *seed );
 double r8vec_norm_l2 ( int n, double a[] );
 double *r8vec_uniform_01_new ( int n, int *seed );
@@ -32,7 +32,7 @@ void rank_one_test ( int m, int n, double a[], double u[], double s[],
 int s_len_trim ( char *s );
 void svd_product_test ( int m, int n, double a[], double u[], 
   double s[], double v[] );
-void timestamp ( void );
+void timestamp ( );
 
 /******************************************************************************/
 
@@ -102,7 +102,7 @@ int main ( int argc, char *argv[] )
 
   printf ( "\n" );
   printf ( "SVD_DEMO:\n" );
-  printf ( "  C++ version\n" );
+  printf ( "  C version\n" );
   printf ( "\n" );
   printf ( "  Compiled on %s at %s.\n", __DATE__, __TIME__ );
   printf ( "\n" );
@@ -199,7 +199,7 @@ int main ( int argc, char *argv[] )
 /*
   Get the SVD from LINPACK.
 */
-  get_svd_linpack ( m, n, a, u, s, v );
+  r8mat_svd_linpack ( m, n, a, u, s, v );
 /*
   Print the SVD.
 */
@@ -334,133 +334,6 @@ int get_seed ( void )
   }
 
   return seed;
-}
-/******************************************************************************/
-
-void get_svd_linpack ( int m, int n, double a[], double u[], double s[], 
-  double v[] )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    GET_SVD_LINPACK gets the SVD of a matrix using a call to LINPACK.
-
-  Discussion:
-
-    The singular value decomposition of a real MxN matrix A has the form:
-
-      A = U * S * V'
-
-    where 
-
-      U is MxM orthogonal,
-      S is MxN, and entirely zero except for the diagonal;
-      V is NxN orthogonal.
-
-    Moreover, the nonzero entries of S are positive, and appear
-    in order, from largest magnitude to smallest.
-
-    This routine calls the LINPACK routine DSVDC to compute the
-    factorization.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    19 June 2012
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int M, N, the number of rows and columns in the matrix A.
-
-    Input, double A[M*N], the matrix whose singular value
-    decomposition we are investigating.
-
-    Output, double U[M*M], S[M*N], V[N*N], the factors
-    that form the singular value decomposition of A.
-*/
-{
-  double *a_copy;
-  double *e;
-  int i;
-  int info;
-  int j;
-  int lda;
-  int ldu;
-  int ldv;
-  int job;
-  int lwork;
-  double *sdiag;
-  double *work;
-/*
-  The correct size of E and SDIAG is min ( m+1, n).
-*/
-  a_copy = ( double * ) malloc ( m * n * sizeof ( double ) );
-  e = ( double * ) malloc ( ( m + n ) * sizeof ( double ) );
-  sdiag = ( double * ) malloc ( ( m + n )  * sizeof ( double ) );
-  work = ( double * ) malloc ( m * sizeof ( double ) );
-/*
-  Compute the eigenvalues and eigenvectors.
-*/
-  job = 11;
-  lda = m;
-  ldu = m;
-  ldv = n;
-/*
-  The input matrix is destroyed by the routine.  Since we need to keep
-  it around, we only pass a copy to the routine.
-*/
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < m; i++ )
-    { 
-      a_copy[i+j*m] = a[i+j*m];
-    }
-  }
-  info = dsvdc ( a_copy, lda, m, n, sdiag, e, u, ldu, v, ldv, work, job );
- 
-  if ( info != 0 )
-  {
-    printf ( "\n" );
-    printf ( "GET_SVD_LINPACK - Failure!\n" );
-    printf ( "  The SVD could not be calculated.\n" );
-    printf ( "  LINPACK routine DSVDC returned a nonzero\n" );
-    printf ( "  value of the error flag, INFO = %d\n", info );
-    return;
-  }
-/*
-  Make the MxN matrix S from the diagonal values in SDIAG.
-*/
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < m; i++ )
-    {
-      if ( i == j )
-      {
-        s[i+j*m] = sdiag[i];
-      }
-      else
-      {
-        s[i+j*m] = 0.0;
-      }
-    }
-  }
-/*
-  Note that we do NOT need to transpose the V that comes out of LINPACK!
-*/
-  free ( a_copy );
-  free ( e );
-  free ( sdiag );
-  free ( work );
-
-  return;
 }
 /******************************************************************************/
 
@@ -1421,6 +1294,133 @@ void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi,
 }
 /******************************************************************************/
 
+void r8mat_svd_linpack ( int m, int n, double a[], double u[], double s[], 
+  double v[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_SVD_LINPACK gets the SVD of a matrix using a call to LINPACK.
+
+  Discussion:
+
+    The singular value decomposition of a real MxN matrix A has the form:
+
+      A = U * S * V'
+
+    where 
+
+      U is MxM orthogonal,
+      S is MxN, and entirely zero except for the diagonal;
+      V is NxN orthogonal.
+
+    Moreover, the nonzero entries of S are positive, and appear
+    in order, from largest magnitude to smallest.
+
+    This routine calls the LINPACK routine DSVDC to compute the
+    factorization.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 June 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns in the matrix A.
+
+    Input, double A[M*N], the matrix whose singular value
+    decomposition we are investigating.
+
+    Output, double U[M*M], S[M*N], V[N*N], the factors
+    that form the singular value decomposition of A.
+*/
+{
+  double *a_copy;
+  double *e;
+  int i;
+  int info;
+  int j;
+  int lda;
+  int ldu;
+  int ldv;
+  int job;
+  int lwork;
+  double *sdiag;
+  double *work;
+/*
+  The correct size of E and SDIAG is min ( m+1, n).
+*/
+  a_copy = ( double * ) malloc ( m * n * sizeof ( double ) );
+  e = ( double * ) malloc ( ( m + n ) * sizeof ( double ) );
+  sdiag = ( double * ) malloc ( ( m + n )  * sizeof ( double ) );
+  work = ( double * ) malloc ( m * sizeof ( double ) );
+/*
+  Compute the eigenvalues and eigenvectors.
+*/
+  job = 11;
+  lda = m;
+  ldu = m;
+  ldv = n;
+/*
+  The input matrix is destroyed by the routine.  Since we need to keep
+  it around, we only pass a copy to the routine.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    { 
+      a_copy[i+j*m] = a[i+j*m];
+    }
+  }
+  info = dsvdc ( a_copy, lda, m, n, sdiag, e, u, ldu, v, ldv, work, job );
+ 
+  if ( info != 0 )
+  {
+    printf ( "\n" );
+    printf ( "R8MAT_SVD_LINPACK - Failure!\n" );
+    printf ( "  The SVD could not be calculated.\n" );
+    printf ( "  LINPACK routine DSVDC returned a nonzero\n" );
+    printf ( "  value of the error flag, INFO = %d\n", info );
+    return;
+  }
+/*
+  Make the MxN matrix S from the diagonal values in SDIAG.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      if ( i == j )
+      {
+        s[i+j*m] = sdiag[i];
+      }
+      else
+      {
+        s[i+j*m] = 0.0;
+      }
+    }
+  }
+/*
+  Note that we do NOT need to transpose the V that comes out of LINPACK!
+*/
+  free ( a_copy );
+  free ( e );
+  free ( sdiag );
+  free ( work );
+
+  return;
+}
+/******************************************************************************/
+
 double *r8mat_uniform_01_new ( int m, int n, int *seed )
 
 /******************************************************************************/
@@ -1436,8 +1436,8 @@ double *r8mat_uniform_01_new ( int m, int n, int *seed )
 
     This routine implements the recursion
 
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      unif = seed / ( 2**31 - 1 )
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
 
     The integer arithmetic never requires more than 32 bits,
     including a sign bit.
@@ -1642,7 +1642,7 @@ double *r8vec_uniform_01_new ( int n, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {

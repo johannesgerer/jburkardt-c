@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c dynamic_array_2d.c >& compiler.txt
+gcc -c dynamic_array_2d.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling dynamic_array_2d.c."
   exit
 fi
-rm compiler.txt
 #
 gcc dynamic_array_2d.o
 if [ $? -ne 0 ]; then

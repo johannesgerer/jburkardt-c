@@ -17,6 +17,10 @@ int main ( )
 
     MAIN is the main program for WEEKDAY_PRB.
 
+  Discussion:
+
+    WEEKDAY_PRB tests the WEEKDAY library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -31,7 +35,6 @@ int main ( )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "WEEKDAY_PRB:\n" );
   printf ( "  C version\n" );
@@ -43,8 +46,7 @@ int main ( )
 */
   printf ( "\n" );
   printf ( "WEEKDAY_PRB:\n" );
-  printf ( "  Noraml end of execution.\n" );
-
+  printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );
 

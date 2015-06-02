@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    ASA172_PRB calls the ASA172 routines.
+    ASA172_PRB tests the ASA172 library.
 
   Licensing:
 
@@ -35,12 +35,10 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA172_PRB:\n" );
   printf ( "  C version\n" );
-  printf ( "\n" );
-  printf ( "  Test routines in the ASA172 library.\n" );
+  printf ( "  Test the ASA172 library.\n" );
 
   test01 ( );
   test02 ( );
@@ -50,7 +48,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA172_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

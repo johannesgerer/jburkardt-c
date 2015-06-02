@@ -10,7 +10,7 @@ void bandwidth ( int element_order, int element_num, int element_node[],
 int delaunay_swap_test ( double xy[] );
 int diaedg ( double x0, double y0, double x1, double y1, double x2, double y2,
   double x3, double y3 );
-int get_seed ( void );
+int get_seed ( );
 int i4_max ( int i1, int i2 );
 int i4_min ( int i1, int i2 );
 int i4_modp ( int i, int j );
@@ -38,6 +38,8 @@ int i4vec2_sorted_unique ( int n, int a1[], int a2[] );
 int lrline ( double xu, double yu, double xv1, double yv1, double xv2,
   double yv2, double dv );
 void lvec_print ( int n, int a[], char *title );
+void mesh_base_one ( int node_num, int element_order,
+  int element_num, int element_node[] );
 void mesh_base_zero ( int node_num, int element_order,
   int element_num, int element_node[] );
 void node_merge ( int dim_num, int node_num, double node_xy[],
@@ -134,6 +136,8 @@ int *triangulation_order3_adj_set ( int node_num, int triangle_num,
 void triangulation_order3_adj_set2 ( int node_num, int triangle_num,
   int triangle_node[], int triangle_neighbor[], int adj_num, int adj_col[],
   int ia[], int ja[] );
+int *triangulation_order3_adjacency ( int node_num, int element_num,
+  int element_node[] );
 int triangulation_order3_boundary_edge_count ( int triangle_num,
   int triangle_node[] );
 int triangulation_order3_boundary_edge_count_euler ( int node_num,

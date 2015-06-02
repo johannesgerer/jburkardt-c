@@ -17,7 +17,11 @@ int main ( )
 /*
   Purpose:
 
-    DOOMSDAY_PRB tests DOOMSDAY.
+    MAIN is the main program for DOOMSDAY_PRB.
+ 
+  Discussion:
+
+    DOOMSDAY_PRB tests the DOOMSDAY library.
 
   Licensing:
 

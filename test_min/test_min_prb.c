@@ -23,7 +23,7 @@ int main ( void )
 
   Discussion:
 
-    TEST_MIN_PRB calls the TEST_MIN tests.
+    TEST_MIN_PRB tests the TEST_MIN library.
 
   Licensing:
 
@@ -39,7 +39,6 @@ int main ( void )
 */
 {
   timestamp (  );
-
   printf ( "\n" );
   printf ( "TEST_MIN_PRB\n" );
   printf ( "  C version\n" );
@@ -57,7 +56,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "TEST_MIN_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

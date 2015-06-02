@@ -69,7 +69,7 @@ int main ( )
 //
 //  Discussion:
 //
-//    SPLINE_PRB tests the SPLINE routines.
+//    SPLINE_PRB tests the SPLINE library.
 //
 //  Licensing:
 //
@@ -85,7 +85,6 @@ int main ( )
 //
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "SPLINE_PRB\n" );
   printf ( "  C version:\n" );
@@ -140,7 +139,6 @@ int main ( )
   printf ( "\n" );
   printf ( "SPLINE_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -3301,7 +3299,7 @@ void test15 ( )
 //
 //  Modified:
 //
-//    13 January 2007
+//    07 June 2013
 //
 //  Author:
 //
@@ -3340,16 +3338,16 @@ void test15 ( )
 
   for ( i = 0; i < N; i++ )
   {
-    t[i] =  ( ( double ) ( N - i     ) * (-1.0)
-            + ( double ) (     i - 1 ) * (+1.0) )
+    t[i] =  ( ( double ) ( N - i - 1 ) * (-1.0)
+            + ( double ) (     i     ) * (+1.0) )
             / ( double ) ( N     - 1 );
     y[i] =  frunge ( t[i] );
     printf ( "  %6d  %12g  %12g\n", i, t[i], y[i] );
   }
 //
-//  Try all three types of boundary condition.
+//  Try various boundary conditions.
 //
-  for ( k = 0; k < 3; k++ )
+  for ( k = 0; k <= 4; k++ )
   {
     if ( k == 0 )
     {
@@ -3402,6 +3400,14 @@ void test15 ( )
       printf ( "  Natural spline:\n" );
       printf ( "  YP''(left) =  %g\n", ybcbeg );
       printf ( "  YP''(right) = %g\n", ybcend );
+    }
+    else if ( k == 4 )
+    {
+      ibcbeg = 3;
+      ibcend = 3;
+
+      printf ( "\n" );
+      printf ( "  \"Not-a-not\" spline:\n" );
     }
 
     ypp = spline_cubic_set ( N, t, y, ibcbeg, ybcbeg, ibcend, ybcend );
@@ -3526,8 +3532,8 @@ void test16 ( )
 
   for ( i = 0; i < N; i++ )
   {
-    t[i] =  ( ( double ) ( N - i     ) * (-1.0)
-            + ( double ) (     i - 1 ) * (+1.0) )
+    t[i] =  ( ( double ) ( N - i - 1 ) * (-1.0)
+            + ( double ) (     i     ) * (+1.0) )
             / ( double ) ( N     - 1 );
     y[i] =  frunge ( t[i] );
     printf ( "  %6d  %12g  %12g\n", i, t[i], y[i] );
@@ -4411,8 +4417,8 @@ void test21 ( )
 
   for ( i = 0; i < N; i++ )
   {
-    t[i] =  ( ( double ) ( N - i     ) * (-1.0)
-            + ( double ) (     i - 1 ) * (+1.0) )
+    t[i] =  ( ( double ) ( N - i - 1 ) * (-1.0)
+            + ( double ) (     i     ) * (+1.0) )
             / ( double ) ( N     - 1 );
     y[i] =  frunge ( t[i] );
   }
@@ -5021,8 +5027,8 @@ void test24 ( )
 
   for ( i = 0; i < N; i++ )
   {
-    t[i] =  ( ( double ) ( N - i     ) * (-1.0)
-            + ( double ) (     i - 1 ) * (+1.0) )
+    t[i] =  ( ( double ) ( N - i - 1 ) * (-1.0)
+            + ( double ) (     i     ) * (+1.0) )
             / ( double ) ( N     - 1 );
     y[i] =  frunge ( t[i] );
   }

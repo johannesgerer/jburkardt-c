@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    ASA144_PRB calls a set of problems for ASA144.
+    ASA144_PRB tests the ASA144 library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA144_PRB\n" );
   printf ( "  C version\n" );
@@ -48,7 +47,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA144_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

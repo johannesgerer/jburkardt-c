@@ -31,7 +31,7 @@ int main ( )
 
   Discussion:
 
-    SDE_PRB demonstrates the use of SDE.
+    SDE_PRB tests the SDE library.
 
   Licensing:
 
@@ -47,7 +47,6 @@ int main ( )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "SDE_PRB\n" );
   printf ( "  C version\n" );

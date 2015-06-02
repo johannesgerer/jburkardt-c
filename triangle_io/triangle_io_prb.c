@@ -4,21 +4,25 @@
 
 # include "triangle_io.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
     MAIN is the main program for TRIANGLE_IO_PRB.
+
+  Discussion:
+
+    TRIANGLE_IO_PRB tests the TRIANGLE_IO library.
 
   Licensing:
 
@@ -56,7 +60,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -88,11 +92,12 @@ void test01 ( void )
 
   printf ( "\n" );
   printf ( "TEST01:\n" );
-  printf ( "  Get example node data, write to a node file.\n" );
+  printf ( "  Get example node data, write to a triangle node file.\n" );
 /*
   Get node example size.
 */
-  node_size_example ( &node_num, &node_dim, &node_att_num, &node_marker_num );
+  triangle_node_size_example ( &node_num, &node_dim, &node_att_num, 
+    &node_marker_num );
 /*
   Print the sizes.
 */
@@ -110,8 +115,8 @@ void test01 ( void )
 /*
   Get the node data.
 */
-  node_data_example ( node_num, node_dim, node_att_num, node_marker_num,
-    node_coord, node_att, node_marker );
+  triangle_node_data_example ( node_num, node_dim, node_att_num, 
+    node_marker_num, node_coord, node_att, node_marker );
 /*
   Print some of the data.
 */
@@ -126,8 +131,8 @@ void test01 ( void )
 /*
   Write the node information to node file.
 */
-  node_write ( node_file, node_num, node_dim, node_att_num, node_marker_num, 
-    node_coord, node_att, node_marker );
+  triangle_node_write ( node_file, node_num, node_dim, node_att_num, 
+    node_marker_num, node_coord, node_att, node_marker );
 
   printf ( "\n" );
   printf ( "  Node data written to file \"%s\"\n", node_file );
@@ -142,7 +147,7 @@ void test01 ( void )
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -172,11 +177,12 @@ void test02 ( void )
 
   printf ( "\n" );
   printf ( "TEST02:\n" );
-  printf ( "  Get example element data, write to an element file.\n" );
+  printf ( "  Get example element data, write to a triangle element file.\n" );
 /*
   Get element example size.
 */
-  element_size_example ( &element_num, &element_order, &element_att_num );
+  triangle_element_size_example ( &element_num, &element_order, 
+    &element_att_num );
 /*
   Print the sizes.
 */
@@ -193,7 +199,7 @@ void test02 ( void )
 /*
   Get the data.
 */
-  element_data_example ( element_num, element_order, element_att_num, 
+  triangle_element_data_example ( element_num, element_order, element_att_num, 
     element_node, element_att );
 /*
   Print some of the data.
@@ -206,8 +212,8 @@ void test02 ( void )
 /*
   Write the node information to node file.
 */
-  element_write ( element_file, element_num, element_order, element_att_num, 
-    element_node, element_att );
+  triangle_element_write ( element_file, element_num, element_order, 
+    element_att_num, element_node, element_att );
 
   printf ( "\n" );
   printf ( "  Element data written to file \"%s\"\n", element_file );
@@ -221,7 +227,7 @@ void test02 ( void )
 }
 /******************************************************************************/
 
-void test03 ( void )
+void test03 ( )
 
 /******************************************************************************/
 /*
@@ -257,7 +263,7 @@ void test03 ( void )
 /*
   Get the data size.
 */
-  node_size_read ( node_file, &node_num, &node_dim, &node_att_num, 
+  triangle_node_size_read ( node_file, &node_num, &node_dim, &node_att_num, 
     &node_marker_num );
 /*
   Print the sizes.
@@ -278,8 +284,8 @@ void test03 ( void )
 /*
   Get the data.
 */
-  node_data_read ( node_file, node_num, node_dim, node_att_num, node_marker_num,
-    node_coord, node_att, node_marker );
+  triangle_node_data_read ( node_file, node_num, node_dim, node_att_num, 
+    node_marker_num, node_coord, node_att, node_marker );
 /*
   Print some of the data.
 */
@@ -302,7 +308,7 @@ void test03 ( void )
 }
 /******************************************************************************/
 
-void test04 ( void )
+void test04 ( )
 
 /******************************************************************************/
 /*
@@ -336,7 +342,7 @@ void test04 ( void )
 /*
   Get data size.
 */
-  element_size_read ( element_file, &element_num, &element_order, 
+  triangle_element_size_read ( element_file, &element_num, &element_order, 
     &element_att_num );
 /*
   Print the sizes.
@@ -356,8 +362,8 @@ void test04 ( void )
 /*
   Get the data.
 */
-  element_data_read ( element_file, element_num, element_order, element_att_num, 
-    element_node, element_att );
+  triangle_element_data_read ( element_file, element_num, element_order, 
+    element_att_num, element_node, element_att );
 /*
   Print some of the data.
 */

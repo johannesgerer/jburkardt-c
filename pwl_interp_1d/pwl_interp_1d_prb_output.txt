@@ -1,4 +1,4 @@
-14 October 2012 03:44:04 PM
+31 May 2013 10:25:45 AM
 
 PWL_INTERP_1D_TEST:
   C version
@@ -37,6 +37,10 @@ PWL_INTERP_1D_TEST01:
 
   L2 interpolation error averaged per interpolant node = 0
 
+  Created graphics data file "data01.txt".
+  Created graphics interp file "interp01.txt".
+  Created graphics command file "commands01.txt".
+
 PWL_INTERP_1D_TEST01:
   PWL_INTERP_1D evaluates the piecewise linear interpolant.
   Interpolate data from TEST_INTERP problem #2
@@ -68,6 +72,10 @@ PWL_INTERP_1D_TEST01:
 
   L2 interpolation error averaged per interpolant node = 0
 
+  Created graphics data file "data02.txt".
+  Created graphics interp file "interp02.txt".
+  Created graphics command file "commands02.txt".
+
 PWL_INTERP_1D_TEST01:
   PWL_INTERP_1D evaluates the piecewise linear interpolant.
   Interpolate data from TEST_INTERP problem #3
@@ -92,6 +100,10 @@ PWL_INTERP_1D_TEST01:
 
   L2 interpolation error averaged per interpolant node = 0
 
+  Created graphics data file "data03.txt".
+  Created graphics interp file "interp03.txt".
+  Created graphics command file "commands03.txt".
+
 PWL_INTERP_1D_TEST01:
   PWL_INTERP_1D evaluates the piecewise linear interpolant.
   Interpolate data from TEST_INTERP problem #4
@@ -112,6 +124,10 @@ PWL_INTERP_1D_TEST01:
     7:        1.000000        1.000000
 
   L2 interpolation error averaged per interpolant node = 0
+
+  Created graphics data file "data04.txt".
+  Created graphics interp file "interp04.txt".
+  Created graphics command file "commands04.txt".
 
 PWL_INTERP_1D_TEST01:
   PWL_INTERP_1D evaluates the piecewise linear interpolant.
@@ -134,6 +150,10 @@ PWL_INTERP_1D_TEST01:
     8:        1.000000        1.000000
 
   L2 interpolation error averaged per interpolant node = 0
+
+  Created graphics data file "data05.txt".
+  Created graphics interp file "interp05.txt".
+  Created graphics command file "commands05.txt".
 
 PWL_INTERP_1D_TEST01:
   PWL_INTERP_1D evaluates the piecewise linear interpolant.
@@ -197,6 +217,10 @@ PWL_INTERP_1D_TEST01:
 
   L2 interpolation error averaged per interpolant node = 0
 
+  Created graphics data file "data06.txt".
+  Created graphics interp file "interp06.txt".
+  Created graphics command file "commands06.txt".
+
 PWL_INTERP_1D_TEST01:
   PWL_INTERP_1D evaluates the piecewise linear interpolant.
   Interpolate data from TEST_INTERP problem #7
@@ -213,6 +237,10 @@ PWL_INTERP_1D_TEST01:
     3:        5.000000        1.000000
 
   L2 interpolation error averaged per interpolant node = 0
+
+  Created graphics data file "data07.txt".
+  Created graphics interp file "interp07.txt".
+  Created graphics command file "commands07.txt".
 
 PWL_INTERP_1D_TEST01:
   PWL_INTERP_1D evaluates the piecewise linear interpolant.
@@ -239,7 +267,11 @@ PWL_INTERP_1D_TEST01:
 
   L2 interpolation error averaged per interpolant node = 0
 
+  Created graphics data file "data08.txt".
+  Created graphics interp file "interp08.txt".
+  Created graphics command file "commands08.txt".
+
 PWL_INTERP_1D_TEST:
   Normal end of execution.
 
-14 October 2012 03:44:04 PM
+31 May 2013 10:25:45 AM

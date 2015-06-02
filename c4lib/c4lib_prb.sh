@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-gcc -c -g c4lib_prb.c >& compiler.txt
+gcc -c -g -I/$HOME/include c4lib_prb.c >& compiler.txt
 if [ $? -ne 0 ]; then
   echo "Errors compiling c4lib_prb.c."
   exit
 fi
 rm compiler.txt
 #
-gcc c4lib_prb.o /$HOME/libc/$ARCH/c4lib.o -lm
+gcc c4lib_prb.o /$HOME/libc/$ARCH/c4lib.o /$HOME/libc/$ARCH/r4lib.o -lm
 if [ $? -ne 0 ]; then
   echo "Errors linking and loading c4lib_prb.o."
   exit

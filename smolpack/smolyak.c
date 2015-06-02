@@ -48,17 +48,17 @@ struct tnode {
 
 struct tnode *root;
  
-double (*f)(int, double x[]);
-void formula(int,int);
-double eval(int);                     /* sub-formula calculator      */
-double fsum(int);                     /* sum(f(+-x_nu))      */
+double (*f) (int, double x[]);
+void formula (int,int);
+double eval (int);                     /* sub-formula calculator      */
+double fsum (int);                     /* sum(f(+-x_nu))      */
 void init ( int dim );
-double calccoeff(int);                /* coefficient calculator      */
-double calccoeff2(int,int);       /* coefficient calculator (slow)   */
-double wl(int, int, int);             /* 'divide                     */
-double we(int, int, int);             /*         and                 */
+double calccoeff (int);                /* coefficient calculator      */
+double calccoeff2 (int,int);       /* coefficient calculator (slow)   */
+double wl (int, int, int);             /* 'divide                     */
+double we (int, int, int);             /*         and                 */
 void sumind ( int, int );                /*            conquer'         */
-double coeff ( void );
+double coeff ( );
 struct tnode *talloc ( void );       /* node generator          */
 void frei ( struct tnode *p );
  
@@ -201,7 +201,7 @@ double eval ( int k )
 /* 
   Purpose:
 
-      EVAL calculates the value of a product formula.
+    EVAL calculates the value of a product formula.
 
   Discussion:
 
@@ -415,7 +415,7 @@ void frei ( struct tnode *p )
 }
 /******************************************************************************/
 
-struct tnode *talloc ( void )
+struct tnode *talloc ( )
 
 /******************************************************************************/
 /*

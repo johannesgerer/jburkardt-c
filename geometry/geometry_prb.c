@@ -4,29 +4,36 @@
 
 # include "geometry.h"
 
-int main ( void );
-void test0005 ( void );
-void test001 ( void );
-void test0477 ( void );
-void test0478 ( void );
-void test0616 ( void );
-void test0617 ( void );
-void test171 ( void );
-void test1712 ( void );
-void test1835 ( void );
-void test1836 ( void );
-void test2101 ( void );
-void test21011 ( void );
+int main ( );
+void test0005 ( );
+void test001 ( );
+void test002 ( );
+void test0351 ( );
+void test0352 ( );
+void test0477 ( );
+void test0478 ( );
+void test0616 ( );
+void test0617 ( );
+void test171 ( );
+void test1712 ( );
+void test1835 ( );
+void test1836 ( );
+void test2101 ( );
+void test21011 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    GEOMETRY_PRB calls the GEOMETRY tests.
+    MAIN is the main program for GEOMETRY_PRB.
+
+  Discussion:
+
+    GEOMETRY_PRB tests the GEOMETRY library.
 
   Licensing:
 
@@ -34,7 +41,7 @@ int main ( void )
 
   Modified:
 
-    26 July 2011
+    14 April 2013
 
   Author:
 
@@ -49,6 +56,10 @@ int main ( void )
 
   test0005 ( );
   test001 ( );
+  test002 ( );
+
+  test0351 ( );
+  test0352 ( );
 
   test0477 ( );
   test0478 ( );
@@ -70,7 +81,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "GEOMETRY_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -78,7 +88,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test0005 ( void )
+void test0005 ( )
 
 /******************************************************************************/
 /*
@@ -329,6 +339,236 @@ void test001 ( )
 }
 /******************************************************************************/
 
+void test002 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST002 tests ANGLE_DEG_2D and ANGLE_RAD_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 April 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int angle_num = 12;
+  int i;
+  double temp1;
+  double temp2;
+  double temp3;
+  double thetad;
+  double thetar;
+  double v1[2] = { 1.0, 0.0 };
+  double v2[2];
+  double v3[2] = { 0.0, 0.0 };
+
+  printf ( "\n" );
+  printf ( "TEST002\n" );
+  printf ( "  ANGLE_DEG_2D computes an angle,\n" );
+  printf ( "  ANGLE_RAD_ND computes an angle.\n" );
+  printf ( "\n" );
+  printf ( "  X  Y  Theta  ATAN2(y, x), ANGLE_RAD_ND, ANGLE_DEG_2D\n" );
+  printf ( "\n" );
+
+  for ( i = 0; i <= angle_num; i++ )
+  {
+    thetad = ( double ) ( i ) * 360.0 / ( double ) ( angle_num );
+    thetar = degrees_to_radians ( thetad );
+
+    v2[0] = cos ( thetar );
+    v2[1] = sin ( thetar );
+
+    temp1 = radians_to_degrees ( atan2 ( v2[1], v2[0] ) );
+
+    temp2 = angle_rad_nd ( 2, v1, v2 );
+
+    temp3 = angle_deg_2d ( v1, v3, v2 );
+
+    printf ( "  %8.3f  %8.3f  %8.3f  %8.3f  %8.3f  %8.3f\n",
+    v2[0], v2[1], thetad, temp1, temp2, temp3 );
+  } 
+  return;
+}
+/******************************************************************************/
+
+void test0351 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST0351 tests LINE_PAR_POINT_NEAR_2D and LINE_PAR_POINT_DIST_2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 April 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define TEST_NUM 3
+
+  double dist;
+  double f;
+  double g;
+  int i;
+  double p[2];
+  double *pn;
+  double p_test[2*TEST_NUM] = {
+    0.0,  0.0,
+    5.0, -1.0,
+    5.0,  3.0 };
+  double t;
+  int test;
+  int test_num = TEST_NUM;
+  double x0;
+  double y0;
+
+  printf ( "\n" );
+  printf ( "TEST0351\n" );
+  printf ( "  LINE_PAR_POINT_NEAR_2D finds the point on\n" );
+  printf ( "  a parametric line (X0,Y0,F,G) nearest a point P in 2D.\n" );
+
+  x0 = 1.0;
+  y0 = 3.0;
+  f = +1.0;
+  g = -1.0;
+
+  printf ( "\n" );
+  printf ( "  Parametric line:\n" );
+  printf ( "  X(t) = %g + %g * t\n", x0, f );
+  printf ( "  Y(t) = %g + %g * t\n", y0, g );
+
+  for ( test = 0; test < test_num; test++ )
+  {
+    for ( i = 0; i < 2; i++ )
+    {
+      p[i] = p_test[i+test*2];
+    }
+
+    r8vec_print ( 2, p, "  The point P:" );
+
+    dist = line_par_point_dist_2d ( f, g, x0, y0, p );
+
+    printf ( "  Distance = %g\n", dist );
+
+    pn = line_par_point_near_2d ( f, g, x0, y0, p );
+
+    r8vec_print ( 2, pn, "  Nearest point PN:" );
+
+    dist = r8vec_norm_affine ( 2, p, pn );
+
+    printf ( "  Distance recomputed = %g\n", dist );
+
+    free ( pn );
+  }
+  return;
+# undef TEST_NUM
+}
+/******************************************************************************/
+
+void test0352 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST0352 tests LINE_PAR_POINT_DIST_3D and LINE_PAR_POINT_NEAR_3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 April 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+# define TEST_NUM 3
+
+  double dist;
+  double f;
+  double g;
+  double h;
+  int i;
+  double p[3];
+  double *pn;
+  double p_test[3*TEST_NUM] = {
+    0.0,  0.0, 2.0, 
+    5.0, -1.0, 1.0, 
+    5.0,  3.0, 3.0 };
+  int test;
+  int test_num = TEST_NUM;
+  double x0;
+  double y0;
+  double z0;
+
+  printf ( "\n" );
+  printf ( "TEST0352\n" );
+  printf ( "  LINE_PAR_POINT_DIST_3D finds the distance\n" );
+  printf ( "  from a parametric line to a point in 3D.\n" );
+
+  x0 = 1.0;
+  y0 = 3.0;
+  z0 = 2.0;
+
+  f = +3.0;
+  g = -3.0;
+  h = -1.0;
+
+  printf ( "\n" );
+  printf ( "  Parametric line:\n" );
+  printf ( "  X(t) = %g + %g * t\n", x0, f );
+  printf ( "  Y(t) = %g + %g * t\n", y0, g );
+  printf ( "  Z(t) = %g + %g * t\n", z0, h );
+
+  for ( test = 0; test < test_num; test++ )
+  {
+    for ( i = 0; i < 3; i++ )
+    {
+      p[i] = p_test[i+test*3];
+    }
+
+    r8vec_print ( 3, p, "  The point P:" );
+
+    dist = line_par_point_dist_3d ( f, g, h, x0, y0, z0, p );
+
+    printf ( "  Distance = %g\n", dist );
+
+    pn = line_par_point_near_3d ( f, g, h, x0, y0, z0, p );
+
+    r8vec_print ( 3, pn, "  Nearest point PN:" );
+
+    dist = r8vec_norm_affine ( 3, p, pn );
+
+    printf ( "  Distance recomputed = %g\n", dist );
+
+    free ( pn );
+  }
+  return;
+# undef TEST_NUM
+}
+/******************************************************************************/
+
 void test0477 ( )
 
 /******************************************************************************/
@@ -509,7 +749,7 @@ void test0616 ( )
 }
 /******************************************************************************/
 
-void test0617 ( void )
+void test0617 ( )
 
 /******************************************************************************/
 /*
@@ -730,7 +970,7 @@ void test1712 ( )
 }
 /******************************************************************************/
 
-void test1835 ( void )
+void test1835 ( )
 
 /******************************************************************************/
 /*
@@ -838,7 +1078,7 @@ void test1835 ( void )
 }
 /******************************************************************************/
 
-void test1836 ( void )
+void test1836 ( )
 
 /******************************************************************************/
 /*
@@ -895,7 +1135,7 @@ void test1836 ( void )
 }
 /******************************************************************************/
 
-void test2101 ( void )
+void test2101 ( )
 
 /******************************************************************************/
 /*
@@ -983,7 +1223,7 @@ void test2101 ( void )
 }
 /******************************************************************************/
 
-void test21011 ( void )
+void test21011 ( )
 
 /******************************************************************************/
 /*

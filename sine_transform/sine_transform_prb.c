@@ -22,7 +22,11 @@ int main ( )
 /*
   Purpose:
 
-    SINE_TRANSFORM_TEST tests SINE_TRANSFORM.
+    MAIN is the main program for SINE_TRANSFORM_PRB.
+
+  Discussion:
+
+    SINE_TRANSFORM_PRB tests the SINE_TRANSFORM library.
 
   Licensing:
 
@@ -39,7 +43,7 @@ int main ( )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "SINE_TRANSFORM_TEST\n" );
+  printf ( "SINE_TRANSFORM_PRB\n" );
   printf ( "  C version.\n" );
   printf ( "  Test the SINE_TRANSFORM library.\n" );
 
@@ -51,9 +55,8 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "SINE_TRANSFORM_TEST\n" );
+  printf ( "SINE_TRANSFORM_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

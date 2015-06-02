@@ -20,7 +20,7 @@ int main ( void )
 
   Discussion:
 
-    MACHINE_PRB runs the MACHINE tests.
+    MACHINE_PRB tests the MACHINE library.
 
   Licensing:
 
@@ -36,7 +36,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "MACHINE_PRB:\n" );
   printf ( "  C version\n" );
@@ -51,7 +50,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "MACHINE_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

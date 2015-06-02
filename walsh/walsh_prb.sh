@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g -I/$HOME/include walsh_prb.c >& compiler.txt
+gcc -c -I/$HOME/include walsh_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling walsh_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc walsh_prb.o /$HOME/libc/$ARCH/walsh.o -lm
 if [ $? -ne 0 ]; then

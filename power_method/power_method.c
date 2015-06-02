@@ -7,7 +7,7 @@
 
 /*******************************************************************************/
 
-double cpu_time ( void )
+double cpu_time ( )
 
 /*******************************************************************************/
 /*
@@ -386,7 +386,7 @@ double r8_abs ( double x )
 }
 /******************************************************************************/
 
-double r8_epsilon ( void )
+double r8_epsilon ( )
 
 /******************************************************************************/
 /*
@@ -399,16 +399,16 @@ double r8_epsilon ( void )
     R8_EPSILON is a number R which is a power of 2 with the property that,
     to the precision of the computer's arithmetic,
       1 < 1 + R
-    but 
+    but
       1 = ( 1 + R / 2 )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    08 May 2006
+    01 September 2012
 
   Author:
 
@@ -416,19 +416,12 @@ double r8_epsilon ( void )
 
   Parameters:
 
-    Output, double R8_EPSILON, the double precision round-off unit.
+    Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  double r;
+  const double value = 2.220446049250313E-016;
 
-  r = 1.0;
-
-  while ( 1.0 < ( double ) ( 1.0 + r )  )
-  {
-    r = r / 2.0;
-  }
-
-  return ( 2.0 * r );
+  return value;
 }
 /******************************************************************************/
 
@@ -658,7 +651,7 @@ double *r8vec_uniform_01 ( int n, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {

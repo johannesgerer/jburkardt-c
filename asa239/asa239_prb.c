@@ -4,12 +4,12 @@
 
 # include "asa239.h"
 
-int main ( void );
-void test01 ( void );
+int main ( );
+void test01 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    ASA239_PRB calls the ASA239 routines.
+    ASA239_PRB tests the ASA239 library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA239_PRB:\n" );
   printf ( "  C version\n" );
@@ -48,7 +47,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA239_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -56,7 +54,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*

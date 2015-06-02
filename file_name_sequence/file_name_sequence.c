@@ -7,13 +7,13 @@
 
 /******************************************************************************/
 
-void file_name_inc ( char *filename )
+void filename_inc ( char *filename )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    FILE_NAME_INC increments a partially numeric file name.
+    FILENAME_INC increments a partially numeric file name.
 
   Discussion:
 
@@ -64,7 +64,7 @@ void file_name_inc ( char *filename )
   if ( n <= 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "FILE_NAME_INC - Fatal error!\n" );
+    fprintf ( stderr, "FILENAME_INC - Fatal error!\n" );
     fprintf ( stderr, "  The input string is empty.\n" );
     exit ( 1 );
   }

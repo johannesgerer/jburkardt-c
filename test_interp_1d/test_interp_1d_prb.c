@@ -11,28 +11,32 @@ int main ( );
 void test01 ( );
 void test02 ( int nd );
 
-//****************************************************************************80
+/******************************************************************************/
 
 int main ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST_INTERP_1D_TEST tests the TEST_INTERP_1D library.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    28 August 2012
-//
-//  Author:
-//
-//    John Burkardt
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    MAIN is the main program for TEST_INTERP_1D_PRB.
+
+  Discussion:
+
+      TEST_INTERP_1D_PRB tests the TEST_INTERP_1D library.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 August 2012
+
+  Author:
+
+    John Burkardt
+*/
 {
   int nd;
 
@@ -48,13 +52,12 @@ int main ( )
 
   nd = 11;
   test02 ( nd );
-//
-//  Terminate.
-//
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "TEST_INTERP_1D_TEST\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

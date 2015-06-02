@@ -31,7 +31,7 @@ int main ( )
 
   Discussion:
 
-    RKF45_PRB tests the RKF45 ODE integrator.
+    RKF45_PRB tests the RKF45 library.
 
   Licensing:
 
@@ -47,7 +47,6 @@ int main ( )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "RKF45_PRB\n" );
   printf ( "  C version\n" );
@@ -65,7 +64,6 @@ int main ( )
   printf ( "\n" );
   printf ( "RKF45_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

@@ -5,15 +5,15 @@
 int main ( int argc, char *argv[] );
 void timestamp ( void );
 
-/**********************************************************************/
+/******************************************************************************/
 
 int main ( int argc, char *argv[] )
 
-/**********************************************************************/
+/******************************************************************************/
 /*
  Purpose:
 
-    Here is why it's good to initialize array pointers.
+    NOT_ALLOCATED_ARRAYS shows why it's good to initialize array pointers.
 
   Licensing:
 
@@ -55,7 +55,7 @@ int main ( int argc, char *argv[] )
   printf ( "    !a = %d\n", !a );
   printf ( "  Now we allocate A.\n" );
 
-  a = malloc ( 10 * sizeof ( int ) );
+  a = ( int * ) malloc ( 10 * sizeof ( int ) );
 
   printf ( "    a = %d\n", a );
   printf ( "    !a = %d\n", !a );
@@ -77,7 +77,7 @@ int main ( int argc, char *argv[] )
   printf ( "    !b = %d\n", !b );
   printf ( "  Now we allocate B.\n" );
 
-  b = malloc ( 10 * sizeof ( int ) );
+  b = ( int * ) malloc ( 10 * sizeof ( int ) );
 
   printf ( "    b = %d\n", b );
   printf ( "    !b = %d\n", !b );
@@ -99,11 +99,11 @@ int main ( int argc, char *argv[] )
 
   return 0;
 }
-/********************************************************************/
+/******************************************************************************/
 
 void timestamp ( void )
 
-/********************************************************************/
+/******************************************************************************/
 /*
   Purpose:
 

@@ -49,6 +49,10 @@ int main ( void )
 
     MAIN is the main program for BRENT_PRB.
 
+  Discussion:
+
+    BRENT_PRB tests the BRENT library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license. 
@@ -79,7 +83,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "BRENT_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

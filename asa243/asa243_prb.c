@@ -5,18 +5,22 @@
 
 # include "asa243.h"
 
-int main ( void );
-void test01 ( void );
+int main ( );
+void test01 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ASA243_PRB tests ASA243.
+    MAIN is the main program for ASA243_PRB.
+
+  Discussion:
+
+    ASA243_PRB tests the ASA243 library.
 
   Licensing:
 
@@ -31,9 +35,7 @@ int main ( void )
     John Burkardt
 */
 {
-  printf ( "\n" );
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA243_PRB:\n" );
   printf ( "  C version\n" );
@@ -46,7 +48,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA243_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -112,7 +113,7 @@ void test01 ( void )
     fx2 = tnc ( x, df_real, delta, &ifault );
 
     printf ( "  %10.4f  %10.4f  %8d  %24.16f  %24.16f  %10.4e\n",
-      x, delta, df, fx, fx2, r8_abs ( fx - fx2 ) );
+      x, delta, df, fx, fx2, fabs ( fx - fx2 ) );
   }
 
   return;

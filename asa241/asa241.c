@@ -126,48 +126,7 @@ void normal_01_cdf_values ( int *n_data, double *x, double *fx )
 }
 /******************************************************************************/
 
-float r4_abs ( float x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R4_ABS returns the absolute value of an R4.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 January 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, float X, the quantity whose absolute value is desired.
-
-    Output, float R4_ABS, the absolute value of X.
-*/
-{
-  float value;
-
-  if ( 0.0 <= x )
-  {
-    value = x;
-  } 
-  else
-  {
-    value = - x;
-  }
-  return value;
-}
-/******************************************************************************/
-
-float r4_huge ( void )
+float r4_huge ( )
 
 /******************************************************************************/
 /*
@@ -278,7 +237,7 @@ float r4_normal_01_cdf_inverse ( float p )
 
   q = p - 0.5;
 
-  if ( r4_abs ( q ) <= split1 )
+  if ( fabs ( q ) <= split1 )
   {
     r = const1 - q * q;
     value = q * r4poly_value ( 4, a, r ) / r4poly_value ( 4, b, r );
@@ -381,48 +340,7 @@ float r4poly_value ( int n, float a[], float x )
 }
 /******************************************************************************/
 
-double r8_abs ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_ABS returns the absolute value of an R8.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    07 May 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, the quantity whose absolute value is desired.
-
-    Output, double R8_ABS, the absolute value of X.
-*/
-{
-  double value;
-
-  if ( 0.0 <= x )
-  {
-    value = x;
-  } 
-  else
-  {
-    value = - x;
-  }
-  return value;
-}
-/******************************************************************************/
-
-double r8_huge ( void )
+double r8_huge ( )
 
 /******************************************************************************/
 /*
@@ -472,7 +390,7 @@ double r8_normal_01_cdf_inverse ( double p )
 
   Discussion:
 
-    The result is accurate to about 1 part in 10**16.
+    The result is accurate to about 1 part in 10^16.
 
   Licensing:
 
@@ -558,7 +476,7 @@ double r8_normal_01_cdf_inverse ( double p )
 
   q = p - 0.5;
 
-  if ( r8_abs ( q ) <= split1 )
+  if ( fabs ( q ) <= split1 )
   {
     r = const1 - q * q;
     value = q * r8poly_value ( 8, a, r ) / r8poly_value ( 8, b, r );

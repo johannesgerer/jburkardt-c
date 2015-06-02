@@ -17,7 +17,11 @@ int main ( )
 /*
   Purpose:
 
-    PWL_INTERP_1D_TEST tests PWL_INTERP_1D.
+    MAIN is the main program for PWL_INTERP_1D_PRB.
+
+  Discussion:
+
+    PWL_INTERP_1D_PRB tests the PWL_INTERP_1D library.
 
   Licensing:
 
@@ -37,7 +41,7 @@ int main ( )
 
   timestamp ( );
   printf ( "\n" );
-  printf ( "PWL_INTERP_1D_TEST:\n" );
+  printf ( "PWL_INTERP_1D_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the PWL_INTERP_1D library.\n" );
   printf ( "  The R8LIB library is needed.\n" );
@@ -52,7 +56,7 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "PWL_INTERP_1D_TEST:\n" );
+  printf ( "PWL_INTERP_1D_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );
@@ -75,7 +79,7 @@ void pwl_interp_1d_test01 ( int prob )
 
   Modified:
 
-    07 September 2012
+    31 May 2012
 
   Author:
 
@@ -86,13 +90,24 @@ void pwl_interp_1d_test01 ( int prob )
     Input, int PROB, the problem index.
 */
 {
+  char command_filename[255];
+  FILE *command_unit;
+  char data_filename[255];
+  FILE *data_unit;
   int i;
-  double int_error;
+  double interp_error;
+  char interp_filename[255];
+  FILE *interp_unit;
+  int j;
   int nd;
   int ni;
+  char output_filename[255];
+  char title[255];
   double *xd;
   double *xi;
   double *xy;
+  double xmax;
+  double xmin;
   double *yd;
   double *yi;
 
@@ -129,11 +144,72 @@ void pwl_interp_1d_test01 ( int prob )
 
   yi = pwl_interp_1d ( nd, xd, yd, ni, xi );
 
-  int_error = r8vec_diff_norm ( ni, yi, yd ) / ( double ) ( ni );
+  interp_error = r8vec_diff_norm ( ni, yi, yd ) / ( double ) ( ni );
 
   printf ( "\n" );
-  printf ( "  L2 interpolation error averaged per interpolant node = %g\n", int_error );
+  printf ( "  L2 interpolation error averaged per interpolant node = %g\n", interp_error );
+/*
+  Create data file.
+*/
+  sprintf ( data_filename, "data%02d.txt", prob );
+  data_unit = fopen ( data_filename, "wt" );
+  for ( j = 0; j < nd; j++ )
+  {
+    fprintf ( data_unit, "  %14g  %14g\n", xd[j], yd[j] );
+  }
+  fclose ( data_unit );
+  printf ( "\n" );
+  printf ( "  Created graphics data file \"%s\".\n", data_filename );
+/*
+  Create interp file.
+*/
+  free ( xi );
+  free ( yi );
 
+  ni = 501;
+  xmin = r8vec_min ( nd, xd );
+  xmax = r8vec_max ( nd, xd );
+  xi = r8vec_linspace_new ( ni, xmin, xmax );
+  yi = pwl_interp_1d ( nd, xd, yd, ni, xi );
+
+  sprintf ( interp_filename, "interp%02d.txt", prob );
+  interp_unit = fopen ( interp_filename, "wt" );
+  for ( j = 0; j < ni; j++ )
+  {
+    fprintf ( interp_unit, "  %g  %g\n", xi[j], yi[j] );
+  }
+  fclose ( interp_unit );
+  printf ( "  Created graphics interp file \"%s\".\n", interp_filename );
+/*
+  Plot the data and the interpolant.
+*/
+  sprintf ( command_filename, "commands%02d.txt", prob );
+  command_unit = fopen ( command_filename, "wt" );
+
+  sprintf ( output_filename, "plot%02d.png", prob );
+
+  fprintf ( command_unit, "# %s\n", command_filename );
+  fprintf ( command_unit, "#\n" );
+  fprintf ( command_unit, "# Usage:\n" );
+  fprintf ( command_unit, "#  gnuplot < %s\n", command_filename );
+  fprintf ( command_unit, "#\n" );
+  fprintf ( command_unit, "set term png\n" );
+  fprintf ( command_unit, "set output '%s'\n", output_filename );
+  fprintf ( command_unit, "set xlabel '<---X--->'\n" );
+  fprintf ( command_unit, "set ylabel '<---Y--->'\n" );
+  fprintf ( command_unit, "set title 'Data versus piecewise linear interpolant'\n" );
+  fprintf ( command_unit, "set grid\n" );
+  fprintf ( command_unit, "set style data lines\n" );
+  fprintf ( command_unit, "plot '%s' using 1:2 with points pt 7 ps 2 lc rgb 'blue',\\\n",
+    data_filename );
+  fprintf ( command_unit, "     '%s' using 1:2 lw 3 linecolor rgb 'red'\n", 
+    interp_filename );
+
+  fclose ( command_unit );
+  printf ( "  Created graphics command file \"%s\".\n", command_filename );
+/*
+  Free memory.
+*/
   free ( xd );
   free ( xi );
   free ( xy );

@@ -11,9 +11,10 @@ void gamma_values ( int *n_data, double *x, double *fx );
 double r8_abs ( double x );
 void test_erf ( void );
 void test_erfc ( void );
-void test_gamma ( void );
 void test_isnan ( void );
 void test_j0 ( void );
+void test_lgamma ( void );
+void test_tgamma ( void );
 void timestamp ( void );
 
 /******************************************************************************/
@@ -32,7 +33,7 @@ int main ( int argc, char *argv[] )
 
   Modified:
 
-    14 September 2010
+    18 September 2013
 
   Author:
 
@@ -46,9 +47,10 @@ int main ( int argc, char *argv[] )
 
   test_erf ( );
   test_erfc ( );
-  test_gamma ( );
   test_isnan ( );
   test_j0 ( );
+  test_lgamma ( );
+  test_tgamma ( );
 /*
   Terminate.
 */
@@ -159,58 +161,6 @@ void test_erfc ( void )
       break;
     }
     fx2 = erfc ( x );
-
-    printf ( "  %14e  %14e  %14e  %14e\n", x, fx, fx2, r8_abs ( fx - fx2 ) );
-  }
-  return;
-}
-/******************************************************************************/
-
-void test_gamma ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST_GAMMA tests GAMMA.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    04 April 2008
-
-  Author:
-
-    John Burkardt
-*/
-{
-  double fx;
-  double fx2;
-  int n_data;
-  double x;
-
-  printf ( "\n" );
-  printf ( " TEST_GAMMA:\n" );
-  printf ( "   Test GAMMA, which evaluates the Gamma function.\n" );
-  printf ( "\n" );
-  printf ( "      X              GAMMA(X)         GAMMA(X)        DIFF\n" );
-  printf ( "                    (tabulated)      (computed)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    gamma_values ( &n_data, &x, &fx );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-    fx2 = gamma ( x );
 
     printf ( "  %14e  %14e  %14e  %14e\n", x, fx, fx2, r8_abs ( fx - fx2 ) );
   }
@@ -347,6 +297,118 @@ void test_j0 ( void )
       break;
     }
     fx2 = j0 ( x );
+
+    printf ( "  %14e  %14e  %14e  %14e\n", x, fx, fx2, r8_abs ( fx - fx2 ) );
+  }
+  return;
+}
+/******************************************************************************/
+
+void test_lgamma ( void )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST_LGAMMA tests LGAMMA.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 September 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  double fx2;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( " TEST_LGAMMA:\n" );
+  printf ( "   Test LGAMMA, which evaluates the log of the Gamma function.\n" );
+  printf ( "\n" );
+  printf ( "      X           Log(GAMMA(X))       LGAMMA(X)        DIFF\n" );
+  printf ( "                    (tabulated)      (computed)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    gamma_values ( &n_data, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    if ( x <= 0.0 )
+    {
+      continue;
+    }
+
+    fx = log ( fx );
+
+    fx2 = lgamma ( x );
+
+    printf ( "  %14e  %14e  %14e  %14e\n", x, fx, fx2, r8_abs ( fx - fx2 ) );
+  }
+  return;
+}
+/******************************************************************************/
+
+void test_tgamma ( void )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST_TGAMMA tests TGAMMA.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 September 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  double fx2;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( " TEST_TGAMMA:\n" );
+  printf ( "   Test TGAMMA, which evaluates the Gamma function.\n" );
+  printf ( "\n" );
+  printf ( "      X              GAMMA(X)         TGAMMA(X)        DIFF\n" );
+  printf ( "                    (tabulated)      (computed)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    gamma_values ( &n_data, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    fx2 = tgamma ( x );
 
     printf ( "  %14e  %14e  %14e  %14e\n", x, fx, fx2, r8_abs ( fx - fx2 ) );
   }

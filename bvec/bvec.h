@@ -1,0 +1,23 @@
+int bvec_add ( int n, int bvec1[], int bvec2[], int bvec3[] );
+void bvec_and ( int n, int bvec1[], int bvec2[], int bvec3[] );
+int bvec_check ( int n, int bvec[] );
+void bvec_complement2 ( int n, int bvec1[], int bvec2[] );
+int bvec_enum ( int n );
+void bvec_mul ( int n, int bvec1[], int bvec2[], int bvec3[] );
+void bvec_next ( int n, int bvec[] );
+void bvec_next_grlex ( int n, int bvec[] );
+void bvec_not ( int n, int bvec1[], int bvec2[] );
+void bvec_or ( int n, int bvec1[], int bvec2[], int bvec3[] );
+void bvec_print ( int n, int bvec[], char *title );
+void bvec_reverse ( int n, int bvec1[], int bvec2[] );
+void bvec_sub ( int n, int bvec1[], int bvec2[], int bvec3[] );
+int bvec_to_i4 ( int n, int bvec[] );
+int *bvec_uniform_new ( int n, int *seed );
+void bvec_xor ( int n, int bvec1[], int bvec2[], int bvec3[] );
+int i4_bclr ( int i4, int pos );
+int i4_bset ( int i4, int pos );
+int i4_btest ( int i4, int pos );
+void i4_to_bvec ( int i, int n, int bvec[] );
+int i4_uniform_ab ( int a, int b, int *seed );
+void timestamp ( );
+

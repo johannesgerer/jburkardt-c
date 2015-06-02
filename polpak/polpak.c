@@ -1,117 +1,11 @@
+# include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <math.h>
 # include <time.h>
 # include <string.h>
 
 # include "polpak.h"
 
-/******************************************************************************/
-
-double agm ( double a, double b )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    AGM computes the arithmetic-geometric mean of A and B.
-
-  Discussion:
-
-    The AGM is defined for nonnegative A and B.
-
-    The AGM of numbers A and B is defined by setting
-
-      A(0) = A,
-      B(0) = B
-
-      A(N+1) = ( A(N) + B(N) ) / 2
-      B(N+1) = sqrt ( A(N) * B(N) )
-
-    The two sequences both converge to AGM(A,B).
-
-    In Mathematica, the AGM can be evaluated by
-
-      ArithmeticGeometricMean [ a, b ]
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    14 February 2010
-
-  Author:
-
-    John Burkardt
-
-  Reference:
-
-    Stephen Wolfram,
-    The Mathematica Book,
-    Fourth Edition,
-    Cambridge University Press, 1999,
-    ISBN: 0-521-64314-7,
-    LC: QA76.95.W65.
-
-  Parameters:
-
-    Input, double A, B, the arguments whose AGM is to be computed.
-
-    Output, double AGM, the arithmetic-geometric mean of A and B.
-*/
-{
-  double c;
-  double d;
-  int it;
-  int it_max = 1000;
-  double tol;
-  double value;
-
-  if ( a < 0.0 )
-  {
-    exit ( 1 );
-  }
-
-  if ( b < 0.0 )
-  {
-    exit ( 1 );
-  }
-
-  if ( a == 0.0 || b == 0.0 )
-  {
-    value = 0.0;
-    return value;
-  }
-
-  it = 0;
-  tol = 100.0 * r8_epsilon ( );
-
-  for ( ; ; )
-  {
-    it = it + 1;
-
-    c = ( a + b ) / 2.0;
-    d = sqrt ( a * b );
-
-    if ( r8_abs ( c - d ) <= tol * ( c + d ) )
-    {
-      break;
-    }
-
-    if ( it_max < it )
-    {
-      break;
-    }
-
-    a = c;
-    b = d;
-  }
-  value = c;
-
-  return value;
-}
 /******************************************************************************/
 
 void agm_values ( int *n_data, double *a, double *b, double *fx )
@@ -250,7 +144,7 @@ void agm_values ( int *n_data, double *a, double *b, double *fx )
 }
 /******************************************************************************/
 
-double agud ( double gamma )
+double agud ( double g )
 
 /******************************************************************************/
 /*
@@ -262,12 +156,12 @@ double agud ( double gamma )
 
     The Gudermannian function relates the hyperbolic and trigonomentric
     functions.  For any argument X, there is a corresponding value
-    GAMMA so that
+    G so that
 
-      SINH(X) = TAN(GAMMA).
+      SINH(X) = TAN(G).
 
-    This value GAMMA(X) is called the Gudermannian of X.  The inverse
-    Gudermannian function is given as input a value GAMMA and computes
+    This value G(X) is called the Gudermannian of X.  The inverse
+    Gudermannian function is given as input a value G and computes
     the corresponding value X.
 
   Licensing:
@@ -284,14 +178,15 @@ double agud ( double gamma )
 
   Parameters:
 
-    Input, double GAMMA, the value of the Gudermannian.
+    Input, double G, the value of the Gudermannian.
 
     Output, double AGUD, the argument of the Gudermannian.
 */
 {
+  const double r8_pi = 3.141592653589793;
   double value;
 
-  value = log ( tan ( 0.25 * r8_pi ( ) + 0.5 * gamma ) );
+  value = log ( tan ( 0.25 * r8_pi + 0.5 * g ) );
 
   return value;
 }
@@ -426,267 +321,6 @@ int align_enum ( int m, int n )
   value = fi[n];
   free ( fi );
 
-  return value;
-}
-/******************************************************************************/
-
-double arc_cosine ( double c )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ARC_COSINE computes the arc cosine function, with argument truncation.
-
-  Discussion:
-
-    If you call your system ACOS routine with an input argument that is
-    outside the range [-1.0, 1.0 ], you may get an unpleasant surprise.
-
-    In particular, you may get the value NaN returned.
-
-    This routine truncates arguments outside the range, avoiding the problem.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    09 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double C, the argument.
-
-    Output, double ARC_COSINE, an angle whose cosine is C.
-*/
-{
-  double value;
-
-  c = r8_max ( c, -1.0 );
-  c = r8_min ( c, +1.0 );
-
-  value = acos ( c );
-
-  return value;
-}
-/******************************************************************************/
-
-double arc_sine ( double s )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ARC_SINE computes the arc sine function, with argument truncation.
-
-  Discussion:
-
-    If you call your system ASIN routine with an input argument that is
-    outside the range [-1.0, 1.0 ], you may get an unpleasant surprise.
-
-    In particular, you may get the value NaN returned.
-
-    This routine truncates arguments outside the range, avoiding the problem.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    04 March 2008
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double S, the argument.
-
-    Output, double ARC_SINE, an angle whose sine is S.
-*/
-{
-  double value;
-
-  s = r8_max ( s, -1.0 );
-  s = r8_min ( s, +1.0 );
-
-  value = asin ( s );
-
-  return value;
-}
-/******************************************************************************/
-
-double atan4 ( double y, double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ATAN4 computes the inverse tangent of the ratio Y / X.
-
-  Discussion:
-
-    ATAN4 returns an angle whose tangent is ( Y / X ), a job which
-    the built in functions ATAN and ATAN2 already do.
-
-    However:
-
-    * ATAN4 always returns a positive angle, between 0 and 2 PI,
-      while ATAN and ATAN2 return angles in the interval [-PI/2,+PI/2]
-      and [-PI,+PI] respectively;
-
-    * ATAN4 accounts for the signs of X and Y, (as does ATAN2).  The ATAN
-     function by contrast always returns an angle in the first or fourth
-     quadrants.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    09 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double Y, X, two quantities which represent the tangent of
-    an angle.  If Y is not zero, then the tangent is (Y/X).
-
-    Output, double ATAN4, an angle between 0 and 2 * PI, whose tangent is
-    (Y/X), and which lies in the appropriate quadrant so that the signs
-    of its cosine and sine match those of X and Y.
-*/
-{
-  double abs_x;
-  double abs_y;
-  double theta;
-  double theta_0;
-/*
-  Special cases:
-*/
-  if ( x == 0.0 )
-  {
-    if ( 0.0 < y )
-    {
-      theta = r8_pi ( ) / 2.0;
-    }
-    else if ( y < 0.0 )
-    {
-      theta = 3.0 * r8_pi ( ) / 2.0;
-    }
-    else if ( y == 0.0 )
-    {
-      theta = 0.0;
-    }
-  }
-  else if ( y == 0.0 )
-  {
-    if ( 0.0 < x )
-    {
-      theta = 0.0;
-    }
-    else if ( x < 0.0 )
-    {
-      theta = r8_pi ( );
-    }
-  }
-/*
-  We assume that ATAN2 is correct when both arguments are positive.
-*/
-  else
-  {
-    abs_y = fabs ( y );
-    abs_x = fabs ( x );
-
-    theta_0 = atan2 ( abs_y, abs_x );
-
-    if ( 0.0 < x && 0.0 < y )
-    {
-      theta = theta_0;
-    }
-    else if ( x < 0.0 && 0.0 < y )
-    {
-      theta = r8_pi ( ) - theta_0;
-    }
-    else if ( x < 0.0 && y < 0.0 )
-    {
-      theta = r8_pi ( ) + theta_0;
-    }
-    else if ( 0.0 < x && y < 0.0 )
-    {
-      theta = 2.0 * r8_pi ( ) - theta_0;
-    }
-
-  }
-
-  return theta;
-}
-/******************************************************************************/
-
-double atanh2 ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ATANH2 returns the inverse hyperbolic tangent of a number.
-
-  Definition:
-
-    Y = ATANH2(X) implies that
-    X = TANH(Y) = ( EXP(Y) - EXP(-Y) ) / ( EXP(Y) + EXP(-Y) )
-
-  Discussion:
-
-    Since a library function ATANH may be available on some systems,
-    this routine is named ATANH2 to avoid name conflicts.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    09 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, the number whose inverse hyperbolic tangent is desired.
-    The absolute value of X should be less than or equal to 1.
-
-    Output, double ATANH2, the inverse hyperbolic tangent of X.
-*/
-{
-  double value;
-
-  if ( x <= -1.0 )
-  {
-    value = -HUGE_VAL;
-  }
-  else if ( 1.0 <= x )
-  {
-    value = HUGE_VAL;
-  }
-  else
-  {
-    value = 0.5 * log ( ( 1.0 + x ) / ( 1.0 - x ) );
-  }
   return value;
 }
 /******************************************************************************/
@@ -1105,10 +739,9 @@ void bernoulli_number ( int n, double b[] )
 */
 {
   double b_sum;
-  int *combo;
+  int *c;
   int i;
   int j;
-  int next;
 
   if ( n < 0 )
   {
@@ -1124,14 +757,14 @@ void bernoulli_number ( int n, double b[] )
 
   b[1] = -0.5;
 
-  next = 0;
-
-  combo = ( int * ) malloc ( ( n + 2 ) * sizeof ( int ) );
+  c = ( int * ) malloc ( ( n + 2 ) * sizeof ( int ) );
+  c[0] = 1;
+  c[1] = 2;
+  c[2] = 1;
 
   for ( i = 2; i <= n; i++ )
   {
-    comb_row ( next, i+1, combo );
-    next = 1;
+    comb_row_next ( i + 1, c );
 
     if ( ( i % 2 ) == 1 )
     {
@@ -1142,16 +775,14 @@ void bernoulli_number ( int n, double b[] )
       b_sum = 0.0;
       for ( j = 0; j <= i-1; j++ )
       {
-        b_sum = b_sum + b[j] * ( double ) ( combo[j] );
+        b_sum = b_sum + b[j] * ( double ) ( c[j] );
       }
 
-      b[i] = - b_sum / ( double ) ( combo[i] );
-
+      b[i] = - b_sum / ( double ) ( c[i] );
     }
-
   }
 
-  free ( combo );
+  free ( c );
 
   return;
 }
@@ -1255,6 +886,7 @@ void bernoulli_number2 ( int n, double b[] )
   int i;
   int k;
   int kmax = 400;
+  const double r8_pi = 3.141592653589793;
   double sgn;
   double sum2;
   double t;
@@ -1280,7 +912,7 @@ void bernoulli_number2 ( int n, double b[] )
     return;
   }
 
-  altpi = log ( 2.0 * r8_pi ( ) );
+  altpi = log ( 2.0 * r8_pi );
 /*
   Initial estimates for B(I), I = 2 to N
 */
@@ -1428,6 +1060,7 @@ double bernoulli_number3 ( int n )
 {
   int i;
   int itmax = 1000;
+  const double r8_pi = 3.141592653589793;
   double sum2;
   double term;
   double tol = 5.0E-07;
@@ -1470,7 +1103,7 @@ double bernoulli_number3 ( int n )
     }
 
     value = 2.0 * sum2 * r8_factorial ( n ) 
-      / pow ( ( 2.0 * r8_pi ( ) ), n );
+      / pow ( ( 2.0 * r8_pi ), n );
 
     if ( ( n % 4 ) == 0 )
     {
@@ -1698,26 +1331,29 @@ double bernoulli_poly ( int n, double x )
     Output, double BERNOULLI_POLY, the value of B(N,X).
 */
 {
+  int *c;
   int i;
-  int *iwork;
-  int next;
   double value;
   double *work;
 
   work = ( double * ) malloc ( ( n + 1 ) * sizeof ( double ) );
   bernoulli_number ( n, work );
-
-  iwork = ( int * ) malloc ( ( n + 1 ) * sizeof ( int ) );
-  next = 0;
-  comb_row ( next, n, iwork );
+/*
+  Get row N of Pascal's triangle.
+*/
+  c = ( int * ) malloc ( ( n + 1 ) * sizeof ( int ) );
+  for ( i = 0; i <= n; i++ )
+  {
+    comb_row_next ( n, c );
+  }
 
   value = 1.0;
   for ( i = 1; i <= n; i++ )
   {
-    value = value * x + work[i] * ( double ) iwork[i];
+    value = value * x + work[i] * ( double ) c[i];
   }
 
-  free ( iwork );
+  free ( c );
   free ( work );
 
   return value;
@@ -2071,64 +1707,6 @@ void bernstein_poly_values ( int *n_data, int *n, int *k, double *x, double *b )
 }
 /******************************************************************************/
 
-double beta ( double x, double y )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    BETA returns the value of the Beta function.
-
-  Discussion:
-
-    The formula is:
-
-      BETA(X,Y) = ( GAMMA(X) * GAMMA(Y) ) / GAMMA(X+Y)
-
-    Both X and Y must be greater than 0.
-
-    BETA(X,Y) = BETA(Y,X).
-    BETA(X,Y) = Integral ( 0 <= T <= 1 ) T**(X-1) (1-T)**(Y-1) dT.
-    BETA(X,Y) = GAMMA(X) * GAMMA(Y) / GAMMA(X+Y)
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    09 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, Y, the two parameters that define the Beta function.
-    X and Y must be greater than 0.
-
-    Output, double BETA, the value of the Beta function.
-*/
-{
-  double value;
-
-  if ( x <= 0.0 || y <= 0.0 )
-  {
-    fprintf ( stderr, "\n" );
-    fprintf ( stderr, "BETA - Fatal error!\n" );
-    fprintf ( stderr, "  Both X and Y must be greater than 0.\n" );
-    exit ( 1 );
-  }
-
-  value = exp ( lgamma ( x ) 
-              + lgamma ( y ) 
-              - lgamma ( x + y ) );
-
-  return value;
-}
-/******************************************************************************/
-
 void beta_values ( int *n_data, double *x, double *y, double *fxy )
 
 /******************************************************************************/
@@ -2150,7 +1728,7 @@ void beta_values ( int *n_data, double *x, double *y, double *fxy )
   Properties:
 
     Beta(X,Y) = Beta(Y,X).
-    Beta(X,Y) = Integral ( 0 <= T <= 1 ) T**(X-1) (1-T)**(Y-1) dT.
+    Beta(X,Y) = Integral ( 0 <= T <= 1 ) T^(X-1) (1-T)^(Y-1) dT.
     Beta(X,Y) = Gamma(X) * Gamma(Y) / Gamma(X+Y)
 
   Licensing:
@@ -2377,13 +1955,13 @@ void bpab ( int n, double x, double a, double b, double bern[] )
 }
 /******************************************************************************/
 
-double *cardan ( int n, double x, double s )
+double *cardan_poly ( int n, double x, double s )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CARDAN evaluates the Cardan polynomials.
+    CARDAN_POLY evaluates the Cardan polynomials.
 
   First terms:
 
@@ -2406,7 +1984,7 @@ double *cardan ( int n, double x, double s )
 
     Writing the N-th polynomial in terms of its coefficients:
 
-      C(N,S,X) = sum ( 0 <= I <= N ) D(N,I) * S**(N-I)/2 * X^I
+      C(N,S,X) = sum ( 0 <= I <= N ) D(N,I) * S^(N-I)/2 * X^I
 
     then
 
@@ -2445,7 +2023,7 @@ double *cardan ( int n, double x, double s )
 
     Input, double S, the value of the parameter, which must be positive.
 
-    Output, double CARDAN[N+1], the values of the Cardan polynomials at X.
+    Output, double CARDAN_POLY[N+1], the values of the Cardan polynomials at X.
 */
 {
   double fact;
@@ -2588,6 +2166,173 @@ void cardan_poly_coef ( int n, double s, double c[] )
   free ( cm2 );
 
   return;
+}
+/******************************************************************************/
+
+double *cardinal_cos ( int j, int m, int n, double t[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CARDINAL_COS evaluates the J-th cardinal cosine basis function.
+
+  Discussion:
+
+    The base points are T(I) = pi * I / ( M + 1 ), 0 <= I <= M + 1.
+    Basis function J is 1 at T(J), and 0 at T(I) for I /= J
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 May 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    John Boyd,
+    Exponentially convergent Fourier-Chebyshev quadrature schemes on
+    bounded and infinite intervals,
+    Journal of Scientific Computing,
+    Volume 2, Number 2, 1987, pages 99-109.
+
+  Parameters:
+
+    Input, int J, the index of the basis function.
+    0 <= J <= M + 1.
+
+    Input, int M, indicates the size of the basis set.
+
+    Input, int N, the number of sample points.
+
+    Input, double T[N], one or more points in [0,pi] where the
+    basis function is to be evaluated.
+
+    Output, double CARDINAL_COS[N], the value of the function at T.
+*/
+{
+  double *c;
+  double cj;
+  int i;
+  const double r8_eps = 2.220446049250313E-016;
+  const double r8_pi = 3.141592653589793;
+  double tj;
+
+  c = ( double * ) malloc ( n * sizeof ( double ) );
+
+  if ( ( j % ( m + 1 ) ) == 0 )
+  {
+    cj = 2.0;
+  }
+  else
+  {
+    cj = 1.0;
+  }
+
+  tj = r8_pi * ( double ) ( j ) / ( double ) ( m + 1 );
+
+  for ( i = 0; i < n; i++ )
+  {
+    if ( fabs ( t[i] - tj ) <= r8_eps )
+    {
+      c[i] = 1.0;
+    }
+    else
+    {
+      c[i] = r8_mop ( j + 1 ) 
+        * sin ( t[i] ) 
+        * sin ( ( double ) ( m + 1 ) * t[i] ) 
+        / cj 
+        / ( double ) ( m + 1 ) 
+        / ( cos ( t[i] ) - cos ( tj ) );
+    }
+  }
+
+  return c;
+}
+/******************************************************************************/
+
+double *cardinal_sin ( int j, int m, int n, double t[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CARDINAL_SIN evaluates the J-th cardinal sine basis function.
+
+  Discussion:
+
+    The base points are T(I) = pi * I / ( M + 1 ), 0 <= I <= M + 1.
+    Basis function J is 1 at T(J), and 0 at T(I) for I /= J
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 May 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    John Boyd,
+    Exponentially convergent Fourier-Chebyshev quadrature schemes on
+    bounded and infinite intervals,
+    Journal of Scientific Computing,
+    Volume 2, Number 2, 1987, pages 99-109.
+
+  Parameters:
+
+    Input, int J, the index of the basis function.
+    0 <= J <= M + 1.
+
+    Input, int M, indicates the size of the basis set.
+
+    Input, int N, the number of sample points.
+
+    Input, double T[N], one or more points in [0,pi] where the
+    basis function is to be evaluated.
+
+    Output, double CARDINAL_SIN[N], the value of the function at T.
+*/
+{
+  int i;
+  const double r8_eps = 2.220446049250313E-016;
+  const double r8_pi = 3.141592653589793;
+  double *s;
+  double tj;
+
+  s = ( double * ) malloc ( n * sizeof ( s ) );
+
+  tj = r8_pi * ( double ) ( j ) / ( double ) ( m + 1 );
+
+  for ( i = 0; i < n; i++ )
+  {
+    if ( fabs ( t[i] - tj ) <= r8_eps )
+    {
+      s[i] = 1.0;
+    }
+    else
+    {
+      s[i] = r8_mop ( j + 1 ) 
+        * sin ( tj ) 
+        * sin ( ( double ) ( m + 1 ) * t[i] ) 
+        / ( double ) ( m + 1 ) 
+        / ( cos ( t[i] ) - cos ( tj ) );
+    }
+  }
+
+  return s;
 }
 /******************************************************************************/
 
@@ -3281,7 +3026,7 @@ double *cheby_t_poly_coef ( int n )
 
   Modified:
 
-    15 May 2012
+    10 May 2014
 
   Author:
 
@@ -3337,7 +3082,7 @@ double *cheby_t_poly_coef ( int n )
     c[i+0*(n+1)]     =                    - c[i-2+0*(n+1)];
     for ( j = 1; j <= i-2; j++ )
     {
-      c[i+j*(n+1)] = 2.0 * c[i-1,j-1] - c[i-2+(j-1)*(n+1)];
+      c[i+j*(n+1)] = 2.0 * c[i-1+(j-1)*(n+1)] - c[i-2+(j-1)*(n+1)];
     }
     c[i+(i-1)*(n+1)] = 2.0 * c[i-1+(i-2)*(n+1)];
     c[i+ i   *(n+1)] = 2.0 * c[i-1+(i-1)*(n+1)];
@@ -3494,14 +3239,14 @@ double *cheby_t_poly_zero ( int n )
 {
   double angle;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double *z;
 
   z = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 1; i <= n; i++ )
   {
-    angle = ( double) ( 2 * i - 1 ) * pi / ( double ) ( 2 * n );
+    angle = ( double) ( 2 * i - 1 ) * r8_pi / ( double ) ( 2 * n );
     z[i-1] = cos ( angle );
   }
 
@@ -3509,7 +3254,7 @@ double *cheby_t_poly_zero ( int n )
 }
 /******************************************************************************/
 
-void cheby_u_poly ( int n, double x, double cx[] )
+double *cheby_u_poly ( int m, int n, double x[] )
 
 /******************************************************************************/
 /*
@@ -3548,7 +3293,7 @@ void cheby_u_poly ( int n, double x, double cx[] )
 
   Modified:
 
-    12 May 2003
+    10 January 2015
 
   Author:
 
@@ -3556,35 +3301,50 @@ void cheby_u_poly ( int n, double x, double cx[] )
 
   Parameters:
 
+    Input, int M, the number of evaluation points.
+
     Input, int N, the highest polynomial to compute.
 
-    Input, double X, the point at which the polynomials are to be computed.
+    Input, double X[M], the evaluation points.
 
-    Output, double CX[N+1], the values of the N+1 Chebyshev polynomials.
+    Output, double CHEBY_U_POLY[M*(N+1)], the values of the Chebyshev polynomials.
 */
 {
   int i;
+  int j;
+  double *v;
 
   if ( n < 0 )
   {
-    return;
+    return NULL;
   }
 
-  cx[0] = 1.0;
+  v = ( double * ) malloc ( m * ( n + 1 ) * sizeof ( double ) );
 
+  for ( i = 0; i < m; i++ )
+  {
+    v[i+0*m] = 1.0;
+  }
   if ( n < 1 )
   {
-    return;
+    return v;
   }
 
-  cx[1] = 2.0 * x;
-
-  for ( i = 2; i <= n; i++ )
+  for ( i = 0; i < m; i++ )
   {
-    cx[i] = 2.0 * x * cx[i-1] - cx[i-2];
+    v[i+1*m] = 2.0 * x[i];
   }
 
-  return;
+  for ( j = 2; j <= n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      v[i+j*m] = 2.0 * x[i] * v[i+(j-1)*m] - v[i+(j-2)*m];
+    }
+  }
+
+
+  return v;
 }
 /******************************************************************************/
 
@@ -3832,14 +3592,14 @@ double *cheby_u_poly_zero ( int n )
 {
   double angle;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double *z;
 
   z = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 1; i <= n; i++ )
   {
-    angle = ( double) ( i ) * pi / ( double ) ( n + 1 );
+    angle = ( double) ( i ) * r8_pi / ( double ) ( n + 1 );
     z[i-1] = cos ( angle );
   }
 
@@ -4230,13 +3990,13 @@ void collatz_count_values ( int *n_data, int *n, int *count )
 }
 /******************************************************************************/
 
-void comb_row ( int next, int n, int row[] )
+void comb_row_next ( int n, int row[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    COMB_ROW computes row N of Pascal's triangle.
+    COMB_ROW_NEXT computes the next row of Pascal's triangle.
 
   Discussion:
 
@@ -4284,7 +4044,7 @@ void comb_row ( int next, int n, int row[] )
 
   Modified:
 
-    12 May 2003
+    25 December 2014
 
   Author:
 
@@ -4292,63 +4052,27 @@ void comb_row ( int next, int n, int row[] )
 
   Parameters:
 
-    Input, int NEXT, indicates whether this is a call for
-    the 'next' row of the triangle.
-    NEXT = FALSE means this is a startup call.  Row N is desired, but
-    presumably this is a first call, or row N-1 was not computed
-    on the previous call.
-    NEXT = TRUE means this is not the first call, and row N-1 was computed
-    on the previous call.  In this case, much work can be saved
-    by using the information from the previous values of ROW
-    to build the next values.
+    Input, int N, indicates the desired row.
 
-    Input, int N, the row of the triangle desired.  The triangle
-    begins with row 0.
-
-    Output, int ROW[N+1], the row of coefficients.
-    ROW(I) = C(N,I-1).
+    Input/output, int ROW[N+1].  On input, row N-1 is
+    contained in entries 0 through N-1.  On output, row N is contained
+    in entries 0 through N.
 */
 {
   int i;
-  int j;
 
-  if ( n < 0 )
+  row[n] = 1;
+  for ( i = n - 1; 1 <= i; i-- )
   {
-    return;
+    row[i] = row[i] + row[i-1];
   }
-
-  if ( next )
-  {
-    for ( i = n-1; 1 <= i; i-- )
-    {
-      row[i] = row[i] + row[i-1];
-    }
-
-    row[n] = 1;
-  }
-  else
-  {
-    row[0] = 1;
-    for ( i = 1; i <= n; i++ )
-    {
-      row[i] = 0;
-    }
-
-    for ( j = 1; j <= n; j++ )
-    {
-      for ( i = j; 1 <= i; i-- )
-      {
-        row[i] = row[i] + row[i-1];
-      }
-    }
-
-  }
+  row[0] = 1;
 
   return;
 }
 /******************************************************************************/
 
-int commul ( int iarray[], int n, int nfact )
+int commul ( int n, int nfact, int iarray[] )
 
 /******************************************************************************/
 /*
@@ -4373,7 +4097,7 @@ int commul ( int iarray[], int n, int nfact )
 
   Modified:
 
-    12 May 2003
+    04 November 2013
 
   Author:
 
@@ -4381,14 +4105,14 @@ int commul ( int iarray[], int n, int nfact )
 
   Parameters:
 
+    Input, int N, determines the numerator.
+
+    Input, int NFACT, the number of factors in the numerator.
+
     Input, int IARRAY(NFACT).
     IARRAY contains the NFACT values used in the denominator.
     Note that the sum of these entries should be N,
     and that all entries should be nonnegative.
-
-    Input, inte N, determines the numerator.
-
-    Input, int NFACT, the number of factors in the numerator.
 
     Output, int COMMUL, the value of the multinomial coefficient.
 */
@@ -4398,6 +4122,7 @@ int commul ( int iarray[], int n, int nfact )
   double facn;
   int i;
   int isum;
+  int value;
 
   for ( i = 0; i < nfact; i++ )
   {
@@ -4436,25 +4161,47 @@ int commul ( int iarray[], int n, int nfact )
     facn = facn - fack;
   }
 
-  return ( r8_nint ( exp ( facn ) ) );
+  value = r8_nint ( exp ( facn ) );
+
+  return value;
 }
 /******************************************************************************/
 
-double cos_deg ( double angle )
+double complete_symmetric_poly ( int n, int r, double x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    COS_DEG returns the cosine of an angle given in degrees.
+    COMPLETE_SYMMETRIC_POLY evaluates a complete symmetric polynomial.
+
+  Discussion:
+
+    N\R  0   1         2               3
+      +--------------------------------------------------------
+    0 |  1   0         0               0
+    1 |  1   X1        X1^2            X1^3
+    2 |  1   X1+X2     X1^2+X1X2+X2^2  X1^3+X1^2X2+X1X2^2+X2^3
+    3 |  1   X1+X2+X3  ...
+
+    If X = ( 1, 2, 3, 4, 5, ... ) then
+
+    N\R  0     1     2     3     4 ...
+      +--------------------------------------------------------
+    0 |  1     0     0     0     0
+    1 |  1     1     1     1     1
+    2 |  1     3     7    15    31
+    3 |  1     6    25    90   301
+    4 |  1    10    65   350  1701
+    5 |  1    15   140  1050  6951
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    10 May 2005
+    04 November 2013
 
   Author:
 
@@ -4462,15 +4209,58 @@ double cos_deg ( double angle )
 
   Parameters:
 
-    Input, double ANGLE, the angle, in degrees.
+    Input, int N, the number of variables.
+    0 <= N.
 
-    Output, double COS_DEG, the cosine of the angle.
+    Input, int R, the degree of the polynomial.
+    0 <= R.
+
+    Input, double X[N], the value of the variables.
+
+    Output, double COMPLETE_SYMMETRIC_POLY, the value of TAU(N,R)(X).
 */
 {
-  double degrees_to_radians = 3.141592653589793 / 180.0;
+  int i;
+  int nn;
+  int rr;
+  double *tau;
   double value;
 
-  value = cos ( degrees_to_radians * angle );
+  if ( n < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "COMPLETE_SYMMETRIC_POLY - Fatal error!\n" );
+    fprintf ( stderr, "  N < 0.\n" );
+    exit ( 1 );
+  }
+
+  if ( r < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "COMPLETE_SYMMETRIC_POLY - Fatal error!\n" );
+    fprintf ( stderr, "  R < 0.\n" );
+    exit ( 1 );
+  }
+
+  tau = ( double * ) malloc ( ( 1 + i4_max ( n, r ) ) * sizeof ( double ) );
+
+  for ( i = 0; i <= i4_max ( n, r ); i++ )
+  {
+    tau[i] = 0.0;
+  }
+
+  tau[0] = 1.0;
+  for ( nn = 1; nn <= n; nn++ )
+  {
+    for ( rr = 1; rr <= r; rr++ )
+    {
+      tau[rr] = tau[rr] + x[nn-1] * tau[rr-1];
+    }
+  }
+
+  value = tau[r];
+
+  free ( tau );
 
   return value;
 }
@@ -4695,39 +4485,6 @@ void cos_power_int_values ( int *n_data, double *a, double *b, int *n,
 }
 /******************************************************************************/
 
-double e_constant ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    E_CONSTANT returns the value of the base of the natural logarithm system.
-
-  Definition:
-
-    E = Limit ( N -> +oo ) ( 1 + 1 / N )**N
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Output, double E_CONSTANT, the base of the natural logarithm system.
-*/
-{
-  return 2.718281828459045235360287;
-}
-/******************************************************************************/
-
 void erf_values ( int *n_data, double *x, double *fx )
 
 /******************************************************************************/
@@ -4857,275 +4614,6 @@ void erf_values ( int *n_data, double *x, double *fx )
 }
 /******************************************************************************/
 
-double error_f ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ERROR_F evaluates the error function ERF(X).
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    24 May 2007
-
-  Author:
-
-    Original FORTRAN77 version by William Cody.
-    C version by John Burkardt.
-
-  Reference:
-
-    William Cody,
-    "Rational Chebyshev approximations for the error function",
-    Mathematics of Computation, 
-    1969, pages 631-638.
-
-  Parameters:
-
-    Input, double X, the argument of the error function.
-
-    Output, double ERROR_F, the value of ERF(X).
-*/
-{
-  double a[5] = {
-    3.16112374387056560, 
-    1.13864154151050156E+02, 
-    3.77485237685302021E+02, 
-    3.20937758913846947E+03, 
-    1.85777706184603153E-01 };
-  double b[4] = {
-    2.36012909523441209E+01, 
-    2.44024637934444173E+02, 
-    1.28261652607737228E+03, 
-    2.84423683343917062E+03 };
-  double c[9] = {
-    5.64188496988670089E-01, 
-    8.88314979438837594, 
-    6.61191906371416295E+01, 
-    2.98635138197400131E+02, 
-    8.81952221241769090E+02, 
-    1.71204761263407058E+03, 
-    2.05107837782607147E+03, 
-    1.23033935479799725E+03, 
-    2.15311535474403846E-08 };
-  double d[8] = {
-    1.57449261107098347E+01, 
-    1.17693950891312499E+02, 
-    5.37181101862009858E+02, 
-    1.62138957456669019E+03, 
-    3.29079923573345963E+03, 
-    4.36261909014324716E+03, 
-    3.43936767414372164E+03, 
-    1.23033935480374942E+03 };
-  double del;
-  double erfx;
-  int i;
-  double p[6] = {
-    3.05326634961232344E-01, 
-    3.60344899949804439E-01, 
-    1.25781726111229246E-01, 
-    1.60837851487422766E-02, 
-    6.58749161529837803E-04, 
-    1.63153871373020978E-02 };
-  double q[5] = {
-    2.56852019228982242, 
-    1.87295284992346047, 
-    5.27905102951428412E-01, 
-    6.05183413124413191E-02, 
-    2.33520497626869185E-03 };
-  double sqrpi = 0.56418958354775628695;
-  double thresh = 0.46875;
-  double pxabs;
-  double xbig = 26.543;
-  double pxden;
-  double xabs;
-  double xden;
-  double xnum;
-  double xsmall = 1.11E-16;
-  double xsq;
-
-  xabs = fabs ( x );
-/*
-  Evaluate ERF(X) for |X| <= 0.46875.
-*/
-  if ( xabs <= thresh )
-  {
-    if ( xsmall < xabs )
-    {
-      xsq = xabs * xabs;
-    }
-    else
-    {
-      xsq = 0.0;
-    }
-
-    xnum = a[4] * xsq;
-    xden = xsq;
-    for ( i = 0; i < 3; i++ )
-    {
-      xnum = ( xnum + a[i] ) * xsq;
-      xden = ( xden + b[i] ) * xsq;
-    }
-
-    erfx = x * ( xnum + a[3] ) / ( xden + b[3] );
-  }
-/*
-  Evaluate ERFC(X) for 0.46875 <= |X| <= 4.0.
-*/
-  else if ( xabs <= 4.0 )
-  {
-    xnum = c[8] * xabs;
-    xden = xabs;
-    for ( i = 0; i < 7; i++ )
-    {
-      xnum = ( xnum + c[i] ) * xabs;
-      xden = ( xden + d[i] ) * xabs;
-    }
-
-    erfx = ( xnum + c[7] ) / ( xden + d[7] );
-    xsq = ( double ) ( ( int ) ( ( xabs * 16.0 ) / 16.0 ) );
-    del = ( xabs - xsq ) * ( xabs + xsq );
-    erfx = exp ( - xsq * xsq ) * exp ( - del ) * erfx;
-
-    erfx = ( 0.5 - erfx ) + 0.5;
-
-    if ( x < 0.0 )
-    {
-      erfx = - erfx;
-    }
-  }
-/*
-  Evaluate ERFC(X) for 4.0 < |X|.
-*/
-  else
-  {
-    if ( xbig <= xabs )
-    {
-      if ( 0.0 < x )
-      {
-        erfx = 1.0;
-      }
-      else
-      {
-        erfx = - 1.0;
-      }
-    }
-    else
-    {
-      xsq = 1.0 / ( xabs * xabs );
-
-      xnum = p[5] * xsq;
-      xden = xsq;
-      for ( i = 0; i < 4; i++ )
-      {
-        xnum = ( xnum + p[i] ) * xsq;
-        xden = ( xden + q[i] ) * xsq;
-      }
-
-      erfx = xsq * ( xnum + p[4] ) / ( xden + q[4] );
-      erfx = ( sqrpi - erfx ) / xabs;
-      xsq = ( double ) ( ( int ) ( ( xabs * 16.0 ) / 16.0 ) );
-      del = ( xabs - xsq ) * ( xabs + xsq );
-      erfx = exp ( - xsq * xsq ) * exp ( - del ) * erfx;
-
-      erfx = ( 0.5 - erfx ) + 0.5;
-      if ( x < 0.0 )
-      {
-        erfx = - erfx;
-      }
-
-    }
-
-  }
-
-  return erfx;
-}
-/******************************************************************************/
-
-double error_f_inverse ( double y )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ERROR_F_INVERSE inverts the error function ERF.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    05 August 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double Y, the value of the error function.
-
-    Output, double ERROR_F_INVERSE, the value X such that
-    ERROR_F(X) = Y.
-*/
-{
-  double value;
-  double x;
-  double z;
-
-  z = ( y + 1.0 ) / 2.0;
-
-  x = normal_01_cdf_inv ( z );
-
-  value = x / sqrt ( 2.0 );
-
-  return value;
-}
-/******************************************************************************/
-
-double euler_constant ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    EULER_CONSTANT returns the value of the Euler-Mascheroni constant.
-
-  Discussion:
-
-    The Euler-Mascheroni constant is often denoted by a lower-case
-    Gamma.  Gamma is defined as
-
-      Gamma = limit ( M -> +oo )
-        ( sum ( 1 <= N <= M ) 1 / N ) - log ( M )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Output, double EULER_CONSTANT, the value of the Euler-Mascheroni constant.
-*/
-{
-  return ( 0.577215664901532860606512090082402431042 );
-}
-/******************************************************************************/
-
 void euler_number ( int n, int e[] )
 
 /******************************************************************************/
@@ -5176,7 +4664,7 @@ void euler_number ( int n, int e[] )
 
   Modified:
 
-    06 February 2003
+    04 February 2015
 
   Author:
 
@@ -5198,10 +4686,8 @@ void euler_number ( int n, int e[] )
     Output, int E[N+1], the Euler numbers from index 0 to N.
 */
 {
-  int cnk;
   int i;
   int j;
-  int sgn;
 
   if ( n < 0 )
   {
@@ -5310,6 +4796,7 @@ double euler_number2 ( int n )
        -50521.0, 2702765.0 };
   int i;
   int itmax = 1000;
+  const double r8_pi = 3.141592653589793;
   double sum1;
   double term;
   double value;
@@ -5361,7 +4848,7 @@ double euler_number2 ( int n )
   }
 
   value = pow ( 2.0, n + 2 ) * sum1 * r8_factorial ( n ) 
-    / pow ( r8_pi ( ), n + 1 );
+    / pow ( r8_pi, n + 1 );
 
   if ( ( n % 4 ) != 0 )
   {
@@ -5422,7 +4909,7 @@ void euler_number_values ( int *n_data, int *n, int *c )
 
   Modified:
 
-    05 February 2003
+    04 February 2015
 
   Author:
 
@@ -5458,7 +4945,7 @@ void euler_number_values ( int *n_data, int *n, int *c )
 # define N_MAX 8
 
   int c_vec[N_MAX] = { 
-    1, 0, -1, 5, 61, 1385, -50521, 2702765 };
+    1, 0, -1, 5, -61, 1385, -50521, 2702765 };
 
   int n_vec[N_MAX] = { 
      0, 1, 2, 4, 6, 8, 10, 12 };
@@ -7200,13 +6687,13 @@ int hail ( int n )
 }
 /******************************************************************************/
 
-void hermite_poly ( int n, double x, double cx[] )
+void hermite_poly_phys ( int n, double x, double cx[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    HERMITE_POLY evaluates the Hermite polynomials at X.
+    HERMITE_POLY_PHYS evaluates the physicist's Hermite polynomials at X.
 
   Differential equation:
 
@@ -7293,13 +6780,13 @@ void hermite_poly ( int n, double x, double cx[] )
 }
 /******************************************************************************/
 
-void hermite_poly_coef ( int n, double c[] )
+void hermite_poly_phys_coef ( int n, double c[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    HERMITE_POLY_COEF evaluates the Hermite polynomial coefficients.
+    HERMITE_POLY_PHYS_COEF evaluates the physicist's Hermite polynomial coefficients.
 
   First terms:
 
@@ -7393,13 +6880,13 @@ void hermite_poly_coef ( int n, double c[] )
 }
 /******************************************************************************/
 
-void hermite_poly_values ( int *n_data, int *n, double *x, double *fx )
+void hermite_poly_phys_values ( int *n_data, int *n, double *x, double *fx )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    HERMITE_POLY_VALUES returns some values of the Hermite polynomial.
+    HERMITE_POLY_PHYS_VALUES returns values of the physicist's Hermite polynomial.
 
   Discussion:
 
@@ -8834,57 +8321,6 @@ int i4_partition_distinct_count ( int n )
 }
 /******************************************************************************/
 
-int i4_pochhammer ( int i, int j )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_POCHHAMMER returns the value of ( I * (I+1) * ... * (J-1) * J ).
-
-  Discussion:
-
-    Pochhammer's symbol (A)_N is the value
-
-      (A)_N = Gamma ( A + N ) / Gamma ( A )
-
-    or, for integer arguments,
-
-      (I)_N = I * ( I + 1 ) * ... * ( I + N - 1 )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I, J, values that define the product.
-
-    Output, int I4_POCHHAMMER, the value of the product.
-*/
-{
-  int k;
-  int value;
-
-  value = 1;
-
-  for ( k = i; k <= j; k++ )
-  {
-    value = value * k;
-  }
-
-  return value;
-}
-/******************************************************************************/
-
 int i4_sign ( int i )
 
 /******************************************************************************/
@@ -9066,13 +8502,13 @@ void i4_to_triangle ( int k, int *i, int *j )
 }
 /******************************************************************************/
 
-int i4_uniform ( int a, int b, int *seed )
+int i4_uniform_ab ( int a, int b, int *seed )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4_UNIFORM returns a scaled pseudorandom I4.
+    I4_UNIFORM_AB returns a scaled pseudorandom I4 between A and B.
 
   Discussion:
 
@@ -9085,7 +8521,7 @@ int i4_uniform ( int a, int b, int *seed )
 
   Modified:
 
-    12 November 2006
+    24 May 2012
 
   Author:
 
@@ -9095,25 +8531,30 @@ int i4_uniform ( int a, int b, int *seed )
 
     Paul Bratley, Bennett Fox, Linus Schrage,
     A Guide to Simulation,
-    Springer Verlag, pages 201-202, 1983.
-
-    Pierre L'Ecuyer,
-    Random Number Generation,
-    in Handbook of Simulation,
-    edited by Jerry Banks,
-    Wiley Interscience, page 95, 1998.
+    Second Edition,
+    Springer, 1987,
+    ISBN: 0387964673,
+    LC: QA76.9.C65.B73.
 
     Bennett Fox,
     Algorithm 647:
     Implementation and Relative Efficiency of Quasirandom
     Sequence Generators,
     ACM Transactions on Mathematical Software,
-    Volume 12, Number 4, pages 362-376, 1986.
+    Volume 12, Number 4, December 1986, pages 362-376.
 
-    Peter Lewis, Allen Goodman, James Miller
+    Pierre L'Ecuyer,
+    Random Number Generation,
+    in Handbook of Simulation,
+    edited by Jerry Banks,
+    Wiley, 1998,
+    ISBN: 0471134031,
+    LC: T57.62.H37.
+
+    Peter Lewis, Allen Goodman, James Miller,
     A Pseudo-Random Number Generator for the System/360,
     IBM Systems Journal,
-    Volume 8, pages 136-143, 1969.
+    Volume 8, Number 2, 1969, pages 136-143.
 
   Parameters:
 
@@ -9122,19 +8563,30 @@ int i4_uniform ( int a, int b, int *seed )
     Input/output, int *SEED, the "seed" value, which should NOT be 0.
     On output, SEED has been updated.
 
-    Output, int I4_UNIFORM, a number between A and B.
+    Output, int I4_UNIFORM_AB, a number between A and B.
 */
 {
+  int c;
+  const int i4_huge = 2147483647;
   int k;
   float r;
   int value;
 
   if ( *seed == 0 )
   {
-    printf ( "\n" );
-    printf ( "I4_UNIFORM - Fatal error!\n" );
-    printf ( "  Input value of SEED = 0.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "I4_UNIFORM_AB - Fatal error!\n" );
+    fprintf ( stderr, "  Input value of SEED = 0.\n" );
     exit ( 1 );
+  }
+/*
+  Guaranteee A <= B.
+*/
+  if ( b < a )
+  {
+    c = a;
+    a = b;
+    b = c;
   }
 
   k = *seed / 127773;
@@ -9143,22 +8595,30 @@ int i4_uniform ( int a, int b, int *seed )
 
   if ( *seed < 0 )
   {
-    *seed = *seed + 2147483647;
+    *seed = *seed + i4_huge;
   }
 
   r = ( float ) ( *seed ) * 4.656612875E-10;
 /*
   Scale R to lie between A-0.5 and B+0.5.
 */
-  r = ( 1.0 - r ) * ( ( float ) ( i4_min ( a, b ) ) - 0.5 ) 
-    +         r   * ( ( float ) ( i4_max ( a, b ) ) + 0.5 );
+  r = ( 1.0 - r ) * ( ( float ) ( a ) - 0.5 ) 
+    +         r   * ( ( float ) ( b ) + 0.5 );
 /*
-  Use rounding to convert R to an integer between A and B.
+  Round R to the nearest integer.
 */
-  value = r4_nint ( r );
-
-  value = i4_max ( value, i4_min ( a, b ) );
-  value = i4_min ( value, i4_max ( a, b ) );
+  value = round ( r );
+/*
+  Guarantee that A <= VALUE <= B.
+*/
+  if ( value < a )
+  {
+    value = a;
+  }
+  if ( b < value )
+  {
+    value = b;
+  }
 
   return value;
 }
@@ -9199,11 +8659,6 @@ void i4mat_print ( int m, int n, int a[], char *title )
     Input, char *TITLE, a title.
 */
 {
-  int i;
-  int j;
-  int jhi;
-  int jlo;
-
   i4mat_print_some ( m, n, a, 1, 1, m, n, title );
 
   return;
@@ -9970,7 +9425,6 @@ void laguerre_associated ( int n, int m, double x, double cx[] )
 */
 {
   int i;
-  int ifact;
 
   if ( m < 0 )
   {
@@ -10615,7 +10069,7 @@ void legendre_associated_normalized ( int n, int m, double x, double cx[] )
   double factor;
   int i;
   int mm;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double somx2;
 
   if ( m < 0 )
@@ -10655,7 +10109,7 @@ void legendre_associated_normalized ( int n, int m, double x, double cx[] )
     exit ( 1 );
   }
 
-  for ( i = 0; i <= m-1; i++ )
+  for ( i = 0; i <= m - 1; i++ )
   {
     cx[i] = 0.0;
   }
@@ -10670,12 +10124,12 @@ void legendre_associated_normalized ( int n, int m, double x, double cx[] )
     factor = factor + 2.0;
   }
 
-  if ( m+1 <= n )
+  if ( m + 1 <= n )
   {
     cx[m+1] = x * ( double ) ( 2 * m + 1 ) * cx[m];
   }
 
-  for ( i = m+2; i <= n; i++ )
+  for ( i = m + 2; i <= n; i++ )
   {
     cx[i] = ( ( double ) ( 2 * i     - 1 ) * x * cx[i-1] 
             + ( double ) (   - i - m + 1 )     * cx[i-2] ) 
@@ -10687,7 +10141,7 @@ void legendre_associated_normalized ( int n, int m, double x, double cx[] )
   for ( mm = m; mm <= n; mm++ )
   {
     factor = sqrt ( ( ( double ) ( 2 * mm + 1 ) * r8_factorial ( mm - m ) ) 
-      / ( 4.0 * pi * r8_factorial ( mm + m ) ) );
+      / ( 4.0 * r8_pi * r8_factorial ( mm + m ) ) );
     cx[mm] = cx[mm] * factor;
   }
 
@@ -10695,14 +10149,14 @@ void legendre_associated_normalized ( int n, int m, double x, double cx[] )
 }
 /******************************************************************************/
 
-void legendre_associated_normalized_values ( int *n_data, int *n, int *m, 
+void legendre_associated_normalized_sphere_values ( int *n_data, int *n, int *m,
   double *x, double *fx )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    LEGENDRE_ASSOCIATED_NORMALIZED_VALUES: normalied associated Legendre.
+    LEGENDRE_ASSOCIATED_NORMALIZED_SPHERE_VALUES: normalized associated Legendre.
 
   Discussion:
 
@@ -10712,13 +10166,13 @@ void legendre_associated_normalized_values ( int *n_data, int *n, int *m,
 
       LegendreP [ n, m, x ]
 
-    The function is normalized by dividing by 
+    The function is normalized for the unit sphere by dividing by
 
       sqrt ( 4 * pi * ( n + m )! / ( 2 * n + 1 ) / ( n - m )! )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -10750,7 +10204,7 @@ void legendre_associated_normalized_values ( int *n_data, int *n, int *m,
     returns the corresponding data; when there is no more data, the
     output value of N_DATA will be 0 again.
 
-    Output, int *N, integer M, double X, 
+    Output, int *N, integer M, double X,
     the arguments of the function.
 
     Output, double *FX, the value of the function.
@@ -10758,66 +10212,66 @@ void legendre_associated_normalized_values ( int *n_data, int *n, int *m,
 {
 # define N_MAX 21
 
-  static double fx_vec[N_MAX] = { 
-     0.2820947917738781, 
-     0.2443012559514600, 
-    -0.2992067103010745, 
-    -0.07884789131313000, 
-    -0.3345232717786446, 
-     0.2897056515173922, 
-    -0.3265292910163510, 
-    -0.06997056236064664, 
-     0.3832445536624809, 
-    -0.2709948227475519, 
-    -0.2446290772414100, 
-     0.2560660384200185, 
-     0.1881693403754876, 
-    -0.4064922341213279, 
-     0.2489246395003027, 
-     0.08405804426339821, 
-     0.3293793022891428, 
-    -0.1588847984307093, 
-    -0.2808712959945307, 
-     0.4127948151484925, 
+  static double fx_vec[N_MAX] = {
+     0.2820947917738781,
+     0.2443012559514600,
+    -0.2992067103010745,
+    -0.07884789131313000,
+    -0.3345232717786446,
+     0.2897056515173922,
+    -0.3265292910163510,
+    -0.06997056236064664,
+     0.3832445536624809,
+    -0.2709948227475519,
+    -0.2446290772414100,
+     0.2560660384200185,
+     0.1881693403754876,
+    -0.4064922341213279,
+     0.2489246395003027,
+     0.08405804426339821,
+     0.3293793022891428,
+    -0.1588847984307093,
+    -0.2808712959945307,
+     0.4127948151484925,
     -0.2260970318780046 };
 
-  static int m_vec[N_MAX] = { 
-    0, 0, 1, 0, 
-    1, 2, 0, 1, 
-    2, 3, 0, 1, 
-    2, 3, 4, 0, 
-    1, 2, 3, 4, 
+  static int m_vec[N_MAX] = {
+    0, 0, 1, 0,
+    1, 2, 0, 1,
+    2, 3, 0, 1,
+    2, 3, 4, 0,
+    1, 2, 3, 4,
     5 };
 
-  static int n_vec[N_MAX] = { 
-    0,  1,  1,  2, 
-    2,  2,  3,  3, 
-    3,  3,  4,  4, 
-    4,  4,  4,  5, 
-    5,  5,  5,  5, 
+  static int n_vec[N_MAX] = {
+    0,  1,  1,  2,
+    2,  2,  3,  3,
+    3,  3,  4,  4,
+    4,  4,  4,  5,
+    5,  5,  5,  5,
     5 };
 
-  static double x_vec[N_MAX] = { 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
-    0.50, 
+  static double x_vec[N_MAX] = {
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
+    0.50,
     0.50 };
 
   if ( *n_data < 0 )
@@ -12173,7 +11627,6 @@ void lock ( int n, int a[] )
     Output, int A[N+1], the number of lock codes with 0 to N buttons.
 */
 {
-  int combo;
   int i;
   int j;
 
@@ -12793,7 +12246,7 @@ void motzkin ( int n, int a[] )
 }
 /******************************************************************************/
 
-double normal_01_cdf_inv ( double p )
+double normal_01_cdf_inverse ( double p )
 
 /******************************************************************************/
 /*
@@ -12889,10 +12342,11 @@ double normal_01_cdf_inv ( double p )
 
   q = p - 0.5;
 
-  if ( r8_abs ( q ) <= split1 )
+  if ( fabs ( q ) <= split1 )
   {
     r = const1 - q * q;
-    value = q * r8poly_value ( 8, a, r ) / r8poly_value ( 8, b, r );
+    value = q * r8poly_value_horner ( 7, a, r ) 
+              / r8poly_value_horner ( 7, b, r );
   }
   else
   {
@@ -12916,12 +12370,14 @@ double normal_01_cdf_inv ( double p )
       if ( r <= split2 )
       {
         r = r - const2;
-        value = r8poly_value ( 8, c, r ) / r8poly_value ( 8, d, r ); 
+        value = r8poly_value_horner ( 7, c, r ) 
+              / r8poly_value_horner ( 7, d, r ); 
        }
        else
        {
          r = r - split2;
-         value = r8poly_value ( 8, e, r ) / r8poly_value ( 8, f, r );
+         value = r8poly_value_horner ( 7, e, r ) 
+               / r8poly_value_horner ( 7, f, r );
       }
     }
 
@@ -12933,6 +12389,125 @@ double normal_01_cdf_inv ( double p )
   }
 
   return value;
+}
+/******************************************************************************/
+
+void normal_01_cdf_values ( int *n_data, double *x, double *fx )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    NORMAL_01_CDF_VALUES returns some values of the Normal 01 CDF.
+
+  Discussion:
+
+    In Mathematica, the function can be evaluated by:
+
+      Needs["Statistics`ContinuousDistributions`"]
+      dist = NormalDistribution [ 0, 1 ]
+      CDF [ dist, x ]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, double *X, the argument of the function.
+
+    Output, double *FX, the value of the function.
+*/
+{
+# define N_MAX 17
+
+  static double fx_vec[N_MAX] = {
+     0.5000000000000000E+00,
+     0.5398278372770290E+00,
+     0.5792597094391030E+00,
+     0.6179114221889526E+00,
+     0.6554217416103242E+00,
+     0.6914624612740131E+00,
+     0.7257468822499270E+00,
+     0.7580363477769270E+00,
+     0.7881446014166033E+00,
+     0.8159398746532405E+00,
+     0.8413447460685429E+00,
+     0.9331927987311419E+00,
+     0.9772498680518208E+00,
+     0.9937903346742239E+00,
+     0.9986501019683699E+00,
+     0.9997673709209645E+00,
+     0.9999683287581669E+00 };
+
+  static double x_vec[N_MAX] = {
+     0.0000000000000000E+00,
+     0.1000000000000000E+00,
+     0.2000000000000000E+00,
+     0.3000000000000000E+00,
+     0.4000000000000000E+00,
+     0.5000000000000000E+00,
+     0.6000000000000000E+00,
+     0.7000000000000000E+00,
+     0.8000000000000000E+00,
+     0.9000000000000000E+00,
+     0.1000000000000000E+01,
+     0.1500000000000000E+01,
+     0.2000000000000000E+01,
+     0.2500000000000000E+01,
+     0.3000000000000000E+01,
+     0.3500000000000000E+01,
+     0.4000000000000000E+01 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *x = 0.0;
+    *fx = 0.0;
+  }
+  else
+  {
+    *x = x_vec[*n_data-1];
+    *fx = fx_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
 }
 /******************************************************************************/
 
@@ -13190,109 +12765,6 @@ void omega_values ( int *n_data, int *n, int *c )
 }
 /******************************************************************************/
 
-void partition_count_values ( int *n_data, int *n, int *c )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    PARTITION_COUNT_VALUES returns some values of the int *partition count.
-
-  Discussion:
-
-    A partition of an int *N is a representation of the integer
-    as the sum of nonzero positive integers.  The order of the summands
-    does not matter.  The number of partitions of N is symbolized
-    by P(N).  Thus, the number 5 has P(N) = 7, because it has the
-    following partitions:
-
-    5 = 5
-      = 4 + 1
-      = 3 + 2
-      = 3 + 1 + 1
-      = 2 + 2 + 1
-      = 2 + 1 + 1 + 1
-      = 1 + 1 + 1 + 1 + 1
-
-    In Mathematica, the function can be evaluated by
-
-      PartitionsP[n]
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    06 February 2003
-
-  Author:
-
-    John Burkardt
-
-  Reference:
-
-    Milton Abramowitz, Irene Stegun,
-    Handbook of Mathematical Functions,
-    National Bureau of Standards, 1964,
-    ISBN: 0-486-61272-4,
-    LC: QA47.A34.
-
-    Stephen Wolfram,
-    The Mathematica Book,
-    Fourth Edition,
-    Cambridge University Press, 1999,
-    ISBN: 0-521-64314-7,
-    LC: QA76.95.W65.
-
-  Parameters:
-
-    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
-    first call.  On each call, the routine increments N_DATA by 1, and
-    returns the corresponding data; when there is no more data, the
-    output value of N_DATA will be 0 again.
-
-    Output, int *N, the integer.
-
-    Output, int *C, the number of partitions of the integer.
-*/
-{
-# define N_MAX 21
-
-  int c_vec[N_MAX] = { 
-      1, 
-      1,   2,   3,   5,   7,  11,  15,  22,  30,  42, 
-     56,  77, 101, 135, 176, 231, 297, 385, 490, 627 };
-
-  int n_vec[N_MAX] = { 
-     0,  
-     1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 
-    11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
-
-  if ( *n_data < 0 )
-  {
-    *n_data = 0;
-  }
-
-  *n_data = *n_data + 1;
-
-  if ( N_MAX < *n_data )
-  {
-    *n_data = 0;
-    *n = 0;
-    *c = 0;
-  }
-  else
-  {
-    *n = n_vec[*n_data-1];
-    *c = c_vec[*n_data-1];
-  }
-
-  return;
-# undef N_MAX
-}
-/******************************************************************************/
-
 void partition_distinct_count_values ( int *n_data, int *n, int *c )
 
 /******************************************************************************/
@@ -13494,7 +12966,7 @@ int phi ( int n )
 
       PHI(U*V) = PHI(U) * PHI(V) if U and V are relatively prime.
  
-      PHI(P**K) = P**(K-1) * ( P - 1 ) if P is prime.
+      PHI(P^K) = P^(K-1) * ( P - 1 ) if P is prime.
 
       PHI(N) = N * Product ( P divides N ) ( 1 - 1 / P )
 
@@ -13715,6 +13187,118 @@ void phi_values ( int *n_data, int *n, int *c )
 
   return;
 # undef N_MAX
+}
+/******************************************************************************/
+
+int plane_partition_num ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PLANE_PARTITION_NUM returns the number of plane partitions of the integer N.
+
+  Discussion:
+
+    A plane partition of a positive integer N is a partition of N in which
+    the parts have been arranged in a 2D array that is nonincreasing across
+    rows and columns.  There are six plane partitions of 3:
+
+      3   2 1   2   1 1 1   1 1   1
+                1           1     1
+                                  1
+
+  First Values:
+
+     N PP(N)
+     0    1
+     1    1
+     2    3
+     3    6
+     4   13
+     5   24
+     6   48
+     7   86
+     8  160
+     9  282
+    10  500
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 April 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Frank Olver, Daniel Lozier, Ronald Boisvert, Charles Clark,
+    NIST Handbook of Mathematical Functions,
+    Cambridge University Press, 2010,
+    ISBN: 978-0521140638,
+    LC: QA331.N57.
+    
+  Parameters:
+
+    Input, int N, the number, which must be at least 0.
+
+    Output, int PLANE_PARTITION_NUM, the number of 
+    plane partitions of N.
+*/
+{
+  int j;
+  int k;
+  int nn;
+  int *pp;
+  int s2;
+  int value;
+
+  if ( n < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "PLANE_PARTITION_NUM - Fatal error!\n" );
+    fprintf ( stderr, "  0 <= N is required.\n" );
+    exit ( 1 );
+  }
+
+  pp = ( int * ) malloc ( ( n + 1 ) * sizeof ( int ) );
+  nn = 0;
+  pp[nn] = 1;
+
+  nn = 1;
+  if ( nn <= n )
+  {
+    pp[nn] = 1;
+  }
+
+  for ( nn = 2; nn <= n; nn++ )
+  {
+    pp[nn] = 0;
+    for ( j = 1; j <= nn; j++ )
+    {
+      s2 = 0;
+      for ( k = 1; k <= j; k++ )
+      {
+        if ( ( j % k ) == 0 )
+        {
+          s2 = s2 + k * k;
+        }
+      }
+      pp[nn] = pp[nn] + pp[nn-j] * s2;
+    }
+    pp[nn] = pp[nn] / nn;
+  }
+
+  value = pp[n];
+
+  free ( pp );
+
+  return value;
 }
 /******************************************************************************/
 
@@ -14292,7 +13876,7 @@ int pyramid_num ( int n )
 
     The formula is:
 
-      P(N) = ( (N+1)**3 - (N+1) ) / 6
+      P(N) = ( (N+1)^3 - (N+1) ) / 6
 
   First Values:
 
@@ -14335,174 +13919,44 @@ int pyramid_num ( int n )
 }
 /******************************************************************************/
 
-float r4_abs ( float x )
+int pyramid_square_num ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R4_ABS returns the absolute value of an R4.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 January 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, float X, the quantity whose absolute value is desired.
-
-    Output, float R4_ABS, the absolute value of X.
-*/
-{
-  if ( 0.0 <= x )
-  {
-    return x;
-  } 
-  else
-  {
-    return ( -x );
-  }
-}
-/******************************************************************************/
-
-int r4_nint ( float x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R4_NINT returns the nearest integer to an R4.
-
-  Example:
-
-        X         R4_NINT
-
-      1.3         1
-      1.4         1
-      1.5         1 or 2
-      1.6         2
-      0.0         0
-     -0.7        -1
-     -1.1        -1
-     -1.6        -2
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    05 May 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, float X, the value.
-
-    Output, int R4_NINT, the nearest integer to X.
-*/
-{
-  int s;
-  int value;
-
-  if ( x < 0.0 )
-  {
-    s = -1;
-  }
-  else
-  {
-    s = 1;
-  }
-  value = s * ( int ) ( fabs ( x ) + 0.5 );
-
-  return value;
-}
-/******************************************************************************/
-
-double r8_abs ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_ABS returns the absolute value of an R8.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    14 November 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, the quantity whose absolute value is desired.
-
-    Output, double R8_ABS, the absolute value of X.
-*/
-{
-  double value;
-
-  if ( 0.0 <= x )
-  {
-    value = x;
-  } 
-  else
-  {
-    value = - x;
-  }
-  return value;
-}
-/******************************************************************************/
-
-double r8_acosh ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_ACOSH returns the inverse hyperbolic cosine of a number.
+    PYRAMID_SQUARE_NUM returns the N-th pyramidal square number.
 
   Discussion:
 
-    Applying the inverse function
+    The N-th pyramidal square number PS(N) is formed by the sum of the first
+    N squares S:
 
-      Y = R8_ACOSH(X)
+      S(I) = I^2
 
-    implies that
+      PS(N) = sum ( 1 <= I <= N ) S(I)
 
-      X = COSH(Y) = 0.5 * ( EXP(Y) + EXP(-Y) ).
+    By convention, PS(0) = 0.
 
-    For every X greater than or equal to 1, there are two possible
-    choices Y such that X = COSH(Y), differing only in sign.  It
-    is usual to resolve this choice by taking the value of ACOSH(X)
-    to be nonnegative.
+    The formula is:
 
-  Method:
+      PS(N) = ( N * ( N + 1 ) * ( 2*N+1 ) ) / 6
 
-    One formula is:
+    Note that geometrically, this pyramid will have a square base.
 
-      R8_ACOSH = LOG ( X + SQRT ( X^2 - 1.0 ) )
+  Example:
 
-    but this formula suffers from roundoff and overflow problems.
-    The formula used here was recommended by W Kahan, as discussed
-    by Moler.
+     0    0
+     1    1
+     2    5
+     3   14
+     4   30
+     5   55
+     6   91
+     7  140
+     8  204
+     9  285
+    10  385
 
   Licensing:
 
@@ -14510,7 +13964,61 @@ double r8_acosh ( double x )
 
   Modified:
 
-    09 May 2003
+    14 August 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the index.
+    0 <= N.
+
+    Output, int PYRAMID_SQUARE_NUM, the N-th pyramidal square number.
+*/
+{
+  int value;
+
+  value = ( n * ( n + 1 ) * ( 2 * n + 1 ) ) / 6;
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_agm ( double a, double b )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_AGM computes the arithmetic-geometric mean (AGM) of A and B.
+
+  Discussion:
+
+    The AGM is defined for nonnegative A and B.
+
+    The AGM of numbers A and B is defined by setting
+
+      A(0) = A,
+      B(0) = B
+
+      A(N+1) = ( A(N) + B(N) ) / 2
+      B(N+1) = sqrt ( A(N) * B(N) )
+
+    The two sequences both converge to AGM(A,B).
+
+    In Mathematica, the AGM can be evaluated by
+
+      ArithmeticGeometricMean [ a, b ]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2010
 
   Author:
 
@@ -14518,55 +14026,91 @@ double r8_acosh ( double x )
 
   Reference:
 
-    Cleve Moler,
-    Trigonometry is a Complex Subject,
-    MATLAB News and Notes,
-    Summer 1998.
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
 
   Parameters:
 
-    Input, double X, the number whose inverse hyperbolic cosine is desired.
-    X should be greater than or equal to 1.
+    Input, double A, B, the arguments whose AGM is to be computed.
 
-    Output, double R8_ACOSH, the inverse hyperbolic cosine of X.  The
-    principal value (that is, the positive value of the two ) is returned.
+    Output, double R8_AGM, the arithmetic-geometric mean of A and B.
 */
 {
+  double c;
+  double d;
+  int it;
+  const int it_max = 1000;
+  double tol;
   double value;
 
-  if ( x < 1.0 )
+  if ( a < 0.0 )
   {
-    fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R8_ACOSH - Fatal error!\n" );
-    fprintf ( stderr, "  Argument X must satisfy 1 <= X.\n" );
-    fprintf ( stderr, "  The input X = %f\n", x );
     exit ( 1 );
   }
 
-  value = 2.0 * log ( 
-    sqrt ( 0.5 * ( x + 1.0 ) ) + sqrt ( 0.5 * ( x - 1.0 ) ) );
+  if ( b < 0.0 )
+  {
+    exit ( 1 );
+  }
+
+  if ( a == 0.0 || b == 0.0 )
+  {
+    value = 0.0;
+    return value;
+  }
+
+  it = 0;
+  tol = 100.0 * r8_epsilon ( );
+
+  for ( ; ; )
+  {
+    it = it + 1;
+
+    c = ( a + b ) / 2.0;
+    d = sqrt ( a * b );
+
+    if ( fabs ( c - d ) <= tol * ( c + d ) )
+    {
+      break;
+    }
+
+    if ( it_max < it )
+    {
+      break;
+    }
+
+    a = c;
+    b = d;
+  }
+  value = c;
 
   return value;
 }
 /******************************************************************************/
 
-double r8_asinh ( double x )
+double r8_beta ( double x, double y )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8_ASINH returns the inverse hyperbolic sine of a number.
+    R8_BETA returns the value of the Beta function.
 
   Discussion:
 
-    The assertion that:
+    The formula is:
 
-      Y = R8_ASINH ( X )
+      BETA(X,Y) = ( GAMMA(X) * GAMMA(Y) ) / GAMMA(X+Y)
 
-    implies that
+    Both X and Y must be greater than 0.
 
-      X = SINH(Y) = 0.5 * ( EXP(Y) - EXP(-Y) ).
+    BETA(X,Y) = BETA(Y,X).
+    BETA(X,Y) = Integral ( 0 <= T <= 1 ) T^(X-1) (1-T)^(Y-1) dT.
+    BETA(X,Y) = GAMMA(X) * GAMMA(Y) / GAMMA(X+Y)
 
   Licensing:
 
@@ -14574,7 +14118,7 @@ double r8_asinh ( double x )
 
   Modified:
 
-    29 November 2007
+    01 January 2015
 
   Author:
 
@@ -14582,69 +14126,25 @@ double r8_asinh ( double x )
 
   Parameters:
 
-    Input, double X, the number whose inverse hyperbolic 
-    sine is desired.
+    Input, double X, Y, the two parameters that define the Beta function.
+    X and Y must be greater than 0.
 
-    Output, double R8_ASINH, the inverse hyperbolic sine of X.
+    Output, double R8_BETA, the value of the Beta function.
 */
 {
   double value;
 
-  value = log ( x + sqrt ( x * x + 1.0 ) );
-
-  return value;
-}
-/******************************************************************************/
-
-double r8_atanh ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_ATANH returns the inverse hyperbolic tangent of a number.
-
-  Discussion:
-
-    Y = R8_ATANH ( X )
-
-    implies that
-
-    X = TANH(Y) = ( EXP(Y) - EXP(-Y) ) / ( EXP(Y) + EXP(-Y) )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    29 November 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, the number whose inverse hyperbolic 
-    tangent is desired.  The absolute value of X should be less than 
-    or equal to 1.
-
-    Output, double R8_ATANH, the inverse hyperbolic tangent of X.
-*/
-{
-  double value;
-
-  if ( 1.0 <= r8_abs ( x ) )
+  if ( x <= 0.0 || y <= 0.0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R8_ATANH - Fatal error!\n" );
-    fprintf ( stderr, "  ABS(X) must be < 1.\n" );
-    fprintf ( stderr, "  Your input is X = %f\n", x );
+    fprintf ( stderr, "R8_BETA - Fatal error!\n" );
+    fprintf ( stderr, "  Both X and Y must be greater than 0.\n" );
     exit ( 1 );
   }
 
-  value = 0.5 * log ( ( 1.0 + x ) / ( 1.0 - x ) );
+  value = exp ( lgamma ( x ) 
+              + lgamma ( y ) 
+              - lgamma ( x + y ) );
 
   return value;
 }
@@ -14725,181 +14225,29 @@ double r8_choose ( int n, int k )
 }
 /******************************************************************************/
 
-double r8_cot ( double angle )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_COT returns the cotangent of an angle.
-
-  Discussion:
-
-    R8_COT ( THETA ) = COS ( THETA ) / SIN ( THETA )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double ANGLE, the angle, in radians.
-
-    Output, double R8_COT, the cotangent of the angle.
-*/
-{
-  double value;
-
-  value = cos ( angle ) / sin ( angle );
-
-  return value;
-}
-/******************************************************************************/
-
-double r8_cot_deg ( double angle )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_COT_DEG returns the cotangent of an angle given in degrees.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double ANGLE, the angle, in degrees.
-
-    Output, double R8_COT_DEG, the cotangent of the angle.
-*/
-{
-  double value;
-
-  angle = r8_pi ( ) * angle / 180.0;
-
-  value = cos ( angle ) / sin ( angle );
-
-  return value;
-}
-/******************************************************************************/
-
-double r8_csc ( double theta )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_CSC returns the cosecant of X.
-
-  Discussion:
-
-    R8_CSC ( THETA ) = 1.0 / SIN ( THETA )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double THETA, the angle, in radians, whose cosecant is desired.
-    It must be the case that SIN ( THETA ) is not zero.
-
-    Output, double R8_CSC, the cosecant of THETA.
-*/
-{
-  double value;
-
-  value = 1.0 / sin ( theta );
-
-  return value;
-}
-/******************************************************************************/
-
-double r8_csc_deg ( double angle )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_CSC_DEG returns the cosecant of an angle given in degrees.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    10 May 2005
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double ANGLE, the angle, in degrees.
-
-    Output, double R8_CSC_DEG, the cosecant of the angle.
-*/
-{
-  double degrees_to_radians = 3.141592653589793 / 180.0;
-  double value;
-
-  value = 1.0 / cos ( degrees_to_radians * angle );
-
-  return value;
-}
-/******************************************************************************/
-
 double r8_epsilon ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8_EPSILON returns the R8 roundoff unit.
+    R8_EPSILON returns the R8 round off unit.
 
   Discussion:
 
-    The roundoff unit is a number R which is a power of 2 with the 
-    property that, to the precision of the computer's arithmetic,
+    R8_EPSILON is a number R which is a power of 2 with the property that,
+    to the precision of the computer's arithmetic,
       1 < 1 + R
-    but 
+    but
       1 = ( 1 + R / 2 )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    01 July 2004
+    01 September 2012
 
   Author:
 
@@ -14910,16 +14258,274 @@ double r8_epsilon ( )
     Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  double value;
+  const double value = 2.220446049250313E-016;
 
-  value = 1.0;
+  return value;
+}
+/******************************************************************************/
 
-  while ( 1.0 < ( double ) ( 1.0 + value )  )
+double r8_erf ( double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ERF evaluates the error function ERF(X).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    24 May 2007
+
+  Author:
+
+    Original FORTRAN77 version by William Cody.
+    C version by John Burkardt.
+
+  Reference:
+
+    William Cody,
+    "Rational Chebyshev approximations for the error function",
+    Mathematics of Computation, 
+    1969, pages 631-638.
+
+  Parameters:
+
+    Input, double X, the argument of the error function.
+
+    Output, double R8_ERF, the value of the error function.
+*/
+{
+  double a[5] = {
+    3.16112374387056560, 
+    1.13864154151050156E+02, 
+    3.77485237685302021E+02, 
+    3.20937758913846947E+03, 
+    1.85777706184603153E-01 };
+  double b[4] = {
+    2.36012909523441209E+01, 
+    2.44024637934444173E+02, 
+    1.28261652607737228E+03, 
+    2.84423683343917062E+03 };
+  double c[9] = {
+    5.64188496988670089E-01, 
+    8.88314979438837594, 
+    6.61191906371416295E+01, 
+    2.98635138197400131E+02, 
+    8.81952221241769090E+02, 
+    1.71204761263407058E+03, 
+    2.05107837782607147E+03, 
+    1.23033935479799725E+03, 
+    2.15311535474403846E-08 };
+  double d[8] = {
+    1.57449261107098347E+01, 
+    1.17693950891312499E+02, 
+    5.37181101862009858E+02, 
+    1.62138957456669019E+03, 
+    3.29079923573345963E+03, 
+    4.36261909014324716E+03, 
+    3.43936767414372164E+03, 
+    1.23033935480374942E+03 };
+  double del;
+  double erfx;
+  int i;
+  double p[6] = {
+    3.05326634961232344E-01, 
+    3.60344899949804439E-01, 
+    1.25781726111229246E-01, 
+    1.60837851487422766E-02, 
+    6.58749161529837803E-04, 
+    1.63153871373020978E-02 };
+  double q[5] = {
+    2.56852019228982242, 
+    1.87295284992346047, 
+    5.27905102951428412E-01, 
+    6.05183413124413191E-02, 
+    2.33520497626869185E-03 };
+  double sqrpi = 0.56418958354775628695;
+  double thresh = 0.46875;
+  double xbig = 26.543;
+  double xabs;
+  double xden;
+  double xnum;
+  double xsmall = 1.11E-16;
+  double xsq;
+
+  xabs = fabs ( x );
+/*
+  Evaluate ERF(X) for |X| <= 0.46875.
+*/
+  if ( xabs <= thresh )
   {
-    value = value / 2.0;
+    if ( xsmall < xabs )
+    {
+      xsq = xabs * xabs;
+    }
+    else
+    {
+      xsq = 0.0;
+    }
+
+    xnum = a[4] * xsq;
+    xden = xsq;
+    for ( i = 0; i < 3; i++ )
+    {
+      xnum = ( xnum + a[i] ) * xsq;
+      xden = ( xden + b[i] ) * xsq;
+    }
+
+    erfx = x * ( xnum + a[3] ) / ( xden + b[3] );
+  }
+/*
+  Evaluate ERFC(X) for 0.46875 <= |X| <= 4.0.
+*/
+  else if ( xabs <= 4.0 )
+  {
+    xnum = c[8] * xabs;
+    xden = xabs;
+    for ( i = 0; i < 7; i++ )
+    {
+      xnum = ( xnum + c[i] ) * xabs;
+      xden = ( xden + d[i] ) * xabs;
+    }
+
+    erfx = ( xnum + c[7] ) / ( xden + d[7] );
+    xsq = ( double ) ( ( int ) ( ( xabs * 16.0 ) / 16.0 ) );
+    del = ( xabs - xsq ) * ( xabs + xsq );
+    erfx = exp ( - xsq * xsq ) * exp ( - del ) * erfx;
+
+    erfx = ( 0.5 - erfx ) + 0.5;
+
+    if ( x < 0.0 )
+    {
+      erfx = - erfx;
+    }
+  }
+/*
+  Evaluate ERFC(X) for 4.0 < |X|.
+*/
+  else
+  {
+    if ( xbig <= xabs )
+    {
+      if ( 0.0 < x )
+      {
+        erfx = 1.0;
+      }
+      else
+      {
+        erfx = - 1.0;
+      }
+    }
+    else
+    {
+      xsq = 1.0 / ( xabs * xabs );
+
+      xnum = p[5] * xsq;
+      xden = xsq;
+      for ( i = 0; i < 4; i++ )
+      {
+        xnum = ( xnum + p[i] ) * xsq;
+        xden = ( xden + q[i] ) * xsq;
+      }
+
+      erfx = xsq * ( xnum + p[4] ) / ( xden + q[4] );
+      erfx = ( sqrpi - erfx ) / xabs;
+      xsq = ( double ) ( ( int ) ( ( xabs * 16.0 ) / 16.0 ) );
+      del = ( xabs - xsq ) * ( xabs + xsq );
+      erfx = exp ( - xsq * xsq ) * exp ( - del ) * erfx;
+
+      erfx = ( 0.5 - erfx ) + 0.5;
+      if ( x < 0.0 )
+      {
+        erfx = - erfx;
+      }
+
+    }
+
   }
 
-  value = 2.0 * value;
+  return erfx;
+}
+/******************************************************************************/
+
+double r8_erf_inverse ( double y )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ERF_INVERSE inverts the error function R8_ERF.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 August 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double Y, the value of the error function.
+
+    Output, double R8_ERF_INVERSE, the value X such that ERF(X) = Y.
+*/
+{
+  double value;
+  double x;
+  double z;
+
+  z = ( y + 1.0 ) / 2.0;
+
+  x = normal_01_cdf_inverse ( z );
+
+  value = x / sqrt ( 2.0 );
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_euler_constant ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_EULER_CONSTANT returns the value of the Euler-Mascheroni constant.
+
+  Discussion:
+
+    The Euler-Mascheroni constant is often denoted by a lower-case gamma.
+
+      gamma = limit ( N -> +oo )
+        ( sum ( 1 <= I <= N ) 1 / I ) - log ( N )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double R8_EULER_CONSTANT, the value of the Euler-Mascheroni constant.
+*/
+{
+  const double value = 0.577215664901532860606512090082402431042;
 
   return value;
 }
@@ -15300,604 +14906,7 @@ void r8_factorial_values ( int *n_data, int *n, double *fn )
 }
 /******************************************************************************/
 
-double r8_factorial2 ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_FACTORIAL2 computes the double factorial function.
-
-  Discussion:
-
-    FACTORIAL2( N ) = Product ( N * (N-2) * (N-4) * ... * 2 )  (N even)
-                    = Product ( N * (N-2) * (N-4) * ... * 1 )  (N odd)
-
-  Example:
-
-     N    Factorial2(N)
-
-     0     1
-     1     1
-     2     2
-     3     3
-     4     8
-     5    15
-     6    48
-     7   105
-     8   384
-     9   945
-    10  3840
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    01 July 2008
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the argument of the double factorial 
-    function.  If N is less than 1, R8_FACTORIAL2 is returned as 1.0.
-
-    Output, double R8_FACTORIAL2, the value of Factorial2(N).
-*/
-{
-  int n_copy;
-  double value;
-
-  value = 1.0;
-
-  if ( n < 1 )
-  {
-    return value;
-  }
-
-  n_copy = n;
-
-  while ( 1 < n_copy )
-  {
-    value = value * ( double ) n_copy;
-    n_copy = n_copy - 2;
-  }
-
-  return value;
-}
-/******************************************************************************/
-
-double r8_gamma ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_GAMMA evaluates Gamma(X) for a real argument.
-
-  Discussion:
-
-    The C math library includes the GAMMA ( X ) function which should generally
-    be used instead of this function.
-
-    This routine calculates the gamma function for a real argument X.
-
-    Computation is based on an algorithm outlined in reference 1.
-    The program uses rational functions that approximate the gamma
-    function to at least 20 significant decimal digits.  Coefficients
-    for the approximation over the interval (1,2) are unpublished.
-    Those for the approximation for 12 <= X are from reference 2.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    11 January 2010
-
-  Author:
-
-    Original FORTRAN77 version by William Cody, Laura Stoltz.
-    C version by John Burkardt.
-
-  Reference:
-
-    William Cody,
-    An Overview of Software Development for Special Functions,
-    in Numerical Analysis Dundee, 1975,
-    edited by GA Watson,
-    Lecture Notes in Mathematics 506,
-    Springer, 1976.
-
-    John Hart, Ward Cheney, Charles Lawson, Hans Maehly,
-    Charles Mesztenyi, John Rice, Henry Thatcher,
-    Christoph Witzgall,
-    Computer Approximations,
-    Wiley, 1968,
-    LC: QA297.C64.
-
-  Parameters:
-
-    Input, double X, the argument of the function.
-
-    Output, double R8_GAMMA, the value of the function.
-*/
-{
-  double c[7] = {
-   -1.910444077728E-03, 
-    8.4171387781295E-04, 
-   -5.952379913043012E-04, 
-    7.93650793500350248E-04, 
-   -2.777777777777681622553E-03, 
-    8.333333333333333331554247E-02, 
-    5.7083835261E-03 };
-  double eps = 2.22E-16;
-  double fact;
-  int i;
-  int n;
-  double p[8] = {
-  -1.71618513886549492533811E+00,
-   2.47656508055759199108314E+01, 
-  -3.79804256470945635097577E+02,
-   6.29331155312818442661052E+02, 
-   8.66966202790413211295064E+02,
-  -3.14512729688483675254357E+04, 
-  -3.61444134186911729807069E+04,
-   6.64561438202405440627855E+04 };
-  int parity;
-  double pi = 3.1415926535897932384626434;
-  double q[8] = {
-  -3.08402300119738975254353E+01,
-   3.15350626979604161529144E+02, 
-  -1.01515636749021914166146E+03,
-  -3.10777167157231109440444E+03, 
-   2.25381184209801510330112E+04,
-   4.75584627752788110767815E+03, 
-  -1.34659959864969306392456E+05,
-  -1.15132259675553483497211E+05 };
-  double res;
-  double sqrtpi = 0.9189385332046727417803297;
-  double sum;
-  double value;
-  double xbig = 171.624;
-  double xden;
-  double xinf = 1.79E+308;
-  double xminin = 2.23E-308;
-  double xnum;
-  double y;
-  double y1;
-  double ysq;
-  double z;
-
-  parity = 0;
-  fact = 1.0;
-  n = 0;
-  y = x;
-/*
-  Argument is negative.
-*/
-  if ( y <= 0.0 )
-  {
-    y = - x;
-    y1 = ( double ) ( int ) ( y );
-    res = y - y1;
-
-    if ( res != 0.0 )
-    {
-      if ( y1 != ( double ) ( int ) ( y1 * 0.5 ) * 2.0 )
-      {
-        parity = 1;
-      }
-
-      fact = - pi / sin ( pi * res );
-      y = y + 1.0;
-    }
-    else
-    {
-      res = xinf;
-      value = res;
-      return value;
-    }
-  }
-/*
-  Argument is positive.
-*/
-  if ( y < eps )
-  {
-/*
-  Argument < EPS.
-*/
-    if ( xminin <= y )
-    {
-      res = 1.0 / y;
-    }
-    else
-    {
-      res = xinf;
-      value = res;
-      return value;
-    }
-  }
-  else if ( y < 12.0 )
-  {
-    y1 = y;
-/*
-  0.0 < argument < 1.0.
-*/
-    if ( y < 1.0 )
-    {
-      z = y;
-      y = y + 1.0;
-    }
-/*
-  1.0 < argument < 12.0.
-  Reduce argument if necessary.
-*/
-    else
-    {
-      n = ( int ) ( y ) - 1;
-      y = y - ( double ) ( n );
-      z = y - 1.0;
-    }
-/*
-  Evaluate approximation for 1.0 < argument < 2.0.
-*/
-    xnum = 0.0;
-    xden = 1.0;
-    for ( i = 0; i < 8; i++ )
-    {
-      xnum = ( xnum + p[i] ) * z;
-      xden = xden * z + q[i];
-    }
-    res = xnum / xden + 1.0;
-/*
-  Adjust result for case  0.0 < argument < 1.0.
-*/
-    if ( y1 < y )
-    {
-      res = res / y1;
-    }
-/*
-  Adjust result for case 2.0 < argument < 12.0.
-*/
-    else if ( y < y1 )
-    {
-      for ( i = 1; i <= n; i++ )
-      {
-        res = res * y;
-        y = y + 1.0;
-      }
-    }
-  }
-  else
-  {
-/*
-  Evaluate for 12.0 <= argument.
-*/
-    if ( y <= xbig )
-    {
-      ysq = y * y;
-      sum = c[6];
-      for ( i = 0; i < 6; i++ )
-      {
-        sum = sum / ysq + c[i];
-      }
-      sum = sum / y - y + sqrtpi;
-      sum = sum + ( y - 0.5 ) * log ( y );
-      res = exp ( sum );
-    }
-    else
-    {
-      res = xinf;
-      value = res;
-      return value;
-    }
-  }
-/*
-  Final adjustments and return.
-*/
-  if ( parity )
-  {
-    res = - res;
-  }
-
-  if ( fact != 1.0 )
-  {
-    res = fact / res;
-  }
-
-  value = res;
-
-  return value;
-}
-/******************************************************************************/
-
-double r8_gamma_log ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_GAMMA_LOG calculates the natural logarithm of GAMMA ( X ) for positive X.
-
-  Discussion:
-
-    The C MATH library includes a function LGAMMA ( X ) which should be
-    invoked instead of this function.
-
-    The program uses rational functions that theoretically approximate
-    LOG(GAMMA(X)) to at least 18 significant decimal digits.  
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2003
-
-  Author:
-
-    Original FORTRAN77 version by William Cody, Laura Stoltz.
-    C++ version by John Burkardt.
-
-  Reference:
-
-    William Cody and Kenneth Hillstrom,
-    Chebyshev Approximations for the Natural Logarithm of the Gamma Function,
-    Mathematics of Computation,
-    Volume 21, 1967, pages 198-203.
-
-    Kenneth Hillstrom,
-    ANL/AMD Program ANLC366S, DGAMMA/DLGAMA,
-    May 1969.
-
-    Hart, Et. Al.,
-    Computer Approximations,
-    Wiley and sons, New York, 1968.
-
-  Parameters:
-
-    Input, double X, the argument of the Gamma function.  X must be positive.
-
-    Output, double R8_GAMMA_LOG, the logarithm of the Gamma function of X.
-    If X <= 0.0, or if overflow would occur, the program returns the
-    value XINF, the largest representable floating point number.
-
-  Local Parameters:
-
-  BETA   - radix for the floating-point representation.
-
-  MAXEXP - the smallest positive power of BETA that overflows.
-
-  XBIG   - largest argument for which LN(GAMMA(X)) is representable
-           in the machine, i.e., the solution to the equation
-             LN(GAMMA(XBIG)) = BETA**MAXEXP.
-
-  FRTBIG - Rough estimate of the fourth root of XBIG
-
-
-  Approximate values for some important machines are:
-
-                            BETA      MAXEXP         XBIG
-
-  CRAY-1        (S.P.)        2        8191       9.62E+2461
-  Cyber 180/855
-    under NOS   (S.P.)        2        1070       1.72E+319
-  IEEE (IBM/XT,
-    SUN, etc.)  (S.P.)        2         128       4.08E+36
-  IEEE (IBM/XT,
-    SUN, etc.)  (D.P.)        2        1024       2.55D+305
-  IBM 3033      (D.P.)       16          63       4.29D+73
-  VAX D-Format  (D.P.)        2         127       2.05D+36
-  VAX G-Format  (D.P.)        2        1023       1.28D+305
-
-
-                           FRTBIG
-
-  CRAY-1        (S.P.)   3.13E+615
-  Cyber 180/855
-    under NOS   (S.P.)   6.44E+79
-  IEEE (IBM/XT,
-    SUN, etc.)  (S.P.)   1.42E+9
-  IEEE (IBM/XT,
-    SUN, etc.)  (D.P.)   2.25D+76
-  IBM 3033      (D.P.)   2.56D+18
-  VAX D-Format  (D.P.)   1.20D+9
-  VAX G-Format  (D.P.)   1.89D+76
-*/
-{
-  double c[7] = {
-    -1.910444077728E-03, 
-     8.4171387781295E-04, 
-    -5.952379913043012E-04, 
-     7.93650793500350248E-04, 
-    -2.777777777777681622553E-03, 
-     8.333333333333333331554247E-02, 
-     5.7083835261E-03 };
-  double corr;
-  double d1 = - 5.772156649015328605195174E-01;
-  double d2 =   4.227843350984671393993777E-01;
-  double d4 =   1.791759469228055000094023;
-  double frtbig = 1.42E+09;
-  int i;
-  double p1[8] = {
-    4.945235359296727046734888, 
-    2.018112620856775083915565E+02, 
-    2.290838373831346393026739E+03, 
-    1.131967205903380828685045E+04, 
-    2.855724635671635335736389E+04, 
-    3.848496228443793359990269E+04, 
-    2.637748787624195437963534E+04, 
-    7.225813979700288197698961E+03 };
-  double p2[8] = {
-    4.974607845568932035012064, 
-    5.424138599891070494101986E+02, 
-    1.550693864978364947665077E+04, 
-    1.847932904445632425417223E+05, 
-    1.088204769468828767498470E+06, 
-    3.338152967987029735917223E+06, 
-    5.106661678927352456275255E+06, 
-    3.074109054850539556250927E+06 };
-  double p4[8] = {
-    1.474502166059939948905062E+04, 
-    2.426813369486704502836312E+06, 
-    1.214755574045093227939592E+08, 
-    2.663432449630976949898078E+09, 
-    2.940378956634553899906876E+010,
-    1.702665737765398868392998E+011,
-    4.926125793377430887588120E+011, 
-    5.606251856223951465078242E+011 };
-  double pnt68 = 0.6796875;
-  double q1[8] = {
-    6.748212550303777196073036E+01, 
-    1.113332393857199323513008E+03, 
-    7.738757056935398733233834E+03, 
-    2.763987074403340708898585E+04, 
-    5.499310206226157329794414E+04, 
-    6.161122180066002127833352E+04, 
-    3.635127591501940507276287E+04, 
-    8.785536302431013170870835E+03 };
-  double q2[8] = {
-    1.830328399370592604055942E+02, 
-    7.765049321445005871323047E+03, 
-    1.331903827966074194402448E+05, 
-    1.136705821321969608938755E+06, 
-    5.267964117437946917577538E+06, 
-    1.346701454311101692290052E+07, 
-    1.782736530353274213975932E+07, 
-    9.533095591844353613395747E+06 };
-  double q4[8] = {
-    2.690530175870899333379843E+03, 
-    6.393885654300092398984238E+05, 
-    4.135599930241388052042842E+07, 
-    1.120872109616147941376570E+09, 
-    1.488613728678813811542398E+010, 
-    1.016803586272438228077304E+011, 
-    3.417476345507377132798597E+011, 
-    4.463158187419713286462081E+011 };
-  double res;
-  double sqrtpi = 0.9189385332046727417803297;
-  double xbig = 4.08E+36;
-  double xden;
-  double xm1;
-  double xm2;
-  double xm4;
-  double xnum;
-  double xsq;
-/*
-  Return immediately if the argument is out of range.
-*/
-  if ( x <= 0.0 || xbig < x )
-  {
-    return r8_huge ( );
-  }
-
-  if ( x <= r8_epsilon ( ) )
-  {
-    res = - log ( x );
-  }
-  else if ( x <= 1.5 )
-  {
-    if ( x < pnt68 )
-    {
-      corr = - log ( x );
-      xm1 = x;
-    }
-    else
-    {
-      corr = 0.0;
-      xm1 = ( x - 0.5 ) - 0.5;
-    }
-
-    if ( x <= 0.5 || pnt68 <= x )
-    {
-      xden = 1.0;
-      xnum = 0.0;
-
-      for ( i = 0; i < 8; i++ )
-      {
-        xnum = xnum * xm1 + p1[i];
-        xden = xden * xm1 + q1[i];
-      }
-
-      res = corr + ( xm1 * ( d1 + xm1 * ( xnum / xden ) ) );
-    }
-    else
-    {
-      xm2 = ( x - 0.5 ) - 0.5;
-      xden = 1.0;
-      xnum = 0.0;
-      for ( i = 0; i < 8; i++ )
-      {
-        xnum = xnum * xm2 + p2[i];
-        xden = xden * xm2 + q2[i];
-      }
-
-      res = corr + xm2 * ( d2 + xm2 * ( xnum / xden ) );
-
-    }
-  }
-  else if ( x <= 4.0 )
-  {
-    xm2 = x - 2.0;
-    xden = 1.0;
-    xnum = 0.0;
-    for ( i = 0; i < 8; i++ )
-    {
-      xnum = xnum * xm2 + p2[i];
-      xden = xden * xm2 + q2[i];
-    }
-
-    res = xm2 * ( d2 + xm2 * ( xnum / xden ) );
-  }
-  else if ( x <= 12.0 )
-  {
-    xm4 = x - 4.0;
-    xden = - 1.0;
-    xnum = 0.0;
-    for ( i = 0; i < 8; i++ )
-    {
-      xnum = xnum * xm4 + p4[i];
-      xden = xden * xm4 + q4[i];
-    }
-
-    res = d4 + xm4 * ( xnum / xden );
-  }
-  else
-  {
-    res = 0.0;
-
-    if ( x <= frtbig )
-    {
-
-      res = c[6];
-      xsq = x * x;
-
-      for ( i = 0; i < 6; i++ )
-      {
-        res = res / xsq + c[i];
-      }
-
-    }
-
-    res = res / x;
-    corr = log ( x );
-    res = res + sqrtpi - 0.5 * corr;
-    res = res + x * ( corr - 1.0 );
-
-  }
-
-  return res;
-}
-/******************************************************************************/
-
-double r8_huge ( void )
+double r8_huge ( )
 
 /******************************************************************************/
 /*
@@ -15929,9 +14938,7 @@ double r8_huge ( void )
     Output, double R8_HUGE, a "huge" R8 value.
 */
 {
-  double value;
-
-  value = 1.0E+30;
+  const double value = 1.0E+30;
 
   return value;
 }
@@ -16023,7 +15030,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
   int nm;
   double pa;
   double pb;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double r;
   double r0;
   double r1;
@@ -16066,19 +15073,19 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
   }
   else if ( 1.0 - x == eps && 0.0 < c - a - b )
   {
-    gc = gamma ( c );
-    gcab = gamma ( c - a - b );
-    gca = gamma ( c - a );
-    gcb = gamma ( c - b );
+    gc = tgamma ( c );
+    gcab = tgamma ( c - a - b );
+    gca = tgamma ( c - a );
+    gcb = tgamma ( c - b );
     hf = gc * gcab / ( gca * gcb );
     return hf;
   }
-  else if ( 1.0 + x <= eps && r8_abs ( c - a + b - 1.0 ) <= eps )
+  else if ( 1.0 + x <= eps && fabs ( c - a + b - 1.0 ) <= eps )
   {
-    g0 = sqrt ( pi ) * pow ( 2.0, - a );
-    g1 = gamma ( c );
-    g2 = gamma ( 1.0 + a / 2.0 - b );
-    g3 = gamma ( 0.5 + 0.5 * a );
+    g0 = sqrt ( r8_pi ) * pow ( 2.0, - a );
+    g1 = tgamma ( c );
+    g2 = tgamma ( 1.0 + a / 2.0 - b );
+    g3 = tgamma ( 0.5 + 0.5 * a );
     hf = g0 * g1 / ( g2 * g3 );
     return hf;
   }
@@ -16086,12 +15093,12 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
   {
     if ( l2 )
     {
-      nm = ( int ) ( r8_abs ( a ) );
+      nm = ( int ) ( fabs ( a ) );
     }
 
     if ( l3 )
     {
-      nm = ( int ) ( r8_abs ( b ) );
+      nm = ( int ) ( fabs ( b ) );
     }
 
     hf = 1.0;
@@ -16110,12 +15117,12 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
   {
     if ( l4 )
     {
-      nm = ( int ) ( r8_abs ( c - a ) );
+      nm = ( int ) ( fabs ( c - a ) );
     }
 
     if ( l5 )
     {
-      nm = ( int ) ( r8_abs ( c - b ) );
+      nm = ( int ) ( fabs ( c - b ) );
     }
 
     hf = 1.0;
@@ -16149,14 +15156,14 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
   {
     gm = 0.0;
 
-    if ( r8_abs ( c - a - b - ( int ) ( c - a - b ) ) < 1.0E-15 )
+    if ( fabs ( c - a - b - ( int ) ( c - a - b ) ) < 1.0E-15 )
     {
-      m = (int) ( c - a - b );
-      ga = gamma ( a );
-      gb = gamma ( b );
-      gc = gamma ( c );
-      gam = gamma ( a + m );
-      gbm = gamma ( b + m );
+      m = ( int ) ( c - a - b );
+      ga = tgamma ( a );
+      gb = tgamma ( b );
+      gc = tgamma ( c );
+      gam = tgamma ( a + m );
+      gbm = tgamma ( b + m );
 
       pa = r8_psi ( a );
       pb = r8_psi ( b );
@@ -16224,7 +15231,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
           f1 = f1 + r1 * rp;
 
-          if ( r8_abs ( f1 - hw ) < r8_abs ( f1 ) * eps )
+          if ( fabs ( f1 - hw ) < fabs ( f1 ) * eps )
           {
             break;
           }
@@ -16272,7 +15279,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
           f1 = f1 + r1 * rp;
 
-          if ( r8_abs ( f1 - hw ) < r8_abs ( f1 ) * eps )
+          if ( fabs ( f1 - hw ) < fabs ( f1 ) * eps )
           {
             break;
           }
@@ -16285,13 +15292,13 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
     }
     else
     {
-      ga = gamma ( a );
-      gb = gamma ( b );
-      gc = gamma ( c );
-      gca = gamma ( c - a );
-      gcb = gamma ( c - b );
-      gcab = gamma ( c - a - b );
-      gabc = gamma ( a + b - c );
+      ga = tgamma ( a );
+      gb = tgamma ( b );
+      gc = tgamma ( c );
+      gca = tgamma ( c - a );
+      gcb = tgamma ( c - b );
+      gcab = tgamma ( c - a - b );
+      gabc = tgamma ( a + b - c );
       c0 = gc * gcab / ( gca * gcb );
       c1 = gc * gabc / ( ga * gb ) * pow ( 1.0 - x, c - a - b );
       hf = 0.0;
@@ -16309,7 +15316,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
         hf = hf + r0 + r1;
 
-        if ( r8_abs ( hf - hw ) < r8_abs ( hf ) * eps )
+        if ( fabs ( hf - hw ) < fabs ( hf ) * eps )
         {
           break;
         }
@@ -16340,7 +15347,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
       hf = hf + r;
 
-      if ( r8_abs ( hf - hw ) <= r8_abs ( hf ) * eps )
+      if ( fabs ( hf - hw ) <= fabs ( hf ) * eps )
       {
         break;
       }
@@ -16454,6 +15461,52 @@ double r8_min ( double x, double y )
 }
 /******************************************************************************/
 
+double r8_mop ( int i )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_MOP returns the I-th power of -1 as an R8 value.
+
+  Discussion:
+
+    An R8 is an double value.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 July 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, the power of -1.
+
+    Output, double R8_MOP, the I-th power of -1.
+*/
+{
+  double value;
+
+  if ( ( i % 2 ) == 0 )
+  {
+    value = + 1.0;
+  }
+  else
+  {
+    value = - 1.0;
+  }
+
+  return value;
+}
+/******************************************************************************/
+
 int r8_nint ( double x )
 
 /******************************************************************************/
@@ -16511,7 +15564,7 @@ int r8_nint ( double x )
 }
 /******************************************************************************/
 
-double r8_pi ( void )
+double r8_pi ( )
 
 /******************************************************************************/
 /*
@@ -16536,7 +15589,7 @@ double r8_pi ( void )
     Output, double R8_PI, the value of PI.
 */
 {
-  double value = 3.141592653589793;
+  const double value = 3.141592653589793;
 
   return value;
 }
@@ -16649,7 +15702,7 @@ double r8_psi ( double xx )
   double z;
 
   x = xx;
-  w = r8_abs ( x );
+  w = fabs ( x );
   aug = 0.0;
 /*
   Check for valid arguments, then branch to appropriate algorithm.
@@ -16940,7 +15993,7 @@ void r8poly_print ( int n, double a[], char *title )
 
     The power sum form is:
 
-      p(x) = a(0) + a(1)*x + ... + a(n-1)*x**(n-1) + a(n)*x**(n)
+      p(x) = a(0) + a(1)*x + ... + a(n-1)*x^(n-1) + a(n)*x^(n)
 
   Licensing:
 
@@ -17038,24 +16091,21 @@ void r8poly_print ( int n, double a[], char *title )
 }
 /******************************************************************************/
 
-double r8poly_value ( int n, double a[], double x )
+double r8poly_value_horner ( int m, double c[], double x )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8POLY_VALUE evaluates a double precision polynomial.
+    R8POLY_VALUE_HORNER evaluates a polynomial using Horner's method.
 
   Discussion:
 
-    For sanity's sake, the value of N indicates the NUMBER of 
-    coefficients, or more precisely, the ORDER of the polynomial,
-    rather than the DEGREE of the polynomial.  The two quantities
-    differ by 1, but cause a great deal of confusion.
+    The polynomial 
 
-    Given N and A, the form of the polynomial is:
+      p(x) = c0 + c1 * x + c2 * x^2 + ... + cm * x^m
 
-      p(x) = a[0] + a[1] * x + ... + a[n-2] * x^(n-2) + a[n-1] * x^(n-1)
+    is to be evaluated at the value X.
 
   Licensing:
 
@@ -17063,7 +16113,7 @@ double r8poly_value ( int n, double a[], double x )
 
   Modified:
 
-    19 March 2010
+    02 January 2015
 
   Author:
 
@@ -17071,27 +16121,134 @@ double r8poly_value ( int n, double a[], double x )
 
   Parameters:
 
-    Input, int N, the order of the polynomial.
+    Input, int M, the degree of the polynomial.
 
-    Input, double A[N], the coefficients of the polynomial.
-    A[0] is the constant term.
+    Input, double C[M+1], the coefficients of the polynomial.
+    C[0] is the constant term.
 
     Input, double X, the point at which the polynomial is to be evaluated.
 
-    Output, double R8POLY_VALUE, the value of the polynomial at X.
+    Output, double R8POLY_VALUE_HORNER, the value of the polynomial at X.
 */
 {
   int i;
   double value;
 
-  value = 0.0;
+  value = c[m];
 
-  for ( i = n - 1; 0 <= i; i-- )
+  for ( i = m - 1; 0 <= i; i-- )
   {
-    value = value * x + a[i];
+    value = value * x + c[i];
   }
 
   return value;
+}
+/******************************************************************************/
+
+double *r8vec_linspace_new ( int n, double a, double b )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_LINSPACE_NEW creates a vector of linearly spaced values.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+    4 points evenly spaced between 0 and 12 will yield 0, 4, 8, 12.
+ 
+    In other words, the interval is divided into N-1 even subintervals,
+    and the endpoints of intervals are used as the points.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 March 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input, double A, B, the first and last entries.
+
+    Output, double R8VEC_LINSPACE_NEW[N], a vector of linearly spaced data.
+*/
+{
+  int i;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  if ( n == 1 )
+  {
+    x[0] = ( a + b ) / 2.0;
+  }
+  else
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      x[i] = ( ( double ) ( n - 1 - i ) * a 
+             + ( double ) (         i ) * b ) 
+             / ( double ) ( n - 1     );
+    }
+  }
+  return x;
+}
+/******************************************************************************/
+
+void r8vec_print ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_PRINT prints an R8VEC.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2009
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of components of the vector.
+
+    Input, double A[N], the vector to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+  fprintf ( stdout, "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    fprintf ( stdout, "  %8d: %14g\n", i, a[i] );
+  }
+
+  return;
 }
 /******************************************************************************/
 
@@ -17140,13 +16297,17 @@ int s_len_trim ( char *s )
 
     S_LEN_TRIM returns the length of a string to the last nonblank.
 
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    26 April 2003
+    05 October 2014
 
   Author:
 
@@ -17166,9 +16327,9 @@ int s_len_trim ( char *s )
   n = strlen ( s );
   t = s + strlen ( s ) - 1;
 
-  while ( 0 < n ) 
+  while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }
@@ -17177,42 +16338,6 @@ int s_len_trim ( char *s )
   }
 
   return n;
-}
-/******************************************************************************/
-
-double sec_deg ( double angle )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    SEC_DEG returns the secant of an angle given in degrees.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    10 May 2005
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double ANGLE, the angle, in degrees.
-
-    Output, double SEC_DEG, the secant of the angle.
-*/
-{
-  double degrees_to_radians = 3.141592653589793 / 180.0;
-  double value;
-
-  value = 1.0 / sin ( degrees_to_radians * angle );
-
-  return value;
 }
 /******************************************************************************/
 
@@ -17444,13 +16569,29 @@ void sigma_values ( int *n_data, int *n, int *c )
 }
 /******************************************************************************/
 
-double sin_deg ( double angle )
+int simplex_num ( int m, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    SIN_DEG returns the sine of an angle given in degrees.
+    SIMPLEX_NUM evaluates the N-th Simplex number in M dimensions.
+
+  Discussion:
+
+     N\M: 1    2    3    4    5
+    --   --   --   --   --   --
+     0    0    0    0    0    0
+     1    1    1    1    1    1
+     2    2    3    4    5    6
+     3    3    6   10   15   21
+     4    4   10   20   35   56
+     5    5   15   35   70  126
+     6    6   21   56  126  252
+     7    7   28   84  210  462
+     8    8   36  120  330  792
+     9    9   45  165  495 1287
+    10   10   55  220  715 2002
 
   Licensing:
 
@@ -17458,23 +16599,29 @@ double sin_deg ( double angle )
 
   Modified:
 
-    10 May 2005
+    27 February 2015
 
   Author:
 
     John Burkardt
 
-  Parameters:
+  Parameters
 
-    Input, double ANGLE, the angle, in degrees.
+    Input, int M, the spatial dimension.
 
-    Output, double SIN_DEG, the sine of the angle.
+    Input, int N, the index of the number.
+
+    Output, int SIMPLEX_NUM, the desired value.
 */
 {
-  double degrees_to_radians = 3.141592653589793 / 180.0;
-  double value;
-
-  value = sin ( degrees_to_radians * angle );
+  int i;
+  int value;
+  
+  value = 1;
+  for ( i = 1; i <= m; i++ )
+  {
+    value = ( value * ( n + i - 1 ) ) / i;
+  }
 
   return value;
 }
@@ -18271,37 +17418,6 @@ int *stirling2 ( int n, int m )
 }
 /******************************************************************************/
 
-double tan_deg ( double angle )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TAN_DEG returns the tangent of an angle given in degrees.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double ANGLE, the angle, in degrees.
-
-    Output, double TAN_DEG, the tangent of the angle.
-*/
-{
-  return ( tan ( r8_pi ( ) * angle / 180.0 ) );
-}
-/******************************************************************************/
-
 int tau ( int n )
 
 /******************************************************************************/
@@ -18318,7 +17434,7 @@ int tau ( int n )
 
       If the prime factorization of N is
 
-        N = P1**E1 * P2**E2 * ... * PM**EM,
+        N = P1^E1 * P2^E2 * ... * PM^EM,
 
       then
 
@@ -18457,7 +17573,7 @@ void tau_values ( int *n_data, int *n, int *c )
 
     If the prime factorization of N is
 
-      N = P1**E1 * P2**E2 * ... * PM**EM,
+      N = P1^E1 * P2^E2 * ... * PM^EM,
 
     then
 
@@ -18601,7 +17717,7 @@ int tetrahedron_num ( int n )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*
@@ -18820,6 +17936,85 @@ int triangle_to_i4 ( int i, int j )
 }
 /******************************************************************************/
 
+int trinomial ( int i, int j, int k )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRINOMIAL computes a trinomial coefficient.
+
+  Discussion:
+
+    The trinomial coefficient is a generalization of the binomial
+    coefficient.  It may be interpreted as the number of combinations of
+    N objects, where I objects are of type 1, J of type 2, and K of type 3.
+    and N = I + J + K.
+
+    T(I,J,K) = N! / ( I! J! K! )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, J, K, the factors.
+    All should be nonnegative.
+
+    Output, int TRINOMIAL, the trinomial coefficient.
+*/
+{
+  int l;
+  int t;
+  int value;
+/*
+  Each factor must be nonnegative.
+*/
+  if ( i < 0 || j < 0 || k < 0 )
+  {
+    printf ( "\n" );
+    printf ( "TRINOMIAL - Fatal error!\n" );
+    printf ( "  Negative factor encountered.\n" );
+    exit ( 1 );
+  }
+
+  value = 1;
+
+  t = 1;
+
+  for ( l = 1; l <= i; l++ )
+  {
+/*
+    value = value * t / l;
+*/
+    t = t + 1;
+  }
+
+  for ( l = 1; l <= j; l++ )
+  {
+    value = value * t / l;
+    t = t + 1;
+  }
+
+  for ( l = 1; l <= k; l++ )
+  {
+    value = value * t / l;
+    t = t + 1;
+  }
+  
+  return value;
+}
+/******************************************************************************/
+
 int v_hofstadter ( int n )
 
 /******************************************************************************/
@@ -18977,7 +18172,7 @@ void vibonacci ( int n, int *seed, int v[] )
 
   for ( i = 2; i < n; i++ )
   {
-    j = i4_uniform ( 0, 1, seed );
+    j = i4_uniform_ab ( 0, 1, seed );
 
     if ( j == 0 )
     {
@@ -18988,7 +18183,7 @@ void vibonacci ( int n, int *seed, int v[] )
       s1 = +1;
     }
 
-    j = i4_uniform ( 0, 1, seed );
+    j = i4_uniform_ab ( 0, 1, seed );
 
     if ( j == 0 )
     {
@@ -19125,7 +18320,7 @@ double zernike_poly ( int m, int n, double rho )
 
     *) R^M_N = 0 if M < 0, or N < 0, or N < M.
     *) R^M_M = RHO^M
-    *) R^M_N = 0 if mod ( N - M ) = 1.
+    *) R^M_N = 0 if mod ( N - M, 2 ) = 1.
 
     and the recursion:
 

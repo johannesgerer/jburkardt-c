@@ -19,6 +19,7 @@ double r8_uniform_01 ( int *seed );
 void r8mat_transpose_print ( int m, int n, double a[], char *title );
 void r8mat_transpose_print_some ( int m, int n, double a[], int ilo, int jlo, 
   int ihi, int jhi, char *title );
+void r8mat_write ( char *output_filename, int m, int n, double table[] );
 void r8vec_copy ( int n, double a1[], double a2[] );
 double r8vec_diff_norm ( int n, double a[], double b[] );
 double r8vec_dot_product ( int n, double a1[], double a2[] );

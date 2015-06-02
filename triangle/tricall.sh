@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g tricall.c >& compiler.txt
+gcc -c tricall.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling tricall.c."
   exit
 fi
-rm compiler.txt
 #
 gcc tricall.o /$HOME/libc/$ARCH/triangle.o -lm
 if [ $? -ne 0 ]; then

@@ -17,7 +17,11 @@ int main ( void )
 /*
   Purpose:
 
-    WALSH_PRB calls the WALSH test routines.
+    MAIN is the main program for WALSH_PRB.
+
+  Discussion:
+
+    WALSH_PRB tests the WALSH library.
 
   Licensing:
 
@@ -33,7 +37,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "WALSH_PRB\n" );
   printf ( "  C version\n" );
@@ -49,7 +52,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "WALSH_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

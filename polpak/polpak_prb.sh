@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g polpak_prb.c >& compiler.txt
+gcc -c polpak_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling polpak_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc polpak_prb.o /$HOME/libc/$ARCH/polpak.o -lm
 if [ $? -ne 0 ]; then

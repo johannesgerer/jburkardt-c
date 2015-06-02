@@ -36,7 +36,7 @@ int diaedg ( double x0, double y0, double x1, double y1, double x2, double y2,
   Author:
 
     Original FORTRAN77 version by Barry Joe.
-    C++ version by John Burkardt.
+    C version by John Burkardt.
 
   Reference:
 
@@ -628,7 +628,7 @@ int lrline ( double xu, double yu, double xv1, double yv1, double xv2,
   Author:
 
     Original FORTRAN77 version by Barry Joe.
-    C++ version by John Burkardt.
+    C version by John Burkardt.
 
   Reference:
 
@@ -980,7 +980,7 @@ int r8tris2 ( int node_num, double node_xy[], int *triangle_num,
   Author:
 
     Original FORTRAN77 version by Barry Joe.
-    C++ version by John Burkardt.
+    C version by John Burkardt.
 
   Reference:
 
@@ -994,8 +994,7 @@ int r8tris2 ( int node_num, double node_xy[], int *triangle_num,
 
     Input, int NODE_NUM, the number of nodes.
 
-    Input/output, double NODE_XY[2*NODE_NUM], the coordinates of the nodes.
-    On output, the coordinates have been sorted into dictionary order.
+    Input, double NODE_XY[2*NODE_NUM], the coordinates of the nodes.
 
     Output, int *TRIANGLE_NUM, the number of triangles in the triangulation;
     TRIANGLE_NUM is equal to 2*node_num - NB - 2, where NB is the number
@@ -1283,7 +1282,7 @@ int r8tris2 ( int node_num, double node_xy[], int *triangle_num,
 
   }
 /*
-  Now account for the sorting that we did.
+  Undo the sorting.
 */
   for ( i = 0; i < 3; i++ )
   {
@@ -1331,7 +1330,7 @@ int swapec ( int i, int *top, int *btri, int *bedg, int node_num,
   Author:
 
     Original FORTRAN77 version by Barry Joe.
-    C++ version by John Burkardt.
+    C version by John Burkardt.
 
   Reference:
 
@@ -1808,7 +1807,7 @@ void triangulation_search_delaunay ( int node_num, double node_xy[],
   Author:
 
     Original FORTRAN77 version by Barry Joe.
-    C++ version by John Burkardt.
+    C version by John Burkardt.
 
   Reference:
 
@@ -2014,7 +2013,7 @@ void vbedg ( double x, double y, int node_num, double node_xy[],
   Author:
 
     Original FORTRAN77 version by Barry Joe.
-    C++ version by John Burkardt.
+    C version by John Burkardt.
 
   Reference:
 

@@ -59,7 +59,7 @@ double *chebyshev_coefficients ( double a, double b, int n,
   double *fx;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double pi = 3.141592653589793;
   double x;
 
   fx = ( double * ) malloc ( n * sizeof ( double ) );
@@ -210,7 +210,7 @@ double *chebyshev_zeros ( int n )
 {
   double angle;
   int i;
-  double pi = 3.141592653589793;
+  const double pi = 3.141592653589793;
   double *x;
 
   x = ( double * ) malloc ( n * sizeof ( double ) );

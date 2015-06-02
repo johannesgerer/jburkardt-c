@@ -27,7 +27,7 @@ int main ( void )
 
   Discussion:
 
-    TOMS446_PRB calls the TOMS446 tests.
+    TOMS446_PRB tests the TOMS446 library.
 
   Licensing:
 
@@ -60,7 +60,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "TOMS446_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

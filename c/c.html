@@ -36,6 +36,20 @@
     </p>
 
     <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      Directories related to <b>C</b> are available in
+      <a href = "../../c_src/c/c.html">a C version</a> and
+      <a href = "../../cpp_src/cpp/cpp.html">a C++ version</a> and
+      <a href = "../../f77_src/f77/f77.html">a FORTRAN77 version</a> and
+      <a href = "../../f_src/f90/f90.html">a FORTRAN90 version</a> and
+      <a href = "../../m_src/matlab/matlab.html">a MATLAB version</a> and
+      <a href = "../../py_src/py/py.html">a Python version</a>.
+    </p>
+
+    <h3 align = "center">
       Related Data and Programs:
     </h3>
 
@@ -61,6 +75,13 @@
     </p>
 
     <p>
+      <a href = "../../c_src/c_files/c_files.html">
+      C_FILES</a>,
+      C programs which
+      illustrate the use of files.
+    </p>
+
+    <p>
       <a href = "../../c_src/c_intrinsics/c_intrinsics.html">
       C_INTRINSICS</a>,
       a C program which
@@ -81,26 +102,6 @@
       illustrate the use of C's random number generator routines.
     </p>
 
-    <p>
-      <a href = "../../cpp_src/cpp/cpp.html">
-      CPP</a>,
-      C++ programs which
-      includes some examples on features of the C++ language.
-    </p>
-
-    <p>
-      <a href = "../../f77_src/f77/f77.html">
-      F77</a>,
-      FORTRAN77 programs which
-      includes some examples on features of the FORTRAN77 language.
-    </p>
-
-    <p>
-      <a href = "../../f_src/f90/f90.html">
-      F90</a>,
-      FORTRAN90 programs which
-      includes some examples on features of the FORTRAN90 language.
-    </p>
     <p>
       <a href = "../../m_src/matlab_calls_c/matlab_calls_c.html">
       MATLAB_CALLS_C</a>,
@@ -152,6 +153,63 @@
     </h3>
 
     <p>
+      <b>ARRAY_RETURN</b> demonstrates how a function can call another 
+      function which creates and returns several arrays in its argument
+      list.  To do this requires some tricky use of pointers.
+      <ul>
+        <li>
+          <a href = "array_return.c">array_return.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "array_return.sh">array_return.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "array_return_output.txt">array_return_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>BIG_INTS_REAL</b> shows what can go wrong when you try to move
+      large integer values into and out of real variables.
+      <ul>
+        <li>
+          <a href = "big_ints_real.c">big_ints_real.c</a>, the source code;
+        </li>
+        <li>
+          <a href = "big_ints_real.sh">big_ints_real.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "big_ints_real_output.txt">big_ints_real_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>CHARACTER_ARG</b> demonstrates how a C function can return character
+      information through its argument.
+      <ul>
+        <li>
+          <a href = "character_arg.c">character_arg.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "character_arg.sh">character_arg.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "character_arg_output.txt">character_arg_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
       <b>CHARACTER_ARITHMETIC</b> demonstrates that characters are really
       unsigned short ints (numbers between 0 and 255) so you can do arithmetic
       with them.
@@ -161,7 +219,7 @@
           the source code;
         </li>
         <li>
-          <a href = "character_arithmetic.sh">character_arithmetic_2d.sh</a>, commands that
+          <a href = "character_arithmetic.sh">character_arithmetic.sh</a>, commands that
           compile and run the source code;
         </li>
         <li>
@@ -222,6 +280,51 @@
         </li>
         <li>
           <a href = "hello_output.txt">hello_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>LINKED_LIST</b> demonstrates how to use a linked list in order
+      to be able to store an unknown and increasing number of objects
+      of the same type, typically a C "struct".  In this case, we want
+      to store a size (integer), a real vector, and a real matrix,
+      for each object, and we don't know how many objects we will have.
+      Once we have stored them all, we simply want to be able to run
+      through the list and examine each object.
+      <ul>
+        <li>
+          <a href = "linked_list.c">linked_list.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "linked_list.sh">linked_list.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "linked_list_output.txt">linked_list_output.txt</a>,
+          the output file;
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      <b>LINKED_LIST_VECTOR</b> creates a vector of N linked lists,
+      each of an unknown length.  Using the vector, we can immediately
+      examine any particular list without traversing the previous ones.
+      The rows of a sparse matrix might be stored in this way, for instance.
+      <ul>
+        <li>
+          <a href = "linked_list_vector.c">linked_list_vector.c</a>,
+          the source code;
+        </li>
+        <li>
+          <a href = "linked_list_vector.sh">linked_list_vector.sh</a>, commands that
+          compile and run the source code;
+        </li>
+        <li>
+          <a href = "linked_list_vector_output.txt">linked_list_vector_output.txt</a>,
           the output file;
         </li>
       </ul>
@@ -318,7 +421,7 @@
     <hr>
 
     <i>
-      Last revised on 23 May 2012.
+      Last revised on 28 September 2014.
     </i>
 
     <!-- John Burkardt -->

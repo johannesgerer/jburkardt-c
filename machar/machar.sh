@@ -2,12 +2,11 @@
 #
 cp machar.h /$HOME/include
 #
-gcc -c -g machar.c >& compiler.txt
+gcc -c machar.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling machar.c."
   exit
 fi
-rm compiler.txt
 #
 mv machar.o ~/libc/$ARCH/machar.o
 #

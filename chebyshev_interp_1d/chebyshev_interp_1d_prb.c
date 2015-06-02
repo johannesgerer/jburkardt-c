@@ -18,7 +18,11 @@ int main ( )
 /*
   Purpose:
 
-    CHEBYSHEV_INTERP_1D_TEST tests CHEBYSHEV_INTERP_1D.
+    MAIN is the main program for CHEBYSHEV_INTERP_1D_PRB.
+
+  Discussion:
+
+    CHEBYSHEV_INTERP_1D_PRB tests the CHEBYSHEV_INTERP_1D library.
 
   Licensing:
 
@@ -38,7 +42,7 @@ int main ( )
 
   timestamp ( );
   printf ( "\n" );
-  printf ( "CHEBYSHEV_INTERP_1D_TEST:\n" );
+  printf ( "CHEBYSHEV_INTERP_1D_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the CHEBYSHEV_INTERP_1D library.\n" );
   printf ( "  The QR_SOLVE and R8LIB libaries are needed.\n" );
@@ -53,7 +57,7 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "CHEBYSHEV_INTERP_1D_TEST:\n" );
+  printf ( "CHEBYSHEV_INTERP_1D_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

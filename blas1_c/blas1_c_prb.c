@@ -4,32 +4,31 @@
 # include <time.h>
 # include <complex.h>
 
+# include "blas0.h"
 # include "blas1_c.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
-void test05 ( void );
-void test06 ( void );
-void test07 ( void );
-void test08 ( void );
-void test09 ( void );
-void test10 ( void );
-void test11 ( void );
-void test12 ( void );
-void test13 ( void );
-void test14 ( void );
-void test15 ( void );
-void test16 ( void );
-void test17 ( void );
-_Complex float c4_uniform_01 ( int *seed );
-void timestamp ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
+void test05 ( );
+void test06 ( );
+void test07 ( );
+void test08 ( );
+void test09 ( );
+void test10 ( );
+void test11 ( );
+void test12 ( );
+void test13 ( );
+void test14 ( );
+void test15 ( );
+void test16 ( );
+void test17 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -39,7 +38,7 @@ int main ( void )
 
   Discussion:
 
-    BLAS1_C_PRB tests the BLAS1 single precision complex routines.
+    BLAS1_C_PRB tests the BLAS1_C library.
 
   Licensing:
 
@@ -55,7 +54,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "BLAS1_C_PRB:\n" );
   printf ( "  C version\n" );
@@ -85,7 +83,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "BLAS1_C_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -93,7 +90,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -114,7 +111,7 @@ void test01 ( void )
     John Burkardt
 */
 {
-  _Complex float c;
+  float complex c;
   float c_norm;
   int i;
   int seed = 123456789;
@@ -135,14 +132,14 @@ void test01 ( void )
 
     c_norm = cabs1 ( c );
 
-    printf ( "  %10f  %10f    %10f\n", crealf ( c ), cimagf ( c ), c_norm );
+    printf ( "  %10f  %10f    %10f\n", creal ( c ), cimag ( c ), c_norm );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -163,7 +160,7 @@ void test02 ( void )
     John Burkardt
 */
 {
-  _Complex float c;
+  float complex c;
   float c_norm;
   int i;
   int seed = 123456789;
@@ -184,14 +181,14 @@ void test02 ( void )
 
     c_norm = cabs2 ( c );
 
-    printf ( "  %10f  %10f    %10f\n", crealf ( c ), cimagf ( c ), c_norm );
+    printf ( "  %10f  %10f    %10f\n", creal ( c ), cimag ( c ), c_norm );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test03 ( void )
+void test03 ( )
 
 /******************************************************************************/
 /*
@@ -215,19 +212,19 @@ void test03 ( void )
 # define N 5
 
   int i;
-  _Complex float s;
-  _Complex float x[N] = {
-     2.0 - 1.0 * _Complex_I,
-    -4.0 - 2.0 * _Complex_I,
-     3.0 + 1.0 * _Complex_I,
-     2.0 + 2.0 * _Complex_I,
-    -1.0 - 1.0 * _Complex_I };
-  _Complex float y[N] = {
-    -1.0 + 0.0 * _Complex_I,
-     0.0 - 3.0 * _Complex_I,
-     4.0 + 0.0 * _Complex_I,
-    -3.0 + 4.0 * _Complex_I,
-    -2.0 + 0.0 * _Complex_I };
+  float complex s;
+  float complex x[N] = {
+     2.0 - 1.0 * I,
+    -4.0 - 2.0 * I,
+     3.0 + 1.0 * I,
+     2.0 + 2.0 * I,
+    -1.0 - 1.0 * I };
+  float complex y[N] = {
+    -1.0 + 0.0 * I,
+     0.0 - 3.0 * I,
+     4.0 + 0.0 * I,
+    -3.0 + 4.0 * I,
+    -2.0 + 0.0 * I };
 
   printf ( "\n" );
   printf ( "TEST03\n" );
@@ -238,7 +235,7 @@ void test03 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   printf ( "\n" );
@@ -246,13 +243,13 @@ void test03 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( y[i] ), cimagf ( y[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( y[i] ), cimag ( y[i] ) );
   }
 
-  s = 0.50 - 1.00 * _Complex_I;
+  s = 0.50 - 1.00 * I;
 
   printf ( "\n" );
-  printf ( "  The scalar multiplier is: %f  %f\n", crealf ( s ), cimagf ( s ) );
+  printf ( "  The scalar multiplier is: %f  %f\n", creal ( s ), cimag ( s ) );
 
   caxpy ( N, s, x, 1, y, 1 );
 
@@ -261,7 +258,7 @@ void test03 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( y[i] ), cimagf ( y[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( y[i] ), cimag ( y[i] ) );
   }
 
   return;
@@ -269,7 +266,7 @@ void test03 ( void )
 }
 /******************************************************************************/
 
-void test04 ( void )
+void test04 ( )
 
 /******************************************************************************/
 /*
@@ -294,11 +291,11 @@ void test04 ( void )
 # define N2 5
 # define N 10
 
-  _Complex float a[N1*N2];
+  float complex a[N1*N2];
   int i;
   int j;
-  _Complex float x[N];
-  _Complex float y[N];
+  float complex x[N];
+  float complex y[N];
 
   printf ( "\n" );
   printf ( "TEST04\n" );
@@ -306,19 +303,19 @@ void test04 ( void )
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N1; i++ )
   {
     for ( j = 0; j < N2; j++ )
     {
-      a[i+j*N1] = 10 * ( i + 1 ) + ( j + 1 ) * _Complex_I;
+      a[i+j*N1] = 10 * ( i + 1 ) + ( j + 1 ) * I;
     }
   }
 
@@ -327,14 +324,14 @@ void test04 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
   printf ( "\n" );
   printf ( "  Y =\n" );
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( y[i] ), cimagf ( y[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( y[i] ), cimag ( y[i] ) );
   }
   printf ( "\n" );
   printf ( "  A =\n" );
@@ -343,7 +340,7 @@ void test04 ( void )
     {
     for ( j = 0; j < N2; j++ )
     {
-      printf ( "  %5f  %5f\n", crealf ( a[i+j*N1] ), cimagf ( a[i+j*N1] ) );
+      printf ( "  %5f  %5f\n", creal ( a[i+j*N1] ), cimag ( a[i+j*N1] ) );
     }
     printf ( "\n" );
   }
@@ -354,12 +351,12 @@ void test04 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( y[i] ), cimagf ( y[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( y[i] ), cimag ( y[i] ) );
   }
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   ccopy ( 3, x, 2, y, 3 );
@@ -369,7 +366,7 @@ void test04 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( y[i] ), cimagf ( y[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( y[i] ), cimag ( y[i] ) );
   }
 
   ccopy ( 5, x, 1, a, 1 );
@@ -384,7 +381,7 @@ void test04 ( void )
     {
     for ( j = 0; j < N2; j++ )
     {
-      printf ( "  %5f  %5f\n", crealf ( a[i+j*N1] ), cimagf ( a[i+j*N1] ) );
+      printf ( "  %5f  %5f\n", creal ( a[i+j*N1] ), cimag ( a[i+j*N1] ) );
     }
     printf ( "\n" );
   }
@@ -393,7 +390,7 @@ void test04 ( void )
   {
     for ( j = 0; j < N2; j++ )
     {
-      a[i+j*N1] = 10 * ( i + 1 ) + ( j + 1 ) * _Complex_I;
+      a[i+j*N1] = 10 * ( i + 1 ) + ( j + 1 ) * I;
     }
   }
 
@@ -408,7 +405,7 @@ void test04 ( void )
     {
     for ( j = 0; j < N2; j++ )
     {
-      printf ( "  %5f  %5f\n", crealf ( a[i+j*N1] ), cimagf ( a[i+j*N1] ) );
+      printf ( "  %5f  %5f\n", creal ( a[i+j*N1] ), cimag ( a[i+j*N1] ) );
     }
     printf ( "\n" );
   }
@@ -420,7 +417,7 @@ void test04 ( void )
 }
 /******************************************************************************/
 
-void test05 ( void )
+void test05 ( )
 
 /******************************************************************************/
 /*
@@ -444,20 +441,20 @@ void test05 ( void )
 # define N 5
 
   int i;
-  _Complex float x_norm;
-  _Complex float xy_dot;
-  _Complex float x[N] = {
-     2.0 - 1.0 * _Complex_I,
-    -4.0 - 2.0 * _Complex_I,
-     3.0 + 1.0 * _Complex_I,
-     2.0 + 2.0 * _Complex_I,
-    -1.0 - 1.0 * _Complex_I };
-  _Complex float y[N] = {
-    -1.0 + 0.0 * _Complex_I,
-     0.0 - 3.0 * _Complex_I,
-     4.0 + 0.0 * _Complex_I,
-    -3.0 + 4.0 * _Complex_I,
-    -2.0 + 0.0 * _Complex_I };
+  float complex x_norm;
+  float complex xy_dot;
+  float complex x[N] = {
+     2.0 - 1.0 * I,
+    -4.0 - 2.0 * I,
+     3.0 + 1.0 * I,
+     2.0 + 2.0 * I,
+    -1.0 - 1.0 * I };
+  float complex y[N] = {
+    -1.0 + 0.0 * I,
+     0.0 - 3.0 * I,
+     4.0 + 0.0 * I,
+    -3.0 + 4.0 * I,
+    -2.0 + 0.0 * I };
 
   printf ( "\n" );
   printf ( "TEST05\n" );
@@ -469,14 +466,14 @@ void test05 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   x_norm = cdotc ( N, x, 1, x, 1 );
 
   printf ( "\n" );
   printf ( "  The square of the norm of X, computed as\n" );
-  printf ( "  CDOTC(X,X) = (%f,  %f)\n", crealf ( x_norm ), cimagf ( x_norm ) );
+  printf ( "  CDOTC(X,X) = (%f,  %f)\n", creal ( x_norm ), cimag ( x_norm ) );
 
   xy_dot = cdotc ( N, x, 1, y, 1 );
 
@@ -485,18 +482,18 @@ void test05 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( y[i] ), cimagf ( y[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( y[i] ), cimag ( y[i] ) );
   }
   printf ( "\n" );
   printf ( "  The dot product X.Y* is (%f,  %f)\n",
-    crealf ( xy_dot ), cimagf ( xy_dot ) );
+    creal ( xy_dot ), cimag ( xy_dot ) );
 
   return;
 # undef N
 }
 /******************************************************************************/
 
-void test06 ( void )
+void test06 ( )
 
 /******************************************************************************/
 /*
@@ -520,20 +517,20 @@ void test06 ( void )
 # define N 5
 
   int i;
-  _Complex float x_norm;
-  _Complex float xy_dot;
-  _Complex float x[N] = {
-    2.0 - 1.0 * _Complex_I,
-   -4.0 - 2.0 * _Complex_I,
-    3.0 + 1.0 * _Complex_I,
-    2.0 + 2.0 * _Complex_I,
-   -1.0 - 1.0 * _Complex_I };
-  _Complex float y[N] = {
-   -1.0 + 0.0 * _Complex_I,
-    0.0 - 3.0 * _Complex_I,
-    4.0 + 0.0 * _Complex_I,
-   -3.0 + 4.0 * _Complex_I,
-   -2.0 + 0.0 * _Complex_I };
+  float complex x_norm;
+  float complex xy_dot;
+  float complex x[N] = {
+    2.0 - 1.0 * I,
+   -4.0 - 2.0 * I,
+    3.0 + 1.0 * I,
+    2.0 + 2.0 * I,
+   -1.0 - 1.0 * I };
+  float complex y[N] = {
+   -1.0 + 0.0 * I,
+    0.0 - 3.0 * I,
+    4.0 + 0.0 * I,
+   -3.0 + 4.0 * I,
+   -2.0 + 0.0 * I };
 
   printf ( "\n" );
   printf ( "TEST06\n" );
@@ -545,7 +542,7 @@ void test06 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   x_norm = cdotu ( N, x, 1, x, 1 );
@@ -553,7 +550,7 @@ void test06 ( void )
   printf ( "\n" );
   printf ( "  The unconjugated dot product ( X dot X )\n" );
   printf ( "  (which is NOT the square of the norm of X!):\n" );
-  printf ( "  CDOTU(X,X) = (%f,  %f)\n", crealf ( x_norm ), cimagf ( x_norm ) );
+  printf ( "  CDOTU(X,X) = (%f,  %f)\n", creal ( x_norm ), cimag ( x_norm ) );
 
   xy_dot = cdotu ( N, x, 1, y, 1 );
 
@@ -562,19 +559,19 @@ void test06 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( y[i] ), cimagf ( y[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( y[i] ), cimag ( y[i] ) );
   }
 
   printf ( "\n" );
   printf ( "  The dot product ( X dot Y ) is (%f,  %f)\n",
-    crealf ( xy_dot ), cimagf ( xy_dot ) );
+    creal ( xy_dot ), cimag ( xy_dot ) );
 
   return;
 # undef N
 }
 /******************************************************************************/
 
-void test07 ( void )
+void test07 ( )
 
 /******************************************************************************/
 /*
@@ -609,7 +606,7 @@ void test07 ( void )
 }
 /******************************************************************************/
 
-void test08 ( void )
+void test08 ( )
 
 /******************************************************************************/
 /*
@@ -630,15 +627,15 @@ void test08 ( void )
     John Burkardt
 */
 {
-  _Complex float a;
-  _Complex float b;
+  float complex a;
+  float complex b;
   float c;
-  _Complex float r;
-  _Complex float s;
-  _Complex float sa;
-  _Complex float sb;
+  float complex r;
+  float complex s;
+  float complex sa;
+  float complex sb;
   int seed;
-  _Complex float t;
+  float complex t;
   int test;
   int test_num = 5;
 
@@ -664,22 +661,22 @@ void test08 ( void )
     r = sa;
 
     printf ( "\n" );
-    printf ( "  A =  ( %f. %f )\n", crealf ( a ), cimagf ( a ) );
-    printf ( "  B =  ( %f. %f )\n", crealf ( b ), cimagf ( b ) );
+    printf ( "  A =  ( %f. %f )\n", creal ( a ), cimag ( a ) );
+    printf ( "  B =  ( %f. %f )\n", creal ( b ), cimag ( b ) );
     printf ( "  C =    %f\n", c );
-    printf ( "  S =  ( %f. %f )\n", crealf ( s ), cimagf ( s ) );
-    printf ( "  R =  ( %f. %f )\n", crealf ( r ), cimagf ( r ) );
+    printf ( "  S =  ( %f. %f )\n", creal ( s ), cimag ( s ) );
+    printf ( "  R =  ( %f. %f )\n", creal ( r ), cimag ( r ) );
     t = c * a + s * b;
-    printf ( "         C *A+S*B = ( %f. %f )\n", crealf ( t ), cimagf ( t ) );
+    printf ( "         C *A+S*B = ( %f. %f )\n", creal ( t ), cimag ( t ) );
     t = - ( ~s ) * a + c * b;
-    printf ( "  -conjg(S)*A+C*B = ( %f. %f )\n", crealf ( t ), cimagf ( t ) );
+    printf ( "  -conjg(S)*A+C*B = ( %f. %f )\n", creal ( t ), cimag ( t ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test09 ( void )
+void test09 ( )
 
 /******************************************************************************/
 /*
@@ -702,13 +699,13 @@ void test09 ( void )
 {
 # define N 6
 
-  _Complex float da;
+  float complex da;
   int i;
-  _Complex float x[N];
+  float complex x[N];
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   printf ( "\n" );
@@ -720,32 +717,32 @@ void test09 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   da = 5.0;
   cscal ( N, da, x, 1 );
   printf ( "\n" );
-  printf ( "  CSCAL ( N, (%f, %f), X, 1 )\n", crealf ( da ), cimagf ( da ) );
+  printf ( "  CSCAL ( N, (%f, %f), X, 1 )\n", creal ( da ), cimag ( da ) );
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
-  da = -2.0 + 1.0 * _Complex_I;
+  da = -2.0 + 1.0 * I;
   cscal ( 3, da, x, 2 );
   printf ( "\n" );
-  printf ( "  CSCAL ( 3, (%f, %f), X, 2 )\n", crealf ( da ), cimagf ( da ) );
+  printf ( "  CSCAL ( 3, (%f, %f), X, 2 )\n", creal ( da ), cimag ( da ) );
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   return;
@@ -753,7 +750,7 @@ void test09 ( void )
 }
 /******************************************************************************/
 
-void test10 ( void )
+void test10 ( )
 
 /******************************************************************************/
 /*
@@ -774,9 +771,9 @@ void test10 ( void )
     John Burkardt
 */
 {
-  _Complex float c1;
-  _Complex float c2;
-  _Complex float c3;
+  float complex c1;
+  float complex c2;
+  float complex c3;
   int i;
   int seed = 123456789;
 
@@ -797,16 +794,16 @@ void test10 ( void )
     c3 = csign1 ( c1, c2 );
 
     printf ( "  (%9f  %9f)  (%9f  %9f)   (%9f  %9f)\n",
-      crealf ( c1 ), cimagf ( c1 ),
-      crealf ( c2 ), cimagf ( c2 ),
-      crealf ( c3 ), cimagf ( c3 ) );
+      creal ( c1 ), cimag ( c1 ),
+      creal ( c2 ), cimag ( c2 ),
+      creal ( c3 ), cimag ( c3 ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test11 ( void )
+void test11 ( )
 
 /******************************************************************************/
 /*
@@ -827,9 +824,9 @@ void test11 ( void )
     John Burkardt
 */
 {
-  _Complex float c1;
-  _Complex float c2;
-  _Complex float c3;
+  float complex c1;
+  float complex c2;
+  float complex c3;
   int i;
   int seed = 123456789;
 
@@ -851,16 +848,16 @@ void test11 ( void )
     c3 = csign2 ( c1, c2 );
 
     printf ( "  (%9f  %9f)  (%9f  %9f)   (%9f  %9f)\n",
-      crealf ( c1 ), cimagf ( c1 ),
-      crealf ( c2 ), cimagf ( c2 ),
-      crealf ( c3 ), cimagf ( c3 ) );
+      creal ( c1 ), cimag ( c1 ),
+      creal ( c2 ), cimag ( c2 ),
+      creal ( c3 ), cimag ( c3 ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test12 ( void )
+void test12 ( )
 
 /******************************************************************************/
 /*
@@ -886,17 +883,17 @@ void test12 ( void )
   float c;
   int i;
   float s;
-  _Complex float x[N];
-  _Complex float y[N];
+  float complex x[N];
+  float complex y[N];
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   printf ( "\n" );
@@ -909,7 +906,7 @@ void test12 ( void )
   for ( i = 0; i < N; i++ )
   {
     printf ( "  %6d  (%9f  %9f)  (%9f  %9f)\n",
-    i, crealf ( x[i] ), cimagf ( x[i] ), crealf ( y[i] ), cimagf ( y[i] ) );
+    i, creal ( x[i] ), cimag ( x[i] ), creal ( y[i] ), cimag ( y[i] ) );
   }
 
   c = 0.5;
@@ -921,7 +918,7 @@ void test12 ( void )
   for ( i = 0; i < N; i++ )
   {
     printf ( "  %6d  (%9f  %9f)  (%9f  %9f)\n",
-    i, crealf ( x[i] ), cimagf ( x[i] ), crealf ( y[i] ), cimagf ( y[i] ) );
+    i, creal ( x[i] ), cimag ( x[i] ), creal ( y[i] ), cimag ( y[i] ) );
   }
 
   return;
@@ -929,7 +926,7 @@ void test12 ( void )
 }
 /******************************************************************************/
 
-void test13 ( void )
+void test13 ( )
 
 /******************************************************************************/
 /*
@@ -954,11 +951,11 @@ void test13 ( void )
 
   float da;
   int i;
-  _Complex float x[N];
+  float complex x[N];
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   printf ( "\n" );
@@ -970,7 +967,7 @@ void test13 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   da = 5.0;
@@ -980,12 +977,12 @@ void test13 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   da = -2.0;
@@ -995,7 +992,7 @@ void test13 ( void )
   printf ( "\n" );
   for ( i = 0; i < N; i++ )
   {
-    printf ( "  %6d  %6f  %6f\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  %6f  %6f\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   return;
@@ -1003,7 +1000,7 @@ void test13 ( void )
 }
 /******************************************************************************/
 
-void test14 ( void )
+void test14 ( )
 
 /******************************************************************************/
 /*
@@ -1027,17 +1024,17 @@ void test14 ( void )
 # define N 5
 
   int i;
-  _Complex float x[N];
-  _Complex float y[N];
+  float complex x[N];
+  float complex y[N];
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   printf ( "\n" );
@@ -1049,7 +1046,7 @@ void test14 ( void )
   for ( i = 0; i < N; i++ )
   {
     printf ( "  %6d  %6f  %6f    %6f  %6f\n",
-    i, crealf ( x[i] ), cimagf ( x[i] ), crealf ( y[i] ), cimagf ( y[i] ) );
+    i, creal ( x[i] ), cimag ( x[i] ), creal ( y[i] ), cimag ( y[i] ) );
   }
 
   cswap ( N, x, 1, y, 1 );
@@ -1061,17 +1058,17 @@ void test14 ( void )
   for ( i = 0; i < N; i++ )
   {
     printf ( "  %6d  %6f  %6f    %6f  %6f\n",
-    i, crealf ( x[i] ), cimagf ( x[i] ), crealf ( y[i] ), cimagf ( y[i] ) );
+    i, creal ( x[i] ), cimag ( x[i] ), creal ( y[i] ), cimag ( y[i] ) );
   }
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   cswap ( 3, x, 2, y, 1 );
@@ -1083,14 +1080,14 @@ void test14 ( void )
   for ( i = 0; i < N; i++ )
   {
     printf ( "  %6d  %6f  %6f    %6f  %6f\n",
-    i, crealf ( x[i] ), cimagf ( x[i] ), crealf ( y[i] ), cimagf ( y[i] ) );
+    i, creal ( x[i] ), cimag ( x[i] ), creal ( y[i] ), cimag ( y[i] ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test15 ( void )
+void test15 ( )
 
 /******************************************************************************/
 /*
@@ -1115,12 +1112,12 @@ void test15 ( void )
 
   int i;
   int incx;
-  _Complex float x[N] = {
-     2.0 - 1.0 * _Complex_I,
-    -4.0 - 2.0 * _Complex_I,
-     3.0 + 1.0 * _Complex_I,
-     2.0 + 2.0 * _Complex_I,
-    -1.0 - 1.0 * _Complex_I };
+  float complex x[N] = {
+     2.0 - 1.0 * I,
+    -4.0 - 2.0 * I,
+     3.0 + 1.0 * I,
+     2.0 + 2.0 * I,
+    -1.0 - 1.0 * I };
 
   printf ( "\n" );
   printf ( "TEST15\n" );
@@ -1133,7 +1130,7 @@ void test15 ( void )
   for ( i = 0; i < N; i++ )
   {
     printf ( "  %6d  %6f  %6f    %6f\n",
-    i, crealf ( x[i] ), cimagf ( x[i] ), cabs1 ( x[i] ) );
+    i, creal ( x[i] ), cimag ( x[i] ), cabs1 ( x[i] ) );
   }
 
   incx = 1;
@@ -1151,7 +1148,7 @@ void test15 ( void )
 }
 /******************************************************************************/
 
-void test16 ( void )
+void test16 ( )
 
 /******************************************************************************/
 /*
@@ -1176,38 +1173,38 @@ void test16 ( void )
 # define NA 4
 # define NX 8
 
-  _Complex float a[MA*NA] = {
-    -3.0 + 4.0 * _Complex_I,
-     2.0 + 0.0 * _Complex_I,
-     3.0 - 4.0 * _Complex_I,
-     2.0 + 0.0 * _Complex_I,
-     2.0 - 1.0 * _Complex_I,
-    -1.0 + 1.0 * _Complex_I,
-     0.0 + 5.0 * _Complex_I,
-    -4.0 - 2.0 * _Complex_I,
-    -4.0 + 1.0 * _Complex_I,
-    -4.0 - 3.0 * _Complex_I,
-     0.0 - 2.0 * _Complex_I,
-     1.0 + 3.0 * _Complex_I,
-    -3.0 + 3.0 * _Complex_I,
-    -3.0 + 3.0 * _Complex_I,
-    -1.0 - 2.0 * _Complex_I,
-    -1.0 + 2.0 * _Complex_I,
-     2.0 - 4.0 * _Complex_I,
-     0.0 - 1.0 * _Complex_I,
-     0.0 - 1.0 * _Complex_I,
-    -2.0 + 4.0 * _Complex_I };
+  float complex a[MA*NA] = {
+    -3.0 + 4.0 * I,
+     2.0 + 0.0 * I,
+     3.0 - 4.0 * I,
+     2.0 + 0.0 * I,
+     2.0 - 1.0 * I,
+    -1.0 + 1.0 * I,
+     0.0 + 5.0 * I,
+    -4.0 - 2.0 * I,
+    -4.0 + 1.0 * I,
+    -4.0 - 3.0 * I,
+     0.0 - 2.0 * I,
+     1.0 + 3.0 * I,
+    -3.0 + 3.0 * I,
+    -3.0 + 3.0 * I,
+    -1.0 - 2.0 * I,
+    -1.0 + 2.0 * I,
+     2.0 - 4.0 * I,
+     0.0 - 1.0 * I,
+     0.0 - 1.0 * I,
+    -2.0 + 4.0 * I };
   int i;
   int j;
-  _Complex float x[NX] = {
-    2.0 - 1.0 * _Complex_I,
-   -4.0 - 2.0 * _Complex_I,
-    3.0 + 1.0 * _Complex_I,
-    2.0 + 2.0 * _Complex_I,
-   -1.0 - 1.0 * _Complex_I,
-   -1.0 + 0.0 * _Complex_I,
-    0.0 - 3.0 * _Complex_I,
-    4.0 + 0.0 * _Complex_I };
+  float complex x[NX] = {
+    2.0 - 1.0 * I,
+   -4.0 - 2.0 * I,
+    3.0 + 1.0 * I,
+    2.0 + 2.0 * I,
+   -1.0 - 1.0 * I,
+   -1.0 + 0.0 * I,
+    0.0 - 3.0 * I,
+    4.0 + 0.0 * I };
 
   printf ( "\n" );
   printf ( "TEST16\n" );
@@ -1218,7 +1215,7 @@ void test16 ( void )
   printf ( "\n" );
   for ( i = 0; i < NX; i++ )
   {
-    printf ( "  %6d  (%6.1f  %6.1f )\n", i, crealf ( x[i] ), cimagf ( x[i] ) );
+    printf ( "  %6d  (%6.1f  %6.1f )\n", i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   printf ( "\n" );
@@ -1239,7 +1236,7 @@ void test16 ( void )
     for ( j = 0; j < NA; j++ )
     {
       printf ( "  (%6.1f  %6.1f )",
-        crealf ( a[i+j*MA] ), cimagf ( a[i+j*MA] ) );
+        creal ( a[i+j*MA] ), cimag ( a[i+j*MA] ) );
     }
     printf ( "\n" );
   }
@@ -1258,7 +1255,7 @@ void test16 ( void )
 }
 /******************************************************************************/
 
-void test17 ( void )
+void test17 ( )
 
 /******************************************************************************/
 /*
@@ -1284,12 +1281,12 @@ void test17 ( void )
   int i;
   int incx;
   float norm;
-  _Complex float x[N] = {
-    2.0 - 1.0 * _Complex_I,
-   -4.0 - 2.0 * _Complex_I,
-    3.0 + 1.0 * _Complex_I,
-    2.0 + 2.0 * _Complex_I,
-   -1.0 - 1.0 * _Complex_I };
+  float complex x[N] = {
+    2.0 - 1.0 * I,
+   -4.0 - 2.0 * I,
+    3.0 + 1.0 * I,
+    2.0 + 2.0 * I,
+   -1.0 - 1.0 * I };
 
   printf ( "\n" );
   printf ( "TEST17\n" );
@@ -1301,7 +1298,7 @@ void test17 ( void )
   for ( i = 0; i < N; i++ )
   {
     printf ( "  %6d  %6f  %6f\n",
-    i, crealf ( x[i] ), cimagf ( x[i] ) );
+    i, creal ( x[i] ), cimag ( x[i] ) );
   }
 
   incx = 1;
@@ -1313,121 +1310,4 @@ void test17 ( void )
   return;
 # undef N
 }
-/******************************************************************************/
 
-_Complex float c4_uniform_01 ( int *seed )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    C4_UNIFORM_01 returns a unit complex pseudorandom number.
-
-  Discussion:
-
-    The angle should be uniformly distributed between 0 and 2 * PI,
-    the square root of the radius uniformly distributed between 0 and 1.
-
-    This results in a uniform distribution of values in the unit circle.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    30 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input/output, int *SEED, the seed value, which should NOT be 0.
-    On output, SEED has been updated.
-
-    Output, complex C4_UNIFORM_01, a pseudorandom complex value.
-*/
-{
-  float r;
-  int k;
-  float pi = 3.1415926;
-  float theta;
-  _Complex float value;
-
-  k = *seed / 127773;
-
-  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
-
-  if ( *seed < 0 )
-  {
-    *seed = *seed + 2147483647;
-  }
-
-  r = sqrt ( ( float ) ( ( double ) ( *seed ) * 4.656612875E-10 ) );
-
-  k = *seed / 127773;
-
-  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
-
-  if ( *seed < 0 )
-  {
-    *seed = *seed + 2147483647;
-  }
-
-  theta = 2.0 * pi * ( float )
-    ( ( double ) ( *seed ) * 4.656612875E-10 );
-
-  value = r * cos ( theta ) + ( r * sin ( theta ) ) * _Complex_I;
-
-  return value;
-}
-/******************************************************************************/
-
-void timestamp ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TIMESTAMP prints the current YMDHMS date as a time stamp.
-
-  Example:
-
-    31 May 2001 09:45:54 AM
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    24 September 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    None
-*/
-{
-# define TIME_SIZE 40
-
-  static char time_buffer[TIME_SIZE];
-  const struct tm *tm;
-  size_t len;
-  time_t now;
-
-  now = time ( NULL );
-  tm = localtime ( &now );
-
-  len = strftime ( time_buffer, TIME_SIZE, "%d %B %Y %I:%M:%S %p", tm );
-
-  printf ( "%s\n", time_buffer );
-
-  return;
-# undef TIME_SIZE
-}

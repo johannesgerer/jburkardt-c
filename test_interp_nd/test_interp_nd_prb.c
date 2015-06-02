@@ -13,38 +13,37 @@ void test02 ( int m, int n );
 void test03 ( int m, int n );
 void test04 ( int m, int n );
 
-//****************************************************************************80
+/******************************************************************************/
 
 int main ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    MAIN is the main program for TEST_INTERP_ND_PRB.
-//
-//  Discussion:
-//
-//    TEST_INTERP_ND_PRB calls the TEST_INTERP_ND tests.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    30 August 2012
-//
-//  Author:
-//
-//    John Burkardt
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    MAIN is the main program for TEST_INTERP_ND_PRB.
+
+  Discussion:
+
+    TEST_INTERP_ND_PRB tests the TEST_INTERP_ND library.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 August 2012
+
+  Author:
+
+    John Burkardt
+*/
 {
   int m;
   int n;
 
   timestamp (  );
-
   printf ( "\n" );
   printf ( "TEST_INTERP_ND_PRB\n" );
   printf ( "  C version\n" );
@@ -74,7 +73,6 @@ int main ( )
   printf ( "\n" );
   printf ( "TEST_INTERP_ND_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

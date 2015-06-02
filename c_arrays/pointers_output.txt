@@ -1,0 +1,63 @@
+08 September 2013 04:01:05 PM
+
+POINTERS
+  C version
+
+TEST01
+  R8RMAT_NEW creates row-major doubly dimensioned arrays.
+  R8RMAT_DELETE deletes them.
+
+  Matrix A:
+
+   0.000000   1.000000   2.000000
+  10.000000  11.000000  12.000000
+  20.000000  21.000000  22.000000
+  30.000000  31.000000  32.000000
+
+  Matrix B = transpose ( A ):
+
+   0.000000  10.000000  20.000000  30.000000
+   1.000000  11.000000  21.000000  31.000000
+   2.000000  12.000000  22.000000  32.000000
+
+  Row 1 of matrix B:
+  (consecutive memory locations)
+
+   1.000000  11.000000  21.000000  31.000000
+
+  Column 2 of matrix B:
+
+  20.000000  21.000000  22.000000
+
+TEST02
+  R8CMAT_NEW creates column-major doubly dimensioned arrays.
+  R8CMAT_DELETE deletes them.
+
+  Unfortunately, A(i,j) is referenced as A{J][I]!
+
+  Matrix A:
+
+   0.000000   1.000000   2.000000
+  10.000000  11.000000  12.000000
+  20.000000  21.000000  22.000000
+  30.000000  31.000000  32.000000
+
+  Matrix B = transpose ( A ):
+
+   0.000000  10.000000  20.000000  30.000000
+   1.000000  11.000000  21.000000  31.000000
+   2.000000  12.000000  22.000000  32.000000
+
+  Row 1 of matrix B:
+
+   1.000000  11.000000  21.000000  31.000000
+
+  Column 2 of matrix B:
+  (consecutive memory locations)
+
+  20.000000  21.000000  22.000000
+
+POINTERS:
+  Normal end of execution.
+
+08 September 2013 04:01:05 PM

@@ -44,7 +44,6 @@ int main ( )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "WAVELET_PRB\n" );
   printf ( "  C version\n" );
@@ -67,7 +66,6 @@ int main ( )
   printf ( "\n" );
   printf ( "WAVELET_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

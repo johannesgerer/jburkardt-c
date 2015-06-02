@@ -71,7 +71,7 @@ int main ( void )
 
   Discussion:
 
-    SANDIA_RULES_PRB calls a set of tests for the SANDIA_RULES library.
+    SANDIA_RULES_PRB tests the SANDIA_RULES library.
 
   Licensing:
 
@@ -89,12 +89,10 @@ int main ( void )
   int r;
 
   timestamp ( );
-
   printf ( "\n" );
   printf ( "SANDIA_RULES_PRB\n" );
   printf ( "  C version\n" );
-  printf ( "\n" );
-  printf ( "  Test the routines in the SANDIA_RULES library.\n" );
+  printf ( "  Test the SANDIA_RULES library.\n" );
 
   test01 ( );
   test02 ( );
@@ -167,11 +165,12 @@ int main ( void )
   test20_np ( );
   test21_np ( );
   test22_np ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "SANDIA_RULES_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
  

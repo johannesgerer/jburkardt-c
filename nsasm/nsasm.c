@@ -9,15 +9,16 @@
   Functions defined in this file:
 */
 void mexFunction ( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] );
-void assemble ( double *p, int *t, double *u, int nt, int np,
-  double *Pr, mwIndex *Ir, mwIndex *Jc, double *L, double mu, int ndof );
-void assemble_constraints ( double *e, double *u, int np, int ne, int n0,
+void assemble ( double *p, int *t, double *u0, int nt, int np,
+  double *Pr, mwIndex *Ir, mwIndex *Jc, double *L, double nu, int ndof );
+void assemble_constraints ( double *e, double *u0, int np, int ne, int n0,
   double *Pr, mwIndex *Ir, mwIndex *Jc, double *L, int ndof );
-void init_shape ( void );
 void i4vec_heap_d ( int n, int a[] );
 void i4vec_sort_heap_a ( int n, int a[] );
-void localKL ( double *p, int *tt, double u0[], int np, double mu,
-  double lK[15][15], double lL[15] );
+void init_shape ( int ngp, double gp[][3] );
+void localKL ( int ngp, double w[], double *p, int *tt, double u0[], int np,
+  double nu, double lK[15][15], double lL[15] );
+void quad_rule ( int ngp, double w[], double gp[][3] );
 mxArray* sparse_create ( int *t, double *e, int nt, int np, int np0, int ne,
   int ndof );
 void sparse_set ( double *Pr, mwIndex *Ir, mwIndex *Jc, int ri, int rj, 
@@ -30,28 +31,6 @@ void sparse_set ( double *Pr, mwIndex *Ir, mwIndex *Jc, int ri, int rj,
   Order of Gauss quadrature points.
 */
 # define NGP 7
-/*
-  Gauss quadrature weights.
-*/
-static double w[NGP] = {
-  0.225000000000000,
-  0.132394152788506,
-  0.132394152788506,
-  0.132394152788506,
-  0.125939180544827,
-  0.125939180544827,
-  0.125939180544827 };
-/*
-  Gauss quadrature points
-*/
-static double gp[NGP][3] = {
-  0.333333333333333, 0.333333333333333, 0.333333333333334,
-  0.059715871789770, 0.470142064105115, 0.470142064105115,
-  0.470142064105115, 0.059715871789770, 0.470142064105115,
-  0.470142064105115, 0.470142064105115, 0.059715871789770,
-  0.797426985353087, 0.101286507323457, 0.101286507323457,
-  0.101286507323457, 0.797426985353087, 0.101286507323457,
-  0.101286507323457, 0.101286507323457, 0.797426985353087 };
 /*
   P1 shape, P1 r and S derivatives, evaluated at Gauss points.
 */
@@ -90,7 +69,11 @@ void mexFunction ( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
     accomplishes the same task.  Once the file has been compiled,
     the MATLAB user can invoke the function by typing:
 
-      [ K, L ] = nsasm ( p, t, np0, e, u, mu )
+      [ K, L ] = nsasm ( p, t, np0, e, u0, nu )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -133,12 +116,12 @@ void mexFunction ( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
     Input, double E[3][NE], the node, variable type (0,1,2) and
     value of each constraint.
 
-    Input, double U[2*NP+NP0+NE], the current solution vector.
+    Input, double U0[2*NP+NP0+NE], the current solution vector.
 
-    Input, double MU, the kinematic viscosity.
+    Input, double NU, the kinematic viscosity.
 
-    Output, double sparse K, the stiffness matrix, in compressed
-    column format.
+    Output, double sparse K[2*NP+NP0+NE,2*NP+NP0+NE], the stiffness matrix,
+    in compressed column format.
 
     Output, double L[2*NP+NP0+NE], the residual vector.
 */
@@ -149,19 +132,20 @@ void mexFunction ( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
   mwIndex *Ir;
   mwIndex *Jc;
   double *L;
-  double mu;
   int ndof;
   int ne;
   int np;
   int np0;
   int nt;
+  double nu;
+  int nv;
   double *p;
   double *Pr;
   double *t;
   int *t_int;
-  double *u;
+  double *u0;
 /*
-  Get input data ( P, T, NP0, E, U, MU ) from Matlab;
+  Get input data ( P, T, NP0, E, U, NU ) from Matlab;
 */
   p = mxGetPr ( prhs[0] );
   np = mxGetN ( prhs[0] );
@@ -185,13 +169,15 @@ void mexFunction ( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
 
   ndof = 2 * np + np0 + ne;
 
-  u = mxGetPr ( prhs[4] );
-  mu = mxGetScalar ( prhs[5] );
+  u0 = mxGetPr ( prhs[4] );
+
+  nu = mxGetScalar ( prhs[5] );
 /*
   Create the sparse matrix K, and retrieve pointers to the
   values, row indices, and compressed column vector.
 */
   plhs[0] = sparse_create ( t_int, e, nt, np, np0, ne, ndof );
+
   Pr = mxGetPr ( plhs[0] );
   Ir = mxGetIr ( plhs[0] );
   Jc = mxGetJc ( plhs[0] );
@@ -204,11 +190,12 @@ void mexFunction ( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
 /*
   Assemble the PDE.
 */
-  assemble ( p, t_int, u, nt, np, Pr, Ir, Jc, L, mu, ndof );
+  assemble ( p, t_int, u0, nt, np, Pr, Ir, Jc, L, nu, ndof );
 /*
   Assemble constraints.
 */
-  assemble_constraints ( e, u, np, ne, 2*np+np0, Pr, Ir, Jc, L, ndof );
+  nv = 2 * np + np0;
+  assemble_constraints ( e, u0, np, ne, nv, Pr, Ir, Jc, L, ndof );
 
   free ( t_int );
 
@@ -216,8 +203,8 @@ void mexFunction ( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
 }
 /******************************************************************************/
 
-void assemble ( double *p, int *t, double *u, int nt, int np, double *Pr,
-  mwIndex *Ir, mwIndex *Jc, double *L, double mu, int ndof )
+void assemble ( double *p, int *t, double *u0, int nt, int np, double *Pr,
+  mwIndex *Ir, mwIndex *Jc, double *L, double nu, int ndof )
 
 /******************************************************************************/
 /*
@@ -225,9 +212,13 @@ void assemble ( double *p, int *t, double *u, int nt, int np, double *Pr,
 
     ASSEMBLE assembles the local stiffness and residual into global arrays.
 
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
   Modified:
 
-    07 April 2012
+    24 January 2014
 
   Author:
 
@@ -246,7 +237,7 @@ void assemble ( double *p, int *t, double *u, int nt, int np, double *Pr,
 
     Input, int T[6][NT], the indices of the nodes in each element.
 
-    Input, double U[2*NP+NP0+NE], the current solution vector.
+    Input, double U0[2*NP+NP0+NE], the current solution vector.
 
     Input, int NT, the number of elements.
 
@@ -262,40 +253,51 @@ void assemble ( double *p, int *t, double *u, int nt, int np, double *Pr,
 
     Input/output, double L[2*NP+NP0+NE], the residual vector.
 
-    Input, double MU, the kinematic viscosity.
+    Input, double NU, the kinematic viscosity.
 
-    input, int NDOF, the number of degrees of freedom.
+    Input, int NDOF, the number of degrees of freedom.
 */
 {
+  double gp[7][3];
   int i;
+  int i2;
   int it;
   int j;
+  int j2;
   double lK[15][15];
   double lL[15];
+  const int ngp = 7;
   int ri;
   int rj;
+  double w[7];
+/*
+  Get the quadrature rule.
+*/
+  quad_rule ( ngp, w, gp );
 /*
   Initialize the shape functions.
 */
-  init_shape ( );
+  init_shape ( ngp, gp );
 /*
   For each element, determine the local matrix and right hand side.
 */
   for ( it = 0; it < nt; it++ )
   {
-    localKL ( p, t + it * 6, u, np, mu, lK, lL );
+    localKL ( NGP, w, p, t + it * 6, u0, np, nu, lK, lL );
 /*
   Add the local right hand side and matrix to the global data.
 */
     for ( i = 0; i < 15; i++ )
     {
-      ri = t[i%6+it*6] + np * ( i / 6 ) - 1;
+      i2 = i % 6;
+      ri = t[i2+it*6] + np * ( i / 6 ) - 1;
 
       L[ri] = L[ri] + lL[i];
 
       for ( j = 0; j < 15; j++ )
       {
-        rj = t[j%6+it*6] + np * ( j / 6 ) - 1;
+        j2 = j % 6;
+        rj = t[j2+it*6] + np * ( j / 6 ) - 1;
         sparse_set ( Pr, Ir, Jc, ri, rj, ndof, lK[i][j] );
       }
     }
@@ -304,7 +306,7 @@ void assemble ( double *p, int *t, double *u, int nt, int np, double *Pr,
 }
 /******************************************************************************/
 
-void assemble_constraints ( double *e, double *u, int np, int ne, int n0,
+void assemble_constraints ( double *e, double *u0, int np, int ne, int nv,
   double *Pr, mwIndex *Ir, mwIndex *Jc, double *L, int ndof )
 
 /******************************************************************************/
@@ -313,9 +315,13 @@ void assemble_constraints ( double *e, double *u, int np, int ne, int n0,
 
     ASSEMBLE_CONSTRAINTS assembles the constraints.
 
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
   Modified:
 
-    07 April 2012
+    24 January 2014
 
   Author:
 
@@ -333,13 +339,13 @@ void assemble_constraints ( double *e, double *u, int np, int ne, int n0,
     Input, double E[3][NE], the node, variable type (0,1,2) and
     value of each constraint.
 
-    Input, double U[2*NP+NP0+NE], the current solution vector.
+    Input, double U0[2*NP+NP0+NE], the current solution vector.
 
     Input, int NP, the number of nodes.
 
     Input, int NE, the number of constraints.
 
-    Input, int N0, the number of variables.
+    Input, int NV, the number of variables.
 
     Input/output, double Pr[NNZ], the values of the nonzero entries
     of the sparse matrix.
@@ -356,98 +362,20 @@ void assemble_constraints ( double *e, double *u, int np, int ne, int n0,
 */
 {
   int ie;
-  static double one = 1.0;
+  const double one = 1.0;
   int ri;
   int rj;
 
   for ( ie = 0; ie < ne; ie++ )
   {
-    ri = n0 + ie;
+    ri = nv + ie;
     rj = ( int ) e[1+ie*3] * np + ( int ) e[0+ie*3] - 1;
     sparse_set ( Pr, Ir, Jc, ri, rj, ndof, one );
     sparse_set ( Pr, Ir, Jc, rj, ri, ndof, one );
-    L[rj] = L[rj] + u[ri];
-    L[ri] = u[rj] - e[2+ie*3];
+    L[rj] = L[rj] + u0[ri];
+    L[ri] = u0[rj] - e[2+ie*3];
   }
 
-  return;
-}
-/******************************************************************************/
-
-void init_shape ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    INIT_SHAPE evaluates the shape functions at the quadrature points.
-
-  Modified:
-
-    21 August 2006
-
-  Author:
-
-    Per-Olof Persson
-
-  Reference:
-
-    Per-Olof Persson,
-    Implementation of Finite Element-Based Navier-Stokes Solver,
-    April 2002.
-
-  Parameters:
-
-    Global, static double sh1[NGP][3], sh1r[NGP][3], sh1s[NGP][3], the
-    P1 shape function, and R and S derivatives, evaluated at the
-    Gauss points.
-
-    Global, static double sh2[NGP][6], sh2r[NGP][6], sh2s[NGP][6], the
-    P2 shape function, and R and S derivatives, evaluated at the
-    Gauss points.
-*/
-{
-  int i;
-
-  for ( i = 0; i < NGP; i++ )
-  {
-    sh1[i][0] = gp[i][2];
-    sh1[i][1] = gp[i][0];
-    sh1[i][2] = gp[i][1];
-
-    sh1r[i][0] = -1.0;
-    sh1r[i][1] =  1.0;
-    sh1r[i][2] =  0.0;
-
-    sh1s[i][0] = -1.0;
-    sh1s[i][1] =  0.0;
-    sh1s[i][2] =  1.0;
-
-    sh2[i][0] = 1.0 - 3.0 * gp[i][0] - 3.0 * gp[i][1]
-      + 2.0 * gp[i][0] * gp[i][0] + 4.0 * gp[i][0] * gp[i][1]
-      + 2.0 * gp[i][1] * gp[i][1];
-    sh2[i][1] = - gp[i][0] + 2.0 * gp[i][0] * gp[i][0];
-    sh2[i][2] = - gp[i][1] + 2.0 * gp[i][1] * gp[i][1];
-    sh2[i][3] = 4.0 * gp[i][0] * gp[i][1];
-    sh2[i][4] = 4.0 * gp[i][1] - 4.0 * gp[i][0] * gp[i][1]
-      - 4.0 * gp[i][1] * gp[i][1];
-    sh2[i][5] = 4.0 * gp[i][0] - 4.0 * gp[i][0] * gp[i][1]
-      - 4.0 * gp[i][0] * gp[i][0];
-
-    sh2r[i][0] = - 3.0 + 4.0 * gp[i][0] + 4.0 * gp[i][1];
-    sh2r[i][1] = - 1.0 + 4.0 * gp[i][0];
-    sh2r[i][2] = 0.0;
-    sh2r[i][3] = 4.0 * gp[i][1];
-    sh2r[i][4] = - 4.0 * gp[i][1];
-    sh2r[i][5] = 4.0 - 8.0 * gp[i][0] - 4.0 * gp[i][1];
-
-    sh2s[i][0] = - 3.0 + 4.0 * gp[i][0] + 4.0 * gp[i][1];
-    sh2s[i][1] =   0.0;
-    sh2s[i][2] = - 1.0 + 4.0 * gp[i][1];
-    sh2s[i][3] =   4.0 * gp[i][0];
-    sh2s[i][4] =   4.0 - 8.0 * gp[i][1] - 4.0 * gp[i][0];
-    sh2s[i][5] = - 4.0 * gp[i][0];
-  }
   return;
 }
 /******************************************************************************/
@@ -475,6 +403,10 @@ void i4vec_heap_d ( int n, int a[] )
       A(3)       A(4)  A(5) A(6)
       /  \       /   \
     A(7) A(8)  A(9) A(10)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -581,6 +513,10 @@ void i4vec_sort_heap_a ( int n, int a[] )
 
     I4VEC_SORT_HEAP_A ascending sorts an I4VEC using heap sort.
 
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
   Modified:
 
     30 April 1999
@@ -646,14 +582,109 @@ void i4vec_sort_heap_a ( int n, int a[] )
 }
 /******************************************************************************/
 
-void localKL ( double *p, int *tt, double u0[], int np, double mu,
-  double lK[15][15], double lL[15] )
+void init_shape ( int ngp, double gp[][3] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    INIT_SHAPE evaluates the shape functions at the quadrature points.
+
+  Discussion:
+
+    The shape functions and their spatial derivatives are evaluated at the
+    Gauss points in the reference triangle.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    21 August 2006
+
+  Author:
+
+    Per-Olof Persson
+
+  Reference:
+
+    Per-Olof Persson,
+    Implementation of Finite Element-Based Navier-Stokes Solver,
+    April 2002.
+
+  Parameters:
+
+    Input, int NGP, the number of quadrature points.
+
+    Input, double GP[NGP][3], the quadrature points.
+
+    Global, static double SH1[NGP][3], SH1R[NGP][3], SH1S[NGP][3], the
+    P1 (pressure) shape functions, and R and S derivatives, evaluated at the
+    Gauss points.
+
+    Global, static double SH2[NGP][6], SH2R[NGP][6], SH2S[NGP][6], the
+    P2 (velocity) shape functions, and R and S derivatives, evaluated at the
+    Gauss points.
+*/
+{
+  int i;
+
+  for ( i = 0; i < ngp; i++ )
+  {
+    sh1[i][0] = gp[i][2];
+    sh1[i][1] = gp[i][0];
+    sh1[i][2] = gp[i][1];
+
+    sh1r[i][0] = -1.0;
+    sh1r[i][1] =  1.0;
+    sh1r[i][2] =  0.0;
+
+    sh1s[i][0] = -1.0;
+    sh1s[i][1] =  0.0;
+    sh1s[i][2] =  1.0;
+
+    sh2[i][0] = 1.0 - 3.0 * gp[i][0] - 3.0 * gp[i][1]
+      + 2.0 * gp[i][0] * gp[i][0] + 4.0 * gp[i][0] * gp[i][1]
+      + 2.0 * gp[i][1] * gp[i][1];
+    sh2[i][1] = - gp[i][0] + 2.0 * gp[i][0] * gp[i][0];
+    sh2[i][2] = - gp[i][1] + 2.0 * gp[i][1] * gp[i][1];
+    sh2[i][3] = 4.0 * gp[i][0] * gp[i][1];
+    sh2[i][4] = 4.0 * gp[i][1] - 4.0 * gp[i][0] * gp[i][1]
+      - 4.0 * gp[i][1] * gp[i][1];
+    sh2[i][5] = 4.0 * gp[i][0] - 4.0 * gp[i][0] * gp[i][1]
+      - 4.0 * gp[i][0] * gp[i][0];
+
+    sh2r[i][0] = - 3.0 + 4.0 * gp[i][0] + 4.0 * gp[i][1];
+    sh2r[i][1] = - 1.0 + 4.0 * gp[i][0];
+    sh2r[i][2] = 0.0;
+    sh2r[i][3] = 4.0 * gp[i][1];
+    sh2r[i][4] = - 4.0 * gp[i][1];
+    sh2r[i][5] = 4.0 - 8.0 * gp[i][0] - 4.0 * gp[i][1];
+
+    sh2s[i][0] = - 3.0 + 4.0 * gp[i][0] + 4.0 * gp[i][1];
+    sh2s[i][1] =   0.0;
+    sh2s[i][2] = - 1.0 + 4.0 * gp[i][1];
+    sh2s[i][3] =   4.0 * gp[i][0];
+    sh2s[i][4] =   4.0 - 8.0 * gp[i][1] - 4.0 * gp[i][0];
+    sh2s[i][5] = - 4.0 * gp[i][0];
+  }
+  return;
+}
+/******************************************************************************/
+
+void localKL ( int ngp, double w[], double *p, int *tt, double u0[], int np, 
+  double nu, double lK[15][15], double lL[15] )
 
 /******************************************************************************/
 /*
   Purpose:
 
     LOCALKL assembles the local stiffness matrix and residual.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -671,6 +702,10 @@ void localKL ( double *p, int *tt, double u0[], int np, double mu,
 
   Parameters:
 
+    Input, int NGP, the number of quadrature points.
+
+    Input, double W[NGP], the quadrature weights.
+
     Input, double P[2][NP], the coordinates of the nodes.
 
     Input, int *TT, a pointer to the list of nodes for the current element.
@@ -681,7 +716,7 @@ void localKL ( double *p, int *tt, double u0[], int np, double mu,
 
     Input, int NP, the number of nodes.
 
-    Input, double MU, the kinematic viscosity.
+    Input, double NU, the kinematic viscosity.
 
     Output, double lK[15][15], the local stiffness matrix.
 
@@ -713,11 +748,11 @@ void localKL ( double *p, int *tt, double u0[], int np, double mu,
 /*
   Zero out lK and lL.
 */
-  memset ( lK, 0, 15*15*sizeof(double) );
+  memset ( lK, 0, 15 * 15 * sizeof ( double ) );
 
-  memset ( lL, 0, 15*sizeof(double) );
+  memset ( lL, 0, 15 * sizeof ( double ) );
 
-  for ( igp = 0; igp < NGP; igp++ )
+  for ( igp = 0; igp < ngp; igp++ )
   {
 /*
   Jacobian
@@ -791,16 +826,16 @@ void localKL ( double *p, int *tt, double u0[], int np, double mu,
     {
       lL[i]   = lL[i]   + mul * (
         ( u * ux + v * uy + px ) * sh2[igp][i]
-        + mu * ( ux * sh2x[i] + uy * sh2y[i] ) );
+        + nu * ( ux * sh2x[i] + uy * sh2y[i] ) );
 
       lL[6+i] = lL[6+i] + mul * (
         ( u * vx + v * vy + py ) * sh2[igp][i]
-        + mu * ( vx * sh2x[i] + vy * sh2y[i] ) );
+        + nu * ( vx * sh2x[i] + vy * sh2y[i] ) );
 
       for ( j = 0; j < 6; j++ )
       {
-        lK[i][j] +=     mu * ( sh2x[i] * sh2x[j] + sh2y[i] * sh2y[j] ) * mul;
-        lK[6+i][6+j] += mu * ( sh2x[i] * sh2x[j] + sh2y[i] * sh2y[j] ) * mul;
+        lK[i][j] +=     nu * ( sh2x[i] * sh2x[j] + sh2y[i] * sh2y[j] ) * mul;
+        lK[6+i][6+j] += nu * ( sh2x[i] * sh2x[j] + sh2y[i] * sh2y[j] ) * mul;
 
         lK[i][j] +=     ( u  * sh2[igp][i] * sh2x[j]
                         + v  * sh2[igp][i] * sh2y[j] ) * mul;
@@ -836,6 +871,81 @@ void localKL ( double *p, int *tt, double u0[], int np, double mu,
 }
 /******************************************************************************/
 
+void quad_rule ( int ngp, double w[], double gp[][3] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    QUAD_RULE returns the points and weights of a quadrature rule.
+
+  Discussion:
+
+    At the moment, only a 7-point rule is available.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 January 2011
+
+  Author:
+
+    John Burkardt.
+
+  Reference:
+
+    Per-Olof Persson,
+    Implementation of Finite Element-Based Navier-Stokes Solver,
+    April 2002.
+
+  Parameters:
+
+    Input, int NGP, the number of quadrature points.
+
+    Output, double W[NGP], the quadrature weights.
+
+    Output, double GP[NGP][3], the quadrature points.
+*/
+{
+  static double gp_save[7][3] = {
+    0.333333333333333, 0.333333333333333, 0.333333333333334,
+    0.059715871789770, 0.470142064105115, 0.470142064105115,
+    0.470142064105115, 0.059715871789770, 0.470142064105115,
+    0.470142064105115, 0.470142064105115, 0.059715871789770,
+    0.797426985353087, 0.101286507323457, 0.101286507323457,
+    0.101286507323457, 0.797426985353087, 0.101286507323457,
+    0.101286507323457, 0.101286507323457, 0.797426985353087 };
+  int i;
+  int j;
+  static double w_save[7] = {
+    0.225000000000000,
+    0.132394152788506,
+    0.132394152788506,
+    0.132394152788506,
+    0.125939180544827,
+    0.125939180544827,
+    0.125939180544827 };
+
+  for ( i = 0; i < ngp; i++ )
+  {
+    w[i] = w_save[i];
+  }
+
+  for ( i = 0; i < ngp; i++ )
+  {
+    for ( j = 0; j < 3; j++ )
+    {
+      gp[i][j] = gp_save[i][j];
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
 mxArray* sparse_create ( int *t, double *e, int nt, int np, int np0, int ne,
   int ndof )
 
@@ -849,6 +959,10 @@ mxArray* sparse_create ( int *t, double *e, int nt, int np, int np0, int ne,
 
     The invocation of the routine SORT was replaced by a call to
     I4VEC_SORT_HEAP_A.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -891,7 +1005,7 @@ mxArray* sparse_create ( int *t, double *e, int nt, int np, int np0, int ne,
 
     Local, int IDXI[NIDX], the row indices.
 
-    Local, int IDXJ[NIDX], the column indicies.
+    Local, int IDXJ[NIDX], the column indices.
 
     Local, int NIDX, the upper limit on the number of entries.
 */
@@ -919,10 +1033,10 @@ mxArray* sparse_create ( int *t, double *e, int nt, int np, int np0, int ne,
 
   nidx = nt * 15 * 15 + 2 * ne;
 
-  idxi =     ( int* ) mxCalloc ( nidx, sizeof(int) );
-  idxj =     ( int* ) mxCalloc ( nidx, sizeof(int) );
-  col =      ( int* ) mxCalloc ( ndof, sizeof(int) );
-  colstart = ( int* ) mxCalloc ( ndof, sizeof(int) );
+  idxi =     ( int * ) mxCalloc ( nidx, sizeof ( int ) );
+  idxj =     ( int * ) mxCalloc ( nidx, sizeof ( int ) );
+  col =      ( int * ) mxCalloc ( ndof, sizeof ( int ) );
+  colstart = ( int * ) mxCalloc ( ndof, sizeof ( int ) );
 /*
   Count the elements in each column, including duplicates.
 */
@@ -945,7 +1059,7 @@ mxArray* sparse_create ( int *t, double *e, int nt, int np, int np0, int ne,
   for ( ie = 0, n2 = e; ie < ne; ie++, n2+=3 )
   {
     col[2*np+np0+ie]++;
-    col[(int)n2[1]*np+(int)n2[0]-1]++;
+    col[ ( int ) n2[1]*np+ ( int ) n2[0]-1]++;
   }
 /*
   Form cumulative sum (start of each column)
@@ -976,14 +1090,14 @@ mxArray* sparse_create ( int *t, double *e, int nt, int np, int np0, int ne,
 */
   for ( ie = 0, n2 = e; ie < ne; ie++, n2+=3 )
   {
-    ri = (int) n2[1] * np + (int) n2[0] - 1;
+    ri = ( int ) n2[1] * np + (int) n2[0] - 1;
     rj = 2 * np + np0 + ie;
     idxi[colstart[rj]] = ri;
     idxj[colstart[rj]] = rj;
     colstart[rj]++;
 
     ri = 2 * np + np0 + ie;
-    rj = (int) n2[1] * np + (int) n2[0] - 1;
+    rj = ( int ) n2[1] * np + (int) n2[0] - 1;
     idxi[colstart[rj]] = ri;
     idxj[colstart[rj]] = rj;
     colstart[rj]++;
@@ -1011,7 +1125,7 @@ mxArray* sparse_create ( int *t, double *e, int nt, int np, int np0, int ne,
 /*
   Zero out COL.
 */
-  memset ( col, 0, ndof * sizeof(int) );
+  memset ( col, 0, ndof * sizeof ( int ) );
 /*
   Count the unique entries.
 */
@@ -1034,9 +1148,9 @@ mxArray* sparse_create ( int *t, double *e, int nt, int np, int np0, int ne,
   if ( !K )
   {
     printf ( "\n" );
-    printf ( "sparse_create: Fatal error!\n" );
+    printf ( "SPARSE_CREATE: Fatal error!\n" );
     printf ( "  mxCreateSparse failed while creating the matrix K.\n" );
-    exit ( 0 );
+    exit ( 1 );
   }
 
   Ir = mxGetIr ( K );
@@ -1087,6 +1201,10 @@ void sparse_set ( double *Pr, mwIndex *Ir, mwIndex *Jc, int ri, int rj,
     We now simply use binary search on Ir to locate the index K for which
     Ir[K] = RI, and then increment Pr[K].
 
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
   Modified:
 
     07 April 2012
@@ -1132,17 +1250,20 @@ void sparse_set ( double *Pr, mwIndex *Ir, mwIndex *Jc, int ri, int rj,
 
   if ( ri < 0 || ndof <= ri )
   {
-    printf ( "\n" );
-    printf ( "SPARSE_SET - Fatal error!\n" );
-    printf ( "  Illegal value of index i = %d!\n", ri );
-    printf ( "  Nominal increment is A(%d,%d) = %g\n", ri, rj, val );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "SPARSE_SET - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal value of index i = %d!\n", ri );
+    fprintf ( stderr, "  Nominal increment is A(%d,%d) = %g\n", ri, rj, val );
+    exit ( 1 );
   }
+
   if ( rj < 0 || ndof <= rj )
   {
-    printf ( "\n" );
-    printf ( "SPARSE_SET - Fatal error!\n" );
-    printf ( "  Illegal value of index j = %d!\n", rj );
-    printf ( "  Nominal increment is A(%d,%d) = %g\n", ri, rj, val );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "SPARSE_SET - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal value of index j = %d!\n", rj );
+    fprintf ( stderr, "  Nominal increment is A(%d,%d) = %g\n", ri, rj, val );
+    exit ( 1 );
   }
 /*
   Find K so that Ir[K] = ri;

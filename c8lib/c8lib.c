@@ -80,12 +80,12 @@ double complex c8_acos ( double complex c1 )
   double complex c2;
   double c2_imag;
   double c2_real;
-  double r8_pi_half = 1.57079632679489661923;
+  const double r8_pi = 3.141592653589793;
 
   c2 = c8_asin ( c1 );
 
-  c2_real = r8_pi_half - creal ( c2 );
-  c2_imag =            - cimag ( c2 );
+  c2_real = 0.5 * r8_pi - creal ( c2 );
+  c2_imag =             - cimag ( c2 );
 
   c2 = c2_real + c2_imag * I;
 
@@ -182,13 +182,17 @@ double c8_arg ( double complex c )
 
     C8_ARG returns the argument of a C8.
 
+  Discussion:
+
+    The value returned by this function is always between 0.0 and 2*PI.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license. 
 
   Modified:
 
-    06 October 2010
+    08 February 2015
 
   Author:
 
@@ -202,6 +206,8 @@ double c8_arg ( double complex c )
 */
 {
   double value;
+  double x;
+  double y;
 
   if ( cimag ( c ) == 0.0 && creal ( c ) == 0.0 )
   {
@@ -209,7 +215,9 @@ double c8_arg ( double complex c )
   }
   else
   {
-    value = atan2 ( cimag ( c ), creal ( c ) );
+    y = c8_imag ( c );
+    x = c8_real ( c );
+    value = r8_atan ( y, x );
   }
   return value;
 }
@@ -433,7 +441,7 @@ double complex c8_conj ( double complex c1 )
 
   Modified:
 
-    06 October 2010
+    10 May 2014
 
   Author:
 
@@ -446,10 +454,7 @@ double complex c8_conj ( double complex c1 )
     Output, double complex C8_CONJ, the function value.
 */
 {
-  double c1_norm;
   double complex c2;
-  double c2_imag;
-  double c2_real;
 
   c2 = conj ( c1 );
 
@@ -535,7 +540,6 @@ double complex c8_cos ( double complex c1 )
 */
 {
   double complex c2;
-  double r;
 
   c2 = ( cexp ( c1 * I ) + cexp ( - c1 * I ) ) / 2.0;
 
@@ -752,7 +756,7 @@ double complex c8_exp ( double complex c1 )
 }
 /******************************************************************************/
 
-double complex c8_i ( void )
+double complex c8_i ( )
 
 /******************************************************************************/
 /*
@@ -855,6 +859,156 @@ double complex c8_inv ( double complex c1 )
 }
 /******************************************************************************/
 
+int c8_le_l1 ( double complex x, double complex y )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8_LE_L1 := X <= Y for C8 values, and the L1 norm.
+
+  Discussion:
+
+    A C8 is a double complex value.
+
+    The L1 norm can be defined here as:
+
+      C8_NORM_L1(X) = abs ( real (X) ) + abs ( imag (X) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double complex X, Y, the values to be compared.
+
+    Output, int C8_LE_L1, is 1 if X <= Y.
+*/
+{
+  int value;
+
+  if ( r8_abs ( creal ( x ) ) + r8_abs ( cimag ( x ) ) <= 
+       r8_abs ( creal ( y ) ) + r8_abs ( cimag ( y ) ) )
+  {
+    value = 1;
+  }
+  else
+  {
+    value = 0;
+  }
+  return value;
+}
+/******************************************************************************/
+
+int c8_le_l2 ( double complex x, double complex y )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8_LE_L2 := X <= Y for C8 values, and the L2 norm.
+
+  Discussion:
+
+    A C8 is a double complex value.
+
+    The L2 norm can be defined here as:
+
+      C8_NORM_L2(X) = sqrt ( ( real (X) )^2 + ( imag (X) )^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double complex X, Y, the values to be compared.
+
+    Output, int C8_LE_L2, is 1 if X <= Y.
+*/
+{
+  int value;
+
+  if ( pow ( creal ( x ), 2 ) + pow ( cimag ( x ), 2 ) <= 
+       pow ( creal ( y ), 2 ) + pow ( cimag ( y ), 2 ) )
+  {
+    value = 1;
+  }
+  else
+  {
+    value = 0;
+  }
+  return value;
+}
+/******************************************************************************/
+
+int c8_le_li ( double complex x, double complex y )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8_LE_LI := X <= Y for C8 values, and the L-oo norm.
+
+  Discussion:
+
+    A C8 is a double complex value.
+
+    The L-oo norm can be defined here as:
+
+      C8_NORM_LI(X) = max ( abs ( real (X) ), abs ( imag (X) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double complex X, Y, the values to be compared.
+
+    Output, int C8_LE_LI, is 1 if X <= Y.
+*/
+{
+  int value;
+
+  if ( r8_max ( r8_abs ( creal ( x ) ), r8_abs ( cimag ( x ) ) ) <= 
+       r8_max ( r8_abs ( creal ( y ) ), r8_abs ( cimag ( y ) ) ) )
+  {
+    value = 1;
+  }
+  else
+  {
+    value = 0;
+  }
+  return value;
+}
+/******************************************************************************/
+
 double complex c8_log ( double complex c1 )
 
 /******************************************************************************/
@@ -885,7 +1039,7 @@ double complex c8_log ( double complex c1 )
 
     Input, double complex C1, the argument.
 
-    Output, double complex C8_ATAN, the function value.
+    Output, double complex C8_LOG, the function value.
 */
 {
   double arg;
@@ -1007,6 +1161,238 @@ double complex c8_neg ( double complex c1 )
 }
 /******************************************************************************/
 
+double complex c8_nint ( double complex c1 )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8_NINT returns the nearest complex integer of a C8.
+
+  Discussion:
+
+    A C8 is a double complex value.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double complex C1, the value to be NINT'ed.
+
+    Output, double complex C8_NINT, the NINT'ed value.
+*/
+{
+  double r;
+  double r_min;
+  double x;
+  double x_min;
+  double xc;
+  double y;
+  double y_min;
+  double yc;
+  double complex value;
+
+  xc = creal ( c1 );
+  yc = cimag ( c1 );
+/*
+  Lower left.
+*/
+  x = r8_floor ( creal ( c1 ) );
+  y = r8_floor ( cimag ( c1 ) );
+  r = pow ( x - xc, 2 ) + pow ( y - yc, 2 );
+  r_min = r;
+  x_min = x;
+  y_min = y;
+/*
+  Lower right.
+*/
+  x = r8_floor ( creal ( c1 ) ) + 1.0;
+  y = r8_floor ( cimag ( c1 ) );
+  r = pow ( x - xc, 2 ) + pow ( y - yc, 2 );
+  if ( r < r_min )
+  {
+    r_min = r;
+    x_min = x;
+    y_min = y;
+  }
+/*
+  Upper right.
+*/
+  x = r8_floor ( creal ( c1 ) ) + 1.0;
+  y = r8_floor ( cimag ( c1 ) ) + 1.0;
+  r = pow ( x - xc, 2 ) + pow ( y - yc, 2 );
+  if ( r < r_min )
+  {
+    r_min = r;
+    x_min = x;
+    y_min = y;
+  }
+/*
+  Upper left.
+*/
+  x = r8_floor ( creal ( c1 ) );
+  y = r8_floor ( cimag ( c1 ) ) + 1.0;
+  r = pow ( x - xc, 2 ) + pow ( y - yc, 2 );
+  if ( r < r_min )
+  {
+    r_min = r;
+    x_min = x;
+    y_min = y;
+  }
+
+  value = x_min + y_min * I;
+
+  return value;
+}
+/******************************************************************************/
+
+double c8_norm_l1 ( double complex x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8_NORM_L1 evaluates the L1 norm of a C8.
+
+  Discussion:
+
+    A C8 is a double complex value.
+
+    Numbers of equal norm lie along diamonds centered at (0,0).
+
+    The L1 norm can be defined here as:
+
+      C8_NORM_L1(X) = abs ( real (X) ) + abs ( imag (X) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double complex X, the value whose norm is desired.
+
+    Output, double C8_NORM_L1, the norm of X.
+*/
+{
+  double value;
+
+  value = fabs ( creal ( x ) )
+        + fabs ( cimag ( x ) );
+
+  return value;
+}
+/******************************************************************************/
+
+double c8_norm_l2 ( double complex x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8_NORM_L2 evaluates the L2 norm of a C8.
+
+  Discussion:
+
+    A C8 is a double complex value.
+
+    Numbers of equal norm lie on circles centered at (0,0).
+
+    The L2 norm can be defined here as:
+
+      C8_NORM_L2(X) = sqrt ( ( real (X) )^2 + ( imag ( X ) )^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double complex X, the value whose norm is desired.
+
+    Output, double C8_NORM_L2, the 2-norm of X.
+*/
+{
+  double value;
+
+  value = sqrt ( pow ( creal ( x ), 2 )
+               + pow ( cimag ( x ), 2 ) );
+
+  return value;
+}
+/******************************************************************************/
+
+double c8_norm_li ( double complex x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8_NORM_LI evaluates the L-infinity norm of a C8.
+
+  Discussion:
+
+    A C8 is a double complex value.
+
+    Numbers of equal norm lie along squares whose centers are at (0,0).
+
+    The L-infinity norm can be defined here as:
+
+      C8_NORM_LI(X) = max ( abs ( real (X) ), abs ( imag (X) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double complex X, the value whose norm is desired.
+
+    Output, double C8_NORM_LI, the infinity norm of X.
+*/
+{
+  double value;
+
+  value = r8_max ( fabs ( creal ( x ) ), fabs ( cimag ( x ) ) );
+
+  return value;
+}
+/******************************************************************************/
+
 double complex c8_normal_01 ( int *seed )
 
 /******************************************************************************/
@@ -1034,7 +1420,7 @@ double complex c8_normal_01 ( int *seed )
     Output, double complex C8_NORMAL_01, a unit pseudonormal value.
 */
 {
-  double r8_pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double v1;
   double v2;
   double complex value;
@@ -1053,7 +1439,7 @@ double complex c8_normal_01 ( int *seed )
 }
 /******************************************************************************/
 
-double complex c8_one ( void )
+double complex c8_one ( )
 
 /******************************************************************************/
 /*
@@ -1083,6 +1469,43 @@ double complex c8_one ( void )
   c1 = 1.0;
 
   return c1;
+}
+/******************************************************************************/
+
+void c8_print ( double complex a, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8_PRINT prints a C8.
+
+  Discussion:
+
+    A C8 is a double complex value.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    10 May 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double complex A, the value to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  printf ( "%s  ( %g, %g )\n", title, creal ( a ), cimag ( a ) );
+
+  return;
 }
 /******************************************************************************/
 
@@ -1593,10 +2016,10 @@ double complex c8_uniform_01 ( int *seed )
     Output, double complex C8_UNIFORM_01, a pseudorandom complex value.
 */
 {
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
   double r;
-  double r8_pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double theta;
   double complex value;
 
@@ -1636,7 +2059,7 @@ double complex c8_uniform_01 ( int *seed )
 }
 /******************************************************************************/
 
-double complex c8_zero ( void )
+double complex c8_zero ( )
 
 /******************************************************************************/
 /*
@@ -1666,6 +2089,155 @@ double complex c8_zero ( void )
   c1 = 0.0;
 
   return c1;
+}
+/******************************************************************************/
+
+void c8mat_add ( int m, int n, double complex alpha, double complex a[],
+  double complex beta, double complex b[], double complex c[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_ADD combines two C8MAT's with complex scale factors.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double complex ALPHA, the first scale factor.
+
+    Input, double complex A[M*N], the first matrix.
+
+    Input, double complex BETA, the second scale factor.
+
+    Input, double complex B[M*N], the second matrix.
+
+    Output, double complex C[M*N], the result.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      c[i+j*m] = alpha * a[i+j*m] + beta * b[i+j*m];
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+void c8mat_add_r8 ( int m, int n, double alpha, double complex a[],
+  double beta, double complex b[], double complex c[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_ADD_R8 combines two C8MAT's with real scale factors.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double ALPHA, the first scale factor.
+
+    Input, double complex A[M*N], the first matrix.
+
+    Input, double BETA, the second scale factor.
+
+    Input, double complex B[M*N], the second matrix.
+
+    Output, double complex C[M*N], the result.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      c[i+j*m] = alpha * a[i+j*m] + beta * b[i+j*m];
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+void c8mat_copy ( int m, int n, double complex a[], double complex b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_COPY copies one C8MAT to another.
+
+  Discussion:
+
+    A C8MAT is a doubly dimensioned array of C8's, which
+    may be stored as a vector in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double complex A[M*N], the matrix to be copied.
+
+    Output, double complex B[M*N], the copy.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      b[i+j*m] = a[i+j*m];
+    }
+  }
+
+  return;
 }
 /******************************************************************************/
 
@@ -1721,13 +2293,312 @@ double complex *c8mat_copy_new ( int m, int n, double complex a1[] )
 }
 /******************************************************************************/
 
-double complex *c8mat_identity ( int n )
+void c8mat_fss ( int n, double complex a[], int nb, double complex x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    C8MAT_IDENTITY sets a C8MAT to the identity.
+    C8MAT_FSS factors and solves a system with multiple right hand sides.
+
+  Discussion:
+
+    This routine uses partial pivoting, but no pivot vector is required.
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    05 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input/output, double complex A[N*N].
+    On input, A is the coefficient matrix of the linear system.
+    On output, A is in unit upper triangular form, and
+    represents the U factor of an LU factorization of the
+    original coefficient matrix.
+
+    Input, int NB, the number of right hand sides.
+
+    Input/output, double complex X[N*NB], on input, the right hand sides of the
+    linear systems.  On output, the solutions of the linear systems.
+*/
+{
+  int i;
+  int ipiv;
+  int j;
+  int jcol;
+  double piv;
+  double complex t;
+
+  for ( jcol = 1; jcol <= n; jcol++ )
+  {
+/*
+  Find the maximum element in column I.
+*/
+    piv = c8_abs ( a[jcol-1+(jcol-1)*n] );
+    ipiv = jcol;
+    for ( i = jcol+1; i <= n; i++ )
+    {
+      if ( piv < c8_abs ( a[i-1+(jcol-1)*n] ) )
+      {
+        piv = c8_abs ( a[i-1+(jcol-1)*n] );
+        ipiv = i;
+      }
+    }
+
+    if ( piv == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "C8MAT_FSS - Fatal error!\n" );
+      fprintf ( stderr, "  Zero pivot on step %d\n", jcol );
+      exit ( 1 );
+    }
+/*
+  Switch rows JCOL and IPIV, and X.
+*/
+    if ( jcol != ipiv )
+    {
+      for ( j = 1; j <= n; j++ )
+      {
+        t                 = a[jcol-1+(j-1)*n];
+        a[jcol-1+(j-1)*n] = a[ipiv-1+(j-1)*n];
+        a[ipiv-1+(j-1)*n] = t;
+      }
+      for ( j = 0; j < nb; j++ )
+      {
+        t            = x[jcol-1+j*n];
+        x[jcol-1+j*n] = x[ipiv-1+j*n];
+        x[ipiv-1+j*n] = t;
+      }
+    }
+/*
+  Scale the pivot row.
+*/
+    t = a[jcol-1+(jcol-1)*n];
+    a[jcol-1+(jcol-1)*n] = 1.0;
+    for ( j = jcol+1; j <= n; j++ )
+    {
+      a[jcol-1+(j-1)*n] = a[jcol-1+(j-1)*n] / t;
+    }
+    for ( j = 0; j < nb; j++ )
+    {
+      x[jcol-1+j*n] = x[jcol-1+j*n] / t;
+    }
+/*
+  Use the pivot row to eliminate lower entries in that column.
+*/
+    for ( i = jcol+1; i <= n; i++ )
+    {
+      if ( a[i-1+(jcol-1)*n] != 0.0 )
+      {
+        t = - a[i-1+(jcol-1)*n];
+        a[i-1+(jcol-1)*n] = 0.0;
+        for ( j = jcol+1; j <= n; j++ )
+        {
+          a[i-1+(j-1)*n] = a[i-1+(j-1)*n] + t * a[jcol-1+(j-1)*n];
+        }
+        for ( j = 0; j < nb; j++ )
+        {
+          x[i-1+j*n] = x[i-1+j*n] + t * x[jcol-1+j*n];
+        }
+      }
+    }
+  }
+/*
+  Back solve.
+*/
+  for ( jcol = n; 2 <= jcol; jcol-- )
+  {
+    for ( i = 1; i < jcol; i++ )
+    {
+      for ( j = 0; j < nb; j++ )
+      {
+        x[i-1+j*n] = x[i-1+j*n] - a[i-1+(jcol-1)*n] * x[jcol-1+j*n];
+      }
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double complex *c8mat_fss_new ( int n, double complex a[], int nb, 
+  double complex b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_FSS_NEW factors and solves a system with multiple right hand sides.
+
+  Discussion:
+
+    This routine uses partial pivoting, but no pivot vector is required.
+
+    A C8MAT is a doubly dimensioned array of C8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input/output, double complex A[N*N].
+    On input, A is the coefficient matrix of the linear system.
+    On output, A is in unit upper triangular form, and
+    represents the U factor of an LU factorization of the
+    original coefficient matrix.
+
+    Input, int NB, the number of right hand sides.
+
+    Input, double complex B[N*NB], the right hand sides of the linear systems.
+
+    Output, double complex C8MAT_FSS_NEW[N*NB], the solutions of the 
+    linear systems.
+*/
+{
+  int i;
+  int ipiv;
+  int j;
+  int jcol;
+  double piv;
+  double complex t;
+  double complex *x;
+
+  x = ( double complex * ) malloc ( n * nb * sizeof ( double complex ) );
+
+  for ( j = 0; j < nb; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      x[i+j*n] = b[i+j*n];
+    }
+  }
+  for ( jcol = 1; jcol <= n; jcol++ )
+  {
+/*
+  Find the maximum element in column I.
+*/
+    piv = c8_abs ( a[jcol-1+(jcol-1)*n] );
+    ipiv = jcol;
+    for ( i = jcol + 1; i <= n; i++ )
+    {
+      if ( piv < c8_abs ( a[i-1+(jcol-1)*n] ) )
+      {
+        piv = c8_abs ( a[i-1+(jcol-1)*n] );
+        ipiv = i;
+      }
+    }
+
+    if ( piv == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "C8MAT_FSS_NEW - Fatal error!\n" );
+      fprintf ( stderr, "  Zero pivot on step %d\n", jcol );
+      exit ( 1 );
+    }
+/*
+  Switch rows JCOL and IPIV, and X.
+*/
+    if ( jcol != ipiv )
+    {
+      for ( j = 1; j <= n; j++ )
+      {
+        t                 = a[jcol-1+(j-1)*n];
+        a[jcol-1+(j-1)*n] = a[ipiv-1+(j-1)*n];
+        a[ipiv-1+(j-1)*n] = t;
+      }
+      for ( j = 0; j < nb; j++ )
+      {
+        t            = x[jcol-1+j*n];
+        x[jcol-1+j*n] = x[ipiv-1+j*n];
+        x[ipiv-1+j*n] = t;
+      }
+    }
+/*
+  Scale the pivot row.
+*/
+    t = a[jcol-1+(jcol-1)*n];
+    a[jcol-1+(jcol-1)*n] = 1.0;
+    for ( j = jcol + 1; j <= n; j++ )
+    {
+      a[jcol-1+(j-1)*n] = a[jcol-1+(j-1)*n] / t;
+    }
+    for ( j = 0; j < nb; j++ )
+    {
+      x[jcol-1+j*n] = x[jcol-1+j*n] / t;
+    }
+/*
+  Use the pivot row to eliminate lower entries in that column.
+*/
+    for ( i = jcol+1; i <= n; i++ )
+    {
+      if ( a[i-1+(jcol-1)*n] != 0.0 )
+      {
+        t = - a[i-1+(jcol-1)*n];
+        a[i-1+(jcol-1)*n] = 0.0;
+        for ( j = jcol+1; j <= n; j++ )
+        {
+          a[i-1+(j-1)*n] = a[i-1+(j-1)*n] + t * a[jcol-1+(j-1)*n];
+        }
+        for ( j = 0; j < nb; j++ )
+        {
+          x[i-1+j*n] = x[i-1+j*n] + t * x[jcol-1+j*n];
+        }
+      }
+    }
+  }
+/*
+  Back solve.
+*/
+  for ( jcol = n; 2 <= jcol; jcol-- )
+  {
+    for ( i = 1; i < jcol; i++ )
+    {
+      for ( j = 0; j < nb; j++ )
+      {
+        x[i-1+j*n] = x[i-1+j*n] - a[i-1+(jcol-1)*n] * x[jcol-1+j*n];
+      }
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double complex *c8mat_identity_new ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_IDENTITY_NEW sets a C8MAT to the identity.
 
   Licensing:
 
@@ -1745,7 +2616,7 @@ double complex *c8mat_identity ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double complex C8MAT_IDENTITY[N*N], the matrix.
+    Output, double complex C8MAT_IDENTITY_NEW[N*N], the matrix.
 */
 {
   double complex *a;
@@ -1769,6 +2640,212 @@ double complex *c8mat_identity ( int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double complex *c8mat_indicator_new ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_INDICATOR_NEW returns the C8MAT indicator matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Output, double complex C8MAT_INDICATOR_NEW[M*N], the matrix.
+*/
+{
+  double complex *a;
+  int i;
+  int j;
+
+  a = ( double complex * ) malloc ( m * n * sizeof ( double complex ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = ( i + 1 ) + ( j + 1 ) * I;
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+void c8mat_minvm ( int n1, int n2, double complex a[], 
+  double complex b[], double complex c[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_MINVM returns inverse(A) * B for C8MAT's.
+
+  Discussion:
+
+    A C8MAT is a doubly dimensioned array of C8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the matrices.
+
+    Input, double complex A[N1*N1], B[N1*N2], the matrices.
+
+    Output, double complex C[N1*N2], the result, C = inverse(A) * B.
+*/
+{
+  double complex *alu;
+
+  alu = c8mat_copy_new ( n1, n1, a );
+
+  c8mat_copy ( n1, n2, b, c );
+
+  c8mat_fss ( n1, alu, n2, c );
+ 
+  free ( alu );
+
+  return;
+}
+/******************************************************************************/
+
+double complex *c8mat_minvm_new ( int n1, int n2, double complex a[], 
+  double complex b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_MINVM_NEW returns inverse(A) * B for C8MAT's.
+
+  Discussion:
+
+    A C8MAT is a doubly dimensioned array of C8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the matrices.
+
+    Input, double complex A[N1*N1], B[N1*N2], the matrices.
+
+    Output, double complex C8MAT_MINVM_NEW[N1*N2], the result, C = inverse(A) * B.
+*/
+{
+  double complex *alu;
+  double complex *c;
+
+  alu = c8mat_copy_new ( n1, n1, a );
+
+  c = c8mat_fss_new ( n1, alu, n2, b );
+ 
+  free ( alu );
+
+  return c;
+}
+/******************************************************************************/
+
+void c8mat_mm ( int n1, int n2, int n3, double complex a[], double complex b[], 
+  double complex c[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_MM multiplies two C8MAT's.
+
+  Discussion:
+
+    A C8MAT is a doubly dimensioned array of C8 values, stored as a vector
+    in column-major order.
+
+    For this routine, the result is returned as the function value.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, N3, the order of the matrices.
+
+    Input, double complex A[N1*N2], double complex B[N2*N3], 
+    the matrices to multiply.
+
+    Output, double complex C[N1*N3], the product matrix C = A * B.
+*/
+{
+  double complex *c1;
+  int i;
+  int j;
+  int k;
+
+  c1 = ( double complex * ) malloc ( n1 * n3 * sizeof ( double complex ) );
+
+  for ( i = 0; i < n1; i ++ )
+  {
+    for ( j = 0; j < n3; j++ )
+    {
+      c1[i+j*n1] = 0.0;
+      for ( k = 0; k < n2; k++ )
+      {
+        c1[i+j*n1] = c1[i+j*n1] + a[i+k*n1] * b[k+j*n2];
+      }
+    }
+  }
+
+  c8mat_copy ( n1, n3, c1, c );
+
+  free ( c1 );
+
+  return;
 }
 /******************************************************************************/
 
@@ -1807,7 +2884,7 @@ double complex *c8mat_mm_new ( int n1, int n2, int n3, double complex a[],
     Input, double complex A[N1*N2], double complex B[N2*N3], 
     the matrices to multiply.
 
-    Output, double complex C[N1*N3], the product matrix C = A * B.
+    Output, double complex C8MAT_MM_NEW[N1*N3], the product matrix C = A * B.
 */
 {
   double complex *c;
@@ -1832,6 +2909,51 @@ double complex *c8mat_mm_new ( int n1, int n2, int n3, double complex a[],
 }
 /******************************************************************************/
 
+void c8mat_nint ( int m, int n, double complex a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_NINT rounds the entries of a C8MAT.
+
+  Discussion:
+
+    A C8MAT is an array of double complex values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of A.
+
+    Input/output, double complex A[M*N], the matrix to be NINT'ed.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = c8_nint ( a[i+j*m] );
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
 double c8mat_norm_fro ( int m, int n, double complex a[] )
 
 /******************************************************************************/
@@ -1841,6 +2963,8 @@ double c8mat_norm_fro ( int m, int n, double complex a[] )
     C8MAT_NORM_FRO returns the Frobenius norm of a C8MAT.
 
   Discussion:
+
+    A C8MAT is an array of C8 values.
 
     The Frobenius norm is defined as
 
@@ -1888,6 +3012,134 @@ double c8mat_norm_fro ( int m, int n, double complex a[] )
   }
   value = sqrt ( value );
 
+  return value;
+}
+/******************************************************************************/
+
+double c8mat_norm_l1 ( int m, int n, double complex a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_NORM_L1 returns the matrix L1 norm of a C8MAT.
+
+  Discussion:
+
+    A C8MAT is an MxN array of C8's, stored by (I,J) -> [I+J*M].
+
+    The matrix L1 norm is defined as:
+
+      C8MAT_NORM_L1 = max ( 1 <= J <= N )
+        sum ( 1 <= I <= M ) abs ( A(I,J) ).
+
+    The matrix L1 norm is derived from the vector L1 norm, and
+    satisifies:
+
+      c8vec_norm_l1 ( A * x ) <= c8mat_norm_l1 ( A ) * c8vec_norm_l1 ( x ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows in A.
+
+    Input, int N, the number of columns in A.
+
+    Input, double complex A[M*N], the matrix whose L1 norm is desired.
+
+    Output, double C8MAT_NORM_L1, the L1 norm of A.
+*/
+{
+  double col_sum;
+  int i;
+  int j;
+  double value;
+
+  value = 0.0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    col_sum = 0.0;
+    for ( i = 0; i < m; i++ )
+    {
+      col_sum = col_sum + c8_abs ( a[i+j*m] );
+    }
+    value = r8_max ( value, col_sum );
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+double c8mat_norm_li ( int m, int n, double complex a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_NORM_LI returns the L-infinity norm of a C8MAT.
+
+  Discussion:
+
+    A C8MAT is a doubly dimensioned array of C8 values, stored as a vector
+    in column-major order.
+
+    The matrix L-oo norm is defined as:
+
+      C8MAT_NORM_LI =  max ( 1 <= I <= M ) sum ( 1 <= J <= N ) abs ( A(I,J) ).
+
+    The matrix L-oo norm is derived from the vector L-oo norm,
+    and satisifies:
+
+      c8vec_norm_li ( A * x ) <= c8mat_norm_li ( A ) * c8vec_norm_li ( x ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Input, double complex A[M*N], the matrix.
+
+    Output, double C8MAT_NORM_LI, the L-infinity norm of A.
+*/
+{
+  int i;
+  int j;
+  double row_sum;
+  double value;
+
+  value = 0.0;
+  for ( i = 0; i < m; i++ )
+  {
+    row_sum = 0.0;
+    for ( j = 0; j < n; j++ )
+    {
+      row_sum = row_sum + c8_abs ( a[i+j*m] );
+    }
+    value = r8_max ( value, row_sum );
+  }
   return value;
 }
 /******************************************************************************/
@@ -1987,8 +3239,14 @@ void c8mat_print_some ( int m, int n, double complex a[], int ilo, int jlo,
   for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + incx )
   {
     j2hi = j2lo + incx - 1;
-    j2hi = i4_min ( j2hi, n );
-    j2hi = i4_min ( j2hi, jhi );
+    if ( n < j2hi )
+    {
+      j2hi = n;
+    }
+    if ( jhi < j2hi )
+    {
+      j2hi = jhi;
+    }
 
     inc = j2hi + 1 - j2lo;
 
@@ -2005,9 +3263,16 @@ void c8mat_print_some ( int m, int n, double complex a[], int ilo, int jlo,
 /*
   Determine the range of the rows in this strip.
 */
-    i2lo = i4_max ( ilo, 1 );
-    i2hi = i4_min ( ihi, m );
-
+    i2lo = 1;
+    if ( i2lo < ilo )
+    {
+      i2lo = ilo;
+    }
+    i2hi = m;
+    if ( ihi < i2hi )
+    {
+      i2hi = ihi;
+    }
     for ( i = i2lo; i <= i2hi; i++ )
     {
 /*
@@ -2026,13 +3291,99 @@ void c8mat_print_some ( int m, int n, double complex a[], int ilo, int jlo,
 }
 /******************************************************************************/
 
-double complex *c8mat_uniform_01 ( int m, int n, int *seed )
+void c8mat_scale ( int m, int n, double complex alpha, double complex a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    C8MAT_UNIFORM_01 returns a unit pseudorandom C8MAT.
+    C8MAT_SCALE scales a C8MAT by a complex scale factor.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double complex ALPHA, the scale factor.
+
+    Input/output, double complex A[M*N], the matrix to be scaled.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = a[i+j*m] * alpha;
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+void c8mat_scale_r8 ( int m, int n, double alpha, double complex a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_SCALE_R8 scales a C8MAT by a real scale factor
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double ALPHA, the scale factor.
+
+    Input/output, double complex A[M*N], the matrix to be scaled.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = a[i+j*m] * alpha;
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+double complex *c8mat_uniform_01_new ( int m, int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_UNIFORM_01_NEW returns a unit pseudorandom C8MAT.
 
   Discussion:
 
@@ -2062,15 +3413,15 @@ double complex *c8mat_uniform_01 ( int m, int n, int *seed )
     Input/output, int *SEED, the "seed" value, which should NOT be 0.
     On output, SEED has been updated.
 
-    Output, double complex C[M*N], the pseudorandom complex matrix.
+    Output, double complex C8MAT_UNIFORM_01_NEW[M*N], the pseudorandom  matrix.
 */
 {
   double complex *c;
   int i;
   int j;
-  double r;
   int k;
-  double pi = 3.141592653589793;
+  double r;
+  const double r8_pi = 3.141592653589793;
   double theta;
 
   c = ( double complex * ) malloc ( m * n * sizeof ( double complex ) );
@@ -2099,7 +3450,7 @@ double complex *c8mat_uniform_01 ( int m, int n, int *seed )
         *seed = *seed + 2147483647;
       }
 
-      theta = 2.0 * pi * ( ( double ) ( *seed ) * 4.656612875E-10 );
+      theta = 2.0 * r8_pi * ( ( double ) ( *seed ) * 4.656612875E-10 );
 
       c[i+j*m] = r * ( cos ( theta ) + sin ( theta ) * I );
     }
@@ -2153,6 +3504,45 @@ double complex *c8mat_zero_new ( int m, int n )
 }
 /******************************************************************************/
 
+void c8vec_copy ( int n, double complex a[], double complex b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_COPY copies a C8VEC to another.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vectors.
+
+    Input, double complex A[N], the vector to be copied.
+
+    Output, double complex B[N], the copy.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = a[i];
+  }
+  return;
+}
+/******************************************************************************/
+
 double complex *c8vec_copy_new ( int n, double complex a1[] )
 
 /******************************************************************************/
@@ -2192,6 +3582,290 @@ double complex *c8vec_copy_new ( int n, double complex a1[] )
     a2[i] = a1[i];
   }
   return a2;
+}
+/******************************************************************************/
+
+double complex *c8vec_indicator_new ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_INDICATOR_NEW sets a C8VEC to the indicator vector.
+
+  Discussion:
+
+    A C8VEC is a vector of double complex values.
+
+    X(1:N) = ( 1-1i, 2-2i, 3-3i, 4-4i, ... )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    10 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of components of the vector.
+
+    Output, double complex C8VEC_INDICATOR_NEW[N], the vector.
+*/
+{
+  double complex *a;
+  int i;
+
+  a = ( double complex * ) malloc ( n * sizeof ( double complex ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = ( i + 1 ) - ( i + 1 ) * I;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void c8vec_nint ( int n, double complex a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_NINT rounds the entries of a C8VEC.
+
+  Discussion:
+
+    A C8VEC is a vector of double complex values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of components of the vector.
+
+    Input/output, double complex A[N], the vector to be nint'ed.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = c8_nint ( a[i] );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double c8vec_norm_l1 ( int n, double complex a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_NORM_L1 returns the L1 norm of a C8VEC.
+
+  Discussion:
+
+    The vector L1 norm is defined as:
+
+      value = sum ( 1 <= I <= N ) abs(A(I))
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries.
+
+    Input, double complex A[N], the vector.
+
+    Output, double C8VEC_NORM_L1, the norm.
+*/
+{
+  int i;
+  double value;
+
+  value = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    value = value + c8_abs ( a[i] );
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+double c8vec_norm_l2 ( int n, double complex a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_NORM_L2 returns the L2 norm of a C8VEC.
+
+  Discussion:
+
+    The vector L2 norm is defined as:
+
+      value = sqrt ( sum ( 1 <= I <= N ) conjg ( A(I) ) * A(I) ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries.
+
+    Input, double complex A[N], the vector.
+
+    Output, double C8VEC_NORM_L2, the norm.
+*/
+{
+  int i;
+  double value;
+
+  value = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    value = value 
+          + creal ( a[i] ) * creal ( a[i] ) 
+          + cimag ( a[i] ) * cimag ( a[i] );
+  }
+  value = sqrt ( value );
+
+  return value;
+}
+/******************************************************************************/
+
+double c8vec_norm_li ( int n, double complex a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_NORM_LI returns the Loo norm of a C8VEC.
+
+  Discussion:
+
+    The vector Loo norm is defined as:
+
+      value = max ( 1 <= I <= N ) abs(A(I))
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries.
+
+    Input, double complex A[N], the vector.
+
+    Output, double C8VEC_NORM_LI, the norm.
+*/
+{
+  int i;
+  double value;
+
+  value = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    value = r8_max ( value, c8_abs ( a[i] ) );
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+void c8vec_print ( int n, double complex a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_PRINT prints a C8VEC.
+
+  Discussion:
+
+    A C8VEC is a vector of double complex values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of components of the vector.
+
+    Input, double complex A[N], the vector to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+  fprintf ( stdout, "\n" );
+
+  for ( i = 0; i < n; i++ )
+  {
+    fprintf ( stdout, "  %8d: %14f  %14f\n", i, creal ( a[i] ), cimag ( a[i] ) );
+  }
+
+  return;
 }
 /******************************************************************************/
 
@@ -2258,31 +3932,428 @@ void c8vec_print_part ( int n, double complex a[], int max_print, char *title )
   {
     for ( i = 0; i < n; i++ )
     {
-      fprintf ( stdout, "  %8d: %14f  %14f\n", i, creal ( a[i] ), cimag ( a[i] ) );
+      fprintf ( stdout, "  %8d: (%14f,  %14f)\n", i, creal ( a[i] ), cimag ( a[i] ) );
     }
   }
   else if ( 3 <= max_print )
   {
     for ( i = 0; i < max_print - 2; i++ )
     {
-      fprintf ( stdout, "  %8d: %14f  %14f\n", i, creal( a[i] ), cimag ( a[i] ) );
+      fprintf ( stdout, "  %8d: (%14f,  %14f)\n", i, creal( a[i] ), cimag ( a[i] ) );
     }
-    fprintf ( stdout, "  ........  ..............  ..............\n" );
+    fprintf ( stdout, "  ........   ..............   ..............\n" );
     i = n - 1;
-    fprintf ( stdout, "  %8d: %14f  %14f\n", i, creal( a[i] ), cimag ( a[i] ) );
+    fprintf ( stdout, "  %8d: (%14f,  %14f)\n", i, creal( a[i] ), cimag ( a[i] ) );
   }
   else
   {
     for ( i= 0; i < max_print - 1; i++ )
     {
-      fprintf ( stdout, "  %8d: %14f  %14f\n", i, creal( a[i] ), cimag ( a[i] ) );
+      fprintf ( stdout, "  %8d: (%14f,  %14f)\n", i, creal( a[i] ), cimag ( a[i] ) );
     }
     i = max_print - 1;
-    fprintf ( stdout, "  %8d: %14f  %14f  ...more entries...\n", 
+    fprintf ( stdout, "  %8d: (%14f,  %14f )  ...more entries...\n", 
       i, creal( a[i] ), cimag ( a[i] ) );
   }
 
   return;
+}
+/******************************************************************************/
+
+void c8vec_print_some ( int n, double complex a[], int i_lo, int i_hi, 
+  char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_PRINT_SOME prints "some" of a C8VEC.
+
+  Discussion:
+
+    A C8VEC is a vector of C8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries of the vector.
+
+    Input, double complex A[N], the vector to be printed.
+
+    Input, integer I_LO, I_HI, the first and last indices to print.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+  fprintf ( stdout, "\n" );
+  for ( i = i_lo; i <= i_hi; i++ )
+  {
+    fprintf ( stdout, "  %8d: (%14f, %14f)\n", i, creal( a[i] ), cimag ( a[i] ) );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void c8vec_sort_a_l1 ( int n, double complex x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_SORT_A_L1 ascending sorts a double complex array by L1 norm.
+
+  Discussion:
+
+    The L1 norm of A+Bi is abs(A) + abs(B).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    09 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, length of input array.
+
+    Input/output, double complex X[N].
+    On input, an unsorted array.
+    On output, X has been sorted.
+*/
+{
+  int i;
+  int indx;
+  int isgn;
+  int j;
+  double normsq_i;
+  double normsq_j;
+  double complex temp;
+
+  i = 0;
+  indx = 0;
+  isgn = 0;
+  j = 0;
+
+  for ( ; ; )
+  {
+    sort_heap_external ( n, &indx, &i, &j, isgn );
+
+    if ( 0 < indx )
+    {
+      temp   = x[i-1];
+      x[i-1] = x[j-1];
+      x[j-1] = temp;
+    }
+    else if ( indx < 0 )
+    {
+      if ( c8_le_l1 ( x[i-1], x[j-1] ) )
+      {
+        isgn = -1;
+      }
+      else
+      {
+        isgn = +1;
+      }
+    }
+    else if ( indx == 0 )
+    {
+      break;
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void c8vec_sort_a_l2 ( int n, double complex x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_SORT_A_L2 ascending sorts a double complex array by L2 norm.
+
+  Discussion:
+
+    The L2 norm of A+Bi is sqrt ( A * A + B * B ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, length of input array.
+
+    Input/output, double complex X[N].
+    On input, an unsorted array.
+    On output, X has been sorted.
+*/
+{
+  int i;
+  int indx;
+  int isgn;
+  int j;
+  double normsq_i;
+  double normsq_j;
+  double complex temp;
+
+  i = 0;
+  indx = 0;
+  isgn = 0;
+  j = 0;
+
+  for ( ; ; )
+  {
+    sort_heap_external ( n, &indx, &i, &j, isgn );
+
+    if ( 0 < indx )
+    {
+      temp   = x[i-1];
+      x[i-1] = x[j-1];
+      x[j-1] = temp;
+    }
+    else if ( indx < 0 )
+    {
+      normsq_i = pow ( creal ( x[i-1] ), 2 )
+               + pow ( cimag ( x[i-1] ), 2 );
+
+      normsq_j = pow ( creal ( x[j-1] ), 2 )
+               + pow ( cimag ( x[j-1] ), 2 );
+
+      if ( normsq_i < normsq_j )
+      {
+        isgn = -1;
+      }
+      else
+      {
+        isgn = +1;
+      }
+    }
+    else if ( indx == 0 )
+    {
+      break;
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void c8vec_sort_a_li ( int n, double complex x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_SORT_A_LI ascending sorts a double complex array by Loo norm.
+
+  Discussion:
+
+    The Loo norm of A+Bi is max ( abs(A), abs(B) ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    09 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, length of input array.
+
+    Input/output, double complex X[N].
+    On input, an unsorted array.
+    On output, X has been sorted.
+*/
+{
+  int i;
+  int indx;
+  int isgn;
+  int j;
+  double normsq_i;
+  double normsq_j;
+  double complex temp;
+
+  i = 0;
+  indx = 0;
+  isgn = 0;
+  j = 0;
+
+  for ( ; ; )
+  {
+    sort_heap_external ( n, &indx, &i, &j, isgn );
+
+    if ( 0 < indx )
+    {
+      temp   = x[i-1];
+      x[i-1] = x[j-1];
+      x[j-1] = temp;
+    }
+    else if ( indx < 0 )
+    {
+      if ( c8_le_li ( x[i-1], x[j-1] ) )
+      {
+        isgn = -1;
+      }
+      else
+      {
+        isgn = +1;
+      }
+    }
+    else if ( indx == 0 )
+    {
+      break;
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double complex *c8vec_spiral_new ( int n, int m, double complex c1, 
+  double complex c2 )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_SPIRAL_NEW returns N points on a spiral between C1 and C2.
+
+  Discussion:
+
+    A C8VEC is a vector of C8's.
+
+    Let the polar form of C1 be ( R1, T1 ) and the polar form of C2 
+    be ( R2, T2 ) where, if necessary, we increase T2 by 2*PI so that T1 <= T2.
+    
+    Then the polar form of the I-th point C(I) is:
+
+      R(I) = ( ( N - I     ) * R1 
+             + (     I - 1 ) * R2 ) 
+              / ( N    - 1 )
+
+      T(I) = ( ( N - I     ) * T1 
+             + (     I - 1 ) * ( T2 + M * 2 * PI ) ) 
+             / ( N     - 1 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of points on the spiral.
+
+    Input, int M, the number of full circuits the 
+    spiral makes.
+
+    Input, double complex C1, C2, the first and last points 
+    on the spiral.
+
+    Output, double complex C8VEC_SPIRAL_NEW[N], the points.
+*/
+{
+  double complex *c;
+  int i;
+  double r1;
+  double r2;
+  const double r8_pi = 3.141592653589793;
+  double ri;
+  double t1;
+  double t2;
+  double ti;
+
+  c = ( double complex * ) malloc ( n * sizeof ( double complex ) );
+
+  r1 = c8_abs ( c1 );
+  r2 = c8_abs ( c2 );
+
+  t1 = c8_arg ( c1 );
+  t2 = c8_arg ( c2 );
+
+  if ( m == 0 )
+  {
+    if ( t2 < t1 )
+    {
+      t2 = t2 + 2.0 * r8_pi;
+    }
+  }
+  else if ( 0 < m )
+  {
+    if ( t2 < t1 )
+    {
+      t2 = t2 + 2.0 * r8_pi;
+    }
+    t2 = t2 + ( double ) ( m ) * 2.0 * r8_pi;
+  }
+  else if ( m < 0 )
+  {
+    if ( t1 < t2 )
+    {
+      t2 = t2 - 2.0 * r8_pi;
+    }
+    t2 = t2 - ( double ) ( m ) * 2.0 * r8_pi;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    ri = ( ( double ) ( n - i - 1 ) * r1
+         + ( double ) (     i     ) * r2 )
+         / ( double ) ( n     - 1 );
+
+    ti = ( ( double ) ( n - i - 1 ) * t1
+         + ( double ) (     i     ) * t2 )
+         / ( double ) ( n     - 1 );
+
+    c[i] = polar_to_c8 ( ri, ti );
+  }
+
+  return c;
 }
 /******************************************************************************/
 
@@ -2354,10 +4425,10 @@ double complex *c8vec_uniform_01_new ( int n, int *seed )
 {
   double complex *c;
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   double r;
   int k;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double theta;
 
   if ( *seed == 0 )
@@ -2368,7 +4439,7 @@ double complex *c8vec_uniform_01_new ( int n, int *seed )
     exit ( 1 );
   }
 
-  c = malloc ( n * sizeof ( double complex ) );
+  c = ( double complex * ) malloc ( n * sizeof ( double complex ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -2392,7 +4463,7 @@ double complex *c8vec_uniform_01_new ( int n, int *seed )
       *seed = *seed + i4_huge;
     }
 
-    theta = 2.0 * pi * ( ( double ) ( *seed ) * 4.656612875E-10 );
+    theta = 2.0 * r8_pi * ( ( double ) ( *seed ) * 4.656612875E-10 );
 
     c[i] = r * cos ( theta ) + r * sin ( theta ) * I;
   }
@@ -2401,13 +4472,13 @@ double complex *c8vec_uniform_01_new ( int n, int *seed )
 }
 /******************************************************************************/
 
-double complex *c8vec_unity ( int n )
+double complex *c8vec_unity_new ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    C8VEC_UNITY returns the N roots of unity in a C8VEC.
+    C8VEC_UNITY_NEW returns the N roots of unity in a C8VEC.
 
   Discussion:
 
@@ -2415,7 +4486,7 @@ double complex *c8vec_unity ( int n )
 
     X(1:N) = exp ( 2 * PI * (0:N-1) / N )
 
-    X(1:N)**N = ( (1,0), (1,0), ..., (1,0) ).
+    X(1:N)^N = ( (1,0), (1,0), ..., (1,0) ).
 
   Licensing:
 
@@ -2433,19 +4504,19 @@ double complex *c8vec_unity ( int n )
 
     Input, int N, the number of elements of A.
 
-    Output, double complex C8VEC_UNITY[N], the N roots of unity.
+    Output, double complex C8VEC_UNITY_NEW[N], the N roots of unity.
 */
 {
   double complex *a;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double theta;
 
   a = ( double complex * ) malloc ( n * sizeof ( double complex ) );
 
   for ( i = 0; i < n; i++ )
   {
-    theta = pi * ( double ) ( 2 * i ) / ( double ) ( n );
+    theta = r8_pi * ( double ) ( 2 * i ) / ( double ) ( n );
     a[i] = cos ( theta ) + sin ( theta ) * I;
   }
 
@@ -2485,88 +4556,6 @@ double complex cartesian_to_c8 ( double x, double y )
   c = x + y * I;
 
   return c;
-}
-/******************************************************************************/
-
-int i4_max ( int i1, int i2 )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_MAX returns the maximum of two I4's.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    29 August 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I1, I2, are two integers to be compared.
-
-    Output, int I4_MAX, the larger of I1 and I2.
-*/
-{
-  int value;
-
-  if ( i2 < i1 )
-  {
-    value = i1;
-  }
-  else
-  {
-    value = i2;
-  }
-  return value;
-}
-/******************************************************************************/
-
-int i4_min ( int i1, int i2 )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_MIN returns the smaller of two I4's.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    29 August 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I1, I2, two integers to be compared.
-
-    Output, int I4_MIN, the smaller of I1 and I2.
-*/
-{
-  int value;
-
-  if ( i1 < i2 )
-  {
-    value = i1;
-  }
-  else
-  {
-    value = i2;
-  }
-  return value;
 }
 /******************************************************************************/
 
@@ -2613,6 +4602,10 @@ double r8_abs ( double x )
 
     R8_ABS returns the absolute value of an R8.
 
+  Discussion:
+
+    The C math library provides the function fabs() which should be preferred.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -2646,6 +4639,117 @@ double r8_abs ( double x )
 }
 /******************************************************************************/
 
+double r8_atan ( double y, double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ATAN computes the inverse tangent of the ratio Y / X.
+
+  Discussion:
+
+    R8_ATAN returns an angle whose tangent is ( Y / X ), a job which
+    the built in functions ATAN and ATAN2 already do.
+
+    However:
+
+    * R8_ATAN always returns a positive angle, between 0 and 2 PI,
+      while ATAN and ATAN2 return angles in the interval [-PI/2,+PI/2]
+      and [-PI,+PI] respectively;
+
+    * R8_ATAN accounts for the signs of X and Y, (as does ATAN2).  The ATAN
+     function by contrast always returns an angle in the first or fourth
+     quadrants.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double Y, X, two quantities which represent the tangent of
+    an angle.  If Y is not zero, then the tangent is (Y/X).
+
+    Output, double R8_ATAN, an angle between 0 and 2 * PI, whose tangent is
+    (Y/X), and which lies in the appropriate quadrant so that the signs
+    of its cosine and sine match those of X and Y.
+*/
+{
+  double abs_x;
+  double abs_y;
+  const double r8_pi = 3.141592653589793;
+  double theta;
+  double theta_0;
+/*
+  Special cases:
+*/
+  if ( x == 0.0 )
+  {
+    if ( 0.0 < y )
+    {
+      theta = r8_pi / 2.0;
+    }
+    else if ( y < 0.0 )
+    {
+      theta = 3.0 * r8_pi / 2.0;
+    }
+    else if ( y == 0.0 )
+    {
+      theta = 0.0;
+    }
+  }
+  else if ( y == 0.0 )
+  {
+    if ( 0.0 < x )
+    {
+      theta = 0.0;
+    }
+    else if ( x < 0.0 )
+    {
+      theta = r8_pi;
+    }
+  }
+/*
+  We assume that ATAN2 is correct when both arguments are positive.
+*/
+  else
+  {
+    abs_y = fabs ( y );
+    abs_x = fabs ( x );
+
+    theta_0 = atan2 ( abs_y, abs_x );
+
+    if ( 0.0 < x && 0.0 < y )
+    {
+      theta = theta_0;
+    }
+    else if ( x < 0.0 && 0.0 < y )
+    {
+      theta = r8_pi - theta_0;
+    }
+    else if ( x < 0.0 && y < 0.0 )
+    {
+      theta = r8_pi + theta_0;
+    }
+    else if ( 0.0 < x && y < 0.0 )
+    {
+      theta = 2.0 * r8_pi - theta_0;
+    }
+  }
+
+  return theta;
+}
+/******************************************************************************/
+
 double complex r8_csqrt ( double x )
 
 /******************************************************************************/
@@ -2675,7 +4779,7 @@ double complex r8_csqrt ( double x )
 {
   double argument;
   double magnitude;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double complex value;
 
   if ( 0.0 < x )
@@ -2691,14 +4795,116 @@ double complex r8_csqrt ( double x )
   else if ( x < 0.0 )
   {
     magnitude = -x;
-    argument = pi;
+    argument = r8_pi;
   }
 
   magnitude = sqrt ( magnitude );
   argument = argument / 2.0;
 
-  value = magnitude * ( double complex ) ( cos ( argument ), sin ( argument ) );
+  value = magnitude * ( cos ( argument ) + sin ( argument ) * I );
 
+  return value;
+}
+/******************************************************************************/
+
+double r8_floor ( double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FLOOR rounds an R8 down to the nearest integral R8.
+
+  Example:
+
+    X        R8_FLOOR(X)
+
+   -1.1      -2.0
+   -1.0      -1.0
+   -0.9      -1.0
+   -0.1      -1.0
+    0.0       0.0
+    0.1       0.0
+    0.9       0.0
+    1.0       1.0
+    1.1       1.0
+    2.9       2.0
+    3.0       3.0
+    3.14159   3.0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 July 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the number whose floor is desired.
+
+    Output, double R8_FLOOR, the floor of X.
+*/
+{
+  double value;
+
+  value = ( double ) ( ( int ) x );
+
+  if ( x < value )
+  {
+    value = value - 1.0;
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_max ( double x, double y )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_MAX returns the maximum of two R8's.
+
+  Discussion:
+
+    The C math library provides the function fmax() which should be preferred.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 May 2006
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, Y, the quantities to compare.
+
+    Output, double R8_MAX, the maximum of X and Y.
+*/
+{
+  double value;
+
+  if ( y < x )
+  {
+    value = x;
+  }
+  else
+  {
+    value = y;
+  }
   return value;
 }
 /******************************************************************************/
@@ -2750,14 +4956,14 @@ double r8_uniform_01 ( int *seed )
 /*
   Purpose:
 
-    R8_UNIFORM_01 returns a unit pseudorandom R8.
+    R8_UNIFORM_01 returns a pseudorandom R8 scaled to [0,1].
 
   Discussion:
 
     This routine implements the recursion
 
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      r8_uniform_01 = seed / ( 2**31 - 1 )
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      r8_uniform_01 = seed / ( 2^31 - 1 )
 
     The integer arithmetic never requires more than 32 bits,
     including a sign bit.
@@ -2773,7 +4979,7 @@ double r8_uniform_01 ( int *seed )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -2787,30 +4993,25 @@ double r8_uniform_01 ( int *seed )
 
     Paul Bratley, Bennett Fox, Linus Schrage,
     A Guide to Simulation,
-    Second Edition,
-    Springer, 1987,
-    ISBN: 0387964673,
-    LC: QA76.9.C65.B73.
+    Springer Verlag, pages 201-202, 1983.
+
+    Pierre L'Ecuyer,
+    Random Number Generation,
+    in Handbook of Simulation
+    edited by Jerry Banks,
+    Wiley Interscience, page 95, 1998.
 
     Bennett Fox,
     Algorithm 647:
     Implementation and Relative Efficiency of Quasirandom
     Sequence Generators,
     ACM Transactions on Mathematical Software,
-    Volume 12, Number 4, December 1986, pages 362-376.
+    Volume 12, Number 4, pages 362-376, 1986.
 
-    Pierre L'Ecuyer,
-    Random Number Generation,
-    in Handbook of Simulation,
-    edited by Jerry Banks,
-    Wiley, 1998,
-    ISBN: 0471134031,
-    LC: T57.62.H37.
-
-    Peter Lewis, Allen Goodman, James Miller,
+    P A Lewis, A S Goodman, J M Miller,
     A Pseudo-Random Number Generator for the System/360,
     IBM Systems Journal,
-    Volume 8, Number 2, 1969, pages 136-143.
+    Volume 8, pages 136-143, 1969.
 
   Parameters:
 
@@ -2821,17 +5022,9 @@ double r8_uniform_01 ( int *seed )
     0 and 1.
 */
 {
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
   double r;
-
-  if ( *seed == 0 )
-  {
-    printf ( "\n" );
-    printf ( "R8_UNIFORM_01 - Fatal error!\n" );
-    printf ( "  Input value of SEED = 0.\n" );
-    exit ( 1 );
-  }
 
   k = *seed / 127773;
 
@@ -2841,11 +5034,8 @@ double r8_uniform_01 ( int *seed )
   {
     *seed = *seed + i4_huge;
   }
-/*
-  Although SEED can be represented exactly as a 32 bit integer,
-  it generally cannot be represented exactly as a 32 bit real number!
-*/
-  r = ( double ) ( *seed ) * 4.656612875E-10;
+
+  r = ( ( double ) ( *seed ) ) * 4.656612875E-10;
 
   return r;
 }
@@ -2935,10 +5125,9 @@ void r8poly3_root ( double a, double b, double c, double d,
     will include at least one real root.
 */
 {
-  double complex i;
-  double pi = 3.141592653589793;
   double q;
   double r;
+  const double r8_pi = 3.141592653589793;
   double s1;
   double s2;
   double temp;
@@ -2952,8 +5141,6 @@ void r8poly3_root ( double a, double b, double c, double d,
     exit ( 1 );
   }
 
-  i = ( double complex ) ( 0.0, 1.0 );
-
   q = ( pow ( b / a, 2 ) - 3.0 * ( c / a ) ) / 9.0;
 
   r = ( 2.0 * pow ( b / a, 3 ) - 9.0 * ( b / a ) * ( c / a )
@@ -2963,8 +5150,8 @@ void r8poly3_root ( double a, double b, double c, double d,
   {
     theta = acos ( r / sqrt ( pow ( q, 3 ) ) );
     *r1 = - 2.0 * sqrt ( q ) * cos (   theta              / 3.0 );
-    *r2 = - 2.0 * sqrt ( q ) * cos ( ( theta + 2.0 * pi ) / 3.0 );
-    *r3 = - 2.0 * sqrt ( q ) * cos ( ( theta + 4.0 * pi ) / 3.0 );
+    *r2 = - 2.0 * sqrt ( q ) * cos ( ( theta + 2.0 * r8_pi ) / 3.0 );
+    *r3 = - 2.0 * sqrt ( q ) * cos ( ( theta + 4.0 * r8_pi ) / 3.0 );
   }
   else if ( q * q * q <= r * r )
   {
@@ -2975,8 +5162,8 @@ void r8poly3_root ( double a, double b, double c, double d,
     s2 = r8_sign ( temp ) * pow ( r8_abs ( temp ), 1.0 / 3.0 );
 
     *r1 = s1 + s2;
-    *r2 = -0.5 * ( s1 + s2 ) + i * 0.5 * sqrt ( 3.0 ) * ( s1 - s2 );
-    *r3 = -0.5 * ( s1 + s2 ) - i * 0.5 * sqrt ( 3.0 ) * ( s1 - s2 );
+    *r2 = -0.5 * ( s1 + s2 ) + I * 0.5 * sqrt ( 3.0 ) * ( s1 - s2 );
+    *r3 = -0.5 * ( s1 + s2 ) - I * 0.5 * sqrt ( 3.0 ) * ( s1 - s2 );
   }
 
   *r1 = *r1 - b / ( 3.0 * a );
@@ -3112,7 +5299,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -3121,16 +5308,14 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
   Author:
 
     Original FORTRAN77 version by Albert Nijenhuis, Herbert Wilf.
-    C version by John Burkardt
+    C version by John Burkardt.
 
   Reference:
 
     Albert Nijenhuis, Herbert Wilf,
-    Combinatorial Algorithms for Computers and Calculators,
-    Second Edition,
-    Academic Press, 1978,
-    ISBN: 0-12-519260-6,
-    LC: QA164.N54.
+    Combinatorial Algorithms,
+    Academic Press, 1978, second edition,
+    ISBN 0-12-519260-6.
 
   Parameters:
 
@@ -3179,9 +5364,9 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
 */
   else if ( *indx < 0 )
   {
-    if ( *indx == -2 ) 
+    if ( *indx == -2 )
     {
-      if ( isgn < 0 ) 
+      if ( isgn < 0 )
       {
         i_save = i_save + 1;
       }
@@ -3193,7 +5378,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
       return;
     }
 
-    if ( 0 < isgn ) 
+    if ( 0 < isgn )
     {
       *indx = 2;
       *i = i_save;
@@ -3201,15 +5386,15 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
       return;
     }
 
-    if ( k <= 1 ) 
+    if ( k <= 1 )
     {
-      if ( n1 == 1 ) 
+      if ( n1 == 1 )
       {
         i_save = 0;
         j_save = 0;
         *indx = 0;
       }
-      else 
+      else
       {
         i_save = n1;
         j_save = 1;
@@ -3226,7 +5411,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
 /*
   0 < INDX: the user was asked to make an interchange.
 */
-  else if ( *indx == 1 ) 
+  else if ( *indx == 1 )
   {
     k1 = k;
   }
@@ -3236,7 +5421,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
 
     i_save = 2 * k1;
 
-    if ( i_save == n1 ) 
+    if ( i_save == n1 )
     {
       j_save = k1;
       k1 = i_save;
@@ -3245,7 +5430,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
       *j = j_save;
       return;
     }
-    else if ( i_save <= n1 ) 
+    else if ( i_save <= n1 )
     {
       j_save = i_save + 1;
       *indx = -2;
@@ -3254,7 +5439,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
       return;
     }
 
-    if ( k <= 1 ) 
+    if ( k <= 1 )
     {
       break;
     }
@@ -3263,7 +5448,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
     k1 = k;
   }
 
-  if ( n1 == 1 ) 
+  if ( n1 == 1 )
   {
     i_save = 0;
     j_save = 0;
@@ -3271,7 +5456,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
     *i = i_save;
     *j = j_save;
   }
-  else 
+  else
   {
     i_save = n1;
     j_save = 1;
@@ -3285,7 +5470,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*
@@ -3299,7 +5484,7 @@ void timestamp ( void )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -3326,8 +5511,9 @@ void timestamp ( void )
 
   len = strftime ( time_buffer, TIME_SIZE, "%d %B %Y %I:%M:%S %p", tm );
 
-  printf ( "%s\n", time_buffer );
+  fprintf ( stdout, "%s\n", time_buffer );
 
   return;
 # undef TIME_SIZE
 }
+

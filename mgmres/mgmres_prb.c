@@ -19,7 +19,11 @@ int main ( void )
 /*
   Purpose:
 
-    MAIN runs the quick checks for the MGMRES code.
+    MAIN is the main program for MGMRES_PRB.
+
+  Discussion:
+
+    MGMRES_PRB tests the MGMRES library.
 
   Licensing:
 
@@ -35,7 +39,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "MGMRES_PRB:\n" );
   printf ( "  C version\n" );
@@ -51,7 +54,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "MGMRES_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c function_pointer.c >& compiler.txt
+gcc -c function_pointer.c
 if [ $? -ne 0 ]; then
   echo "Errors while compiling function_pointer.c"
   exit
 fi
-rm compiler.txt
 #
 gcc function_pointer.o
 if [ $? -ne 0 ]; then

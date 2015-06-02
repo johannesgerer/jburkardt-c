@@ -19,7 +19,11 @@ int main ( )
 /*
   Purpose:
 
-    SHEPARD_INTERP_1D_TEST tests SHEPARD_INTERP_1D.
+    MAIN is the main program for SHEPARD_INTERP_1D_PRB.
+
+  Discussion:
+
+    SHEPARD_INTERP_1D_PRB tests the SHEPARD_INTERP_1D library.
 
   Licensing:
 
@@ -43,7 +47,7 @@ int main ( )
 
   timestamp ( );
   printf ( "\n" );
-  printf ( "SHEPARD_INTERP_1D_TEST:\n" );
+  printf ( "SHEPARD_INTERP_1D_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the SHEPARD_INTERP_1D library.\n" );
   printf ( "  The R8LIB library is needed.\n" );
@@ -63,7 +67,7 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "SHEPARD_INTERP_1D_TEST:\n" );
+  printf ( "SHEPARD_INTERP_1D_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

@@ -28,7 +28,11 @@ int main ( )
 /*
   Purpose:
 
-    TEST tests the LAGRANGE_INTERP_ND library.
+    MAIN is the main program for LAGRANGE_INTERP_ND_PRB.
+
+  Discussion:
+
+    LAGRANGE_INTERP_ND_PRB tests the LAGRANGE_INTERP_ND library.
 
   Licensing:
 
@@ -45,7 +49,7 @@ int main ( )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "TEST:\n" );
+  printf ( "LAGRANGE_INTERP_ND_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the LAGRANGE_INTERP_ND library.\n" );
   printf ( "  The R8LIB library is needed.\n" );
@@ -73,7 +77,7 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "TEST:\n" );
+  printf ( "LAGRANGE_INTERP_ND_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

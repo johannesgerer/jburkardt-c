@@ -49,7 +49,11 @@ int main ( void )
 /*
   Purpose:
 
-    LINPACK_D_PRB tests the double precision real LINPACK routines.
+    MAIN is the main program for LINPACK_D_PRB.
+
+  Discussion:
+
+    LINPACK_D_PRB tests the LINPACK_D library.
 
   Licensing:
 
@@ -65,7 +69,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "LINPACK_D_PRB\n" );
   printf ( "  C version\n" );
@@ -111,7 +114,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "LINPACK_D_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

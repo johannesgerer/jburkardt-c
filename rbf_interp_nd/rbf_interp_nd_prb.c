@@ -19,7 +19,11 @@ int main ( void )
 /*
   Purpose:
 
-    RBF_INTERP_ND_TEST tests RBF_INTERP_ND.
+    MAIN is the main program for RBF_INTERP_ND_PRB.
+
+  Discussion:
+
+    RBF_INTERP_ND_PRB tests the RBF_INTERP_ND library.
 
   Licensing:
 
@@ -36,7 +40,7 @@ int main ( void )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "RBF_INTERP_ND_TEST:\n" );
+  printf ( "RBF_INTERP_ND_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the RBF_INTERP_ND library.\n" );
   printf ( "  The R8LIB library is also required.\n" );
@@ -49,7 +53,7 @@ int main ( void )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "RBF_INTERP_ND_TEST:\n" );
+  printf ( "RBF_INTERP_ND_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

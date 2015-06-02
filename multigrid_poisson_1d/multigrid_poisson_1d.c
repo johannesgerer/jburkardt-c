@@ -181,7 +181,7 @@ void gauss_seidel ( int n, double r[], double u[], double *dif_l1 )
   {
     u_old = u[i];
     u[i] = 0.5 * ( u[i-1] + u[i+1] + r[i] );
-    *dif_l1 = *dif_l1 + r8_abs ( u[i] - u_old );
+    *dif_l1 = *dif_l1 + fabs ( u[i] - u_old );
   }
 
   return;
@@ -341,8 +341,9 @@ int i4_power ( int i, int j )
 }
 /******************************************************************************/
 
-void monogrid_poisson_1d ( int n, double force ( double x ), 
-  double exact ( double x ), int *it_num, double u[] )
+void monogrid_poisson_1d ( int n, double a, double b, double ua, double ub,
+  double force ( double x ), double exact ( double x ), int *it_num, 
+  double u[] )
 
 /******************************************************************************/
 /*
@@ -369,7 +370,7 @@ void monogrid_poisson_1d ( int n, double force ( double x ),
 
   Modified:
 
-    07 December 2011
+    26 July 2014
 
   Author:
 
@@ -387,6 +388,10 @@ void monogrid_poisson_1d ( int n, double force ( double x ),
 
     Input, int N, the number of intervals.
 
+    Input, double A, B, the left and right endpoints.
+
+    Input, double UA, UB, the left and right boundary values.
+
     Input, double FORCE ( double x ), the name of the function 
     which evaluates the right hand side.
 
@@ -403,22 +408,27 @@ void monogrid_poisson_1d ( int n, double force ( double x ),
   int i;
   double *r;
   double tol;
-  double x;
+  double *x;
 /*
   Initialization.
 */
   tol = 0.0001;
-
+/*
+  Set the nodes.
+*/
+  x = r8vec_linspace_new ( n + 1, a, b );
+/*
+  Set the right hand side.
+*/
   r = ( double * ) malloc ( ( n + 1 ) * sizeof ( double ) );
 
-  r[0] = 0.0;
-  h = 1.0 / ( double ) ( n );
+  r[0] = ua;
+  h = ( b - a ) / ( double ) ( n );
   for ( i = 1; i < n; i++ )
   {
-    x = ( double ) ( i ) / ( double ) ( n );
-    r[i] = h * h * force ( x );
+    r[i] = h * h * force ( x[i] );
   }
-  r[n] = 0.0;
+  r[n] = ub;
 
   for ( i = 0; i <= n; i++ )
   {
@@ -439,15 +449,19 @@ void monogrid_poisson_1d ( int n, double force ( double x ),
       break;
     }
   }
-
+/*
+  Free memory.
+*/
   free ( r );
+  free ( x );
 
   return;
 }
 /******************************************************************************/
 
-void multigrid_poisson_1d ( int n, double force ( double x ), 
-  double exact ( double x ), int *it_num, double u[] )
+void multigrid_poisson_1d ( int n, double a, double b, double ua, double ub,
+  double force ( double x ), double exact ( double x ), int *it_num,
+  double u[] )
 
 /******************************************************************************/
 /*
@@ -471,7 +485,7 @@ void multigrid_poisson_1d ( int n, double force ( double x ),
 
   Modified:
 
-    07 December 2011
+    26 July 2014
 
   Author:
 
@@ -490,6 +504,10 @@ void multigrid_poisson_1d ( int n, double force ( double x ),
 
     Input, int N, the number of intervals.
     N must be a power of 2.
+
+    Input, double A, B, the left and right endpoints.
+
+    Input, double UA, UB, the left and right boundary values.
 
     Input, double FORCE ( double x ), the name of the function 
     which evaluates the right hand side.
@@ -518,7 +536,7 @@ void multigrid_poisson_1d ( int n, double force ( double x ),
   double tol;
   double utol;
   double *uu;
-  double x;
+  double *x;
 /*
   Determine if we have enough storage.
 */
@@ -542,17 +560,20 @@ void multigrid_poisson_1d ( int n, double force ( double x ),
   utol = 0.7;
   m = n;
 /*
+  Set the nodes.
+*/
+  x = r8vec_linspace_new ( n + 1, a, b );
+/*
   Set the right hand side.
 */
   r = ( double * ) malloc ( nl * sizeof ( double ) );
-  r[0] = 0.0;
-  h = 1.0 / ( double ) ( n );
+  r[0] = ua;
+  h = ( b - a ) / ( double ) ( n );
   for ( i = 1; i < n; i++ )
   {
-    x = ( double ) ( i ) / ( double ) ( n );
-    r[i] = h * h * force ( x );
+    r[i] = h * h * force ( x[i] );
   }
-  r[n] = 0.0;
+  r[n] = ub;
 
   uu = ( double * ) malloc ( nl * sizeof ( double ) );
 
@@ -622,51 +643,14 @@ void multigrid_poisson_1d ( int n, double force ( double x ),
   {
     u[i] = uu[i];
   }
+/*
+  Free memory.
+*/
   free ( r );
   free ( uu );
+  free ( x );
 
   return;
-}
-/******************************************************************************/
-
-double r8_abs ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_ABS returns the absolute value of an R8.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    07 May 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, the quantity whose absolute value is desired.
-
-    Output, double R8_ABS, the absolute value of X.
-*/
-{
-  double value;
-
-  if ( 0.0 <= x )
-  {
-    value = + x;
-  }
-  else
-  {
-    value = - x;
-  }
-  return value;
 }
 /******************************************************************************/
 
@@ -711,7 +695,67 @@ double r8_max ( double x, double y )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+double *r8vec_linspace_new ( int n, double a, double b )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_LINSPACE_NEW creates a vector of linearly spaced values.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+    4 points evenly spaced between 0 and 12 will yield 0, 4, 8, 12.
+ 
+    In other words, the interval is divided into N-1 even subintervals,
+    and the endpoints of intervals are used as the points.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 March 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input, double A, B, the first and last entries.
+
+    Output, double R8VEC_LINSPACE_NEW[N], a vector of linearly spaced data.
+*/
+{
+  int i;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  if ( n == 1 )
+  {
+    x[0] = ( a + b ) / 2.0;
+  }
+  else
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      x[i] = ( ( double ) ( n - 1 - i ) * a 
+             + ( double ) (         i ) * b ) 
+             / ( double ) ( n - 1     );
+    }
+  }
+  return x;
+}
+/******************************************************************************/
+
+void timestamp ( )
 
 /******************************************************************************/
 /*

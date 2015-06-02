@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g wtime_prb.c >& compiler.txt
+gcc -c wtime_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling wtime_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc wtime_prb.o /$HOME/libc/$ARCH/wtime.o -lm
 if [ $? -ne 0 ]; then

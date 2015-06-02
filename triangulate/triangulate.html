@@ -22,14 +22,40 @@
     </p>
 
     <p>
-      The region need not be convex.
       The polygon is defined by an input file which gives the coordinates
-      of the nodes of the polygon, in counterclockwise order.  The
-      coordinates are expected to be integers.
+      of the nodes of the polygon.  
     </p>
 
     <p>
-      No consecutive pair of vertices should be equal.
+      Because the calculation is to be exact, the coordinates are expected 
+      to be integers.  This requirement may cause problems!
+    </p>
+
+    <p>
+      No consecutive pair of vertices should be equal; when describing a
+      polygon, sometimes the first and last vertices are equal.  For this
+      program, that is not the case.  To describe a square, your input
+      file should contain four pairs of coordinates, for instance.
+    </p>
+
+    <p>
+      The vertices should be listed in counterclockwise order.  If you list
+      them in clockwise order, then the area will probably come out negative,
+      and the program will refuse to proceed.
+    </p>
+
+    <p>
+      It is possible to create a "polygon" that has zero area.  The program
+      will refuse to process such an object.
+    </p>
+
+    <p>
+      The polygon does not need to be convex.  However, you should be careful
+      not to specify a polygon which crosses itself, since this means the
+      interior of the polygon is not well defined, and hence a triangulation
+      is not well defined.  As a simple example of such a problem, consider
+      the four vertices of a square in counterclockwise order: V1, V2, V3, V4,
+      and list them instead as V1, V3, V2, V4.  This shape cannot be triangulated.
     </p>
 
     <p>

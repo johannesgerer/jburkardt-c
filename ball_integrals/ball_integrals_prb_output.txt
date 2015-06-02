@@ -1,0 +1,42 @@
+10 January 2014 08:45:04 AM
+
+BALL_INTEGRALS_PRB
+  C version
+  Test the BALL_INTEGRALS library.
+
+TEST01
+  Estimate monomial integrals using Monte Carlo
+  over the interior of the unit ball in 3D.
+
+  Number of sample points used is 4192
+
+  If any exponent is odd, the integral is zero.
+  We will restrict this test to randomly chosen even exponents.
+
+  Ex  Ey  Ez     MC-Estimate           Exact      Error
+
+   8   0   2      0.00944719      0.00976408    3.17e-04
+   4   2   8     0.000106546     0.000114872    8.33e-06
+   8   2   4     0.000113351     0.000114872    1.52e-06
+   0   8   4       0.0017592      0.00195282    1.94e-04
+   0   0   6        0.201203        0.199466    1.74e-03
+   2   6   8     2.91293e-05     3.02293e-05    1.10e-06
+   0   2   0        0.817859        0.837758    1.99e-02
+   4   6   4     4.88858e-05     4.92307e-05    3.45e-07
+   6   2   0       0.0194586       0.0181333    1.33e-03
+   8   8   2     1.00818e-05     1.00764e-05    5.40e-09
+   8   4   8     1.28466e-06     1.31432e-06    2.97e-08
+   2   2   8     0.000617766     0.000650939    3.32e-05
+   6   0   4      0.00401111      0.00418461    1.73e-04
+   8   4   0      0.00211512      0.00195282    1.62e-04
+   6   0   0        0.206377        0.199466    6.91e-03
+   8   2   0       0.0106769      0.00976408    9.13e-04
+   8   4   2     0.000116982     0.000114872    2.11e-06
+   2   6   0       0.0174516       0.0181333    6.82e-04
+   2   8   8      9.7552e-06     1.00764e-05    3.21e-07
+   0   2   2        0.116416         0.11968    3.26e-03
+
+BALL_INTEGRALS_PRB
+  Normal end of execution.
+
+10 January 2014 08:45:04 AM

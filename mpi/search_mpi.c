@@ -5,7 +5,7 @@
 # include "mpi.h"
 
 int main ( int argc, char *argv[] );
-void timestamp ( void );
+void timestamp ( );
 
 /******************************************************************************/
 
@@ -130,7 +130,7 @@ int main ( int argc, char *argv[] )
   Now allocate the master copy of A, fill it with values, and pick 
   a value for the target.
 */
-    a = malloc ( n * sizeof ( int ) );
+    a = ( int * ) malloc ( n * sizeof ( int ) );
 
     factor = ( float ) n / 10.0E+00 ;
 
@@ -213,7 +213,7 @@ int main ( int argc, char *argv[] )
     ierr = MPI_Recv ( &npart, 1, MPI_INT, source, tag, MPI_COMM_WORLD, 
       &status );
 
-    a = malloc ( npart * sizeof ( int ) );
+    a = ( int * ) malloc ( npart * sizeof ( int ) );
 
     source = master;
     tag = tag_data;

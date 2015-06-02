@@ -30,7 +30,7 @@ int main ( int argc, char *argv[] )
 
   Modified:
 
-    04 September 2012
+    25 May 2013
 
   Author:
 
@@ -41,6 +41,10 @@ int main ( int argc, char *argv[] )
     Command line, int N, the number of times the dice are thrown.
 */
 {
+  char *command_filename = "fair_dice_commands.txt";
+  FILE *command;
+  char *data_filename = "fair_dice_data.txt";
+  FILE *data;
   int die1;
   int die2;
   int i;
@@ -49,14 +53,11 @@ int main ( int argc, char *argv[] )
   int score;
   int score_count[13];
 
-  if ( 0 )
-  {
-    timestamp ( );
-    printf ( "\n" );
-    printf ( "FAIR_DICE_SIMULATION:\n" );
-    printf ( "  C version\n" );
-    printf ( "  Simulate N throws of a pair of fair dice.\n" );
-  }
+  timestamp ( );
+  printf ( "\n" );
+  printf ( "FAIR_DICE_SIMULATION:\n" );
+  printf ( "  C version\n" );
+  printf ( "  Simulate N throws of a pair of fair dice.\n" );
 
   if ( 1 < argc )
   {
@@ -91,23 +92,48 @@ int main ( int argc, char *argv[] )
     score_count[score] = score_count[score] + 1;
   }
 /*
-  Print a table, suitable for treatement by GNUPLOT.
+  Create the graphics data file.
 */
+  data = fopen ( data_filename, "wt" );
   for ( score = 2; score <= 12; score++ )
   {
-    printf ( "  %d  %d\n", score, score_count[score] );
+    fprintf ( data, "  %d  %d\n", score, score_count[score] );
   }
+  fclose ( data );
+  printf ( "\n" );
+  printf ( "  Created the graphics data file \"%s\".\n", data_filename );
+/*
+  Create the graphics command file.
+*/
+  command = fopen ( command_filename, "wt" );
+  fprintf ( command, "# %s\n", command_filename );
+  fprintf ( command, "#\n" );
+  fprintf ( command, "# Usage:\n" );
+  fprintf ( command, "#  gnuplot < %s\n", command_filename );
+  fprintf ( command, "#\n" );
+  fprintf ( command, "set term png\n" );
+  fprintf ( command, "set output 'fair_dice.png'\n" );
+  fprintf ( command, "set xlabel 'Score'\n" );
+  fprintf ( command, "set ylabel 'Frequency'\n" );
+  fprintf ( command, "set title 'Score frequency for a pair of fair dice'\n" );
+  fprintf ( command, "set grid\n" );
+  fprintf ( command, "set style fill solid\n" );
+  fprintf ( command, "set yrange [0:*]\n" );
+  fprintf ( command, "set timestamp\n" );
+  fprintf ( command, "plot 'fair_dice_data.txt' using 1:2:(0.90):xtic(3) with boxes\n" );
+  fprintf ( command, "quit\n" );
+
+  fclose ( command );
+
+  printf ( "  Created the graphics command file \"%s\".\n", command_filename );
 /*
   Terminate.
 */
-  if ( 0 )
-  {
-    printf ( "\n" );
-    printf ( "FAIR_DICE_SIMULATION:\n" );
-    printf ( "  Normal end of execution.\n" );
-    printf ( "\n" );
-    timestamp ( );
-  }
+  printf ( "\n" );
+  printf ( "FAIR_DICE_SIMULATION:\n" );
+  printf ( "  Normal end of execution.\n" );
+  printf ( "\n" );
+  timestamp ( );
 
   return 0;
 }

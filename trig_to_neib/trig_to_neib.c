@@ -379,9 +379,6 @@ void read_mesh ( void )
   Author:
 
     Lili Ju
-
-  Parameters:
-
 */
 {
   FILE* fp;

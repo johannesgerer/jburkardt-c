@@ -23,7 +23,7 @@ int main ( int argc, char *argv[] )
 
   Discussion:
 
-    PGMA_IO_PRB calls the PGMA_IO test routines.
+    PGMA_IO_PRB tests the PGMA_IO library.
 
   Licensing:
 
@@ -39,10 +39,10 @@ int main ( int argc, char *argv[] )
 */
 {
   timestamp ( );
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, "PGMA_IO_PRB:\n" );
-  fprintf ( stdout, "  C version\n" );
-  fprintf ( stdout, "  Test the PGMA_IO library.\n" );
+  printf ( "\n" );
+  printf ( "PGMA_IO_PRB:\n" );
+  printf ( "  C version\n" );
+  printf ( "  Test the PGMA_IO library.\n" );
 
   test01 ( );
   test02 ( );
@@ -50,11 +50,10 @@ int main ( int argc, char *argv[] )
 /*
   Terminate.
 */
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, "PGMA_IO_PRB:\n" );
-  fprintf ( stdout, "  Normal end of execution.\n" );
-
-  fprintf ( stdout, "\n" );
+  printf ( "\n" );
+  printf ( "PGMA_IO_PRB:\n" );
+  printf ( "  Normal end of execution.\n" );
+  printf ( "\n" );
   timestamp ( );
 
   return 0;

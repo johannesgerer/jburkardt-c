@@ -195,7 +195,7 @@ void abwe2 ( int n, int m, double eps, double coef2, int even, double b[],
 
   Modified:
 
-    24 April 2012
+    30 April 2013
 
   Author:
 
@@ -270,8 +270,16 @@ void abwe2 ( int n, int m, double eps, double coef2, int even, double b[],
 */
     if ( n <= 1 )
     {
-      p2 = ( 3.0 * ( *x ) * ( *x ) - 1.0 ) / 2.0;
-      pd2 = 3.0 * ( *x );
+      if ( r8_epsilon ( ) < r8_abs ( *x ) )
+      {
+        p2 = ( 3.0 * ( *x ) * ( *x ) - 1.0 ) / 2.0;
+        pd2 = 3.0 * ( *x );
+      }
+      else
+      {
+        p2 = 3.0 * ( *x );
+        pd2 = 3.0;
+      }
     }
 
     ai = 0.0;
@@ -506,7 +514,7 @@ void kronrod ( int n, double eps, double x[], double w1[], double w2[] )
 /*
   Coefficient needed for weights.
 
-  COEF2 = 2^(2*n+1) * n * n / (2n+1)
+  COEF2 = 2^(2*n+1) * n! * n! / (2n+1)!
 */
   coef2 = 2.0 / ( double ) ( 2 * n + 1 );
   for ( i = 1; i <= n; i++ )
@@ -603,6 +611,45 @@ double r8_abs ( double x )
   {
     value = - x;
   }
+  return value;
+}
+/******************************************************************************/
+
+double r8_epsilon ( void )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_EPSILON returns the R8 round off unit.
+
+  Discussion:
+
+    R8_EPSILON is a number R which is a power of 2 with the property that,
+    to the precision of the computer's arithmetic,
+      1 < 1 + R
+    but
+      1 = ( 1 + R / 2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 September 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double R8_EPSILON, the R8 round-off unit.
+*/
+{
+  static double value = 2.220446049250313E-016;
+
   return value;
 }
 /******************************************************************************/

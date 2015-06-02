@@ -1,0 +1,128 @@
+06 August 2013 01:26:01 PM
+
+PDFLIB_PRB
+  C version
+  Test the PDFLIB library.
+
+INITIALIZE - Note:
+  The RNGLIB package has been initialized.
+
+TEST01
+  R8MAT_POFAC computes the Cholesky factor R of a
+  positive definite matrix A, so that A = R' * R.
+
+  Start with random R1;
+  Compute A = R1' * R1.
+  Call R8MAT_POFAC and see if you recover R2 = R1.
+
+  R1:
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:        0.323711        0.324392        0.288730        0.566211        0.895177
+    1:        0.000000        0.493388        0.353007        0.820720        0.336599
+    2:        0.000000        0.000000        0.153961        0.325495        0.285023
+    3:        0.000000        0.000000        0.000000        0.340080        0.503381
+    4:        0.000000        0.000000        0.000000        0.000000        0.773531
+
+  A:
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:        0.104789        0.105009        0.093465        0.183289        0.289778
+    1:        0.105009        0.348662        0.267831        0.588607        0.456462
+    2:        0.093465        0.267831        0.231683        0.503315        0.421168
+    3:        0.183289        0.588607        0.503315        1.215777        1.047076
+    4:        0.289778        0.456462        0.421168        1.047076        1.847620
+
+  Frobenius difference between R1 and R2 = 1.22502e-15
+
+TEST02
+  R8VEC_MULTINORMAL_PDF evaluates the PDF for the
+  multinormal distribution.
+
+  The covariance matrix is C.
+  The definition uses the inverse of C;
+  R8VEC_MULTINORMAL_PDF uses the Cholesky factor.
+  Verify that the algorithms are equivalent.
+
+  R1:
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:        0.021157        0.037013        0.086077        0.208128        0.395446
+    1:        0.000000        0.290597        0.747587        0.079766        0.764420
+    2:        0.000000        0.000000        0.359446        0.147932        0.645941
+    3:        0.000000        0.000000        0.000000        0.708155        0.473061
+    4:        0.000000        0.000000        0.000000        0.000000        0.859549
+
+  C:
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:        0.000448        0.000783        0.001821        0.004403        0.008366
+    1:        0.000783        0.085817        0.220433        0.030883        0.236775
+    2:        0.001821        0.220433        0.695497        0.130721        0.837690
+    3:        0.004403        0.030883        0.130721        0.573048        0.573835
+    4:        0.008366        0.236775        0.837690        0.573835        2.120567
+
+  R2:
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:        0.021157        0.037013        0.086077        0.208128        0.395446
+    1:        0.000000        0.290597        0.747587        0.079766        0.764420
+    2:        0.000000        0.000000        0.359446        0.147932        0.645941
+    3:        0.000000        0.000000        0.000000        0.708155        0.473061
+    4:        0.000000        0.000000        0.000000        0.000000        0.859549
+
+  Determinant of C = 1.80947e-06
+
+  C_INV:
+
+  Col:          0             1             2             3             4     
+  Row
+
+    0:     2550.752849      -61.121001       28.673192      -11.331663      -11.499509
+    1:        0.000000       67.211712      -23.580774        0.236015        1.987800
+    2:        0.000000        0.000000       11.213464        0.555570       -2.060189
+    3:        0.000000        0.000000        0.000000        2.598081       -0.904165
+    4:        0.000000        0.000000        0.000000        0.000000        1.353501
+
+  PDF1 = 7.48736
+  PDF2 = 7.48709
+
+TEST03
+  R8_CHI_SAMPLE ( DF ) samples the Chi distribution with
+  DF degrees of freedom.
+
+  INITIALIZE initializes the random number generator.
+  It only needs to be called once before using the package.
+
+INITIALIZE - Note:
+  The RNGLIB package has been initialized.
+
+  Current generator index = 1
+
+   I       DF       R8_CHI_SAMPLE ( DF )
+
+   1         3.10629         4.66215
+   2         5.26012         7.20377
+   3         2.96542         7.98763
+   4         3.68364         2.67281
+   5         3.85438          2.0668
+   6         2.73145         2.56831
+   7         1.72521        0.431697
+   8         2.42439         1.56641
+   9         5.84687         9.92267
+  10         1.76515        0.415013
+
+PDFLIB_PRB
+  Normal end of execution.
+
+06 August 2013 01:26:01 PM

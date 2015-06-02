@@ -42,6 +42,7 @@ void imtqlx ( int n, double d[], double e[], double z[] );
 void parchk ( int kind, int m, double alpha, double beta );
 double r8_abs ( double x );
 double r8_epsilon ( );
+double r8_gamma ( double x );
 double r8_max ( double x, double y );
 double r8_min ( double x, double y );
 double r8_sign ( double x );

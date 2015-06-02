@@ -1,4 +1,4 @@
-24 October 2012 11:03:36 AM
+14 April 2013 12:56:02 PM
 
 GEOMETRY_PRB
   C version
@@ -221,6 +221,121 @@ TEST001
            0.5     -0.866025  1
       0.866025          -0.5  1
              1  -2.44929e-16  0
+
+TEST002
+  ANGLE_DEG_2D computes an angle,
+  ANGLE_RAD_ND computes an angle.
+
+  X  Y  Theta  ATAN2(y, x), ANGLE_RAD_ND, ANGLE_DEG_2D
+
+     1.000     0.000     0.000     0.000     0.000     0.000
+     0.866     0.500    30.000    30.000     0.524    30.000
+     0.500     0.866    60.000    60.000     1.047    60.000
+     0.000     1.000    90.000    90.000     1.571    90.000
+    -0.500     0.866   120.000   120.000     2.094   120.000
+    -0.866     0.500   150.000   150.000     2.618   150.000
+    -1.000     0.000   180.000   180.000     3.142   180.000
+    -0.866    -0.500   210.000  -150.000     2.618   210.000
+    -0.500    -0.866   240.000  -120.000     2.094   240.000
+    -0.000    -1.000   270.000   -90.000     1.571   270.000
+     0.500    -0.866   300.000   -60.000     1.047   300.000
+     0.866    -0.500   330.000   -30.000     0.524   330.000
+     1.000    -0.000   360.000    -0.000     0.000   360.000
+
+TEST0351
+  LINE_PAR_POINT_NEAR_2D finds the point on
+  a parametric line (X0,Y0,F,G) nearest a point P in 2D.
+
+  Parametric line:
+  X(t) = 1 + 1 * t
+  Y(t) = 3 + -1 * t
+
+  The point P:
+
+         0:       0.000000
+         1:       0.000000
+  Distance = 2.82843
+
+  Nearest point PN:
+
+         0:       2.000000
+         1:       2.000000
+  Distance recomputed = 2.82843
+
+  The point P:
+
+         0:       5.000000
+         1:      -1.000000
+  Distance = 0
+
+  Nearest point PN:
+
+         0:       5.000000
+         1:      -1.000000
+  Distance recomputed = 0
+
+  The point P:
+
+         0:       5.000000
+         1:       3.000000
+  Distance = 2.82843
+
+  Nearest point PN:
+
+         0:       3.000000
+         1:       1.000000
+  Distance recomputed = 2.82843
+
+TEST0352
+  LINE_PAR_POINT_DIST_3D finds the distance
+  from a parametric line to a point in 3D.
+
+  Parametric line:
+  X(t) = 1 + 3 * t
+  Y(t) = 3 + -3 * t
+  Z(t) = 2 + -1 * t
+
+  The point P:
+
+         0:       0.000000
+         1:       0.000000
+         2:       2.000000
+  Distance = 2.84697
+
+  Nearest point PN:
+
+         0:       1.947368
+         1:       2.052632
+         2:       1.684211
+  Distance recomputed = 2.84697
+
+  The point P:
+
+         0:       5.000000
+         1:      -1.000000
+         2:       1.000000
+  Distance = 0.324443
+
+  Nearest point PN:
+
+         0:       4.947368
+         1:      -0.947368
+         2:       0.684211
+  Distance recomputed = 0.324443
+
+  The point P:
+
+         0:       5.000000
+         1:       3.000000
+         2:       3.000000
+  Distance = 3.26061
+
+  Nearest point PN:
+
+         0:       2.736842
+         1:       1.263158
+         2:       1.421053
+  Distance recomputed = 3.26061
 
 TEST0477
   PARALLELOGRAM_AREA_2D finds the area of a
@@ -617,86 +732,86 @@ TEST21011
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:       5.565308
-         1:       9.746226
+         0:       7.120177
+         1:      12.863463
 
   Distances from circumcenter to vertices:
 
-  2.920771
-  2.920771
-  2.920771
+  0.653938
+  0.653938
+  0.653938
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:      10.569922
-         1:       9.275643
+         0:      13.837365
+         1:      11.329290
 
   Distances from circumcenter to vertices:
 
-  5.111117
-  5.111117
-  5.111117
+  7.339086
+  7.339086
+  7.339086
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:       9.533654
-         1:       6.994492
+         0:      48.737251
+         1:       3.358325
 
   Distances from circumcenter to vertices:
 
-  6.227169
-  6.227169
-  6.227169
+  43.124048
+  43.124048
+  43.124048
 
   M2 = 3
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:       5.111665
-         1:      12.725923
-         2:       9.097404
+         0:       5.129152
+         1:      12.718640
+         2:       9.079022
 
   Distances from circumcenter to vertices:
 
-  0.615037
-  0.615037
-  0.615037
+  0.599947
+  0.599947
+  0.599947
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:       5.113120
-         1:      12.726169
-         2:       9.096737
+         0:       5.117689
+         1:      12.716698
+         2:       9.084280
 
   Distances from circumcenter to vertices:
 
-  0.614953
-  0.614953
-  0.614953
+  0.600303
+  0.600303
+  0.600303
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:       9.179777
-         1:      13.415245
-         2:       7.231528
+         0:       9.168227
+         1:      13.403043
+         2:       7.226464
 
   Distances from circumcenter to vertices:
 
-  4.537578
-  4.537578
-  4.537578
+  4.525605
+  4.525605
+  4.525605
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:      76.449242
-         1:      24.813745
-         2:     -23.622219
+         0:      76.298618
+         1:      24.777977
+         2:     -23.563495
 
   Distances from circumcenter to vertices:
 
-  79.378504
-  79.378504
-  79.378504
+  79.213443
+  79.213443
+  79.213443
 
   M2 = 4
 
@@ -756,61 +871,61 @@ TEST21011
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:       2.982041
-         1:      11.870301
-         2:       9.785517
-         3:       5.911761
-         4:       8.731607
+         0:       3.018473
+         1:      12.057325
+         2:      10.045546
+         3:       6.114237
+         4:       8.362786
 
   Distances from circumcenter to vertices:
 
-  0.601393
-  0.601393
-  0.601393
+  0.688292
+  0.688292
+  0.688292
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:       2.981521
-         1:      11.889935
-         2:       9.880447
-         3:       5.997068
-         4:       8.381688
+         0:       3.018347
+         1:      12.062091
+         2:      10.068589
+         3:       6.134945
+         4:       8.277846
 
   Distances from circumcenter to vertices:
 
-  0.439504
-  0.439504
-  0.439504
+  0.701475
+  0.701475
+  0.701475
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:       2.987368
-         1:      11.669203
-         2:       8.813211
-         3:       5.038005
-         4:      12.315634
+         0:       3.024685
+         1:      11.822808
+         2:       8.911660
+         3:       5.095279
+         4:      12.542414
 
   Distances from circumcenter to vertices:
 
-  4.255241
-  4.255241
-  4.255241
+  4.452400
+  4.452400
+  4.452400
 
   Circumcenter by TRIANGLE_CIRCUMCENTER:
 
-         0:       3.116511
-         1:       6.793721
-         2:     -14.759695
-         3:     -16.145610
-         4:      99.207927
+         0:       3.158069
+         1:       6.787267
+         2:     -15.435129
+         3:     -16.783780
+         4:     102.287325
 
   Distances from circumcenter to vertices:
 
-  96.853766
-  96.853766
-  96.853766
+  100.062354
+  100.062354
+  100.062354
 
 GEOMETRY_PRB
   Normal end of execution.
 
-24 October 2012 11:03:36 AM
+14 April 2013 12:56:02 PM

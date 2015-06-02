@@ -2,28 +2,28 @@
 # include <stdio.h>
 # include <math.h>
 # include <time.h>
+# include <complex.h>
 
+# include "blas0.h"
 # include "blas1_s.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
-void test05 ( void );
-void test06 ( void );
-void test07 ( void );
-void test08 ( void );
-void test09 ( void );
-void test10 ( void );
-void test11 ( void );
-void test12 ( void );
-float r4_uniform_01 ( int *seed );
-void timestamp ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
+void test05 ( );
+void test06 ( );
+void test07 ( );
+void test08 ( );
+void test09 ( );
+void test10 ( );
+void test11 ( );
+void test12 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -33,7 +33,7 @@ int main ( void )
 
   Discussion:
 
-    BLAS1_S_PRB tests the BLAS1 single precision real routines.
+    BLAS1_S_PRB tests the BLAS1_S library.
 
   Licensing:
 
@@ -49,7 +49,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "BLAS1_S_PRB:\n" );
   printf ( "  C version\n" );
@@ -74,7 +73,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "BLAS1_S_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -82,7 +80,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -140,7 +138,7 @@ void test01 ( void )
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -295,7 +293,7 @@ void test02 ( void )
 }
 /******************************************************************************/
 
-void test03 ( void )
+void test03 ( )
 
 /******************************************************************************/
 /*
@@ -380,7 +378,7 @@ void test03 ( void )
 }
 /******************************************************************************/
 
-void test04 ( void )
+void test04 ( )
 
 /******************************************************************************/
 /*
@@ -504,7 +502,7 @@ void test04 ( void )
 }
 /******************************************************************************/
 
-void test05 ( void )
+void test05 ( )
 
 /******************************************************************************/
 /*
@@ -645,7 +643,7 @@ void test05 ( void )
 }
 /******************************************************************************/
 
-void test06 ( void )
+void test06 ( )
 
 /******************************************************************************/
 /*
@@ -762,7 +760,7 @@ void test06 ( void )
 }
 /******************************************************************************/
 
-void test07 ( void )
+void test07 ( )
 
 /******************************************************************************/
 /*
@@ -800,7 +798,7 @@ void test07 ( void )
 }
 /******************************************************************************/
 
-void test08 ( void )
+void test08 ( )
 
 /******************************************************************************/
 /*
@@ -879,7 +877,7 @@ void test08 ( void )
 }
 /******************************************************************************/
 
-void test09 ( void )
+void test09 ( )
 
 /******************************************************************************/
 /*
@@ -966,7 +964,7 @@ void test09 ( void )
 }
 /******************************************************************************/
 
-void test10 ( void )
+void test10 ( )
 
 /******************************************************************************/
 /*
@@ -1033,7 +1031,7 @@ void test10 ( void )
 }
 /******************************************************************************/
 
-void test11 ( void )
+void test11 ( )
 
 /******************************************************************************/
 /*
@@ -1106,7 +1104,7 @@ void test11 ( void )
 }
 /******************************************************************************/
 
-void test12 ( void )
+void test12 ( )
 
 /******************************************************************************/
 /*
@@ -1190,144 +1188,4 @@ void test12 ( void )
   return;
 # undef N
 }
-/******************************************************************************/
 
-float r4_uniform_01 ( int *seed )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R4_UNIFORM_01 returns a real pseudorandom number.
-
-  Discussion:
-
-    This routine implements the recursion
-
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      r4_uniform_01 = seed / ( 2**31 - 1 )
-
-    The integer arithmetic never requires more than 32 bits,
-    including a sign bit.
-
-    If the initial seed is 12345, then the first three computations are
-
-      Input     Output      R_UNIFORM_01
-      SEED      SEED
-
-         12345   207482415  0.096616
-     207482415  1790989824  0.833995
-    1790989824  2035175616  0.947702
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    16 November 2004
-
-  Author:
-
-    John Burkardt
-
-  Reference:
-
-    Paul Bratley, Bennett Fox, Linus Schrage,
-    A Guide to Simulation,
-    Springer Verlag, pages 201-202, 1983.
-
-    Pierre L'Ecuyer,
-    Random Number Generation,
-    in Handbook of Simulation
-    edited by Jerry Banks,
-    Wiley Interscience, page 95, 1998.
-
-    Bennett Fox,
-    Algorithm 647:
-    Implementation and Relative Efficiency of Quasirandom
-    Sequence Generators,
-    ACM Transactions on Mathematical Software,
-    Volume 12, Number 4, pages 362-376, 1986.
-
-    Philip Lewis, Allen Goodman, James Miller,
-    A Pseudo-Random Number Generator for the System/360,
-    IBM Systems Journal,
-    Volume 8, pages 136-143, 1969.
-
-  Parameters:
-
-    Input/output, int *SEED, the "seed" value.  Normally, this
-    value should not be 0.  On output, SEED has been updated.
-
-    Output, float R4_UNIFORM_01, a new pseudorandom variate, strictly between
-    0 and 1.
-*/
-{
-  int k;
-  float r;
-
-  k = *seed / 127773;
-
-  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
-
-  if ( *seed < 0 )
-  {
-    *seed = *seed + 2147483647;
-  }
-/*
-  Although SEED can be represented exactly as a 32 bit integer,
-  it generally cannot be represented exactly as a 32 bit real number!
-*/
-  r = ( float ) ( *seed ) * 4.656612875E-10;
-
-  return r;
-}
-/******************************************************************************/
-
-void timestamp ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TIMESTAMP prints the current YMDHMS date as a time stamp.
-
-  Example:
-
-    31 May 2001 09:45:54 AM
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    24 September 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    None
-*/
-{
-# define TIME_SIZE 40
-
-  static char time_buffer[TIME_SIZE];
-  const struct tm *tm;
-  size_t len;
-  time_t now;
-
-  now = time ( NULL );
-  tm = localtime ( &now );
-
-  len = strftime ( time_buffer, TIME_SIZE, "%d %B %Y %I:%M:%S %p", tm );
-
-  printf ( "%s\n", time_buffer );
-
-  return;
-# undef TIME_SIZE
-}

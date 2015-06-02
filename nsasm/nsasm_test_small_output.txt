@@ -1,0 +1,116 @@
+nsasm_test_small
+25-Jan-2014 10:34:36
+
+NSASM_TEST_SMALL:
+  MATLAB version.
+  Specify data files for a "small" problem;
+  Call NSASM_INTERFACE, which reads that data and
+  calls NSASM to get the stiffness matrix K and residual L.
+
+  NSASM is a C library,
+  It must be compiled with MATLAB's MEX compiler.
+
+NSASM_INTERFACE:
+  MATLAB version
+  Loading user node data from "small_nodes.txt".
+  Number of nodes = 25
+  Number of pressure nodes NP0 = 9
+  Loading user triangle data from "small_elements.txt".
+  Number of triangles NT = 8
+  Loading user constraint data from "small_constraints.txt".
+  Number of constraints NE = 33
+
+  Viscosity NU = 100.000000
+  Degrees of freedom NDOF =  92
+
+NSASM_INTERFACE:
+  Returning K, L data from NSASM.
+
+  L-Infinity norm of L = 1.000000
+
+  Beginning and end of L vector:
+
+         1        0.000000
+         2        0.000000
+         3        0.000000
+         4        0.000000
+         5        0.000000
+         6        0.000000
+         7        0.000000
+         8        0.000000
+         9        0.000000
+..(skipping some entries)...
+        83        0.000000
+        84        0.000000
+        85        0.000000
+        86        0.000000
+        87        0.000000
+        88        0.000000
+        89        0.000000
+        90        0.000000
+        91       -1.000000
+        92       -1.000000
+
+  nz_num = nnz ( K )
+  Matrix nonzeros NZ_NUM = 1363
+
+  [ row, col, val ] = find ( K )
+  Matrix sparse triplet representation:
+
+       ROW       COL     VAL
+
+         1         1        0.000000
+         2         1       16.666667
+         4         1      -16.666667
+         5         1        0.000000
+        10         1        0.000000
+        11         1        0.000000
+        12         1       66.666667
+        13         1       -0.000000
+        14         1      -66.666667
+..(skipping some entries)...
+        43        83        1.000000
+        19        84        1.000000
+        44        85        1.000000
+        21        86        1.000000
+        46        87        1.000000
+        23        88        1.000000
+        48        89        1.000000
+        25        90        1.000000
+        50        91        1.000000
+        76        92        1.000000
+
+  Initial part of K as a matrix
+
+  Col:       1             2             3             4             5       
+  Row
+  ---
+   1      0.000000     16.666667      0.000000    -16.666667      0.000000
+   2     16.666667    100.000000     16.666667      0.000000     -0.000000
+   3      0.000000     16.666667    100.000000      0.000000      0.000000
+   4    -16.666667      0.000000      0.000000   -100.000000      0.000000
+   5      0.000000     -0.000000      0.000000      0.000000      0.000000
+   6      0.000000      0.000000     16.666667      0.000000      0.000000
+   7      0.000000      0.000000      0.000000    -16.666667      0.000000
+   8      0.000000      0.000000      0.000000     -0.000000     -0.000000
+  10      0.000000      0.000000      0.000000     -0.000000      0.000000
+
+  Col:       6             7             8             9            10       
+  Row
+  ---
+   1      0.000000      0.000000      0.000000      0.000000      0.000000
+   2      0.000000      0.000000      0.000000      0.000000      0.000000
+   3     16.666667      0.000000      0.000000      0.000000      0.000000
+   4      0.000000    -16.666667     -0.000000      0.000000     -0.000000
+   5      0.000000      0.000000     -0.000000      0.000000      0.000000
+   6    100.000000      0.000000      0.000000     16.666667      0.000000
+   7      0.000000   -100.000000    -16.666667      0.000000      0.000000
+   8      0.000000    -16.666667   -100.000000    -16.666667     -0.000000
+   9     16.666667      0.000000    -16.666667      0.000000      0.000000
+  10      0.000000      0.000000     -0.000000      0.000000      0.000000
+
+NSASM_TEST_SMALL:
+  Normal end of execution.
+
+25-Jan-2014 10:34:36
+diary off

@@ -19,6 +19,10 @@ int main ( )
 /*
   Purpose:
 
+    MAIN is the main program for CORRELATION_PRB.
+
+  Discussion:
+
     CORRELATION_PRB tests the CORRELATION library.
 
   Licensing:
@@ -52,7 +56,6 @@ int main ( )
   printf ( "\n" );
   printf ( "CORRELATION_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

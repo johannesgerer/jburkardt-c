@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g asa109_prb.c >& compiler.txt
+gcc -c asa109_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling asa109_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc asa109_prb.o /$HOME/libc/$ARCH/asa109.o -lm
 if [ $? -ne 0 ]; then

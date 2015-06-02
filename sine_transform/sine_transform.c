@@ -19,8 +19,8 @@ double *r8vec_uniform_01_new ( int n, int *seed )
 
     This routine implements the recursion
 
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      unif = seed / ( 2**31 - 1 )
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
 
     The integer arithmetic never requires more than 32 bits,
     including a sign bit.
@@ -88,7 +88,7 @@ double *r8vec_uniform_01_new ( int n, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {

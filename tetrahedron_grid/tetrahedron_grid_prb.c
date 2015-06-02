@@ -15,7 +15,11 @@ int main ( void )
 /*
   Purpose:
 
-    TETRAHEDRON_GRID_TEST tests TETRAHEDRON_GRID.
+    MAIN is the main program for TETRAHEDRON_GRID_PRB.
+
+  Discussion:
+
+    TETRAHEDRON_GRID_PRB tests the TETRAHEDRON_GRID library.
 
   Licensing:
 
@@ -32,7 +36,7 @@ int main ( void )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "TETRAHEDRON_GRID_TEST:\n" );
+  printf ( "TETRAHEDRON_GRID_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the TETRAHEDRON_GRID library.\n" );
 
@@ -41,7 +45,7 @@ int main ( void )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "TETRAHEDRON_GRID_TEST:\n" );
+  printf ( "TETRAHEDRON_GRID_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

@@ -41,7 +41,8 @@ int main ( void )
 
   printf ( "\n" );
   printf ( "C_SIMPLE\n" );
-  printf ( "  A simple C program to demonstrate\n" );
+  printf ( "  C version\n" );
+  printf ( "  A simple program to demonstrate\n" );
   printf ( "  the use of makefiles.\n" );
 
   printf ( "\n" );
@@ -70,7 +71,9 @@ int main ( void )
 
     int_num = int_num * 100;
   }
- 
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "C_SIMPLE:\n" );
   printf ( "  Normal end of execution.\n" );

@@ -17,7 +17,11 @@ int main ( void )
 /*
   Purpose:
 
-    CYCLIC_REDUCTION_PRB calls the CYCLIC_REDUCTION tests.
+    MAIN is the main program for CYCLIC_REDUCTION_PRB.
+
+  Discussion:
+
+    CYCLIC_REDUCTION_PRB tests the CYCLIC_REDUCTION library.
 
   Licensing:
 
@@ -36,15 +40,16 @@ int main ( void )
   printf ( "\n" );
   printf ( "CYCLIC_REDUCTION_PRB\n" );
   printf ( "  C version\n" );
-  printf ( "  Test the routines in the CYCLIC_REDUCTION library.\n" );
+  printf ( "  Test the CYCLIC_REDUCTION library.\n" );
 
   test02 ( );
   test03 ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "CYCLIC_REDUCTION_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

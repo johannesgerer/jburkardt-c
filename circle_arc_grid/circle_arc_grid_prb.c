@@ -20,7 +20,7 @@ int main ( void )
 
   Discussion:
 
-    CIRCLE_ARC_GRID_PRB tests CIRCLE_ARC_GRID.
+    CIRCLE_ARC_GRID_PRB tests the CIRCLE_ARC_GRID library.
 
   Licensing:
 
@@ -39,7 +39,7 @@ int main ( void )
   printf ( "\n" );
   printf ( "CIRCLE_ARC_GRID_PRB\n" );
   printf ( "  C version\n" );
-  printf ( "  Test CIRCLE_ARC_GRID.\n" );
+  printf ( "  Test the CIRCLE_ARC_GRID library.\n" );
 
   test01 ( );
 /*

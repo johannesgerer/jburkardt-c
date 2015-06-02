@@ -6,105 +6,58 @@
 
 # include "stroud.h"
 
-//****************************************************************************80
+/******************************************************************************/
 
-double arc_sine ( double s )
-
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    ARC_SINE computes the arc sine function, with argument truncation.
-//
-//  Discussion:
-//
-//    If you call your system ASIN routine with an input argument that is
-//    outside the range [-1.0, 1.0 ], you may get an unpleasant surprise.
-//
-//    In particular, you may get the value NaN returned.
-//
-//    This routine truncates arguments outside the range, avoiding the problem.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double S, the argument.
-//
-//    Output, double ARC_SINE, an angle whose sine is S.
-//
-{
-  double value;
-
-  s = r8_max ( s, -1.0 );
-  s = r8_min ( s, +1.0 );
-
-  value = asin ( s );
-
-  return value;
-}
-//****************************************************************************80
-
-double ball_f1_nd ( double func ( int n, double x[] ), int n, double center[], 
+double ball_f1_nd ( double func ( int n, double x[] ), int n, double center[],
   double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_F1_ND approximates an integral inside a ball in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N) - CENTER(1:N) )^2 <= R * R.
-//
-//  Discussion:
-//
-//    An (N+1)*2^N point 5-th degree formula is used, Stroud number SN:5-6.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    05 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the user supplied
-//    function which evaluates F at the N-vector X.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double CENTER[N], the center of the ball.
-//
-//    Input, double R, the radius of the ball.
-//
-//    Output, double BALL_F1_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_F1_ND approximates an integral inside a ball in ND.
+
+  Integration region:
+
+    sum ( X(1:N) - CENTER(1:N) )^2 <= R * R.
+
+  Discussion:
+
+    An (N+1)*2^N point 5-th degree formula is used, Stroud number SN:5-6.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the user supplied
+    function which evaluates F at the N-vector X.
+
+    Input, int N, the dimension of the space.
+
+    Input, double CENTER[N], the center of the ball.
+
+    Input, double R, the radius of the ball.
+
+    Output, double BALL_F1_ND, the approximate integral of the function.
+*/
 {
   int i;
   int ihi;
@@ -133,7 +86,7 @@ double ball_f1_nd ( double func ( int n, double x[] ), int n, double center[],
 
   x = ( double * ) malloc ( n * sizeof ( double ) );
 
-  u2 = ( 1.0 - 2.0 * sqrt ( 1.0 / ( double ) ( n + 4 ) ) ) 
+  u2 = ( 1.0 - 2.0 * sqrt ( 1.0 / ( double ) ( n + 4 ) ) )
     / ( double ) ( n + 2 );
   u = sqrt ( u2 );
   for ( i = 0; i < n; i++ )
@@ -167,7 +120,7 @@ double ball_f1_nd ( double func ( int n, double x[] ), int n, double center[],
 
   temp = sqrt ( ( double ) ( n + 4 ) );
 
-  t = sqrt ( 2.0 * ( double ) ( n + 1 ) / ( double ) ( n + 2 ) ) 
+  t = sqrt ( 2.0 * ( double ) ( n + 1 ) / ( double ) ( n + 2 ) )
     / ( ( double ) ( n ) * temp );;
 
   y = ( 1.0 + 2.0 / ( ( double ) ( n ) * temp ) ) / ( double ) ( n + 2 );
@@ -211,58 +164,58 @@ double ball_f1_nd ( double func ( int n, double x[] ), int n, double center[],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double ball_f3_nd ( double func ( int n, double x[] ), int n, double center[], 
+double ball_f3_nd ( double func ( int n, double x[] ), int n, double center[],
   double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_F3_ND approximates an integral inside a ball in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N) - CENTER(1:N) )^2 <= R * R.
-//
-//  Discussion:
-//
-//    A 2**(N+1)-1 point 5-th degree formula is used, Stroud number SN:5-4.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    05 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the user supplied
-//    function which evaluates F at the N-vector X.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double CENTER[N], the center of the ball.
-//
-//    Input, double R, the radius of the ball.
-//
-//    Output, double BALL_F3_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_F3_ND approximates an integral inside a ball in ND.
+
+  Integration region:
+
+    sum ( X(1:N) - CENTER(1:N) )^2 <= R * R.
+
+  Discussion:
+
+    A 2^(N+1)-1 point 5-th degree formula is used, Stroud number SN:5-4.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the user supplied
+    function which evaluates F at the N-vector X.
+
+    Input, int N, the dimension of the space.
+
+    Input, double CENTER[N], the center of the ball.
+
+    Input, double R, the radius of the ball.
+
+    Output, double BALL_F3_ND, the approximate integral of the function.
+*/
 {
   int i;
   int j;
@@ -286,9 +239,9 @@ double ball_f3_nd ( double func ( int n, double x[] ), int n, double center[],
   x = ( double * ) malloc ( n * sizeof ( double ) );
 
   quad = 0.0;
-//
-//  The first point is the center of the ball.
-//
+/*
+  The first point is the center of the ball.
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = center[i];
@@ -301,9 +254,9 @@ double ball_f3_nd ( double func ( int n, double x[] ), int n, double center[],
   for ( i = 0; i < n; i++ )
   {
     ri = sqrt ( ( double ) ( i + 3 ) / ( double ) ( n + 4 ) );
-//
-//  Set up the first point, with (I) zeroes, RI, and then N-I-1 S's.
-//
+/*
+  Set up the first point, with (I) zeroes, RI, and then N-I-1 S's.
+*/
     for ( j = 0; j < n; j++ )
     {
       if ( j < i )
@@ -320,11 +273,11 @@ double ball_f3_nd ( double func ( int n, double x[] ), int n, double center[],
       }
     }
 
-    weight = pow ( 2.0, i + 1 - n ) * ( double ) ( n + 4 ) 
+    weight = pow ( 2.0, i + 1 - n ) * ( double ) ( n + 4 )
       / ( double ) ( ( i + 2 ) * ( i + 3 ) * ( n + 2 ) );
-//
-//  Now go through all sign permutations of the basic point.
-//
+/*
+  Now go through all sign permutations of the basic point.
+*/
     jhi = i4_power ( 2, n - i );
 
     for ( j = 0; j < jhi; j++ )
@@ -354,51 +307,51 @@ double ball_f3_nd ( double func ( int n, double x[] ), int n, double center[],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_monomial_nd ( int n, int p[], double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_MONOMIAL_ND integrates a monomial on a ball in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) <= R * R
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    05 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Gerald Folland,
-//    How to Integrate a Polynomial Over a Sphere,
-//    American Mathematical Monthly,
-//    Volume 108, Number 5, May 2001, pages 446-448.
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, int P[N], the exponents of X(1) through X(N) in the monomial.
-//    The exponents must be nonnegative.
-//
-//    Input, double R, the radius of the ball.
-//
-//    Output, double BALL_MONOMIAL_ND, the integral of
-//    X1**P(1)*X2**P(2)*...*XN**P(N) over the ball.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_MONOMIAL_ND integrates a monomial on a ball in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) <= R * R
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Gerald Folland,
+    How to Integrate a Polynomial Over a Sphere,
+    American Mathematical Monthly,
+    Volume 108, Number 5, May 2001, pages 446-448.
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Input, int P[N], the exponents of X(1) through X(N) in the monomial.
+    The exponents must be nonnegative.
+
+    Input, double R, the radius of the ball.
+
+    Output, double BALL_MONOMIAL_ND, the integral of
+    X1**P(1)*X2**P(2)*...*XN**P(N) over the ball.
+*/
 {
   int i;
   double power;
@@ -414,51 +367,51 @@ double ball_monomial_nd ( int n, int p[], double r )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_unit_07_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_UNIT_07_3D approximates an integral inside the unit ball in 3D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y + Z*Z <= 1.
-//
-//  Discussion:
-//
-//    A 64 point 7-th degree formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    06 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of 
-//    the user supplied function which evaluates F(X,Y,Z).
-//
-//    Output, double BALL_UNIT_07_3D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_UNIT_07_3D approximates an integral inside the unit ball in 3D.
+
+  Integration region:
+
+    X*X + Y*Y + Z*Z <= 1.
+
+  Discussion:
+
+    A 64 point 7-th degree formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of
+    the user supplied function which evaluates F(X,Y,Z).
+
+    Output, double BALL_UNIT_07_3D, the approximate integral of the function.
+*/
 {
   int order = 4;
 
@@ -472,25 +425,25 @@ double ball_unit_07_3d ( double func ( double x, double y, double z ) )
   double volume;
   double w;
   double weight1[4] = {
-    0.19455533421780251826, 
-    0.13877799911553081506, 
-    0.13877799911553081506, 
+    0.19455533421780251826,
+    0.13877799911553081506,
+    0.13877799911553081506,
     0.19455533421780251826 };
   double weight2[4];
   double weight3[4];
   double x;
   double xtab1[4] = {
-    -0.906179845938663992797626878299, 
-    -0.538469310105683091036314420700, 
-     0.538469310105683091036314420700, 
+    -0.906179845938663992797626878299,
+    -0.538469310105683091036314420700,
+     0.538469310105683091036314420700,
      0.906179845938663992797626878299 };
   double xtab2[4];
   double xtab3[4];
   double y;
   double z;
-//
-//  Set XTAB2 and WEIGHT2.
-//
+/*
+  Set XTAB2 and WEIGHT2.
+*/
   for ( j = 0; j < order; j++ )
   {
     angle = pi * ( double ) ( 2 * j - 1 ) / ( double ) ( 2 * order );
@@ -501,9 +454,9 @@ double ball_unit_07_3d ( double func ( double x, double y, double z ) )
   {
     weight2[j] = 1.0;
   }
-//
-//  Set XTAB3 and WEIGHT3 for the interval [-1,1].
-//
+/*
+  Set XTAB3 and WEIGHT3 for the interval [-1,1].
+*/
   legendre_set ( order, xtab3, weight3 );
 
   w = 3.0 / 16.0;
@@ -516,12 +469,12 @@ double ball_unit_07_3d ( double func ( double x, double y, double z ) )
     {
       for ( k = 0; k < order; k++ )
       {
-        x = xtab1[i] * sqrt ( 1.0 - xtab2[j] * xtab2[j] ) 
+        x = xtab1[i] * sqrt ( 1.0 - xtab2[j] * xtab2[j] )
                      * sqrt ( 1.0 - xtab3[k] * xtab3[k] );
         y = xtab1[i] * xtab2[j] * sqrt ( 1.0 - xtab3[k] * xtab3[k] );
         z = xtab1[i] * xtab3[k];
 
-        quad = quad + w * weight1[i] * weight2[j] * weight3[k] 
+        quad = quad + w * weight1[i] * weight2[j] * weight3[k]
           * func ( x, y, z );
       }
     }
@@ -532,51 +485,51 @@ double ball_unit_07_3d ( double func ( double x, double y, double z ) )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_unit_14_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_UNIT_14_3D approximates an integral inside the unit ball in 3D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y + Z*Z <= 1.
-//
-//  Discussion:
-//
-//    A 288 point 14-th degree formula is used, Stroud number S3:14-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    06 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of 
-//    the user supplied function which evaluates F(X,Y,Z).
-//
-//    Output, double RESULT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_UNIT_14_3D approximates an integral inside the unit ball in 3D.
+
+  Integration region:
+
+    X*X + Y*Y + Z*Z <= 1.
+
+  Discussion:
+
+    A 288 point 14-th degree formula is used, Stroud number S3:14-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of
+    the user supplied function which evaluates F(X,Y,Z).
+
+    Output, double RESULT, the approximate integral of the function.
+*/
 {
   int i;
   int j;
@@ -592,19 +545,19 @@ double ball_unit_14_3d ( double func ( double x, double y, double z ) )
   double volume;
   double w1;
   double w2;
-  double weight[4] = { 
+  double weight[4] = {
     0.076181268, 0.126263673, 0.098048133, 0.032840260 };
   double x;
-  double xtab[5] = { 
-    -0.151108275, 0.315838353, 0.346307112, 
+  double xtab[5] = {
+    -0.151108275, 0.315838353, 0.346307112,
     -0.101808787, -0.409228403 };
   double y;
-  double ytab[5] = { 
-    0.155240600, 0.257049387, 0.666277790, 
+  double ytab[5] = {
+    0.155240600, 0.257049387, 0.666277790,
     0.817386065, 0.501547712 };
   double z;
-  double ztab[5] = { 
-    0.976251323, 0.913330032, 0.660412970, 
+  double ztab[5] = {
+    0.976251323, 0.913330032, 0.660412970,
     0.567022920, 0.762221757 };
 
   quad = 0.0;
@@ -670,51 +623,51 @@ double ball_unit_14_3d ( double func ( double x, double y, double z ) )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_unit_15_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_UNIT_15_3D approximates an integral inside the unit ball in 3D.
-//
-//  Integration region:
-//
-//    X * X + Y * Y + Z * Z <= 1.
-//
-//  Discussion:
-//
-//    A 512 point 15-th degree formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    28 October 2000
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which evaluates F(X,Y,Z).
-//
-//    Output, double BALL_UNIT_15_3D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_UNIT_15_3D approximates an integral inside the unit ball in 3D.
+
+  Integration region:
+
+    X * X + Y * Y + Z * Z <= 1.
+
+  Discussion:
+
+    A 512 point 15-th degree formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 October 2000
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which evaluates F(X,Y,Z).
+
+    Output, double BALL_UNIT_15_3D, the approximate integral of the function.
+*/
 {
   double cj;
   double ck;
@@ -776,53 +729,53 @@ double ball_unit_15_3d ( double func ( double x, double y, double z ) )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_unit_f1_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_UNIT_F1_ND approximates an integral inside the unit ball in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) <= 1.
-//
-//  Discussion:
-//
-//    An (N+1)*2^N point 5-th degree formula is used, Stroud number SN:5-6.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    10 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function which evaluates F at the N-vector X.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double BALL_UNIT_F1_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_UNIT_F1_ND approximates an integral inside the unit ball in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) <= 1.
+
+  Discussion:
+
+    An (N+1)*2^N point 5-th degree formula is used, Stroud number SN:5-6.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function which evaluates F at the N-vector X.
+
+    Input, int N, the dimension of the space.
+
+    Output, double BALL_UNIT_F1_ND, the approximate integral of the function.
+*/
 {
   int i;
   int ihi;
@@ -845,7 +798,7 @@ double ball_unit_f1_nd ( double func ( int n, double x[] ), int n )
 
   x = ( double * ) malloc ( n * sizeof ( double ) );
 
-  u2 = ( 1.0 - 2.0 * sqrt ( 1.0 / ( double ) ( n + 4 ) ) ) 
+  u2 = ( 1.0 - 2.0 * sqrt ( 1.0 / ( double ) ( n + 4 ) ) )
     / ( double ) ( n + 2 );
   u = sqrt ( u2 );
   for ( i = 0; i < n; i++ )
@@ -878,10 +831,10 @@ double ball_unit_f1_nd ( double func ( int n, double x[] ), int n )
 
   temp = sqrt ( ( double ) ( n + 4 ) );
 
-  t = sqrt ( 2.0 * ( double ) ( n + 1 ) / ( double ) ( n + 2 ) ) 
+  t = sqrt ( 2.0 * ( double ) ( n + 1 ) / ( double ) ( n + 2 ) )
     / ( ( double ) ( n ) * temp );
 
-  y = ( 1.0 + 2.0 / ( ( double ) ( n ) * temp ) ) 
+  y = ( 1.0 + 2.0 / ( ( double ) ( n ) * temp ) )
     / ( double ) ( n + 2 );
   v = sqrt ( y - t );
   u = sqrt ( y + ( double ) ( n - 1 ) * t );
@@ -924,53 +877,53 @@ double ball_unit_f1_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_unit_f3_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_UNIT_F3_ND approximates an integral inside the unit ball in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) <= 1.
-//
-//  Discussion:
-//
-//    A 2^(N+1)-1 point 5-th degree formula is used, Stroud number SN:5-4.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    10 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function which evaluates F at the N-vector X.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double BALL_UNIT_F3_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_UNIT_F3_ND approximates an integral inside the unit ball in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) <= 1.
+
+  Discussion:
+
+    A 2^(N+1)-1 point 5-th degree formula is used, Stroud number SN:5-4.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function which evaluates F at the N-vector X.
+
+    Input, int N, the dimension of the space.
+
+    Output, double BALL_UNIT_F3_ND, the approximate integral of the function.
+*/
 {
   int i;
   int j;
@@ -985,9 +938,9 @@ double ball_unit_f3_nd ( double func ( int n, double x[] ), int n )
   double *x;
 
   quad = 0.0;
-//
-//  The first point is the center of the ball.
-//
+/*
+  The first point is the center of the ball.
+*/
   x = ( double * ) malloc ( n * sizeof ( double ) );
   for ( i = 0; i < n; i++ )
   {
@@ -1001,9 +954,9 @@ double ball_unit_f3_nd ( double func ( int n, double x[] ), int n )
   for ( i = 0; i < n; i++ )
   {
     ri = sqrt ( ( double ) ( i + 3 ) / ( double ) ( n + 4 ) );
-//
-//  Set up the first point, with (I-1) zeroes, RI, and then N-I S's.
-//
+/*
+  Set up the first point, with (I-1) zeroes, RI, and then N-I S's.
+*/
     for ( j = 0; j < n; j++ )
     {
       if ( j < i )
@@ -1020,11 +973,11 @@ double ball_unit_f3_nd ( double func ( int n, double x[] ), int n )
       }
     }
 
-    weight = pow ( 2.0, i + 1 - n ) * ( double ) ( n + 4 ) 
+    weight = pow ( 2.0, i + 1 - n ) * ( double ) ( n + 4 )
       / ( double ) ( ( i + 2 ) * ( i + 3 ) * ( n + 2 ) );
-//
-//  Now go through all sign permutations of the basic point.
-//
+/*
+  Now go through all sign permutations of the basic point.
+*/
     for ( j = 0; j < i4_power ( 2, n - i ); j++ )
     {
       jtemp = j;
@@ -1052,36 +1005,36 @@ double ball_unit_f3_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_unit_volume_3d ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_UNIT_VOLUME_3D computes the volume of the unit ball in 3D.
-//
-//  Integration region:
-//
-//    X * X + Y * Y + Z * Z <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double BALL_UNIT_VOLUME_3D, the volume of the ball.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_UNIT_VOLUME_3D computes the volume of the unit ball in 3D.
+
+  Integration region:
+
+    X * X + Y * Y + Z * Z <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double BALL_UNIT_VOLUME_3D, the volume of the ball.
+*/
 {
   double pi = 3.141592653589793;
   double value;
@@ -1090,49 +1043,49 @@ double ball_unit_volume_3d ( )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_unit_volume_nd ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_UNIT_VOLUME_ND computes the volume of the unit ball in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) <= 1.
-//
-//  Discussion:
-//
-//    N  Volume
-//
-//    2             PI
-//    3  (4/3)    * PI
-//    4  (1/2)    * PI^2
-//    5  (8/15)   * PI^2
-//    6  (1/6)    * PI^3
-//    7  (16/105) * PI^3
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double BALL_UNIT_VOLUME_ND, the volume of the ball.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_UNIT_VOLUME_ND computes the volume of the unit ball in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) <= 1.
+
+  Discussion:
+
+    N  Volume
+
+    2             PI
+    3  (4/3)    * PI
+    4  (1/2)    * PI^2
+    5  (8/15)   * PI^2
+    6  (1/6)    * PI^3
+    7  (16/105) * PI^3
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Output, double BALL_UNIT_VOLUME_ND, the volume of the ball.
+*/
 {
   int i;
   int m;
@@ -1160,38 +1113,38 @@ double ball_unit_volume_nd ( int n )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_volume_3d ( double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_VOLUME_3D computes the volume of a ball in 3D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y + Z*Z <= R * R
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the ball.
-//
-//    Output, double BALL_VOLUME_3D, the volume of the ball.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_VOLUME_3D computes the volume of a ball in 3D.
+
+  Integration region:
+
+    X*X + Y*Y + Z*Z <= R * R
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the ball.
+
+    Output, double BALL_VOLUME_3D, the volume of the ball.
+*/
 {
   double pi = 3.141592653589793;
   double volume;
@@ -1200,51 +1153,51 @@ double ball_volume_3d ( double r )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ball_volume_nd ( int n, double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    BALL_VOLUME_ND computes the volume of a ball in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) <= R * R
-//
-//  Discussion:
-//
-//    N  Volume
-//
-//    2             PI   * R^2
-//    3  (4/3)    * PI   * R^3
-//    4  (1/2)    * PI^2 * R^4
-//    5  (8/15)   * PI^2 * R^5
-//    6  (1/6)    * PI^3 * R^6
-//    7  (16/105) * PI^3 * R^7
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double R, the radius of the ball.
-//
-//    Output, double BALL_VOLUME_ND, the volume of the ball.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    BALL_VOLUME_ND computes the volume of a ball in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) <= R * R
+
+  Discussion:
+
+    N  Volume
+
+    2             PI   * R^2
+    3  (4/3)    * PI   * R^3
+    4  (1/2)    * PI^2 * R^4
+    5  (8/15)   * PI^2 * R^5
+    6  (1/6)    * PI^3 * R^6
+    7  (16/105) * PI^3 * R^7
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Input, double R, the radius of the ball.
+
+    Output, double BALL_VOLUME_ND, the volume of the ball.
+*/
 {
   double volume;
 
@@ -1252,48 +1205,48 @@ double ball_volume_nd ( int n, double r )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double c1_geg_monomial_integral ( double alpha, int expon )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    C1_GEG_MONOMIAL_INTEGRAL: integral of monomial with Gegenbauer weight on C1.
-//
-//  Discussion:
-//
-//    C1_GEG is the interval [-1,+1] with the Gegenbauer weight function
-//
-//      w(alpha;x) = (1-x^2)^alpha
-//
-//    with -1.0 < alpha.
-//
-//    value = integral ( -1 <= x <= +1 ) x^expon (1-x^2)^alpha dx
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double ALPHA, the exponent of (1-X^2).
-//    - 1.0 < ALPHA.
-//
-//    Input, int EXPON, the exponent.
-//    0 <= EXPON.
-//
-//    Output, double C1_GEG_MONOMIAL_INTEGRAL, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    C1_GEG_MONOMIAL_INTEGRAL: integral of monomial with Gegenbauer weight on C1.
+
+  Discussion:
+
+    C1_GEG is the interval [-1,+1] with the Gegenbauer weight function
+
+      w(alpha;x) = (1-x^2)^alpha
+
+    with -1.0 < alpha.
+
+    value = integral ( -1 <= x <= +1 ) x^expon (1-x^2)^alpha dx
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double ALPHA, the exponent of (1-X^2).
+    - 1.0 < ALPHA.
+
+    Input, int EXPON, the exponent.
+    0 <= EXPON.
+
+    Output, double C1_GEG_MONOMIAL_INTEGRAL, the value of the integral.
+*/
 {
   double arg1;
   double arg2;
@@ -1326,47 +1279,47 @@ double c1_geg_monomial_integral ( double alpha, int expon )
 
   value1 = r8_hyper_2f1 ( arg1, arg2, arg3, arg4 );
 
-  value = 2.0 * r8_gamma ( 1.0 + c ) * r8_gamma ( 1.0 + alpha ) 
+  value = 2.0 * r8_gamma ( 1.0 + c ) * r8_gamma ( 1.0 + alpha )
     * value1 / r8_gamma ( 2.0 + alpha + c );
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double c1_jac_monomial_integral ( double alpha, double beta, int expon )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    C1_JAC_MONOMIAL_INTEGRAL: integral of a monomial with Jacobi weight over C1.
-//
-//  Discussion:
-//
-//    value = integral ( -1 <= x <= +1 ) x^expon (1-x)^alpha (1+x)^beta dx
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    27 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double ALPHA, the exponent of (1-X) in the weight factor.
-//
-//    Input, double BETA, the exponent of (1+X) in the weight factor.
-//
-//    Input, int EXPON, the exponent.
-//
-//    Output, double C1_JAC_MONOMIAL_INTEGRAL, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    C1_JAC_MONOMIAL_INTEGRAL: integral of a monomial with Jacobi weight over C1.
+
+  Discussion:
+
+    value = integral ( -1 <= x <= +1 ) x^expon (1-x)^alpha (1+x)^beta dx
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double ALPHA, the exponent of (1-X) in the weight factor.
+
+    Input, double BETA, the exponent of (1+X) in the weight factor.
+
+    Input, int EXPON, the exponent.
+
+    Output, double C1_JAC_MONOMIAL_INTEGRAL, the value of the integral.
+*/
 {
   double arg1;
   double arg2;
@@ -1403,51 +1356,51 @@ double c1_jac_monomial_integral ( double alpha, double beta, int expon )
 
   value2 = r8_hyper_2f1 ( arg1, arg2, arg3, arg4 );
 
-  value = r8_gamma ( 1.0 + c ) * ( 
-      s * r8_gamma ( 1.0 + beta  ) * value1 
-    / r8_gamma ( 2.0 + beta  + c ) 
-    +     r8_gamma ( 1.0 + alpha ) * value2 
+  value = r8_gamma ( 1.0 + c ) * (
+      s * r8_gamma ( 1.0 + beta  ) * value1
+    / r8_gamma ( 2.0 + beta  + c )
+    +     r8_gamma ( 1.0 + alpha ) * value2
     / r8_gamma ( 2.0 + alpha + c ) );
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double c1_leg_monomial_integral ( int expon )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    C1_LEG_MONOMIAL_INTEGRAL: integral of monomial with Legendre weight on C1.
-//
-//  Discussion:
-//
-//    C1_LEG is the interval [-1,+1] with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//    value = integral ( -1 <= x <= +1 ) x^expon dx
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    05 February 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int EXPON, the exponent.
-//    0 <= EXPON.
-//
-//    Output, double C1_LEG_MONOMIAL_INTEGRAL, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    C1_LEG_MONOMIAL_INTEGRAL: integral of monomial with Legendre weight on C1.
+
+  Discussion:
+
+    C1_LEG is the interval [-1,+1] with the Legendre weight function
+
+      w(x) = 1.
+
+    value = integral ( -1 <= x <= +1 ) x^expon dx
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 February 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int EXPON, the exponent.
+    0 <= EXPON.
+
+    Output, double C1_LEG_MONOMIAL_INTEGRAL, the value of the integral.
+*/
 {
   double value;
 
@@ -1469,55 +1422,55 @@ double c1_leg_monomial_integral ( int expon )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double circle_annulus ( double func ( double x, double y ), double center[2], 
+double circle_annulus ( double func ( double x, double y ), double center[2],
   double radius1, double radius2, int nr )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_ANNULUS approximates an integral in an annulus.
-//
-//  Integration region:
-//
-//    RADIUS1^2 <= ( X - CENTER(1) )^2 + ( Y - CENTER(2) )^2 <= RADIUS2^2
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    10 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    William Peirce,
-//    Numerical Integration Over the Planar Annulus,
-//    Journal of the Society for Industrial and Applied Mathematics,
-//    Volume 5, Number 2, June 1957, pages 66-73.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the user supplied 
-//    function of two variables which is to be integrated.
-//
-//    Input, double CENTER[2], the center of the circle.
-//
-//    Input, double RADIUS1, RADIUS2, the radii of the circles.
-//
-//    Input, int NR, the order of the rule.  This quantity specifies
-//    the number of distinct radii to use.  The number of angles used will
-//    be 4*NR, for a total of 4*NR*NR points.
-//
-//    Output, double CIRCLE_ANNULUS, the approximation to the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_ANNULUS approximates an integral in an annulus.
+
+  Integration region:
+
+    RADIUS1^2 <= ( X - CENTER(1) )^2 + ( Y - CENTER(2) )^2 <= RADIUS2^2
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    William Peirce,
+    Numerical Integration Over the Planar Annulus,
+    Journal of the Society for Industrial and Applied Mathematics,
+    Volume 5, Number 2, June 1957, pages 66-73.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the user supplied
+    function of two variables which is to be integrated.
+
+    Input, double CENTER[2], the center of the circle.
+
+    Input, double RADIUS1, RADIUS2, the radii of the circles.
+
+    Input, int NR, the order of the rule.  This quantity specifies
+    the number of distinct radii to use.  The number of angles used will
+    be 4*NR, for a total of 4*NR*NR points.
+
+    Output, double CIRCLE_ANNULUS, the approximation to the integral.
+*/
 {
   double a;
   double area;
@@ -1536,9 +1489,9 @@ double circle_annulus ( double func ( double x, double y ), double center[2],
   double tw;
   double x;
   double y;
-//
-//  Choose radial abscissas and weights.
-//
+/*
+  Choose radial abscissas and weights.
+*/
   ra = ( double * ) malloc ( nr * sizeof ( double ) );
   rw = ( double * ) malloc ( nr * sizeof ( double ) );
 
@@ -1558,15 +1511,15 @@ double circle_annulus ( double func ( double x, double y ), double center[2],
   {
     rw[i] = rw[i] / ( radius2 - radius1 ) / ( radius2 + radius1 );
   }
-//
-//  Set angular abscissas and weights.
-//
+/*
+  Set angular abscissas and weights.
+*/
   nt = 4 * nr;
 
   tw = 1.0 / ( double ) ( nt );
-//
-//  Approximate the integral.
-//
+/*
+  Approximate the integral.
+*/
   quad = 0.0;
   for ( i = 0; i < nt; i++ )
   {
@@ -1587,38 +1540,38 @@ double circle_annulus ( double func ( double x, double y ), double center[2],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double circle_annulus_area_2d ( double radius1, double radius2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_ANNULUS_AREA_2D returns the area of a circular annulus in 2D.
-//
-//  Integration region:
-//
-//    RADIUS1^2 <= ( X - CENTER(1) )^2 + ( Y - CENTER(2) )^2 <= RADIUS2^2
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    10 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double RADIUS1, RADIUS2, the radii of the circles.
-//
-//    Output, double CIRCLE_ANNULUS_AREA_2D, the area of the annulus.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_ANNULUS_AREA_2D returns the area of a circular annulus in 2D.
+
+  Integration region:
+
+    RADIUS1^2 <= ( X - CENTER(1) )^2 + ( Y - CENTER(2) )^2 <= RADIUS2^2
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double RADIUS1, RADIUS2, the radii of the circles.
+
+    Output, double CIRCLE_ANNULUS_AREA_2D, the area of the annulus.
+*/
 {
   double pi = 3.141592653589793;
   double value;
@@ -1627,60 +1580,60 @@ double circle_annulus_area_2d ( double radius1, double radius2 )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double circle_annulus_sector ( double func ( double x, double y ), 
-  double center[2], double radius1, double radius2, double theta1, 
+double circle_annulus_sector ( double func ( double x, double y ),
+  double center[2], double radius1, double radius2, double theta1,
   double theta2, int nr )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_ANNULUS_SECTOR approximates an integral in a circular annulus sector.
-//
-//  Discussion:
-//
-//    A circular annulus sector comprises the area between two concentric
-//    circles and two concentric rays.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    William Peirce,
-//    Numerical Integration Over the Planar Annulus,
-//    Journal of the Society for Industrial and Applied Mathematics,
-//    Volume 5, Number 2, June 1957, pages 66-73.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double CENTER[2], the center of the circle.
-//
-//    Input, double RADIUS1, RADIUS2, the radii of the circles.
-//
-//    Input, double THETA1, THETA2, the angles defining the sector.
-//    The sector is measured from THETA1 to THETA2.
-//
-//    Input, int NR, the order of the rule.  This quantity specifies
-//    the number of distinct radii to use.  The number of angles used will
-//    be 4*NR, for a total of 4*NR*NR points.
-//
-//    Output, double CIRCLE_ANNULUS_SECTOR, the approximation to the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_ANNULUS_SECTOR approximates an integral in a circular annulus sector.
+
+  Discussion:
+
+    A circular annulus sector comprises the area between two concentric
+    circles and two concentric rays.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    William Peirce,
+    Numerical Integration Over the Planar Annulus,
+    Journal of the Society for Industrial and Applied Mathematics,
+    Volume 5, Number 2, June 1957, pages 66-73.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function to be integrated.
+
+    Input, double CENTER[2], the center of the circle.
+
+    Input, double RADIUS1, RADIUS2, the radii of the circles.
+
+    Input, double THETA1, THETA2, the angles defining the sector.
+    The sector is measured from THETA1 to THETA2.
+
+    Input, int NR, the order of the rule.  This quantity specifies
+    the number of distinct radii to use.  The number of angles used will
+    be 4*NR, for a total of 4*NR*NR points.
+
+    Output, double CIRCLE_ANNULUS_SECTOR, the approximation to the integral.
+*/
 {
   double a;
   double area;
@@ -1698,9 +1651,9 @@ double circle_annulus_sector ( double func ( double x, double y ),
   double *tw;
   double x;
   double y;
-//
-//  Set the radial abscissas and weights.
-//
+/*
+  Set the radial abscissas and weights.
+*/
   ra = ( double * ) malloc ( nr * sizeof ( double ) );
   rw = ( double * ) malloc ( nr * sizeof ( double ) );
 
@@ -1721,10 +1674,10 @@ double circle_annulus_sector ( double func ( double x, double y ),
   {
     rw[i] = rw[i] / ( radius2 - radius1 ) / ( radius2 + radius1 );
   }
-//
-//  Pick angles evenly spaced between THETA1 and THETA2, but do not
-//  include the endpoints, and use a half interval for the first and last.
-//
+/*
+  Pick angles evenly spaced between THETA1 and THETA2, but do not
+  include the endpoints, and use a half interval for the first and last.
+*/
   nt = 4 * nr;
 
   ta = tvec_even_bracket3 ( nt, theta1, theta2 );
@@ -1733,9 +1686,9 @@ double circle_annulus_sector ( double func ( double x, double y ),
   {
     tw[i] = 1.0 / ( double ) ( nt );
   }
-//
-//  Approximate the integral.
-//
+/*
+  Approximate the integral.
+*/
   quad = 0.0;
   for ( i = 0; i < nt; i++ )
   {
@@ -1758,84 +1711,84 @@ double circle_annulus_sector ( double func ( double x, double y ),
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double circle_annulus_sector_area_2d ( double radius1, double radius2, 
+double circle_annulus_sector_area_2d ( double radius1, double radius2,
   double theta1, double theta2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_ANNULUS_SECTOR_AREA_2D returns the area of a circular annulus sector in 2D.
-//
-//  Discussion:
-//
-//    A circular annulus sector comprises the area between two concentric
-//    circles and two concentric rays.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double RADIUS1, RADIUS2, the radii of the circles.
-//
-//    Input, double THETA1, THETA2, the angles of the rays.
-//    Ordinarily, (THETA2-THETA1) is between 0 and 2*PI.
-//
-//    Output, double CIRCLE_ANNULUS_SECTOR_AREA_2D, the area of the
-//    circular annulus sector.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_ANNULUS_SECTOR_AREA_2D returns the area of a circular annulus sector in 2D.
+
+  Discussion:
+
+    A circular annulus sector comprises the area between two concentric
+    circles and two concentric rays.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double RADIUS1, RADIUS2, the radii of the circles.
+
+    Input, double THETA1, THETA2, the angles of the rays.
+    Ordinarily, (THETA2-THETA1) is between 0 and 2*PI.
+
+    Output, double CIRCLE_ANNULUS_SECTOR_AREA_2D, the area of the
+    circular annulus sector.
+*/
 {
   double area;
 
-  area = 0.5 * ( radius1 + radius2 ) * ( radius2 - radius1 ) 
+  area = 0.5 * ( radius1 + radius2 ) * ( radius2 - radius1 )
     * ( theta2 - theta1 );
 
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double circle_area_2d ( double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_AREA_2D returns the area of a circle in 2D.
-//
-//  Integration region:
-//
-//    ( X - CENTER(1) )^2 + ( Y - CENTER(2) )^2 <= R * R
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the circle.
-//
-//    Output, double CIRCLE_AREA_2D, the area of the circle.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_AREA_2D returns the area of a circle in 2D.
+
+  Integration region:
+
+    ( X - CENTER(1) )^2 + ( Y - CENTER(2) )^2 <= R * R
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the circle.
+
+    Output, double CIRCLE_AREA_2D, the area of the circle.
+*/
 {
   double area;
   double pi = 3.141592653589793;
@@ -1844,45 +1797,45 @@ double circle_area_2d ( double r )
 
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double circle_cap_area_2d ( double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_CAP_AREA_2D computes the area of a circle cap in 2D.
-//
-//  Discussion:
-//
-//    Draw any radius R of the circle and denote as P the point where the
-//    radius intersects the circle.  Now consider the point Q which lies
-//    on the radius and which is H units from P.  The line which is
-//    perpendicular to the radius R and passes through Q divides the
-//    circle into two pieces.  The piece including the point P is the
-//    circular cap of height (or thickness) H.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the circle.
-//
-//    Input, double H, the "height" of the circle cap.  
-//
-//    Output, double CIRCLE_CAP_AREA_2D, the area of the circle cap.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_CAP_AREA_2D computes the area of a circle cap in 2D.
+
+  Discussion:
+
+    Draw any radius R of the circle and denote as P the point where the
+    radius intersects the circle.  Now consider the point Q which lies
+    on the radius and which is H units from P.  The line which is
+    perpendicular to the radius R and passes through Q divides the
+    circle into two pieces.  The piece including the point P is the
+    circular cap of height (or thickness) H.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the circle.
+
+    Input, double H, the "height" of the circle cap.
+
+    Output, double CIRCLE_CAP_AREA_2D, the area of the circle cap.
+*/
 {
   double area;
   double pi = 3.141592653589793;
@@ -1894,12 +1847,12 @@ double circle_cap_area_2d ( double r, double h )
   }
   else if ( h <= r )
   {
-    theta = 2.0 * arc_sine ( sqrt ( h * ( 2.0 * r - h ) ) / r );
+    theta = 2.0 * r8_asin ( sqrt ( h * ( 2.0 * r - h ) ) / r );
     area = r * r * ( theta - sin ( theta ) ) / 2.0;
   }
   else if ( h <= 2.0 * r )
   {
-    theta = 2.0 * arc_sine ( sqrt ( h * ( 2.0 * r - h ) ) / r );
+    theta = 2.0 * r8_asin ( sqrt ( h * ( 2.0 * r - h ) ) / r );
     area = r * r * ( pi - ( theta - sin ( theta ) ) / 2.0 );
   }
   else if ( 2.0 * r <= h )
@@ -1909,60 +1862,60 @@ double circle_cap_area_2d ( double r, double h )
 
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double circle_cum ( double func ( double x, double y ), double center[2], 
+double circle_cum ( double func ( double x, double y ), double center[2],
   double radius, int order )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_CUM approximates an integral on the circumference of a circle in 2D.
-//
-//  Integration region:
-//
-//    ( X - CENTER(1) )^2 + ( Y - CENTER(2) )^2 <= R * R
-//
-//  Discussion:
-//
-//    An ORDER point, (ORDER-1)-th degree formula is used, 
-//    Stroud number U2:M-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double CENTER[2], the coordinates of the center of 
-//    the circle.
-//
-//    Input, double RADIUS, the radius of the circle.
-//
-//    Input, int ORDER, the number of points to use.
-//
-//    Output, double CIRCLE_CUM, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_CUM approximates an integral on the circumference of a circle in 2D.
+
+  Integration region:
+
+    ( X - CENTER(1) )^2 + ( Y - CENTER(2) )^2 <= R * R
+
+  Discussion:
+
+    An ORDER point, (ORDER-1)-th degree formula is used,
+    Stroud number U2:M-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function to be integrated.
+
+    Input, double CENTER[2], the coordinates of the center of
+    the circle.
+
+    Input, double RADIUS, the radius of the circle.
+
+    Input, int ORDER, the number of points to use.
+
+    Output, double CIRCLE_CUM, the approximate integral of the function.
+*/
 {
   double angle;
   int i;
@@ -1990,92 +1943,92 @@ double circle_cum ( double func ( double x, double y ), double center[2],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void circle_rt_set ( int rule, int nr, int nt, int nc, double ra[], 
+void circle_rt_set ( int rule, int nr, int nt, int nc, double ra[],
   double rw[], double ta[], double tw[], double *cw )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_RT_SET sets an R, THETA product quadrature rule in the unit circle.
-//
-//  Discussion:
-//
-//    For a given value of RULE, here are the number of points used at the
-//    center (NC), the number of points along the radial direction (NR) and
-//    the number of points along the theta direction (NT).  The total number
-//    of points in the rule will be 
-//
-//      Total = NC + NR * NT.
-//
-//    The user, when choosing RULE, must allocate enough space in the arrays
-//    RA, RW, TA and TW for the resulting values of NR and NT.
-//
-//    RULE  NC  NR  NT  Total
-//    ----  --  --  --  -----
-//       1   1   0   0      1
-//       2   0   1   4      4
-//       3   1   1   4      5
-//       4   1   1   6      7
-//       5   1   2   4      9
-//       6   0   3   4     12
-//       7   1   2  10     21
-//       8   0   4  16     64
-//       9   0   5  20    120
-//
-//    The integral of F(X,Y) over the unit circle is approximated by
-//
-//      Integral ( X*X + Y*Y <= 1 ) F(X,Y) dx dy 
-//      = Integral ( 0 <= R <= 1, 0 <= T <= 2PI ) F(R*cos(T),R*sin(T)) r dr dt
-//      = approximately
-//        CW * F(0,0) 
-//        + sum ( 1 <= I <= NR ) Sum ( 1 <= J <= NT )
-//        RW(I) * TW(J) * F ( R(I) * cos ( TA(J) ), R(I) * sin ( TA(J) ) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Milton Abramowitz, Irene Stegun,
-//    Handbook of Mathematical Functions,
-//    National Bureau of Standards, 1964,
-//    ISBN: 0-486-61272-4,
-//    LC: QA47.A34.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the rule desired.
-//
-//    Input, int NR, the number of R abscissas.
-//
-//    Input, int NT, the number of Theta abscissas.
-//
-//    Input, int NC, the number of center abscissas (0 or 1 ).
-//
-//    Output, double RA[NR], RW[NR], the R abscissas and weights.
-//
-//    Output, double TA[NT], TW[NT], the THETA abscissas and weights.
-//
-//    Output, double *ZW, the weight to use for the center.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_RT_SET sets an R, THETA product quadrature rule in the unit circle.
+
+  Discussion:
+
+    For a given value of RULE, here are the number of points used at the
+    center (NC), the number of points along the radial direction (NR) and
+    the number of points along the theta direction (NT).  The total number
+    of points in the rule will be
+
+      Total = NC + NR * NT.
+
+    The user, when choosing RULE, must allocate enough space in the arrays
+    RA, RW, TA and TW for the resulting values of NR and NT.
+
+    RULE  NC  NR  NT  Total
+    ----  --  --  --  -----
+       1   1   0   0      1
+       2   0   1   4      4
+       3   1   1   4      5
+       4   1   1   6      7
+       5   1   2   4      9
+       6   0   3   4     12
+       7   1   2  10     21
+       8   0   4  16     64
+       9   0   5  20    120
+
+    The integral of F(X,Y) over the unit circle is approximated by
+
+      Integral ( X*X + Y*Y <= 1 ) F(X,Y) dx dy
+      = Integral ( 0 <= R <= 1, 0 <= T <= 2PI ) F(R*cos(T),R*sin(T)) r dr dt
+      = approximately
+        CW * F(0,0)
+        + sum ( 1 <= I <= NR ) Sum ( 1 <= J <= NT )
+        RW(I) * TW(J) * F ( R(I) * cos ( TA(J) ), R(I) * sin ( TA(J) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the rule desired.
+
+    Input, int NR, the number of R abscissas.
+
+    Input, int NT, the number of Theta abscissas.
+
+    Input, int NC, the number of center abscissas (0 or 1 ).
+
+    Output, double RA[NR], RW[NR], the R abscissas and weights.
+
+    Output, double TA[NT], TW[NT], the THETA abscissas and weights.
+
+    Output, double *ZW, the weight to use for the center.
+*/
 {
   double a;
   double b;
@@ -2263,85 +2216,85 @@ void circle_rt_set ( int rule, int nr, int nt, int nc, double ra[],
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void circle_rt_size ( int rule, int *nr, int *nt, int *nc )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_RT_SIZE sizes an R, THETA product quadrature rule in the unit circle.
-//
-//  Discussion:
-//
-//    For a given value of RULE, here are the number of points used at the
-//    center (NC), the number of points along the radial direction (NR) and
-//    the number of points along the theta direction (NT).  The total number
-//    of points in the rule will be 
-//
-//      Total = NC + NR * NT.
-//
-//    The user, when choosing RULE, must allocate enough space in the arrays
-//    RA, RW, TA and TW for the resulting values of NR and NT.
-//
-//    RULE  NC  NR  NT  Total
-//    ----  --  --  --  -----
-//       1   1   0   0      1
-//       2   0   1   4      4
-//       3   1   1   4      5
-//       4   1   1   6      7
-//       5   1   2   4      9
-//       6   0   3   4     12
-//       7   1   2  10     21
-//       8   0   4  16     64
-//       9   0   5  20    120
-//
-//    The integral of F(X,Y) over the unit circle is approximated by
-//
-//      Integral ( X*X + Y*Y <= 1 ) F(X,Y) dx dy 
-//      = Integral ( 0 <= R <= 1, 0 <= T <= 2PI ) F(R*cos(T),R*sin(T)) r dr dt
-//      = approximately
-//        ZW * F(0,0) 
-//        + sum ( 1 <= I <= NR ) Sum ( 1 <= J <= NT )
-//        RW(I) * TW(J) * F ( R(I) * cos ( TA(J) ), R(I) * sin ( TA(J) ) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    20 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Milton Abramowitz, Irene Stegun,
-//    Handbook of Mathematical Functions,
-//    National Bureau of Standards, 1964,
-//    ISBN: 0-486-61272-4,
-//    LC: QA47.A34.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the rule desired.
-//
-//    Output, int *NR, the number of R abscissas.
-//    
-//    Output, int *NT, the number of Theta abscissas.
-//
-//    Output, int *NC, the number of center abscissas (0 or 1).
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_RT_SIZE sizes an R, THETA product quadrature rule in the unit circle.
+
+  Discussion:
+
+    For a given value of RULE, here are the number of points used at the
+    center (NC), the number of points along the radial direction (NR) and
+    the number of points along the theta direction (NT).  The total number
+    of points in the rule will be
+
+      Total = NC + NR * NT.
+
+    The user, when choosing RULE, must allocate enough space in the arrays
+    RA, RW, TA and TW for the resulting values of NR and NT.
+
+    RULE  NC  NR  NT  Total
+    ----  --  --  --  -----
+       1   1   0   0      1
+       2   0   1   4      4
+       3   1   1   4      5
+       4   1   1   6      7
+       5   1   2   4      9
+       6   0   3   4     12
+       7   1   2  10     21
+       8   0   4  16     64
+       9   0   5  20    120
+
+    The integral of F(X,Y) over the unit circle is approximated by
+
+      Integral ( X*X + Y*Y <= 1 ) F(X,Y) dx dy
+      = Integral ( 0 <= R <= 1, 0 <= T <= 2PI ) F(R*cos(T),R*sin(T)) r dr dt
+      = approximately
+        ZW * F(0,0)
+        + sum ( 1 <= I <= NR ) Sum ( 1 <= J <= NT )
+        RW(I) * TW(J) * F ( R(I) * cos ( TA(J) ), R(I) * sin ( TA(J) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the rule desired.
+
+    Output, int *NR, the number of R abscissas.
+
+    Output, int *NT, the number of Theta abscissas.
+
+    Output, int *NC, the number of center abscissas (0 or 1).
+*/
 {
   if ( rule == 1 )
   {
@@ -2407,64 +2360,64 @@ void circle_rt_size ( int rule, int *nr, int *nt, int *nc )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double circle_rt_sum ( double func ( double x, double y ), double center[2], 
-  double radius, int nr, double ra[], double rw[], int nt, double ta[], 
+double circle_rt_sum ( double func ( double x, double y ), double center[2],
+  double radius, int nr, double ra[], double rw[], int nt, double ta[],
   double tw[], double zw )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_RT_SUM applies an R, THETA product quadrature rule inside a circle.
-//
-//  Integration region:
-//
-//    (X-CENTER(1))^2 + (Y-CENTER(2))^2 <= RADIUS^2.
-//
-//  Discussion:
-//
-//    The product rule is assumed to be have the form:
-//
-//      Integral_Approx = ZW * F(CENTER(1),CENTER(2)) +
-//        sum ( 1 <= IR <= NR ) Sum ( 1 <= IT <= NT )
-//        RW(IR) * TW(IT) * F ( CENTER(1) + R(IR) * RADIUS * Cos ( TA(IT) ),
-//                              CENTER(2) + R(IR) * RADIUS * Sin ( TA(IT) ) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double CENTER[2], the center of the circle.
-//
-//    Input, double RADIUS, the radius of the circle.
-//
-//    Input, int NR, the number of R abscissas.
-//
-//    Input, double RA[NR], RW[NR], the R abscissas and weights.
-//
-//    Input, int NT, the number of Theta abscissas.
-//
-//    Input, double TA[NT], TW[NT], the THETA abscissas and weights.
-//
-//    Input, double ZW, the weight to use for the center.
-//
-//    Output, double CIRCLE_RT_SUM, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_RT_SUM applies an R, THETA product quadrature rule inside a circle.
+
+  Integration region:
+
+    (X-CENTER(1))^2 + (Y-CENTER(2))^2 <= RADIUS^2.
+
+  Discussion:
+
+    The product rule is assumed to be have the form:
+
+      Integral_Approx = ZW * F(CENTER(1),CENTER(2)) +
+        sum ( 1 <= IR <= NR ) Sum ( 1 <= IT <= NT )
+        RW(IR) * TW(IT) * F ( CENTER(1) + R(IR) * RADIUS * Cos ( TA(IT) ),
+                              CENTER(2) + R(IR) * RADIUS * Sin ( TA(IT) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function to be integrated.
+
+    Input, double CENTER[2], the center of the circle.
+
+    Input, double RADIUS, the radius of the circle.
+
+    Input, int NR, the number of R abscissas.
+
+    Input, double RA[NR], RW[NR], the R abscissas and weights.
+
+    Input, int NT, the number of Theta abscissas.
+
+    Input, double TA[NT], TW[NT], the THETA abscissas and weights.
+
+    Input, double ZW, the weight to use for the center.
+
+    Output, double CIRCLE_RT_SUM, the approximate integral of the function.
+*/
 {
   int ir;
   int it;
@@ -2501,52 +2454,52 @@ double circle_rt_sum ( double func ( double x, double y ), double center[2],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double circle_sector ( double func ( double x, double y ), double center[2], 
+double circle_sector ( double func ( double x, double y ), double center[2],
   double radius, double theta1, double theta2, int nr )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_SECTOR approximates an integral in a circular sector.
-//
-//  Discussion:
-//
-//    A sector is contained within a circular arc and the lines joining each
-//    endpoint of the arc to the center of the circle.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double CENTER[2], the center of the circle.
-//
-//    Input, double RADIUS, the radius of the circle.
-//
-//    Input, double THETA1, THETA2, the angles defining the sector.
-//    The sector is measured from THETA1 to THETA2.
-//
-//    Input, int NR, the number of radial values used in the approximation
-//    of the integral.  NR must be at least 1.  Higher values improve the
-//    accuracy of the integration, at the cost of more function evaluations.
-//
-//    Output, double CIRCLE_SECTOR, the approximation to the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_SECTOR approximates an integral in a circular sector.
+
+  Discussion:
+
+    A sector is contained within a circular arc and the lines joining each
+    endpoint of the arc to the center of the circle.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function to be integrated.
+
+    Input, double CENTER[2], the center of the circle.
+
+    Input, double RADIUS, the radius of the circle.
+
+    Input, double THETA1, THETA2, the angles defining the sector.
+    The sector is measured from THETA1 to THETA2.
+
+    Input, int NR, the number of radial values used in the approximation
+    of the integral.  NR must be at least 1.  Higher values improve the
+    accuracy of the integration, at the cost of more function evaluations.
+
+    Output, double CIRCLE_SECTOR, the approximation to the integral.
+*/
 {
   double a;
   double area;
@@ -2564,9 +2517,9 @@ double circle_sector ( double func ( double x, double y ), double center[2],
   double *tw;
   double x;
   double y;
-//
-//  Set the radial abscissas and weights.
-//
+/*
+  Set the radial abscissas and weights.
+*/
   ra = ( double * ) malloc ( nr * sizeof ( double ) );
   rw = ( double * ) malloc ( nr * sizeof ( double ) );
 
@@ -2587,10 +2540,10 @@ double circle_sector ( double func ( double x, double y ), double center[2],
   {
     rw[i] = rw[i] / radius / radius;
   }
-//
-//  Pick angles evenly spaced between THETA1 and THETA2, but do not
-//  include the endpoints, and use a half interval for the first and last.
-//
+/*
+  Pick angles evenly spaced between THETA1 and THETA2, but do not
+  include the endpoints, and use a half interval for the first and last.
+*/
   nt = 4 * nr;
 
   ta = tvec_even_bracket3 ( nt, theta1, theta2 );
@@ -2600,9 +2553,9 @@ double circle_sector ( double func ( double x, double y ), double center[2],
   {
     tw[i] = 1.0 / ( double ) ( nt );
   }
-//
-//  Approximate the integral.
-//
+/*
+  Approximate the integral.
+*/
   quad = 0.0;
   for ( i = 0; i < nr; i++ )
   {
@@ -2624,42 +2577,42 @@ double circle_sector ( double func ( double x, double y ), double center[2],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double circle_sector_area_2d ( double r, double theta1, double theta2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_SECTOR_AREA_2D returns the area of a circular sector in 2D.
-//
-//  Discussion:
-//
-//    A sector is contained within a circular arc and the lines joining each
-//    endpoint of the arc to the center of the circle.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the circle.
-//
-//    Input, double THETA1, THETA2, the angles of the rays
-//    that delimit the sector.
-//
-//    Output, double CIRCLE_SECTOR_AREA_2D, the area of the sector.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_SECTOR_AREA_2D returns the area of a circular sector in 2D.
+
+  Discussion:
+
+    A sector is contained within a circular arc and the lines joining each
+    endpoint of the arc to the center of the circle.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the circle.
+
+    Input, double THETA1, THETA2, the angles of the rays
+    that delimit the sector.
+
+    Output, double CIRCLE_SECTOR_AREA_2D, the area of the sector.
+*/
 {
   double value;
 
@@ -2667,47 +2620,47 @@ double circle_sector_area_2d ( double r, double theta1, double theta2 )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double circle_triangle_area_2d ( double r, double theta1, double theta2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_TRIANGLE_AREA_2D returns the area of a circle triangle in 2D.
-//
-//  Discussion:
-//
-//    A circle triangle is formed by drawing a circular arc, and considering
-//    the triangle formed by the endpoints of the arc plus the center of
-//    the circle.
-//
-//    The normal situation is that 0 < ( THETA2 - THETA1 ) < PI.  Outside
-//    this range, the triangle can actually have NEGATIVE area.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the circle.
-//
-//    Input, double THETA1, THETA2, the angles of the rays that
-//    delimit the arc.
-//
-//    Output, double CIRCLE_TRIANGLE_AREA_2D, the (signed) area
-//    of the triangle.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_TRIANGLE_AREA_2D returns the area of a circle triangle in 2D.
+
+  Discussion:
+
+    A circle triangle is formed by drawing a circular arc, and considering
+    the triangle formed by the endpoints of the arc plus the center of
+    the circle.
+
+    The normal situation is that 0 < ( THETA2 - THETA1 ) < PI.  Outside
+    this range, the triangle can actually have NEGATIVE area.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the circle.
+
+    Input, double THETA1, THETA2, the angles of the rays that
+    delimit the arc.
+
+    Output, double CIRCLE_TRIANGLE_AREA_2D, the (signed) area
+    of the triangle.
+*/
 {
   double value;
 
@@ -2715,76 +2668,76 @@ double circle_triangle_area_2d ( double r, double theta1, double theta2 )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void circle_xy_set ( int rule, int order, double xtab[], double ytab[], 
+void circle_xy_set ( int rule, int order, double xtab[], double ytab[],
   double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_XY_SET sets an XY quadrature rule inside the unit circle in 2D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y <= 1.0.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Milton Abramowitz, Irene Stegun,
-//    Handbook of Mathematical Functions,
-//    National Bureau of Standards, 1964,
-//    ISBN: 0-486-61272-4,
-//    LC: QA47.A34.
-//
-//    Frank Lether,
-//    A Generalized Product Rule for the Circle,
-//    SIAM Journal on Numerical Analysis,
-//    Volume 8, Number 2, June 1971, pages 249-253.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the rule desired.
-//      1, 1 point 1-st degree;
-//      2, 4 point 3-rd degree, Stroud S2:3-1;
-//      3, 4 point 3-rd degree, Lether #1;
-//      4, 4 point 3-rd degree, Stroud S2:3-2;
-//      5, 5 point 3-rd degree;
-//      6, 7 point 5-th degree;
-//      7, 9 point 5-th degree;
-//      8, 9 point 5-th degree, Lether #2;
-//      9, 12 point 7-th degree;
-//     10, 16 point 7-th degree, Lether #3;
-//     11, 21 point 9-th degree, Stroud S2:9-3;
-//     12, 25 point 9-th degree, Lether #4 (after correcting error);
-//     13, 64 point 15-th degree Gauss product rule.
-//
-//    Input, int ORDER, the order of the desired rule.
-//
-//    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas of 
-//    the rule.
-//
-//    Output, double WEIGHT[ORDER], the ORDER weights of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_XY_SET sets an XY quadrature rule inside the unit circle in 2D.
+
+  Integration region:
+
+    X*X + Y*Y <= 1.0.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Frank Lether,
+    A Generalized Product Rule for the Circle,
+    SIAM Journal on Numerical Analysis,
+    Volume 8, Number 2, June 1971, pages 249-253.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the rule desired.
+      1, 1 point 1-st degree;
+      2, 4 point 3-rd degree, Stroud S2:3-1;
+      3, 4 point 3-rd degree, Lether #1;
+      4, 4 point 3-rd degree, Stroud S2:3-2;
+      5, 5 point 3-rd degree;
+      6, 7 point 5-th degree;
+      7, 9 point 5-th degree;
+      8, 9 point 5-th degree, Lether #2;
+      9, 12 point 7-th degree;
+     10, 16 point 7-th degree, Lether #3;
+     11, 21 point 9-th degree, Stroud S2:9-3;
+     12, 25 point 9-th degree, Lether #4 (after correcting error);
+     13, 64 point 15-th degree Gauss product rule.
+
+    Input, int ORDER, the order of the desired rule.
+
+    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas of
+    the rule.
+
+    Output, double WEIGHT[ORDER], the ORDER weights of the rule.
+*/
 {
   double a;
   double b;
@@ -3075,22 +3028,22 @@ void circle_xy_set ( int rule, int order, double xtab[], double ytab[],
   else if ( rule == 10 )
   {
     a = sqrt ( ( 3.0 - sqrt ( 5.0 ) ) / 8.0 );
-    b = sqrt ( ( 15.0 + 3.0 * sqrt ( 5.0 ) 
+    b = sqrt ( ( 15.0 + 3.0 * sqrt ( 5.0 )
       - 2.0 * sqrt ( 30.0 ) - 2.0 * sqrt ( 6.0 ) ) / 56.0 );
-    c = sqrt ( ( 15.0 + 3.0 * sqrt ( 5.0 ) 
+    c = sqrt ( ( 15.0 + 3.0 * sqrt ( 5.0 )
       + 2.0 * sqrt ( 30.0 ) + 2.0 * sqrt ( 6.0 ) ) / 56.0 );
     d = sqrt ( ( 3.0 + sqrt ( 5.0 ) ) / 8.0 );
-    e = sqrt ( ( 15.0 - 3.0 * sqrt ( 5.0 ) 
+    e = sqrt ( ( 15.0 - 3.0 * sqrt ( 5.0 )
       - 2.0 * sqrt ( 30.0 ) + 2.0 * sqrt ( 6.0 ) ) / 56.0 );
-    f = sqrt ( ( 15.0 - 3.0 * sqrt ( 5.0 ) 
+    f = sqrt ( ( 15.0 - 3.0 * sqrt ( 5.0 )
       + 2.0 * sqrt ( 30.0 ) - 2.0 * sqrt ( 6.0 ) ) / 56.0 );
-    w1 = ( 90.0 + 5.0 * sqrt ( 30.0 ) + 18.0 * sqrt ( 5.0 ) 
+    w1 = ( 90.0 + 5.0 * sqrt ( 30.0 ) + 18.0 * sqrt ( 5.0 )
        + 5.0 * sqrt ( 6.0 ) ) / 1440.0;
-    w2 = ( 90.0 - 5.0 * sqrt ( 30.0 ) + 18.0 * sqrt ( 5.0 ) 
+    w2 = ( 90.0 - 5.0 * sqrt ( 30.0 ) + 18.0 * sqrt ( 5.0 )
        - 5.0 * sqrt ( 6.0 ) ) / 1440.0;
-    w3 = ( 90.0 + 5.0 * sqrt ( 30.0 ) - 18.0 * sqrt ( 5.0 ) 
+    w3 = ( 90.0 + 5.0 * sqrt ( 30.0 ) - 18.0 * sqrt ( 5.0 )
        - 5.0 * sqrt ( 6.0 ) ) / 1440.0;
-    w4 = ( 90.0 - 5.0 * sqrt ( 30.0 ) - 18.0 * sqrt ( 5.0 ) 
+    w4 = ( 90.0 - 5.0 * sqrt ( 30.0 ) - 18.0 * sqrt ( 5.0 )
        + 5.0 * sqrt ( 6.0 ) ) / 1440.0;
 
     xtab[0]  =   a;
@@ -3149,7 +3102,7 @@ void circle_xy_set ( int rule, int order, double xtab[], double ytab[],
     xtab[0] = 0.0;
     ytab[0] = 0.0;
     weight[0] = 1.0 / 9.0;
-    
+
     for ( i = 1; i < 11; i++ )
     {
       weight[i] = ( 16.0 + sqrt ( 6.0 ) ) / 360.0;
@@ -3177,10 +3130,10 @@ void circle_xy_set ( int rule, int order, double xtab[], double ytab[],
       ytab[i+11] = r * sin ( a );
     }
   }
-//
-//  There was apparently a misprint in the Lether paper.  The quantity
-//  which here reads "322" was printed there as "332".
-//
+/*
+  There was apparently a misprint in the Lether paper.  The quantity
+  which here reads "322" was printed there as "332".
+*/
   else if ( rule == 12 )
   {
     a = 0.5;
@@ -3216,7 +3169,7 @@ void circle_xy_set ( int rule, int order, double xtab[], double ytab[],
     xtab[10] =   b;
     xtab[11] = - b;
     xtab[12] = - b;
-    xtab[13] =   a; 
+    xtab[13] =   a;
     xtab[14] =   a;
     xtab[15] = - a;
     xtab[16] = - a;
@@ -3242,7 +3195,7 @@ void circle_xy_set ( int rule, int order, double xtab[], double ytab[],
     ytab[10] = - d;
     ytab[11] =   d;
     ytab[12] = - d;
-    ytab[13] =   e; 
+    ytab[13] =   e;
     ytab[14] = - e;
     ytab[15] =   e;
     ytab[16] = - e;
@@ -3327,70 +3280,70 @@ void circle_xy_set ( int rule, int order, double xtab[], double ytab[],
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int circle_xy_size ( int rule )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_XY_SIZE sizes an XY quadrature rule inside the unit circle in 2D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y <= 1.0.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    17 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Milton Abramowitz, Irene Stegun,
-//    Handbook of Mathematical Functions,
-//    National Bureau of Standards, 1964,
-//    ISBN: 0-486-61272-4,
-//    LC: QA47.A34.
-//
-//    Frank Lether,
-//    A Generalized Product Rule for the Circle,
-//    SIAM Journal on Numerical Analysis,
-//    Volume 8, Number 2, June 1971, pages 249-253.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the rule desired.
-//      1, 1 point 1-st degree;
-//      2, 4 point 3-rd degree, Stroud S2:3-1;
-//      3, 4 point 3-rd degree, Lether #1;
-//      4, 4 point 3-rd degree, Stroud S2:3-2;
-//      5, 5 point 3-rd degree;
-//      6, 7 point 5-th degree;
-//      7, 9 point 5-th degree;
-//      8, 9 point 5-th degree, Lether #2;
-//      9, 12 point 7-th degree;
-//     10, 16 point 7-th degree, Lether #3;
-//     11, 21 point 9-th degree, Stroud S2:9-3;
-//     12, 25 point 9-th degree, Lether #4 (after correcting error);
-//     13, 64 point 15-th degree Gauss product rule.
-//
-//    Output, int CIRCLE_XY_SIZE, the order of the desired rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_XY_SIZE sizes an XY quadrature rule inside the unit circle in 2D.
+
+  Integration region:
+
+    X*X + Y*Y <= 1.0.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Frank Lether,
+    A Generalized Product Rule for the Circle,
+    SIAM Journal on Numerical Analysis,
+    Volume 8, Number 2, June 1971, pages 249-253.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the rule desired.
+      1, 1 point 1-st degree;
+      2, 4 point 3-rd degree, Stroud S2:3-1;
+      3, 4 point 3-rd degree, Lether #1;
+      4, 4 point 3-rd degree, Stroud S2:3-2;
+      5, 5 point 3-rd degree;
+      6, 7 point 5-th degree;
+      7, 9 point 5-th degree;
+      8, 9 point 5-th degree, Lether #2;
+      9, 12 point 7-th degree;
+     10, 16 point 7-th degree, Lether #3;
+     11, 21 point 9-th degree, Stroud S2:9-3;
+     12, 25 point 9-th degree, Lether #4 (after correcting error);
+     13, 64 point 15-th degree Gauss product rule.
+
+    Output, int CIRCLE_XY_SIZE, the order of the desired rule.
+*/
 {
   int order;
 
@@ -3457,53 +3410,53 @@ int circle_xy_size ( int rule )
 
   return order;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double circle_xy_sum ( double func ( double x, double y ), double center[2], 
+double circle_xy_sum ( double func ( double x, double y ), double center[2],
   double r, int order, double xtab[], double ytab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CIRCLE_XY_SUM applies an XY quadrature rule inside a circle in 2D.
-//
-//  Integration region:
-//
-//    (X-CENTER(1))^2 + (Y-CENTER(2))^2 <= R * R.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double CENTER[2], the coordinates of the center of 
-//    the circle.
-//
-//    Input, double R, the radius of the circle.
-//
-//    Input, int ORDER, the order of the rule.  The rule is
-//    assumed to be defined on the unit circle.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the XY
-//    coordinates of the abscissas of the quadrature rule for the unit circle.
-//
-//    Input, double WEIGHT[ORDER], the weights of the rule.
-//
-//    Output, double RESULT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CIRCLE_XY_SUM applies an XY quadrature rule inside a circle in 2D.
+
+  Integration region:
+
+    (X-CENTER(1))^2 + (Y-CENTER(2))^2 <= R * R.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function to be integrated.
+
+    Input, double CENTER[2], the coordinates of the center of
+    the circle.
+
+    Input, double R, the radius of the circle.
+
+    Input, int ORDER, the order of the rule.  The rule is
+    assumed to be defined on the unit circle.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the XY
+    coordinates of the abscissas of the quadrature rule for the unit circle.
+
+    Input, double WEIGHT[ORDER], the weights of the rule.
+
+    Output, double RESULT, the approximate integral of the function.
+*/
 {
   int i;
   double quad;
@@ -3525,53 +3478,53 @@ double circle_xy_sum ( double func ( double x, double y ), double center[2],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_geg_00_1 ( int n, double alpha, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_00_1 implements the midpoint rule for region CN_GEG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 0.
-//
-//    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
-//
-//    with -1.0 < alpha.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the parameter.
-//    -1.0 < ALPHA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_GEG_00_1 implements the midpoint rule for region CN_GEG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 0.
+
+    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
+
+      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
+
+    with -1.0 < alpha.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the parameter.
+    -1.0 < ALPHA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   int expon;
   int k;
@@ -3592,57 +3545,57 @@ void cn_geg_00_1 ( int n, double alpha, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   w[k] = volume;
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_geg_00_1_size ( int n, double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_00_1_SIZE sizes the midpoint rule for region CN_GEG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 0.
-//
-//    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
-//
-//    with -1.0 < alpha.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the parameter.
-//    -1.0 < ALPHA.
-//
-//    Output, int CN_GEG_00_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_GEG_00_1_SIZE sizes the midpoint rule for region CN_GEG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 0.
+
+    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
+
+      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
+
+    with -1.0 < alpha.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the parameter.
+    -1.0 < ALPHA.
+
+    Output, int CN_GEG_00_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -3658,53 +3611,53 @@ int cn_geg_00_1_size ( int n, double alpha )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_geg_01_1 ( int n, double alpha, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_01_1 implements a precision 1 rule for region CN_GEG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
-//
-//    with -1.0 < alpha.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the parameter.
-//    -1.0 < ALPHA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_GEG_01_1 implements a precision 1 rule for region CN_GEG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
+
+      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
+
+    with -1.0 < alpha.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the parameter.
+    -1.0 < ALPHA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[[O], the weights.
+*/
 {
   int expon;
   int i;
@@ -3732,9 +3685,9 @@ void cn_geg_01_1 ( int n, double alpha, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   for ( i = 0; i < n; i++ )
   {
@@ -3744,49 +3697,49 @@ void cn_geg_01_1 ( int n, double alpha, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_geg_01_1_size ( int n, double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_01_1_SIZE sizes a precision 1 rule for region CN_GEG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
-//
-//    with -1.0 < alpha.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the parameter.
-//    -1.0 < ALPHA.
-//
-//    Output, int CN_GEG_01_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_GEG_01_1_SIZE sizes a precision 1 rule for region CN_GEG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
+
+      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
+
+    with -1.0 < alpha.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the parameter.
+    -1.0 < ALPHA.
+
+    Output, int CN_GEG_01_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -3802,62 +3755,62 @@ int cn_geg_01_1_size ( int n, double alpha )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_geg_02_xiu ( int n, double alpha, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_02_XIU implements the Xiu precision 2 rule for region CN_GEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
-//
-//    with -1.0 < alpha.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the parameter.
-//    -1.0 < ALPHA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_GEG_02_XIU implements the Xiu precision 2 rule for region CN_GEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
+
+      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
+
+    with -1.0 < alpha.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the parameter.
+    -1.0 < ALPHA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   double c1;
@@ -3922,58 +3875,58 @@ void cn_geg_02_xiu ( int n, double alpha, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_geg_02_xiu_size ( int n, double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_02_XIU_SIZE sizes the Xiu rule for region CN_GEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
-//
-//    with -1.0 < alpha.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the parameter.
-//    -1.0 < ALPHA.
-//
-//    Output, int CN_GEG_02_XIU_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_GEG_02_XIU_SIZE sizes the Xiu rule for region CN_GEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
+
+      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
+
+    with -1.0 < alpha.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the parameter.
+    -1.0 < ALPHA.
+
+    Output, int CN_GEG_02_XIU_SIZE, the order.
+*/
 {
   int o;
 
@@ -3989,62 +3942,62 @@ int cn_geg_02_xiu_size ( int n, double alpha )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_geg_03_xiu ( int n, double alpha, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_03_XIU implements the Xiu precision 3 rule for region CN_GEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 * N.
-//
-//    The rule has precision P = 3.
-//
-//    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
-//
-//    with -1.0 < alpha.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the parameter.
-//    -1.0 < ALPHA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_GEG_03_XIU implements the Xiu precision 3 rule for region CN_GEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 * N.
+
+    The rule has precision P = 3.
+
+    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
+
+      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
+
+    with -1.0 < alpha.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the parameter.
+    -1.0 < ALPHA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   int expon;
@@ -4097,58 +4050,58 @@ void cn_geg_03_xiu ( int n, double alpha, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_geg_03_xiu_size ( int n, double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_03_XIU_SIZE sizes the Xiu precision 3 rule for region CN_GEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 * N.
-//
-//    The rule has precision P = 3.
-//
-//    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
-//
-//    with -1.0 < alpha.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the parameter.
-//    -1.0 < ALPHA.
-//
-//    Output, int CN_GEG_03_XIU_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_GEG_03_XIU_SIZE sizes the Xiu precision 3 rule for region CN_GEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 * N.
+
+    The rule has precision P = 3.
+
+    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
+
+      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
+
+    with -1.0 < alpha.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the parameter.
+    -1.0 < ALPHA.
+
+    Output, int CN_GEG_03_XIU_SIZE, the order.
+*/
 {
   int o;
 
@@ -4164,50 +4117,50 @@ int cn_geg_03_xiu_size ( int n, double alpha )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double cn_geg_monomial_integral ( int n, double alpha, int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_MONOMIAL_INTEGRAL: integral of monomial with Gegenbauer weight on CN.
-//
-//  Discussion:
-//
-//    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
-//
-//    with -1.0 < alpha.
-//
-//    value = integral ( CN ) 
-//      product ( 1 <= i <= n ) x(I)^expon(i) (1-x(i)^2)^alpha dx(i)
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the exponent of (1-X).
-//    -1.0 < ALPHA.
-//
-//    Input, int EXPON[N], the exponents.
-//
-//    Output, double CN_GEG_MONOMIAL_INTEGRA, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_GEG_MONOMIAL_INTEGRAL: integral of monomial with Gegenbauer weight on CN.
+
+  Discussion:
+
+    CN_GEG is the cube [-1,+1]^N with the Gegenbauer weight function
+
+      w(alpha;x) = product ( 1 <= i <= n ) (1-x(i)^2)^alpha.
+
+    with -1.0 < alpha.
+
+    value = integral ( CN )
+      product ( 1 <= i <= n ) x(I)^expon(i) (1-x(i)^2)^alpha dx(i)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the exponent of (1-X).
+    -1.0 < ALPHA.
+
+    Input, int EXPON[N], the exponents.
+
+    Output, double CN_GEG_MONOMIAL_INTEGRA, the value of the integral.
+*/
 {
   int i;
   double value;
@@ -4230,54 +4183,54 @@ double cn_geg_monomial_integral ( int n, double alpha, int expon[] )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void cn_jac_00_1 ( int n, double alpha, double beta, int o, double x[], 
+void cn_jac_00_1 ( int n, double alpha, double beta, int o, double x[],
   double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_JAC_00_1 implements the midpoint rule for region CN_JAC.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 0.
-//
-//    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
-//
-//      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
-//
-//    with -1 < alpha, -1 < beta.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    26 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, BETA, the parameters.
-//    -1.0 < ALPHA, -1.0 < BETA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_JAC_00_1 implements the midpoint rule for region CN_JAC.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 0.
+
+    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
+
+      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
+
+    with -1 < alpha, -1 < beta.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, BETA, the parameters.
+    -1.0 < ALPHA, -1.0 < BETA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   int expon;
   int k;
@@ -4307,57 +4260,57 @@ void cn_jac_00_1 ( int n, double alpha, double beta, int o, double x[],
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   w[k] = volume;
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_jac_00_1_size ( int n, double alpha, double beta )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_JAC_00_1_SIZE sizes the midpoint rule for region CN_JAC.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 0.
-//
-//    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
-//
-//      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
-//
-//    with -1 < alpha, -1 < beta.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    27 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, BETA, the parameters.
-//    -1.0 < ALPHA, -1.0 < BETA.
-//
-//    Output, int CN_JAC_00_1_SIZE the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_JAC_00_1_SIZE sizes the midpoint rule for region CN_JAC.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 0.
+
+    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
+
+      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
+
+    with -1 < alpha, -1 < beta.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, BETA, the parameters.
+    -1.0 < ALPHA, -1.0 < BETA.
+
+    Output, int CN_JAC_00_1_SIZE the order.
+*/
 {
   int o;
 
@@ -4381,54 +4334,54 @@ int cn_jac_00_1_size ( int n, double alpha, double beta )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void cn_jac_01_1 ( int n, double alpha, double beta, int o, double x[], 
+void cn_jac_01_1 ( int n, double alpha, double beta, int o, double x[],
   double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_JAC_01_1 implements a precision 1 rule for region CN_JAC.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
-//
-//      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha. 
-//
-//    with -1 < alpha, -1 < beta.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    26 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, BETA, the parameters.
-//    -1.0 < ALPHA, -1.0 < BETA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_JAC_01_1 implements a precision 1 rule for region CN_JAC.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
+
+      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
+
+    with -1 < alpha, -1 < beta.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, BETA, the parameters.
+    -1.0 < ALPHA, -1.0 < BETA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   int expon;
   int i;
@@ -4463,9 +4416,9 @@ void cn_jac_01_1 ( int n, double alpha, double beta, int o, double x[],
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   for ( i = 0; i < n; i++ )
   {
@@ -4475,49 +4428,49 @@ void cn_jac_01_1 ( int n, double alpha, double beta, int o, double x[],
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_jac_01_1_size ( int n, double alpha, double beta )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_JAC_01_1_SIZE sizes a precision 1 rule for region CN_JAC.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
-//
-//      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha. 
-//
-//    with -1 < alpha, -1 < beta.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    27 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, BETA, the parameters.
-//    -1.0 < ALPHA, -1.0 < BETA.
-//
-//    Output, int CN_JAC_01_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_JAC_01_1_SIZE sizes a precision 1 rule for region CN_JAC.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
+
+      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
+
+    with -1 < alpha, -1 < beta.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, BETA, the parameters.
+    -1.0 < ALPHA, -1.0 < BETA.
+
+    Output, int CN_JAC_01_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -4541,63 +4494,63 @@ int cn_jac_01_1_size ( int n, double alpha, double beta )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void cn_jac_02_xiu ( int n, double alpha, double beta, int o, double x[], 
+void cn_jac_02_xiu ( int n, double alpha, double beta, int o, double x[],
   double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_JAC_02_XIU implements the Xiu precision 2 rule for region CN_JAC.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
-//
-//      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
-//
-//    with -1 < alpha, -1 < beta.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, BETA, the parameters.
-//    -1.0 < ALPHA, -1.0 < BETA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_JAC_02_XIU implements the Xiu precision 2 rule for region CN_JAC.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
+
+      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
+
+    with -1 < alpha, -1 < beta.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, BETA, the parameters.
+    -1.0 < ALPHA, -1.0 < BETA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   double c1;
@@ -4671,58 +4624,58 @@ void cn_jac_02_xiu ( int n, double alpha, double beta, int o, double x[],
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_jac_02_xiu_size ( int n, double alpha, double beta )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_JAC_02_XIU_SIZE sizes the Xiu rule for region CN_JAC.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
-//
-//      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
-//
-//    with -1 < alpha, -1 < beta.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    27 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, BETA, the parameters.
-//    -1.0 < ALPHA, -1.0 < BETA.
-//
-//    Output, int CN_JAC_02_XIU_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_JAC_02_XIU_SIZE sizes the Xiu rule for region CN_JAC.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    CN is the cube [-1,+1]^N with the Jacobi (beta) weight function
+
+      w(alpha,beta;x) = product ( 1 <= i <= n ) (1-x(i))^beta (1+x(i))^alpha.
+
+    with -1 < alpha, -1 < beta.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, BETA, the parameters.
+    -1.0 < ALPHA, -1.0 < BETA.
+
+    Output, int CN_JAC_02_XIU_SIZE, the order.
+*/
 {
   int o;
 
@@ -4746,46 +4699,46 @@ int cn_jac_02_xiu_size ( int n, double alpha, double beta )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double cn_jac_monomial_integral ( int n, double alpha, double beta, 
+double cn_jac_monomial_integral ( int n, double alpha, double beta,
   int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_JAC_MONOMIAL_INTEGRAL: integral of a monomial with Jacobi weight over CN.
-//
-//  Discussion:
-//
-//    value = integral ( CN ) 
-//      product ( 1 <= i <= n ) x(I)^expon(i) (1-x(i))^alpha (1+x(i))^beta dx(i)
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    26 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the exponent of (1-X) in the weight factor.
-//
-//    Input, double BETA, the exponent of (1+X) in the weight factor.
-//
-//    Input, int EXPON[N], the exponents.
-//
-//    Output, double CN_JAC_MONOMIAL_INTEGRAL, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_JAC_MONOMIAL_INTEGRAL: integral of a monomial with Jacobi weight over CN.
+
+  Discussion:
+
+    value = integral ( CN )
+      product ( 1 <= i <= n ) x(I)^expon(i) (1-x(i))^alpha (1+x(i))^beta dx(i)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the exponent of (1-X) in the weight factor.
+
+    Input, double BETA, the exponent of (1+X) in the weight factor.
+
+    Input, int EXPON[N], the exponents.
+
+    Output, double CN_JAC_MONOMIAL_INTEGRAL, the value of the integral.
+*/
 {
   int i;
   double value;
@@ -4800,48 +4753,48 @@ double cn_jac_monomial_integral ( int n, double alpha, double beta,
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_leg_01_1 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_01_1 implements the midpoint rule for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1. 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 February 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_01_1 implements the midpoint rule for region CN_LEG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 February 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   int expon;
   int k;
@@ -4854,52 +4807,52 @@ void cn_leg_01_1 ( int n, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   w[k] = volume;
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_leg_01_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_01_1_SIZE sizes the midpoint rule for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1. 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 February 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int CN_LEG_01_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_01_1_SIZE sizes the midpoint rule for region CN_LEG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 February 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int CN_LEG_01_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -4907,57 +4860,57 @@ int cn_leg_01_1_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_leg_02_xiu ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_02_XIU implements the Xiu precision 2 rule for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_02_XIU implements the Xiu precision 2 rule for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   double c1;
@@ -5015,53 +4968,53 @@ void cn_leg_02_xiu ( int n, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_leg_02_xiu_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_02_XIU_SIZE sizes the Xiu rule for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 February 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int CN_LEG_02_XIU_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_02_XIU_SIZE sizes the Xiu rule for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 February 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int CN_LEG_02_XIU_SIZE, the order.
+*/
 {
   int o;
 
@@ -5069,61 +5022,61 @@ int cn_leg_02_xiu_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_leg_03_1 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_03_1 implements the Stroud rule CN:3-1 for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 * N.
-//
-//    The rule has precision P = 3.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//    The necessary treatment of the final coordinate of points when
-//    N is odd seems to vary from what Stroud declares! 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_03_1 implements the Stroud rule CN:3-1 for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 * N.
+
+    The rule has precision P = 3.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+    The necessary treatment of the final coordinate of points when
+    N is odd seems to vary from what Stroud declares!
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   int expon;
@@ -5149,9 +5102,9 @@ void cn_leg_03_1 ( int n, int o, double x[], double w[] )
       x[i+j*n] = sqrt ( 2.0 ) * sin ( arg ) / sqrt ( 3.0 );
       i = i + 1;
     }
-//
-//  The following code does not correspond to what Stroud declares.
-//
+/*
+  The following code does not correspond to what Stroud declares.
+*/
     if ( i < n )
     {
       if ( n == 1 )
@@ -5172,54 +5125,54 @@ void cn_leg_03_1 ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_leg_03_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_03_1_SIZE sizes the Stroud rule CN:3-1 for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 * N.
-//
-//    The rule has precision P = 3.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int CN_LEG_03_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_03_1_SIZE sizes the Stroud rule CN:3-1 for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 * N.
+
+    The rule has precision P = 3.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int CN_LEG_03_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -5227,57 +5180,57 @@ int cn_leg_03_1_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_leg_03_xiu ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_03_XIU implements the Xiu precision 3 rule for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 * N.
-//
-//    The rule has precision P = 3.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 February 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_03_XIU implements the Xiu precision 3 rule for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 * N.
+
+    The rule has precision P = 3.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 February 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   int expon;
@@ -5324,53 +5277,53 @@ void cn_leg_03_xiu ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_leg_03_xiu_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_03_XIU_SIZE sizes the Xiu precision 3 rule for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 * N.
-//
-//    The rule has precision P = 3.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 February 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int CN_LEG_03_XIU_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_03_XIU_SIZE sizes the Xiu precision 3 rule for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 * N.
+
+    The rule has precision P = 3.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 February 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int CN_LEG_03_XIU_SIZE, the order.
+*/
 {
   int o;
 
@@ -5378,63 +5331,63 @@ int cn_leg_03_xiu_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_leg_05_1 ( int n, int option, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_05_1 implements the Stroud rule CN:5-1 for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N^2 + N + 2.
-//
-//    The rule has precision P = 5.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    N must be 4, 5, or 6.
-//
-//    Input, int OPTION, is only used in case N = 4 or 5.
-//    In that case, OPTION should be 1 or 2 to select the
-//    two available variants of the rule.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_05_1 implements the Stroud rule CN:5-1 for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N^2 + N + 2.
+
+    The rule has precision P = 5.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    N must be 4, 5, or 6.
+
+    Input, int OPTION, is only used in case N = 4 or 5.
+    In that case, OPTION should be 1 or 2 to select the
+    two available variants of the rule.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a;
   double arg;
@@ -5600,54 +5553,54 @@ void cn_leg_05_1 ( int n, int option, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_leg_05_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_05_1_SIZE sizes the Stroud rule CN:5-1 for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N^2 + N + 2.
-//
-//    The rule has precision P = 5.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int CN_LEG_05_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_05_1_SIZE sizes the Stroud rule CN:5-1 for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N^2 + N + 2.
+
+    The rule has precision P = 5.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int CN_LEG_05_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -5655,59 +5608,59 @@ int cn_leg_05_1_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void cn_leg_05_2 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_05_2 implements the Stroud rule CN:5-2 for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 N^2 + 1.
-//
-//    The rule has precision P = 5.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    N must be at least 2.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_05_2 implements the Stroud rule CN:5-2 for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 N^2 + 1.
+
+    The rule has precision P = 5.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    N must be at least 2.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double b0;
   double b1;
@@ -5809,54 +5762,54 @@ void cn_leg_05_2 ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int cn_leg_05_2_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_05_2_SIZE sizes the Stroud rule CN:5-2 for region CN_LEG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 N^2 + 1.
-//
-//    The rule has precision P = 5.
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int CN_LEG_05_2_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_05_2_SIZE sizes the Stroud rule CN:5-2 for region CN_LEG.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 N^2 + 1.
+
+    The rule has precision P = 5.
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int CN_LEG_05_2_SIZE, the order.
+*/
 {
   int o;
 
@@ -5864,44 +5817,44 @@ int cn_leg_05_2_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double cn_leg_monomial_integral ( int n, int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_MONOMIAL_INTEGRAL: integral of monomial with Legendre weight on CN.
-//
-//  Discussion:
-//
-//    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
-//
-//      w(x) = 1.
-//
-//    value = integral ( CN ) product ( 1 <= i <= n ) x(I)^expon(i) dx(i)
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    05 February 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int EXPON(N), the exponents.
-//
-//    Output, double CN_LEG_MONOMIAL_INTEGRAL, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CN_LEG_MONOMIAL_INTEGRAL: integral of monomial with Legendre weight on CN.
+
+  Discussion:
+
+    CN_LEG is the cube [-1,+1]^N with the Legendre weight function
+
+      w(x) = 1.
+
+    value = integral ( CN ) product ( 1 <= i <= n ) x(I)^expon(i) dx(i)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 February 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int EXPON(N), the exponents.
+
+    Output, double CN_LEG_MONOMIAL_INTEGRAL, the value of the integral.
+*/
 {
   int i;
   double value;
@@ -5916,57 +5869,57 @@ double cn_leg_monomial_integral ( int n, int expon[] )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double cone_unit_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CONE_UNIT_3D approximates an integral inside the unit cone in 3D.
-//
-//  Integration Region:
-//
-//      X^2 + Y^2 <= 1 - Z  
-//
-//    and
-//
-//      0 <= Z <= 1.
-//
-//  Discussion:
-//
-//    An 48 point degree 7 formula, Stroud CN:S2:7-1, is used.
-//
-//    (There is a typographical error in the S2:7-1 formula for B3.)
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which evaluates F(X,Y,Z).
-//
-//    Output, double CONE_UNIT_3D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CONE_UNIT_3D approximates an integral inside the unit cone in 3D.
+
+  Integration Region:
+
+      X^2 + Y^2 <= 1 - Z
+
+    and
+
+      0 <= Z <= 1.
+
+  Discussion:
+
+    An 48 point degree 7 formula, Stroud CN:S2:7-1, is used.
+
+    (There is a typographical error in the S2:7-1 formula for B3.)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which evaluates F(X,Y,Z).
+
+    Output, double CONE_UNIT_3D, the approximate integral of the function.
+*/
 {
   double a;
   double b;
@@ -5977,11 +5930,11 @@ double cone_unit_3d ( double func ( double x, double y, double z ) )
   double r;
   double result;
   double u[4] = {
-    0.04850054945, 0.2386007376, 
+    0.04850054945, 0.2386007376,
     0.5170472951,  0.7958514179 };
   double volume;
   double w1[4] = {
-    0.1108884156,  0.1434587878, 
+    0.1108884156,  0.1434587878,
     0.06863388717, 0.01035224075 };
   double w2[3];
   double x;
@@ -6071,36 +6024,36 @@ double cone_unit_3d ( double func ( double x, double y, double z ) )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double cone_volume_3d ( double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CONE_VOLUME_3D returns the volume of a cone in 3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    06 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the base of the cone.
-//
-//    Input, double H, the height of the cone.
-//
-//    Output, double CONE_VOLUME_3D, the volume of the cone.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CONE_VOLUME_3D returns the volume of a cone in 3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the base of the cone.
+
+    Input, double H, the height of the cone.
+
+    Output, double CONE_VOLUME_3D, the volume of the cone.
+*/
 {
   double pi = 3.141592653589793;
   double value;
@@ -6109,58 +6062,58 @@ double cone_volume_3d ( double r, double h )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double cube_shell_nd ( double func ( int n, double x[] ), int n, double r1, 
+double cube_shell_nd ( double func ( int n, double x[] ), int n, double r1,
   double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CUBE_SHELL_ND approximates an integral inside a cubic shell in N dimensions.
-//
-//  Integration region:
-//
-//    R1 <= abs ( X(1:N) ) <= R2
-//
-//  Discussion:
-//
-//    An N*2^N point third degree formula is used, Stroud number CNSHELL:3-4.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//  user supplied function.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double R1, R2, the inner and outer radii of the cubical
-//    shell.  The outer cube is of side 2*R2, the inner, missing cube of side
-//    2*R1.
-//
-//    Output, double CUBE_SHELL_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CUBE_SHELL_ND approximates an integral inside a cubic shell in N dimensions.
+
+  Integration region:
+
+    R1 <= abs ( X(1:N) ) <= R2
+
+  Discussion:
+
+    An N*2^N point third degree formula is used, Stroud number CNSHELL:3-4.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+  user supplied function.
+
+    Input, int N, the dimension of the space.
+
+    Input, double R1, R2, the inner and outer radii of the cubical
+    shell.  The outer cube is of side 2*R2, the inner, missing cube of side
+    2*R1.
+
+    Output, double CUBE_SHELL_ND, the approximate integral of the function.
+*/
 {
   int done;
   int i;
@@ -6181,9 +6134,9 @@ double cube_shell_nd ( double func ( int n, double x[] ), int n, double r1,
   }
 
   rmax = r8_max ( r1, r2 );
-  rmin = r8_min ( r1, r2 );  
+  rmin = r8_min ( r1, r2 );
 
-  u = sqrt ( ( double ) ( n ) * ( pow ( rmax, n + 2 ) - pow ( rmin, n + 2 ) ) 
+  u = sqrt ( ( double ) ( n ) * ( pow ( rmax, n + 2 ) - pow ( rmin, n + 2 ) )
     / ( ( double ) ( n + 2 ) * ( pow ( rmax, n ) - pow ( rmin, n ) ) ) );
 
   v = u / sqrt ( 3.0 );
@@ -6221,43 +6174,43 @@ double cube_shell_nd ( double func ( int n, double x[] ), int n, double r1,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double cube_shell_volume_nd ( int n, double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CUBE_SHELL_VOLUME_ND computes the volume of a cubic shell in ND.
-//
-//  Integration region:
-//
-//    R1 <= abs ( X(1:N) ) <= R2
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double R1, R2, the inner and outer radii of the cubic
-//    shell.  The outer cube is of side 2*R2, the inner, missing cube of side
-//    2*R1.
-//
-//    Output, double CUBE_SHELL_VOLUME_ND, the volume of the cubic
-//    shell.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CUBE_SHELL_VOLUME_ND computes the volume of a cubic shell in ND.
+
+  Integration region:
+
+    R1 <= abs ( X(1:N) ) <= R2
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Input, double R1, R2, the inner and outer radii of the cubic
+    shell.  The outer cube is of side 2*R2, the inner, missing cube of side
+    2*R1.
+
+    Output, double CUBE_SHELL_VOLUME_ND, the volume of the cubic
+    shell.
+*/
 {
   double value;
 
@@ -6266,55 +6219,55 @@ double cube_shell_volume_nd ( int n, double r1, double r2 )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double cube_unit_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CUBE_UNIT_3D approximates an integral inside the unit cube in 3D.
-//
-//  Integration region:
-//
-//      -1 <= X <= 1,
-//    and
-//      -1 <= Y <= 1,
-//    and
-//      -1 <= Z <= 1.
-//
-//  Discussion:
-//
-//    An 8 point third degree formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the
-//    user supplied routine to evaluate F(X,Y,Z).
-//
-//    Output, double CUBE_UNIT_3D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CUBE_UNIT_3D approximates an integral inside the unit cube in 3D.
+
+  Integration region:
+
+      -1 <= X <= 1,
+    and
+      -1 <= Y <= 1,
+    and
+      -1 <= Z <= 1.
+
+  Discussion:
+
+    An 8 point third degree formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied routine to evaluate F(X,Y,Z).
+
+    Output, double CUBE_UNIT_3D, the approximate integral of the function.
+*/
 {
   double quad;
   double result;
@@ -6332,10 +6285,10 @@ double cube_unit_3d ( double func ( double x, double y, double z ) )
   y = s;
   z = s;
 
-  quad = w * ( 
-      func (  x,  y,  z ) + func (  x,  y, -z ) 
-    + func (  x, -y,  z ) + func (  x, -y, -z ) 
-    + func ( -x,  y,  z ) + func ( -x,  y, -z ) 
+  quad = w * (
+      func (  x,  y,  z ) + func (  x,  y, -z )
+    + func (  x, -y,  z ) + func (  x, -y, -z )
+    + func ( -x,  y,  z ) + func ( -x,  y, -z )
     + func ( -x, -y,  z ) + func ( -x, -y, -z ) );
 
   volume = cube_unit_volume_nd ( 3 );
@@ -6343,66 +6296,66 @@ double cube_unit_3d ( double func ( double x, double y, double z ) )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void cube_unit_nd ( double func ( int n, double x[] ), double qa[], 
+void cube_unit_nd ( double func ( int n, double x[] ), double qa[],
   double qb[], int n, int k )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CUBE_UNIT_ND approximates an integral inside the unit cube in ND.
-//
-//  Integration region:
-//
-//    -1 <= X(1:N) <= 1
-//
-//  Discussion:
-//
-//    A K**N point product formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    James Lyness, BJJ McHugh,
-//    Integration Over Multidimensional Hypercubes, 
-//    A Progressive Procedure,
-//    The Computer Journal,
-//    Volume 6, 1963, pages 264-270.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Output, double QA[K], QB[K], two sets of estimates for
-//    the integral.  The QB entries are obtained from the
-//    QA entries by Richardson extrapolation, and QB(K) is
-//    the best estimate for the integral.
-//
-//    Input, int N, the dimension of the cube.
-//
-//    Input, int K, the highest order of integration, and the order
-//    of Richardson extrapolation.  K can be no greater than 10.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CUBE_UNIT_ND approximates an integral inside the unit cube in ND.
+
+  Integration region:
+
+    -1 <= X(1:N) <= 1
+
+  Discussion:
+
+    A K**N point product formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    James Lyness, BJJ McHugh,
+    Integration Over Multidimensional Hypercubes,
+    A Progressive Procedure,
+    The Computer Journal,
+    Volume 6, 1963, pages 264-270.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Output, double QA[K], QB[K], two sets of estimates for
+    the integral.  The QB entries are obtained from the
+    QA entries by Richardson extrapolation, and QB(K) is
+    the best estimate for the integral.
+
+    Input, int N, the dimension of the cube.
+
+    Input, int K, the highest order of integration, and the order
+    of Richardson extrapolation.  K can be no greater than 10.
+*/
 {
   double g[10*10];
   int i;
@@ -6465,7 +6418,7 @@ void cube_unit_nd ( double func ( int n, double x[] ), double qa[],
   g[9+8*10] = -0.1998874663788E+03;
   g[9+9*10] =  0.8220635246624E+02;
 
-  if ( kmax < k ) 
+  if ( kmax < k )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "CUBE_UNIT_ND - Fatal error!\n" );
@@ -6491,39 +6444,39 @@ void cube_unit_nd ( double func ( int n, double x[] ), double qa[],
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double cube_unit_volume_nd ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CUBE_UNIT_VOLUME_ND returns the volume of the unit cube in ND.
-//
-//  Integration region:
-//
-//    -1 <= X(1:N) <= 1
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double CUBE_UNIT_VOLUME_ND, the volume of the unit
-//    cube in ND.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    CUBE_UNIT_VOLUME_ND returns the volume of the unit cube in ND.
+
+  Integration region:
+
+    -1 <= X(1:N) <= 1
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Output, double CUBE_UNIT_VOLUME_ND, the volume of the unit
+    cube in ND.
+*/
 {
   double value;
 
@@ -6531,38 +6484,38 @@ double cube_unit_volume_nd ( int n )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ellipse_area_2d ( double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    ELLIPSE_AREA_2D returns the area of an ellipse in 2D.
-//
-//  Integration region:
-//
-//    ( ( X - CENTER(1) ) / R1 )^2 + ( ( Y - CENTER(2) ) / R2 )^2 <= 1
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R1, R2, the major and minor semi-axes.
-//
-//    Output, double ELLIPSE_AREA_2D, the area of the ellipse.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    ELLIPSE_AREA_2D returns the area of an ellipse in 2D.
+
+  Integration region:
+
+    ( ( X - CENTER(1) ) / R1 )^2 + ( ( Y - CENTER(2) ) / R2 )^2 <= 1
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R1, R2, the major and minor semi-axes.
+
+    Output, double ELLIPSE_AREA_2D, the area of the ellipse.
+*/
 {
   double pi = 3.141592653589793;
   double value;
@@ -6571,63 +6524,63 @@ double ellipse_area_2d ( double r1, double r2 )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ellipse_circumference_2d ( double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    ELLIPSE_CIRCUMFERENCE_2D returns the circumference of an ellipse in 2D.
-//
-//  Discussion:
-//
-//    There is no closed formula for the circumference of an ellipse.
-//
-//    Defining the eccentricity by
-//
-//      E = sqrt ( 1 - ( r2 / r1 )^2 )
-//
-//    where R1 and R2 are the major and minor axes, then
-//
-//      circumference
-//        = 4 * R1 * E(K,2*PI)
-//        = R1 * Integral ( 0 <= T <= 2*PI ) sqrt ( 1 - E^2 * sin^2 ( T ) ) dT
-//
-//    This integral can be approximated by the Gauss-Kummer formula.
-//
-//  Integration region:
-//
-//    ( ( X - CENTER(1) ) / R1 )^2 + ( ( Y - CENTER(2) ) / R2 )^2 <= 1
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    John Harris, Horst Stocker,
-//    Handbook of Mathematics and Computational Science,
-//    Springer, 1998,
-//    ISBN: 0-387-94746-9,
-//    LC: QA40.S76.
-//
-//  Parameters:
-//
-//    Input, double R1, R2, the major and minor semi-axes.
-//
-//    Output, double ELLIPSE_CIRCUMFERENCE_2D, the
-//    circumference of the ellipse.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    ELLIPSE_CIRCUMFERENCE_2D returns the circumference of an ellipse in 2D.
+
+  Discussion:
+
+    There is no closed formula for the circumference of an ellipse.
+
+    Defining the eccentricity by
+
+      E = sqrt ( 1 - ( r2 / r1 )^2 )
+
+    where R1 and R2 are the major and minor axes, then
+
+      circumference
+        = 4 * R1 * E(K,2*PI)
+        = R1 * Integral ( 0 <= T <= 2*PI ) sqrt ( 1 - E^2 * sin^2 ( T ) ) dT
+
+    This integral can be approximated by the Gauss-Kummer formula.
+
+  Integration region:
+
+    ( ( X - CENTER(1) ) / R1 )^2 + ( ( Y - CENTER(2) ) / R2 )^2 <= 1
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    John Harris, Horst Stocker,
+    Handbook of Mathematics and Computational Science,
+    Springer, 1998,
+    ISBN: 0-387-94746-9,
+    LC: QA40.S76.
+
+  Parameters:
+
+    Input, double R1, R2, the major and minor semi-axes.
+
+    Output, double ELLIPSE_CIRCUMFERENCE_2D, the
+    circumference of the ellipse.
+*/
 {
   double e;
   int i;
@@ -6640,9 +6593,9 @@ double ellipse_circumference_2d ( double r1, double r2 )
     value = 2.0 * pi * r1;
     return value;
   }
-//
-//  Compute the eccentricity of the ellipse.
-//
+/*
+  Compute the eccentricity of the ellipse.
+*/
   e = sqrt ( 1.0 - pow ( r8_min ( r1, r2 ) / r8_max ( r1, r2 ), 2 ) );
 
   value = 1.0;
@@ -6652,10 +6605,10 @@ double ellipse_circumference_2d ( double r1, double r2 )
   for ( ; ; )
   {
     i = i + 1;
-    term = term * ( 2 * i - 3 ) * ( 2 * i - 1 ) * e * e 
+    term = term * ( 2 * i - 3 ) * ( 2 * i - 1 ) * e * e
       / ( double ) ( 2 * 2 * i * i );
 
-    if ( r8_abs ( term ) <= r8_epsilon ( ) * ( r8_abs ( value ) + 1.0 ) )
+    if ( fabs ( term ) <= r8_epsilon ( ) * ( fabs ( value ) + 1.0 ) )
     {
       break;
     }
@@ -6666,39 +6619,39 @@ double ellipse_circumference_2d ( double r1, double r2 )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ellipse_eccentricity_2d ( double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    ELLIPSE_ECCENTRICITY_2D returns the eccentricity of an ellipse in 2D.
-//
-//  Integration region:
-//
-//    ( ( X - CENTER(1) ) / R1 )^2 + ( ( Y - CENTER(2) ) / R2 )^2 <= 1
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R1, R2, the major and minor semi-axes.
-//
-//    Output, double ELLIPSE_ECCENTRICITY_2D, the eccentricity 
-//    of the ellipse.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    ELLIPSE_ECCENTRICITY_2D returns the eccentricity of an ellipse in 2D.
+
+  Integration region:
+
+    ( ( X - CENTER(1) ) / R1 )^2 + ( ( Y - CENTER(2) ) / R2 )^2 <= 1
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R1, R2, the major and minor semi-axes.
+
+    Output, double ELLIPSE_ECCENTRICITY_2D, the eccentricity
+    of the ellipse.
+*/
 {
   double major;
   double minor;
@@ -6717,45 +6670,45 @@ double ellipse_eccentricity_2d ( double r1, double r2 )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ellipsoid_volume_3d ( double r1, double r2, double r3 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    ELLIPSOID_VOLUME_3D returns the volume of an ellipsoid in 3d.
-//
-//  Discussion:
-//
-//    This is not a general ellipsoid, but one for which each of the 
-//    axes lies along a coordinate axis.
-//
-//  Integration region:
-//
-//      ( ( X - CENTER(1) ) / R1 )^2 
-//    + ( ( Y - CENTER(2) ) / R2 )^2
-//    + ( ( Z - CENTER(3) ) / R3 )^2 <= 1
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R1, R2, R3, the semi-axes of the ellipsoid.
-//
-//    Output, double ELLIPSOID_VOLUME_3D, the volume of the ellipsoid.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    ELLIPSOID_VOLUME_3D returns the volume of an ellipsoid in 3d.
+
+  Discussion:
+
+    This is not a general ellipsoid, but one for which each of the
+    axes lies along a coordinate axis.
+
+  Integration region:
+
+      ( ( X - CENTER(1) ) / R1 )^2
+    + ( ( Y - CENTER(2) ) / R2 )^2
+    + ( ( Z - CENTER(3) ) / R3 )^2 <= 1
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R1, R2, R3, the semi-axes of the ellipsoid.
+
+    Output, double ELLIPSOID_VOLUME_3D, the volume of the ellipsoid.
+*/
 {
   double pi = 3.141592653589793;
   double value;
@@ -6764,56 +6717,56 @@ double ellipsoid_volume_3d ( double r1, double r2, double r3 )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_01_1 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_01_1 implements the Stroud rule 1.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_01_1 implements the Stroud rule 1.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   int k;
   double pi = 3.141592653589793E+00;
@@ -6824,53 +6777,53 @@ void en_r2_01_1 ( int n, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = 0;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   w[k] = volume;
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_01_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_01_1_SIZE sizes the Stroud rule 1.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_01_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_01_1_SIZE sizes the Stroud rule 1.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_01_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -6878,57 +6831,57 @@ int en_r2_01_1_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_02_xiu ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_02_XIU implements the Xiu rule for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_02_XIU implements the Xiu rule for region EN_R2.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   double c1;
@@ -6983,45 +6936,45 @@ void en_r2_02_xiu ( int n, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_02_xiu_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_02_XIU_SIZE sizes the Xiu for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = N + 1;
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    26 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_01_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_02_XIU_SIZE sizes the Xiu for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = N + 1;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_01_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -7029,56 +6982,56 @@ int en_r2_02_xiu_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_03_1 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_03_1 implements the Stroud rule 3.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2 * N.
-//
-//    The rule has precision P = 3.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_03_1 implements the Stroud rule 3.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2 * N.
+
+    The rule has precision P = 3.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a;
   int i;
@@ -7095,9 +7048,9 @@ void en_r2_03_1 ( int n, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -7110,46 +7063,46 @@ void en_r2_03_1 ( int n, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_03_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_03_1_SIZE sizes the Stroud rule 3.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2 * N.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_03_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_03_1_SIZE sizes the Stroud rule 3.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2 * N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_03_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -7157,56 +7110,56 @@ int en_r2_03_1_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_03_2 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_03_2 implements the Stroud rule 3.2 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^N.
-//
-//    The rule has precision P = 3.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    24 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_03_2 implements the Stroud rule 3.2 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^N.
+
+    The rule has precision P = 3.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a;
   int i;
@@ -7225,9 +7178,9 @@ void en_r2_03_2 ( int n, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  2^N points.
-//
+/*
+  2^N points.
+*/
   k = k + 1;
   for ( i1 = 0; i1 < n; i1++ )
   {
@@ -7261,46 +7214,46 @@ void en_r2_03_2 ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_03_2_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_03_2_SIZE sizes the Stroud rule 3.2 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^N.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_03_2_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_03_2_SIZE sizes the Stroud rule 3.2 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_03_2_SIZE, the order.
+*/
 {
   int o;
 
@@ -7308,57 +7261,57 @@ int en_r2_03_2_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_03_xiu ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_03_XIU implements the Xiu precision 3 rule for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 * N.
-//
-//    The rule has precision P = 3.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = product ( 1 <= i <= n ) ( exp ( - x(i)^2 ) 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_03_XIU implements the Xiu precision 3 rule for region EN_R2.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 * N.
+
+    The rule has precision P = 3.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = product ( 1 <= i <= n ) ( exp ( - x(i)^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   int i;
@@ -7397,53 +7350,53 @@ void en_r2_03_xiu ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_03_xiu_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_03_XIU_SIZE sizes the Xiu precision 3 rule for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = 2 * N.
-//
-//    The rule has precision P = 3.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = product ( 1 <= i <= n ) ( exp ( - x(i)^2 ) 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_XIU_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_03_XIU_SIZE sizes the Xiu precision 3 rule for region EN_R2.
+
+  Discussion:
+
+    The rule has order
+
+      O = 2 * N.
+
+    The rule has precision P = 3.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = product ( 1 <= i <= n ) ( exp ( - x(i)^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_XIU_SIZE, the order.
+*/
 {
   int o;
 
@@ -7451,70 +7404,70 @@ int en_r2_03_xiu_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_05_1 ( int n, int option, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_1 implements the Stroud rule 5.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = N^2 + N + 2.
-//
-//    The rule has precision P = 5.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    For N = 3, 5 and 6, there are two versions of the rule, chosen by setting 
-//    the OPTION variable to 1 or 2.
-//
-//    Versions of this rule are only available for N = 2 through 7.
-//
-//    There is a typographical error in the reference.
-//    For the second version of the rule for N = 2, the line
-//      gamma =    0.313300683022281E+00
-//    should read
-//      gamma =    0.312200683022281E+00
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    24 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    2 <= N <= 7.
-//
-//    Input, int OPTION, selects option 1 or 2.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_1 implements the Stroud rule 5.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = N^2 + N + 2.
+
+    The rule has precision P = 5.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    For N = 3, 5 and 6, there are two versions of the rule, chosen by setting
+    the OPTION variable to 1 or 2.
+
+    Versions of this rule are only available for N = 2 through 7.
+
+    There is a typographical error in the reference.
+    For the second version of the rule for N = 2, the line
+      gamma =    0.313300683022281E+00
+    should read
+      gamma =    0.312200683022281E+00
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    2 <= N <= 7.
+
+    Input, int OPTION, selects option 1 or 2.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a;
   double b;
@@ -7582,9 +7535,9 @@ void en_r2_05_1 ( int n, int option, int o, double x[], double w[] )
     b =        0.810000000000000E-01 * volume;
     c =        0.500000000000000E-02 * volume;
   }
-//
-//  The value of gamma that follows corrects an error in the reference.
-//
+/*
+  The value of gamma that follows corrects an error in the reference.
+*/
   else if ( n == 3 && option == 2 )
   {
     eta =      0.476731294622796E+00;
@@ -7596,7 +7549,7 @@ void en_r2_05_1 ( int n, int option, int o, double x[], double w[] )
     b =        0.810000000000000E-01 * volume;
     c =        0.500000000000000E-02 * volume;
   }
-  else if ( n == 4 ) 
+  else if ( n == 4 )
   {
     eta =      0.523945658287507E+00;
     lambda =   0.119433782552719E+01;
@@ -7666,9 +7619,9 @@ void en_r2_05_1 ( int n, int option, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  2 points.
-//
+/*
+  2 points.
+*/
   k = k + 1;
   for ( i1 = 0; i1 < n; i1++ )
   {
@@ -7681,9 +7634,9 @@ void en_r2_05_1 ( int n, int option, int o, double x[], double w[] )
     x[i1+k*n] = + eta;
   }
   w[k] = a;
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -7701,9 +7654,9 @@ void en_r2_05_1 ( int n, int option, int o, double x[], double w[] )
     x[i+k*n] = + lambda;
     w[k] = b;
   }
-//
-//  2 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  2 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -7728,46 +7681,46 @@ void en_r2_05_1 ( int n, int option, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_05_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_1_SIZE sizes the Stroud rule 5.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = N^2 + N + 2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_05_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_1_SIZE sizes the Stroud rule 5.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = N^2 + N + 2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_05_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -7775,56 +7728,56 @@ int en_r2_05_1_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_05_2 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_2 implements the Stroud rule 5.2 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2 * N^2 + 1.
-//
-//    The rule has precision P = 5.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    24 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_2 implements the Stroud rule 5.2 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2 * N^2 + 1.
+
+    The rule has precision P = 5.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a;
   double b;
@@ -7840,7 +7793,7 @@ void en_r2_05_2 ( int n, int o, double x[], double w[] )
   volume = sqrt ( pow ( pi, n ) );
 
   a = 2.0E+00 * volume / ( double ) ( n + 2 );
-  b = ( double ) ( 4 - n ) * volume / 2.0E+00 
+  b = ( double ) ( 4 - n ) * volume / 2.0E+00
     / ( double ) ( ( n + 2 ) * ( n + 2 ) );
   c = volume / ( double ) ( ( n + 2 ) * ( n + 2 ) );
 
@@ -7850,14 +7803,14 @@ void en_r2_05_2 ( int n, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   w[k] = a;
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -7867,9 +7820,9 @@ void en_r2_05_2 ( int n, int o, double x[], double w[] )
     x[i+k*n] = + r;
     w[k] = b;
   }
-//
-//  4 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -7894,46 +7847,46 @@ void en_r2_05_2 ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_05_2_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_2_SIZE sizes the Stroud rule 5.2 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2 * N^2 + 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_01_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_2_SIZE sizes the Stroud rule 5.2 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2 * N^2 + 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_01_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -7941,59 +7894,59 @@ int en_r2_05_2_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_05_3 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_3 implements the Stroud rule 5.3 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^N + 2 * N.
-//
-//    The rule has precision P = 5.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    The rule requires 3 <= N.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    22 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    3 <= N.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_3 implements the Stroud rule 5.3 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^N + 2 * N.
+
+    The rule has precision P = 5.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    The rule requires 3 <= N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    3 <= N.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a;
   double b;
@@ -8017,7 +7970,7 @@ void en_r2_05_3 ( int n, int o, double x[], double w[] )
   volume = sqrt ( pow ( pi, n ) );
 
   a = 4.0E+00 * volume / ( double ) ( ( n + 2 ) * ( n + 2 ) );
-  b = ( double ) ( ( n - 2 ) * ( n - 2 ) ) * volume / ( double ) ( i4_power ( 2, n ) ) 
+  b = ( double ) ( ( n - 2 ) * ( n - 2 ) ) * volume / ( double ) ( i4_power ( 2, n ) )
     / ( double ) ( ( n + 2 ) * ( n + 2 ) );
   r = sqrt ( ( double ) ( n + 2 ) / 4.0E+00 );
   s = sqrt ( ( double ) ( n + 2 ) / 2.0E+00 / ( double ) ( n - 2 ) );
@@ -8025,9 +7978,9 @@ void en_r2_05_3 ( int n, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -8037,9 +7990,9 @@ void en_r2_05_3 ( int n, int o, double x[], double w[] )
     x[i+k*n] = + r;
     w[k] = a;
   }
-//
-//  2^N points.
-//
+/*
+  2^N points.
+*/
   k = k + 1;
   for ( i1 = 0; i1 < n; i1++ )
   {
@@ -8072,46 +8025,46 @@ void en_r2_05_3 ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_05_3_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_3_SIZE sizes the Stroud rule 5.3 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^N + 2 * N.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_05_3_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_3_SIZE sizes the Stroud rule 5.3 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^N + 2 * N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_05_3_SIZE, the order.
+*/
 {
   int o;
 
@@ -8119,56 +8072,56 @@ int en_r2_05_3_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_05_4 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_4 implements the Stroud rule 5.4 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^(N+1) - 1.
-//
-//    The rule has precision P = 5.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    22 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_4 implements the Stroud rule 5.4 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^(N+1) - 1.
+
+    The rule has precision P = 5.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double b;
   int i;
@@ -8188,14 +8141,14 @@ void en_r2_05_4 ( int n, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  2^N + 2^(N-1) + 2^(N-2) + ... + 1 = 2^(N+1)-1 points.
-//  but do the last point separately.
-//
+/*
+  2^N + 2^(N-1) + 2^(N-2) + ... + 1 = 2^(N+1)-1 points.
+  but do the last point separately.
+*/
   for ( i = 0; i < n; i++ )
   {
     r = sqrt ( ( double ) ( i + 3 ) / 2.0E+00 );
-    b = pow ( 2.0E+00, i + 1 - n ) * volume / ( double ) ( i + 2 ) 
+    b = pow ( 2.0E+00, i + 1 - n ) * volume / ( double ) ( i + 2 )
       / ( double ) ( i + 3 );
 
     k = k + 1;
@@ -8230,54 +8183,54 @@ void en_r2_05_4 ( int n, int o, double x[], double w[] )
       }
     }
   }
-//
-//  Last point.
-//
+/*
+  Last point.
+*/
   k = k + 1;
   w[k] = 2.0E+00 * volume / ( double ) ( n + 2 );
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_05_4_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_4_SIZE sizes the Stroud rule 5.4 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^(N+1) - 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_05_4_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_4_SIZE sizes the Stroud rule 5.4 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^(N+1) - 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_05_4_SIZE, the order.
+*/
 {
   int o;
 
@@ -8285,59 +8238,59 @@ int en_r2_05_4_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_05_5 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_5 implements the Stroud rule 5.5 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = N * 2^N + 1.
-//
-//    The rule has precision P = 5.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    There is a second version of this rule however it results in
-//    complex abscissas, and so it has been disabled.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    21 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_5 implements the Stroud rule 5.5 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = N * 2^N + 1.
+
+    The rule has precision P = 5.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    There is a second version of this rule however it results in
+    complex abscissas, and so it has been disabled.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    21 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a;
   double b;
@@ -8364,35 +8317,35 @@ void en_r2_05_5 ( int n, int o, double x[], double w[] )
 
   if ( option == 1 )
   {
-    r = sqrt ( ( n_r8 + 2.0E+00 
-      + ( n_r8 - 1.0E+00 ) * sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) 
+    r = sqrt ( ( n_r8 + 2.0E+00
+      + ( n_r8 - 1.0E+00 ) * sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) )
       / 2.0E+00 / n_r8 );
-    s = sqrt ( ( n_r8 + 2.0E+00 
-      -                      sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) 
+    s = sqrt ( ( n_r8 + 2.0E+00
+      -                      sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) )
       / 2.0E+00 / n_r8 );
   }
   else if ( option == 2 )
   {
-    r = sqrt ( ( n_r8 + 2.0E+00 
-      - ( n_r8 - 1.0E+00 ) * sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) 
+    r = sqrt ( ( n_r8 + 2.0E+00
+      - ( n_r8 - 1.0E+00 ) * sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) )
       / 2.0E+00 / n_r8 );
-    s = sqrt ( ( n_r8 + 2.0E+00 
-      +                      sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) 
+    s = sqrt ( ( n_r8 + 2.0E+00
+      +                      sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) )
       / 2.0E+00 / n_r8 );
   }
 
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   w[k] = a;
-//
-//  N * 2^N points:
-//  N choices for location of R, 2^N choices of sign pattern.
-//
+/*
+  N * 2^N points:
+  N choices for location of R, 2^N choices of sign pattern.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -8431,46 +8384,46 @@ void en_r2_05_5 ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_05_5_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_5_SIZE sizes the Stroud rule 5.5 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = N * 2^N + 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_05_5_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_5_SIZE sizes the Stroud rule 5.5 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = N * 2^N + 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_05_5_SIZE, the order.
+*/
 {
   int o;
 
@@ -8478,59 +8431,59 @@ int en_r2_05_5_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_05_6 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_6 implements the Stroud rule 5.6 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = ( N + 1 ) * 2^N.
-//
-//    The rule has precision P = 5.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    The rule requires 5 <= N.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    24 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    5 <= N.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_6 implements the Stroud rule 5.6 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = ( N + 1 ) * 2^N.
+
+    The rule has precision P = 5.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    The rule requires 5 <= N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    5 <= N.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a;
   int i;
@@ -8559,20 +8512,20 @@ void en_r2_05_6 ( int n, int o, double x[], double w[] )
 
   a = volume / pow ( 2.0, n ) / ( n_r8 + 1.0E+00 );
 
-  r = sqrt ( ( n_r8 - sqrt ( 2.0E+00 ) 
-    + ( n_r8 - 1.0E+00 ) * sqrt ( 2.0E+00 * ( n_r8 + 1.0E+00 ) ) ) 
+  r = sqrt ( ( n_r8 - sqrt ( 2.0E+00 )
+    + ( n_r8 - 1.0E+00 ) * sqrt ( 2.0E+00 * ( n_r8 + 1.0E+00 ) ) )
     / 2.0E+00 / n_r8 );
-  s = sqrt ( ( n_r8 - sqrt ( 2.0E+00 ) 
-    -                      sqrt ( 2.0E+00 * ( n_r8 + 1.0E+00 ) ) ) 
+  s = sqrt ( ( n_r8 - sqrt ( 2.0E+00 )
+    -                      sqrt ( 2.0E+00 * ( n_r8 + 1.0E+00 ) ) )
     / 2.0E+00 / n_r8 );
   t = sqrt ( ( 1.0E+00 + sqrt ( 2.0E+00 ) ) / 2.0E+00 );
 
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  N * 2^N points.
-//
+/*
+  N * 2^N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -8609,9 +8562,9 @@ void en_r2_05_6 ( int n, int o, double x[], double w[] )
       }
     }
   }
-//
-//  2^N points.
-//
+/*
+  2^N points.
+*/
   k = k + 1;
   for ( i1 = 0; i1 < n; i1++ )
   {
@@ -8644,46 +8597,46 @@ void en_r2_05_6 ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_05_6_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_05_6_SIZE sizes the Stroud rule 5.6 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = ( N + 1 ) * 2^N.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_05_6_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_05_6_SIZE sizes the Stroud rule 5.6 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = ( N + 1 ) * 2^N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_05_6_SIZE, the order.
+*/
 {
   int o;
 
@@ -8691,65 +8644,65 @@ int en_r2_05_6_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_07_1 ( int n, int option, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_07_1 implements the Stroud rule 7.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^N + 2 * N^2 + 1.
-//
-//    The rule has precision P = 7.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    There are two versions of the rule, chosen by setting the
-//    OPTION variable to 1 or 2.  
-//
-//    Option 1 is only valid for N = 3, 4, 6 or 7.
-//    Option 2 is only valid for N = 3 or 4.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    N = 3, 4, 6 or 7.
-//
-//    Input, int OPTION, chooses rule option 1 or 2.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_07_1 implements the Stroud rule 7.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^N + 2 * N^2 + 1.
+
+    The rule has precision P = 7.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    There are two versions of the rule, chosen by setting the
+    OPTION variable to 1 or 2.
+
+    Option 1 is only valid for N = 3, 4, 6 or 7.
+    Option 2 is only valid for N = 3 or 4.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    N = 3, 4, 6 or 7.
+
+    Input, int OPTION, chooses rule option 1 or 2.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a;
   double b;
@@ -8803,19 +8756,19 @@ void en_r2_07_1 ( int n, int option, int o, double x[], double w[] )
 
   if ( option == 1 )
   {
-    r = sqrt ( ( 3.0E+00 * ( 8.0E+00 - n_r8 ) - ( n_r8 - 2.0E+00 ) 
+    r = sqrt ( ( 3.0E+00 * ( 8.0E+00 - n_r8 ) - ( n_r8 - 2.0E+00 )
       * sqrt ( 3.0E+00 * ( 8.0E+00 - n_r8 ) ) ) / 2.0E+00 / ( 5.0E+00 - n_r8 ) );
-    s = sqrt ( ( 3.0E+00 *             n_r8   -          2.0E+00   
-      * sqrt ( 3.0E+00 * ( 8.0E+00 - n_r8 ) ) ) / 2.0E+00 
+    s = sqrt ( ( 3.0E+00 *             n_r8   -          2.0E+00
+      * sqrt ( 3.0E+00 * ( 8.0E+00 - n_r8 ) ) ) / 2.0E+00
       / ( 3.0E+00 * n_r8 - 8.0E+00 ) );
     t = sqrt ( ( 6.0E+00 + sqrt ( 3.0E+00 * ( 8.0E+00 - n_r8 ) ) ) / 2.0E+00 );
   }
   else if ( option == 2 )
   {
-    r = sqrt ( ( 3.0E+00 * ( 8.0E+00 - n_r8 ) + ( n_r8 - 2.0E+00 ) 
+    r = sqrt ( ( 3.0E+00 * ( 8.0E+00 - n_r8 ) + ( n_r8 - 2.0E+00 )
       * sqrt ( 3.0E+00 * ( 8.0E+00 - n_r8 ) ) ) / 2.0E+00 / ( 5.0E+00 - n_r8 ) );
-    s = sqrt ( ( 3.0E+00 *             n_r8   +          2.0E+00   
-      * sqrt ( 3.0E+00 * ( 8.0E+00 - n_r8 ) ) ) / 2.0E+00 
+    s = sqrt ( ( 3.0E+00 *             n_r8   +          2.0E+00
+      * sqrt ( 3.0E+00 * ( 8.0E+00 - n_r8 ) ) ) / 2.0E+00
       / ( 3.0E+00 * n_r8 - 8.0E+00 ) );
     t = sqrt ( ( 6.0E+00 - sqrt ( 3.0E+00 * ( 8.0E+00 - n_r8 ) ) ) / 2.0E+00 );
   }
@@ -8823,20 +8776,20 @@ void en_r2_07_1 ( int n, int option, int o, double x[], double w[] )
   b = ( 8.0E+00 - n_r8 ) * volume / 8.0E+00 / pow ( r, 6 );
   c = volume / pow ( 2.0E+00, n + 3 ) / pow ( s, 6 );
   d = volume / 16.0E+00 / pow ( t, 6 );
-  a = volume - 2.0E+00 * n_r8 * b - pow ( 2.0E+00, n ) * c - 2.0E+00 * n_r8 
+  a = volume - 2.0E+00 * n_r8 * b - pow ( 2.0E+00, n ) * c - 2.0E+00 * n_r8
     * ( n_r8 - 1.0E+00 ) * d;
 
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   w[k] = a;
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -8846,9 +8799,9 @@ void en_r2_07_1 ( int n, int option, int o, double x[], double w[] )
     x[i+k*n] = + r;
     w[k] = b;
   }
-//
-//  2^N points.
-//
+/*
+  2^N points.
+*/
   k = k + 1;
   for ( i1 = 0; i1 < n; i1++ )
   {
@@ -8879,9 +8832,9 @@ void en_r2_07_1 ( int n, int option, int o, double x[], double w[] )
       }
     }
   }
-//
-//  2 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  2 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -8906,46 +8859,46 @@ void en_r2_07_1 ( int n, int option, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_07_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_07_1_SIZE sizes the Stroud rule 7.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^N + 2 * N^2 + 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_07_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_07_1_SIZE sizes the Stroud rule 7.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^N + 2 * N^2 + 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_07_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -8953,68 +8906,68 @@ int en_r2_07_1_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_07_2 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_07_2 implements the Stroud rule 7.2 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^(N+1) + 4 * N^2.
-//
-//    The rule has precision P = 7.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    The rule requires 3 <= N.
-//
-//    The reference has a typographical error in the description of this rule.
-//    The formula:
-//
-//      (t,t,t,...,t)FS
-//
-//    should read
-//
-//      (t,t,0,...,0)FS.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    3 <= N.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_07_2 implements the Stroud rule 7.2 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^(N+1) + 4 * N^2.
+
+    The rule has precision P = 7.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    The rule requires 3 <= N.
+
+    The reference has a typographical error in the description of this rule.
+    The formula:
+
+      (t,t,t,...,t)FS
+
+    should read
+
+      (t,t,0,...,0)FS.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    3 <= N.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double a1;
   double a2;
@@ -9047,29 +9000,29 @@ void en_r2_07_2 ( int n, int o, double x[], double w[] )
 
   n_r8 = ( double ) ( n );
 
-  rho1 = sqrt ( ( n_r8 + 2.0E+00 - sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) 
+  rho1 = sqrt ( ( n_r8 + 2.0E+00 - sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) )
     / 2.0E+00 );
-  rho2 = sqrt ( ( n_r8 + 2.0E+00 + sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) 
+  rho2 = sqrt ( ( n_r8 + 2.0E+00 + sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) )
     / 2.0E+00 );
-  a1 = ( n_r8 + 2.0E+00 + sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) / 2.0E+00 
+  a1 = ( n_r8 + 2.0E+00 + sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) / 2.0E+00
     / ( n_r8 + 2.0E+00 );
-  a2 = ( n_r8 + 2.0E+00 - sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) / 2.0E+00 
+  a2 = ( n_r8 + 2.0E+00 - sqrt ( 2.0E+00 * ( n_r8 + 2.0E+00 ) ) ) / 2.0E+00
     / ( n_r8 + 2.0E+00 );
 
   r = 1.0E+00;
   s = sqrt ( 1.0E+00 / n_r8 );
   t = sqrt ( 0.5E+00 );
   b = ( 8.0E+00 - n_r8 ) * volume / n_r8 / ( n_r8 + 2.0E+00 ) / ( n_r8 + 4.0E+00 );
-  c = pow ( n_r8, 3 ) * volume / pow ( 2.0E+00, n ) / n_r8 / ( n_r8 + 2.0E+00 ) 
+  c = pow ( n_r8, 3 ) * volume / pow ( 2.0E+00, n ) / n_r8 / ( n_r8 + 2.0E+00 )
     / ( n_r8 + 4.0E+00 );
   d = 4.0E+00 * volume / n_r8 / ( n_r8 + 2.0E+00 ) / ( n_r8 + 4.0E+00 );
 
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  2 * 2 * N points.
-//
+/*
+  2 * 2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -9085,9 +9038,9 @@ void en_r2_07_2 ( int n, int o, double x[], double w[] )
     x[i+k*n] = + rho2 * r;
     w[k] = a2 * b;
   }
-//
-//  2 * 2^N points.
-//
+/*
+  2 * 2^N points.
+*/
   k = k + 1;
   for ( i1 = 0; i1 < n; i1++ )
   {
@@ -9135,9 +9088,9 @@ void en_r2_07_2 ( int n, int o, double x[], double w[] )
       }
     }
   }
-//
-//  2 * 4 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  2 * 4 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -9178,46 +9131,46 @@ void en_r2_07_2 ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_07_2_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_07_2_SIZE sizes the Stroud rule 7.2 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = 2^(N+1) + 4 * N^2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_07_2_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_07_2_SIZE sizes the Stroud rule 7.2 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = 2^(N+1) + 4 * N^2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_07_2_SIZE, the order.
+*/
 {
   int o;
 
@@ -9225,80 +9178,80 @@ int en_r2_07_2_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_07_3 ( int n, int option, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_07_3 implements the Stroud rule 7.3 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = ( 4 * N^3 + 8 * N + 3 ) / 3.
-//
-//    The rule has precision P = 7.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    There are two versions of each rule, chosen by setting the
-//    OPTION variable to 1 or 2.
-//
-//    The rule as tabulated by Stenger is available for N = 2 through 20.
-//    This function accepts N = 3 through 6.
-//
-//     N    O
-//    __  ___
-//     3   45
-//     4   97
-//     5  181
-//     6  305
-//
-//    The reference has a typographical error for N = 5, OPTION 1, B4:
-//
-//      -(1)0.736330882774831
-//
-//    should read
-//
-//      (-1)0.736330882774831
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    3 <= N <= 6.
-//
-//    Input, int OPTION, chooses rule option 1 or 2.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_07_3 implements the Stroud rule 7.3 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = ( 4 * N^3 + 8 * N + 3 ) / 3.
+
+    The rule has precision P = 7.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    There are two versions of each rule, chosen by setting the
+    OPTION variable to 1 or 2.
+
+    The rule as tabulated by Stenger is available for N = 2 through 20.
+    This function accepts N = 3 through 6.
+
+     N    O
+    __  ___
+     3   45
+     4   97
+     5  181
+     6  305
+
+    The reference has a typographical error for N = 5, OPTION 1, B4:
+
+      -(1)0.736330882774831
+
+    should read
+
+      (-1)0.736330882774831
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    3 <= N <= 6.
+
+    Input, int OPTION, chooses rule option 1 or 2.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double b0;
   double b1;
@@ -9426,14 +9379,14 @@ void en_r2_07_3 ( int n, int option, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   w[k] = b0;
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -9443,9 +9396,9 @@ void en_r2_07_3 ( int n, int option, int o, double x[], double w[] )
     x[i+k*n] = + u;
     w[k] = b1;
   }
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -9455,9 +9408,9 @@ void en_r2_07_3 ( int n, int option, int o, double x[], double w[] )
     x[i+k*n] = + v;
     w[k] = b2;
   }
-//
-//  4 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -9480,9 +9433,9 @@ void en_r2_07_3 ( int n, int option, int o, double x[], double w[] )
       w[k] = b3;
     }
   }
-//
-//  4 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -9505,9 +9458,9 @@ void en_r2_07_3 ( int n, int option, int o, double x[], double w[] )
       w[k] = b4;
     }
   }
-//
-//  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
-//
+/*
+  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
+*/
   for ( i = 0; i < n - 2; i++ )
   {
     for ( j = i + 1; j < n - 1; j++ )
@@ -9559,46 +9512,46 @@ void en_r2_07_3 ( int n, int option, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_07_3_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_07_3_SIZE sizes the Stroud rule 7.3 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = ( 4 * N^3 + 8 * N + 3 ) / 3.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_07_3_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_07_3_SIZE sizes the Stroud rule 7.3 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = ( 4 * N^3 + 8 * N + 3 ) / 3.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_07_3_SIZE, the order.
+*/
 {
   int o;
 
@@ -9606,72 +9559,72 @@ int en_r2_07_3_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_09_1 implements the Stroud rule 9.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = ( 2 * N^4 - 4 * N^3 + 22 * N^2 - 8 * N + 3 ) / 3.
-//
-//    The rule has precision P = 9.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    There are two versions of each rule, chosen by setting the 
-//    OPTION variable to 1 or 2.
-//
-//    The rule as tabulated by Stenger is available for N = 2 through 20.
-//    This function accepts N = 3 through 6.
-//
-//     N    O
-//    __  ___
-//     3   77
-//     4  193
-//     5  421
-//     6  825
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    24 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    3 <= N <= 6.
-//
-//    Input, int OPTION, chooses rule option 1 or 2.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_09_1 implements the Stroud rule 9.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = ( 2 * N^4 - 4 * N^3 + 22 * N^2 - 8 * N + 3 ) / 3.
+
+    The rule has precision P = 9.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    There are two versions of each rule, chosen by setting the
+    OPTION variable to 1 or 2.
+
+    The rule as tabulated by Stenger is available for N = 2 through 20.
+    This function accepts N = 3 through 6.
+
+     N    O
+    __  ___
+     3   77
+     4  193
+     5  421
+     6  825
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    3 <= N <= 6.
+
+    Input, int OPTION, chooses rule option 1 or 2.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double b0;
   double b1;
@@ -9813,14 +9766,14 @@ void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   w[k] = b0;
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -9830,9 +9783,9 @@ void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
     x[i+k*n] = + u;
     w[k] = b1;
   }
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -9842,9 +9795,9 @@ void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
     x[i+k*n] = + v;
     w[k] = b2;
   }
-//
-//  4 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -9867,9 +9820,9 @@ void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
       w[k] = b3;
     }
   }
-//
-//  4 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -9892,9 +9845,9 @@ void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
       w[k] = b4;
     }
   }
-//
-//  4 * ( N * ( N - 1 ) ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -9933,9 +9886,9 @@ void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
       w[k] = b5;
     }
   }
-//
-//  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
-//
+/*
+  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
+*/
   for ( i = 0; i < n - 2; i++ )
   {
     for ( j = i + 1; j < n - 1; j++ )
@@ -9985,9 +9938,9 @@ void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
       }
     }
   }
-//
-//  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
-//
+/*
+  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
+*/
   for ( i = 0; i < n - 2; i++ )
   {
     for ( j = i + 1; j < n - 1; j++ )
@@ -10037,9 +9990,9 @@ void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
       }
     }
   }
-//
-//  16 * ( N * ( N - 1 ) * ( N - 2 ) * ( N - 3 ) / 24 ) points.
-//
+/*
+  16 * ( N * ( N - 1 ) * ( N - 2 ) * ( N - 3 ) / 24 ) points.
+*/
   for ( i = 0; i < n - 3; i++ )
   {
     for ( j = i + 1; j < n - 2; j++ )
@@ -10150,124 +10103,124 @@ void en_r2_09_1 ( int n, int option, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_09_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_09_1_SIZE sizes the Stroud rule 9.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order O = ( 2 * N^4 - 4 * N^3 + 22 * N^2 - 8 * N + 3 ) / 3.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_09_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_09_1_SIZE sizes the Stroud rule 9.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order O = ( 2 * N^4 - 4 * N^3 + 22 * N^2 - 8 * N + 3 ) / 3.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_09_1_SIZE, the order.
+*/
 {
   int o;
 
   o = (  2 * i4_power ( n, 4 )
       -  4 * i4_power ( n, 3 )
       + 22 * i4_power ( n, 2 )
-      -  8 *            n 
+      -  8 *            n
       +  3 ) / 3;
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_11_1 implements the Stroud rule 11.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = ( 4 * N^5 - 20 * N^4 + 140 * N^3 - 130 * N^2 + 96 * N + 15 ) / 15.
-//
-//    The rule has precision P = 11.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    There are two versions of each rule, chosen by setting the
-//    OPTION variable to 1 or 2.
-//
-//    The rule as tabulated by Stenger is available for N = 2 through 20.
-//    This function accepts N = 3 through 5.
-//
-//     N    O
-//    __  ___
-//     3  151
-//     4  417
-//     5  983
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    24 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//    3 <= N <= 5.
-//
-//    Input, int OPTION, chooses rule option 1 or 2.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_11_1 implements the Stroud rule 11.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order
+
+      O = ( 4 * N^5 - 20 * N^4 + 140 * N^3 - 130 * N^2 + 96 * N + 15 ) / 15.
+
+    The rule has precision P = 11.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    There are two versions of each rule, chosen by setting the
+    OPTION variable to 1 or 2.
+
+    The rule as tabulated by Stenger is available for N = 2 through 20.
+    This function accepts N = 3 through 5.
+
+     N    O
+    __  ___
+     3  151
+     4  417
+     5  983
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+    3 <= N <= 5.
+
+    Input, int OPTION, chooses rule option 1 or 2.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double b0;
   double b1;
@@ -10456,14 +10409,14 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   w[k] = b0;
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -10473,9 +10426,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
     x[i+k*n] = + u;
     w[k] = b1;
   }
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -10485,9 +10438,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
     x[i+k*n] = + v;
     w[k] = b2;
   }
-//
-//  2 * N points.
-//
+/*
+  2 * N points.
+*/
   for ( i = 0; i < n; i++ )
   {
     k = k + 1;
@@ -10497,9 +10450,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
     x[i+k*n] = + w2;
     w[k] = b3;
   }
-//
-//  4 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -10522,9 +10475,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       w[k] = b4;
     }
   }
-//
-//  4 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -10547,9 +10500,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       w[k] = b5;
     }
   }
-//
-//  4 * ( N * ( N - 1 ) / 2 ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -10572,9 +10525,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       w[k] = b6;
     }
   }
-//
-//  4 * ( N * ( N - 1 ) ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -10613,9 +10566,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       w[k] = b7;
     }
   }
-//
-//  4 * ( N * ( N - 1 ) ) points.
-//
+/*
+  4 * ( N * ( N - 1 ) ) points.
+*/
   for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
@@ -10654,9 +10607,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       w[k] = b8;
     }
   }
-//
-//  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
-//
+/*
+  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
+*/
   for ( i = 0; i < n - 2; i++ )
   {
     for ( j = i + 1; j < n - 1; j++ )
@@ -10706,9 +10659,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       }
     }
   }
-//
-//  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
-//
+/*
+  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
+*/
   for ( i = 0; i < n - 2; i++ )
   {
     for ( j = i + 1; j < n - 1; j++ )
@@ -10758,9 +10711,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       }
     }
   }
-//
-//  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
-//
+/*
+  8 * ( N * ( N - 1 ) * ( N - 2 ) / 6 ) points.
+*/
   for ( i = 0; i < n - 2; i++ )
   {
     for ( j = i + 1; j < n - 1; j++ )
@@ -10810,9 +10763,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       }
     }
   }
-//
-//  8 * ( N * ( N - 1 ) * ( N - 2 ) / 2 ) points.
-//
+/*
+  8 * ( N * ( N - 1 ) * ( N - 2 ) / 2 ) points.
+*/
   for ( i = 0; i < n - 2; i++ )
   {
     for ( j = i + 1; j < n - 1; j++ )
@@ -10942,9 +10895,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       }
     }
   }
-//
-//  16 * ( N * ( N - 1 ) * ( N - 2 ) * ( N - 3 ) / 24 ) points.
-//
+/*
+  16 * ( N * ( N - 1 ) * ( N - 2 ) * ( N - 3 ) / 24 ) points.
+*/
   for ( i = 0; i < n - 3; i++ )
   {
     for ( j = i + 1; j < n - 2; j++ )
@@ -11053,9 +11006,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       }
     }
   }
-//
-//  16 * ( N * ( N - 1 ) * ( N - 2 ) * ( N - 3 ) / 24 ) points.
-//
+/*
+  16 * ( N * ( N - 1 ) * ( N - 2 ) * ( N - 3 ) / 24 ) points.
+*/
   for ( i = 0; i < n - 3; i++ )
   {
     for ( j = i + 1; j < n - 2; j++ )
@@ -11164,9 +11117,9 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
       }
     }
   }
-//
-//  All quintuples UUUUU with 32 sign combinations.
-//
+/*
+  All quintuples UUUUU with 32 sign combinations.
+*/
   for ( i1 = 0; i1 < n - 4; i1++ )
   {
     for ( i2 = i1 + 1; i2 < n - 3; i2++ )
@@ -11408,111 +11361,111 @@ void en_r2_11_1 ( int n, int option, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int en_r2_11_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_11_1_SIZE sizes the Stroud rule 11.1 for region EN_R2.
-//
-//  Discussion:
-//
-//    The rule has order 
-//    O = ( 4 * N^5 - 20 * N^4 + 140 * N^3 - 130 * N^2 + 96 * N + 15 ) / 15.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EN_R2_11_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_11_1_SIZE sizes the Stroud rule 11.1 for region EN_R2.
+
+  Discussion:
+
+    The rule has order
+    O = ( 4 * N^5 - 20 * N^4 + 140 * N^3 - 130 * N^2 + 96 * N + 15 ) / 15.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EN_R2_11_1_SIZE, the order.
+*/
 {
   int o;
 
   o = (   4 * i4_power ( n, 5 )
       -  20 * i4_power ( n, 4 )
       + 140 * i4_power ( n, 3 )
-      - 130 * i4_power ( n, 2 ) 
-      +  96 *            n 
+      - 130 * i4_power ( n, 2 )
+      +  96 *            n
       +  15 ) / 15;
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double en_r2_monomial_integral ( int n, int alpha[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_MONOMIAL_INTEGRAL evaluates monomial integrals in EN_R2.
-//
-//  Discussion:
-//
-//    ALPHA is the set of polynomial exponents.
-//
-//    EN_R2 is the entire N-dimensional space with weight function
-//
-//      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 ) 
-//
-//    The integral to be evaluated is
-//
-//      value = integral ( EN ) x(1)^alpha(1) * x(2)^alpha(2) * ... 
-//        * x(n)^alpha(n) * w(x) dx
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int ALPHA[N], the polynomial exponents.
-//    0 <= ALPHA[*].
-//
-//    Output, double EN_R2_MONOMIAL_INTEGRAL, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EN_R2_MONOMIAL_INTEGRAL evaluates monomial integrals in EN_R2.
+
+  Discussion:
+
+    ALPHA is the set of polynomial exponents.
+
+    EN_R2 is the entire N-dimensional space with weight function
+
+      w(x) = exp ( - x1^2 - x2^2 ... - xn^2 )
+
+    The integral to be evaluated is
+
+      value = integral ( EN ) x(1)^alpha(1) * x(2)^alpha(2) * ...
+        * x(n)^alpha(n) * w(x) dx
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int ALPHA[N], the polynomial exponents.
+    0 <= ALPHA[*].
+
+    Output, double EN_R2_MONOMIAL_INTEGRAL, the value of the integral.
+*/
 {
   double arg;
   int i;
@@ -11546,46 +11499,46 @@ double en_r2_monomial_integral ( int n, int alpha[] )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ep1_glg_monomial_integral ( int expon, double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EP1_GLG_MONOMIAL_INTEGRAL: integral of monomial with GLG weight on EP1.
-//
-//  Discussion:
-//
-//    EP1_GLG is the interval [0,+oo) with generalized Laguerre weight function:
-//
-//      w(alpha;x) = x^alpha exp ( - x )
-//
-//    value = integral ( 0 <= x < +oo ) x^expon x^alpha exp ( - x ) dx
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int EXPON, the exponent.
-//    0 <= EXPON.
-//
-//    Input, double ALPHA, the exponent of X in the weight function.
-//    -1.0 < ALPHA.
-//
-//    Output, double EP1_GLG_MONOMIAL_INTEGRAL, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EP1_GLG_MONOMIAL_INTEGRAL: integral of monomial with GLG weight on EP1.
+
+  Discussion:
+
+    EP1_GLG is the interval [0,+oo) with generalized Laguerre weight function:
+
+      w(alpha;x) = x^alpha exp ( - x )
+
+    value = integral ( 0 <= x < +oo ) x^expon x^alpha exp ( - x ) dx
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int EXPON, the exponent.
+    0 <= EXPON.
+
+    Input, double ALPHA, the exponent of X in the weight function.
+    -1.0 < ALPHA.
+
+    Output, double EP1_GLG_MONOMIAL_INTEGRAL, the value of the integral.
+*/
 {
   double arg;
   double exact;
@@ -11596,43 +11549,43 @@ double ep1_glg_monomial_integral ( int expon, double alpha )
 
   return exact;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double ep1_lag_monomial_integral ( int expon )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EP1_LAG_MONOMIAL_INTEGRAL: integral of monomial with Laguerre weight on EP1.
-//
-//  Discussion:
-//
-//    EP1 is the interval [0,+oo) with exponential or Laguerre weight function:
-//
-//      w(x) = exp ( - x )
-//
-//    value = integral ( 0 <= x < oo ) x^expon exp ( - x ) dx
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    28 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int EXPON, the exponent.
-//    0 <= EXPON.
-//
-//    Output, double EP1_LAG_MONOMIAL_INTEGRAL, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EP1_LAG_MONOMIAL_INTEGRAL: integral of monomial with Laguerre weight on EP1.
+
+  Discussion:
+
+    EP1 is the interval [0,+oo) with exponential or Laguerre weight function:
+
+      w(x) = exp ( - x )
+
+    value = integral ( 0 <= x < oo ) x^expon exp ( - x ) dx
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int EXPON, the exponent.
+    0 <= EXPON.
+
+    Output, double EP1_LAG_MONOMIAL_INTEGRAL, the value of the integral.
+*/
 {
   double value;
 
@@ -11640,52 +11593,52 @@ double ep1_lag_monomial_integral ( int expon )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void epn_glg_00_1 ( int n, double alpha, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_GLG_00_1 implements the "midpoint rule" for region EPN_GLG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 0.
-//
-//    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
-//    Laguerre weight function:
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the exponent of X in the weight function.
-//    -1.0 < ALPHA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_GLG_00_1 implements the "midpoint rule" for region EPN_GLG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 0.
+
+    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
+    Laguerre weight function:
+
+      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the exponent of X in the weight function.
+    -1.0 < ALPHA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   int expon;
   int i;
@@ -11707,9 +11660,9 @@ void epn_glg_00_1 ( int n, double alpha, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   for ( i = 0; i < n; i++ )
   {
@@ -11719,48 +11672,48 @@ void epn_glg_00_1 ( int n, double alpha, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int epn_glg_00_1_size ( int n, double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_GLG_00_1_SIZE sizes the midpoint rule for region EPN_GLG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 0.
-//
-//    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
-//    Laguerre weight function:
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the exponent of X in the weight function.
-//    -1.0 < ALPHA.
-//
-//    Output, int EPN_GLG_00_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_GLG_00_1_SIZE sizes the midpoint rule for region EPN_GLG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 0.
+
+    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
+    Laguerre weight function:
+
+      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the exponent of X in the weight function.
+    -1.0 < ALPHA.
+
+    Output, int EPN_GLG_00_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -11776,52 +11729,52 @@ int epn_glg_00_1_size ( int n, double alpha )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void epn_glg_01_1 ( int n, double alpha, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_GLG_01_1 implements a precision 1 rule for region EPN_GLG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
-//    Laguerre weight function:
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the exponent of X in the weight function.
-//    -1.0 < ALPHA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_GLG_01_1 implements a precision 1 rule for region EPN_GLG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
+    Laguerre weight function:
+
+      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the exponent of X in the weight function.
+    -1.0 < ALPHA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   int expon;
   int i;
@@ -11848,9 +11801,9 @@ void epn_glg_01_1 ( int n, double alpha, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   for ( i = 0; i < n; i++ )
   {
@@ -11860,48 +11813,48 @@ void epn_glg_01_1 ( int n, double alpha, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int epn_glg_01_1_size ( int n, double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_GLG_01_1_SIZE sizes a precision 1 rule for region EPN_GLG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
-//    Laguerre weight function:
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the exponent of X in the weight function.
-//    -1.0 < ALPHA.
-//
-//    Output, int EPN_GLG_01_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_GLG_01_1_SIZE sizes a precision 1 rule for region EPN_GLG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
+    Laguerre weight function:
+
+      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the exponent of X in the weight function.
+    -1.0 < ALPHA.
+
+    Output, int EPN_GLG_01_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -11917,61 +11870,61 @@ int epn_glg_01_1_size ( int n, double alpha )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void epn_glg_02_xiu ( int n, double alpha, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_GLG_02_XIU implements the Xiu precision 2 rule for region EPN_GLG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
-//    Laguerre weight function:
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the exponent of X in the weight function.
-//    -1.0 < ALPHA.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_GLG_02_XIU implements the Xiu precision 2 rule for region EPN_GLG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
+    Laguerre weight function:
+
+      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the exponent of X in the weight function.
+    -1.0 < ALPHA.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   double c1;
@@ -12037,57 +11990,57 @@ void epn_glg_02_xiu ( int n, double alpha, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int epn_glg_02_xiu_size ( int n, double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_GLG_02_XIU_SIZE sizes the Xiu rule for region EPN_GLG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
-//    Laguerre weight function:
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, double ALPHA, the exponent of X in the weight function.
-//    -1.0 < ALPHA.
-//
-//    Output, int EPN_GLG_02_XIU_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_GLG_02_XIU_SIZE sizes the Xiu rule for region EPN_GLG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
+    Laguerre weight function:
+
+      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, double ALPHA, the exponent of X in the weight function.
+    -1.0 < ALPHA.
+
+    Output, int EPN_GLG_02_XIU_SIZE, the order.
+*/
 {
   int o;
 
@@ -12103,49 +12056,49 @@ int epn_glg_02_xiu_size ( int n, double alpha )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double epn_glg_monomial_integral ( int n, int expon[], double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_GLG_MONOMIAL_INTEGRAL: integral of monomial with GLG weight on EPN.
-//
-//  Discussion:
-//
-//    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
-//    Laguerre weight function:
-//
-//      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
-//
-//    value = integral ( EPN ) 
-//      product ( 1 <= i <= n ) x(I)^expon(i) x(i)^alpha exp ( - x(i) ) dx(i)
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int EXPON[N], the exponents.
-//
-//    Input, double ALPHA, the exponent of X in the weight function.
-//    -1.0 < ALPHA.
-//
-//    Output, double EPN_GLG_MONOMIAL_INTEGRAL, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_GLG_MONOMIAL_INTEGRAL: integral of monomial with GLG weight on EPN.
+
+  Discussion:
+
+    EPN_GLG is the N-dimensional positive space [0,+oo)^N with generalized
+    Laguerre weight function:
+
+      w(alpha;x) = product ( 1 <= i <= n ) x(i)^alpha exp ( - x(i) )
+
+    value = integral ( EPN )
+      product ( 1 <= i <= n ) x(I)^expon(i) x(i)^alpha exp ( - x(i) ) dx(i)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int EXPON[N], the exponents.
+
+    Input, double ALPHA, the exponent of X in the weight function.
+    -1.0 < ALPHA.
+
+    Output, double EPN_GLG_MONOMIAL_INTEGRAL, the value of the integral.
+*/
 {
   int i;
   double value;
@@ -12160,49 +12113,49 @@ double epn_glg_monomial_integral ( int n, int expon[], double alpha )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void epn_lag_00_1 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_LAG_00_1 implements the "midpoint rule" for region EPN_LAG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 0.
-//
-//    EPN is the N-dimensional positive space [0,+oo)^N with exponential 
-//    or Laguerre weight function:
-//
-//      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    28 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_LAG_00_1 implements the "midpoint rule" for region EPN_LAG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 0.
+
+    EPN is the N-dimensional positive space [0,+oo)^N with exponential
+    or Laguerre weight function:
+
+      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   int expon;
   int i;
@@ -12216,9 +12169,9 @@ void epn_lag_00_1 ( int n, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   for ( i = 0; i < n; i++ )
   {
@@ -12228,45 +12181,45 @@ void epn_lag_00_1 ( int n, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int epn_lag_00_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_LAG_00_1_SIZE sizes the midpoint rule for region EPN_LAG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 0.
-//
-//    EPN is the N-dimensional positive space [0,+oo)^N with exponential 
-//    or Laguerre weight function:
-//
-//      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    28 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EPN_LAG_00_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_LAG_00_1_SIZE sizes the midpoint rule for region EPN_LAG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 0.
+
+    EPN is the N-dimensional positive space [0,+oo)^N with exponential
+    or Laguerre weight function:
+
+      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EPN_LAG_00_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -12274,49 +12227,49 @@ int epn_lag_00_1_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void epn_lag_01_1 ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_LAG_01_1 implements a precision 1 rule for region EPN_LAG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    EPN is the N-dimensional positive space [0,+oo)^N with exponential 
-//    or Laguerre weight function:
-//
-//      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    28 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_LAG_01_1 implements a precision 1 rule for region EPN_LAG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    EPN is the N-dimensional positive space [0,+oo)^N with exponential
+    or Laguerre weight function:
+
+      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   int expon;
   int i;
@@ -12335,9 +12288,9 @@ void epn_lag_01_1 ( int n, int o, double x[], double w[] )
   r8vec_zero ( n * o, x );
 
   k = - 1;
-//
-//  1 point.
-//
+/*
+  1 point.
+*/
   k = k + 1;
   for ( i = 0; i < n; i++ )
   {
@@ -12347,45 +12300,45 @@ void epn_lag_01_1 ( int n, int o, double x[], double w[] )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int epn_lag_01_1_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_LAG_01_1_SIZE sizes a precision 1 rule for region EPN_LAG.
-//
-//  Discussion:
-//
-//    The rule has order O = 1.
-//
-//    The rule has precision P = 1.
-//
-//    EPN is the N-dimensional positive space [0,+oo)^N with exponential 
-//    or Laguerre weight function:
-//
-//      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    28 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EPN_LOG_01_1_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_LAG_01_1_SIZE sizes a precision 1 rule for region EPN_LAG.
+
+  Discussion:
+
+    The rule has order O = 1.
+
+    The rule has precision P = 1.
+
+    EPN is the N-dimensional positive space [0,+oo)^N with exponential
+    or Laguerre weight function:
+
+      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EPN_LOG_01_1_SIZE, the order.
+*/
 {
   int o;
 
@@ -12393,58 +12346,58 @@ int epn_lag_01_1_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void epn_lag_02_xiu ( int n, int o, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_LAG_02_XIU implements the Xiu precision 2 rule for region EPN_LAG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    EPN is the N-dimensional positive space [0,+oo)^N with exponential 
-//    or Laguerre weight function:
-//
-//      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_LAG_02_XIU implements the Xiu precision 2 rule for region EPN_LAG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    EPN is the N-dimensional positive space [0,+oo)^N with exponential
+    or Laguerre weight function:
+
+      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   double c1;
@@ -12501,54 +12454,54 @@ void epn_lag_02_xiu ( int n, int o, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int epn_lag_02_xiu_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_LAG_02_XIU_SIZE sizes the Xiu rule for region EPN_LAG.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    EPN is the N-dimensional positive space [0,+oo)^N with exponential 
-//    or Laguerre weight function:
-//
-//      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    28 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int EPN_LAG_02_XIU_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_LAG_02_XIU_SIZE sizes the Xiu rule for region EPN_LAG.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    EPN is the N-dimensional positive space [0,+oo)^N with exponential
+    or Laguerre weight function:
+
+      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int EPN_LAG_02_XIU_SIZE, the order.
+*/
 {
   int o;
 
@@ -12556,46 +12509,46 @@ int epn_lag_02_xiu_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double epn_lag_monomial_integral ( int n, int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_LAG_MONOMIAL_INTEGRAL: integral of monomial with Laguerre weight on EPN.
-//
-//  Discussion:
-//
-//    EPN is the N-dimensional positive space [0,+oo)^N with exponential 
-//    or Laguerre weight function:
-//
-//      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
-//
-//    value = integral ( EPN ) 
-//      product ( 1 <= i <= n ) x(I)^expon(i) exp ( -x(i) ) dx(i)
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    28 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int EXPON(N), the exponents.
-//
-//    Output, double EPN_LAG_MONOMIAL_VALUE, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    EPN_LAG_MONOMIAL_INTEGRAL: integral of monomial with Laguerre weight on EPN.
+
+  Discussion:
+
+    EPN is the N-dimensional positive space [0,+oo)^N with exponential
+    or Laguerre weight function:
+
+      w(x(1:n)) = exp ( - sum ( x(1:n) ) )
+
+    value = integral ( EPN )
+      product ( 1 <= i <= n ) x(I)^expon(i) exp ( -x(i) ) dx(i)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int EXPON(N), the exponents.
+
+    Output, double EPN_LAG_MONOMIAL_VALUE, the value of the integral.
+*/
 {
   int i;
   double value;
@@ -12610,175 +12563,175 @@ double epn_lag_monomial_integral ( int n, int expon[] )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void gw_02_xiu ( int n, int o, double gamma0, double delta0, double c1, 
+void gw_02_xiu ( int n, int o, double gamma0, double delta0, double c1,
   double volume_1d, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    GW_02_XIU implements the Golub-Welsch version of the Xiu rule.
-//
-//  Discussion:
-//
-//    The rule has order 
-//
-//      O = N + 1.
-//
-//    The rule has precision P = 2.
-//
-//    It is assumed that the integral is over an N-dimensional region,
-//    and has the form
-//
-//      Integral f(x) w(x) dx
-//
-//    where w(x) is separable into identical and independent components:
-//
-//      w(x) = v(x1) * v(x2) * ... * v(xn)
-//
-//    Associated with the weight function v(x), we assume there is a
-//    family of orthogonal polynomials satisfying a three-term recurrence
-//    of the form:
-//
-//      x P(n,x) = An * P(n+1,x) + Bn * P(n,x) + Cn * P(n-1,x)
-//
-//    with P(0,x) = 1, and P(-1,x) = 0.
-//
-//    This routine can construct the desired quadrature rule by knowing
-//    the values of C1, used in the definition of P2, the values
-//    GAMMA0 = 1/A0 and DELTA0 = - B0/A0, for which it is the case that
-//    P(1,X) = GAMMA0 * X + DELTA0, and the value of VOLUME_1D, that is,
-//    the 1D integral of v(x) over the region.
-//
-//    Note the values for the following standard polynomial families:
-//
-//    Chebyshev Type 1
-//      V(X) =      1 / sqrt ( 1 - X^2 )
-//      Interval =  [-1,+1]
-//      GAMMA0 =    1.0
-//      DELTA0 =    0.0
-//      C1 =        1/2
-//      VOLUME_1D = PI
-//
-//    Chebyshev Type 2
-//      V(X) =      sqrt ( 1 - X^2 )
-//      Interval =  [-1,+1]
-//      GAMMA0 =    2.0
-//      DELTA0 =    0.0
-//      C1 =        1/2
-//      VOLUME_1D = PI / 2
-//
-//    Gegenbauer
-//      V(X) =      ( 1 - X^2 )^A
-//      Interval =  [-1,+1]
-//      GAMMA0 =    2 * A + 1
-//      DELTA0 =    0.0
-//      C1 =        ( 2 * A + 1 ) / ( 2 A + 3 )
-//      VOLUME_1D = sqrt ( PI ) * Gamma(A+1) / Gamma(A+3/2)
-//
-//    Gegenbauer* (Removes singularity at ALPHA = -0.5):
-//      V(X) =      ( 1 - X^2 )^A
-//      Interval =  [-1,+1]
-//      GAMMA0 =    1
-//      DELTA0 =    0.0
-//      C1 =        1 / ( 2 A + 3 )
-//      VOLUME_1D = sqrt ( PI ) * Gamma(A+1) / Gamma(A+3/2)
-//
-//    Generalized Hermite
-//      V(X) = |x|^A exp ( - x^2 )
-//      Interval = (-oo,+oo)
-//      GAMMA0 =    2
-//      DELTA0 =    0
-//      C1 =        2+2A
-//      VOLUME_1D = Gamma((A+1)/2)
-//
-//    Generalized Laguerre
-//      V(X) =       x^A exp ( - x )
-//      Interval =  [0,+oo)
-//      GAMMA0 =    -1.0
-//      DELTA0 =     A+1.0
-//      C1 =        -A-1.0
-//      VOLUME_1D =  Gamma(A+1)
-//
-//    Hermite (physicist)
-//      V(X) =      exp ( - x^2 )
-//      Interval =  (-oo,+oo)
-//      GAMMA0 =    2.0
-//      DELTA0 =    0.0
-//      C1 =        1.0
-//      VOLUME_1D = sqrt ( PI )
-//
-//    Hermite (probabilist)
-//      V(X) =      exp ( - x^2 / 2 )
-//      Interval =  (-oo,+oo)
-//      GAMMA0 =    1.0
-//      DELTA0 =    0.0
-//      C1 =        1.0
-//      VOLUME_1D = sqrt ( 2 PI )
-//
-//    Jacobi
-//      V(X) =      (1-x)^A (1+x)^B
-//      Interval =  [-1,+1]
-//      GAMMA0 =    (A+B+2)/2  
-//      DELTA0 =    (A-B)/2
-//      C1 =        2(A+1)(B+1)/(A+B+3)/(A+B+2)
-//      VOLUME_1D = 2^(A+B+1) * Gamma(A+1) * Gamma(B+1) / ( A+B+1) / Gamma(A+B+1)
-//
-//    Laguerre
-//      V(X) =       exp ( - x )
-//      Interval =  [0,+oo)
-//      GAMMA0 =    -1.0
-//      DELTA0 =     1.0
-//      C1 =        -1.0
-//      VOLUME_1D =  1.0
-//
-//    Legendre
-//      V(X) =      1.0
-//      Interval =  [-1,+1]
-//      GAMMA0 =    1.0
-//      DELTA0 =    0.0
-//      C1 =        1/3
-//      VOLUME_1D = 2.0
-//                                  
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    11 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Input, int O, the order.
-//
-//    Input, double GAMMA0, the ratio 1 / A0.
-//
-//    Input, double DELTA0, the ratio B0 / A0.
-//
-//    Input, double C1, the coefficient of P(0,X) in the definition of P(2,X).
-//
-//    Input, double VOLUME_1D, the 1D integral of V(X).
-//
-//    Output, double X[N*O], the abscissas.
-//
-//    Output, double W[O], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    GW_02_XIU implements the Golub-Welsch version of the Xiu rule.
+
+  Discussion:
+
+    The rule has order
+
+      O = N + 1.
+
+    The rule has precision P = 2.
+
+    It is assumed that the integral is over an N-dimensional region,
+    and has the form
+
+      Integral f(x) w(x) dx
+
+    where w(x) is separable into identical and independent components:
+
+      w(x) = v(x1) * v(x2) * ... * v(xn)
+
+    Associated with the weight function v(x), we assume there is a
+    family of orthogonal polynomials satisfying a three-term recurrence
+    of the form:
+
+      x P(n,x) = An * P(n+1,x) + Bn * P(n,x) + Cn * P(n-1,x)
+
+    with P(0,x) = 1, and P(-1,x) = 0.
+
+    This routine can construct the desired quadrature rule by knowing
+    the values of C1, used in the definition of P2, the values
+    GAMMA0 = 1/A0 and DELTA0 = - B0/A0, for which it is the case that
+    P(1,X) = GAMMA0 * X + DELTA0, and the value of VOLUME_1D, that is,
+    the 1D integral of v(x) over the region.
+
+    Note the values for the following standard polynomial families:
+
+    Chebyshev Type 1
+      V(X) =      1 / sqrt ( 1 - X^2 )
+      Interval =  [-1,+1]
+      GAMMA0 =    1.0
+      DELTA0 =    0.0
+      C1 =        1/2
+      VOLUME_1D = PI
+
+    Chebyshev Type 2
+      V(X) =      sqrt ( 1 - X^2 )
+      Interval =  [-1,+1]
+      GAMMA0 =    2.0
+      DELTA0 =    0.0
+      C1 =        1/2
+      VOLUME_1D = PI / 2
+
+    Gegenbauer
+      V(X) =      ( 1 - X^2 )^A
+      Interval =  [-1,+1]
+      GAMMA0 =    2 * A + 1
+      DELTA0 =    0.0
+      C1 =        ( 2 * A + 1 ) / ( 2 A + 3 )
+      VOLUME_1D = sqrt ( PI ) * Gamma(A+1) / Gamma(A+3/2)
+
+    Gegenbauer* (Removes singularity at ALPHA = -0.5):
+      V(X) =      ( 1 - X^2 )^A
+      Interval =  [-1,+1]
+      GAMMA0 =    1
+      DELTA0 =    0.0
+      C1 =        1 / ( 2 A + 3 )
+      VOLUME_1D = sqrt ( PI ) * Gamma(A+1) / Gamma(A+3/2)
+
+    Generalized Hermite
+      V(X) = |x|^A exp ( - x^2 )
+      Interval = (-oo,+oo)
+      GAMMA0 =    2
+      DELTA0 =    0
+      C1 =        2+2A
+      VOLUME_1D = Gamma((A+1)/2)
+
+    Generalized Laguerre
+      V(X) =       x^A exp ( - x )
+      Interval =  [0,+oo)
+      GAMMA0 =    -1.0
+      DELTA0 =     A+1.0
+      C1 =        -A-1.0
+      VOLUME_1D =  Gamma(A+1)
+
+    Hermite (physicist)
+      V(X) =      exp ( - x^2 )
+      Interval =  (-oo,+oo)
+      GAMMA0 =    2.0
+      DELTA0 =    0.0
+      C1 =        1.0
+      VOLUME_1D = sqrt ( PI )
+
+    Hermite (probabilist)
+      V(X) =      exp ( - x^2 / 2 )
+      Interval =  (-oo,+oo)
+      GAMMA0 =    1.0
+      DELTA0 =    0.0
+      C1 =        1.0
+      VOLUME_1D = sqrt ( 2 PI )
+
+    Jacobi
+      V(X) =      (1-x)^A (1+x)^B
+      Interval =  [-1,+1]
+      GAMMA0 =    (A+B+2)/2
+      DELTA0 =    (A-B)/2
+      C1 =        2(A+1)(B+1)/(A+B+3)/(A+B+2)
+      VOLUME_1D = 2^(A+B+1) * Gamma(A+1) * Gamma(B+1) / ( A+B+1) / Gamma(A+B+1)
+
+    Laguerre
+      V(X) =       exp ( - x )
+      Interval =  [0,+oo)
+      GAMMA0 =    -1.0
+      DELTA0 =     1.0
+      C1 =        -1.0
+      VOLUME_1D =  1.0
+
+    Legendre
+      V(X) =      1.0
+      Interval =  [-1,+1]
+      GAMMA0 =    1.0
+      DELTA0 =    0.0
+      C1 =        1/3
+      VOLUME_1D = 2.0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 March 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Input, int O, the order.
+
+    Input, double GAMMA0, the ratio 1 / A0.
+
+    Input, double DELTA0, the ratio B0 / A0.
+
+    Input, double C1, the coefficient of P(0,X) in the definition of P(2,X).
+
+    Input, double VOLUME_1D, the 1D integral of V(X).
+
+    Output, double X[N*O], the abscissas.
+
+    Output, double W[O], the weights.
+*/
 {
   double arg;
   int i;
@@ -12804,9 +12757,9 @@ void gw_02_xiu ( int n, int o, double gamma0, double delta0, double c1,
       i = i + 1;
     }
   }
-//
-//  Adjust for the GW rule.
-//
+/*
+  Adjust for the GW rule.
+*/
   for ( j = 0; j < o; j++ )
   {
     for ( i = 0; i < n; i++ )
@@ -12814,9 +12767,9 @@ void gw_02_xiu ( int n, int o, double gamma0, double delta0, double c1,
       x[i+j*n] = ( sqrt ( gamma0 * c1 ) * x[i+j*n] - delta0 ) / gamma0;
     }
   }
-//
-//  The weights are equal.
-//
+/*
+  The weights are equal.
+*/
   for ( j = 0; j < o; j++ )
   {
     w[j] = pow ( volume_1d, n ) / ( double ) ( o );
@@ -12824,45 +12777,45 @@ void gw_02_xiu ( int n, int o, double gamma0, double delta0, double c1,
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int gw_02_xiu_size ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    GW_02_XIU_SIZE sizes the Golub Welsch version of the Xiu rule.
-//
-//  Discussion:
-//
-//    The rule has order O = N + 1;
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    25 February 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Dongbin Xiu,
-//    Numerical integration formulas of degree two,
-//    Applied Numerical Mathematics,
-//    Volume 58, 2008, pages 1515-1520.
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, int GW_02_XIU_SIZE, the order.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    GW_02_XIU_SIZE sizes the Golub Welsch version of the Xiu rule.
+
+  Discussion:
+
+    The rule has order O = N + 1;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 February 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Dongbin Xiu,
+    Numerical integration formulas of degree two,
+    Applied Numerical Mathematics,
+    Volume 58, 2008, pages 1515-1520.
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, int GW_02_XIU_SIZE, the order.
+*/
 {
   int o;
 
@@ -12870,40 +12823,40 @@ int gw_02_xiu_size ( int n )
 
   return o;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double hexagon_area_2d ( double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    HEXAGON_AREA_2D returns the area of a regular hexagon in 2D.
-//
-//  Discussion:
-//
-//    The formula for the area only requires the radius, and does
-//    not depend on the location of the center, or the orientation
-//    of the hexagon.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the hexagon.
-//
-//    Output, double HEXAGON_AREA_2D, the area of the hexagon.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    HEXAGON_AREA_2D returns the area of a regular hexagon in 2D.
+
+  Discussion:
+
+    The formula for the area only requires the radius, and does
+    not depend on the location of the center, or the orientation
+    of the hexagon.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the hexagon.
+
+    Output, double HEXAGON_AREA_2D, the area of the hexagon.
+*/
 {
   double value;
 
@@ -12911,66 +12864,66 @@ double hexagon_area_2d ( double r )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double hexagon_sum ( double func ( double x, double y ), double center[2], 
+double hexagon_sum ( double func ( double x, double y ), double center[2],
   double r, int order, double xtab[], double ytab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    HEXAGON_SUM applies a quadrature rule inside a hexagon in 2D.
-//
-//  Discussion:
-//
-//    The input quadrature rule is assumed to be defined for a unit hexagon.
-//
-//    The input quadrature rule may be defined by calling HEXAGON_UNIT_SET.
-//
-//  Integration region:
-//
-//    The definition is given in terms of THETA, the angle in degrees of the
-//    vector (X-CENTER(1),Y-CENTER(2)).  The following six conditions apply,
-//    respectively, between the bracketing values of THETA of 0, 60, 120, 
-//    180, 240, 300, and 360.
-//
-//      0 <= Y-CENTER(2) <= -SQRT(3) * (X-CENTER(1)) + R * SQRT(3)
-//      0 <= Y-CENTER(2) <=                     R * SQRT(3)/2
-//      0 <= Y-CENTER(2) <=  SQRT(3) * (X-CENTER(1)) + R * SQRT(3) 
-//      -SQRT(3) * (X-CENTER(1)) - R * SQRT(3)	<= Y-CENTER(2) <= 0
-//                        - R * SQRT(3)/2 <= Y-CENTER(2) <= 0
-//       SQRT(3) * (X-CENTER(1)) - R * SQRT(3)   <= Y-CENTER(2) <= 0
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the 
-//    user supplied function of two variables which is to be integrated.
-//
-//    Input, double CENTER[2], the center of the hexagon.
-//
-//    Input, double R, the radius of the hexagon.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Input, double WEIGHT[ORDER], the weights of the rule.
-//
-//    Output, double RESULT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    HEXAGON_SUM applies a quadrature rule inside a hexagon in 2D.
+
+  Discussion:
+
+    The input quadrature rule is assumed to be defined for a unit hexagon.
+
+    The input quadrature rule may be defined by calling HEXAGON_UNIT_SET.
+
+  Integration region:
+
+    The definition is given in terms of THETA, the angle in degrees of the
+    vector (X-CENTER(1),Y-CENTER(2)).  The following six conditions apply,
+    respectively, between the bracketing values of THETA of 0, 60, 120,
+    180, 240, 300, and 360.
+
+      0 <= Y-CENTER(2) <= -SQRT(3) * (X-CENTER(1)) + R * SQRT(3)
+      0 <= Y-CENTER(2) <=                     R * SQRT(3)/2
+      0 <= Y-CENTER(2) <=  SQRT(3) * (X-CENTER(1)) + R * SQRT(3)
+      -SQRT(3) * (X-CENTER(1)) - R * SQRT(3)	<= Y-CENTER(2) <= 0
+                        - R * SQRT(3)/2 <= Y-CENTER(2) <= 0
+       SQRT(3) * (X-CENTER(1)) - R * SQRT(3)   <= Y-CENTER(2) <= 0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function of two variables which is to be integrated.
+
+    Input, double CENTER[2], the center of the hexagon.
+
+    Input, double R, the radius of the hexagon.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Input, double WEIGHT[ORDER], the weights of the rule.
+
+    Output, double RESULT, the approximate integral of the function.
+*/
 {
   int i;
   double quad;
@@ -12992,46 +12945,46 @@ double hexagon_sum ( double func ( double x, double y ), double center[2],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double hexagon_unit_area_2d ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    HEXAGON_UNIT_AREA_2D returns the area of the unit regular hexagon in 2D.
-//
-//  Integration region:
-//
-//    The definition is given in terms of THETA, the angle in degrees of the
-//    vector (X,Y).  The following six conditions apply, respectively,
-//    between the bracketing values of THETA of 0, 60, 120, 180, 240,
-//    300, and 360.
-//
-//                              0 <= Y <= -SQRT(3) * X + SQRT(3)
-//                              0 <= Y <=                 SQRT(3)/2
-//                              0 <= Y <=  SQRT(3) * X + SQRT(3)
-//      - SQRT(3) * X - SQRT(3)   <= Y <= 0
-//                    - SQRT(3)/2 <= Y <= 0
-//        SQRT(3) * X - SQRT(3)   <= Y <= 0
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double HEXAGON_UNIT_AREA_2D, the area of the hexagon.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    HEXAGON_UNIT_AREA_2D returns the area of the unit regular hexagon in 2D.
+
+  Integration region:
+
+    The definition is given in terms of THETA, the angle in degrees of the
+    vector (X,Y).  The following six conditions apply, respectively,
+    between the bracketing values of THETA of 0, 60, 120, 180, 240,
+    300, and 360.
+
+                              0 <= Y <= -SQRT(3) * X + SQRT(3)
+                              0 <= Y <=                 SQRT(3)/2
+                              0 <= Y <=  SQRT(3) * X + SQRT(3)
+      - SQRT(3) * X - SQRT(3)   <= Y <= 0
+                    - SQRT(3)/2 <= Y <= 0
+        SQRT(3) * X - SQRT(3)   <= Y <= 0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double HEXAGON_UNIT_AREA_2D, the area of the hexagon.
+*/
 {
   double value;
 
@@ -13039,71 +12992,71 @@ double hexagon_unit_area_2d ( )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void hexagon_unit_set ( int rule, int order, double xtab[], double ytab[], 
+void hexagon_unit_set ( int rule, int order, double xtab[], double ytab[],
   double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    HEXAGON_UNIT_SET sets a quadrature rule inside the unit hexagon in 2D.
-//
-//  Integration region:
-//
-//    The definition is given in terms of THETA, the angle in degrees of the
-//    vector (X,Y).  The following six conditions apply, respectively,
-//    between the bracketing values of THETA of 0, 60, 120, 180, 240,
-//    300, and 360.
-//
-//                              0 <= Y <= -SQRT(3) * X + SQRT(3)
-//                              0 <= Y <=                 SQRT(3)/2
-//                              0 <= Y <=  SQRT(3) * X + SQRT(3)
-//       -SQRT(3) * X - SQRT(3)   <= Y <= 0
-//                    - SQRT(3)/2 <= Y <= 0
-//        SQRT(3) * X - SQRT(3)   <= Y <= 0
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Milton Abramowitz, Irene Stegun,
-//    Handbook of Mathematical Functions,
-//    National Bureau of Standards, 1964,
-//    ISBN: 0-486-61272-4,
-//    LC: QA47.A34.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the rule desired.
-//      1, 1 point,  degree 1;
-//      2, 4 points, degree 3;
-//      3, 7 points, degree 3;
-//      4, 7 points, degree 5;
-//
-//    Input, int ORDER, the order of the desired rule.
-//
-//    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas of the rule.
-//
-//    Output, double WEIGHT[ORDER], the weights of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    HEXAGON_UNIT_SET sets a quadrature rule inside the unit hexagon in 2D.
+
+  Integration region:
+
+    The definition is given in terms of THETA, the angle in degrees of the
+    vector (X,Y).  The following six conditions apply, respectively,
+    between the bracketing values of THETA of 0, 60, 120, 180, 240,
+    300, and 360.
+
+                              0 <= Y <= -SQRT(3) * X + SQRT(3)
+                              0 <= Y <=                 SQRT(3)/2
+                              0 <= Y <=  SQRT(3) * X + SQRT(3)
+       -SQRT(3) * X - SQRT(3)   <= Y <= 0
+                    - SQRT(3)/2 <= Y <= 0
+        SQRT(3) * X - SQRT(3)   <= Y <= 0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the rule desired.
+      1, 1 point,  degree 1;
+      2, 4 points, degree 3;
+      3, 7 points, degree 3;
+      4, 7 points, degree 5;
+
+    Input, int ORDER, the order of the desired rule.
+
+    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas of the rule.
+
+    Output, double WEIGHT[ORDER], the weights of the rule.
+*/
 {
   double a;
   double b;
@@ -13118,9 +13071,9 @@ void hexagon_unit_set ( int rule, int order, double xtab[], double ytab[],
     ytab[0] = 0.0;
     weight[0] = 1.0;
   }
-//
-//  Stroud rule H2:3-1.
-//
+/*
+  Stroud rule H2:3-1.
+*/
   else if ( rule == 2 )
   {
     a = sqrt ( 5.0 / 12.0 );
@@ -13142,9 +13095,9 @@ void hexagon_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[2] = b;
     weight[3] = b;
   }
-//
-//  Stroud rule H2:3-2.
-//
+/*
+  Stroud rule H2:3-2.
+*/
   else if ( rule == 3 )
   {
     a = sqrt ( 3.0 ) / 2.0;
@@ -13161,7 +13114,7 @@ void hexagon_unit_set ( int rule, int order, double xtab[], double ytab[],
     xtab[4] = - b;
     xtab[5] =   b;
     xtab[6] = - b;
- 
+
     ytab[0] =   z;
     ytab[1] =   z;
     ytab[2] =   z;
@@ -13178,9 +13131,9 @@ void hexagon_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[5] =   d;
     weight[6] =   d;
   }
-//
-//  Stroud rule H2:5-1.
-//
+/*
+  Stroud rule H2:5-1.
+*/
   else if ( rule == 4 )
   {
     a = sqrt ( 14.0 ) / 5.0;
@@ -13224,67 +13177,67 @@ void hexagon_unit_set ( int rule, int order, double xtab[], double ytab[],
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int hexagon_unit_size ( int rule )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    HEXAGON_UNIT_SIZE sizes a quadrature rule inside the unit hexagon in 2D.
-//
-//  Integration region:
-//
-//    The definition is given in terms of THETA, the angle in degrees of the
-//    vector (X,Y).  The following six conditions apply, respectively,
-//    between the bracketing values of THETA of 0, 60, 120, 180, 240,
-//    300, and 360.
-//
-//                              0 <= Y <= -SQRT(3) * X + SQRT(3)
-//                              0 <= Y <=                 SQRT(3)/2
-//                              0 <= Y <=  SQRT(3) * X + SQRT(3)
-//       -SQRT(3) * X - SQRT(3)   <= Y <= 0
-//                    - SQRT(3)/2 <= Y <= 0
-//        SQRT(3) * X - SQRT(3)   <= Y <= 0
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Milton Abramowitz, Irene Stegun,
-//    Handbook of Mathematical Functions,
-//    National Bureau of Standards, 1964,
-//    ISBN: 0-486-61272-4,
-//    LC: QA47.A34.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the rule desired.
-//      1, 1 point,  degree 1;
-//      2, 4 points, degree 3;
-//      3, 7 points, degree 3;
-//      4, 7 points, degree 5;
-//
-//    Output, int HEXAGON_UNIT_SIZE, the order of the desired rule.
-//    If RULE is not legal, then ORDER is returned as -1.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    HEXAGON_UNIT_SIZE sizes a quadrature rule inside the unit hexagon in 2D.
+
+  Integration region:
+
+    The definition is given in terms of THETA, the angle in degrees of the
+    vector (X,Y).  The following six conditions apply, respectively,
+    between the bracketing values of THETA of 0, 60, 120, 180, 240,
+    300, and 360.
+
+                              0 <= Y <= -SQRT(3) * X + SQRT(3)
+                              0 <= Y <=                 SQRT(3)/2
+                              0 <= Y <=  SQRT(3) * X + SQRT(3)
+       -SQRT(3) * X - SQRT(3)   <= Y <= 0
+                    - SQRT(3)/2 <= Y <= 0
+        SQRT(3) * X - SQRT(3)   <= Y <= 0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the rule desired.
+      1, 1 point,  degree 1;
+      2, 4 points, degree 3;
+      3, 7 points, degree 3;
+      4, 7 points, degree 5;
+
+    Output, int HEXAGON_UNIT_SIZE, the order of the desired rule.
+    If RULE is not legal, then ORDER is returned as -1.
+*/
 {
   int order;
 
@@ -13292,23 +13245,23 @@ int hexagon_unit_size ( int rule )
   {
     order = 1;
   }
-//
-//  Stroud rule H2:3-1.
-//
+/*
+  Stroud rule H2:3-1.
+*/
   else if ( rule == 2 )
   {
     order = 4;
   }
-//
-//  Stroud rule H2:3-2.
-//
+/*
+  Stroud rule H2:3-2.
+*/
   else if ( rule == 3 )
   {
     order = 7;
   }
-//
-//  Stroud rule H2:5-1.
-//
+/*
+  Stroud rule H2:5-1.
+*/
   else if ( rule == 4 )
   {
     order = 7;
@@ -13320,45 +13273,45 @@ int hexagon_unit_size ( int rule )
 
   return order;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int i4_factorial ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    I4_FACTORIAL returns N!.
-//
-//  Discussion:
-//
-//    N! = Product ( 1 <= I <= N ) I
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    28 May 2003
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the argument of the factorial function.
-//    0 <= N.
-//
-//    Output, int I4_FACTORIAL, the factorial of N.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_FACTORIAL returns N!.
+
+  Discussion:
+
+    N! = Product ( 1 <= I <= N ) I
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the argument of the factorial function.
+    0 <= N.
+
+    Output, int I4_FACTORIAL, the factorial of N.
+*/
 {
   int fact;
   int i;
-//
-//  Check.
-//
+/*
+  Check.
+*/
   if ( n < 0 )
   {
     fprintf ( stderr, "\n" );
@@ -13376,40 +13329,40 @@ int i4_factorial ( int n )
 
   return fact;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int i4_factorial2 ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    I4_FACTORIAL2 computes the double factorial function.
-//
-//  Discussion:
-//
-//    FACTORIAL2( N ) = Product ( N * (N-2) * (N-4) * ... * 2 )  (N even)
-//                    = Product ( N * (N-2) * (N-4) * ... * 1 )  (N odd)
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the argument of the double factorial function.
-//    If N is less than 1, I4_FACTORIAL2 is returned as 1.
-//
-//    Output, int I4_FACTORIAL2, the value of the double factorial function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_FACTORIAL2 computes the double factorial function.
+
+  Discussion:
+
+    FACTORIAL2( N ) = Product ( N * (N-2) * (N-4) * ... * 2 )  (N even)
+                    = Product ( N * (N-2) * (N-4) * ... * 1 )  (N odd)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the argument of the double factorial function.
+    If N is less than 1, I4_FACTORIAL2 is returned as 1.
+
+    Output, int I4_FACTORIAL2, the value of the double factorial function.
+*/
 {
   int n_copy;
   int value;
@@ -13430,34 +13383,34 @@ int i4_factorial2 ( int n )
   }
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int i4_max ( int i1, int i2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    I4_MAX returns the maximum of two I4's.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 October 1998
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int I1, I2, are two integers to be compared.
-//
-//    Output, int I4_MAX, the larger of I1 and I2.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_MAX returns the maximum of two I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 October 1998
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I1, I2, are two integers to be compared.
+
+    Output, int I4_MAX, the larger of I1 and I2.
+*/
 {
   int value;
 
@@ -13471,34 +13424,34 @@ int i4_max ( int i1, int i2 )
   }
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int i4_min ( int i1, int i2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    I4_MIN returns the minimum of two I4's.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 October 1998
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int I1, I2, two integers to be compared.
-//
-//    Output, int I4_MIN, the smaller of I1 and I2.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_MIN returns the minimum of two I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 October 1998
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I1, I2, two integers to be compared.
+
+    Output, int I4_MIN, the smaller of I1 and I2.
+*/
 {
   int value;
 
@@ -13512,34 +13465,34 @@ int i4_min ( int i1, int i2 )
   }
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int i4_power ( int i, int j )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    I4_POWER returns the value of I^J.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    01 April 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int I, J, the base and the power.  J should be nonnegative.
-//
-//    Output, int I4_POWER, the value of I^J.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_POWER returns the value of I^J.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 April 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, J, the base and the power.  J should be nonnegative.
+
+    Output, int I4_POWER, the value of I^J.
+*/
 {
   int k;
   int value;
@@ -13590,50 +13543,50 @@ int i4_power ( int i, int j )
   }
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int i4vec_sum ( int n, int a[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    I4VEC_SUM sums the entries of an I4VEC.
-//
-//  Discussion:
-//
-//    An I4VEC is a vector of I4's.
-//
-//  Example:
-//
-//    Input:
-//
-//      A = ( 1, 2, 3, 4 )
-//
-//    Output:
-//
-//      I4VEC_SUM = 10
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    26 May 1999
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the number of entries in the vector.
-//
-//    Input, int A[N], the vector to be summed.
-//
-//    Output, int I4VEC_SUM, the sum of the entries of A.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_SUM sums the entries of an I4VEC.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Example:
+
+    Input:
+
+      A = ( 1, 2, 3, 4 )
+
+    Output:
+
+      I4VEC_SUM = 10
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 May 1999
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input, int A[N], the vector to be summed.
+
+    Output, int I4VEC_SUM, the sum of the entries of A.
+*/
 {
   int i;
   int sum;
@@ -13646,38 +13599,38 @@ int i4vec_sum ( int n, int a[] )
 
   return sum;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void i4vec_zero ( int n, int a[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    I4VEC_ZERO zeroes an I4VEC.
-//
-//  Discussion:
-//
-//    An I4VEC is a vector of I4's.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    01 August 2005
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the number of entries in the vector.
-//
-//    Output, int A[N], a vector of zeroes.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_ZERO zeroes an I4VEC.
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 August 2005
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Output, int A[N], a vector of zeroes.
+*/
 {
   int i;
 
@@ -13687,65 +13640,65 @@ void i4vec_zero ( int n, int a[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void ksub_next2 ( int n, int k, int a[], int *in, int *iout )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    KSUB_NEXT2 generates the subsets of size K from a set of size N.
-//
-//  Discussion:
-//
-//    This routine uses the revolving door method.  It has no "memory".
-//    It simply calculates the successor of the input set,
-//    and will start from the beginning after the last set.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    29 May 2003
-//
-//  Author:
-//
-//    Original FORTRAN77 version by Albert Nijenhuis, Herbert Wilf.
-//    C++ version by John Burkardt.
-//
-//  Reference:
-//
-//    Albert Nijenhuis, Herbert Wilf,
-//    Combinatorial Algorithms for Computers and Calculators,
-//    Second Edition,
-//    Academic Press, 1978,
-//    ISBN: 0-12-519260-6,
-//    LC: QA164.N54.
-//
-//  Parameters:
-//
-//    Input, int N, the size of the set from which subsets are drawn.
-//    N must be positive.
-//
-//    Input, int K, the size of the desired subset.  K must be
-//    between 0 and N.
-//
-//    Input/output, int A[K].  On input, the user must
-//    supply a subset of size K in A.  That is, A must
-//    contain K unique numbers, in order, between 1 and N.  On
-//    output, A(I) is the I-th element of the output subset.
-//    The output array is also in sorted order.
-//
-//    Output, int *IN, the element of the output subset which
-//    was not in the input set.  Each new subset differs from the
-//    last one by adding one element and deleting another.
-//
-//    Output, int *IOUT, the element of the input subset which
-//    is not in the output subset.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    KSUB_NEXT2 generates the subsets of size K from a set of size N.
+
+  Discussion:
+
+    This routine uses the revolving door method.  It has no "memory".
+    It simply calculates the successor of the input set,
+    and will start from the beginning after the last set.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 May 2003
+
+  Author:
+
+    Original FORTRAN77 version by Albert Nijenhuis, Herbert Wilf.
+    C++ version by John Burkardt.
+
+  Reference:
+
+    Albert Nijenhuis, Herbert Wilf,
+    Combinatorial Algorithms for Computers and Calculators,
+    Second Edition,
+    Academic Press, 1978,
+    ISBN: 0-12-519260-6,
+    LC: QA164.N54.
+
+  Parameters:
+
+    Input, int N, the size of the set from which subsets are drawn.
+    N must be positive.
+
+    Input, int K, the size of the desired subset.  K must be
+    between 0 and N.
+
+    Input/output, int A[K].  On input, the user must
+    supply a subset of size K in A.  That is, A must
+    contain K unique numbers, in order, between 1 and N.  On
+    output, A(I) is the I-th element of the output subset.
+    The output array is also in sorted order.
+
+    Output, int *IN, the element of the output subset which
+    was not in the input set.  Each new subset differs from the
+    last one by adding one element and deleting another.
+
+    Output, int *IOUT, the element of the input subset which
+    is not in the output subset.
+*/
 {
   int j;
   int m;
@@ -13830,86 +13783,86 @@ void ksub_next2 ( int n, int k, int a[], int *in, int *iout )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void legendre_set ( int n, double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    LEGENDRE_SET sets abscissas and weights for Gauss-Legendre quadrature.
-//
-//  Discussion:
-//
-//    The integration interval is [ -1, 1 ].
-//
-//    The weight function w(x-1] = 1.0;
-//
-//    The integral to approximate:
-//
-//      Integral ( -1 <= X <= 1 ) F(X) dX
-//
-//    Quadrature rule:
-//
-//      Sum ( 1 <= I <= N ) W(I) * F ( X(I) )
-//
-//    The quadrature rule will integrate exactly all polynomials up to
-//    X**(2*N-1).
-//
-//    The abscissas of the rule are the zeroes of the Legendre polynomial
-//    P(N)(X).
-//
-//    The integral produced by a Gauss-Legendre rule is equal to the
-//    integral of the unique polynomial of degree N-1 which
-//    agrees with the function at the N abscissas of the rule.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    19 October 2009
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Milton Abramowitz, Irene Stegun,
-//    Handbook of Mathematical Functions,
-//    National Bureau of Standards, 1964,
-//    ISBN: 0-486-61272-4,
-//    LC: QA47.A34.
-//
-//    Vladimir Krylov,
-//    Approximate Calculation of Integrals,
-//    Dover, 2006,
-//    ISBN: 0486445798.
-//
-//    Arthur Stroud, Don Secrest,
-//    Gaussian Quadrature Formulas,
-//    Prentice Hall, 1966,
-//    LC: QA299.4G3S7.
-//
-//    Daniel Zwillinger, editor,
-//    CRC Standard Mathematical Tables and Formulae,
-//    30th Edition,
-//    CRC Press, 1996,
-//    ISBN: 0-8493-2479-3.
-//
-//  Parameters:
-//
-//    Input, int N, the order of the rule.
-//    N must be between 1 and 33, 63, 64, 65, 127 or 255.
-//
-//    Output, double X[N], the abscissas of the rule.
-//
-//    Output, double W[N], the weights of the rule.
-//    The weights are positive, symmetric and should sum to 2.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEGENDRE_SET sets abscissas and weights for Gauss-Legendre quadrature.
+
+  Discussion:
+
+    The integration interval is [ -1, 1 ].
+
+    The weight function w(x-1] = 1.0;
+
+    The integral to approximate:
+
+      Integral ( -1 <= X <= 1 ) F(X) dX
+
+    Quadrature rule:
+
+      Sum ( 1 <= I <= N ) W(I) * F ( X(I) )
+
+    The quadrature rule will integrate exactly all polynomials up to
+    X**(2*N-1).
+
+    The abscissas of the rule are the zeroes of the Legendre polynomial
+    P(N)(X).
+
+    The integral produced by a Gauss-Legendre rule is equal to the
+    integral of the unique polynomial of degree N-1 which
+    agrees with the function at the N abscissas of the rule.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 October 2009
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Vladimir Krylov,
+    Approximate Calculation of Integrals,
+    Dover, 2006,
+    ISBN: 0486445798.
+
+    Arthur Stroud, Don Secrest,
+    Gaussian Quadrature Formulas,
+    Prentice Hall, 1966,
+    LC: QA299.4G3S7.
+
+    Daniel Zwillinger, editor,
+    CRC Standard Mathematical Tables and Formulae,
+    30th Edition,
+    CRC Press, 1996,
+    ISBN: 0-8493-2479-3.
+
+  Parameters:
+
+    Input, int N, the order of the rule.
+    N must be between 1 and 33, 63, 64, 65, 127 or 255.
+
+    Output, double X[N], the abscissas of the rule.
+
+    Output, double W[N], the weights of the rule.
+    The weights are positive, symmetric and should sum to 2.
+*/
 {
   if ( n == 1 )
   {
@@ -14963,38 +14916,38 @@ void legendre_set ( int n, double x[], double w[] )
   }
   else if ( n == 31 )
   {
-    x[ 0] =  -0.99708748181947707454263838179654;    
-    x[ 1] =  -0.98468590966515248400211329970113;    
-    x[ 2] =  -0.96250392509294966178905249675943;    
-    x[ 3] =  -0.93075699789664816495694576311725;    
-    x[ 4] =  -0.88976002994827104337419200908023;    
-    x[ 5] =  -0.83992032014626734008690453594388;    
-    x[ 6] =  -0.78173314841662494040636002019484;    
-    x[ 7] =  -0.71577678458685328390597086536649;    
-    x[ 8] =  -0.64270672292426034618441820323250;    
-    x[ 9] =  -0.56324916140714926272094492359516;    
-    x[10] =  -0.47819378204490248044059403935649;    
-    x[11] =  -0.38838590160823294306135146128752;    
-    x[12] =  -0.29471806998170161661790389767170;    
-    x[13] =  -0.19812119933557062877241299603283;    
+    x[ 0] =  -0.99708748181947707454263838179654;
+    x[ 1] =  -0.98468590966515248400211329970113;
+    x[ 2] =  -0.96250392509294966178905249675943;
+    x[ 3] =  -0.93075699789664816495694576311725;
+    x[ 4] =  -0.88976002994827104337419200908023;
+    x[ 5] =  -0.83992032014626734008690453594388;
+    x[ 6] =  -0.78173314841662494040636002019484;
+    x[ 7] =  -0.71577678458685328390597086536649;
+    x[ 8] =  -0.64270672292426034618441820323250;
+    x[ 9] =  -0.56324916140714926272094492359516;
+    x[10] =  -0.47819378204490248044059403935649;
+    x[11] =  -0.38838590160823294306135146128752;
+    x[12] =  -0.29471806998170161661790389767170;
+    x[13] =  -0.19812119933557062877241299603283;
     x[14] =  -0.99555312152341520325174790118941E-01;
-    x[15] =   0.00000000000000000000000000000000;   
+    x[15] =   0.00000000000000000000000000000000;
     x[16] =   0.99555312152341520325174790118941E-01;
-    x[17] =   0.19812119933557062877241299603283;    
-    x[18] =   0.29471806998170161661790389767170;    
-    x[19] =   0.38838590160823294306135146128752;    
-    x[20] =   0.47819378204490248044059403935649;    
-    x[21] =   0.56324916140714926272094492359516;    
-    x[22] =   0.64270672292426034618441820323250;    
-    x[23] =   0.71577678458685328390597086536649;    
-    x[24] =   0.78173314841662494040636002019484;    
-    x[25] =   0.83992032014626734008690453594388;    
-    x[26] =   0.88976002994827104337419200908023;    
-    x[27] =   0.93075699789664816495694576311725;    
-    x[28] =   0.96250392509294966178905249675943;    
-    x[29] =   0.98468590966515248400211329970113;    
+    x[17] =   0.19812119933557062877241299603283;
+    x[18] =   0.29471806998170161661790389767170;
+    x[19] =   0.38838590160823294306135146128752;
+    x[20] =   0.47819378204490248044059403935649;
+    x[21] =   0.56324916140714926272094492359516;
+    x[22] =   0.64270672292426034618441820323250;
+    x[23] =   0.71577678458685328390597086536649;
+    x[24] =   0.78173314841662494040636002019484;
+    x[25] =   0.83992032014626734008690453594388;
+    x[26] =   0.88976002994827104337419200908023;
+    x[27] =   0.93075699789664816495694576311725;
+    x[28] =   0.96250392509294966178905249675943;
+    x[29] =   0.98468590966515248400211329970113;
     x[30] =   0.99708748181947707454263838179654;
- 
+
     w[ 0] =   0.74708315792487746093913218970494E-02;
     w[ 1] =   0.17318620790310582463552990782414E-01;
     w[ 2] =   0.27009019184979421800608642617676E-01;
@@ -15097,40 +15050,40 @@ void legendre_set ( int n, double x[], double w[] )
   }
   else if ( n == 33 )
   {
-    x[ 0] =  -0.9974246942464552;    
+    x[ 0] =  -0.9974246942464552;
     x[ 1] =  -0.9864557262306425;
     x[ 2] =  -0.9668229096899927;
-    x[ 3] =  -0.9386943726111684;    
-    x[ 4] =  -0.9023167677434336;    
-    x[ 5] =  -0.8580096526765041;    
-    x[ 6] =  -0.8061623562741665;    
-    x[ 7] =  -0.7472304964495622;    
-    x[ 8] =  -0.6817319599697428;    
-    x[ 9] =  -0.6102423458363790;    
-    x[10] =  -0.5333899047863476;    
-    x[11] =  -0.4518500172724507;    
-    x[12] =  -0.3663392577480734;    
-    x[13] =  -0.2776090971524970;    
-    x[14] =  -0.1864392988279916;    
+    x[ 3] =  -0.9386943726111684;
+    x[ 4] =  -0.9023167677434336;
+    x[ 5] =  -0.8580096526765041;
+    x[ 6] =  -0.8061623562741665;
+    x[ 7] =  -0.7472304964495622;
+    x[ 8] =  -0.6817319599697428;
+    x[ 9] =  -0.6102423458363790;
+    x[10] =  -0.5333899047863476;
+    x[11] =  -0.4518500172724507;
+    x[12] =  -0.3663392577480734;
+    x[13] =  -0.2776090971524970;
+    x[14] =  -0.1864392988279916;
     x[15] =  -0.09363106585473338;
     x[16] =   0.000000000000000;
     x[17] =   0.09363106585473338;
-    x[18] =   0.1864392988279916;    
-    x[19] =   0.2776090971524970;    
-    x[20] =   0.3663392577480734;    
-    x[21] =   0.4518500172724507;    
-    x[22] =   0.5333899047863476;    
-    x[23] =   0.6102423458363790;    
-    x[24] =   0.6817319599697428;    
-    x[25] =   0.7472304964495622;    
-    x[26] =   0.8061623562741665;    
-    x[27] =   0.8580096526765041;    
-    x[28] =   0.9023167677434336;    
-    x[29] =   0.9386943726111684;    
-    x[30] =   0.9668229096899927;    
-    x[31] =   0.9864557262306425;    
-    x[32] =   0.9974246942464552;    
- 
+    x[18] =   0.1864392988279916;
+    x[19] =   0.2776090971524970;
+    x[20] =   0.3663392577480734;
+    x[21] =   0.4518500172724507;
+    x[22] =   0.5333899047863476;
+    x[23] =   0.6102423458363790;
+    x[24] =   0.6817319599697428;
+    x[25] =   0.7472304964495622;
+    x[26] =   0.8061623562741665;
+    x[27] =   0.8580096526765041;
+    x[28] =   0.9023167677434336;
+    x[29] =   0.9386943726111684;
+    x[30] =   0.9668229096899927;
+    x[31] =   0.9864557262306425;
+    x[32] =   0.9974246942464552;
+
     w[ 0] =   0.6606227847587558E-02;
     w[ 1] =   0.1532170151293465E-01;
     w[ 2] =   0.2391554810174960E-01;
@@ -15299,72 +15252,72 @@ void legendre_set ( int n, double x[], double w[] )
   }
   else if ( n == 65 )
   {
-    x[ 0] =  -0.9993260970754129;    
-    x[ 1] =  -0.9964509480618492;    
-    x[ 2] =  -0.9912852761768016;    
-    x[ 3] =  -0.9838398121870350;    
-    x[ 4] =  -0.9741315398335512;    
-    x[ 5] =  -0.9621827547180553;    
-    x[ 6] =  -0.9480209281684076;    
-    x[ 7] =  -0.9316786282287494;    
-    x[ 8] =  -0.9131934405428462;    
-    x[ 9] =  -0.8926078805047389;    
-    x[10] =  -0.8699692949264071;    
-    x[11] =  -0.8453297528999303;    
-    x[12] =  -0.8187459259226514;    
-    x[13] =  -0.7902789574921218;    
-    x[14] =  -0.7599943224419998;    
-    x[15] =  -0.7279616763294247;    
-    x[16] =  -0.6942546952139916;    
-    x[17] =  -0.6589509061936252;    
-    x[18] =  -0.6221315090854003;    
-    x[19] =  -0.5838811896604873;    
-    x[20] =  -0.5442879248622271;    
-    x[21] =  -0.5034427804550069;    
-    x[22] =  -0.4614397015691450;    
-    x[23] =  -0.4183752966234090;    
-    x[24] =  -0.3743486151220660;    
-    x[25] =  -0.3294609198374864;    
-    x[26] =  -0.2838154539022487;    
-    x[27] =  -0.2375172033464168;    
-    x[28] =  -0.1906726556261428;    
-    x[29] =  -0.1433895546989752;    
+    x[ 0] =  -0.9993260970754129;
+    x[ 1] =  -0.9964509480618492;
+    x[ 2] =  -0.9912852761768016;
+    x[ 3] =  -0.9838398121870350;
+    x[ 4] =  -0.9741315398335512;
+    x[ 5] =  -0.9621827547180553;
+    x[ 6] =  -0.9480209281684076;
+    x[ 7] =  -0.9316786282287494;
+    x[ 8] =  -0.9131934405428462;
+    x[ 9] =  -0.8926078805047389;
+    x[10] =  -0.8699692949264071;
+    x[11] =  -0.8453297528999303;
+    x[12] =  -0.8187459259226514;
+    x[13] =  -0.7902789574921218;
+    x[14] =  -0.7599943224419998;
+    x[15] =  -0.7279616763294247;
+    x[16] =  -0.6942546952139916;
+    x[17] =  -0.6589509061936252;
+    x[18] =  -0.6221315090854003;
+    x[19] =  -0.5838811896604873;
+    x[20] =  -0.5442879248622271;
+    x[21] =  -0.5034427804550069;
+    x[22] =  -0.4614397015691450;
+    x[23] =  -0.4183752966234090;
+    x[24] =  -0.3743486151220660;
+    x[25] =  -0.3294609198374864;
+    x[26] =  -0.2838154539022487;
+    x[27] =  -0.2375172033464168;
+    x[28] =  -0.1906726556261428;
+    x[29] =  -0.1433895546989752;
     x[30] =  -0.9577665320919751E-01;
     x[31] =  -0.4794346235317186E-01;
-    x[32] =    0.000000000000000;    
+    x[32] =    0.000000000000000;
     x[33] =   0.4794346235317186E-01;
     x[34] =   0.9577665320919751E-01;
-    x[35] =   0.1433895546989752;    
-    x[36] =   0.1906726556261428;    
-    x[37] =   0.2375172033464168;    
-    x[38] =   0.2838154539022487;    
-    x[39] =   0.3294609198374864;    
-    x[40] =   0.3743486151220660;    
-    x[41] =   0.4183752966234090;    
-    x[42] =   0.4614397015691450;    
-    x[43] =   0.5034427804550069;    
-    x[44] =   0.5442879248622271;    
-    x[45] =   0.5838811896604873;    
-    x[46] =   0.6221315090854003;    
-    x[47] =   0.6589509061936252;    
-    x[48] =   0.6942546952139916;    
-    x[49] =   0.7279616763294247;    
-    x[50] =   0.7599943224419998;    
-    x[51] =   0.7902789574921218;    
-    x[52] =   0.8187459259226514;    
-    x[53] =   0.8453297528999303;    
-    x[54] =   0.8699692949264071;    
-    x[55] =   0.8926078805047389;    
-    x[56] =   0.9131934405428462;    
-    x[57] =   0.9316786282287494;    
-    x[58] =   0.9480209281684076;    
-    x[59] =   0.9621827547180553;    
-    x[60] =   0.9741315398335512;    
-    x[61] =   0.9838398121870350;    
-    x[62] =   0.9912852761768016;    
-    x[63] =   0.9964509480618492;    
-    x[64] =   0.9993260970754129;    
- 
+    x[35] =   0.1433895546989752;
+    x[36] =   0.1906726556261428;
+    x[37] =   0.2375172033464168;
+    x[38] =   0.2838154539022487;
+    x[39] =   0.3294609198374864;
+    x[40] =   0.3743486151220660;
+    x[41] =   0.4183752966234090;
+    x[42] =   0.4614397015691450;
+    x[43] =   0.5034427804550069;
+    x[44] =   0.5442879248622271;
+    x[45] =   0.5838811896604873;
+    x[46] =   0.6221315090854003;
+    x[47] =   0.6589509061936252;
+    x[48] =   0.6942546952139916;
+    x[49] =   0.7279616763294247;
+    x[50] =   0.7599943224419998;
+    x[51] =   0.7902789574921218;
+    x[52] =   0.8187459259226514;
+    x[53] =   0.8453297528999303;
+    x[54] =   0.8699692949264071;
+    x[55] =   0.8926078805047389;
+    x[56] =   0.9131934405428462;
+    x[57] =   0.9316786282287494;
+    x[58] =   0.9480209281684076;
+    x[59] =   0.9621827547180553;
+    x[60] =   0.9741315398335512;
+    x[61] =   0.9838398121870350;
+    x[62] =   0.9912852761768016;
+    x[63] =   0.9964509480618492;
+    x[64] =   0.9993260970754129;
+
     w[ 0] =   0.1729258251300218E-02;
     w[ 1] =   0.4021524172003703E-02;
     w[ 2] =   0.6307942578971821E-02;
@@ -15431,50 +15384,50 @@ void legendre_set ( int n, double x[], double w[] )
     w[63] =   0.4021524172003703E-02;
     w[64] =   0.1729258251300218E-02;
   }
-  else if ( n == 127 ) 
+  else if ( n == 127 )
   {
     x[  0] =  -0.99982213041530614629963254927125E+00;
-    x[  1] =  -0.99906293435531189513828920479421E+00;    
-    x[  2] =  -0.99769756618980462107441703193392E+00;    
-    x[  3] =  -0.99572655135202722663543337085008E+00;    
-    x[  4] =  -0.99315104925451714736113079489080E+00;  
-    x[  5] =  -0.98997261459148415760778669967548E+00;   
-    x[  6] =  -0.98619317401693166671043833175407E+00;    
-    x[  7] =  -0.98181502080381411003346312451200E+00;    
-    x[  8] =  -0.97684081234307032681744391886221E+00;    
-    x[  9] =  -0.97127356816152919228894689830512E+00;    
-    x[ 10] =  -0.96511666794529212109082507703391E+00;    
-    x[ 11] =  -0.95837384942523877114910286998060E+00;    
-    x[ 12] =  -0.95104920607788031054790764659636E+00;   
-    x[ 13] =  -0.94314718462481482734544963026201E+00;    
-    x[ 14] =  -0.93467258232473796857363487794906E+00;    
-    x[ 15] =  -0.92563054405623384912746466814259E+00;    
-    x[ 16] =  -0.91602655919146580931308861741716E+00;   
-    x[ 17] =  -0.90586645826182138280246131760282E+00;    
-    x[ 18] =  -0.89515640941708370896904382642451E+00;   
-    x[ 19] =  -0.88390291468002656994525794802849E+00;    
-    x[ 20] =  -0.87211280599856071141963753428864E+00;    
-    x[ 21] =  -0.85979324109774080981203134414483E+00;   
-    x[ 22] =  -0.84695169913409759845333931085437E+00;    
-    x[ 23] =  -0.83359597615489951437955716480123E+00;    
-    x[ 24] =  -0.81973418036507867415511910167470E+00;   
-    x[ 25] =  -0.80537472720468021466656079404644E+00;   
-    x[ 26] =  -0.79052633423981379994544995252740E+00;   
-    x[ 27] =  -0.77519801587020238244496276354566E+00;  
-    x[ 28] =  -0.75939907785653667155666366659810E+00;   
-    x[ 29] =  -0.74313911167095451292056688997595E+00;   
-    x[ 30] =  -0.72642798867407268553569290153270E+00;    
-    x[ 31] =  -0.70927585412210456099944463906757E+00;   
-    x[ 32] =  -0.69169312100770067015644143286666E+00; 
+    x[  1] =  -0.99906293435531189513828920479421E+00;
+    x[  2] =  -0.99769756618980462107441703193392E+00;
+    x[  3] =  -0.99572655135202722663543337085008E+00;
+    x[  4] =  -0.99315104925451714736113079489080E+00;
+    x[  5] =  -0.98997261459148415760778669967548E+00;
+    x[  6] =  -0.98619317401693166671043833175407E+00;
+    x[  7] =  -0.98181502080381411003346312451200E+00;
+    x[  8] =  -0.97684081234307032681744391886221E+00;
+    x[  9] =  -0.97127356816152919228894689830512E+00;
+    x[ 10] =  -0.96511666794529212109082507703391E+00;
+    x[ 11] =  -0.95837384942523877114910286998060E+00;
+    x[ 12] =  -0.95104920607788031054790764659636E+00;
+    x[ 13] =  -0.94314718462481482734544963026201E+00;
+    x[ 14] =  -0.93467258232473796857363487794906E+00;
+    x[ 15] =  -0.92563054405623384912746466814259E+00;
+    x[ 16] =  -0.91602655919146580931308861741716E+00;
+    x[ 17] =  -0.90586645826182138280246131760282E+00;
+    x[ 18] =  -0.89515640941708370896904382642451E+00;
+    x[ 19] =  -0.88390291468002656994525794802849E+00;
+    x[ 20] =  -0.87211280599856071141963753428864E+00;
+    x[ 21] =  -0.85979324109774080981203134414483E+00;
+    x[ 22] =  -0.84695169913409759845333931085437E+00;
+    x[ 23] =  -0.83359597615489951437955716480123E+00;
+    x[ 24] =  -0.81973418036507867415511910167470E+00;
+    x[ 25] =  -0.80537472720468021466656079404644E+00;
+    x[ 26] =  -0.79052633423981379994544995252740E+00;
+    x[ 27] =  -0.77519801587020238244496276354566E+00;
+    x[ 28] =  -0.75939907785653667155666366659810E+00;
+    x[ 29] =  -0.74313911167095451292056688997595E+00;
+    x[ 30] =  -0.72642798867407268553569290153270E+00;
+    x[ 31] =  -0.70927585412210456099944463906757E+00;
+    x[ 32] =  -0.69169312100770067015644143286666E+00;
     x[ 33] =  -0.67369046373825048534668253831602E+00;
     x[ 34] =  -0.65527881165548263027676505156852E+00;
     x[ 35] =  -0.63646934240029724134760815684175E+00;
-    x[ 36] =  -0.61727347512685828385763916340822E+00; 
-    x[ 37] =  -0.59770286357006522938441201887478E+00; 
-    x[ 38] =  -0.57776938897061258000325165713764E+00; 
-    x[ 39] =  -0.55748515286193223292186190687872E+00; 
+    x[ 36] =  -0.61727347512685828385763916340822E+00;
+    x[ 37] =  -0.59770286357006522938441201887478E+00;
+    x[ 38] =  -0.57776938897061258000325165713764E+00;
+    x[ 39] =  -0.55748515286193223292186190687872E+00;
     x[ 40] =  -0.53686246972339756745816636353452E+00;
-    x[ 41] =  -0.51591385950424935727727729906662E+00; 
+    x[ 41] =  -0.51591385950424935727727729906662E+00;
     x[ 42] =  -0.49465204002278211739494017368636E+00;
     x[ 43] =  -0.47308991924540524164509989939699E+00;
     x[ 44] =  -0.45124058745026622733189858020729E+00;
@@ -15483,13 +15436,13 @@ void legendre_set ( int n, double x[], double w[] )
     x[ 47] =  -0.38410279579151693577907781452239E+00;
     x[ 48] =  -0.36123888860586970607092484346723E+00;
     x[ 49] =  -0.33815567472039850137600027657095E+00;
-    x[ 50] =  -0.31486716786289498148601475374890E+00; 
-    x[ 51] =  -0.29138750639370562079451875284568E+00; 
+    x[ 50] =  -0.31486716786289498148601475374890E+00;
+    x[ 51] =  -0.29138750639370562079451875284568E+00;
     x[ 52] =  -0.26773094472238862088834352027938E+00;
     x[ 53] =  -0.24391184465391785797071324453138E+00;
     x[ 54] =  -0.21994466666968754245452337866940E+00;
     x[ 55] =  -0.19584396114861085150428162519610E+00;
-    x[ 56] =  -0.17162435953364216500834492248954E+00; 
+    x[ 56] =  -0.17162435953364216500834492248954E+00;
     x[ 57] =  -0.14730056544908566938932929319807E+00;
     x[ 58] =  -0.12288734577408297172603365288567E+00;
     x[ 59] =  -0.98399521677698970751091751509101E-01;
@@ -15505,61 +15458,61 @@ void legendre_set ( int n, double x[], double w[] )
     x[ 69] =   0.14730056544908566938932929319807E+00;
     x[ 70] =   0.17162435953364216500834492248954E+00;
     x[ 71] =   0.19584396114861085150428162519610E+00;
-    x[ 72] =   0.21994466666968754245452337866940E+00;    
-    x[ 73] =   0.24391184465391785797071324453138E+00;   
-    x[ 74] =   0.26773094472238862088834352027938E+00;   
-    x[ 75] =   0.29138750639370562079451875284568E+00;   
-    x[ 76] =   0.31486716786289498148601475374890E+00;    
-    x[ 77] =   0.33815567472039850137600027657095E+00;   
-    x[ 78] =   0.36123888860586970607092484346723E+00;    
-    x[ 79] =   0.38410279579151693577907781452239E+00;    
-    x[ 80] =   0.40673351568978256340867288124339E+00;  
-    x[ 81] =   0.42911730928019337626254405355418E+00;    
-    x[ 82] =   0.45124058745026622733189858020729E+00;   
-    x[ 83] =   0.47308991924540524164509989939699E+00;   
-    x[ 84] =   0.49465204002278211739494017368636E+00; 
-    x[ 85] =   0.51591385950424935727727729906662E+00; 
-    x[ 86] =   0.53686246972339756745816636353452E+00; 
-    x[ 87] =   0.55748515286193223292186190687872E+00;   
-    x[ 88] =   0.57776938897061258000325165713764E+00;  
-    x[ 89] =   0.59770286357006522938441201887478E+00;  
-    x[ 90] =   0.61727347512685828385763916340822E+00;  
-    x[ 91] =   0.63646934240029724134760815684175E+00;    
-    x[ 92] =   0.65527881165548263027676505156852E+00;  
-    x[ 93] =   0.67369046373825048534668253831602E+00;   
-    x[ 94] =   0.69169312100770067015644143286666E+00;   
-    x[ 95] =   0.70927585412210456099944463906757E+00;   
-    x[ 96] =   0.72642798867407268553569290153270E+00;   
-    x[ 97] =   0.74313911167095451292056688997595E+00;    
-    x[ 98] =   0.75939907785653667155666366659810E+00;   
-    x[ 99] =   0.77519801587020238244496276354566E+00;    
-    x[100] =   0.79052633423981379994544995252740E+00;   
-    x[101] =   0.80537472720468021466656079404644E+00;   
-    x[102] =   0.81973418036507867415511910167470E+00;  
-    x[103] =   0.83359597615489951437955716480123E+00;   
-    x[104] =   0.84695169913409759845333931085437E+00;   
-    x[105] =   0.85979324109774080981203134414483E+00; 
-    x[106] =   0.87211280599856071141963753428864E+00;  
-    x[107] =   0.88390291468002656994525794802849E+00;   
-    x[108] =   0.89515640941708370896904382642451E+00;    
-    x[109] =   0.90586645826182138280246131760282E+00;   
-    x[110] =   0.91602655919146580931308861741716E+00;  
-    x[111] =   0.92563054405623384912746466814259E+00; 
-    x[112] =   0.93467258232473796857363487794906E+00; 
-    x[113] =   0.94314718462481482734544963026201E+00;  
-    x[114] =   0.95104920607788031054790764659636E+00; 
-    x[115] =   0.95837384942523877114910286998060E+00; 
+    x[ 72] =   0.21994466666968754245452337866940E+00;
+    x[ 73] =   0.24391184465391785797071324453138E+00;
+    x[ 74] =   0.26773094472238862088834352027938E+00;
+    x[ 75] =   0.29138750639370562079451875284568E+00;
+    x[ 76] =   0.31486716786289498148601475374890E+00;
+    x[ 77] =   0.33815567472039850137600027657095E+00;
+    x[ 78] =   0.36123888860586970607092484346723E+00;
+    x[ 79] =   0.38410279579151693577907781452239E+00;
+    x[ 80] =   0.40673351568978256340867288124339E+00;
+    x[ 81] =   0.42911730928019337626254405355418E+00;
+    x[ 82] =   0.45124058745026622733189858020729E+00;
+    x[ 83] =   0.47308991924540524164509989939699E+00;
+    x[ 84] =   0.49465204002278211739494017368636E+00;
+    x[ 85] =   0.51591385950424935727727729906662E+00;
+    x[ 86] =   0.53686246972339756745816636353452E+00;
+    x[ 87] =   0.55748515286193223292186190687872E+00;
+    x[ 88] =   0.57776938897061258000325165713764E+00;
+    x[ 89] =   0.59770286357006522938441201887478E+00;
+    x[ 90] =   0.61727347512685828385763916340822E+00;
+    x[ 91] =   0.63646934240029724134760815684175E+00;
+    x[ 92] =   0.65527881165548263027676505156852E+00;
+    x[ 93] =   0.67369046373825048534668253831602E+00;
+    x[ 94] =   0.69169312100770067015644143286666E+00;
+    x[ 95] =   0.70927585412210456099944463906757E+00;
+    x[ 96] =   0.72642798867407268553569290153270E+00;
+    x[ 97] =   0.74313911167095451292056688997595E+00;
+    x[ 98] =   0.75939907785653667155666366659810E+00;
+    x[ 99] =   0.77519801587020238244496276354566E+00;
+    x[100] =   0.79052633423981379994544995252740E+00;
+    x[101] =   0.80537472720468021466656079404644E+00;
+    x[102] =   0.81973418036507867415511910167470E+00;
+    x[103] =   0.83359597615489951437955716480123E+00;
+    x[104] =   0.84695169913409759845333931085437E+00;
+    x[105] =   0.85979324109774080981203134414483E+00;
+    x[106] =   0.87211280599856071141963753428864E+00;
+    x[107] =   0.88390291468002656994525794802849E+00;
+    x[108] =   0.89515640941708370896904382642451E+00;
+    x[109] =   0.90586645826182138280246131760282E+00;
+    x[110] =   0.91602655919146580931308861741716E+00;
+    x[111] =   0.92563054405623384912746466814259E+00;
+    x[112] =   0.93467258232473796857363487794906E+00;
+    x[113] =   0.94314718462481482734544963026201E+00;
+    x[114] =   0.95104920607788031054790764659636E+00;
+    x[115] =   0.95837384942523877114910286998060E+00;
     x[116] =   0.96511666794529212109082507703391E+00;
-    x[117] =   0.97127356816152919228894689830512E+00; 
-    x[118] =   0.97684081234307032681744391886221E+00; 
-    x[119] =   0.98181502080381411003346312451200E+00;  
+    x[117] =   0.97127356816152919228894689830512E+00;
+    x[118] =   0.97684081234307032681744391886221E+00;
+    x[119] =   0.98181502080381411003346312451200E+00;
     x[120] =   0.98619317401693166671043833175407E+00;
     x[121] =   0.98997261459148415760778669967548E+00;
-    x[122] =   0.99315104925451714736113079489080E+00; 
-    x[123] =   0.99572655135202722663543337085008E+00; 
-    x[124] =   0.99769756618980462107441703193392E+00; 
+    x[122] =   0.99315104925451714736113079489080E+00;
+    x[123] =   0.99572655135202722663543337085008E+00;
+    x[124] =   0.99769756618980462107441703193392E+00;
     x[125] =   0.99906293435531189513828920479421E+00;
-    x[126] =   0.99982213041530614629963254927125E+00; 
+    x[126] =   0.99982213041530614629963254927125E+00;
 
     w[  0] =   0.45645726109586654495731936146574E-03;
     w[  1] =   0.10622766869538486959954760554099E-02;
@@ -16213,58 +16166,58 @@ void legendre_set ( int n, double x[], double w[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void legendre_set_x1 ( int order, double xtab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    LEGENDRE_SET_X1 sets a Gauss-Legendre rule for ( 1 + X ) * F(X) on [-1,1].
-//
-//  Discussion:
-//
-//    The integration interval is [ -1, 1 ].
-//
-//    The weight function is w(x-1] = 1 + x.
-//
-//    The integral to approximate:
-//
-//      Integral ( -1 <= X <= 1 ) ( 1 + X ) * F(X) dX
-//
-//    The quadrature rule:
-//
-//      Sum ( 1 <= I <= ORDER ) WEIGHT(I) * F ( XTAB(I) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    03 May 2006
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud, Don Secrest,
-//    Gaussian Quadrature Formulas,
-//    Prentice Hall, 1966,
-//    LC: QA299.4G3S7.
-//
-//  Parameters:
-//
-//    Input, int ORDER, the order of the rule.
-//    ORDER must be between 1 and 9.
-//
-//    Output, double XTAB[ORDER], the abscissas of the rule.
-//
-//    Output, double WEIGHT[ORDER], the weights of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEGENDRE_SET_X1 sets a Gauss-Legendre rule for ( 1 + X ) * F(X) on [-1,1].
+
+  Discussion:
+
+    The integration interval is [ -1, 1 ].
+
+    The weight function is w(x-1] = 1 + x.
+
+    The integral to approximate:
+
+      Integral ( -1 <= X <= 1 ) ( 1 + X ) * F(X) dX
+
+    The quadrature rule:
+
+      Sum ( 1 <= I <= ORDER ) WEIGHT(I) * F ( XTAB(I) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 May 2006
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud, Don Secrest,
+    Gaussian Quadrature Formulas,
+    Prentice Hall, 1966,
+    LC: QA299.4G3S7.
+
+  Parameters:
+
+    Input, int ORDER, the order of the rule.
+    ORDER must be between 1 and 9.
+
+    Output, double XTAB[ORDER], the abscissas of the rule.
+
+    Output, double WEIGHT[ORDER], the weights of the rule.
+*/
 {
   if ( order == 1 )
   {
@@ -16401,58 +16354,58 @@ void legendre_set_x1 ( int order, double xtab[], double weight[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void legendre_set_x2 ( int order, double xtab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    LEGENDRE_SET_X2 sets Gauss-Legendre rules for ( 1 + X )^2*F(X) on [-1,1].
-//
-//  Discussion:
-//
-//    The integration interval is [ -1, 1 ].
-//
-//    The weight function is w(x-1] = ( 1 + x )^2.
-//
-//    The integral to approximate:
-//
-//      Integral ( -1 <= X <= 1 ) ( 1 + X )^2 * F(X) dX
-//
-//    The quadrature rule:
-//
-//      Sum ( 1 <= I <= ORDER ) WEIGHt[I) * F ( XTAb[I) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    02 May 2006
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud, Don Secrest,
-//    Gaussian Quadrature Formulas,
-//    Prentice Hall, 1966,
-//    LC: QA299.4G3S7.
-//
-//  Parameters:
-//
-//    Input, int ORDER, the order of the rule.
-//    ORDER must be between 1 and 9.
-//
-//    Output, double XTAB[ORDER], the abscissas of the rule.
-//
-//    Output, double WEIGHT[ORDER], the weights of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEGENDRE_SET_X2 sets Gauss-Legendre rules for ( 1 + X )^2*F(X) on [-1,1].
+
+  Discussion:
+
+    The integration interval is [ -1, 1 ].
+
+    The weight function is w(x-1] = ( 1 + x )^2.
+
+    The integral to approximate:
+
+      Integral ( -1 <= X <= 1 ) ( 1 + X )^2 * F(X) dX
+
+    The quadrature rule:
+
+      Sum ( 1 <= I <= ORDER ) WEIGHt[I) * F ( XTAb[I) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 May 2006
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud, Don Secrest,
+    Gaussian Quadrature Formulas,
+    Prentice Hall, 1966,
+    LC: QA299.4G3S7.
+
+  Parameters:
+
+    Input, int ORDER, the order of the rule.
+    ORDER must be between 1 and 9.
+
+    Output, double XTAB[ORDER], the abscissas of the rule.
+
+    Output, double WEIGHT[ORDER], the weights of the rule.
+*/
 {
   if ( order == 1 )
   {
@@ -16589,73 +16542,73 @@ void legendre_set_x2 ( int order, double xtab[], double weight[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double lens_half_2d ( double func ( double x, double y ), double center[2], 
+double lens_half_2d ( double func ( double x, double y ), double center[2],
   double r, double theta1, double theta2, int order )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    LENS_HALF_2D approximates an integral in a circular half lens in 2D.
-//
-//  Discussion:
-//
-//    A circular half lens is formed by drawing a circular arc,
-//    and joining its endpoints.
-//
-//    This rule for a circular half lens simply views the region as 
-//    a product region, with a coordinate "S" that varies along the
-//    radial direction, and a coordinate "T" that varies in the perpendicular
-//    direction, and whose extent varies as a function of S.
-//
-//    A Gauss-Legendre rule is used to construct a product rule that is
-//    applied to the region.  The accuracy of the Gauss-Legendre rule,
-//    which is valid for a rectangular product rule region, does not
-//    apply straightforwardly to this region, since the limits in the
-//    "T" coordinate are being handled implicitly.
-//
-//    This is simply an application of the QMULT_2D algorithm of Stroud.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double CENTER[2], the center of the circle.
-//
-//    Input, double R, the radius of the circle.
-//
-//    Input, double THETA1, THETA2, the angles of the rays
-//    that begin and end the arc.
-//
-//    Input, int ORDER, the order of the Gauss-Legendre rule
-//    to be used.  Legal values include 1 through 20, 32 or 64.
-//
-//    Output, double LENS_HALF_2D, the approximate value
-//    of the integral of the function over the half lens.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    LENS_HALF_2D approximates an integral in a circular half lens in 2D.
+
+  Discussion:
+
+    A circular half lens is formed by drawing a circular arc,
+    and joining its endpoints.
+
+    This rule for a circular half lens simply views the region as
+    a product region, with a coordinate "S" that varies along the
+    radial direction, and a coordinate "T" that varies in the perpendicular
+    direction, and whose extent varies as a function of S.
+
+    A Gauss-Legendre rule is used to construct a product rule that is
+    applied to the region.  The accuracy of the Gauss-Legendre rule,
+    which is valid for a rectangular product rule region, does not
+    apply straightforwardly to this region, since the limits in the
+    "T" coordinate are being handled implicitly.
+
+    This is simply an application of the QMULT_2D algorithm of Stroud.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function to be integrated.
+
+    Input, double CENTER[2], the center of the circle.
+
+    Input, double R, the radius of the circle.
+
+    Input, double THETA1, THETA2, the angles of the rays
+    that begin and end the arc.
+
+    Input, int ORDER, the order of the Gauss-Legendre rule
+    to be used.  Legal values include 1 through 20, 32 or 64.
+
+    Output, double LENS_HALF_2D, the approximate value
+    of the integral of the function over the half lens.
+*/
 {
   double ax;
   double ay;
@@ -16681,18 +16634,18 @@ double lens_half_2d ( double func ( double x, double y ), double center[2],
   double w2;
   double *weight;
   double *xtab;
-//
-//  Determine the points A (on the secant) and B (on the circumference)
-//  that will form the "S" direction.
-//
+/*
+  Determine the points A (on the secant) and B (on the circumference)
+  that will form the "S" direction.
+*/
   ax = center[0] + r * 0.5 * ( cos ( theta1 ) + cos ( theta2 ) );
   ay = center[1] + r * 0.5 * ( sin ( theta1 ) + sin ( theta2 ) );
 
   bx = center[0] + r * cos ( 0.5 * ( theta1 + theta2 ) );
   by = center[1] + r * sin ( 0.5 * ( theta1 + theta2 ) );
-//
-//  Find the length of the line between A and B.
-//
+/*
+  Find the length of the line between A and B.
+*/
   s_length = sqrt ( pow ( ax - bx, 2 ) + pow ( ay - by, 2 ) );
 
   if ( s_length == 0.0 )
@@ -16700,16 +16653,16 @@ double lens_half_2d ( double func ( double x, double y ), double center[2],
     quad = 0.0;
     return quad;
   }
-//
-//  Retrieve the Legendre rule of the given order.
-//
+/*
+  Retrieve the Legendre rule of the given order.
+*/
   xtab = ( double * ) malloc ( order * sizeof ( double ) );
   weight = ( double * ) malloc ( order * sizeof ( double ) );
 
   legendre_set ( order, xtab, weight );
-//
-//  Determine the unit vector in the T direction.
-//
+/*
+  Determine the unit vector in the T direction.
+*/
   tdirx = ( ay - by ) / s_length;
   tdiry = ( bx - ax ) / s_length;
 
@@ -16718,45 +16671,45 @@ double lens_half_2d ( double func ( double x, double y ), double center[2],
   for ( i = 0; i < order; i++ )
   {
     w1 = 0.5 * s_length * weight[i];
-//
-//  Map the quadrature point to an S coordinate.
-//
-    sx = ( ( 1.0 - xtab[i] ) * ax   
-         + ( 1.0 + xtab[i] ) * bx ) 
+/*
+  Map the quadrature point to an S coordinate.
+*/
+    sx = ( ( 1.0 - xtab[i] ) * ax
+         + ( 1.0 + xtab[i] ) * bx )
          /   2.0;
-    sy = ( ( 1.0 - xtab[i] ) * ay   
-         + ( 1.0 + xtab[i] ) * by ) 
+    sy = ( ( 1.0 - xtab[i] ) * ay
+         + ( 1.0 + xtab[i] ) * by )
          /   2.0;
-//
-//  Determine the length of the line in the T direction, from the
-//  S axis to the circle circumference.
-//
-    thi = sqrt ( ( r - 0.25 * ( 1.0 - xtab[i] ) * s_length ) 
+/*
+  Determine the length of the line in the T direction, from the
+  S axis to the circle circumference.
+*/
+    thi = sqrt ( ( r - 0.25 * ( 1.0 - xtab[i] ) * s_length )
                             * ( 1.0 - xtab[i] ) * s_length );
-// 
-//  Determine the maximum and minimum T coordinates by going
-//  up and down in the T direction from the S axis.
-//
+/*
+  Determine the maximum and minimum T coordinates by going
+  up and down in the T direction from the S axis.
+*/
     cx = sx + tdirx * thi;
     cy = sy + tdiry * thi;
     dx = sx - tdirx * thi;
     dy = sy - tdiry * thi;
-//
-//  Find the length of the T direction.
-//
+/*
+  Find the length of the T direction.
+*/
     t_length = sqrt ( pow ( cx - dx, 2 ) + pow ( cy - dy, 2 ) );
 
     for ( j = 0; j < order; j++ )
     {
       w2 = 0.5 * t_length * weight[j];
-//
-//  Map the quadrature point to a T coordinate.
-//
-      tx = ( ( 1.0 - xtab[j] ) * cx   
-           + ( 1.0 + xtab[j] ) * dx ) 
+/*
+  Map the quadrature point to a T coordinate.
+*/
+      tx = ( ( 1.0 - xtab[j] ) * cx
+           + ( 1.0 + xtab[j] ) * dx )
            /   2.0;
-      ty = ( ( 1.0 - xtab[j] ) * cy   
-           + ( 1.0 + xtab[j] ) * dy ) 
+      ty = ( ( 1.0 - xtab[j] ) * cy
+           + ( 1.0 + xtab[j] ) * dy )
            /   2.0;
 
       quad = quad + w1 * w2 * func ( tx, ty );
@@ -16768,42 +16721,42 @@ double lens_half_2d ( double func ( double x, double y ), double center[2],
 
   return quad;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double lens_half_area_2d ( double r, double theta1, double theta2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    LENS_HALF_AREA_2D returns the area of a circular half lens in 2D.
-//
-//  Discussion:
-//
-//    A circular half lens is formed by drawing a circular arc, 
-//    and joining its endpoints.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the circle.
-//
-//    Input, double THETA1, THETA2, the angles of the rays
-//    that begin and end the arc.
-//
-//    Output, double LENS_HALF_AREA_2D, the area of the half lens.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    LENS_HALF_AREA_2D returns the area of a circular half lens in 2D.
+
+  Discussion:
+
+    A circular half lens is formed by drawing a circular arc,
+    and joining its endpoints.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the circle.
+
+    Input, double THETA1, THETA2, the angles of the rays
+    that begin and end the arc.
+
+    Output, double LENS_HALF_AREA_2D, the area of the half lens.
+*/
 {
   double sector;
   double triangle;
@@ -16815,45 +16768,45 @@ double lens_half_area_2d ( double r, double theta1, double theta2 )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double lens_half_h_area_2d ( double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    LENS_HALF_H_AREA_2D returns the area of a circular half lens in 2D.
-//
-//  Discussion:
-//
-//    A circular half lens is formed by drawing a circular arc, and joining 
-//    its endpoints.
-//
-//    This particular half lens is described by the "height" of the region.  
-//    In other words, the half lens is the region that would be submerged 
-//    if a circle of radius R were standing in water of depth H.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the circle.
-//
-//    Input, double H, the height of the half lens region.
-//
-//    Output, double LENS_HALF_H_AREA_2D, the area of the half lens.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    LENS_HALF_H_AREA_2D returns the area of a circular half lens in 2D.
+
+  Discussion:
+
+    A circular half lens is formed by drawing a circular arc, and joining
+    its endpoints.
+
+    This particular half lens is described by the "height" of the region.
+    In other words, the half lens is the region that would be submerged
+    if a circle of radius R were standing in water of depth H.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the circle.
+
+    Input, double H, the height of the half lens region.
+
+    Output, double LENS_HALF_H_AREA_2D, the area of the half lens.
+*/
 {
   double angle;
   double area;
@@ -16880,45 +16833,45 @@ double lens_half_h_area_2d ( double r, double h )
   }
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double lens_half_w_area_2d ( double r, double w )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    LENS_HALF_W_AREA_2D returns the area of a circular half lens in 2D.
-//
-//  Discussion:
-//
-//    A half lens is formed by drawing a circular arc, and joining its endpoints.
-//    This half lens is described by the "width" of the region.  In other words,
-//    it is the portion of the circle under water if the width
-//    of the water surface is W.  There are two possible values for this
-//    area, A and (PI*R*R-A).  The routine returns the smaller of the 
-//    two values.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the circle.
-//
-//    Input, double W, the width of the half lens region.
-//
-//    Output, double LENS_HALF_W_AREA_2D, the area of the half lens.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    LENS_HALF_W_AREA_2D returns the area of a circular half lens in 2D.
+
+  Discussion:
+
+    A half lens is formed by drawing a circular arc, and joining its endpoints.
+    This half lens is described by the "width" of the region.  In other words,
+    it is the portion of the circle under water if the width
+    of the water surface is W.  There are two possible values for this
+    area, A and (PI*R*R-A).  The routine returns the smaller of the
+    two values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the circle.
+
+    Input, double W, the width of the half lens region.
+
+    Output, double LENS_HALF_W_AREA_2D, the area of the half lens.
+*/
 {
   double angle;
   double area;
@@ -16932,7 +16885,7 @@ double lens_half_w_area_2d ( double r, double w )
   {
     area = 0.0;
   }
-  else if ( 2.0 * r <= w ) 
+  else if ( 2.0 * r <= w )
   {
     area = 0.5 * pi * r * r;
   }
@@ -16947,51 +16900,51 @@ double lens_half_w_area_2d ( double r, double w )
   }
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double *monomial_value ( int dim_num, int point_num, double x[], int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    MONOMIAL_VALUE evaluates a monomial.
-//
-//  Discussion:
-//
-//    This routine evaluates a monomial of the form
-//
-//      product ( 1 <= dim <= dim_num ) x(dim)^expon(dim)
-//
-//    where the exponents are nonnegative integers.  Note that
-//    if the combination 0^0 is encountered, it should be treated
-//    as 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    05 May 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int DIM_NUM, the spatial dimension.
-//
-//    Input, int POINT_NUM, the number of points at which the
-//    monomial is to be evaluated.
-//
-//    Input, double X[DIM_NUM*POINT_NUM], the point coordinates.
-//
-//    Input, int EXPON[DIM_NUM], the exponents.
-//
-//    Output, double MONOMIAL_VALUE[POINT_NUM], the value of the monomial.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    MONOMIAL_VALUE evaluates a monomial.
+
+  Discussion:
+
+    This routine evaluates a monomial of the form
+
+      product ( 1 <= dim <= dim_num ) x(dim)^expon(dim)
+
+    where the exponents are nonnegative integers.  Note that
+    if the combination 0^0 is encountered, it should be treated
+    as 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 May 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int DIM_NUM, the spatial dimension.
+
+    Input, int POINT_NUM, the number of points at which the
+    monomial is to be evaluated.
+
+    Input, double X[DIM_NUM*POINT_NUM], the point coordinates.
+
+    Input, int EXPON[DIM_NUM], the exponents.
+
+    Output, double MONOMIAL_VALUE[POINT_NUM], the value of the monomial.
+*/
 {
   int dim;
   int point;
@@ -17017,53 +16970,53 @@ double *monomial_value ( int dim_num, int point_num, double x[], int expon[] )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double octahedron_unit_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    OCTAHEDRON_UNIT_ND approximates integrals in the unit octahedron in ND.
-//
-//  Integration region:
-//
-//    sum ( abs ( X(1:N) ) ) <= 1.
-//
-//  Discussion:
-//
-//    A 2*N point 3rd degree formula is used, Stroud number GN:3-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the octahedron.
-//
-//    Output, double OCTAHEDRON_UNIT_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    OCTAHEDRON_UNIT_ND approximates integrals in the unit octahedron in ND.
+
+  Integration region:
+
+    sum ( abs ( X(1:N) ) ) <= 1.
+
+  Discussion:
+
+    A 2*N point 3rd degree formula is used, Stroud number GN:3-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the octahedron.
+
+    Output, double OCTAHEDRON_UNIT_ND, the approximate integral of the function.
+*/
 {
   int i;
   int j;
@@ -17078,7 +17031,7 @@ double octahedron_unit_nd ( double func ( int n, double x[] ), int n )
 
   w = 1.0 / ( double ) ( 2 * n );
 
-  r = sqrt ( ( double ) ( 2 * n ) 
+  r = sqrt ( ( double ) ( 2 * n )
     / ( double ) ( ( n + 1 ) * ( n + 2 ) ) );
 
   for ( i = 0; i < n; i++ )
@@ -17105,39 +17058,39 @@ double octahedron_unit_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double octahedron_unit_volume_nd ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    OCTAHEDRON_UNIT_VOLUME_ND returns the volume of the unit octahedron in ND.
-//
-//  Integration region:
-//
-//    sum ( abs ( X(1:N) ) ) <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double OCTAHEDRON_UNIT_VOLUME_ND, the volume of
-//    the unit octahedron.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    OCTAHEDRON_UNIT_VOLUME_ND returns the volume of the unit octahedron in ND.
+
+  Integration region:
+
+    sum ( abs ( X(1:N) ) ) <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Output, double OCTAHEDRON_UNIT_VOLUME_ND, the volume of
+    the unit octahedron.
+*/
 {
   int i;
   double volume;
@@ -17150,81 +17103,81 @@ double octahedron_unit_volume_nd ( int n )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double parallelipiped_volume_3d ( double x[4], double y[4], double z[4] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PARALLELIPIPED_VOLUME_3D returns the volume of a parallelipiped in 3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X[4], Y[4], Z[4], the coordinates of one corner
-//    of the parallelipiped, and its 3 immediate neighbors.
-//
-//    Output, double PARALLELIPIPED_VOLUME_3D, the volume of
-//    the parallelipiped.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PARALLELIPIPED_VOLUME_3D returns the volume of a parallelipiped in 3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X[4], Y[4], Z[4], the coordinates of one corner
+    of the parallelipiped, and its 3 immediate neighbors.
+
+    Output, double PARALLELIPIPED_VOLUME_3D, the volume of
+    the parallelipiped.
+*/
 {
   double volume;
 
-  volume = r8_abs ( 
-    ( z[1] - z[0] ) * ( y[3] * x[2] - y[2] * x[3] ) + 
-    ( z[2] - z[0] ) * ( x[3] * y[1] - x[1] * y[3] ) + 
-    ( z[3] - z[0] ) * ( x[1] * y[2] - x[2] * y[1] ) + 
-    ( z[2] - z[1] ) * ( y[3] * x[0] - y[0] * x[3] ) + 
-    ( z[3] - z[1] ) * ( x[2] * y[0] - x[0] * y[2] ) + 
+  volume = r8_abs (
+    ( z[1] - z[0] ) * ( y[3] * x[2] - y[2] * x[3] ) +
+    ( z[2] - z[0] ) * ( x[3] * y[1] - x[1] * y[3] ) +
+    ( z[3] - z[0] ) * ( x[1] * y[2] - x[2] * y[1] ) +
+    ( z[2] - z[1] ) * ( y[3] * x[0] - y[0] * x[3] ) +
+    ( z[3] - z[1] ) * ( x[2] * y[0] - x[0] * y[2] ) +
     ( z[3] - z[2] ) * ( x[0] * y[1] - x[1] * y[0] ) );
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double parallelipiped_volume_nd ( int n, double v[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PARALLELIPIPED_VOLUME_ND returns the volume of a parallelipiped in ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double V[N*(N+1)], the N+1 columns of V contains the 
-//    coordinates of the "corners" of the parallelipiped.
-//
-//    Output, double PARALLELIPIPED_VOLUME_ND, the volume of
-//    the parallelipiped.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PARALLELIPIPED_VOLUME_ND returns the volume of a parallelipiped in ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Input, double V[N*(N+1)], the N+1 columns of V contains the
+    coordinates of the "corners" of the parallelipiped.
+
+    Output, double PARALLELIPIPED_VOLUME_ND, the volume of
+    the parallelipiped.
+*/
 {
   double det;
   int i;
@@ -17233,9 +17186,9 @@ double parallelipiped_volume_nd ( int n, double v[] )
   int *pivot;
   double volume;
   double *w;
-//
-//  Compute the volume of the N-dimensional parallelipiped.
-//
+/*
+  Compute the volume of the N-dimensional parallelipiped.
+*/
   w = ( double * ) malloc ( n * n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
@@ -17266,60 +17219,60 @@ double parallelipiped_volume_nd ( int n, double v[] )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double polygon_1_2d ( int n, double x[], double y[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    POLYGON_1_2D integrates the function 1 over a polygon in 2D.
-//
-//  Integration region:
-//
-//    The polygon bounded by the points (X(1:N), Y(1:N)).
-//
-//  Formula:
-//
-//    INTEGRAL = 0.5 * sum ( 1 <= I <= N )
-//      ( X(I) + X(I-1) ) * ( Y(I) - Y(I-1) )
-//
-//    where X(0) and Y(0) should be replaced by X(N) and Y(N).
-//
-//  Discussion:
-//
-//    The integral of 1 over a polygon is the area of the polygon.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    SF Bockman,
-//    Generalizing the Formula for Areas of Polygons to Moments,
-//    American Mathematical Society Monthly,
-//    1989, pages 131-132.
-//
-//  Parameters:
-//
-//    Input, int N, the number of vertices of the polygon.
-//    N should be at least 3 for a nonzero result.
-//
-//    Input, double X[N], Y[N], the coordinates of the vertices
-//    of the polygon.  These vertices should be given in counter-clockwise order.
-//
-//    Output, double POLYGON_1_2D, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    POLYGON_1_2D integrates the function 1 over a polygon in 2D.
+
+  Integration region:
+
+    The polygon bounded by the points (X(1:N), Y(1:N)).
+
+  Formula:
+
+    INTEGRAL = 0.5 * sum ( 1 <= I <= N )
+      ( X(I) + X(I-1) ) * ( Y(I) - Y(I-1) )
+
+    where X(0) and Y(0) should be replaced by X(N) and Y(N).
+
+  Discussion:
+
+    The integral of 1 over a polygon is the area of the polygon.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    SF Bockman,
+    Generalizing the Formula for Areas of Polygons to Moments,
+    American Mathematical Society Monthly,
+    1989, pages 131-132.
+
+  Parameters:
+
+    Input, int N, the number of vertices of the polygon.
+    N should be at least 3 for a nonzero result.
+
+    Input, double X[N], Y[N], the coordinates of the vertices
+    of the polygon.  These vertices should be given in counter-clockwise order.
+
+    Output, double POLYGON_1_2D, the value of the integral.
+*/
 {
   int i;
   int im1;
@@ -17350,56 +17303,56 @@ double polygon_1_2d ( int n, double x[], double y[] )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double polygon_x_2d ( int n, double x[], double y[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    POLYGON_X_2D integrates the function X over a polygon in 2D.
-//
-//  Integration region:
-//
-//    The polygon bounded by the points (X(1:N), Y(1:N)).
-//
-//  Formula:
-//
-//    INTEGRAL = (1/6) * sum ( 1 <= I <= N )
-//      ( X(I)^2 + X(I) * X(I-1) + X(I-1)^2 ) * ( Y(I) - Y(I-1) )
-//
-//    where X(0) and Y(0) should be replaced by X(N) and Y(N).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    SF Bockman,
-//    Generalizing the Formula for Areas of Polygons to Moments,
-//    American Mathematical Society Monthly,
-//    1989, pages 131-132.
-//
-//  Parameters:
-//
-//    Input, int N, the number of vertices of the polygon.
-//    N should be at least 3 for a nonzero result.
-//
-//    Input, double X[N], Y[N], the coordinates of the vertices
-//    of the polygon.  These vertices should be given in counter-clockwise order.
-//
-//    Output, double POLYGON_X_2D, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    POLYGON_X_2D integrates the function X over a polygon in 2D.
+
+  Integration region:
+
+    The polygon bounded by the points (X(1:N), Y(1:N)).
+
+  Formula:
+
+    INTEGRAL = (1/6) * sum ( 1 <= I <= N )
+      ( X(I)^2 + X(I) * X(I-1) + X(I-1)^2 ) * ( Y(I) - Y(I-1) )
+
+    where X(0) and Y(0) should be replaced by X(N) and Y(N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    SF Bockman,
+    Generalizing the Formula for Areas of Polygons to Moments,
+    American Mathematical Society Monthly,
+    1989, pages 131-132.
+
+  Parameters:
+
+    Input, int N, the number of vertices of the polygon.
+    N should be at least 3 for a nonzero result.
+
+    Input, double X[N], Y[N], the coordinates of the vertices
+    of the polygon.  These vertices should be given in counter-clockwise order.
+
+    Output, double POLYGON_X_2D, the value of the integral.
+*/
 {
   int i;
   int im1;
@@ -17426,7 +17379,7 @@ double polygon_x_2d ( int n, double x[], double y[] )
     {
       im1 = i - 1;
     }
-    result = result + ( x[i] * x[i] + x[i] * x[im1] + x[im1] * x[im1] ) 
+    result = result + ( x[i] * x[i] + x[i] * x[im1] + x[im1] * x[im1] )
       * ( y[i] - y[im1] );
   }
 
@@ -17434,58 +17387,58 @@ double polygon_x_2d ( int n, double x[], double y[] )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double polygon_xx_2d ( int n, double x[], double y[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    POLYGON_XX_2D integrates the function X*X over a polygon in 2D.
-//
-//  Integration region:
-//
-//    The polygon bounded by the points (X(1:N), Y(1:N)).
-//
-//  Formula:
-//
-//    INTEGRAL = (1/12) * sum ( 1 <= I <= N )
-//      ( X(I)^3 + X(I)^2 * X(I-1) + X(I) * X(I-1)^2 + X(I-1)^3 )
-//      * ( Y(I) - Y(I-1) )
-//
-//    where X(0) and Y(0) should be replaced by X(N) and Y(N).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    SF Bockman,
-//    Generalizing the Formula for Areas of Polygons to Moments,
-//    American Mathematical Society Monthly,
-//    Volume 96, Number 2, February 1989, pages 131-132.
-//
-//  Parameters:
-//
-//    Input, int N, the number of vertices of the polygon.
-//    N should be at least 3 for a nonzero result.
-//
-//    Input, double X[N], Y[N], the coordinates of the vertices
-//    of the polygon.  These vertices should be given in
-//    counter-clockwise order.
-//
-//    Output, double RESULT, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    POLYGON_XX_2D integrates the function X*X over a polygon in 2D.
+
+  Integration region:
+
+    The polygon bounded by the points (X(1:N), Y(1:N)).
+
+  Formula:
+
+    INTEGRAL = (1/12) * sum ( 1 <= I <= N )
+      ( X(I)^3 + X(I)^2 * X(I-1) + X(I) * X(I-1)^2 + X(I-1)^3 )
+      * ( Y(I) - Y(I-1) )
+
+    where X(0) and Y(0) should be replaced by X(N) and Y(N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    SF Bockman,
+    Generalizing the Formula for Areas of Polygons to Moments,
+    American Mathematical Society Monthly,
+    Volume 96, Number 2, February 1989, pages 131-132.
+
+  Parameters:
+
+    Input, int N, the number of vertices of the polygon.
+    N should be at least 3 for a nonzero result.
+
+    Input, double X[N], Y[N], the coordinates of the vertices
+    of the polygon.  These vertices should be given in
+    counter-clockwise order.
+
+    Output, double RESULT, the value of the integral.
+*/
 {
   int i;
   int im1;
@@ -17513,8 +17466,8 @@ double polygon_xx_2d ( int n, double x[], double y[] )
       im1 = i - 1;
     }
 
-    result = result + ( x[i] * x[i] * x[i] + x[i] * x[i] * x[im1] 
-      + x[i] * x[im1] * x[im1] + x[im1] * x[im1] * x[im1] ) 
+    result = result + ( x[i] * x[i] * x[i] + x[i] * x[i] * x[im1]
+      + x[i] * x[im1] * x[im1] + x[im1] * x[im1] * x[im1] )
       * ( y[i] - y[im1] );
   }
 
@@ -17522,59 +17475,59 @@ double polygon_xx_2d ( int n, double x[], double y[] )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double polygon_xy_2d ( int n, double x[], double y[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    POLYGON_XY_2D integrates the function X*Y over a polygon in 2D.
-//
-//  Integration region:
-//
-//    The polygon bounded by the points (X(1:N), Y(1:N)).
-//
-//  Formula:
-//
-//    INTEGRAL = (1/24) * sum ( 1 <= I <= N )
-//      ( Y(I)   * ( 3 * X(I)**2 + 2 * X(I) * X(I-1) +     X(I-1)**2 )
-//      + Y(I-1) * (     X(I)**2 + 2 * X(I) * X(I-1) + 3 * X(I-1)**2 ) )
-//      * ( Y(I) - Y(I-1) )
-//
-//    where X(0) and Y(0) should be replaced by X(N) and Y(N).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    17 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    SF Bockman,
-//    Generalizing the Formula for Areas of Polygons to Moments,
-//    American Mathematical Society Monthly,
-//    Volume 96, Number 2, February 1989, pages 131-132.
-//
-//  Parameters:
-//
-//    Input, int N, the number of vertices of the polygon.
-//    N should be at least 3 for a nonzero result.
-//
-//    Input, double X[N], Y[N], the coordinates of the vertices
-//    of the polygon.  These vertices should be given in
-//    counter-clockwise order.
-//
-//    Output, double POLYGON_XY_2D, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    POLYGON_XY_2D integrates the function X*Y over a polygon in 2D.
+
+  Integration region:
+
+    The polygon bounded by the points (X(1:N), Y(1:N)).
+
+  Formula:
+
+    INTEGRAL = (1/24) * sum ( 1 <= I <= N )
+      ( Y(I)   * ( 3 * X(I)**2 + 2 * X(I) * X(I-1) +     X(I-1)**2 )
+      + Y(I-1) * (     X(I)**2 + 2 * X(I) * X(I-1) + 3 * X(I-1)**2 ) )
+      * ( Y(I) - Y(I-1) )
+
+    where X(0) and Y(0) should be replaced by X(N) and Y(N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    SF Bockman,
+    Generalizing the Formula for Areas of Polygons to Moments,
+    American Mathematical Society Monthly,
+    Volume 96, Number 2, February 1989, pages 131-132.
+
+  Parameters:
+
+    Input, int N, the number of vertices of the polygon.
+    N should be at least 3 for a nonzero result.
+
+    Input, double X[N], Y[N], the coordinates of the vertices
+    of the polygon.  These vertices should be given in
+    counter-clockwise order.
+
+    Output, double POLYGON_XY_2D, the value of the integral.
+*/
 {
   int i;
   int im1;
@@ -17602,9 +17555,9 @@ double polygon_xy_2d ( int n, double x[], double y[] )
       im1 = i - 1;
     }
 
-    result = result + ( 
-      y[i] * ( 3.0 * x[i] * x[i] + 2.0 * x[i] * x[im1] + x[im1] * x[im1] ) 
-      + y[im1] * ( x[i] * x[i] + 2.0 * x[i] * x[im1] + 3.0 * x[im1] * x[im1] ) 
+    result = result + (
+      y[i] * ( 3.0 * x[i] * x[i] + 2.0 * x[i] * x[im1] + x[im1] * x[im1] )
+      + y[im1] * ( x[i] * x[i] + 2.0 * x[i] * x[im1] + 3.0 * x[im1] * x[im1] )
       ) * ( y[i] - y[im1] );
   }
 
@@ -17612,57 +17565,57 @@ double polygon_xy_2d ( int n, double x[], double y[] )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double polygon_y_2d ( int n, double x[], double y[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    POLYGON_Y_2D integrates the function Y over a polygon in 2D.
-//
-//  Integration region:
-//
-//    The polygon bounded by the points (X(1:N), Y(1:N)).
-//
-//  Formula:
-//
-//    INTEGRAL = (1/6) * sum ( 1 <= I <= N )
-//      - ( Y(I)^2 + Y(I) * Y(I-1) + Y(I-1)^2 ) * ( X(I) - X(I-1) )
-//
-//    where X(0) and Y(0) should be replaced by X(N) and Y(N).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    SF Bockman,
-//    Generalizing the Formula for Areas of Polygons to Moments,
-//    American Mathematical Society Monthly,
-//    Volume 96, Number 2, February 1989, pages 131-132.
-//
-//  Parameters:
-//
-//    Input, int N, the number of vertices of the polygon.
-//    N should be at least 3 for a nonzero result.
-//
-//    Input, double X[N], Y[N], the coordinates of the vertices
-//    of the polygon.  These vertices should be given in
-//    counter-clockwise order.
-//
-//    Output, double POLYGON_Y_2D, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    POLYGON_Y_2D integrates the function Y over a polygon in 2D.
+
+  Integration region:
+
+    The polygon bounded by the points (X(1:N), Y(1:N)).
+
+  Formula:
+
+    INTEGRAL = (1/6) * sum ( 1 <= I <= N )
+      - ( Y(I)^2 + Y(I) * Y(I-1) + Y(I-1)^2 ) * ( X(I) - X(I-1) )
+
+    where X(0) and Y(0) should be replaced by X(N) and Y(N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    SF Bockman,
+    Generalizing the Formula for Areas of Polygons to Moments,
+    American Mathematical Society Monthly,
+    Volume 96, Number 2, February 1989, pages 131-132.
+
+  Parameters:
+
+    Input, int N, the number of vertices of the polygon.
+    N should be at least 3 for a nonzero result.
+
+    Input, double X[N], Y[N], the coordinates of the vertices
+    of the polygon.  These vertices should be given in
+    counter-clockwise order.
+
+    Output, double POLYGON_Y_2D, the value of the integral.
+*/
 {
   int i;
   int im1;
@@ -17690,7 +17643,7 @@ double polygon_y_2d ( int n, double x[], double y[] )
       im1 = i - 1;
     }
 
-    result = result - ( y[i] * y[i] + y[i] * y[im1] + y[im1] * y[im1] ) 
+    result = result - ( y[i] * y[i] + y[i] * y[im1] + y[im1] * y[im1] )
       * ( x[i] - x[im1] );
   }
 
@@ -17698,58 +17651,58 @@ double polygon_y_2d ( int n, double x[], double y[] )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double polygon_yy_2d ( int n, double x[], double y[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    POLYGON_YY_2D integrates the function Y*Y over a polygon in 2D.
-//
-//  Integration region:
-//
-//    The polygon bounded by the points (X(1:N), Y(1:N)).
-//
-//  Formula:
-//
-//    INTEGRAL = (1/12) * sum ( 1 <= I <= N )
-//      - ( Y(I)^3 + Y(I)^2 * Y(I-1) + Y(I) * Y(I-1)^2 + Y(I-1)^3 )
-//      * ( X(I) - X(I-1) )
-//
-//    where X(0) and Y(0) should be replaced by X(N) and Y(N).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    SF Bockman,
-//    Generalizing the Formula for Areas of Polygons to Moments,
-//    American Mathematical Society Monthly,
-//    Volume 96, Number 2, February 1989, pages 131-132.
-//
-//  Parameters:
-//
-//    Input, int N, the number of vertices of the polygon.
-//    N should be at least 3 for a nonzero result.
-//
-//    Input, double X[N], Y[N], the coordinates of the vertices
-//    of the polygon.  These vertices should be given in
-//    counter-clockwise order.
-//
-//    Output, double POLYGON_YY_2D, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    POLYGON_YY_2D integrates the function Y*Y over a polygon in 2D.
+
+  Integration region:
+
+    The polygon bounded by the points (X(1:N), Y(1:N)).
+
+  Formula:
+
+    INTEGRAL = (1/12) * sum ( 1 <= I <= N )
+      - ( Y(I)^3 + Y(I)^2 * Y(I-1) + Y(I) * Y(I-1)^2 + Y(I-1)^3 )
+      * ( X(I) - X(I-1) )
+
+    where X(0) and Y(0) should be replaced by X(N) and Y(N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    SF Bockman,
+    Generalizing the Formula for Areas of Polygons to Moments,
+    American Mathematical Society Monthly,
+    Volume 96, Number 2, February 1989, pages 131-132.
+
+  Parameters:
+
+    Input, int N, the number of vertices of the polygon.
+    N should be at least 3 for a nonzero result.
+
+    Input, double X[N], Y[N], the coordinates of the vertices
+    of the polygon.  These vertices should be given in
+    counter-clockwise order.
+
+    Output, double POLYGON_YY_2D, the value of the integral.
+*/
 {
   int i;
   int im1;
@@ -17777,10 +17730,10 @@ double polygon_yy_2d ( int n, double x[], double y[] )
       im1 = i - 1;
     }
 
-    result = result - ( 
-        y[i] * y[i] * y[i] 
-      + y[i] * y[i] * y[im1] 
-      + y[i] * y[im1] * y[im1] 
+    result = result - (
+        y[i] * y[i] * y[i]
+      + y[i] * y[i] * y[im1]
+      + y[i] * y[im1] * y[im1]
       + y[im1] * y[im1] * y[im1]
     ) * ( x[i] - x[im1] );
   }
@@ -17789,58 +17742,58 @@ double polygon_yy_2d ( int n, double x[], double y[] )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o01_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O01_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    A 1 point degree 1 formula is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double RESULT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O01_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    A 1 point degree 1 formula is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double RESULT, the approximate integral of the function.
+*/
 {
   double quad;
   double result;
@@ -17849,9 +17802,9 @@ double pyramid_unit_o01_3d ( double func ( double x, double y, double z ) )
   double x;
   double y;
   double z;
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
 
   x = 0.0;
@@ -17860,69 +17813,69 @@ double pyramid_unit_o01_3d ( double func ( double x, double y, double z ) )
   w = 1.0;
 
   quad = quad + w * func ( x, y, z );
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o05_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O05_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    A 5 point formula is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Carlos Felippa,
-//    A compendium of FEM integration formulas for symbolic work,
-//    Engineering Computation,
-//    Volume 21, Number 8, 2004, pages 867-890.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double PYRAMID_UNIT_O05_3D, the approximate integral
-//    of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O05_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    A 5 point formula is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carlos Felippa,
+    A compendium of FEM integration formulas for symbolic work,
+    Engineering Computation,
+    Volume 21, Number 8, 2004, pages 867-890.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double PYRAMID_UNIT_O05_3D, the approximate integral
+    of the function.
+*/
 {
   int i;
   int order = 5;
@@ -17930,100 +17883,100 @@ double pyramid_unit_o05_3d ( double func ( double x, double y, double z ) )
   double result;
   double volume;
   double w[5] = {
-   0.21093750000000000000, 
-   0.21093750000000000000, 
-   0.21093750000000000000, 
-   0.21093750000000000000, 
+   0.21093750000000000000,
+   0.21093750000000000000,
+   0.21093750000000000000,
+   0.21093750000000000000,
    0.15625000000000000000 };
   double x[5] = {
-  -0.48686449556014765641, 
-   0.48686449556014765641, 
-   0.48686449556014765641, 
-  -0.48686449556014765641, 
+  -0.48686449556014765641,
+   0.48686449556014765641,
+   0.48686449556014765641,
+  -0.48686449556014765641,
    0.00000000000000000000 };
   double y[5] = {
-  -0.48686449556014765641, 
-  -0.48686449556014765641, 
-   0.48686449556014765641, 
-   0.48686449556014765641, 
+  -0.48686449556014765641,
+  -0.48686449556014765641,
+   0.48686449556014765641,
+   0.48686449556014765641,
    0.00000000000000000000 };
   double z[5] = {
-   0.16666666666666666667, 
-   0.16666666666666666667, 
-   0.16666666666666666667, 
-   0.16666666666666666667, 
+   0.16666666666666666667,
+   0.16666666666666666667,
+   0.16666666666666666667,
+   0.16666666666666666667,
    0.70000000000000000000 };
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
     quad = quad + w[i] * func ( x[i], y[i], z[i] );
   }
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o06_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O06_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    A 6 point formula is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Carlos Felippa,
-//    A compendium of FEM integration formulas for symbolic work,
-//    Engineering Computation,
-//    Volume 21, Number 8, 2004, pages 867-890.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double PYRAMID_UNIT_O06_3D, the approximate integral
-//    of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O06_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    A 6 point formula is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carlos Felippa,
+    A compendium of FEM integration formulas for symbolic work,
+    Engineering Computation,
+    Volume 21, Number 8, 2004, pages 867-890.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double PYRAMID_UNIT_O06_3D, the approximate integral
+    of the function.
+*/
 {
   int i;
   int order = 6;
@@ -18058,77 +18011,77 @@ double pyramid_unit_o06_3d ( double func ( double x, double y, double z ) )
    0.16666666666666666667,
    0.58333333333333333333,
    0.75000000000000000000 };
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
     quad = quad + w[i] * func ( x[i], y[i], z[i] );
   }
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o08_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O08_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    An 8 point formula is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Carlos Felippa,
-//    A compendium of FEM integration formulas for symbolic work,
-//    Engineering Computation,
-//    Volume 21, Number 8, 2004, pages 867-890.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double PYRAMID_UNIT_O08_3D, the approximate integral
-//    of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O08_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    An 8 point formula is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carlos Felippa,
+    A compendium of FEM integration formulas for symbolic work,
+    Engineering Computation,
+    Volume 21, Number 8, 2004, pages 867-890.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double PYRAMID_UNIT_O08_3D, the approximate integral
+    of the function.
+*/
 {
   int i;
   int order = 8;
@@ -18171,77 +18124,77 @@ double pyramid_unit_o08_3d ( double func ( double x, double y, double z ) )
    0.12251482265544137787,
    0.12251482265544137787,
    0.12251482265544137787 };
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
     quad = quad + w[i] * func ( x[i], y[i], z[i] );
   }
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o08b_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O08B_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    An 8 point formula is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Carlos Felippa,
-//    A compendium of FEM integration formulas for symbolic work,
-//    Engineering Computation,
-//    Volume 21, Number 8, 2004, pages 867-890.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double PYRAMID_UNIT_O08B_3D, the approximate integral
-//    of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O08B_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    An 8 point formula is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carlos Felippa,
+    A compendium of FEM integration formulas for symbolic work,
+    Engineering Computation,
+    Volume 21, Number 8, 2004, pages 867-890.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double PYRAMID_UNIT_O08B_3D, the approximate integral
+    of the function.
+*/
 {
   int i;
   int order = 8;
@@ -18284,77 +18237,77 @@ double pyramid_unit_o08b_3d ( double func ( double x, double y, double z ) )
    0.518326526529795714229,
    0.518326526529795714229,
    0.518326526529795714229 };
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
     quad = quad + w[i] * func ( x[i], y[i], z[i] );
   }
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o09_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O09_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    A 9 point formula is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Carlos Felippa,
-//    A compendium of FEM integration formulas for symbolic work,
-//    Engineering Computation,
-//    Volume 21, Number 8, 2004, pages 867-890.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double PYRAMID_UNIT_O09_3D, the approximate integral
-//    of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O09_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    A 9 point formula is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carlos Felippa,
+    A compendium of FEM integration formulas for symbolic work,
+    Engineering Computation,
+    Volume 21, Number 8, 2004, pages 867-890.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double PYRAMID_UNIT_O09_3D, the approximate integral
+    of the function.
+*/
 {
   int i;
   int order = 9;
@@ -18401,77 +18354,77 @@ double pyramid_unit_o09_3d ( double func ( double x, double y, double z ) )
    0.400374091560388519511,
    0.400374091560388519511,
    0.83333333333333333333 };
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
     quad = quad + w[i] * func ( x[i], y[i], z[i] );
   }
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o13_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O13_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    A 13 point formula is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Carlos Felippa,
-//    A compendium of FEM integration formulas for symbolic work,
-//    Engineering Computation,
-//    Volume 21, Number 8, 2004, pages 867-890.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double PYRAMID_UNIT_O13_3D, the approximate integral
-//    of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O13_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    A 13 point formula is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carlos Felippa,
+    A compendium of FEM integration formulas for symbolic work,
+    Engineering Computation,
+    Volume 21, Number 8, 2004, pages 867-890.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double PYRAMID_UNIT_O13_3D, the approximate integral
+    of the function.
+*/
 {
   int i;
   int order = 13;
@@ -18534,77 +18487,77 @@ double pyramid_unit_o13_3d ( double func ( double x, double y, double z ) )
   0.08496732026143790850,
   0.08496732026143790850,
   0.76219701803768503595 };
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
     quad = quad + w[i] * func ( x[i], y[i], z[i] );
   }
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o18_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O18_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    An 18 point formula is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Carlos Felippa,
-//    A compendium of FEM integration formulas for symbolic work,
-//    Engineering Computation,
-//    Volume 21, Number 8, 2004, pages 867-890.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double PYRAMID_UNIT_O18_3D, the approximate integral
-//    of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O18_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    An 18 point formula is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carlos Felippa,
+    A compendium of FEM integration formulas for symbolic work,
+    Engineering Computation,
+    Volume 21, Number 8, 2004, pages 867-890.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double PYRAMID_UNIT_O18_3D, the approximate integral
+    of the function.
+*/
 {
   int i;
   int order = 18;
@@ -18687,77 +18640,77 @@ double pyramid_unit_o18_3d ( double func ( double x, double y, double z ) )
   0.12251482265544137787,
   0.12251482265544137787,
   0.12251482265544137787 };
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
     quad = quad + w[i] * func ( x[i], y[i], z[i] );
   }
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o27_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O27_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    A 27 point formula is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Carlos Felippa,
-//    A compendium of FEM integration formulas for symbolic work,
-//    Engineering Computation,
-//    Volume 21, Number 8, 2004, pages 867-890.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double PYRAMID_UNIT_O27_3D, the approximate integral
-//    of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O27_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    A 27 point formula is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Carlos Felippa,
+    A compendium of FEM integration formulas for symbolic work,
+    Engineering Computation,
+    Volume 21, Number 8, 2004, pages 867-890.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double PYRAMID_UNIT_O27_3D, the approximate integral
+    of the function.
+*/
 {
   int i;
   int order = 27;
@@ -18855,7 +18808,7 @@ double pyramid_unit_o27_3d ( double func ( double x, double y, double z ) )
   0.07299402407314973216,
   0.07299402407314973216,
   0.07299402407314973216,
-  0.07299402407314973216, 
+  0.07299402407314973216,
   0.07299402407314973216,
   0.07299402407314973216,
   0.34700376603835188472,
@@ -18876,78 +18829,78 @@ double pyramid_unit_o27_3d ( double func ( double x, double y, double z ) )
   0.70500220988849838312,
   0.70500220988849838312,
   0.70500220988849838312 };
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
     quad = quad + w[i] * func ( x[i], y[i], z[i] );
   }
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_o48_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_O48_3D approximates an integral inside the unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    An 48 point degree 7 formula, Stroud CN:C2:7-1, is used.
-//
-//    The (X,Y,Z) integration region can be represented as:
-//
-//     - ( 1 - Z ) <= X <= 1 - Z
-//     - ( 1 - Z ) <= Y <= 1 - Z
-//               0 <= Z <= 1.
-//
-//    When Z is zero, the integration region is a square lying in the (X,Y) 
-//    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the 
-//    radius of the square diminishes, and when Z reaches 1, the square has 
-//    contracted to the single point (0,0,1).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Output, double PYRAMID_UNIT_O48_3D, the approximate integral
-//    of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_O48_3D approximates an integral inside the unit pyramid in 3D.
+
+  Discussion:
+
+    An 48 point degree 7 formula, Stroud CN:C2:7-1, is used.
+
+    The (X,Y,Z) integration region can be represented as:
+
+     - ( 1 - Z ) <= X <= 1 - Z
+     - ( 1 - Z ) <= Y <= 1 - Z
+               0 <= Z <= 1.
+
+    When Z is zero, the integration region is a square lying in the (X,Y)
+    plane, centered at (0,0,0) with "radius" 1.  As Z increases to 1, the
+    radius of the square diminishes, and when Z reaches 1, the square has
+    contracted to the single point (0,0,1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Output, double PYRAMID_UNIT_O48_3D, the approximate integral
+    of the function.
+*/
 {
   int i;
   int order = 48;
@@ -18955,268 +18908,268 @@ double pyramid_unit_o48_3d ( double func ( double x, double y, double z ) )
   double result;
   double volume;
   double w[48] = {
-  2.01241939442682455E-002, 
-  2.01241939442682455E-002, 
-  2.01241939442682455E-002, 
-  2.01241939442682455E-002, 
-  2.60351137043010779E-002, 
-  2.60351137043010779E-002, 
-  2.60351137043010779E-002, 
-  2.60351137043010779E-002, 
-  1.24557795239745531E-002, 
-  1.24557795239745531E-002, 
-  1.24557795239745531E-002, 
-  1.24557795239745531E-002, 
-  1.87873998794808156E-003, 
-  1.87873998794808156E-003, 
-  1.87873998794808156E-003, 
-  1.87873998794808156E-003, 
-  4.32957927807745280E-002, 
-  4.32957927807745280E-002, 
-  4.32957927807745280E-002, 
-  4.32957927807745280E-002, 
-  1.97463249834127288E-002, 
-  1.97463249834127288E-002, 
-  1.97463249834127288E-002, 
-  1.97463249834127288E-002, 
-  5.60127223523590526E-002, 
-  5.60127223523590526E-002, 
-  5.60127223523590526E-002, 
-  5.60127223523590526E-002, 
-  2.55462562927473852E-002, 
-  2.55462562927473852E-002, 
-  2.55462562927473852E-002, 
-  2.55462562927473852E-002, 
-  2.67977366291788643E-002, 
-  2.67977366291788643E-002, 
-  2.67977366291788643E-002, 
-  2.67977366291788643E-002, 
-  1.22218992265373354E-002, 
-  1.22218992265373354E-002, 
-  1.22218992265373354E-002, 
-  1.22218992265373354E-002, 
-  4.04197740453215038E-003, 
-  4.04197740453215038E-003, 
-  4.04197740453215038E-003, 
-  4.04197740453215038E-003, 
-  1.84346316995826843E-003, 
-  1.84346316995826843E-003, 
-  1.84346316995826843E-003, 
+  2.01241939442682455E-002,
+  2.01241939442682455E-002,
+  2.01241939442682455E-002,
+  2.01241939442682455E-002,
+  2.60351137043010779E-002,
+  2.60351137043010779E-002,
+  2.60351137043010779E-002,
+  2.60351137043010779E-002,
+  1.24557795239745531E-002,
+  1.24557795239745531E-002,
+  1.24557795239745531E-002,
+  1.24557795239745531E-002,
+  1.87873998794808156E-003,
+  1.87873998794808156E-003,
+  1.87873998794808156E-003,
+  1.87873998794808156E-003,
+  4.32957927807745280E-002,
+  4.32957927807745280E-002,
+  4.32957927807745280E-002,
+  4.32957927807745280E-002,
+  1.97463249834127288E-002,
+  1.97463249834127288E-002,
+  1.97463249834127288E-002,
+  1.97463249834127288E-002,
+  5.60127223523590526E-002,
+  5.60127223523590526E-002,
+  5.60127223523590526E-002,
+  5.60127223523590526E-002,
+  2.55462562927473852E-002,
+  2.55462562927473852E-002,
+  2.55462562927473852E-002,
+  2.55462562927473852E-002,
+  2.67977366291788643E-002,
+  2.67977366291788643E-002,
+  2.67977366291788643E-002,
+  2.67977366291788643E-002,
+  1.22218992265373354E-002,
+  1.22218992265373354E-002,
+  1.22218992265373354E-002,
+  1.22218992265373354E-002,
+  4.04197740453215038E-003,
+  4.04197740453215038E-003,
+  4.04197740453215038E-003,
+  4.04197740453215038E-003,
+  1.84346316995826843E-003,
+  1.84346316995826843E-003,
+  1.84346316995826843E-003,
   1.84346316995826843E-003 };
   double x[48] = {
-  0.88091731624450909E+00,     
- -0.88091731624450909E+00,     
-   0.0000000000000000E+00,     
-   0.0000000000000000E+00,     
-  0.70491874112648223E+00,     
- -0.70491874112648223E+00,     
-   0.0000000000000000E+00,     
-   0.0000000000000000E+00,     
-  0.44712732143189760E+00,     
- -0.44712732143189760E+00,     
-   0.0000000000000000E+00,     
-   0.0000000000000000E+00,     
-  0.18900486065123448E+00,     
- -0.18900486065123448E+00,     
-   0.0000000000000000E+00,     
-   0.0000000000000000E+00,     
-  0.36209733410322176E+00,     
- -0.36209733410322176E+00,     
- -0.36209733410322176E+00,     
-  0.36209733410322176E+00,     
-  0.76688932060387538E+00,     
- -0.76688932060387538E+00,     
- -0.76688932060387538E+00,     
-  0.76688932060387538E+00,     
-  0.28975386476618070E+00,     
- -0.28975386476618070E+00,     
- -0.28975386476618070E+00,     
-  0.28975386476618070E+00,     
-  0.61367241226233160E+00,     
- -0.61367241226233160E+00,     
- -0.61367241226233160E+00,     
-  0.61367241226233160E+00,     
-  0.18378979287798017E+00,     
- -0.18378979287798017E+00,     
- -0.18378979287798017E+00,     
-  0.18378979287798017E+00,     
-  0.38925011625173161E+00,     
- -0.38925011625173161E+00,     
- -0.38925011625173161E+00,     
-  0.38925011625173161E+00,     
-  7.76896479525748113E-02, 
- -7.76896479525748113E-02, 
- -7.76896479525748113E-02, 
-  7.76896479525748113E-02, 
-  0.16453962988669860E+00,     
- -0.16453962988669860E+00,     
- -0.16453962988669860E+00,     
+  0.88091731624450909E+00,
+ -0.88091731624450909E+00,
+   0.0000000000000000E+00,
+   0.0000000000000000E+00,
+  0.70491874112648223E+00,
+ -0.70491874112648223E+00,
+   0.0000000000000000E+00,
+   0.0000000000000000E+00,
+  0.44712732143189760E+00,
+ -0.44712732143189760E+00,
+   0.0000000000000000E+00,
+   0.0000000000000000E+00,
+  0.18900486065123448E+00,
+ -0.18900486065123448E+00,
+   0.0000000000000000E+00,
+   0.0000000000000000E+00,
+  0.36209733410322176E+00,
+ -0.36209733410322176E+00,
+ -0.36209733410322176E+00,
+  0.36209733410322176E+00,
+  0.76688932060387538E+00,
+ -0.76688932060387538E+00,
+ -0.76688932060387538E+00,
+  0.76688932060387538E+00,
+  0.28975386476618070E+00,
+ -0.28975386476618070E+00,
+ -0.28975386476618070E+00,
+  0.28975386476618070E+00,
+  0.61367241226233160E+00,
+ -0.61367241226233160E+00,
+ -0.61367241226233160E+00,
+  0.61367241226233160E+00,
+  0.18378979287798017E+00,
+ -0.18378979287798017E+00,
+ -0.18378979287798017E+00,
+  0.18378979287798017E+00,
+  0.38925011625173161E+00,
+ -0.38925011625173161E+00,
+ -0.38925011625173161E+00,
+  0.38925011625173161E+00,
+  7.76896479525748113E-02,
+ -7.76896479525748113E-02,
+ -7.76896479525748113E-02,
+  7.76896479525748113E-02,
+  0.16453962988669860E+00,
+ -0.16453962988669860E+00,
+ -0.16453962988669860E+00,
   0.16453962988669860E+00 };
   double y[48] = {
-   0.0000000000000000E+00,      
-   0.0000000000000000E+00,      
-  0.88091731624450909E+00,      
- -0.88091731624450909E+00,      
-   0.0000000000000000E+00,      
-   0.0000000000000000E+00,      
-  0.70491874112648223E+00,      
- -0.70491874112648223E+00,     
-   0.0000000000000000E+00,      
-   0.0000000000000000E+00,      
-  0.44712732143189760E+00,      
- -0.44712732143189760E+00,      
-   0.0000000000000000E+00,      
-   0.0000000000000000E+00,      
-  0.18900486065123448E+00,      
- -0.18900486065123448E+00,      
-  0.36209733410322176E+00,      
-  0.36209733410322176E+00,      
- -0.36209733410322176E+00,      
- -0.36209733410322176E+00,      
-  0.76688932060387538E+00,      
-  0.76688932060387538E+00,      
- -0.76688932060387538E+00,      
- -0.76688932060387538E+00,      
-  0.28975386476618070E+00,      
-  0.28975386476618070E+00,      
- -0.28975386476618070E+00,      
- -0.28975386476618070E+00,      
-  0.61367241226233160E+00,      
-  0.61367241226233160E+00,      
- -0.61367241226233160E+00,      
- -0.61367241226233160E+00,      
-  0.18378979287798017E+00,      
-  0.18378979287798017E+00,      
- -0.18378979287798017E+00,      
- -0.18378979287798017E+00,      
-  0.38925011625173161E+00,      
-  0.38925011625173161E+00,      
- -0.38925011625173161E+00,      
- -0.38925011625173161E+00,      
-  7.76896479525748113E-02, 
-  7.76896479525748113E-02, 
- -7.76896479525748113E-02, 
- -7.76896479525748113E-02, 
-  0.16453962988669860E+00,      
-  0.16453962988669860E+00,      
- -0.16453962988669860E+00, 
+   0.0000000000000000E+00,
+   0.0000000000000000E+00,
+  0.88091731624450909E+00,
+ -0.88091731624450909E+00,
+   0.0000000000000000E+00,
+   0.0000000000000000E+00,
+  0.70491874112648223E+00,
+ -0.70491874112648223E+00,
+   0.0000000000000000E+00,
+   0.0000000000000000E+00,
+  0.44712732143189760E+00,
+ -0.44712732143189760E+00,
+   0.0000000000000000E+00,
+   0.0000000000000000E+00,
+  0.18900486065123448E+00,
+ -0.18900486065123448E+00,
+  0.36209733410322176E+00,
+  0.36209733410322176E+00,
+ -0.36209733410322176E+00,
+ -0.36209733410322176E+00,
+  0.76688932060387538E+00,
+  0.76688932060387538E+00,
+ -0.76688932060387538E+00,
+ -0.76688932060387538E+00,
+  0.28975386476618070E+00,
+  0.28975386476618070E+00,
+ -0.28975386476618070E+00,
+ -0.28975386476618070E+00,
+  0.61367241226233160E+00,
+  0.61367241226233160E+00,
+ -0.61367241226233160E+00,
+ -0.61367241226233160E+00,
+  0.18378979287798017E+00,
+  0.18378979287798017E+00,
+ -0.18378979287798017E+00,
+ -0.18378979287798017E+00,
+  0.38925011625173161E+00,
+  0.38925011625173161E+00,
+ -0.38925011625173161E+00,
+ -0.38925011625173161E+00,
+  7.76896479525748113E-02,
+  7.76896479525748113E-02,
+ -7.76896479525748113E-02,
+ -7.76896479525748113E-02,
+  0.16453962988669860E+00,
+  0.16453962988669860E+00,
+ -0.16453962988669860E+00,
  -0.16453962988669860E+00 };
   double z[48] = {
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.79585141789677305E+00,      
-  0.79585141789677305E+00,      
-  0.79585141789677305E+00,      
-  0.79585141789677305E+00,      
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  4.85005494469969989E-02, 
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.23860073755186201E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.51704729510436798E+00,      
-  0.79585141789677305E+00,      
-  0.79585141789677305E+00,      
-  0.79585141789677305E+00,      
-  0.79585141789677305E+00,      
-  0.79585141789677305E+00,      
-  0.79585141789677305E+00,      
-  0.79585141789677305E+00, 
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.79585141789677305E+00,
+  0.79585141789677305E+00,
+  0.79585141789677305E+00,
+  0.79585141789677305E+00,
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  4.85005494469969989E-02,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.23860073755186201E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.51704729510436798E+00,
+  0.79585141789677305E+00,
+  0.79585141789677305E+00,
+  0.79585141789677305E+00,
+  0.79585141789677305E+00,
+  0.79585141789677305E+00,
+  0.79585141789677305E+00,
+  0.79585141789677305E+00,
   0.79585141789677305E+00 };
-//
-//  Quadrature.
-//
+/*
+  Quadrature.
+*/
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
     quad = quad + w[i] * func ( x[i], y[i], z[i] );
   }
-//
-//  Volume.
-//
+/*
+  Volume.
+*/
   volume = pyramid_unit_volume_3d ( );
-//
-//  Result.
-//
+/*
+  Result.
+*/
   result = quad * volume;
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_monomial_3d ( int alpha, int beta, int gamma )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_MONOMIAL_3D: monomial integral in a unit pyramid in 3D.
-//
-//  Discussion:
-//
-//    This function returns the value of the integral of X^ALPHA Y^BETA Z^GAMMA
-//    over the unit pyramid.
-//
-//    The unit pyramid is defined as:
-//
-//    - ( 1 - Z ) <= X <= 1 - Z
-//    - ( 1 - Z ) <= Y <= 1 - Z
-//              0 <= Z <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    24 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int ALPHA, BETA, GAMMA, the exponents of
-//    X, Y and Z in the monomial.
-//
-//    Output, double PYRAMID_UNIT_MONOMIAL_3D, the volume of the pyramid.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_MONOMIAL_3D: monomial integral in a unit pyramid in 3D.
+
+  Discussion:
+
+    This function returns the value of the integral of X^ALPHA Y^BETA Z^GAMMA
+    over the unit pyramid.
+
+    The unit pyramid is defined as:
+
+    - ( 1 - Z ) <= X <= 1 - Z
+    - ( 1 - Z ) <= Y <= 1 - Z
+              0 <= Z <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int ALPHA, BETA, GAMMA, the exponents of
+    X, Y and Z in the monomial.
+
+    Output, double PYRAMID_UNIT_MONOMIAL_3D, the volume of the pyramid.
+*/
 {
   int i;
   int i_hi;
@@ -19230,53 +19183,53 @@ double pyramid_unit_monomial_3d ( int alpha, int beta, int gamma )
 
     for ( i = 0; i <= i_hi; i++ )
     {
-      value = value + r8_mop ( i ) * r8_choose ( i_hi, i ) 
+      value = value + r8_mop ( i ) * r8_choose ( i_hi, i )
       / ( double ) ( i + gamma + 1 );
     }
 
-    value = value 
+    value = value
           * 2.0 / ( double ) ( alpha + 1 )
           * 2.0 / ( double ) ( beta + 1 );
   }
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_unit_volume_3d ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_UNIT_VOLUME_3D: volume of a unit pyramid with square base in 3D.
-//
-//  Integration region:
-//
-//    - ( 1 - Z ) <= X <= 1 - Z
-//    - ( 1 - Z ) <= Y <= 1 - Z
-//              0 <= Z <= 1.
-//
-//  Discussion:
-//
-//    The volume of this unit pyramid is 4/3.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double PYRAMID_UNIT_VOLUME_3D, the volume of the pyramid.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_UNIT_VOLUME_3D: volume of a unit pyramid with square base in 3D.
+
+  Integration region:
+
+    - ( 1 - Z ) <= X <= 1 - Z
+    - ( 1 - Z ) <= Y <= 1 - Z
+              0 <= Z <= 1.
+
+  Discussion:
+
+    The volume of this unit pyramid is 4/3.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double PYRAMID_UNIT_VOLUME_3D, the volume of the pyramid.
+*/
 {
   double volume;
 
@@ -19284,48 +19237,48 @@ double pyramid_unit_volume_3d ( )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double pyramid_volume_3d ( double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    PYRAMID_VOLUME_3D returns the volume of a pyramid with square base in 3D.
-//
-//  Integration region:
-//
-//    - ( H - Z ) * R <= X <= ( H - Z ) * R
-//    - ( H - Z ) * R <= Y <= ( H - Z ) * R
-//                  0 <= Z <= H.
-//
-//  Discussion:
-//
-//    A pyramid with square base can be regarded as the upper half of a
-//    3D octahedron.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the "radius" of the pyramid, that is, half the
-//    length of one of the sides of the square base.
-//
-//    Input, double H, the height of the pyramid.
-//
-//    Output, double PYRAMID_VOLUME_3D, the volume of the pyramid.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    PYRAMID_VOLUME_3D returns the volume of a pyramid with square base in 3D.
+
+  Integration region:
+
+    - ( H - Z ) * R <= X <= ( H - Z ) * R
+    - ( H - Z ) * R <= Y <= ( H - Z ) * R
+                  0 <= Z <= H.
+
+  Discussion:
+
+    A pyramid with square base can be regarded as the upper half of a
+    3D octahedron.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the "radius" of the pyramid, that is, half the
+    length of one of the sides of the square base.
+
+    Input, double H, the height of the pyramid.
+
+    Output, double PYRAMID_VOLUME_3D, the volume of the pyramid.
+*/
 {
   double value;
 
@@ -19333,51 +19286,51 @@ double pyramid_volume_3d ( double r, double h )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double qmdpt ( double func ( int n, double x[] ), int n, int nsub )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    QMDPT carries out product midpoint quadrature for the unit cube in ND.
-//
-//  Integration region:
-//
-//    -1 <= X(1:N) <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    17 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the user supplied
-//    function to be integrated.
-//
-//    Input, int N, the dimension of the cube.
-//
-//    Input, int NSUB, the number of subdivisions (in each dimension).
-//
-//    Output, double QMDPT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    QMDPT carries out product midpoint quadrature for the unit cube in ND.
+
+  Integration region:
+
+    -1 <= X(1:N) <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the user supplied
+    function to be integrated.
+
+    Input, int N, the dimension of the cube.
+
+    Input, int NSUB, the number of subdivisions (in each dimension).
+
+    Output, double QMDPT, the approximate integral of the function.
+*/
 {
   int i;
   int ihi;
@@ -19418,54 +19371,54 @@ double qmdpt ( double func ( int n, double x[] ), int n, int nsub )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double qmult_1d ( double func ( double x ), double a, double b )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    QMULT_1D approximates an integral over an interval in 1D.
-//
-//  Integration region:
-//
-//    A <= X <= B.
-//
-//  Discussion:
-//
-//    A 16 point 31-st degree Gauss-Legendre formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x ), the name of the user supplied
-//    function which evaluates F(X).
-//
-//    Input, double A, B, the lower and upper limits of integration.
-//
-//    Output, double QMULT_1D, the approximate integral of 
-//    the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    QMULT_1D approximates an integral over an interval in 1D.
+
+  Integration region:
+
+    A <= X <= B.
+
+  Discussion:
+
+    A 16 point 31-st degree Gauss-Legendre formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x ), the name of the user supplied
+    function which evaluates F(X).
+
+    Input, double A, B, the lower and upper limits of integration.
+
+    Output, double QMULT_1D, the approximate integral of
+    the function.
+*/
 {
   int i;
   int order = 16;
@@ -19496,67 +19449,67 @@ double qmult_1d ( double func ( double x ), double a, double b )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double qmult_2d ( double func ( double x, double y ), double a, double b, 
+double qmult_2d ( double func ( double x, double y ), double a, double b,
   double fup ( double x ), double flo ( double x ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    QMULT_2D approximates an integral with varying Y dimension in 2D.
-//
-//  Integration region:
-//
-//      A <= X <= B
-//
-//    and
-//
-//      FLO(X) <= Y <= FHI(X).
-//
-//  Discussion:
-//
-//    A 256 point product of two 16 point 31-st degree Gauss-Legendre
-//    quadrature formulas is used.
-//
-//    This routine could easily be modified to use a different
-//    order product rule by changing the value of ORDER.
-//
-//    Another easy change would allow the X and Y directions to
-//    use quadrature rules of different orders.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the 
-//    user supplied function which evaluates F(X,Y).
-//
-//    Input, double A, B, the lower and upper limits of X integration.
-//
-//    Input, double FUP ( double x ), double FLO ( double x ), 
-//    the names of the user supplied functions which evaluate the upper 
-//    and lower limits of the Y integration.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    QMULT_2D approximates an integral with varying Y dimension in 2D.
+
+  Integration region:
+
+      A <= X <= B
+
+    and
+
+      FLO(X) <= Y <= FHI(X).
+
+  Discussion:
+
+    A 256 point product of two 16 point 31-st degree Gauss-Legendre
+    quadrature formulas is used.
+
+    This routine could easily be modified to use a different
+    order product rule by changing the value of ORDER.
+
+    Another easy change would allow the X and Y directions to
+    use quadrature rules of different orders.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function which evaluates F(X,Y).
+
+    Input, double A, B, the lower and upper limits of X integration.
+
+    Input, double FUP ( double x ), double FLO ( double x ),
+    the names of the user supplied functions which evaluate the upper
+    and lower limits of the Y integration.
+*/
 {
   double c;
   double d;
@@ -19597,70 +19550,70 @@ double qmult_2d ( double func ( double x, double y ), double a, double b,
 
   return quad;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double qmult_3d ( double func ( double x, double y, double z ), double a, 
-  double b, double fup1 ( double x ), double flo1 ( double x ), 
+double qmult_3d ( double func ( double x, double y, double z ), double a,
+  double b, double fup1 ( double x ), double flo1 ( double x ),
   double fup2 ( double x, double y ), double flo2 ( double x, double y ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    QMULT_3D approximates an integral with varying Y and Z dimension in 3D.
-//
-//  Integration region:
-//
-//      A         <= X <= B,
-//    and
-//      FLO(X)    <= Y <= FHI(X),
-//    and
-//      FLO2(X,Y) <= Z <= FHI2(X,Y).
-//
-//  Discussion:
-//
-//    A 4096 point product of three 16 point 31-st degree Gauss-Legendre
-//    quadrature formulas is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied unction which evaluates F(X,Y,Z).
-//
-//    Input, double A, B, the lower and upper limits of X integration.
-//
-//    Input, double FUP1 ( double x ), double FLO1 ( double x ), the names 
-//    of the user supplied functions which evaluate the upper and lower
-//    limits of the Y integration.
-//
-//    Input, double FUP2 ( double x, double y ), 
-//    double FLO2 ( double x, double y ), the names of the user
-//    supplied functions which evaluate the upper and lower
-//    limits of the Z integration.
-//
-//    Output, double QMULT_3D, the approximate integral of 
-//    the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    QMULT_3D approximates an integral with varying Y and Z dimension in 3D.
+
+  Integration region:
+
+      A         <= X <= B,
+    and
+      FLO(X)    <= Y <= FHI(X),
+    and
+      FLO2(X,Y) <= Z <= FHI2(X,Y).
+
+  Discussion:
+
+    A 4096 point product of three 16 point 31-st degree Gauss-Legendre
+    quadrature formulas is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied unction which evaluates F(X,Y,Z).
+
+    Input, double A, B, the lower and upper limits of X integration.
+
+    Input, double FUP1 ( double x ), double FLO1 ( double x ), the names
+    of the user supplied functions which evaluate the upper and lower
+    limits of the Y integration.
+
+    Input, double FUP2 ( double x, double y ),
+    double FLO2 ( double x, double y ), the names of the user
+    supplied functions which evaluate the upper and lower
+    limits of the Z integration.
+
+    Output, double QMULT_3D, the approximate integral of
+    the function.
+*/
 {
   double c;
   double d;
@@ -19720,93 +19673,140 @@ double qmult_3d ( double func ( double x, double y, double z ), double a,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_abs ( double x )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_ABS returns the absolute value of an R8.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 November 2006
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, the quantity whose absolute value is desired.
-//
-//    Output, double R8_ABS, the absolute value of X.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ABS returns the absolute value of an R8.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 November 2006
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the quantity whose absolute value is desired.
+
+    Output, double R8_ABS, the absolute value of X.
+*/
 {
   double value;
 
   if ( 0.0 <= x )
   {
     value = x;
-  } 
+  }
   else
   {
     value = -x;
   }
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
+
+double r8_asin ( double s )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ASIN computes the arc sine function, with argument truncation.
+
+  Discussion:
+
+    If you call your system ASIN routine with an input argument that is
+    outside the range [-1.0, 1.0 ], you may get an unpleasant surprise.
+
+    In particular, you may get the value NaN returned.
+
+    This routine truncates arguments outside the range, avoiding the problem.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double S, the argument.
+
+    Output, double R8_ASIN, an angle whose sine is S.
+*/
+{
+  double value;
+
+  s = r8_max ( s, -1.0 );
+  s = r8_min ( s, +1.0 );
+
+  value = asin ( s );
+
+  return value;
+}
+/******************************************************************************/
 
 double r8_choose ( int n, int k )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_CHOOSE computes the binomial coefficient C(N,K) as an R8.
-//
-//  Discussion:
-//
-//    The value is calculated in such a way as to avoid overflow and
-//    roundoff.  The calculation is done in R8 arithmetic.
-//
-//    The formula used is:
-//
-//      C(N,K) = N! / ( K! * (N-K)! )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    24 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    ML Wolfson, HV Wright,
-//    Algorithm 160:
-//    Combinatorial of M Things Taken N at a Time,
-//    Communications of the ACM,
-//    Volume 6, Number 4, April 1963, page 161.
-//
-//  Parameters:
-//
-//    Input, int N, K, the values of N and K.
-//
-//    Output, double R8_CHOOSE, the number of combinations of N
-//    things taken K at a time.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_CHOOSE computes the binomial coefficient C(N,K) as an R8.
+
+  Discussion:
+
+    The value is calculated in such a way as to avoid overflow and
+    roundoff.  The calculation is done in R8 arithmetic.
+
+    The formula used is:
+
+      C(N,K) = N! / ( K! * (N-K)! )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    ML Wolfson, HV Wright,
+    Algorithm 160:
+    Combinatorial of M Things Taken N at a Time,
+    Communications of the ACM,
+    Volume 6, Number 4, April 1963, page 161.
+
+  Parameters:
+
+    Input, int N, K, the values of N and K.
+
+    Output, double R8_CHOOSE, the number of combinations of N
+    things taken K at a time.
+*/
 {
   int i;
   int mn;
@@ -19836,87 +19836,78 @@ double r8_choose ( int n, int k )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_epsilon ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_EPSILON returns the R8 roundoff unit.
-//
-//  Discussion:
-//
-//    The roundoff unit is a number R which is a power of 2 with the 
-//    property that, to the precision of the computer's arithmetic,
-//      1 < 1 + R
-//    but 
-//      1 = ( 1 + R / 2 )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    01 July 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double R8_EPSILON, the R8 round-off unit.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_EPSILON returns the R8 round off unit.
+
+  Discussion:
+
+    R8_EPSILON is a number R which is a power of 2 with the property that,
+    to the precision of the computer's arithmetic,
+      1 < 1 + R
+    but
+      1 = ( 1 + R / 2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 September 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double R8_EPSILON, the R8 round-off unit.
+*/
 {
-  double value;
-
-  value = 1.0;
-
-  while ( 1.0 < ( double ) ( 1.0 + value )  )
-  {
-    value = value / 2.0;
-  }
-
-  value = 2.0 * value;
+  const double value = 2.220446049250313E-016;
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_factorial ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_FACTORIAL computes the factorial of N.
-//
-//  Discussion:
-//
-//    factorial ( N ) = product ( 1 <= I <= N ) I
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 January 1999
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the argument of the factorial function.
-//    If N is less than 1, the function value is returned as 1.
-//
-//    Output, double R8_FACTORIAL, the factorial of N.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FACTORIAL computes the factorial of N.
+
+  Discussion:
+
+    factorial ( N ) = product ( 1 <= I <= N ) I
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 1999
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the argument of the factorial function.
+    If N is less than 1, the function value is returned as 1.
+
+    Output, double R8_FACTORIAL, the factorial of N.
+*/
 {
   int i;
   double value;
@@ -19930,72 +19921,72 @@ double r8_factorial ( int n )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_gamma ( double x )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_GAMMA evaluates Gamma(X) for a real argument.
-//
-//  Discussion:
-//
-//    This routine calculates the gamma function for a real argument X.
-//
-//    Computation is based on an algorithm outlined in reference 1.
-//    The program uses rational functions that approximate the gamma
-//    function to at least 20 significant decimal digits.  Coefficients
-//    for the approximation over the interval (1,2) are unpublished.
-//    Those for the approximation for 12 <= X are from reference 2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 January 2008
-//
-//  Author:
-//
-//    Original FORTRAN77 version by William Cody, Laura Stoltz.
-//    C++ version by John Burkardt.
-//
-//  Reference:
-//
-//    William Cody,
-//    An Overview of Software Development for Special Functions,
-//    in Numerical Analysis Dundee, 1975,
-//    edited by GA Watson,
-//    Lecture Notes in Mathematics 506,
-//    Springer, 1976.
-//
-//    John Hart, Ward Cheney, Charles Lawson, Hans Maehly,
-//    Charles Mesztenyi, John Rice, Henry Thatcher,
-//    Christoph Witzgall,
-//    Computer Approximations,
-//    Wiley, 1968,
-//    LC: QA297.C64.
-//
-//  Parameters:
-//
-//    Input, double X, the argument of the function.
-//
-//    Output, double R8_GAMMA, the value of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_GAMMA evaluates Gamma(X) for a real argument.
+
+  Discussion:
+
+    This routine calculates the gamma function for a real argument X.
+
+    Computation is based on an algorithm outlined in reference 1.
+    The program uses rational functions that approximate the gamma
+    function to at least 20 significant decimal digits.  Coefficients
+    for the approximation over the interval (1,2) are unpublished.
+    Those for the approximation for 12 <= X are from reference 2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 January 2008
+
+  Author:
+
+    Original FORTRAN77 version by William Cody, Laura Stoltz.
+    C++ version by John Burkardt.
+
+  Reference:
+
+    William Cody,
+    An Overview of Software Development for Special Functions,
+    in Numerical Analysis Dundee, 1975,
+    edited by GA Watson,
+    Lecture Notes in Mathematics 506,
+    Springer, 1976.
+
+    John Hart, Ward Cheney, Charles Lawson, Hans Maehly,
+    Charles Mesztenyi, John Rice, Henry Thatcher,
+    Christoph Witzgall,
+    Computer Approximations,
+    Wiley, 1968,
+    LC: QA297.C64.
+
+  Parameters:
+
+    Input, double X, the argument of the function.
+
+    Output, double R8_GAMMA, the value of the function.
+*/
 {
-//
-//  Coefficients for minimax approximation over (12, INF).
-//
+/*
+  Coefficients for minimax approximation over (12, INF).
+*/
   double c[7] = {
-   -1.910444077728E-03, 
-    8.4171387781295E-04, 
-   -5.952379913043012E-04, 
-    7.93650793500350248E-04, 
-   -2.777777777777681622553E-03, 
-    8.333333333333333331554247E-02, 
+   -1.910444077728E-03,
+    8.4171387781295E-04,
+   -5.952379913043012E-04,
+    7.93650793500350248E-04,
+   -2.777777777777681622553E-03,
+    8.333333333333333331554247E-02,
     5.7083835261E-03 };
   double eps = 2.22E-16;
   double fact;
@@ -20003,22 +19994,22 @@ double r8_gamma ( double x )
   int n;
   double p[8] = {
   -1.71618513886549492533811E+00,
-   2.47656508055759199108314E+01, 
+   2.47656508055759199108314E+01,
   -3.79804256470945635097577E+02,
-   6.29331155312818442661052E+02, 
+   6.29331155312818442661052E+02,
    8.66966202790413211295064E+02,
-  -3.14512729688483675254357E+04, 
+  -3.14512729688483675254357E+04,
   -3.61444134186911729807069E+04,
    6.64561438202405440627855E+04 };
   int parity;
   double pi = 3.1415926535897932384626434;
   double q[8] = {
   -3.08402300119738975254353E+01,
-   3.15350626979604161529144E+02, 
+   3.15350626979604161529144E+02,
   -1.01515636749021914166146E+03,
-  -3.10777167157231109440444E+03, 
+  -3.10777167157231109440444E+03,
    2.25381184209801510330112E+04,
-   4.75584627752788110767815E+03, 
+   4.75584627752788110767815E+03,
   -1.34659959864969306392456E+05,
   -1.15132259675553483497211E+05 };
   double res;
@@ -20039,9 +20030,9 @@ double r8_gamma ( double x )
   fact = 1.0;
   n = 0;
   y = x;
-//
-//  Argument is negative.
-//
+/*
+  Argument is negative.
+*/
   if ( y <= 0.0 )
   {
     y = - x;
@@ -20065,14 +20056,14 @@ double r8_gamma ( double x )
       return value;
     }
   }
-//
-//  Argument is positive.
-//
+/*
+  Argument is positive.
+*/
   if ( y < eps )
   {
-//
-//  Argument < EPS.
-//
+/*
+  Argument < EPS.
+*/
     if ( xminin <= y )
     {
       res = 1.0 / y;
@@ -20087,27 +20078,27 @@ double r8_gamma ( double x )
   else if ( y < 12.0 )
   {
     y1 = y;
-//
-//  0.0 < argument < 1.0.
-//
+/*
+  0.0 < argument < 1.0.
+*/
     if ( y < 1.0 )
     {
       z = y;
       y = y + 1.0;
     }
-//
-//  1.0 < argument < 12.0.
-//  Reduce argument if necessary.
-//
+/*
+  1.0 < argument < 12.0.
+  Reduce argument if necessary.
+*/
     else
     {
       n = ( int ) ( y ) - 1;
       y = y - ( double ) ( n );
       z = y - 1.0;
     }
-//
-//  Evaluate approximation for 1.0 < argument < 2.0.
-//
+/*
+  Evaluate approximation for 1.0 < argument < 2.0.
+*/
     xnum = 0.0;
     xden = 1.0;
     for ( i = 0; i < 8; i++ )
@@ -20116,16 +20107,16 @@ double r8_gamma ( double x )
       xden = xden * z + q[i];
     }
     res = xnum / xden + 1.0;
-//
-//  Adjust result for case  0.0 < argument < 1.0.
-//
+/*
+  Adjust result for case  0.0 < argument < 1.0.
+*/
     if ( y1 < y )
     {
       res = res / y1;
     }
-//
-//  Adjust result for case 2.0 < argument < 12.0.
-//
+/*
+  Adjust result for case 2.0 < argument < 12.0.
+*/
     else if ( y < y1 )
     {
       for ( i = 1; i <= n; i++ )
@@ -20137,9 +20128,9 @@ double r8_gamma ( double x )
   }
   else
   {
-//
-//  Evaluate for 12.0 <= argument.
-//
+/*
+  Evaluate for 12.0 <= argument.
+*/
     if ( y <= xbig )
     {
       ysq = y * y;
@@ -20159,9 +20150,9 @@ double r8_gamma ( double x )
       return value;
     }
   }
-//
-//  Final adjustments and return.
-//
+/*
+  Final adjustments and return.
+*/
   if ( parity )
   {
     res = - res;
@@ -20176,117 +20167,117 @@ double r8_gamma ( double x )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_gamma_log ( double x )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_GAMMA_LOG calculates the natural logarithm of GAMMA ( X ) for positive X.
-//
-//  Discussion:
-//
-//    Computation is based on an algorithm outlined in references 1 and 2.
-//    The program uses rational functions that theoretically approximate
-//    LOG(GAMMA(X)) to at least 18 significant decimal digits.  The
-//    approximation for 12 < X is from reference 3, while approximations
-//    for X < 12.0 are similar to those in reference 1, but are unpublished.
-//
-//    The accuracy achieved depends on the arithmetic system, the compiler,
-//    intrinsic functions, and proper selection of the machine-dependent
-//    constants.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    28 May 2003
-//
-//  Author:
-//
-//    Original FORTRAN77 version by William Cody, Laura Stoltz.
-//    C++ version by John Burkardt.
-//
-//  Reference:
-//
-//    William Cody, Kenneth Hillstrom,
-//    Chebyshev Approximations for the Natural Logarithm of the Gamma Function,
-//    Mathematics of Computation,
-//    Volume 21, Number 98, April 1967, pages 198-203.
-//
-//    Kenneth Hillstrom,
-//    ANL/AMD Program ANLC366S, DGAMMA/DLGAMA,
-//    May 1969.
-//
-//    John Hart, Ward Cheney, Charles Lawson, Hans Maely, Charles Mesztenyi,
-//    John Rice, Henry Thatcher, Christop Witzgall,
-//    Computer Approximations,
-//    Wiley, 1968,
-//    LC: QA297.C64.
-//
-//  Parameters:
-//
-//    Input, double X, the argument of the Gamma function.  X must be positive.
-//
-//    Output, double R8_GAMMA_LOG, the logarithm of the Gamma function of X.
-//    If X <= 0.0, or if overflow would occur, the program returns the
-//    value XINF, the largest representable double precision number.
-//
-//
-//  Explanation of machine-dependent constants
-//
-//  BETA   - radix for the real number representation.
-//
-//  MAXEXP - the smallest positive power of BETA that overflows.
-//
-//  XBIG   - largest argument for which LN(GAMMA(X)) is representable
-//           in the machine, i.e., the solution to the equation
-//             LN(GAMMA(XBIG)) = BETA**MAXEXP.
-//
-//  FRTBIG - Rough estimate of the fourth root of XBIG
-//
-//
-//  Approximate values for some important machines are:
-//
-//                            BETA      MAXEXP         XBIG
-//
-//  CRAY-1        (S.P.)        2        8191       9.62E+2461
-//  Cyber 180/855
-//    under NOS   (S.P.)        2        1070       1.72E+319
-//  IEEE (IBM/XT,
-//    SUN, etc.)  (S.P.)        2         128       4.08E+36
-//  IEEE (IBM/XT,
-//    SUN, etc.)  (D.P.)        2        1024       2.55D+305
-//  IBM 3033      (D.P.)       16          63       4.29D+73
-//  VAX D-Format  (D.P.)        2         127       2.05D+36
-//  VAX G-Format  (D.P.)        2        1023       1.28D+305
-//
-//
-//                           FRTBIG
-//
-//  CRAY-1        (S.P.)   3.13E+615
-//  Cyber 180/855
-//    under NOS   (S.P.)   6.44E+79
-//  IEEE (IBM/XT,
-//    SUN, etc.)  (S.P.)   1.42E+9
-//  IEEE (IBM/XT,
-//    SUN, etc.)  (D.P.)   2.25D+76
-//  IBM 3033      (D.P.)   2.56D+18
-//  VAX D-Format  (D.P.)   1.20D+9
-//  VAX G-Format  (D.P.)   1.89D+76
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_GAMMA_LOG calculates the natural logarithm of GAMMA ( X ) for positive X.
+
+  Discussion:
+
+    Computation is based on an algorithm outlined in references 1 and 2.
+    The program uses rational functions that theoretically approximate
+    LOG(GAMMA(X)) to at least 18 significant decimal digits.  The
+    approximation for 12 < X is from reference 3, while approximations
+    for X < 12.0 are similar to those in reference 1, but are unpublished.
+
+    The accuracy achieved depends on the arithmetic system, the compiler,
+    intrinsic functions, and proper selection of the machine-dependent
+    constants.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 May 2003
+
+  Author:
+
+    Original FORTRAN77 version by William Cody, Laura Stoltz.
+    C++ version by John Burkardt.
+
+  Reference:
+
+    William Cody, Kenneth Hillstrom,
+    Chebyshev Approximations for the Natural Logarithm of the Gamma Function,
+    Mathematics of Computation,
+    Volume 21, Number 98, April 1967, pages 198-203.
+
+    Kenneth Hillstrom,
+    ANL/AMD Program ANLC366S, DGAMMA/DLGAMA,
+    May 1969.
+
+    John Hart, Ward Cheney, Charles Lawson, Hans Maely, Charles Mesztenyi,
+    John Rice, Henry Thatcher, Christop Witzgall,
+    Computer Approximations,
+    Wiley, 1968,
+    LC: QA297.C64.
+
+  Parameters:
+
+    Input, double X, the argument of the Gamma function.  X must be positive.
+
+    Output, double R8_GAMMA_LOG, the logarithm of the Gamma function of X.
+    If X <= 0.0, or if overflow would occur, the program returns the
+    value XINF, the largest representable double precision number.
+
+
+  Explanation of machine-dependent constants
+
+  BETA   - radix for the real number representation.
+
+  MAXEXP - the smallest positive power of BETA that overflows.
+
+  XBIG   - largest argument for which LN(GAMMA(X)) is representable
+           in the machine, i.e., the solution to the equation
+             LN(GAMMA(XBIG)) = BETA**MAXEXP.
+
+  FRTBIG - Rough estimate of the fourth root of XBIG
+
+
+  Approximate values for some important machines are:
+
+                            BETA      MAXEXP         XBIG
+
+  CRAY-1        (S.P.)        2        8191       9.62E+2461
+  Cyber 180/855
+    under NOS   (S.P.)        2        1070       1.72E+319
+  IEEE (IBM/XT,
+    SUN, etc.)  (S.P.)        2         128       4.08E+36
+  IEEE (IBM/XT,
+    SUN, etc.)  (D.P.)        2        1024       2.55D+305
+  IBM 3033      (D.P.)       16          63       4.29D+73
+  VAX D-Format  (D.P.)        2         127       2.05D+36
+  VAX G-Format  (D.P.)        2        1023       1.28D+305
+
+
+                           FRTBIG
+
+  CRAY-1        (S.P.)   3.13E+615
+  Cyber 180/855
+    under NOS   (S.P.)   6.44E+79
+  IEEE (IBM/XT,
+    SUN, etc.)  (S.P.)   1.42E+9
+  IEEE (IBM/XT,
+    SUN, etc.)  (D.P.)   2.25D+76
+  IBM 3033      (D.P.)   2.56D+18
+  VAX D-Format  (D.P.)   1.20D+9
+  VAX G-Format  (D.P.)   1.89D+76
+*/
 {
   double c[7] = {
-    -1.910444077728E-03, 
-     8.4171387781295E-04, 
-    -5.952379913043012E-04, 
-     7.93650793500350248E-04, 
-    -2.777777777777681622553E-03, 
-     8.333333333333333331554247E-02, 
+    -1.910444077728E-03,
+     8.4171387781295E-04,
+    -5.952379913043012E-04,
+     7.93650793500350248E-04,
+    -2.777777777777681622553E-03,
+     8.333333333333333331554247E-02,
      5.7083835261E-03 };
   double corr;
   double d1 = - 5.772156649015328605195174E-01;
@@ -20295,59 +20286,59 @@ double r8_gamma_log ( double x )
   double frtbig = 1.42E+09;
   int i;
   double p1[8] = {
-    4.945235359296727046734888E+00, 
-    2.018112620856775083915565E+02, 
-    2.290838373831346393026739E+03, 
-    1.131967205903380828685045E+04, 
-    2.855724635671635335736389E+04, 
-    3.848496228443793359990269E+04, 
-    2.637748787624195437963534E+04, 
+    4.945235359296727046734888E+00,
+    2.018112620856775083915565E+02,
+    2.290838373831346393026739E+03,
+    1.131967205903380828685045E+04,
+    2.855724635671635335736389E+04,
+    3.848496228443793359990269E+04,
+    2.637748787624195437963534E+04,
     7.225813979700288197698961E+03 };
   double p2[8] = {
-    4.974607845568932035012064E+00, 
-    5.424138599891070494101986E+02, 
-    1.550693864978364947665077E+04, 
-    1.847932904445632425417223E+05, 
-    1.088204769468828767498470E+06, 
-    3.338152967987029735917223E+06, 
-    5.106661678927352456275255E+06, 
+    4.974607845568932035012064E+00,
+    5.424138599891070494101986E+02,
+    1.550693864978364947665077E+04,
+    1.847932904445632425417223E+05,
+    1.088204769468828767498470E+06,
+    3.338152967987029735917223E+06,
+    5.106661678927352456275255E+06,
     3.074109054850539556250927E+06 };
   double p4[8] = {
-    1.474502166059939948905062E+04, 
-    2.426813369486704502836312E+06, 
-    1.214755574045093227939592E+08, 
-    2.663432449630976949898078E+09, 
+    1.474502166059939948905062E+04,
+    2.426813369486704502836312E+06,
+    1.214755574045093227939592E+08,
+    2.663432449630976949898078E+09,
     2.940378956634553899906876E+010,
     1.702665737765398868392998E+011,
-    4.926125793377430887588120E+011, 
+    4.926125793377430887588120E+011,
     5.606251856223951465078242E+011 };
   double pnt68 = 0.6796875E+00;
   double q1[8] = {
-    6.748212550303777196073036E+01, 
-    1.113332393857199323513008E+03, 
-    7.738757056935398733233834E+03, 
-    2.763987074403340708898585E+04, 
-    5.499310206226157329794414E+04, 
-    6.161122180066002127833352E+04, 
-    3.635127591501940507276287E+04, 
+    6.748212550303777196073036E+01,
+    1.113332393857199323513008E+03,
+    7.738757056935398733233834E+03,
+    2.763987074403340708898585E+04,
+    5.499310206226157329794414E+04,
+    6.161122180066002127833352E+04,
+    3.635127591501940507276287E+04,
     8.785536302431013170870835E+03 };
   double q2[8] = {
-    1.830328399370592604055942E+02, 
-    7.765049321445005871323047E+03, 
-    1.331903827966074194402448E+05, 
-    1.136705821321969608938755E+06, 
-    5.267964117437946917577538E+06, 
-    1.346701454311101692290052E+07, 
-    1.782736530353274213975932E+07, 
+    1.830328399370592604055942E+02,
+    7.765049321445005871323047E+03,
+    1.331903827966074194402448E+05,
+    1.136705821321969608938755E+06,
+    5.267964117437946917577538E+06,
+    1.346701454311101692290052E+07,
+    1.782736530353274213975932E+07,
     9.533095591844353613395747E+06 };
   double q4[8] = {
-    2.690530175870899333379843E+03, 
-    6.393885654300092398984238E+05, 
-    4.135599930241388052042842E+07, 
-    1.120872109616147941376570E+09, 
-    1.488613728678813811542398E+010, 
-    1.016803586272438228077304E+011, 
-    3.417476345507377132798597E+011, 
+    2.690530175870899333379843E+03,
+    6.393885654300092398984238E+05,
+    4.135599930241388052042842E+07,
+    1.120872109616147941376570E+09,
+    1.488613728678813811542398E+010,
+    1.016803586272438228077304E+011,
+    3.417476345507377132798597E+011,
     4.463158187419713286462081E+011 };
   double res;
   double sqrtpi = 0.9189385332046727417803297E+00;
@@ -20358,9 +20349,9 @@ double r8_gamma_log ( double x )
   double xm4;
   double xnum;
   double xsq;
-//
-//  Return immediately if the argument is out of range.
-//
+/*
+  Return immediately if the argument is out of range.
+*/
   if ( x <= 0.0 || xbig < x )
   {
     return r8_huge ( );
@@ -20463,39 +20454,39 @@ double r8_gamma_log ( double x )
 
   return res;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_huge ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_HUGE returns a "huge" R8.
-//
-//  Discussion:
-//
-//    The value returned by this function is NOT required to be the
-//    maximum representable R8.  This value varies from machine to machine,
-//    from compiler to compiler, and may cause problems when being printed.
-//    We simply want a "very large" but non-infinite number.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    06 October 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double R8_HUGE, a "huge" R8 value.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_HUGE returns a "huge" R8.
+
+  Discussion:
+
+    The value returned by this function is NOT required to be the
+    maximum representable R8.  This value varies from machine to machine,
+    from compiler to compiler, and may cause problems when being printed.
+    We simply want a "very large" but non-infinite number.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 October 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double R8_HUGE, a "huge" R8 value.
+*/
 {
   double value;
 
@@ -20503,62 +20494,62 @@ double r8_huge ( )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_hyper_2f1 ( double a, double b, double c, double x )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_HYPER_2F1 evaluates the hypergeometric function 2F1(A,B,C,X).
-//
-//  Discussion:
-//
-//    A bug was corrected.  A line which read
-//      c1 = - ( - 1.0, m ) * gc / ( gam * gbm * rm );
-//    was corrected to read
-//      c1 = - pow ( - 1.0, m ) * gc / ( gam * gbm * rm );
-//    JVB, 05 July 2009.
-//
-//    A minor bug was corrected.  The HW variable, used in several places as
-//    the "old" value of a quantity being iteratively improved, was not
-//    being initialized.  JVB, 11 February 2008.
-//
-//    The FORTRAN77 original version of this routine is copyrighted by
-//    Shanjie Zhang and Jianming Jin.  However, they give permission to
-//    incorporate this routine into a user program provided that the copyright
-//    is acknowledged.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    05 July 2009
-//
-//  Author:
-//
-//    Original FORTRAN77 version by Shanjie Zhang, Jianming Jin.
-//    C++ version by John Burkardt.
-//
-//  Reference:
-//
-//    Shanjie Zhang, Jianming Jin,
-//    Computation of Special Functions,
-//    Wiley, 1996,
-//    ISBN: 0-471-11963-6,
-//    LC: QA351.C45
-//
-//  Parameters:
-//
-//    Input, double A, B, C, X, the arguments of the function.
-//    C must not be equal to a nonpositive integer.
-//    X < 1.
-//
-//    Output, double R8_HYPER_2F1, the value of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_HYPER_2F1 evaluates the hypergeometric function 2F1(A,B,C,X).
+
+  Discussion:
+
+    A bug was corrected.  A line which read
+      c1 = - ( - 1.0, m ) * gc / ( gam * gbm * rm );
+    was corrected to read
+      c1 = - pow ( - 1.0, m ) * gc / ( gam * gbm * rm );
+    JVB, 05 July 2009.
+
+    A minor bug was corrected.  The HW variable, used in several places as
+    the "old" value of a quantity being iteratively improved, was not
+    being initialized.  JVB, 11 February 2008.
+
+    The FORTRAN77 original version of this routine is copyrighted by
+    Shanjie Zhang and Jianming Jin.  However, they give permission to
+    incorporate this routine into a user program provided that the copyright
+    is acknowledged.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 July 2009
+
+  Author:
+
+    Original FORTRAN77 version by Shanjie Zhang, Jianming Jin.
+    C++ version by John Burkardt.
+
+  Reference:
+
+    Shanjie Zhang, Jianming Jin,
+    Computation of Special Functions,
+    Wiley, 1996,
+    ISBN: 0-471-11963-6,
+    LC: QA351.C45
+
+  Parameters:
+
+    Input, double A, B, C, X, the arguments of the function.
+    C must not be equal to a nonpositive integer.
+    X < 1.
+
+    Output, double R8_HYPER_2F1, the value of the function.
+*/
 {
   double a0;
   double aa;
@@ -20687,7 +20678,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
     for ( k = 1; k <= nm; k++ )
     {
-      r = r * ( a + k - 1.0 ) * ( b + k - 1.0 ) 
+      r = r * ( a + k - 1.0 ) * ( b + k - 1.0 )
         / ( k * ( c + k - 1.0 ) ) * x;
       hf = hf + r;
     }
@@ -20710,7 +20701,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
     r  = 1.0;
     for ( k = 1; k <= nm; k++ )
     {
-      r = r * ( c - a + k - 1.0 ) * ( c - b + k - 1.0 ) 
+      r = r * ( c - a + k - 1.0 ) * ( c - b + k - 1.0 )
         / ( k * ( c + k - 1.0 ) ) * x;
       hf = hf + r;
     }
@@ -20778,14 +20769,14 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
         for ( k = 1; k <= m - 1; k++ )
         {
-          r0 = r0 * ( a + k - 1.0 ) * ( b + k - 1.0 ) 
+          r0 = r0 * ( a + k - 1.0 ) * ( b + k - 1.0 )
             / ( k * ( k - m ) ) * ( 1.0 - x );
           f0 = f0 + r0;
         }
 
         for ( k = 1; k <= m; k++ )
         {
-          sp0 = sp0 + 1.0 / ( a + k - 1.0 ) + 1.0 / ( b + k - 1.0 ) 
+          sp0 = sp0 + 1.0 / ( a + k - 1.0 ) + 1.0 / ( b + k - 1.0 )
           - 1.0 / ( double ) ( k );
         }
 
@@ -20794,20 +20785,20 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
         for ( k = 1; k <= 250; k++ )
         {
-          sp = sp + ( 1.0 - a ) / ( k * ( a + k - 1.0 ) ) 
+          sp = sp + ( 1.0 - a ) / ( k * ( a + k - 1.0 ) )
             + ( 1.0 - b ) / ( k * ( b + k - 1.0 ) );
 
           sm = 0.0;
           for ( j = 1; j <= m; j++ )
           {
-            sm = sm + ( 1.0 - a ) 
-              / ( ( j + k ) * ( a + j + k - 1.0 ) ) 
+            sm = sm + ( 1.0 - a )
+              / ( ( j + k ) * ( a + j + k - 1.0 ) )
               + 1.0 / ( b + j + k - 1.0 );
           }
 
           rp = pa + pb + 2.0 * el + sp + sm + log ( 1.0 - x );
 
-          r1 = r1 * ( a + m + k - 1.0 ) * ( b + m + k - 1.0 ) 
+          r1 = r1 * ( a + m + k - 1.0 ) * ( b + m + k - 1.0 )
             / ( k * ( m + k ) ) * ( 1.0 - x );
 
           f1 = f1 + r1 * rp;
@@ -20828,7 +20819,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
         for ( k = 1; k <= m - 1; k++ )
         {
-          r0 = r0 * ( a - m + k - 1.0 ) * ( b - m + k - 1.0 ) 
+          r0 = r0 * ( a - m + k - 1.0 ) * ( b - m + k - 1.0 )
             / ( k * ( k - m ) ) * ( 1.0 - x );
           f0 = f0 + r0;
         }
@@ -20843,8 +20834,8 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
         for ( k = 1; k <= 250; k++ )
         {
-          sp = sp + ( 1.0 - a ) 
-            / ( k * ( a + k - 1.0 ) ) 
+          sp = sp + ( 1.0 - a )
+            / ( k * ( a + k - 1.0 ) )
             + ( 1.0 - b ) / ( k * ( b + k - 1.0 ) );
 
           sm = 0.0;
@@ -20855,7 +20846,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
           rp = pa + pb + 2.0 * el + sp - sm + log ( 1.0 - x );
 
-          r1 = r1 * ( a + k - 1.0 ) * ( b + k - 1.0 ) 
+          r1 = r1 * ( a + k - 1.0 ) * ( b + k - 1.0 )
             / ( k * ( m + k ) ) * ( 1.0 - x );
 
           f1 = f1 + r1 * rp;
@@ -20889,10 +20880,10 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
       for ( k = 1; k <= 250; k++ )
       {
-        r0 = r0 * ( a + k - 1.0 ) * ( b + k - 1.0 ) 
+        r0 = r0 * ( a + k - 1.0 ) * ( b + k - 1.0 )
           / ( k * ( a + b - c + k ) ) * ( 1.0 - x );
 
-        r1 = r1 * ( c - a + k - 1.0 ) * ( c - b + k - 1.0 ) 
+        r1 = r1 * ( c - a + k - 1.0 ) * ( c - b + k - 1.0 )
           / ( k * ( c - a - b + k ) ) * ( 1.0 - x );
 
         hf = hf + r0 + r1;
@@ -20923,7 +20914,7 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
     for ( k = 1; k <= 250; k++ )
     {
-      r = r * ( a + k - 1.0 ) * ( b + k - 1.0 ) 
+      r = r * ( a + k - 1.0 ) * ( b + k - 1.0 )
         / ( k * ( c + k - 1.0 ) ) * x;
 
       hf = hf + r;
@@ -20958,120 +20949,120 @@ double r8_hyper_2f1 ( double a, double b, double c, double x )
 
   return hf;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_max ( double x, double y )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_MAX returns the maximum of two R8's.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 August 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, Y, the quantities to compare.
-//
-//    Output, double R8_MAX, the maximum of X and Y.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_MAX returns the maximum of two R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, Y, the quantities to compare.
+
+    Output, double R8_MAX, the maximum of X and Y.
+*/
 {
   double value;
 
   if ( y < x )
   {
     value = x;
-  } 
+  }
   else
   {
     value = y;
   }
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_min ( double x, double y )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_MIN returns the minimum of two R8's.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    31 August 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, Y, the quantities to compare.
-//
-//    Output, double R8_MIN, the minimum of X and Y.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_MIN returns the minimum of two R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, Y, the quantities to compare.
+
+    Output, double R8_MIN, the minimum of X and Y.
+*/
 {
   double value;
 
   if ( y < x )
   {
     value = y;
-  } 
+  }
   else
   {
     value = x;
   }
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_mop ( int i )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_MOP returns the I-th power of -1 as an R8 value.
-//
-//  Discussion:
-//
-//    An R8 is an double value.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 November 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int I, the power of -1.
-//
-//    Output, double R8_MOP, the I-th power of -1.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_MOP returns the I-th power of -1 as an R8 value.
+
+  Discussion:
+
+    An R8 is an double value.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 November 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, the power of -1.
+
+    Output, double R8_MOP, the I-th power of -1.
+*/
 {
   double value;
 
@@ -21086,58 +21077,58 @@ double r8_mop ( int i )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_psi ( double xx )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_PSI evaluates the function Psi(X).
-//
-//  Discussion:
-//
-//    This routine evaluates the logarithmic derivative of the
-//    Gamma function,
-//
-//      PSI(X) = d/dX ( GAMMA(X) ) / GAMMA(X)
-//             = d/dX LN ( GAMMA(X) )
-//
-//    for real X, where either
-//
-//      - XMAX1 < X < - XMIN, and X is not a negative integer,
-//
-//    or
-//
-//      XMIN < X.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    09 February 2008
-//
-//  Author:
-//
-//    Original FORTRAN77 version by William Cody.
-//    C++ version by John Burkardt.
-//
-//  Reference:
-//
-//    William Cody, Anthony Strecok, Henry Thacher,
-//    Chebyshev Approximations for the Psi Function,
-//    Mathematics of Computation,
-//    Volume 27, Number 121, January 1973, pages 123-127.
-//
-//  Parameters:
-//
-//    Input, double XX, the argument of the function.
-//
-//    Output, double R8_PSI, the value of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_PSI evaluates the function Psi(X).
+
+  Discussion:
+
+    This routine evaluates the logarithmic derivative of the
+    Gamma function,
+
+      PSI(X) = d/dX ( GAMMA(X) ) / GAMMA(X)
+             = d/dX LN ( GAMMA(X) )
+
+    for real X, where either
+
+      - XMAX1 < X < - XMIN, and X is not a negative integer,
+
+    or
+
+      XMIN < X.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 February 2008
+
+  Author:
+
+    Original FORTRAN77 version by William Cody.
+    C++ version by John Burkardt.
+
+  Reference:
+
+    William Cody, Anthony Strecok, Henry Thacher,
+    Chebyshev Approximations for the Psi Function,
+    Mathematics of Computation,
+    Volume 27, Number 121, January 1973, pages 123-127.
+
+  Parameters:
+
+    Input, double XX, the argument of the function.
+
+    Output, double R8_PSI, the value of the function.
+*/
 {
   double aug;
   double den;
@@ -21145,40 +21136,40 @@ double r8_psi ( double xx )
   int n;
   int nq;
   double one = 1.0;
-  double p1[9] = { 
-   4.5104681245762934160E-03, 
-   5.4932855833000385356, 
-   3.7646693175929276856E+02, 
-   7.9525490849151998065E+03, 
-   7.1451595818951933210E+04, 
-   3.0655976301987365674E+05, 
-   6.3606997788964458797E+05, 
-   5.8041312783537569993E+05, 
+  double p1[9] = {
+   4.5104681245762934160E-03,
+   5.4932855833000385356,
+   3.7646693175929276856E+02,
+   7.9525490849151998065E+03,
+   7.1451595818951933210E+04,
+   3.0655976301987365674E+05,
+   6.3606997788964458797E+05,
+   5.8041312783537569993E+05,
    1.6585695029761022321E+05 };
-  double p2[7] = { 
-  -2.7103228277757834192, 
-  -1.5166271776896121383E+01, 
-  -1.9784554148719218667E+01, 
-  -8.8100958828312219821, 
-  -1.4479614616899842986, 
-  -7.3689600332394549911E-02, 
+  double p2[7] = {
+  -2.7103228277757834192,
+  -1.5166271776896121383E+01,
+  -1.9784554148719218667E+01,
+  -8.8100958828312219821,
+  -1.4479614616899842986,
+  -7.3689600332394549911E-02,
   -6.5135387732718171306E-21 };
   double piov4 = 0.78539816339744830962;
-  double q1[8] = { 
-   9.6141654774222358525E+01, 
-   2.6287715790581193330E+03, 
-   2.9862497022250277920E+04, 
-   1.6206566091533671639E+05, 
-   4.3487880712768329037E+05, 
-   5.4256384537269993733E+05, 
-   2.4242185002017985252E+05, 
+  double q1[8] = {
+   9.6141654774222358525E+01,
+   2.6287715790581193330E+03,
+   2.9862497022250277920E+04,
+   1.6206566091533671639E+05,
+   4.3487880712768329037E+05,
+   5.4256384537269993733E+05,
+   2.4242185002017985252E+05,
    6.4155223783576225996E-08 };
-  double q2[6] = { 
-   4.4992760373789365846E+01, 
-   2.0240955312679931159E+02, 
-   2.4736979003315290057E+02, 
-   1.0742543875702278326E+02, 
-   1.7463965060678569906E+01, 
+  double q2[6] = {
+   4.4992760373789365846E+01,
+   2.0240955312679931159E+02,
+   2.4736979003315290057E+02,
+   1.0742543875702278326E+02,
+   1.7463965060678569906E+01,
    8.8427520398873480342E-01 };
   double sgn;
   double upper;
@@ -21199,9 +21190,9 @@ double r8_psi ( double xx )
   x = xx;
   w = r8_abs ( x );
   aug = zero;
-//
-//  Check for valid arguments, then branch to appropriate algorithm.
-//
+/*
+  Check for valid arguments, then branch to appropriate algorithm.
+*/
   if ( xmax1 <= - x || w < xmin1 )
   {
     if ( zero < x )
@@ -21217,17 +21208,17 @@ double r8_psi ( double xx )
 
   if ( x < 0.5 )
   {
-//
-//  X < 0.5, use reflection formula: psi(1-x) = psi(x) + pi * cot(pi*x)
-//  Use 1/X for PI*COTAN(PI*X)  when  XMIN1 < |X| <= XSMALL.
-//
+/*
+  X < 0.5, use reflection formula: psi(1-x) = psi(x) + pi * cot(pi*x)
+  Use 1/X for PI*COTAN(PI*X)  when  XMIN1 < |X| <= XSMALL.
+*/
     if ( w <= xsmall )
     {
       aug = - one / x;
     }
-//
-//  Argument reduction for cotangent.
-//
+/*
+  Argument reduction for cotangent.
+*/
     else
     {
       if ( x < zero )
@@ -21242,11 +21233,11 @@ double r8_psi ( double xx )
       w = w - ( double ) ( ( int ) ( w ) );
       nq = ( int ) ( w * 4.0 );
       w = 4.0 * ( w - ( double ) ( nq ) * 0.25 );
-//
-//  W is now related to the fractional part of 4.0 * X.
-//  Adjust argument to correspond to values in the first
-//  quadrant and determine the sign.
-//
+/*
+  W is now related to the fractional part of 4.0 * X.
+  Adjust argument to correspond to values in the first
+  quadrant and determine the sign.
+*/
       n = nq / 2;
 
       if ( n + n != nq )
@@ -21260,15 +21251,15 @@ double r8_psi ( double xx )
       {
         sgn = - sgn;
       }
-//
-//  Determine the final value for  -pi * cotan(pi*x).
-//
+/*
+  Determine the final value for  -pi * cotan(pi*x).
+*/
       n = ( nq + 1 ) / 2;
       if ( ( n % 2 ) == 0 )
       {
-//
-//  Check for singularity.
-//
+/*
+  Check for singularity.
+*/
         if ( z == zero )
         {
           if ( zero < x )
@@ -21290,9 +21281,9 @@ double r8_psi ( double xx )
     }
     x = one - x;
   }
-//
-//  0.5 <= X <= 3.0.
-//
+/*
+  0.5 <= X <= 3.0.
+*/
   if ( x <= 3.0 )
   {
     den = x;
@@ -21307,9 +21298,9 @@ double r8_psi ( double xx )
     value = den * x + aug;
     return value;
   }
-//
-//  3.0 < X.
-//
+/*
+  3.0 < X.
+*/
   if ( x < xlarge )
   {
     w = one / ( x * x );
@@ -21327,78 +21318,78 @@ double r8_psi ( double xx )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void r8_swap ( double *x, double *y )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_SWAP switches two R8's.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    29 August 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input/output, double *X, *Y.  On output, the values of X and
-//    Y have been interchanged.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_SWAP switches two R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input/output, double *X, *Y.  On output, the values of X and
+    Y have been interchanged.
+*/
 {
   double z;
 
   z = *x;
   *x = *y;
   *y = z;
- 
+
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void r8_swap3 ( double *x, double *y, double *z )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_SWAP3 swaps three R8's.
-//
-//  Example:
-//
-//    Input:
-//
-//      X = 1, Y = 2, Z = 3
-//
-//    Output:
-//
-//      X = 2, Y = 3, Z = 1
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 April 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input/output, double *X, *Y, *Z, three values to be swapped.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_SWAP3 swaps three R8's.
+
+  Example:
+
+    Input:
+
+      X = 1, Y = 2, Z = 3
+
+    Output:
+
+      X = 2, Y = 3, Z = 1
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 April 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input/output, double *X, *Y, *Z, three values to be swapped.
+*/
 {
   double w;
 
@@ -21409,58 +21400,58 @@ void r8_swap3 ( double *x, double *y, double *z )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8_uniform_01 ( int *seed )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8_UNIFORM_01 is a unit pseudorandom R8.
-//
-//  Discussion:
-//
-//    This routine implements the recursion
-//
-//      seed = 16807 * seed mod ( 2**31 - 1 )
-//      unif = seed / ( 2**31 - 1 )
-//
-//    The integer arithmetic never requires more than 32 bits,
-//    including a sign bit.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    11 August 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Paul Bratley, Bennett Fox, Linus Schrage,
-//    A Guide to Simulation,
-//    Springer Verlag, pages 201-202, 1983.
-//
-//    Bennett Fox,
-//    Algorithm 647:
-//    Implementation and Relative Efficiency of Quasirandom
-//    Sequence Generators,
-//    ACM Transactions on Mathematical Software,
-//    Volume 12, Number 4, pages 362-376, 1986.
-//
-//  Parameters:
-//
-//    Input/output, int *SEED, a seed for the random number generator.
-//
-//    Output, double R8_UNIFORM_01, a new pseudorandom variate, strictly between
-//    0 and 1.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_UNIFORM_01 is a unit pseudorandom R8.
+
+  Discussion:
+
+    This routine implements the recursion
+
+      seed = 16807 * seed mod ( 2**31 - 1 )
+      unif = seed / ( 2**31 - 1 )
+
+    The integer arithmetic never requires more than 32 bits,
+    including a sign bit.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Paul Bratley, Bennett Fox, Linus Schrage,
+    A Guide to Simulation,
+    Springer Verlag, pages 201-202, 1983.
+
+    Bennett Fox,
+    Algorithm 647:
+    Implementation and Relative Efficiency of Quasirandom
+    Sequence Generators,
+    ACM Transactions on Mathematical Software,
+    Volume 12, Number 4, pages 362-376, 1986.
+
+  Parameters:
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8_UNIFORM_01, a new pseudorandom variate, strictly between
+    0 and 1.
+*/
 {
   int k;
   double r;
@@ -21478,52 +21469,52 @@ double r8_uniform_01 ( int *seed )
 
   return r;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8ge_det ( int n, double a_lu[], int pivot[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8GE_DET computes the determinant of a matrix factored by R8GE_FA or R8GE_TRF.
-//
-//  Discussion:
-//
-//    The R8GE storage format is used for a "general" M by N matrix.  
-//    A physical storage space is made for each logical entry.  The two 
-//    dimensional logical array is mapped to a vector, in which storage is 
-//    by columns.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    25 March 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
-//    LINPACK User's Guide,
-//    SIAM, 1979
-//
-//  Parameters:
-//
-//    Input, int N, the order of the matrix.
-//    N must be positive.
-//
-//    Input, double A_LU[N*N], the LU factors from R8GE_FA or R8GE_TRF.
-//
-//    Input, int PIVOT[N], as computed by R8GE_FA or R8GE_TRF.
-//
-//    Output, double R8GE_DET, the determinant of the matrix.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GE_DET computes the determinant of a matrix factored by R8GE_FA or R8GE_TRF.
+
+  Discussion:
+
+    The R8GE storage format is used for a "general" M by N matrix.
+    A physical storage space is made for each logical entry.  The two
+    dimensional logical array is mapped to a vector, in which storage is
+    by columns.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 March 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A_LU[N*N], the LU factors from R8GE_FA or R8GE_TRF.
+
+    Input, int PIVOT[N], as computed by R8GE_FA or R8GE_TRF.
+
+    Output, double R8GE_DET, the determinant of the matrix.
+*/
 {
   double det;
   int i;
@@ -21541,75 +21532,75 @@ double r8ge_det ( int n, double a_lu[], int pivot[] )
 
   return det;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int r8ge_fa ( int n, double a[], int pivot[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8GE_FA performs a LINPACK-style PLU factorization of a R8GE matrix.
-//
-//  Discussion:
-//
-//    The R8GE storage format is used for a "general" M by N matrix.  
-//    A physical storage space is made for each logical entry.  The two 
-//    dimensional logical array is mapped to a vector, in which storage is 
-//    by columns.
-//
-//    R8GE_FA is a simplified version of the LINPACK routine SGEFA.
-//
-//    The two dimensional array is stored by columns in a one dimensional
-//    array.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    11 September 2003
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
-//    LINPACK User's Guide,
-//    SIAM, 1979
-//
-//  Parameters:
-//
-//    Input, int N, the order of the matrix.
-//    N must be positive.
-//
-//    Input/output, double A[N*N], the matrix to be factored.
-//    On output, A contains an upper triangular matrix and the multipliers
-//    which were used to obtain it.  The factorization can be written
-//    A = L * U, where L is a product of permutation and unit lower
-//    triangular matrices and U is upper triangular.
-//
-//    Output, int PIVOT[N], a vector of pivot indices.
-//
-//    Output, int R8GE_FA, singularity flag.
-//    0, no singularity detected.
-//    nonzero, the factorization failed on the INFO-th step.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GE_FA performs a LINPACK-style PLU factorization of a R8GE matrix.
+
+  Discussion:
+
+    The R8GE storage format is used for a "general" M by N matrix.
+    A physical storage space is made for each logical entry.  The two
+    dimensional logical array is mapped to a vector, in which storage is
+    by columns.
+
+    R8GE_FA is a simplified version of the LINPACK routine SGEFA.
+
+    The two dimensional array is stored by columns in a one dimensional
+    array.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 September 2003
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input/output, double A[N*N], the matrix to be factored.
+    On output, A contains an upper triangular matrix and the multipliers
+    which were used to obtain it.  The factorization can be written
+    A = L * U, where L is a product of permutation and unit lower
+    triangular matrices and U is upper triangular.
+
+    Output, int PIVOT[N], a vector of pivot indices.
+
+    Output, int R8GE_FA, singularity flag.
+    0, no singularity detected.
+    nonzero, the factorization failed on the INFO-th step.
+*/
 {
   int i;
   int j;
   int k;
   int l;
   double t;
-//
+/**/
   for ( k = 1; k <= n-1; k++ )
   {
-//
-//  Find L, the index of the pivot row.
-//
+/*
+  Find L, the index of the pivot row.
+*/
     l = k;
 
     for ( i = k+1; i <= n; i++ )
@@ -21621,9 +21612,9 @@ int r8ge_fa ( int n, double a[], int pivot[] )
     }
 
     pivot[k-1] = l;
-//
-//  If the pivot index is zero, the algorithm has failed.
-//
+/*
+  If the pivot index is zero, the algorithm has failed.
+*/
     if ( a[l-1+(k-1)*n] == 0.0 )
     {
       fprintf ( stderr, "\n" );
@@ -21631,25 +21622,25 @@ int r8ge_fa ( int n, double a[], int pivot[] )
       fprintf ( stderr, "  Zero pivot on step %d\n", k );
       return k;
     }
-//
-//  Interchange rows L and K if necessary.
-//
+/*
+  Interchange rows L and K if necessary.
+*/
     if ( l != k )
     {
       t              = a[l-1+(k-1)*n];
       a[l-1+(k-1)*n] = a[k-1+(k-1)*n];
       a[k-1+(k-1)*n] = t;
     }
-//
-//  Normalize the values that lie below the pivot entry A(K,K).
-//
+/*
+  Normalize the values that lie below the pivot entry A(K,K).
+*/
     for ( i = k+1; i <= n; i++ )
     {
       a[i-1+(k-1)*n] = -a[i-1+(k-1)*n] / a[k-1+(k-1)*n];
     }
-//
-//  Row elimination with column indexing.
-//
+/*
+  Row elimination with column indexing.
+*/
     for ( j = k+1; j <= n; j++ )
     {
       if ( l != k )
@@ -21680,40 +21671,40 @@ int r8ge_fa ( int n, double a[], int pivot[] )
 
   return 0;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8vec_dot_product ( int n, double a1[], double a2[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8VEC_DOT_PRODUCT computes the dot product of a pair of R8VEC's.
-//
-//  Discussion:
-//
-//    An R8VEC is a vector of R8's.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    03 July 2005
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the number of entries in the vectors.
-//
-//    Input, double A1[N], A2[N], the two vectors to be considered.
-//
-//    Output, double R8VEC_DOT_PRODUCT, the dot product of the vectors.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_DOT_PRODUCT computes the dot product of a pair of R8VEC's.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 July 2005
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vectors.
+
+    Input, double A1[N], A2[N], the two vectors to be considered.
+
+    Output, double R8VEC_DOT_PRODUCT, the dot product of the vectors.
+*/
 {
   int i;
   double value;
@@ -21725,46 +21716,46 @@ double r8vec_dot_product ( int n, double a1[], double a2[] )
   }
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double r8vec_even_select ( int n, double xlo, double xhi, int ival )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8VEC_EVEN_SELECT returns the I-th of N evenly spaced values in [ XLO, XHI ].
-//
-//  Discussion:
-//
-//    XVAL = ( (N-IVAL) * XLO + (IVAL-1) * XHI ) / ( N - 1 )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    24 January 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the number of values.
-//
-//    Input, double XLO, XHI, the low and high values.
-//
-//    Input, int IVAL, the index of the desired point.
-//    IVAL is normally between 1 and N, but may be any integer value.
-//
-//    Output, double R8VEC_EVEN_SELECT, the IVAL-th of N evenly spaced values
-//    between XLO and XHI.
-//    Unless N = 1, X(1) = XLO and X(N) = XHI.
-//    If N = 1, then X(1) = 0.5*(XLO+XHI).
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_EVEN_SELECT returns the I-th of N evenly spaced values in [ XLO, XHI ].
+
+  Discussion:
+
+    XVAL = ( (N-IVAL) * XLO + (IVAL-1) * XHI ) / ( N - 1 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of values.
+
+    Input, double XLO, XHI, the low and high values.
+
+    Input, int IVAL, the index of the desired point.
+    IVAL is normally between 1 and N, but may be any integer value.
+
+    Output, double R8VEC_EVEN_SELECT, the IVAL-th of N evenly spaced values
+    between XLO and XHI.
+    Unless N = 1, X(1) = XLO and X(N) = XHI.
+    If N = 1, then X(1) = 0.5*(XLO+XHI).
+*/
 {
   double xval;
 
@@ -21774,108 +21765,108 @@ double r8vec_even_select ( int n, double xlo, double xhi, int ival )
   }
   else
   {
-    xval = ( ( double ) ( n - ival     ) * xlo 
-           + ( double ) (     ival - 1 ) * xhi ) 
+    xval = ( ( double ) ( n - ival     ) * xlo
+           + ( double ) (     ival - 1 ) * xhi )
            / ( double ) ( n        - 1 );
   }
 
   return xval;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int r8vec_mirror_next ( int n, double a[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8VEC_MIRROR_NEXT steps through all sign variations of an R8VEC.
-//
-//  Discussion:
-//
-//    In normal use, the user would set every element of A to be positive.
-//    The routine will take the input value of A, and output a copy in
-//    which the signs of one or more entries have been changed.  Repeatedly
-//    calling the routine with the output from the previous call will generate
-//    every distinct "variation" of A; that is, all possible sign variations.
-//
-//    When the output variable DONE is TRUE (or equal to 1), then the
-//    output value of A_NEW is the last in the series.
-//
-//    Note that A may have some zero values.  The routine will essentially
-//    ignore such entries; more exactly, it will not stupidly assume that -0
-//    is a proper "variation" of 0.
-//
-//    Also, it is possible to call this routine with the signs of A set
-//    in any way you like.  The routine will operate properly, but it
-//    will nonethess terminate when it reaches the value of A in which
-//    every nonzero entry has negative sign.
-//
-//
-//    More efficient algorithms using the Gray code seem to require internal
-//    memory in the routine, which is not one of MATLAB's strong points,
-//    or the passing back and forth of a "memory array", or the use of
-//    global variables, or unnatural demands on the user.  This form of
-//    the routine is about as clean as I can make it.
-//
-//  Example:
-//
-//      Input         Output
-//    ---------    --------------
-//    A            A         DONE
-//    ---------    --------  ----
-//     1  2  3     -1  2  3  false
-//    -1  2  3      1 -2  3  false
-//     1 -2  3     -1 -2  3  false
-//    -1 -2  3      1  2 -3  false
-//     1  2 -3     -1  2 -3  false
-//    -1  2 -3      1 -2 -3  false
-//     1 -2 -3     -1 -2 -3  false
-//    -1 -2 -3      1  2  3  true
-//
-//     1  0  3     -1  0  3  false
-//    -1  0  3      1  0 -3  false
-//     1  0 -3     -1  0 -3  false
-//    -1  0 -3      1  0  3  true
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Albert Nijenhuis, Herbert Wilf,
-//    Combinatorial Algorithms,
-//    Academic Press, 1978, second edition,
-//    ISBN 0-12-519260-6.
-//
-//  Parameters:
-//
-//    Input, int N, the number of entries in the vector.
-//
-//    Input/output, double A[N], a vector of real numbers.  On 
-//    output, some signs have been changed.
-//
-//    Output, int R8VEC_MIRROR_NEXT, is TRUE if the input vector A was 
-//    the last element
-//    in the series (every entry was nonpositive); the output vector is reset
-//    so that all entries are nonnegative, but presumably the ride is over.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_MIRROR_NEXT steps through all sign variations of an R8VEC.
+
+  Discussion:
+
+    In normal use, the user would set every element of A to be positive.
+    The routine will take the input value of A, and output a copy in
+    which the signs of one or more entries have been changed.  Repeatedly
+    calling the routine with the output from the previous call will generate
+    every distinct "variation" of A; that is, all possible sign variations.
+
+    When the output variable DONE is TRUE (or equal to 1), then the
+    output value of A_NEW is the last in the series.
+
+    Note that A may have some zero values.  The routine will essentially
+    ignore such entries; more exactly, it will not stupidly assume that -0
+    is a proper "variation" of 0.
+
+    Also, it is possible to call this routine with the signs of A set
+    in any way you like.  The routine will operate properly, but it
+    will nonethess terminate when it reaches the value of A in which
+    every nonzero entry has negative sign.
+
+
+    More efficient algorithms using the Gray code seem to require internal
+    memory in the routine, which is not one of MATLAB's strong points,
+    or the passing back and forth of a "memory array", or the use of
+    global variables, or unnatural demands on the user.  This form of
+    the routine is about as clean as I can make it.
+
+  Example:
+
+      Input         Output
+    ---------    --------------
+    A            A         DONE
+    ---------    --------  ----
+     1  2  3     -1  2  3  false
+    -1  2  3      1 -2  3  false
+     1 -2  3     -1 -2  3  false
+    -1 -2  3      1  2 -3  false
+     1  2 -3     -1  2 -3  false
+    -1  2 -3      1 -2 -3  false
+     1 -2 -3     -1 -2 -3  false
+    -1 -2 -3      1  2  3  true
+
+     1  0  3     -1  0  3  false
+    -1  0  3      1  0 -3  false
+     1  0 -3     -1  0 -3  false
+    -1  0 -3      1  0  3  true
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Albert Nijenhuis, Herbert Wilf,
+    Combinatorial Algorithms,
+    Academic Press, 1978, second edition,
+    ISBN 0-12-519260-6.
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input/output, double A[N], a vector of real numbers.  On
+    output, some signs have been changed.
+
+    Output, int R8VEC_MIRROR_NEXT, is TRUE if the input vector A was
+    the last element
+    in the series (every entry was nonpositive); the output vector is reset
+    so that all entries are nonnegative, but presumably the ride is over.
+*/
 {
   int done;
   int i;
   int positive;
-//
-//  Seek the first strictly positive entry of A.
-//
+/*
+  Seek the first strictly positive entry of A.
+*/
   positive = -1;
   for ( i = 0; i < n; i++ )
   {
@@ -21885,9 +21876,9 @@ int r8vec_mirror_next ( int n, double a[] )
       break;
     }
   }
-//
-//  If there is no strictly positive entry of A, there is no successor.
-//
+/*
+  If there is no strictly positive entry of A, there is no successor.
+*/
   if ( positive == -1 )
   {
     for ( i = 0; i < n; i++ )
@@ -21897,9 +21888,9 @@ int r8vec_mirror_next ( int n, double a[] )
     done = 1;
     return done;
   }
-//
-//  Otherwise, negate A up to the positive entry.
-//
+/*
+  Otherwise, negate A up to the positive entry.
+*/
   for ( i = 0; i <= positive; i++ )
   {
     a[i] = - a[i];
@@ -21924,7 +21915,7 @@ void r8vec_print ( int n, double a[], char *title )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -21948,45 +21939,45 @@ void r8vec_print ( int n, double a[], char *title )
   fprintf ( stdout, "\n" );
   fprintf ( stdout, "%s\n", title );
   fprintf ( stdout, "\n" );
-  for ( i = 0; i < n; i++ ) 
+  for ( i = 0; i < n; i++ )
   {
     fprintf ( stdout, "  %8d: %14f\n", i, a[i] );
   }
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void r8vec_zero ( int n, double a[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8VEC_ZERO zeroes an R8VEC.
-//
-//  Discussion:
-//
-//    An R8VEC is a vector of R8's.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    03 July 2005
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the number of entries in the vector.
-//
-//    Output, double A[N], a vector of zeroes.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_ZERO zeroes an R8VEC.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 July 2005
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Output, double A[N], a vector of zeroes.
+*/
 {
   int i;
 
@@ -21996,59 +21987,59 @@ void r8vec_zero ( int n, double a[] )
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double rectangle_3d ( double func ( double x, double y, double z ),
   double a[3], double b[3] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    RECTANGLE_3D approximates an integral inside a rectangular block in 3D.
-//
-//  Integration region:
-//
-//      A(1) <= X <= B(1),
-//    and
-//      A(2) <= Y <= B(2),
-//    and
-//      A(3) <= Z <= B(3).
-//
-//  Discussion:
-//
-//    An 8 point third degree formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function.
-//
-//    Input, double A[3], B[3], the lower and upper limits
-//    for X, Y and Z.
-//
-//    Output, double RECTANGLE_3D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    RECTANGLE_3D approximates an integral inside a rectangular block in 3D.
+
+  Integration region:
+
+      A(1) <= X <= B(1),
+    and
+      A(2) <= Y <= B(2),
+    and
+      A(3) <= Z <= B(3).
+
+  Discussion:
+
+    An 8 point third degree formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function.
+
+    Input, double A[3], B[3], the lower and upper limits
+    for X, Y and Z.
+
+    Output, double RECTANGLE_3D, the approximate integral of the function.
+*/
 {
   int i;
   int j;
@@ -22091,56 +22082,56 @@ double rectangle_3d ( double func ( double x, double y, double z ),
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double rectangle_sub_2d ( double func ( double x, double y ), double xval[2], 
-  double yval[2], int nsub[2], int order, double xtab[], double ytab[], 
+double rectangle_sub_2d ( double func ( double x, double y ), double xval[2],
+  double yval[2], int nsub[2], int order, double xtab[], double ytab[],
   double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    RECTANGLE_SUB_2D carries out a composite quadrature over a rectangle in 2D.
-//
-//  Integration region:
-//
-//      XVAL(1) <= X <= XVAL(2),
-//    and
-//      YVAL(1) <= Y <= YVAL(2).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    22 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the function 
-//    to be integrated.
-//
-//    Input, double XVAL[2], the left and right X coordinates.
-//
-//    Input, double YVAL[2], the lower and upper Y coordinates.
-//
-//    Input, int NSUB[2], the number of subintervals to use in the X 
-//    and Y directions.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Input, double WEIGHT[ORDER], the weights of the rule.
-//
-//    Output, double RECTANGLE_SUB_2D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    RECTANGLE_SUB_2D carries out a composite quadrature over a rectangle in 2D.
+
+  Integration region:
+
+      XVAL(1) <= X <= XVAL(2),
+    and
+      YVAL(1) <= Y <= YVAL(2).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the function
+    to be integrated.
+
+    Input, double XVAL[2], the left and right X coordinates.
+
+    Input, double YVAL[2], the lower and upper Y coordinates.
+
+    Input, int NSUB[2], the number of subintervals to use in the X
+    and Y directions.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Input, double WEIGHT[ORDER], the weights of the rule.
+
+    Output, double RECTANGLE_SUB_2D, the approximate integral of the function.
+*/
 {
   double a[2];
   double b[2];
@@ -22183,9 +22174,9 @@ double rectangle_sub_2d ( double func ( double x, double y ), double xval[2],
       exit ( 1 );
     }
   }
-//
-//  Break up the X interval into NSUB(1) subintervals.
-//
+/*
+  Break up the X interval into NSUB(1) subintervals.
+*/
   volume = 0.0;
   result = 0.0;
 
@@ -22193,9 +22184,9 @@ double rectangle_sub_2d ( double func ( double x, double y ), double xval[2],
   {
      xlo = r8vec_even_select ( nsub[0]+1, a[0], b[0], i   );
      xhi = r8vec_even_select ( nsub[0]+1, a[0], b[0], i + 1 );
-//
-//  Break up the Y interval into NSUB(2) subintervals.
-//
+/*
+  Break up the Y interval into NSUB(2) subintervals.
+*/
     for ( j = 1; j <= nsub[1]; j++ )
     {
       ylo = r8vec_even_select ( nsub[1]+1, a[1], b[1], j   );
@@ -22220,57 +22211,57 @@ double rectangle_sub_2d ( double func ( double x, double y ), double xval[2],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void rule_adjust ( double a, double b, double c, double d, int order, 
+void rule_adjust ( double a, double b, double c, double d, int order,
   double x[], double w[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    RULE_ADJUST maps a quadrature rule from [A,B] to [C,D].
-//
-//  Discussion:
-//
-//    Most quadrature rules are defined on a special interval, like
-//    [-1,1] or [0,1].  To integrate over an interval, the abscissas
-//    and weights must be adjusted.  This can be done on the fly,
-//    or by calling this routine.
-//
-//    If the weight function W(X) is not 1, then the W vector will
-//    require further adjustment by the user.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    11 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double A, B, the endpoints of the definition interval.
-//
-//    Input, double C, D, the endpoints of the integration interval.
-//
-//    Input, int ORDER, the number of abscissas and weights.
-//
-//    Input/output, double X[ORDER], W[ORDER], the abscissas
-//    and weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    RULE_ADJUST maps a quadrature rule from [A,B] to [C,D].
+
+  Discussion:
+
+    Most quadrature rules are defined on a special interval, like
+    [-1,1] or [0,1].  To integrate over an interval, the abscissas
+    and weights must be adjusted.  This can be done on the fly,
+    or by calling this routine.
+
+    If the weight function W(X) is not 1, then the W vector will
+    require further adjustment by the user.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double A, B, the endpoints of the definition interval.
+
+    Input, double C, D, the endpoints of the integration interval.
+
+    Input, int ORDER, the number of abscissas and weights.
+
+    Input/output, double X[ORDER], W[ORDER], the abscissas
+    and weights.
+*/
 {
   int i;
 
   for ( i = 0; i < order; i++ )
   {
-    x[i] = ( ( b - x[i]     ) * c   
-           + (     x[i] - a ) * d ) 
+    x[i] = ( ( b - x[i]     ) * c
+           + (     x[i] - a ) * d )
            / ( b              - a );
   }
 
@@ -22281,35 +22272,39 @@ void rule_adjust ( double a, double b, double c, double d, int order,
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int s_len_trim ( char *s )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    S_LEN_TRIM returns the length of a string to the last nonblank.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    26 April 2003
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, char *S, a pointer to a string.
-//
-//    Output, int S_LEN_TRIM, the length of the string to the last nonblank.
-//    If S_LEN_TRIM is 0, then the string is entirely blank.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    S_LEN_TRIM returns the length of a string to the last nonblank.
+
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 October 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *S, a pointer to a string.
+
+    Output, int S_LEN_TRIM, the length of the string to the last nonblank.
+    If S_LEN_TRIM is 0, then the string is entirely blank.
+*/
 {
   int n;
   char *t;
@@ -22317,9 +22312,9 @@ int s_len_trim ( char *s )
   n = strlen ( s );
   t = s + strlen ( s ) - 1;
 
-  while ( 0 < n ) 
+  while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }
@@ -22329,59 +22324,59 @@ int s_len_trim ( char *s )
 
   return n;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double simplex_nd ( double func ( int n, double x[] ), int n, double v[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SIMPLEX_ND approximates an integral inside a simplex in ND.
-//
-//  Discussion:
-//
-//    An N+1 point second degree formula is used.
-//
-//    The integration region is the simplex bounded by the origin and a 
-//    convex combination of N points.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    11 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function which evaluates F(X).
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input/output, double V[N*(N+1)].  On input, each of the
-//    N+1 columns of V contains the N coordinates of one of the
-//    "corners" of the simplex in entries 1 through N, with
-//    the last column being left free.
-//    On output, V has been overwritten in the process of
-//    computing the volume of the simplex.
-//
-//    Output, double SIMPLEX_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIMPLEX_ND approximates an integral inside a simplex in ND.
+
+  Discussion:
+
+    An N+1 point second degree formula is used.
+
+    The integration region is the simplex bounded by the origin and a
+    convex combination of N points.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function which evaluates F(X).
+
+    Input, int N, the dimension of the space.
+
+    Input/output, double V[N*(N+1)].  On input, each of the
+    N+1 columns of V contains the N coordinates of one of the
+    "corners" of the simplex in entries 1 through N, with
+    the last column being left free.
+    On output, V has been overwritten in the process of
+    computing the volume of the simplex.
+
+    Output, double SIMPLEX_ND, the approximate integral of the function.
+*/
 {
   double c;
   int i;
@@ -22430,60 +22425,60 @@ double simplex_nd ( double func ( int n, double x[] ), int n, double v[] )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double simplex_unit_01_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SIMPLEX_UNIT_01_ND approximates an integral inside the unit simplex in ND.
-//
-//  Integration region:
-//
-//      0 <= X(1:N),
-//    and
-//      sum ( X(1:N) ) <= 1.
-//
-//  Discussion:
-//
-//    A 1 point formula of degree 1 is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Axel Grundmann, Michael Moeller,
-//    Invariant Integration Formulas for the N-Simplex by Combinatorial Methods,
-//    SIAM Journal on Numerical Analysis,
-//    Volume 15, Number 2, April 1978, pages 282-290.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.  
-//
-//    Output, double RESULT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIMPLEX_UNIT_01_ND approximates an integral inside the unit simplex in ND.
+
+  Integration region:
+
+      0 <= X(1:N),
+    and
+      sum ( X(1:N) ) <= 1.
+
+  Discussion:
+
+    A 1 point formula of degree 1 is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Axel Grundmann, Michael Moeller,
+    Invariant Integration Formulas for the N-Simplex by Combinatorial Methods,
+    SIAM Journal on Numerical Analysis,
+    Volume 15, Number 2, April 1978, pages 282-290.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Output, double RESULT, the approximate integral of the function.
+*/
 {
   double coef = 1.0;
   int i;
@@ -22509,60 +22504,60 @@ double simplex_unit_01_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double simplex_unit_03_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SIMPLEX_UNIT_03_ND approximates an integral inside the unit simplex in ND.
-//
-//  Integration region:
-//
-//      0 <= X(1:N),
-//    and
-//      sum ( X(1:N) ) <= 1.
-//
-//  Discussion:
-//
-//    An N+2 point formula of degree 3 is used.  This is Stroud TN:3-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    20 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Axel Grundmann, Michael Moeller,
-//    Invariant Integration Formulas for the N-Simplex by Combinatorial Methods,
-//    SIAM Journal on Numerical Analysis,
-//    Volume 15, Number 2, April 1978, pages 282-290.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function which is to be integrated.
-//
-//    Input, int N, the dimension of the space.  
-//
-//    Output, double SIMPLEX_UNIT_03_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIMPLEX_UNIT_03_ND approximates an integral inside the unit simplex in ND.
+
+  Integration region:
+
+      0 <= X(1:N),
+    and
+      sum ( X(1:N) ) <= 1.
+
+  Discussion:
+
+    An N+2 point formula of degree 3 is used.  This is Stroud TN:3-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Axel Grundmann, Michael Moeller,
+    Invariant Integration Formulas for the N-Simplex by Combinatorial Methods,
+    SIAM Journal on Numerical Analysis,
+    Volume 15, Number 2, April 1978, pages 282-290.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function which is to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Output, double SIMPLEX_UNIT_03_ND, the approximate integral.
+*/
 {
   double a;
   double b;
@@ -22591,7 +22586,7 @@ double simplex_unit_03_nd ( double func ( int n, double x[] ), int n )
   {
     x[i] = a;
   }
-  coef = 0.25 * ( double ) ( ( n + 3 ) * ( n + 3 ) ) 
+  coef = 0.25 * ( double ) ( ( n + 3 ) * ( n + 3 ) )
     / ( double ) ( ( n + 1 ) * ( n + 2 ) );
   quad = quad + coef * func ( n, x );
 
@@ -22609,144 +22604,144 @@ double simplex_unit_03_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double simplex_unit_05_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SIMPLEX_UNIT_05_ND approximates an integral inside the unit simplex in ND.
-//
-//  Integration region:
-//
-//      0 <= X(1:N),
-//    and
-//      sum ( X(1:N) ) <= 1.
-//
-//  Discussion:
-//
-//    An N^2 + 3 N + 3 point formula of degree 5 is used.  This is
-//    Stroud formula TN:5-1.
-//
-//    (For N = 2, the number of points is actually only 7, and
-//     for N = 3, the number of points is actually only 15.)
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    20 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    A Fifth Degree Integration Formula for the N-Simplex,
-//    SIAM Journal on Numerical Analysis,
-//    Volume 6, Number 1, March 1969.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function is to be integrated.
-//
-//    Input, int N, the dimension of the space.  For this routine,
-//    it must be the case that 2 <= N <= 16.
-//
-//    Output, double SIMPLEX_UNIT_05_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIMPLEX_UNIT_05_ND approximates an integral inside the unit simplex in ND.
+
+  Integration region:
+
+      0 <= X(1:N),
+    and
+      sum ( X(1:N) ) <= 1.
+
+  Discussion:
+
+    An N^2 + 3 N + 3 point formula of degree 5 is used.  This is
+    Stroud formula TN:5-1.
+
+    (For N = 2, the number of points is actually only 7, and
+     for N = 3, the number of points is actually only 15.)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    A Fifth Degree Integration Formula for the N-Simplex,
+    SIAM Journal on Numerical Analysis,
+    Volume 6, Number 1, March 1969.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function is to be integrated.
+
+    Input, int N, the dimension of the space.  For this routine,
+    it must be the case that 2 <= N <= 16.
+
+    Output, double SIMPLEX_UNIT_05_ND, the approximate integral of the function.
+*/
 {
   double coef1[16] = {
     0.0,
-    0.225, 
-    0.118518518519, 
-    0.0631521898883, 
-    0.235714285714, 
-    0.791575476992, 
-    1.85798728021, 
-    3.53666958042, 
-    5.90844340844, 
-    9.03765432098, 
-    12.9758241758, 
-    17.7645108738, 
-    23.4375030259, 
-    30.0224941950, 
-    37.5423613501, 
+    0.225,
+    0.118518518519,
+    0.0631521898883,
+    0.235714285714,
+    0.791575476992,
+    1.85798728021,
+    3.53666958042,
+    5.90844340844,
+    9.03765432098,
+    12.9758241758,
+    17.7645108738,
+    23.4375030259,
+    30.0224941950,
+    37.5423613501,
     46.0161454949 };
-  double coef21[16] = { 
+  double coef21[16] = {
     0.0,
-    0.12593918054483, 
-    0.0719370837790, 
-    0.0470456145702, 
-    0.0333009774677, 
-    0.0248633014592, 
-    0.0192679696358, 
-    0.0153322153879, 
-    0.0124316229901, 
-    0.0102112988361, 
-    0.00845730697460, 
-    0.00703433430999, 
-    0.00585330520067, 
-    0.00485356735291, 
-    0.00399261092720, 
+    0.12593918054483,
+    0.0719370837790,
+    0.0470456145702,
+    0.0333009774677,
+    0.0248633014592,
+    0.0192679696358,
+    0.0153322153879,
+    0.0124316229901,
+    0.0102112988361,
+    0.00845730697460,
+    0.00703433430999,
+    0.00585330520067,
+    0.00485356735291,
+    0.00399261092720,
     0.00323988713017 };
   double coef22[16] = {
     0.0,
-    0.13239415278851, 
-    0.0690682072263, 
-    0.0371530185868, 
-   -0.0719253160920, 
-   -0.264323879461, 
-   -0.537926779961, 
-   -0.886895605701, 
-   -1.30409181465, 
-   -1.78227048964, 
-   -2.31462336314, 
-   -2.89499045158, 
-   -3.51790849765, 
-   -4.17858310668, 
-   -4.87282884913, 
+    0.13239415278851,
+    0.0690682072263,
+    0.0371530185868,
+   -0.0719253160920,
+   -0.264323879461,
+   -0.537926779961,
+   -0.886895605701,
+   -1.30409181465,
+   -1.78227048964,
+   -2.31462336314,
+   -2.89499045158,
+   -3.51790849765,
+   -4.17858310668,
+   -4.87282884913,
    -5.59699944261 };
   double coef31[16] = {
     0.0,
-    0.0, 
-    0.0529100529100, 
-    0.0261368740713, 
-    0.0499020181331, 
-    0.0782233395867, 
-    0.109041040862, 
-    0.140874828568, 
-    0.172735353396, 
-    0.203992490408, 
-    0.234263814181, 
-    0.263332763315, 
-    0.291091849264, 
-    0.317504208212, 
-    0.342577872069, 
+    0.0,
+    0.0529100529100,
+    0.0261368740713,
+    0.0499020181331,
+    0.0782233395867,
+    0.109041040862,
+    0.140874828568,
+    0.172735353396,
+    0.203992490408,
+    0.234263814181,
+    0.263332763315,
+    0.291091849264,
+    0.317504208212,
+    0.342577872069,
     0.366348654344 };
   double coef32[16] = {
     0.0,
-    0.0, 
-    0.0, 
-    0.0254485903613, 
-    0.0165000982690, 
-    0.0115218303668, 
-    0.00850478779483, 
-    0.00655297510968, 
-    0.00522372456259, 
-    0.00428017828134, 
-    0.00358722367033, 
-    0.00306362964360, 
-    0.00265836687133, 
-    0.00233816221525, 
-    0.00208061510846, 
+    0.0,
+    0.0,
+    0.0254485903613,
+    0.0165000982690,
+    0.0115218303668,
+    0.00850478779483,
+    0.00655297510968,
+    0.00522372456259,
+    0.00428017828134,
+    0.00358722367033,
+    0.00306362964360,
+    0.00265836687133,
+    0.00233816221525,
+    0.00208061510846,
     0.00187022027571 };
   int i;
   int j;
@@ -22777,18 +22772,18 @@ double simplex_unit_05_nd ( double func ( int n, double x[] ), int n )
   x = ( double * ) malloc ( n * sizeof ( double ) );
 
   quad = 0.0;
-//
-//  S1
-//
+/*
+  S1
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = 1.0 / ( double ) ( n + 1 );
   }
   quad = quad + coef1[n-1] * func ( n, x );
-//
-//  S21
-//
-  r1 = ( ( double ) ( n + 4 ) - sqrt ( 15.0 ) ) 
+/*
+  S21
+*/
+  r1 = ( ( double ) ( n + 4 ) - sqrt ( 15.0 ) )
     / ( double ) ( n * n + 8 * n + 1 );
   s1 = 1.0 - ( double ) ( n ) * r1;
 
@@ -22801,7 +22796,7 @@ double simplex_unit_05_nd ( double func ( int n, double x[] ), int n )
   {
     quad = quad + coef21[n-1] * func ( n, x );
 
-    if ( 0 < i ) 
+    if ( 0 < i )
     {
       x[i-1] = r1;
     }
@@ -22810,10 +22805,10 @@ double simplex_unit_05_nd ( double func ( int n, double x[] ), int n )
       x[i] = s1;
     }
   }
-//
-//  S22
-//
-  r2 = ( ( double ) ( n + 4 ) + sqrt ( 15.0 ) ) 
+/*
+  S22
+*/
+  r2 = ( ( double ) ( n + 4 ) + sqrt ( 15.0 ) )
     / ( double ) ( n * n + 8 * n + 1 );
   s2 = 1.0 - ( double ) ( n ) * r2;
 
@@ -22834,13 +22829,13 @@ double simplex_unit_05_nd ( double func ( int n, double x[] ), int n )
       x[i] = s2;
     }
   }
-//
-//  S31
-//
-  u1 = ( ( double ) ( n + 7 ) + 2.0 * sqrt ( 15.0 ) ) 
+/*
+  S31
+*/
+  u1 = ( ( double ) ( n + 7 ) + 2.0 * sqrt ( 15.0 ) )
     / ( double ) ( n * n + 14 * n - 11 );
-  v1 = ( ( double ) ( 4 * n - 2 ) 
-    - ( double ) ( n - 1 ) * sqrt ( 15.0 ) ) 
+  v1 = ( ( double ) ( 4 * n - 2 )
+    - ( double ) ( n - 1 ) * sqrt ( 15.0 ) )
     / ( double ) ( n * n + 14 * n - 11 );
 
   for ( i = 0; i < n; i++ )
@@ -22863,13 +22858,13 @@ double simplex_unit_05_nd ( double func ( int n, double x[] ), int n )
       quad = quad + coef31[n-1] * func ( n, x );
     }
   }
-//
-//  S32
-//
-  u2 = ( ( double ) ( n + 7 ) - 2.0 * sqrt ( 15.0 ) ) 
+/*
+  S32
+*/
+  u2 = ( ( double ) ( n + 7 ) - 2.0 * sqrt ( 15.0 ) )
     / ( double ) ( n * n + 14 * n - 11 );
-  v2 = ( ( double ) ( 4 * n - 2 ) 
-    + ( double ) ( n - 1 ) * sqrt ( 15.0 ) ) 
+  v2 = ( ( double ) ( 4 * n - 2 )
+    + ( double ) ( n - 1 ) * sqrt ( 15.0 ) )
     / ( double ) ( n * n + 14 * n - 11 );
 
   for ( i = 0; i < n; i++ )
@@ -22901,50 +22896,50 @@ double simplex_unit_05_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double simplex_unit_05_2_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SIMPLEX_UNIT_05_2_ND approximates an integral inside the unit simplex in ND.
-//
-//  Integration region:
-//
-//      0 <= X(1:N),
-//    and
-//      sum ( X(1:N) ) <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    20 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Axel Grundmann, Michael Moeller,
-//    Invariant Integration Formulas for the N-Simplex by Combinatorial Methods,
-//    SIAM Journal on Numerical Analysis,
-//    Volume 15, Number 2, April 1978, pages 282-290.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double SIMPLEX_UNIT_05_2_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIMPLEX_UNIT_05_2_ND approximates an integral in the unit simplex in ND.
+
+  Integration region:
+
+      0 <= X(1:N),
+    and
+      sum ( X(1:N) ) <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Axel Grundmann, Michael Moeller,
+    Invariant Integration Formulas for the N-Simplex by Combinatorial Methods,
+    SIAM Journal on Numerical Analysis,
+    Volume 15, Number 2, April 1978, pages 282-290.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Output, double SIMPLEX_UNIT_05_2_ND, the approximate integral.
+*/
 {
   double a;
   double b;
@@ -22959,19 +22954,19 @@ double simplex_unit_05_2_nd ( double func ( int n, double x[] ), int n )
   x = ( double * ) malloc ( n * sizeof ( double ) );
 
   quad = 0.0;
-//
-//  Group 1
-//
+/*
+  Group 1
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = 1.0 / ( double ) ( n + 1 );
   }
-  coef = ( double ) ( i4_power ( n + 1, 4 ) ) 
+  coef = ( double ) ( i4_power ( n + 1, 4 ) )
     / ( double ) ( 32 * ( n + 2 ) * ( n + 3 ) );
   quad = quad + coef * func ( n, x );
-//
-//  Group 2
-//
+/*
+  Group 2
+*/
   a = 1.0 / ( double ) ( n + 3 );
   b = 3.0 / ( double ) ( n + 3 );
 
@@ -22979,7 +22974,7 @@ double simplex_unit_05_2_nd ( double func ( int n, double x[] ), int n )
   {
     x[i] = a;
   }
-  coef = -( double ) ( i4_power ( n + 3, 4 ) ) 
+  coef = -( double ) ( i4_power ( n + 3, 4 ) )
     / ( double ) ( 16 * ( n + 1 ) * ( n + 2 ) * ( n + 4 ) );
   quad = quad + coef * func ( n, x );
 
@@ -22989,9 +22984,9 @@ double simplex_unit_05_2_nd ( double func ( int n, double x[] ), int n )
     quad = quad + coef * func ( n, x );
     x[i] = a;
   }
-//
-//  Group 3
-//
+/*
+  Group 3
+*/
   a = 1.0 / ( double ) ( n + 5 );
   b = 5.0 / ( double ) ( n + 5 );
 
@@ -22999,7 +22994,7 @@ double simplex_unit_05_2_nd ( double func ( int n, double x[] ), int n )
   {
     x[i] = a;
   }
-  coef = ( double ) ( i4_power ( n + 5, 4 ) ) 
+  coef = ( double ) ( i4_power ( n + 5, 4 ) )
     / ( double ) ( 16 * ( n + 1 ) * ( n + 2 ) * ( n + 3 ) * ( n + 4 ) );
   quad = quad + coef * func ( n, x );
 
@@ -23009,13 +23004,13 @@ double simplex_unit_05_2_nd ( double func ( int n, double x[] ), int n )
     quad = quad + coef * func ( n, x );
     x[i] = a;
   }
-//
-//  Group 4
-//
+/*
+  Group 4
+*/
   a = 1.0 / ( double ) ( n + 5 );
   b = 3.0 / ( double ) ( n + 5 );
 
-  coef = ( double ) ( i4_power ( n + 5, 4 ) ) 
+  coef = ( double ) ( i4_power ( n + 5, 4 ) )
     / ( double ) ( 16 * ( n + 1 ) * ( n + 2 ) * ( n + 3 ) * ( n + 4 ) );
 
   for ( i = 0; i < n; i++ )
@@ -23042,83 +23037,83 @@ double simplex_unit_05_2_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double simplex_unit_volume_nd ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SIMPLEX_UNIT_VOLUME_ND returns the volume of the unit simplex in ND.
-//
-//  Integration region:
-//
-//      0 <= X(1:N),
-//    and
-//      sum ( X(1:N) ) <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double SIMPLEX_UNIT_VOLUME_ND, the volume of the
-//    unit simplex.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIMPLEX_UNIT_VOLUME_ND returns the volume of the unit simplex in ND.
+
+  Integration region:
+
+      0 <= X(1:N),
+    and
+      sum ( X(1:N) ) <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Output, double SIMPLEX_UNIT_VOLUME_ND, the volume of the
+    unit simplex.
+*/
 {
   double value;
 
-  value = 1.0 / ( double ) ( i4_factorial ( n ) );
+  value = 1.0 / r8_factorial ( n );
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double simplex_volume_nd ( int n, double v[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SIMPLEX_VOLUME_ND returns the volume of a simplex in ND.
-//
-//  Integration region:
-//
-//    The simplex bounded by the origin and a convex combination of N points.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double V[N*(N+1)], the coordinates of the vertices.
-//
-//    Output, double SIMPLEX_VOLUME_ND, the volume of 
-//    the unit simplex.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIMPLEX_VOLUME_ND returns the volume of a simplex in ND.
+
+  Integration region:
+
+    The simplex bounded by the origin and a convex combination of N points.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Input, double V[N*(N+1)], the coordinates of the vertices.
+
+    Output, double SIMPLEX_VOLUME_ND, the volume of
+    the unit simplex.
+*/
 {
   double det;
   int i;
@@ -23149,10 +23144,10 @@ double simplex_volume_nd ( int n, double v[] )
   else
   {
     det = r8ge_det ( n, w, pivot );
-//
-//  Multiply by the volume of the unit simplex, which serves as a
-//  conversion factor between a parallelipiped and the simplex.
-//
+/*
+  Multiply by the volume of the unit simplex, which serves as a
+  conversion factor between a parallelipiped and the simplex.
+*/
     volume = r8_abs ( det ) * simplex_unit_volume_nd ( n );
   }
 
@@ -23161,47 +23156,47 @@ double simplex_volume_nd ( int n, double v[] )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sin_power_int ( double a, double b, int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SIN_POWER_INT evaluates the sine power integral.
-//
-//  Discussion:
-//
-//    The function is defined by
-//
-//      SIN_POWER_INT(A,B,N) = Integral ( A <= T <= B ) ( sin ( t ))^n dt
-//
-//    The algorithm uses the following fact:
-//
-//      Integral sin^n ( t ) = (1/n) * (
-//        sin^(n-1)(t) * cos(t) + ( n-1 ) * Integral sin^(n-2) ( t ) dt )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    02 September 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters
-//
-//    Input, double A, B, the limits of integration.
-//
-//    Input, integer N, the power of the sine function.
-//
-//    Output, double SIN_POWER_INT, the value of the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIN_POWER_INT evaluates the sine power integral.
+
+  Discussion:
+
+    The function is defined by
+
+      SIN_POWER_INT(A,B,N) = Integral ( A <= T <= B ) ( sin ( t ))^n dt
+
+    The algorithm uses the following fact:
+
+      Integral sin^n ( t ) = (1/n) * (
+        sin^(n-1)(t) * cos(t) + ( n-1 ) * Integral sin^(n-2) ( t ) dt )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 September 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters
+
+    Input, double A, B, the limits of integration.
+
+    Input, integer N, the power of the sine function.
+
+    Output, double SIN_POWER_INT, the value of the integral.
+*/
 {
   double ca;
   double cb;
@@ -23239,65 +23234,65 @@ double sin_power_int ( double a, double b, int n )
 
   for ( m = mlo; m <= n; m = m + 2 )
   {
-    value = ( ( double ) ( m - 1 ) * value 
-      + pow ( sa, (m-1) ) * ca - pow ( sb, (m-1) ) * cb ) 
+    value = ( ( double ) ( m - 1 ) * value
+      + pow ( sa, (m-1) ) * ca - pow ( sb, (m-1) ) * cb )
       / ( double ) ( m );
   }
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double sphere_05_nd ( double func ( int n, double x[] ), int n, double center[], 
-  double r )
+double sphere_05_nd ( double func ( int n, double x[] ), int n,
+  double center[], double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_05_ND approximates an integral on the surface of a sphere in ND.
-//
-//  Integration region:
-//
-//    R1*R1 <= sum ( X(1:N) - CENTER(1:N) )^2 <= R2*R2
-//
-//  Discussion:
-//
-//    A 2*N+2^N points 5-th degree formula is used, Stroud number UN:5-2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    14 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double CENTER[N], the center of the sphere.
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Output, double SPHERE_05_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_05_ND approximates an integral on the surface of a sphere in ND.
+
+  Integration region:
+
+    R1*R1 <= sum ( X(1:N) - CENTER(1:N) )^2 <= R2*R2
+
+  Discussion:
+
+    A 2*N+2^N points 5-th degree formula is used, Stroud number UN:5-2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Input, double CENTER[N], the center of the sphere.
+
+    Input, double R, the radius of the sphere.
+
+    Output, double SPHERE_05_ND, the approximate integral of the function.
+*/
 {
   int i;
   int iadd;
@@ -23344,20 +23339,18 @@ double sphere_05_nd ( double func ( int n, double x[] ), int n, double center[],
   {
     x[i] = center[i] - r * x2;
   }
-
   ix = ( int * ) malloc ( n * sizeof ( int ) );
 
   for ( i = 0; i < ihi; i++ )
   {
     subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-    if ( iadd != -1 )
+    if ( iadd != 0 )
     {
       x[iadd-1] = center[iadd-1] - ( x[iadd-1] - center[iadd-1] );
     }
     quad = quad + w2 * func ( n, x );
   }
-
   volume = sphere_area_nd ( n, r );
   result = quad * volume;
 
@@ -23366,58 +23359,58 @@ double sphere_05_nd ( double func ( int n, double x[] ), int n, double center[],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double sphere_07_1_nd ( double func ( int n, double x[] ), int n, 
+double sphere_07_1_nd ( double func ( int n, double x[] ), int n,
   double center[], double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_07_1_ND approximates an integral on the surface of a sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N) - CENTER(1:N) )^2 = R * R.
-//
-//  Discussion:
-//
-//    A 2^N + 2*N*N point 7th degree formula is used, Stroud number UN:7-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    17 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double CENTER[N], the center of the sphere.
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Output, double SPHERE_07_1_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_07_1_ND approximates an integral on the surface of a sphere in ND.
+
+  Integration region:
+
+    sum ( X(1:N) - CENTER(1:N) )^2 = R * R.
+
+  Discussion:
+
+    A 2^N + 2*N*N point 7th degree formula is used, Stroud number UN:7-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Input, double CENTER[N], the center of the sphere.
+
+    Input, double R, the radius of the sphere.
+
+    Output, double SPHERE_07_1_ND, the approximate integral of the function.
+*/
 {
   int i;
   int iadd;
@@ -23444,10 +23437,10 @@ double sphere_07_1_nd ( double func ( int n, double x[] ), int n,
   {
     x[i] = center[i];
   }
-  w1 = ( double ) ( 8 - n ) 
+  w1 = ( double ) ( 8 - n )
      / ( double ) ( n * ( n + 2 ) * ( n + 4 ) );
 
-  w2 = ( double ) ( n * n * n ) 
+  w2 = ( double ) ( n * n * n )
      / ( double ) ( i4_power ( 2, n ) * n * ( n + 2 ) * ( n + 4 ) );
 
   w3 = 4.0 / ( double ) ( n * ( n + 2 ) * ( n + 4 ) );
@@ -23457,9 +23450,9 @@ double sphere_07_1_nd ( double func ( int n, double x[] ), int n,
   x3 = 1.0 / sqrt ( 2.0 );
 
   quad = 0.0;
-//
-//  First term.
-//
+/*
+  First term.
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = center[i] + r * x1;
@@ -23468,9 +23461,9 @@ double sphere_07_1_nd ( double func ( int n, double x[] ), int n,
     quad = quad + w1 * func ( n, x );
     x[i] = center[i];
   }
-//
-//  Second term.
-//
+/*
+  Second term.
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = center[i] - r * x2;
@@ -23482,15 +23475,15 @@ double sphere_07_1_nd ( double func ( int n, double x[] ), int n,
   {
     subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-    if ( iadd != -1 )
+    if ( iadd != 0 )
     {
       x[iadd-1] = center[iadd-1] - ( x[iadd-1] - center[iadd-1] );
     }
     quad = quad + w2 * func ( n, x );
   }
-//
-//  Third term.
-//
+/*
+  Third term.
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = center[i];
@@ -23524,38 +23517,38 @@ double sphere_07_1_nd ( double func ( int n, double x[] ), int n,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_area_3d ( double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_AREA_3D computes the area of a sphere in 3D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y + Z*Z = R * R
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    11 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Output, double SPHERE_AREA_3D, the area of the sphere.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_AREA_3D computes the area of a sphere in 3D.
+
+  Integration region:
+
+    X*X + Y*Y + Z*Z = R * R
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the sphere.
+
+    Output, double SPHERE_AREA_3D, the area of the sphere.
+*/
 {
   double pi = 3.141592653589793;
   double value;
@@ -23564,51 +23557,51 @@ double sphere_area_3d ( double r )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_area_nd ( int n, double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_AREA_ND computes the area of a sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) = R * R
-//
-//  Discussion:
-//
-//    N   Area
-//
-//    2   2       * PI   * R
-//    3   4       * PI   * R^2
-//    4   2       * PI^2 * R^3
-//    5   (8/3)   * PI^2 * R^4
-//    6             PI^3 * R^5
-//    7   (16/15) * PI^3 * R^6
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    11 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Output, double SPHERE_AREA_ND, the area of the sphere.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_AREA_ND computes the area of a sphere in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) = R * R
+
+  Discussion:
+
+    N   Area
+
+    2   2       * PI   * R
+    3   4       * PI   * R^2
+    4   2       * PI^2 * R^3
+    5   (8/3)   * PI^2 * R^4
+    6             PI^3 * R^5
+    7   (16/15) * PI^3 * R^6
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Input, double R, the radius of the sphere.
+
+    Output, double SPHERE_AREA_ND, the area of the sphere.
+*/
 {
   double value;
 
@@ -23616,46 +23609,46 @@ double sphere_area_nd ( int n, double r )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_cap_area_2d ( double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_CAP_AREA_2D computes the surface area of a spherical cap in 2D.
-//
-//  Discussion:
-//
-//    Draw any radius of the sphere and note the point P where the radius
-//    intersects the sphere.  Consider the point on the radius line which is
-//    H units from P.  Draw the circle that lies in the plane perpendicular to
-//    the radius, and which intersects the sphere.  The circle divides the sphere
-//    into two pieces, and the corresponding disk divides the solid sphere into
-//    two pieces.  The spherical cap is the part of the solid sphere that
-//    includes the point P.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Input, double H, the "height" of the spherical cap. 
-//
-//    Output, double SPHERE_CAP_AREA_2D, the area of the spherical cap.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_CAP_AREA_2D computes the surface area of a spherical cap in 2D.
+
+  Discussion:
+
+    Draw any radius of the sphere and note the point P where the radius
+    intersects the sphere.  Consider the point on the radius line which is
+    H units from P.  Draw the circle that lies in the plane perpendicular to
+    the radius, and which intersects the sphere.  The circle divides the sphere
+    into two pieces, and the corresponding disk divides the solid sphere into
+    two pieces.  The spherical cap is the part of the solid sphere that
+    includes the point P.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the sphere.
+
+    Input, double H, the "height" of the spherical cap.
+
+    Output, double SPHERE_CAP_AREA_2D, the area of the spherical cap.
+*/
 {
   double area;
   double pi = 3.141592653589793;
@@ -23671,7 +23664,7 @@ double sphere_cap_area_2d ( double r, double h )
   }
   else
   {
-    theta = 2.0 * arc_sine ( sqrt ( r * r - ( r - h ) * ( r - h ) ) / r );
+    theta = 2.0 * r8_asin ( sqrt ( r * r - ( r - h ) * ( r - h ) ) / r );
 
     area = r * theta;
 
@@ -23683,46 +23676,46 @@ double sphere_cap_area_2d ( double r, double h )
 
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_cap_area_3d ( double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_CAP_AREA_3D computes the surface area of a spherical cap in 3D.
-//
-//  Discussion:
-//
-//    Draw any radius of the sphere and note the point P where the radius
-//    intersects the sphere.  Consider the point on the radius line which is
-//    H units from P.  Draw the circle that lies in the plane perpendicular to
-//    the radius, and which intersects the sphere.  The circle divides the sphere
-//    into two pieces, and the corresponding disk divides the solid sphere into
-//    two pieces.  The spherical cap is the part of the solid sphere that
-//    includes the point P.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Input, double H, the "height" of the spherical cap. 
-//
-//    Output, double SPHERE_CAP_AREA_3D, the area of the spherical cap.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_CAP_AREA_3D computes the surface area of a spherical cap in 3D.
+
+  Discussion:
+
+    Draw any radius of the sphere and note the point P where the radius
+    intersects the sphere.  Consider the point on the radius line which is
+    H units from P.  Draw the circle that lies in the plane perpendicular to
+    the radius, and which intersects the sphere.  The circle divides the sphere
+    into two pieces, and the corresponding disk divides the solid sphere into
+    two pieces.  The spherical cap is the part of the solid sphere that
+    includes the point P.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the sphere.
+
+    Input, double H, the "height" of the spherical cap.
+
+    Output, double SPHERE_CAP_AREA_3D, the area of the spherical cap.
+*/
 {
   double area;
   double pi = 3.141592653589793;
@@ -23742,54 +23735,54 @@ double sphere_cap_area_3d ( double r, double h )
 
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_cap_area_nd ( int dim_num, double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_CAP_AREA_ND computes the area of a spherical cap in ND.
-//
-//  Discussion:
-//
-//    The spherical cap is a portion of the surface of the sphere:
-//
-//      sum ( X(1:N)^2 ) = R * R
-//
-//    which is no more than H units from the uppermost point on the sphere.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Thomas Ericson, Victor Zinoviev,
-//    Codes on Euclidean Spheres,
-//    Elsevier, 2001
-//    QA166.7 E75
-//
-//  Parameters:
-//
-//    Input, int DIM_NUM, the dimension of the space.
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Input, double H, the "thickness" of the spherical cap,
-//    which is normally between 0 and 2 * R.
-//
-//    Output, double SPHERE_CAP_AREA_ND, the area of the spherical cap.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_CAP_AREA_ND computes the area of a spherical cap in ND.
+
+  Discussion:
+
+    The spherical cap is a portion of the surface of the sphere:
+
+      sum ( X(1:N)^2 ) = R * R
+
+    which is no more than H units from the uppermost point on the sphere.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Thomas Ericson, Victor Zinoviev,
+    Codes on Euclidean Spheres,
+    Elsevier, 2001
+    QA166.7 E75
+
+  Parameters:
+
+    Input, int DIM_NUM, the dimension of the space.
+
+    Input, double R, the radius of the sphere.
+
+    Input, double H, the "thickness" of the spherical cap,
+    which is normally between 0 and 2 * R.
+
+    Output, double SPHERE_CAP_AREA_ND, the area of the spherical cap.
+*/
 {
   double area;
   double haver_sine;
@@ -23810,12 +23803,12 @@ double sphere_cap_area_nd ( int dim_num, double r, double h )
     area = sphere_area_nd ( dim_num, r );
     return area;
   }
-//
-//  For cases where R < H < 2 * R, work with the complementary region.
-//
+/*
+  For cases where R < H < 2 * R, work with the complementary region.
+*/
   haver_sine = sqrt ( ( 2.0 * r - h ) * h );
 
-  theta = arc_sine ( haver_sine / r );
+  theta = r8_asin ( haver_sine / r );
 
   if ( dim_num < 1 )
   {
@@ -23840,60 +23833,60 @@ double sphere_cap_area_nd ( int dim_num, double r, double h )
     {
       tk = tj;
       tj = ti;
-      ti = ( ( double ) ( i - 1 ) * tk 
-        - cos ( theta ) * pow ( sin ( theta ), i - 1 ) ) 
+      ti = ( ( double ) ( i - 1 ) * tk
+        - cos ( theta ) * pow ( sin ( theta ), i - 1 ) )
         / ( double ) ( i );
     }
     area = sphere_k ( dim_num-1 ) * ti * pow ( r, dim_num - 1 );
   }
-//
-//  Adjust for cases where R < H < 2R.
-//
+/*
+  Adjust for cases where R < H < 2R.
+*/
   if ( r < h )
   {
     area = sphere_area_nd ( dim_num, r ) - area;
   }
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_cap_volume_2d ( double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_CAP_VOLUME_2D computes the volume of a spherical cap in 2D.
-//
-//  Discussion:
-//
-//    Draw any radius R of the circle and denote as P the point where the
-//    radius intersects the circle.  Now consider the point Q which lies
-//    on the radius and which is H units from P.  The line which is
-//    perpendicular to the radius R and passes through Q divides the
-//    circle into two pieces.  The piece including the point P is the
-//    spherical (circular) cap of height (or thickness) H.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Input, double H, the "height" of the spherical cap.
-//
-//    Output, double VOLUME, the volume (area) of the spherical cap.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_CAP_VOLUME_2D computes the volume of a spherical cap in 2D.
+
+  Discussion:
+
+    Draw any radius R of the circle and denote as P the point where the
+    radius intersects the circle.  Now consider the point Q which lies
+    on the radius and which is H units from P.  The line which is
+    perpendicular to the radius R and passes through Q divides the
+    circle into two pieces.  The piece including the point P is the
+    spherical (circular) cap of height (or thickness) H.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the sphere.
+
+    Input, double H, the "height" of the spherical cap.
+
+    Output, double VOLUME, the volume (area) of the spherical cap.
+*/
 {
   double pi = 3.141592653589793;
   double theta;
@@ -23909,7 +23902,7 @@ double sphere_cap_volume_2d ( double r, double h )
   }
   else
   {
-    theta = 2.0 * arc_sine ( sqrt ( r * r - ( r - h ) * ( r - h ) ) / r );
+    theta = 2.0 * r8_asin ( sqrt ( r * r - ( r - h ) * ( r - h ) ) / r );
     volume = r * r * ( theta - sin ( theta ) ) / 2.0;
     if ( r < h )
     {
@@ -23918,46 +23911,46 @@ double sphere_cap_volume_2d ( double r, double h )
   }
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_cap_volume_3d ( double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_CAP_VOLUME_3D computes the volume of a spherical cap in 3D.
-//
-//  Discussion:
-//
-//    Draw any radius of the sphere and note the point P where the radius
-//    intersects the sphere.  Consider the point on the radius line which is
-//    H units from P.  Draw the circle that lies in the plane perpendicular to
-//    the radius, and which intersects the sphere.  The circle divides the sphere
-//    into two pieces, and the corresponding disk divides the solid sphere into
-//    two pieces.  The part of the solid sphere that includes the point P
-//    is the spherical cap of height (or thickness) H.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Input, double H, the "height" of the spherical cap.
-//
-//    Output, double SPHERE_CAP_VOLUME_3D, the volume of the spherical cap.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_CAP_VOLUME_3D computes the volume of a spherical cap in 3D.
+
+  Discussion:
+
+    Draw any radius of the sphere and note the point P where the radius
+    intersects the sphere.  Consider the point on the radius line which is
+    H units from P.  Draw the circle that lies in the plane perpendicular to
+    the radius, and which intersects the sphere.  The circle divides the sphere
+    into two pieces, and the corresponding disk divides the solid sphere into
+    two pieces.  The part of the solid sphere that includes the point P
+    is the spherical cap of height (or thickness) H.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the sphere.
+
+    Input, double H, the "height" of the spherical cap.
+
+    Output, double SPHERE_CAP_VOLUME_3D, the volume of the spherical cap.
+*/
 {
   double pi = 3.141592653589793;
   double volume;
@@ -23976,70 +23969,70 @@ double sphere_cap_volume_3d ( double r, double h )
   }
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_cap_volume_nd ( int dim_num, double r, double h )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_CAP_VOLUME_ND computes the volume of a spherical cap in ND.
-//
-//  Discussion:
-//
-//    The spherical cap is a portion of the surface and interior of the sphere:
-//
-//      sum ( X(1:N)^2 ) <= R * R
-//
-//    which is no more than H units from some point P on the sphere.
-//
-//
-//    The algorithm proceeds from the observation that the N-dimensional
-//    sphere can be parameterized by a quantity RC that runs along the
-//    radius from the center to the point P.  The value of RC at the
-//    base of the spherical cap is (R-H) and at P it is R.  We intend to
-//    use RC as our integration parameeter.
-//
-//    The volume of the spherical cap is then the integral, as RC goes
-//    from (R-H) to R, of the N-1 dimensional volume of the sphere
-//    of radius RS, where RC * RC + RS * RS = R * R.
-//
-//    The volume of the N-1 dimensional sphere of radius RS is simply 
-//    some constants times RS**(N-1).
-// 
-//    After factoring out the constant terms, and writing RC = R * cos ( T ),
-//    and RS = R * sin ( T ), and letting 
-//      T_MAX = arc_sine ( sqrt ( ( 2.0D+00 * r - h ) * h / r ) ),
-//    the "interesting part" of our integral becomes
-//
-//      constants * R**N * Integral ( T = 0 to T_MAX ) sin**N ( T ) dT
-//
-//    The integral of sin**N ( T ) dT can be handled by recursion.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, integer ( kind = 4 ) DIM_NUM, the dimension of the space.
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Input, double H, the "thickness" of the spherical cap,
-//    which is normally between 0 and 2 * R.
-//
-//    Output, double SPHERE_CAP_VOLUME_ND, the volume of the spherical cap.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_CAP_VOLUME_ND computes the volume of a spherical cap in ND.
+
+  Discussion:
+
+    The spherical cap is a portion of the surface and interior of the sphere:
+
+      sum ( X(1:N)^2 ) <= R * R
+
+    which is no more than H units from some point P on the sphere.
+
+
+    The algorithm proceeds from the observation that the N-dimensional
+    sphere can be parameterized by a quantity RC that runs along the
+    radius from the center to the point P.  The value of RC at the
+    base of the spherical cap is (R-H) and at P it is R.  We intend to
+    use RC as our integration parameeter.
+
+    The volume of the spherical cap is then the integral, as RC goes
+    from (R-H) to R, of the N-1 dimensional volume of the sphere
+    of radius RS, where RC * RC + RS * RS = R * R.
+
+    The volume of the N-1 dimensional sphere of radius RS is simply
+    some constants times RS**(N-1).
+
+    After factoring out the constant terms, and writing RC = R * cos ( T ),
+    and RS = R * sin ( T ), and letting
+      T_MAX = r8_asin ( sqrt ( ( 2.0D+00 * r - h ) * h / r ) ),
+    the "interesting part" of our integral becomes
+
+      constants * R^N * Integral ( T = 0 to T_MAX ) sin^N ( T ) dT
+
+    The integral of sin**N ( T ) dT can be handled by recursion.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, integer ( kind = 4 ) DIM_NUM, the dimension of the space.
+
+    Input, double R, the radius of the sphere.
+
+    Input, double H, the "thickness" of the spherical cap,
+    which is normally between 0 and 2 * R.
+
+    Output, double SPHERE_CAP_VOLUME_ND, the volume of the spherical cap.
+*/
 {
   double angle;
   double factor1;
@@ -24071,7 +24064,7 @@ double sphere_cap_volume_nd ( int dim_num, double r, double h )
   {
     factor1 = sphere_unit_volume_nd ( dim_num - 1 );
 
-    angle = arc_sine ( sqrt ( ( 2.0 * r - h ) * h / r ) );
+    angle = r8_asin ( sqrt ( ( 2.0 * r - h ) * h / r ) );
 
     factor2 = sin_power_int ( 0.0, angle, dim_num );
 
@@ -24085,41 +24078,41 @@ double sphere_cap_volume_nd ( int dim_num, double r, double h )
   }
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_k ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_K computes a factor useful for spherical computations.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Thomas Ericson, Victor Zinoviev,
-//    Codes on Euclidean Spheres,
-//    Elsevier, 2001
-//    QA166.7 E75
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double SPHERE_K, the factor.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_K computes a factor useful for spherical computations.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Thomas Ericson, Victor Zinoviev,
+    Codes on Euclidean Spheres,
+    Elsevier, 2001
+    QA166.7 E75
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Output, double SPHERE_K, the factor.
+*/
 {
   double pi = 3.141592653589793;
   double value;
@@ -24136,61 +24129,61 @@ double sphere_k ( int n )
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_monomial_int_nd ( int n, double r, int e[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_MONOMIAL_INT_ND integrates a monomial on the surface of a sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X^2 ) = R * R.
-//
-//  Discussion:
-//
-//    The sphere may have nonunit radius, but it must be centered at 0.
-//
-//    The monomial is F(X) = X[0]^E[0] * X[1]^E[1] * ... * X[N-1]^E[N-1].
-//
-//    This routine is useful for testing the accuracy of quadrature
-//    rules on the sphere.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Philip Davis, Philip Rabinowitz,
-//    Methods of Numerical Integration,
-//    Second Edition,
-//    Dover, 2007,
-//    ISBN: 0486453391,
-//    LC: QA299.3.D28.
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Input, int E[N], the exponents of X, Y and Z in the monomial.
-//    Each exponent must be nonnegative.
-//
-//    Output, double SPHERE_MONOMIAL_INT_ND, the integral.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_MONOMIAL_INT_ND integrates a monomial on the surface of a sphere in ND.
+
+  Integration region:
+
+    sum ( X^2 ) = R * R.
+
+  Discussion:
+
+    The sphere may have nonunit radius, but it must be centered at 0.
+
+    The monomial is F(X) = X[0]^E[0] * X[1]^E[1] * ... * X[N-1]^E[N-1].
+
+    This routine is useful for testing the accuracy of quadrature
+    rules on the sphere.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Philip Davis, Philip Rabinowitz,
+    Methods of Numerical Integration,
+    Second Edition,
+    Dover, 2007,
+    ISBN: 0486453391,
+    LC: QA299.3.D28.
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Input, double R, the radius of the sphere.
+
+    Input, int E[N], the exponents of X, Y and Z in the monomial.
+    Each exponent must be nonnegative.
+
+    Output, double SPHERE_MONOMIAL_INT_ND, the integral.
+*/
 {
   int all_zero;
   int any_odd;
@@ -24240,7 +24233,7 @@ double sphere_monomial_int_nd ( int n, double r, int e[] )
 
   if ( all_zero )
   {
-    integral = 2.0 * sqrt ( pow ( pi, n ) ) 
+    integral = 2.0 * sqrt ( pow ( pi, n ) )
       / r8_gamma ( 0.5 * ( double ) ( n ) );
   }
   else if ( any_odd )
@@ -24263,59 +24256,59 @@ double sphere_monomial_int_nd ( int n, double r, int e[] )
 
   return integral;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double sphere_shell_03_nd ( double func ( int n, double x[] ), int n, 
+double sphere_shell_03_nd ( double func ( int n, double x[] ), int n,
   double center[], double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_SHELL_03_ND approximates an integral inside a spherical shell in ND.
-//
-//  Integration region:
-//
-//    R1*R1 <= sum ( X(1:N) - CENTER(1:N) )^2 <= R2*R2.
-//
-//  Discussion:
-//
-//    An 2*N point 3-rd degree formula is used, Stroud number SN-Shell:3-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    20 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double CENTER[N], the center of the spheres.
-//
-//    Input, double R1, R2, the inner and outer radiuses that
-//    define the spherical shell.
-//
-//    Output, double SPHERE_SHELL_03_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_SHELL_03_ND approximates an integral inside a spherical shell in ND.
+
+  Integration region:
+
+    R1*R1 <= sum ( X(1:N) - CENTER(1:N) )^2 <= R2*R2.
+
+  Discussion:
+
+    An 2*N point 3-rd degree formula is used, Stroud number SN-Shell:3-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Input, double CENTER[N], the center of the spheres.
+
+    Input, double R1, R2, the inner and outer radiuses that
+    define the spherical shell.
+
+    Output, double SPHERE_SHELL_03_ND, the approximate integral of the function.
+*/
 {
   int i;
   double quad;
@@ -24334,7 +24327,7 @@ double sphere_shell_03_nd ( double func ( int n, double x[] ), int n,
 
   rho = r1 / r2;
 
-  r = ( double ) ( n ) * ( 1.0 - pow ( rho, n + 2 ) ) 
+  r = ( double ) ( n ) * ( 1.0 - pow ( rho, n + 2 ) )
     / ( ( double ) ( n + 2 ) * ( 1.0 - pow ( rho, n ) ) );
   r = sqrt ( r );
   w = 1.0 / ( double ) ( 2 * n );
@@ -24363,42 +24356,42 @@ double sphere_shell_03_nd ( double func ( int n, double x[] ), int n,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_shell_volume_nd ( int n, double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_SHELL_VOLUME_ND computes the volume of a spherical shell in ND.
-//
-//  Integration region:
-//
-//    R1*R1 <= sum ( X(1:N) - CENTER(1:N) )^2 <= R2*R2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    20 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, double R1, R2, the radiuses of the inner and 
-//    outer spheres.
-//
-//    Output, double SPHERE_SHELL_VOLUME_ND, the volume of the
-//    spherical shell.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_SHELL_VOLUME_ND computes the volume of a spherical shell in ND.
+
+  Integration region:
+
+    R1*R1 <= sum ( X(1:N) - CENTER(1:N) )^2 <= R2*R2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Input, double R1, R2, the radiuses of the inner and
+    outer spheres.
+
+    Output, double SPHERE_SHELL_VOLUME_ND, the volume of the
+    spherical shell.
+*/
 {
   double volume;
 
@@ -24406,53 +24399,53 @@ double sphere_shell_volume_nd ( int n, double r1, double r2 )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_03_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_03_ND approximates an integral on the surface of the unit sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) = 1.
-//
-//  Discussion:
-//
-//    A 2*N point 3rd degree formula is used, Stroud number UN:3-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    23 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double SPHERE_UNIT_03_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_03_ND: integral on the surface of the unit sphere in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) = 1.
+
+  Discussion:
+
+    A 2*N point 3rd degree formula is used, Stroud number UN:3-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Output, double SPHERE_UNIT_03_ND, the approximate integral.
+*/
 {
   int i;
   double quad;
@@ -24486,53 +24479,53 @@ double sphere_unit_03_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_04_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_04_ND approximates an integral on the surface of the unit sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) = 1.
-//
-//  Discussion:
-//
-//    A 2*N*N point 5th degree formula is used, Stroud number UN:5-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    23 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double SPHERE_UNIT_04_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_04_ND: integral on the surface of the unit sphere in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) = 1.
+
+  Discussion:
+
+    A 2*N*N point 5th degree formula is used, Stroud number UN:5-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Output, double SPHERE_UNIT_04_ND, the approximate integral.
+*/
 {
   int i;
   int j;
@@ -24599,53 +24592,53 @@ double sphere_unit_04_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_05_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_05_ND approximates an integral on the surface of the unit sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) = 1.
-//
-//  Discussion:
-//
-//    A 2*N+2**N points 5-th degree formula is used, Stroud number UN:5-2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    23 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double SPHERE_UNIT_05_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_05_ND: integral on surface of the unit sphere in ND.
+
+  Discussion:
+
+    The integration region:
+
+      sum ( X(1:N)^2 ) = 1.
+
+    A 2*N+2^N points 5-th degree formula is used, Stroud number UN:5-2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Output, double SPHERE_UNIT_05_ND, the approximate integral.
+*/
 {
   int i;
   int iadd;
@@ -24699,7 +24692,7 @@ double sphere_unit_05_nd ( double func ( int n, double x[] ), int n )
   {
     subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-    if ( iadd != -1 )
+    if ( iadd != 0 )
     {
       x[iadd-1] = -x[iadd-1];
     }
@@ -24713,51 +24706,51 @@ double sphere_unit_05_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_07_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_07_3D approximates an integral on the surface of the unit sphere in 3D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y + Z*Z = 1.
-//
-//  Discussion:
-//
-//    A 32 point 7-th degree formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    24 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Output, double SPHERE_UNIT_07_3D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_07_3D: integral on the surface of the unit sphere in 3D.
+
+  Integration region:
+
+    X*X + Y*Y + Z*Z = 1.
+
+  Discussion:
+
+    A 32 point 7-th degree formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Output, double SPHERE_UNIT_07_3D, the approximate integral of the function.
+*/
 {
   double angle;
   int i;
@@ -24779,16 +24772,16 @@ double sphere_unit_07_3d ( double func ( double x, double y, double z ) )
   double xtab3[4];
   double y;
   double z;
-//
-//  Set XTAB1 and WATE1.
-//
+/*
+  Set XTAB1 and WATE1.
+*/
   xtab1[0] = -1.0;
   xtab1[1] =  1.0;
   weight1[0] = 1.0;
   weight1[1] = 1.0;
-//
-//  Set XTAB2 and WATE2.
-//
+/*
+  Set XTAB2 and WATE2.
+*/
   for ( j = 0; j < order2; j++ )
   {
     angle = pi * ( double ) ( 2 * j + 1 ) / ( double ) ( 2 * order2 );
@@ -24799,9 +24792,9 @@ double sphere_unit_07_3d ( double func ( double x, double y, double z ) )
   {
     weight2[j] = 1.0 / ( double ) ( 4 * order2 );
   }
-//
-//  Set XTAB3 and WATE3.
-//
+/*
+  Set XTAB3 and WATE3.
+*/
   legendre_set ( order3, xtab3, weight3 );
 
   quad = 0.0;
@@ -24811,7 +24804,7 @@ double sphere_unit_07_3d ( double func ( double x, double y, double z ) )
     {
       for ( k = 0; k < order3; k++ )
       {
-        x = xtab1[i] * sqrt ( 1.0 - xtab2[j] * xtab2[j] ) 
+        x = xtab1[i] * sqrt ( 1.0 - xtab2[j] * xtab2[j] )
                      * sqrt ( 1.0 - xtab3[k] * xtab3[k] );
         y = xtab1[i] * xtab2[j] * sqrt ( 1.0 - xtab3[k] * xtab3[k] );
         z = xtab1[i] * xtab3[k];
@@ -24825,53 +24818,53 @@ double sphere_unit_07_3d ( double func ( double x, double y, double z ) )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_07_1_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_07_1_ND approximates an integral on the surface of the unit sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) = 1.
-//
-//  Discussion:
-//
-//    A 2**N + 2*N*N point 7th degree formula is used, Stroud number UN:7-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    24 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double SPHERE_UNIT_07_1_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_07_1_ND approximates an integral on the surface of the unit sphere in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) = 1.
+
+  Discussion:
+
+    A 2**N + 2*N*N point 7th degree formula is used, Stroud number UN:7-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Output, double SPHERE_UNIT_07_1_ND, the approximate integral of the function.
+*/
 {
   int i;
   int iadd;
@@ -24895,7 +24888,7 @@ double sphere_unit_07_1_nd ( double func ( int n, double x[] ), int n )
   x = ( double * ) malloc ( n * sizeof ( double ) );
 
   w1 = ( double ) ( 8 - n ) / ( double ) ( n * ( n + 2 ) * ( n + 4 ) );
-  w2 = ( double ) ( n * n * n ) 
+  w2 = ( double ) ( n * n * n )
     / ( double ) ( i4_power ( 2, n ) * n * ( n + 2 ) * ( n + 4 ) );
   w3 = 4.0 / ( double ) ( n * ( n + 2 ) * ( n + 4 ) );
 
@@ -24909,9 +24902,9 @@ double sphere_unit_07_1_nd ( double func ( int n, double x[] ), int n )
   }
 
   quad = 0.0;
-//
-//  First term.
-//
+/*
+  First term.
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = x1;
@@ -24920,9 +24913,9 @@ double sphere_unit_07_1_nd ( double func ( int n, double x[] ), int n )
     quad = quad + w1 * func ( n, x );
     x[i] = 0.0;
   }
-//
-//  Second term.
-//
+/*
+  Second term.
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = -x2;
@@ -24934,15 +24927,15 @@ double sphere_unit_07_1_nd ( double func ( int n, double x[] ), int n )
   {
     subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-    if ( iadd != -1 )
+    if ( iadd != 0 )
     {
       x[iadd-1] = -x[iadd-1];
     }
     quad = quad + w2 * func ( n, x );
   }
-//
-//  Third term.
-//
+/*
+  Third term.
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = 0.0;
@@ -24975,55 +24968,55 @@ double sphere_unit_07_1_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_07_2_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_07_2_ND approximates an integral on the surface of the unit sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) = 1.
-//
-//  Discussion:
-//
-//    A 2^N * ( N + 1 ) point 7th degree formula is used, Stroud number UN:7-2.
-//
-//    Some of the weights in this quadrature formula are negative.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    24 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double SPHERE_UNIT_07_2_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_07_2_ND approximates an integral on the surface of the unit sphere in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) = 1.
+
+  Discussion:
+
+    A 2^N * ( N + 1 ) point 7th degree formula is used, Stroud number UN:7-2.
+
+    Some of the weights in this quadrature formula are negative.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.
+
+    Output, double SPHERE_UNIT_07_2_ND, the approximate integral of the function.
+*/
 {
   int iadd;
   int i;
@@ -25049,9 +25042,9 @@ double sphere_unit_07_2_nd ( double func ( int n, double x[] ), int n )
   {
     x[i] = 0.0;
   }
-  w1 = - ( double ) ( n * n ) 
+  w1 = - ( double ) ( n * n )
     / ( double ) ( i4_power ( 2, n + 3 ) * ( n + 2 ) );
-  w2 = ( double ) ( ( n + 4 ) * ( n + 4 ) ) 
+  w2 = ( double ) ( ( n + 4 ) * ( n + 4 ) )
     / ( double ) ( i4_power ( 2, n + 3 ) * n * ( n + 2 ) );
   x1 = 1.0 / sqrt ( ( double ) ( n ) );
   x2 = sqrt ( 5.0 / ( double ) ( n + 4 ) );
@@ -25070,7 +25063,7 @@ double sphere_unit_07_2_nd ( double func ( int n, double x[] ), int n )
   {
     subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-    if ( iadd != -1 )
+    if ( iadd != 0 )
     {
       x[iadd-1] = - x[iadd-1];
     }
@@ -25090,7 +25083,7 @@ double sphere_unit_07_2_nd ( double func ( int n, double x[] ), int n )
     {
       subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-      if ( iadd != -1 )
+      if ( iadd != 0 )
       {
         x[iadd-1] = - x[iadd-1];
       }
@@ -25105,55 +25098,55 @@ double sphere_unit_07_2_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_11_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_11_3D approximates an integral on the surface of the unit sphere in 3D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y + Z*Z = 1.
-//
-//  Discussion:
-//
-//    A 50 point 11-th degree formula is used, Stroud number U3:11-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    24 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    AD McLaren,
-//    Mathematics of Computation,
-//    Volume 17, pages 361-383, 1963.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Output, double SPHERE_UNIT_11_3D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_11_3D approximates an integral on the surface of the unit sphere in 3D.
+
+  Integration region:
+
+    X*X + Y*Y + Z*Z = 1.
+
+  Discussion:
+
+    A 50 point 11-th degree formula is used, Stroud number U3:11-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    AD McLaren,
+    Mathematics of Computation,
+    Volume 17, pages 361-383, 1963.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Output, double SPHERE_UNIT_11_3D, the approximate integral of the function.
+*/
 {
   int i;
   int j;
@@ -25253,154 +25246,158 @@ double sphere_unit_11_3d ( double func ( double x, double y, double z ) )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_11_ND approximates an integral on the surface of the unit sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) = 1
-//
-//  Discussion:
-//
-//    An 2^N * ( N^2 + N + 1 ) point formula of degree 5 is used.
-//
-//    (For N = 3, the number of points is actually only 56, and
-//     for N = 4, the number of points is actually only 240.)
-//
-//    One element of COEF31 was changed from
-//      0.0236339091329 to
-//      0.0236639091329
-//    by Stroud, when going from his paper to his later textbook.
-//    This correction was pointed out by David Wright, 16 February 2010.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    15 February 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    A Fifth Degree Integration Formula for the N-Simplex,
-//    SIAM Journal on Numerical Analysis,
-//    Volume 6, Number 1, March 1969.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( int n, double x[] ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int N, the dimension of the space.  For this routine,
-//    it must be the case that 3 <= N <= 16.
-//
-//    Output, double SPHERE_UNIT_11_ND, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_11_ND approximates integrals on surface of unit sphere in ND.
+
+  Discussion:
+
+    The integration region:
+
+      sum ( X(1:N)^2 ) = 1
+
+    An 2^N * ( N^2 + N + 1 ) point formula of degree 5 is used.
+
+    (For N = 3, the number of points is actually only 56, and
+     for N = 4, the number of points is actually only 240.)
+
+    One element of COEF31 was changed from
+      0.0236339091329 to
+      0.0236639091329
+    by Stroud, when going from his paper to his later textbook.
+    This correction was pointed out by David Wright, 16 February 2010.
+
+    One element of COEF21 was incorrectly transcribed.  The correct
+    value of COEF21[6] is 0.0337329118818D+00, as pointed out by
+    John Nolan, 23 April 2013.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    A Fifth Degree Integration Formula for the N-Simplex,
+    SIAM Journal on Numerical Analysis,
+    Volume 6, Number 1, March 1969.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( int n, double x[] ), the name of the
+    user supplied function to be integrated.
+
+    Input, int N, the dimension of the space.  For this routine,
+    it must be the case that 3 <= N <= 16.
+
+    Output, double SPHERE_UNIT_11_ND, the approximate integral.
+*/
 {
   double area;
-  double coef1[16] = { 
+  double coef1[16] = {
     0.0,
     0.0,
-    0.128571428571, 
-    0.0518518518518, 
-    0.0211979378646, 
-    0.281250000000, 
-    1.11934731935, 
-    2.82751322751, 
-    5.68266145619, 
-    9.93785824515, 
-    15.8196616478, 
-    23.5285714285, 
-    33.2409299392, 
-    45.1113811729, 
-    59.2754264177, 
+    0.128571428571,
+    0.0518518518518,
+    0.0211979378646,
+    0.281250000000,
+    1.11934731935,
+    2.82751322751,
+    5.68266145619,
+    9.93785824515,
+    15.8196616478,
+    23.5285714285,
+    33.2409299392,
+    45.1113811729,
+    59.2754264177,
     75.8518518518 };
   double coef21[16] = {
     0.0,
     0.0,
-    0.163795782462, 
-    0.0967270533860, 
-    0.0638253880175, 
-    0.0452340041459, 
-    0.0336329118818, 
-    0.0261275095270, 
-    0.0208331595340, 
-    0.0169937111647, 
-    0.0141147212492, 
-    0.0118949128383, 
-    0.0101424250926, 
-    0.00873046796644, 
-    0.00757257014768, 
+    0.163795782462,
+    0.0967270533860,
+    0.0638253880175,
+    0.0452340041459,
+    0.0337329118818,
+    0.0261275095270,
+    0.0208331595340,
+    0.0169937111647,
+    0.0141147212492,
+    0.0118949128383,
+    0.0101424250926,
+    0.00873046796644,
+    0.00757257014768,
     0.00660813369775 };
   double coef22[16] = {
     0.0,
     0.0,
-    0.126680408014, 
-    0.0514210947621, 
-    0.0213579471658, 
-   -0.108726067638, 
-   -0.371589499738, 
-   -0.786048144448, 
-   -1.36034060198, 
-   -2.09547695631, 
-   -2.98784764467, 
-   -4.03107480702, 
-   -5.21726499521, 
-   -6.53783099707, 
-   -7.98401677102, 
+    0.126680408014,
+    0.0514210947621,
+    0.0213579471658,
+   -0.108726067638,
+   -0.371589499738,
+   -0.786048144448,
+   -1.36034060198,
+   -2.09547695631,
+   -2.98784764467,
+   -4.03107480702,
+   -5.21726499521,
+   -6.53783099707,
+   -7.98401677102,
    -9.54722261180 };
   double coef31[16] = {
     0.0,
     0.0,
-    0.0, 
-    0.0592592592592, 
-    0.0236639091329, 
-    0.0525940190875, 
-    0.0925052768546, 
-    0.141316953438, 
-    0.196818580052, 
-    0.257027634179, 
-    0.320299222258, 
-    0.385326226441, 
-    0.451098131789, 
-    0.516849445559, 
-    0.582010515746, 
+    0.0,
+    0.0592592592592,
+    0.0236639091329,
+    0.0525940190875,
+    0.0925052768546,
+    0.141316953438,
+    0.196818580052,
+    0.257027634179,
+    0.320299222258,
+    0.385326226441,
+    0.451098131789,
+    0.516849445559,
+    0.582010515746,
     0.646165210110 };
   double coef32[16] = {
     0.0,
     0.0,
-    0.0, 
-    0.0, 
-    0.0316246294890, 
-    0.0207194729760, 
-    0.0144303800811, 
-    0.0105348984135, 
-    0.00798435122193, 
-    0.00623845929545, 
-    0.00499896882962, 
-    0.00409176297655, 
-    0.00341037426698, 
-    0.00288710646943, 
-    0.00247745182907, 
+    0.0,
+    0.0,
+    0.0316246294890,
+    0.0207194729760,
+    0.0144303800811,
+    0.0105348984135,
+    0.00798435122193,
+    0.00623845929545,
+    0.00499896882962,
+    0.00409176297655,
+    0.00341037426698,
+    0.00288710646943,
+    0.00247745182907,
     0.00215128820597 };
   int i;
   int iadd;
@@ -25436,9 +25433,9 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
   x = ( double * ) malloc ( n * sizeof ( double ) );
 
   quad = 0.0;
-//
-//  S1
-//
+/*
+  S1
+*/
   for ( i = 0; i < n; i++ )
   {
     x[i] = 1.0 / sqrt ( ( double ) ( n ) );
@@ -25450,7 +25447,7 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
   {
     subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-    if ( iadd != -1 )
+    if ( iadd != 0 )
     {
       x[iadd-1] = -x[iadd-1];
     }
@@ -25461,15 +25458,15 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
       break;
     }
   }
-//
-//  S21
-//
-  r1 = ( ( double ) ( n + 6 ) - 4.0 * sqrt ( 3.0 ) ) 
+/*
+  S21
+*/
+  r1 = ( ( double ) ( n + 6 ) - 4.0 * sqrt ( 3.0 ) )
     / ( double ) ( n * n + 12 * n - 12 );
   r1 = sqrt ( r1 );
 
-  s1 = ( ( double ) ( 7 * n - 6 ) 
-    + ( double ) ( 4 * ( n - 1 ) ) * sqrt ( 3.0 ) ) 
+  s1 = ( ( double ) ( 7 * n - 6 )
+    + ( double ) ( 4 * ( n - 1 ) ) * sqrt ( 3.0 ) )
     / ( double ) ( n * n + 12 * n - 12 );
   s1 = sqrt ( s1 );
 
@@ -25487,7 +25484,7 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
     {
       subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-      if ( iadd != -1 )
+      if ( iadd != 0 )
       {
         x[iadd-1] = -x[iadd-1];
       }
@@ -25500,15 +25497,15 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
       }
     }
   }
-//
-//  S22
-//
-  r2 = ( ( double ) ( n + 6 ) + 4.0 * sqrt ( 3.0 ) ) 
+/*
+  S22
+*/
+  r2 = ( ( double ) ( n + 6 ) + 4.0 * sqrt ( 3.0 ) )
     / ( double ) ( n * n + 12 * n - 12 );
   r2 = sqrt ( r2 );
 
-  s2 = ( ( double ) ( 7 * n - 6 ) 
-    - ( double ) ( 4 * ( n - 1 ) ) * sqrt ( 3.0 ) ) 
+  s2 = ( ( double ) ( 7 * n - 6 )
+    - ( double ) ( 4 * ( n - 1 ) ) * sqrt ( 3.0 ) )
     / ( double ) ( n * n + 12 * n - 12 );
   s2 = sqrt ( s2 );
 
@@ -25526,7 +25523,7 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
     {
       subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-      if ( iadd != -1 )
+      if ( iadd != 0 )
       {
         x[iadd-1] = -x[iadd-1];
       }
@@ -25539,19 +25536,19 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
       }
     }
   }
-//
-//  S31
-//
-  u1 = ( ( double ) ( n + 12 ) + 8.0 * sqrt ( 3.0 ) ) 
+/*
+  S31
+*/
+  u1 = ( ( double ) ( n + 12 ) + 8.0 * sqrt ( 3.0 ) )
     / ( double ) ( n * n + 24 * n - 48 );
   u1 = sqrt ( u1 );
 
-  v1 = ( ( double ) ( 7 * n - 12 ) 
-    - ( double ) ( 4 * n - 8 ) * sqrt ( 3.0 ) ) 
+  v1 = ( ( double ) ( 7 * n - 12 )
+    - ( double ) ( 4 * n - 8 ) * sqrt ( 3.0 ) )
     / ( double ) ( n * n + 24 * n - 48 );
   v1 = sqrt ( v1 );
 
-  for ( i = 0; i < n; i++ )
+  for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
     {
@@ -25568,7 +25565,7 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
       {
         subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-        if ( iadd != -1 )
+        if ( iadd != 0 )
         {
           x[iadd-1] = -x[iadd-1];
         }
@@ -25582,19 +25579,19 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
       }
     }
   }
-//
-//  S32
-//
-  u2 = ( ( double ) ( n + 12 ) - 8.0 * sqrt ( 3.0 ) ) 
+/*
+  S32
+*/
+  u2 = ( ( double ) ( n + 12 ) - 8.0 * sqrt ( 3.0 ) )
     / ( double ) ( n * n + 24 * n - 48 );
   u2 = sqrt ( u2 );
 
-  v2 = ( ( double ) ( 7 * n - 12 ) 
-    + ( double ) ( 4 * n - 8 ) * sqrt ( 3.0 ) ) 
+  v2 = ( ( double ) ( 7 * n - 12 )
+    + ( double ) ( 4 * n - 8 ) * sqrt ( 3.0 ) )
     / ( double ) ( n * n + 24 * n - 48 );
   v2 = sqrt ( v2 );
 
-  for ( i = 0; i < n; i++ )
+  for ( i = 0; i < n - 1; i++ )
   {
     for ( j = i + 1; j < n; j++ )
     {
@@ -25611,7 +25608,7 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
       {
         subset_gray_next ( n, ix, &more, &ncard, &iadd );
 
-        if ( iadd != -1 )
+        if ( iadd != 0 )
         {
           x[iadd-1] = -x[iadd-1];
         }
@@ -25634,55 +25631,55 @@ double sphere_unit_11_nd ( double func ( int n, double x[] ), int n )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_14_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_14_3D approximates an integral on the surface of the unit sphere in 3D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y + Z*Z = 1.
-//
-//  Discussion:
-//
-//    A 72 point 14-th degree formula is used, Stroud number U3:14-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    25 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    AD McLaren,
-//    Mathematics of Computation,
-//    Volume 17, pages 361-383, 1963.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Output, double SPHERE_UNIT_14_3D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_14_3D: integral on the surface of the unit sphere in 3D.
+
+  Integration region:
+
+    X*X + Y*Y + Z*Z = 1.
+
+  Discussion:
+
+    A 72 point 14-th degree formula is used, Stroud number U3:14-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    AD McLaren,
+    Mathematics of Computation,
+    Volume 17, pages 361-383, 1963.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Output, double SPHERE_UNIT_14_3D, the approximate integral of the function.
+*/
 {
   int i;
   int j;
@@ -25756,51 +25753,51 @@ double sphere_unit_14_3d ( double func ( double x, double y, double z ) )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_15_3d ( double func ( double x, double y, double z ) )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_15_3D approximates an integral on the surface of the unit sphere in 3D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y + Z*Z = 1.
-//
-//  Discussion:
-//
-//    A 128 point 15-th degree spherical product Gauss formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    25 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Output, double SPHERE_UNIT_15_3D, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_15_3D approximates an integral on the surface of the unit sphere in 3D.
+
+  Integration region:
+
+    X*X + Y*Y + Z*Z = 1.
+
+  Discussion:
+
+    A 128 point 15-th degree spherical product Gauss formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Output, double SPHERE_UNIT_15_3D, the approximate integral of the function.
+*/
 {
   double angle;
   int i;
@@ -25849,36 +25846,36 @@ double sphere_unit_15_3d ( double func ( double x, double y, double z ) )
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_area_3d ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_AREA_3D computes the surface area of the unit sphere in 3D.
-//
-//  Integration region:
-//
-//    X*X + Y*Y + Z*Z = 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    15 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double SPHERE_UNIT_AREA_3D, the area of the sphere.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_AREA_3D computes the surface area of the unit sphere in 3D.
+
+  Integration region:
+
+    X*X + Y*Y + Z*Z = 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SPHERE_UNIT_AREA_3D, the area of the sphere.
+*/
 {
   double area;
   double pi = 3.141592653589793;
@@ -25887,49 +25884,49 @@ double sphere_unit_area_3d ( )
 
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_area_nd ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_AREA_ND computes the surface area of the unit sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( ( X(1:N) - CENTER(1:N) )^2 ) = R * R.
-//
-//  Discussion:
-//
-//    N   Area
-//
-//    2   2       * PI
-//    3   4       * PI
-//    4   2       * PI^2
-//    5   (8/3)   * PI^2
-//    6             PI^3
-//    7   (16/15) * PI^3
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Output, double SPHERE_UNIT_AREA_ND, the area of the sphere.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_AREA_ND computes the surface area of the unit sphere in ND.
+
+  Integration region:
+
+    sum ( ( X(1:N) - CENTER(1:N) )^2 ) = R * R.
+
+  Discussion:
+
+    N   Area
+
+    2   2       * PI
+    3   4       * PI
+    4   2       * PI^2
+    5   (8/3)   * PI^2
+    6             PI^3
+    7   (16/15) * PI^3
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Output, double SPHERE_UNIT_AREA_ND, the area of the sphere.
+*/
 {
   double area;
   int i;
@@ -25957,117 +25954,117 @@ double sphere_unit_area_nd ( int n )
 
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void sphere_unit_area_values ( int *n_data, int *n, double *area )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_AREA_VALUES returns some areas of the unit sphere in ND.
-//
-//  Discussion:
-//
-//    The formula for the surface area of the unit sphere in N dimensions is:
-//
-//      Sphere_Unit_Area ( N ) = 2 * PI**(N/2) / Gamma ( N / 2 )
-//
-//    Some values of the function include:
-//
-//       N   Area
-//
-//       2    2        * PI
-//       3  ( 4 /    ) * PI
-//       4  ( 2 /   1) * PI^2
-//       5  ( 8 /   3) * PI^2
-//       6  ( 1 /   1) * PI^3
-//       7  (16 /  15) * PI^3
-//       8  ( 1 /   3) * PI^4
-//       9  (32 / 105) * PI^4
-//      10  ( 1 /  12) * PI^5
-//
-//    For the unit sphere, Area(N) = N * Volume(N)
-//
-//    In Mathematica, the function can be evaluated by:
-//
-//      2 * Pi^(n/2) / Gamma[n/2]
-//
-//  Modified:
-//
-//    20 August 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Stephen Wolfram,
-//    The Mathematica Book,
-//    Fourth Edition,
-//    Cambridge University Press, 1999,
-//    ISBN: 0-521-64314-7,
-//    LC: QA76.95.W65.
-//
-//  Parameters:
-//
-//    Input/output, int *N_DATA.
-//    On input, if N_DATA is 0, the first test data is returned, and
-//    N_DATA is set to the index of the test data.  On each subsequent
-//    call, N_DATA is incremented and that test data is returned.  When
-//    there is no more test data, N_DATA is set to 0.
-//
-//    Output, int *N, the spatial dimension.
-//
-//    Output, double *AREA, the area of the unit sphere 
-//    in that dimension.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_AREA_VALUES returns some areas of the unit sphere in ND.
+
+  Discussion:
+
+    The formula for the surface area of the unit sphere in N dimensions is:
+
+      Sphere_Unit_Area ( N ) = 2 * PI**(N/2) / Gamma ( N / 2 )
+
+    Some values of the function include:
+
+       N   Area
+
+       2    2        * PI
+       3  ( 4 /    ) * PI
+       4  ( 2 /   1) * PI^2
+       5  ( 8 /   3) * PI^2
+       6  ( 1 /   1) * PI^3
+       7  (16 /  15) * PI^3
+       8  ( 1 /   3) * PI^4
+       9  (32 / 105) * PI^4
+      10  ( 1 /  12) * PI^5
+
+    For the unit sphere, Area(N) = N * Volume(N)
+
+    In Mathematica, the function can be evaluated by:
+
+      2 * Pi^(n/2) / Gamma[n/2]
+
+  Modified:
+
+    20 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.
+    On input, if N_DATA is 0, the first test data is returned, and
+    N_DATA is set to the index of the test data.  On each subsequent
+    call, N_DATA is incremented and that test data is returned.  When
+    there is no more test data, N_DATA is set to 0.
+
+    Output, int *N, the spatial dimension.
+
+    Output, double *AREA, the area of the unit sphere
+    in that dimension.
+*/
 {
 # define N_MAX 20
 
-  double area_vec[N_MAX] = { 
-     0.2000000000000000E+01,  
-     0.6283185307179586E+01,  
-     0.1256637061435917E+02,  
-     0.1973920880217872E+02,  
-     0.2631894506957162E+02,  
-     0.3100627668029982E+02,  
-     0.3307336179231981E+02,  
-     0.3246969701133415E+02,  
-     0.2968658012464836E+02,  
-     0.2550164039877345E+02,  
-     0.2072514267328890E+02,  
-     0.1602315322625507E+02,  
-     0.1183817381218268E+02,  
-     0.8389703410491089E+01,  
-     0.5721649212349567E+01,  
-     0.3765290085742291E+01,  
-     0.2396678817591364E+01,  
-     0.1478625959000308E+01,  
-     0.8858104195716824E+00,  
+  double area_vec[N_MAX] = {
+     0.2000000000000000E+01,
+     0.6283185307179586E+01,
+     0.1256637061435917E+02,
+     0.1973920880217872E+02,
+     0.2631894506957162E+02,
+     0.3100627668029982E+02,
+     0.3307336179231981E+02,
+     0.3246969701133415E+02,
+     0.2968658012464836E+02,
+     0.2550164039877345E+02,
+     0.2072514267328890E+02,
+     0.1602315322625507E+02,
+     0.1183817381218268E+02,
+     0.8389703410491089E+01,
+     0.5721649212349567E+01,
+     0.3765290085742291E+01,
+     0.2396678817591364E+01,
+     0.1478625959000308E+01,
+     0.8858104195716824E+00,
      0.5161378278002812E+00 };
 
-  int n_vec[N_MAX] = { 
-     1, 
-     2, 
-     3, 
-     4, 
-     5, 
-     6, 
-     7, 
-     8, 
-     9, 
-    10, 
-    11, 
-    12, 
-    13, 
-    14, 
-    15, 
-    16, 
-    17, 
-    18, 
-    19, 
+  int n_vec[N_MAX] = {
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
     20 };
 
   if ( *n_data < 0 )
@@ -26092,49 +26089,49 @@ void sphere_unit_area_values ( int *n_data, int *n, double *area )
   return;
 # undef N_MAX
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_monomial_nd ( int n, int p[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_MONOMIAL_ND integrates a monomial on the surface of the unit sphere in ND.
-//
-//  Integration region:
-//
-//    sum ( X(1:N)^2 ) == 1
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    07 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Gerald Folland,
-//    How to Integrate a Polynomial Over a Sphere,
-//    American Mathematical Monthly,
-//    Volume 108, May 2001, pages 446-448.
-//
-//  Parameters:
-//
-//    Input, int N, the dimension of the space.
-//
-//    Input, int P[N], the exponents of X(1) through X(N) in the monomial.
-//    The exponents P(N) must be nonnegative.
-//
-//    Output, double SPHERE_UNIT_MONOMIAL_ND, the integral of
-//    X1**P(1)*X2**P(2)*...*XN**P(N) over the unit sphere.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_MONOMIAL_ND integrates a monomial on the surface of the unit sphere in ND.
+
+  Integration region:
+
+    sum ( X(1:N)^2 ) == 1
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Gerald Folland,
+    How to Integrate a Polynomial Over a Sphere,
+    American Mathematical Monthly,
+    Volume 108, May 2001, pages 446-448.
+
+  Parameters:
+
+    Input, int N, the dimension of the space.
+
+    Input, int P[N], the exponents of X(1) through X(N) in the monomial.
+    The exponents P(N) must be nonnegative.
+
+    Output, double SPHERE_UNIT_MONOMIAL_ND, the integral of
+    X1**P(1)*X2**P(2)*...*XN**P(N) over the unit sphere.
+*/
 {
   double arg1;
   double arg2;
@@ -26161,62 +26158,62 @@ double sphere_unit_monomial_nd ( int n, int p[] )
     arg2 = arg2 + arg1;
   }
   temp = temp - r8_gamma_log ( arg2 );
-  
+
   value = 2.0 * exp ( temp );
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_unit_volume_nd ( int dim_num )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_VOLUME_ND computes the volume of a unit sphere in ND.
-//
-//  Discussion:
-//
-//    The unit sphere in ND satisfies:
-//
-//      sum ( 1 <= I <= DIM_NUM ) X(I) * X(I) = 1
-//
-//    Results for the first few values of DIM_NUM are:
-//
-//     DIM_NUM  Volume
-//
-//     1    2
-//     2    1        * PI
-//     3  ( 4 /   3) * PI
-//     4  ( 1 /   2) * PI^2
-//     5  ( 8 /  15) * PI^2
-//     6  ( 1 /   6) * PI^3
-//     7  (16 / 105) * PI^3
-//     8  ( 1 /  24) * PI^4
-//     9  (32 / 945) * PI^4
-//    10  ( 1 / 120) * PI^5
-//
-//    For the unit sphere, Volume(DIM_NUM) = 2 * PI * Volume(DIM_NUM-2)/ DIM_NUM
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int DIM_NUM, the dimension of the space.
-//
-//    Output, double SPHERE_UNIT_VOLUME_ND, the volume of the sphere.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_VOLUME_ND computes the volume of a unit sphere in ND.
+
+  Discussion:
+
+    The unit sphere in ND satisfies:
+
+      sum ( 1 <= I <= DIM_NUM ) X(I) * X(I) = 1
+
+    Results for the first few values of DIM_NUM are:
+
+     DIM_NUM  Volume
+
+     1    2
+     2    1        * PI
+     3  ( 4 /   3) * PI
+     4  ( 1 /   2) * PI^2
+     5  ( 8 /  15) * PI^2
+     6  ( 1 /   6) * PI^3
+     7  (16 / 105) * PI^3
+     8  ( 1 /  24) * PI^4
+     9  (32 / 945) * PI^4
+    10  ( 1 / 120) * PI^5
+
+    For the unit sphere, Volume(DIM_NUM) = 2 * PI * Volume(DIM_NUM-2)/ DIM_NUM
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int DIM_NUM, the dimension of the space.
+
+    Output, double SPHERE_UNIT_VOLUME_ND, the volume of the sphere.
+*/
 {
   int i;
   int m;
@@ -26243,111 +26240,111 @@ double sphere_unit_volume_nd ( int dim_num )
   }
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void sphere_unit_volume_values ( int *n_data, int *n, double *volume )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_UNIT_VOLUME_VALUES returns some volumes of the unit sphere in ND.
-//
-//  Discussion:
-//
-//    The formula for the volume of the unit sphere in N dimensions is
-//
-//      Volume(N) = 2 * PI**(N/2) / ( N * Gamma ( N / 2 ) )
-//
-//    This function satisfies the relationships:
-//
-//      Volume(N) = 2 * PI * Volume(N-2) / N
-//      Volume(N) = Area(N) / N
-//
-//    Some values of the function include:
-//
-//       N  Volume
-//
-//       1    1
-//       2    1        * PI
-//       3  ( 4 /   3) * PI
-//       4  ( 1 /   2) * PI^2
-//       5  ( 8 /  15) * PI^2
-//       6  ( 1 /   6) * PI^3
-//       7  (16 / 105) * PI^3
-//       8  ( 1 /  24) * PI^4
-//       9  (32 / 945) * PI^4
-//      10  ( 1 / 120) * PI^5
-//
-//    In Mathematica, the function can be evaluated by:
-//
-//      2 * Pi^(n/2) / ( n * Gamma[n/2] )
-//
-//  Modified:
-//
-//    21 August 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Stephen Wolfram,
-//    The Mathematica Book,
-//    Fourth Edition,
-//    Cambridge University Press, 1999,
-//    ISBN: 0-521-64314-7,
-//    LC: QA76.95.W65.
-//
-//  Parameters:
-//
-//    Input/output, int *N_DATA.
-//    On input, if N_DATA is 0, the first test data is returned, and
-//    N_DATA is set to the index of the test data.  On each subsequent
-//    call, N_DATA is incremented and that test data is returned.  When
-//    there is no more test data, N_DATA is set to 0.
-//
-//    Output, int *N, the spatial dimension.
-//
-//    Output, double *VOLUME, the volume of the unit 
-//    sphere in that dimension.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_UNIT_VOLUME_VALUES returns some volumes of the unit sphere in ND.
+
+  Discussion:
+
+    The formula for the volume of the unit sphere in N dimensions is
+
+      Volume(N) = 2 * PI**(N/2) / ( N * Gamma ( N / 2 ) )
+
+    This function satisfies the relationships:
+
+      Volume(N) = 2 * PI * Volume(N-2) / N
+      Volume(N) = Area(N) / N
+
+    Some values of the function include:
+
+       N  Volume
+
+       1    1
+       2    1        * PI
+       3  ( 4 /   3) * PI
+       4  ( 1 /   2) * PI^2
+       5  ( 8 /  15) * PI^2
+       6  ( 1 /   6) * PI^3
+       7  (16 / 105) * PI^3
+       8  ( 1 /  24) * PI^4
+       9  (32 / 945) * PI^4
+      10  ( 1 / 120) * PI^5
+
+    In Mathematica, the function can be evaluated by:
+
+      2 * Pi^(n/2) / ( n * Gamma[n/2] )
+
+  Modified:
+
+    21 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.
+    On input, if N_DATA is 0, the first test data is returned, and
+    N_DATA is set to the index of the test data.  On each subsequent
+    call, N_DATA is incremented and that test data is returned.  When
+    there is no more test data, N_DATA is set to 0.
+
+    Output, int *N, the spatial dimension.
+
+    Output, double *VOLUME, the volume of the unit
+    sphere in that dimension.
+*/
 {
 # define N_MAX 20
 
-  int n_vec[N_MAX] = { 
-     1,  2, 
-     3,  4, 
-     5,  6, 
-     7,  8, 
-     9, 10, 
-    11, 12, 
-    13, 14, 
-    15, 16, 
-    17, 18, 
+  int n_vec[N_MAX] = {
+     1,  2,
+     3,  4,
+     5,  6,
+     7,  8,
+     9, 10,
+    11, 12,
+    13, 14,
+    15, 16,
+    17, 18,
     19, 20 };
 
-  double volume_vec[N_MAX] = { 
-     0.2000000000000000E+01,   
-     0.3141592653589793E+01,  
-     0.4188790204786391E+01,  
-     0.4934802200544679E+01,  
-     0.5263789013914325E+01,  
-     0.5167712780049970E+01,  
-     0.4724765970331401E+01,  
-     0.4058712126416768E+01,  
-     0.3298508902738707E+01,  
-     0.2550164039877345E+01,  
-     0.1884103879389900E+01,   
-     0.1335262768854589E+01,  
-     0.9106287547832831E+00,  
-     0.5992645293207921E+00,  
-     0.3814432808233045E+00,  
-     0.2353306303588932E+00,  
-     0.1409811069171390E+00,  
-     0.8214588661112823E-01,  
-     0.4662160103008855E-01,  
+  double volume_vec[N_MAX] = {
+     0.2000000000000000E+01,
+     0.3141592653589793E+01,
+     0.4188790204786391E+01,
+     0.4934802200544679E+01,
+     0.5263789013914325E+01,
+     0.5167712780049970E+01,
+     0.4724765970331401E+01,
+     0.4058712126416768E+01,
+     0.3298508902738707E+01,
+     0.2550164039877345E+01,
+     0.1884103879389900E+01,
+     0.1335262768854589E+01,
+     0.9106287547832831E+00,
+     0.5992645293207921E+00,
+     0.3814432808233045E+00,
+     0.2353306303588932E+00,
+     0.1409811069171390E+00,
+     0.8214588661112823E-01,
+     0.4662160103008855E-01,
      0.2580689139001406E-01  };
 
   if ( *n_data < 0 )
@@ -26372,40 +26369,40 @@ void sphere_unit_volume_values ( int *n_data, int *n, double *volume )
   return;
 # undef N_MAX
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_volume_2d ( double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_VOLUME_2D computes the volume of an implicit sphere in 2D.
-//
-//  Discussion:
-//
-//    An implicit sphere in 2D satisfies the equation:
-//
-//      sum ( ( P(1:DIM_NUM) - CENTER(1:DIM_NUM) )^2 ) = R * R
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Output, double SPHERE_VOLUME_2D, the volume of the sphere.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_VOLUME_2D computes the volume of an implicit sphere in 2D.
+
+  Discussion:
+
+    An implicit sphere in 2D satisfies the equation:
+
+      sum ( ( P(1:DIM_NUM) - CENTER(1:DIM_NUM) )^2 ) = R * R
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the sphere.
+
+    Output, double SPHERE_VOLUME_2D, the volume of the sphere.
+*/
 {
   double pi = 3.141592653589793;
   double volume;
@@ -26414,40 +26411,40 @@ double sphere_volume_2d ( double r )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_volume_3d ( double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_VOLUME_3D computes the volume of an implicit sphere in 3D.
-//
-//  Discussion:
-//
-//    An implicit sphere in 3D satisfies the equation:
-//
-//      sum ( ( P(1:DIM_NUM) - CENTER(1:DIM_NUM) )^2 ) = R * R
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    15 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Output, double SPHERE_VOLUME_3D, the volume of the sphere.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_VOLUME_3D computes the volume of an implicit sphere in 3D.
+
+  Discussion:
+
+    An implicit sphere in 3D satisfies the equation:
+
+      sum ( ( P(1:DIM_NUM) - CENTER(1:DIM_NUM) )^2 ) = R * R
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the radius of the sphere.
+
+    Output, double SPHERE_VOLUME_3D, the volume of the sphere.
+*/
 {
   double pi = 3.141592653589793;
   double volume;
@@ -26456,55 +26453,55 @@ double sphere_volume_3d ( double r )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double sphere_volume_nd ( int dim_num, double r )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SPHERE_VOLUME_ND computes the volume of an implicit sphere in ND.
-//
-//  Discussion:
-//
-//    An implicit sphere in ND satisfies the equation:
-//
-//      sum ( ( X(1:N) - CENTER(1:N) )^2 ) = R * R
-//
-//    where R is the radius and CENTER is the center.
-//
-//    Results for the first few values of N are:
-//
-//    DIM_NUM  Volume
-//    -     -----------------------
-//    2                PI   * R^2
-//    3     (4/3)    * PI   * R^3
-//    4     (1/2)    * PI^2 * R^4
-//    5     (8/15)   * PI^2 * R^5
-//    6     (1/6)    * PI^3 * R^6
-//    7     (16/105) * PI^3 * R^7
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    15 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int DIM_NUM, the dimension of the space.
-//
-//    Input, double R, the radius of the sphere.
-//
-//    Output, double SPHERE_VOLUME_ND, the volume of the sphere.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SPHERE_VOLUME_ND computes the volume of an implicit sphere in ND.
+
+  Discussion:
+
+    An implicit sphere in ND satisfies the equation:
+
+      sum ( ( X(1:N) - CENTER(1:N) )^2 ) = R * R
+
+    where R is the radius and CENTER is the center.
+
+    Results for the first few values of N are:
+
+    DIM_NUM  Volume
+    -     -----------------------
+    2                PI   * R^2
+    3     (4/3)    * PI   * R^3
+    4     (1/2)    * PI^2 * R^4
+    5     (8/15)   * PI^2 * R^5
+    6     (1/6)    * PI^3 * R^6
+    7     (16/105) * PI^3 * R^7
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int DIM_NUM, the dimension of the space.
+
+    Input, double R, the radius of the sphere.
+
+    Output, double SPHERE_VOLUME_ND, the volume of the sphere.
+*/
 {
   double volume;
 
@@ -26512,53 +26509,53 @@ double sphere_volume_nd ( int dim_num, double r )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double square_sum ( double func ( double x, double y ), double center[2], 
+double square_sum ( double func ( double x, double y ), double center[2],
   double r, int order, double xtab[], double ytab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SQUARE_SUM carries out a quadrature rule over a square.
-//
-//  Integration region:
-//
-//      abs ( X - CENTER(1) ) <= R 
-//    and
-//      abs ( Y - CENTER(2) ) <= R
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the function 
-//    to be integrated.  
-//
-//    Input, double CENTER[2], the center of the square.
-//
-//    Input, double R, the radius of the square.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas of 
-//    the rule.
-//
-//    Input, double WEIGHT[ORDER], the weights of the rule.
-//
-//    Output, double SQUARE_SUM, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SQUARE_SUM carries out a quadrature rule over a square.
+
+  Integration region:
+
+      abs ( X - CENTER(1) ) <= R
+    and
+      abs ( Y - CENTER(2) ) <= R
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the function
+    to be integrated.
+
+    Input, double CENTER[2], the center of the square.
+
+    Input, double R, the radius of the square.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas of
+    the rule.
+
+    Input, double WEIGHT[ORDER], the weights of the rule.
+
+    Output, double SQUARE_SUM, the approximate integral of the function.
+*/
 {
   int i;
   double quad;
@@ -26580,70 +26577,70 @@ double square_sum ( double func ( double x, double y ), double center[2],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void square_unit_set ( int rule, int order, double xtab[], double ytab[], 
+void square_unit_set ( int rule, int order, double xtab[], double ytab[],
   double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SQUARE_UNIT_SET sets quadrature weights and abscissas in the unit square.
-//
-//  Discussion;
-//
-//    To get the value of ORDER associated with a given rule, 
-//    call SQUARE_UNIT_SIZE first.
-//
-//  Integration region:
-//
-//      -1 <= X <= 1,
-//    and
-//      -1 <= Y <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    23 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Gilbert Strang, George Fix,
-//    An Analysis of the Finite Element Method,
-//    Cambridge, 1973,
-//    ISBN: 096140888X,
-//    LC: TA335.S77.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the rule number.
-//    1, order 1, degree 1 rule.
-//    2, order 4, degree 3, rule.
-//    3, order 9, degree 5 rule.
-//    4, order 12 degree 7 rule, Stroud number C2:7-1.
-//    5, order 13 degree 7 rule, Stroud number C2:7-3.
-//    6, order 64 degree 15 product rule.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Output, double WEIGHT[ORDER], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SQUARE_UNIT_SET sets quadrature weights and abscissas in the unit square.
+
+  Discussion;
+
+    To get the value of ORDER associated with a given rule,
+    call SQUARE_UNIT_SIZE first.
+
+  Integration region:
+
+      -1 <= X <= 1,
+    and
+      -1 <= Y <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Gilbert Strang, George Fix,
+    An Analysis of the Finite Element Method,
+    Cambridge, 1973,
+    ISBN: 096140888X,
+    LC: TA335.S77.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the rule number.
+    1, order 1, degree 1 rule.
+    2, order 4, degree 3, rule.
+    3, order 9, degree 5 rule.
+    4, order 12 degree 7 rule, Stroud number C2:7-1.
+    5, order 13 degree 7 rule, Stroud number C2:7-3.
+    6, order 64 degree 15 product rule.
+
+    Input, int ORDER, the order of the rule.
+
+    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Output, double WEIGHT[ORDER], the weights.
+*/
 {
   double a;
   double c;
@@ -26792,7 +26789,7 @@ void square_unit_set ( int rule, int order, double xtab[], double ytab[],
     xtab[2]  = - r;
     xtab[3]  =   z;
     xtab[4]  =   z;
-    xtab[5]  =   s;  
+    xtab[5]  =   s;
     xtab[6]  =   s;
     xtab[7]  = - s;
     xtab[8]  = - s;
@@ -26860,64 +26857,64 @@ void square_unit_set ( int rule, int order, double xtab[], double ytab[],
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int square_unit_size ( int rule )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SQUARE_UNIT_SIZE sizes a quadrature rule in the unit square.
-//
-//  Integration region:
-//
-//      -1 <= X <= 1,
-//    and
-//      -1 <= Y <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    15 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Gilbert Strang, George Fix,
-//    An Analysis of the Finite Element Method,
-//    Cambridge, 1973,
-//    ISBN: 096140888X,
-//    LC: TA335.S77.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the rule number.
-//    1, a 1 point 1st degree rule.
-//    2, a 4 point 3rd degree rule.
-//    3, a 9 point 5th degree rule.
-//    4, a 12 point 7-th degree rule, Stroud number C2:7-1.
-//    5, a 13 point 7-th degree rule, Stroud number C2:7-3.
-//    6, a 64 point 15-th degree product rule.
-//
-//    Output, int SQUARE_UNIT_SIZE, the order of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SQUARE_UNIT_SIZE sizes a quadrature rule in the unit square.
+
+  Integration region:
+
+      -1 <= X <= 1,
+    and
+      -1 <= Y <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Gilbert Strang, George Fix,
+    An Analysis of the Finite Element Method,
+    Cambridge, 1973,
+    ISBN: 096140888X,
+    LC: TA335.S77.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the rule number.
+    1, a 1 point 1st degree rule.
+    2, a 4 point 3rd degree rule.
+    3, a 9 point 5th degree rule.
+    4, a 12 point 7-th degree rule, Stroud number C2:7-1.
+    5, a 13 point 7-th degree rule, Stroud number C2:7-3.
+    6, a 64 point 15-th degree product rule.
+
+    Output, int SQUARE_UNIT_SIZE, the order of the rule.
+*/
 {
   int order;
 
-  if ( rule == 1 ) 
+  if ( rule == 1 )
   {
     order = 1;
   }
@@ -26948,48 +26945,48 @@ int square_unit_size ( int rule )
 
   return order;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double square_unit_sum ( double func ( double x, double y ), int order, 
+double square_unit_sum ( double func ( double x, double y ), int order,
   double xtab[], double ytab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SQUARE_UNIT_SUM carries out a quadrature rule over the unit square.
-//
-//  Integration region:
-//
-//      -1 <= X <= 1, 
-//    and
-//      -1 <= Y <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    15 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the function
-//    to be integrated. 
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Input, double WEIGHT[ORDER], the weights.
-//
-//    Output, double SQUARE_UNIT_SUM, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    SQUARE_UNIT_SUM carries out a quadrature rule over the unit square.
+
+  Integration region:
+
+      -1 <= X <= 1,
+    and
+      -1 <= Y <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the function
+    to be integrated.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Input, double WEIGHT[ORDER], the weights.
+
+    Output, double SQUARE_UNIT_SUM, the approximate integral of the function.
+*/
 {
   int i;
   double quad;
@@ -27007,76 +27004,76 @@ double square_unit_sum ( double func ( double x, double y ), int order,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void subset_gray_next ( int n, int a[], int *more, int *ncard, int *iadd )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SUBSET_GRAY_NEXT generates all subsets of a set of order N, one at a time.
-//
-//  Discussion:
-//
-//    It generates the subsets one at a time, by adding or subtracting
-//    exactly one element on each step.
-//
-//    The user should set MORE = .FALSE. and the value of N before
-//    the first call.  On return, the user may examine A which contains
-//    the definition of the new subset, and must check .MORE., because
-//    as soon as it is .FALSE. on return, all the subsets have been
-//    generated and the user probably should cease calling.
-//
-//    The first set returned is the empty set.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    02 May 2003
-//
-//  Author:
-//
-//    FORTRAN77 original version by Albert Nijenhuis, Herbert Wilf.
-//    C++ version by John Burkardt
-//
-//  Reference:
-//
-//    Albert Nijenhuis, Herbert Wilf,
-//    Combinatorial Algorithms for Computers and Calculators,
-//    Second Edition,
-//    Academic Press, 1978,
-//    ISBN: 0-12-519260-6,
-//    LC: QA164.N54.
-//
-//  Parameters:
-//
-//    Input, int N, the order of the total set from which
-//    subsets will be drawn.
-//
-//    Input/output, int A[N].  On each return, the Gray code for the newly
-//    generated subset.  A[I] = 0 if element I is in the subset, 1 otherwise.
-//
-//    Input/output, int *MORE.  Set this variable FALSE before
-//    the first call.  Normally, MORE will be returned TRUE but once
-//    all the subsets have been generated, MORE will be
-//    reset FALSE on return and you should stop calling the program.
-//
-//    Input/output, int *NCARD, the cardinality of the set returned,
-//    which may be any value between 0 (the empty set) and N (the
-//    whole set).
-//
-//    Output, int *IADD, the element which was added or removed to the
-//    previous subset to generate the current one.  Exception:
-//    the empty set is returned on the first call, and IADD is set to -1.
+/******************************************************************************/
+/*
+  Purpose:
+
+    SUBSET_GRAY_NEXT generates all subsets of a set of order N, one at a time.
+
+  Discussion:
+
+    It generates the subsets one at a time, by adding or subtracting
+    exactly one element on each step.
+
+    The user should set MORE = .FALSE. and the value of N before
+    the first call.  On return, the user may examine A which contains
+    the definition of the new subset, and must check .MORE., because
+    as soon as it is .FALSE. on return, all the subsets have been
+    generated and the user probably should cease calling.
+
+    The first set returned is the empty set.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 May 2003
+
+  Author:
+
+    FORTRAN77 original version by Albert Nijenhuis, Herbert Wilf.
+    C++ version by John Burkardt
+
+  Reference:
+
+    Albert Nijenhuis, Herbert Wilf,
+    Combinatorial Algorithms for Computers and Calculators,
+    Second Edition,
+    Academic Press, 1978,
+    ISBN: 0-12-519260-6,
+    LC: QA164.N54.
+
+  Parameters:
+
+    Input, int N, the order of the total set from which
+    subsets will be drawn.
+
+    Input/output, int A[N].  On each return, the Gray code for the newly
+    generated subset.  A[I] = 0 if element I is in the subset, 1 otherwise.
+
+    Input/output, int *MORE.  Set this variable FALSE before
+    the first call.  Normally, MORE will be returned TRUE but once
+    all the subsets have been generated, MORE will be
+    reset FALSE on return and you should stop calling the program.
+
+    Input/output, int *NCARD, the cardinality of the set returned,
+    which may be any value between 0 (the empty set) and N (the
+    whole set).
+
+    Output, int *IADD, the element which was added or removed to the
+    previous subset to generate the current one.  Exception:
+    the empty set is returned on the first call, and IADD is set to -1.*/
 {
   int i;
-//
-//  First set returned is the empty set.
-//
+/*
+  First set returned is the empty set.
+*/
   if ( !(*more) )
   {
     for ( i = 0; i < n; i++ )
@@ -27108,9 +27105,9 @@ void subset_gray_next ( int n, int a[], int *more, int *ncard, int *iadd )
 
     a[*iadd-1] = 1 - a[*iadd-1];
     *ncard = *ncard + 2 * a[*iadd-1] - 1;
-//
-//  Last set returned is the singleton A(N).
-//
+/*
+  Last set returned is the singleton A(N).
+*/
     if ( *ncard == a[n-1] )
     {
       *more = 0;
@@ -27120,61 +27117,61 @@ void subset_gray_next ( int n, int a[], int *more, int *ncard, int *iadd )
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double tetra_07 ( double func ( double x, double y, double z ), double x[], 
+double tetra_07 ( double func ( double x, double y, double z ), double x[],
   double y[], double z[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TETRA_07 approximates an integral inside a tetrahedron in 3D.
-//
-//  Integration region:
-//
-//    Points inside a tetrahedron whose four corners are given.
-//
-//  Discussion:
-//
-//    A 64 point 7-th degree conical product Gauss formula is used,
-//    Stroud number T3:7-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    15 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//    Arthur Stroud, Don Secrest,
-//    Gaussian Quadrature Formulas,
-//    Prentice Hall, 1966, pages 42-43,
-//    LC: QA299.4G3S7
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double X[4], Y[4], Z[4], the coordinates of 
-//    the vertices.
-//
-//    Output, double TETRAQ_07, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TETRA_07 approximates an integral inside a tetrahedron in 3D.
+
+  Integration region:
+
+    Points inside a tetrahedron whose four corners are given.
+
+  Discussion:
+
+    A 64 point 7-th degree conical product Gauss formula is used,
+    Stroud number T3:7-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+    Arthur Stroud, Don Secrest,
+    Gaussian Quadrature Formulas,
+    Prentice Hall, 1966, pages 42-43,
+    LC: QA299.4G3S7
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Input, double X[4], Y[4], Z[4], the coordinates of
+    the vertices.
+
+    Output, double TETRAQ_07, the approximate integral of the function.
+*/
 {
   double a;
   double b;
@@ -27204,13 +27201,13 @@ double tetra_07 ( double func ( double x, double y, double z ), double x[],
   double xval;
   double yval;
   double zval;
-//
-//  Get the Gauss-Legendre weights and abscissas for [-1,1].
-//
+/*
+  Get the Gauss-Legendre weights and abscissas for [-1,1].
+*/
   legendre_set ( order, xtab1, weight1 );
-//
-//  Adjust the rule for the interval [0,1].
-//
+/*
+  Adjust the rule for the interval [0,1].
+*/
   a = -1.0;
   b = +1.0;
 
@@ -27218,9 +27215,9 @@ double tetra_07 ( double func ( double x, double y, double z ), double x[],
   d =  1.0;
 
   rule_adjust ( a, b, c, d, order, xtab1, weight1 );
-//
-//  Carry out the quadrature.
-//
+/*
+  Carry out the quadrature.
+*/
   quad = 0.0;
 
   for ( i = 0; i < order; i++ )
@@ -27229,21 +27226,21 @@ double tetra_07 ( double func ( double x, double y, double z ), double x[],
     {
       for ( k = 0; k < order; k++ )
       {
-//
-//  Compute the barycentric coordinates of the point in the unit triangle.
-//
+/*
+  Compute the barycentric coordinates of the point in the unit triangle.
+*/
         t =                                         xtab3[k];
         u =                    xtab2[j]   * ( 1.0 - xtab3[k] );
         v = xtab1[i] * ( 1.0 - xtab2[j] ) * ( 1.0 - xtab3[k] );
         w = 1.0 - t - u - v;
-//
-//  Compute the corresponding point in the triangle.
-//
+/*
+  Compute the corresponding point in the triangle.
+*/
         xval = t * x[0] + u * x[1] + v * x[2] + w * x[3];
         yval = t * y[0] + u * y[1] + v * y[2] + w * y[3];
         zval = t * z[0] + u * z[1] + v * z[2] + w * z[3];
 
-        quad = quad + 6.0 * weight1[i] * weight2[j] * weight3[k] 
+        quad = quad + 6.0 * weight1[i] * weight2[j] * weight3[k]
           * func ( xval, yval, zval );
       }
     }
@@ -27253,50 +27250,50 @@ double tetra_07 ( double func ( double x, double y, double z ), double x[],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double tetra_sum ( double func ( double x, double y, double z ), double x[4], 
-  double y[4], double z[4], int order, double xtab[], double ytab[], 
+double tetra_sum ( double func ( double x, double y, double z ), double x[4],
+  double y[4], double z[4], int order, double xtab[], double ytab[],
   double ztab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TETRA_SUM carries out a quadrature rule in a tetrahedron in 3D.
-//
-//  Integration region:
-//
-//    A tetrahedron whose vertices are specified.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the
-//    user supplied function which is to be integrated.
-//
-//    Input, double X[4], Y[4], Z[4], the vertices.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], ZTAB[ORDER], the
-//    abscissas.
-//
-//    Input, double WEIGHT[ORDER], the weights.
-//
-//    Output, double TETRA_SUM, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TETRA_SUM carries out a quadrature rule in a tetrahedron in 3D.
+
+  Integration region:
+
+    A tetrahedron whose vertices are specified.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function which is to be integrated.
+
+    Input, double X[4], Y[4], Z[4], the vertices.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], ZTAB[ORDER], the
+    abscissas.
+
+    Input, double WEIGHT[ORDER], the weights.
+
+    Output, double TETRA_SUM, the approximate integral of the function.
+*/
 {
   int i;
   double quad;
@@ -27309,19 +27306,19 @@ double tetra_sum ( double func ( double x, double y, double z ), double x[4],
   quad = 0.0;
   for ( i = 0; i < order; i++ )
   {
-    xval =         xtab[i]                       * x[0] 
-                           + ytab[i]             * x[1] 
-                                     + ztab[i]   * x[2] 
+    xval =         xtab[i]                       * x[0]
+                           + ytab[i]             * x[1]
+                                     + ztab[i]   * x[2]
          + ( 1.0 - xtab[i] - ytab[i] - ztab[i] ) * x[3];
 
-    yval =         xtab[i]                       * y[0] 
-                           + ytab[i]             * y[1] 
-                                     + ztab[i]   * y[2] 
+    yval =         xtab[i]                       * y[0]
+                           + ytab[i]             * y[1]
+                                     + ztab[i]   * y[2]
          + ( 1.0 - xtab[i] - ytab[i] - ztab[i] ) * y[3];
 
-    zval =         xtab[i]                       * z[0] 
-                           + ytab[i]             * z[1] 
-                                     + ztab[i]   * z[2] 
+    zval =         xtab[i]                       * z[0]
+                           + ytab[i]             * z[1]
+                                     + ztab[i]   * z[2]
          + ( 1.0 - xtab[i] - ytab[i] - ztab[i] ) * z[3];
 
     quad = quad + weight[i] * func ( xval, yval, zval );
@@ -27331,64 +27328,64 @@ double tetra_sum ( double func ( double x, double y, double z ), double x[4],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double tetra_tproduct ( double func ( double x, double y, double z ), 
+double tetra_tproduct ( double func ( double x, double y, double z ),
   int order, double x[4], double y[4], double z[4] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TETRA_TPRODUCT approximates an integral in a tetrahedron in 3D.
-//
-//  Discussion:
-//
-//    Integration is carried out over the points inside an arbitrary
-//    tetrahedron whose four vertices are given.
-//
-//    An ORDER**3 point (2*ORDER-1)-th degree triangular product
-//    Gauss-Legendre rule is used.
-//
-//    With ORDER = 8, this routine is equivalent to the routine TETR15
-//    in the reference, page 367.
-//
-//    Thanks to Joerg Behrens, jbehren@gwdg.de, for numerous suggestions
-//    and corrections.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    20 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int ORDER, the order of the basic quadrature rules.
-//    ORDER should be between 1 and 9.
-//
-//    Input, double X[4], Y[4], Z[4], the vertices
-//    of the tetrahedron.
-//
-//    Output, double TETRA_TPRODUCT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TETRA_TPRODUCT approximates an integral in a tetrahedron in 3D.
+
+  Discussion:
+
+    Integration is carried out over the points inside an arbitrary
+    tetrahedron whose four vertices are given.
+
+    An ORDER**3 point (2*ORDER-1)-th degree triangular product
+    Gauss-Legendre rule is used.
+
+    With ORDER = 8, this routine is equivalent to the routine TETR15
+    in the reference, page 367.
+
+    Thanks to Joerg Behrens, jbehren@gwdg.de, for numerous suggestions
+    and corrections.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Input, int ORDER, the order of the basic quadrature rules.
+    ORDER should be between 1 and 9.
+
+    Input, double X[4], Y[4], Z[4], the vertices
+    of the tetrahedron.
+
+    Output, double TETRA_TPRODUCT, the approximate integral of the function.
+*/
 {
   double a;
   double b;
@@ -27418,12 +27415,12 @@ double tetra_tproduct ( double func ( double x, double y, double z ),
     fprintf ( stderr, "  The input value was ORDER = %d\n", order );
     exit ( 1 );
   }
-//
-//  Get the Gauss-Legendre ORDER point rules on [-1,1] for integrating
-//    F(X),
-//    X * F(X),
-//    X * X * F(X).
-//
+/*
+  Get the Gauss-Legendre ORDER point rules on [-1,1] for integrating
+    F(X),
+    X * F(X),
+    X * X * F(X).
+*/
   xtab0 = ( double * ) malloc ( order * sizeof ( double ) );
   xtab1 = ( double * ) malloc ( order * sizeof ( double ) );
   xtab2 = ( double * ) malloc ( order * sizeof ( double ) );
@@ -27434,9 +27431,9 @@ double tetra_tproduct ( double func ( double x, double y, double z ),
   legendre_set ( order, xtab0, weight0 );
   legendre_set_x1 ( order, xtab1, weight1 );
   legendre_set_x2 ( order, xtab2, weight2 );
-//
-//  Adjust the rules from [-1,1] to [0,1].
-//
+/*
+  Adjust the rules from [-1,1] to [0,1].
+*/
   a = -1.0;
   b = +1.0;
   c =  0.0;
@@ -27447,10 +27444,10 @@ double tetra_tproduct ( double func ( double x, double y, double z ),
   rule_adjust ( a, b, c, d, order, xtab1, weight1 );
 
   rule_adjust ( a, b, c, d, order, xtab2, weight2 );
-//
-//  For rules with a weight function that is not 1, the weight vectors
-//  require further adjustment.
-//
+/*
+  For rules with a weight function that is not 1, the weight vectors
+  require further adjustment.
+*/
   for ( i = 0; i < order; i++ )
   {
     weight1[i] = weight1[i] / 2.0;
@@ -27459,9 +27456,9 @@ double tetra_tproduct ( double func ( double x, double y, double z ),
   {
     weight2[i] = weight2[i] / 4.0;
   }
-//
-//  Carry out the quadrature.
-//
+/*
+  Carry out the quadrature.
+*/
   quad = 0.0;
 
   for ( k = 0; k < order; k++ )
@@ -27470,26 +27467,26 @@ double tetra_tproduct ( double func ( double x, double y, double z ),
     {
       for ( i = 0; i < order; i++ )
       {
-        xval = x[0] + ( ( ( x[3] - x[2] )   * xtab0[i] 
-                        + ( x[2] - x[1] ) ) * xtab1[j] 
+        xval = x[0] + ( ( ( x[3] - x[2] )   * xtab0[i]
+                        + ( x[2] - x[1] ) ) * xtab1[j]
                         + ( x[1] - x[0] ) ) * xtab2[k];
 
-        yval = y[0] + ( ( ( y[3] - y[2] )   * xtab0[i] 
-                        + ( y[2] - y[1] ) ) * xtab1[j] 
+        yval = y[0] + ( ( ( y[3] - y[2] )   * xtab0[i]
+                        + ( y[2] - y[1] ) ) * xtab1[j]
                         + ( y[1] - y[0] ) ) * xtab2[k];
 
-        zval = z[0] + ( ( ( z[3] - z[2] )   * xtab0[i] 
-                        + ( z[2] - z[1] ) ) * xtab1[j] 
+        zval = z[0] + ( ( ( z[3] - z[2] )   * xtab0[i]
+                        + ( z[2] - z[1] ) ) * xtab1[j]
                         + ( z[1] - z[0] ) ) * xtab2[k];
 
-        quad = quad + 6.0 * weight0[i] * weight1[j] * weight2[k] 
+        quad = quad + 6.0 * weight0[i] * weight1[j] * weight2[k]
           * func ( xval, yval, zval );
       }
     }
   }
-//
-//  Compute the volume of the tetrahedron.
-//
+/*
+  Compute the volume of the tetrahedron.
+*/
   volume = tetra_volume ( x, y, z );
   result = quad * volume;
 
@@ -27502,78 +27499,78 @@ double tetra_tproduct ( double func ( double x, double y, double z ),
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void tetra_unit_set ( int rule, int order, double xtab[], double ytab[], 
+void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
   double ztab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TETRA_UNIT_SET sets quadrature weights and abscissas in the unit tetrahedron.
-//
-//  Integration region:
-//
-//      0 <= X,
-//    and
-//      0 <= Y,
-//    and
-//      0 <= Z, 
-//    and
-//      X + Y + Z <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    19 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Hermann Engels,
-//    Numerical Quadrature and Cubature,
-//    Academic Press, 1980,
-//    ISBN: 012238850X,
-//    LC: QA299.3E5.
-//
-//    Patrick Keast,
-//    Moderate Degree Tetrahedral Quadrature Formulas,
-//    Computer Methods in Applied Mechanics and Engineering,
-//    Volume 55, Number 3, May 1986, pages 339-348.
-//
-//    Olgierd Zienkiewicz,
-//    The Finite Element Method,
-//    Sixth Edition,
-//    Butterworth-Heinemann, 2005,
-//    ISBN: 0750663200,
-//    LC: TA640.2.Z54
-//
-//  Parameters:
-//
-//    Input, int RULE, the index of the rule.
-//     1, order 1, precision 0, Newton Cotes formula #0, Zienkiewicz #1.
-//     2, order 4, precision 1, Newton Cotes formula #1.
-//     3, order 4, precision 2, Zienkiewicz #2.
-//     4, order 10, precision 2, Newton Cotes formula #2
-//     5, order 5, precision 3, Zienkiewicz #3.
-//     6, order 8, precision 3, Newton Cotes formula #3.
-//     7, order 35, precision 4, Newton Cotes formula #4.
-//     8, order 11, precision 4, a Keast rule.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Output, double XTAB[ORDER], YTAB[ORDER], ZTAB[ORDER],
-//    the abscissas.
-//
-//    Output, double WEIGHT[ORDER], the weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TETRA_UNIT_SET sets quadrature weights and abscissas in the unit tetrahedron.
+
+  Integration region:
+
+      0 <= X,
+    and
+      0 <= Y,
+    and
+      0 <= Z,
+    and
+      X + Y + Z <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Hermann Engels,
+    Numerical Quadrature and Cubature,
+    Academic Press, 1980,
+    ISBN: 012238850X,
+    LC: QA299.3E5.
+
+    Patrick Keast,
+    Moderate Degree Tetrahedral Quadrature Formulas,
+    Computer Methods in Applied Mechanics and Engineering,
+    Volume 55, Number 3, May 1986, pages 339-348.
+
+    Olgierd Zienkiewicz,
+    The Finite Element Method,
+    Sixth Edition,
+    Butterworth-Heinemann, 2005,
+    ISBN: 0750663200,
+    LC: TA640.2.Z54
+
+  Parameters:
+
+    Input, int RULE, the index of the rule.
+     1, order 1, precision 0, Newton Cotes formula #0, Zienkiewicz #1.
+     2, order 4, precision 1, Newton Cotes formula #1.
+     3, order 4, precision 2, Zienkiewicz #2.
+     4, order 10, precision 2, Newton Cotes formula #2
+     5, order 5, precision 3, Zienkiewicz #3.
+     6, order 8, precision 3, Newton Cotes formula #3.
+     7, order 35, precision 4, Newton Cotes formula #4.
+     8, order 11, precision 4, a Keast rule.
+
+    Input, int ORDER, the order of the rule.
+
+    Output, double XTAB[ORDER], YTAB[ORDER], ZTAB[ORDER],
+    the abscissas.
+
+    Output, double WEIGHT[ORDER], the weights.
+*/
 {
   double a;
   double b;
@@ -27584,9 +27581,9 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
   double g;
   double h;
   double z;
-//
-//  Newton Cotes #0.
-//
+/*
+  Newton Cotes #0.
+*/
   if ( rule == 1 )
   {
     xtab[0] = 0.25;
@@ -27594,9 +27591,9 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
     ztab[0] = 0.25;
     weight[0] = 1.0;
   }
-//
-//  Newton Cotes #1.
-//
+/*
+  Newton Cotes #1.
+*/
   else if ( rule == 2 )
   {
     a = 1.0;
@@ -27623,9 +27620,9 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[2] = b;
     weight[3] = b;
   }
-//
-//  Zienkiewicz #2.
-//
+/*
+  Zienkiewicz #2.
+*/
   else if ( rule == 3 )
   {
     a =  0.5854101966249685;
@@ -27652,9 +27649,9 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[2] = c;
     weight[3] = c;
   }
-//
-//  Newton Cotes #2.
-//
+/*
+  Newton Cotes #2.
+*/
   else if ( rule == 4 )
   {
     a =  1.0;
@@ -27707,9 +27704,9 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[8] = d;
     weight[9] = d;
   }
-//
-//  Zienkiewicz #3.
-//
+/*
+  Zienkiewicz #3.
+*/
   else if ( rule == 5 )
   {
     a =  1.0 / 6.0;
@@ -27742,10 +27739,10 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[3] = e;
     weight[4] = e;
   }
-//
-//  Newton Cotes #3.
-//  (This is actually formally a 20 point rule, but with 12 zero coefficients.)
-//
+/*
+  Newton Cotes #3.
+  (This is actually formally a 20 point rule, but with 12 zero coefficients.)
+*/
   else if ( rule == 6 )
   {
     a = 1.0;
@@ -27790,9 +27787,9 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[6] = d;
     weight[7] = d;
   }
-//
-//  Newton Cotes #4.
-//
+/*
+  Newton Cotes #4.
+*/
   else if ( rule == 7 )
   {
     a =   0.25;
@@ -27805,39 +27802,39 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
     h = 128.0 / 420.0;
     z =   0.0;
 
-    xtab[0] = z; 
-    xtab[1] = d; 
-    xtab[2] = z; 
-    xtab[3] = z; 
-    xtab[4] = a; 
-    xtab[5] = z; 
-    xtab[6] = z; 
-    xtab[7] = c; 
-    xtab[8] = c; 
+    xtab[0] = z;
+    xtab[1] = d;
+    xtab[2] = z;
+    xtab[3] = z;
+    xtab[4] = a;
+    xtab[5] = z;
+    xtab[6] = z;
+    xtab[7] = c;
+    xtab[8] = c;
     xtab[9] = c;
-    xtab[10] = z; 
-    xtab[11] = a; 
-    xtab[12] = z; 
-    xtab[13] = z; 
-    xtab[14] = a; 
-    xtab[15] = z; 
-    xtab[16] = b; 
-    xtab[17] = z; 
-    xtab[18] = z;            
-    xtab[19] = b; 
-    xtab[20] = b; 
-    xtab[21] = z; 
-    xtab[22] = a; 
-    xtab[23] = b; 
-    xtab[24] = a; 
-    xtab[25] = a; 
-    xtab[26] = b; 
-    xtab[27] = z; 
-    xtab[28] = b; 
-    xtab[29] = z; 
-    xtab[30] = a; 
-    xtab[31] = a; 
-    xtab[32] = z; 
+    xtab[10] = z;
+    xtab[11] = a;
+    xtab[12] = z;
+    xtab[13] = z;
+    xtab[14] = a;
+    xtab[15] = z;
+    xtab[16] = b;
+    xtab[17] = z;
+    xtab[18] = z;
+    xtab[19] = b;
+    xtab[20] = b;
+    xtab[21] = z;
+    xtab[22] = a;
+    xtab[23] = b;
+    xtab[24] = a;
+    xtab[25] = a;
+    xtab[26] = b;
+    xtab[27] = z;
+    xtab[28] = b;
+    xtab[29] = z;
+    xtab[30] = a;
+    xtab[31] = a;
+    xtab[32] = z;
     xtab[33] = a;
     xtab[34] = a;
 
@@ -27949,9 +27946,9 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[33] = g;
     weight[34] = h;
   }
-//
-//  Keast Rule of order 11
-//
+/*
+  Keast Rule of order 11
+*/
   else if ( rule == 8 )
   {
     a =  0.25;
@@ -28020,127 +28017,127 @@ void tetra_unit_set ( int rule, int order, double xtab[], double ytab[],
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int tetra_unit_size ( int rule )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TETRA_UNIT_SIZE sizes quadrature weights and abscissas in the unit tetrahedron.
-//
-//  Integration region:
-//
-//      0 <= X,
-//    and
-//      0 <= Y,
-//    and
-//      0 <= Z, 
-//    and
-//      X + Y + Z <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    19 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Hermann Engels,
-//    Numerical Quadrature and Cubature,
-//    Academic Press, 1980,
-//    ISBN: 012238850X,
-//    LC: QA299.3E5.
-//
-//    Patrick Keast,
-//    Moderate Degree Tetrahedral Quadrature Formulas,
-//    Computer Methods in Applied Mechanics and Engineering,
-//    Volume 55, Number 3, May 1986, pages 339-348.
-//
-//    Olgierd Zienkiewicz,
-//    The Finite Element Method,
-//    Sixth Edition,
-//    Butterworth-Heinemann, 2005,
-//    ISBN: 0750663200,
-//    LC: TA640.2.Z54
-//
-//  Parameters:
-//
-//    Input, int RULE, the index of the rule.
-//     1, order 1, precision 0, Newton Cotes formula #0, Zienkiewicz #1.
-//     2, order 4, precision 1, Newton Cotes formula #1.
-//     3, order 4, precision 2, Zienkiewicz #2.
-//     4, order 10, precision 2, Newton Cotes formula #2
-//     5, order 5, precision 3, Zienkiewicz #3.
-//     6, order 8, precision 3, Newton Cotes formula #3.
-//     7, order 35, precision 4, Newton Cotes formula #4.
-//     8, order 11, precision 4, a Keast rule.
-//
-//    Output, int TETRA_UNIT_SET, the order of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TETRA_UNIT_SIZE sizes quadrature weights and abscissas in the unit tetrahedron.
+
+  Integration region:
+
+      0 <= X,
+    and
+      0 <= Y,
+    and
+      0 <= Z,
+    and
+      X + Y + Z <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Hermann Engels,
+    Numerical Quadrature and Cubature,
+    Academic Press, 1980,
+    ISBN: 012238850X,
+    LC: QA299.3E5.
+
+    Patrick Keast,
+    Moderate Degree Tetrahedral Quadrature Formulas,
+    Computer Methods in Applied Mechanics and Engineering,
+    Volume 55, Number 3, May 1986, pages 339-348.
+
+    Olgierd Zienkiewicz,
+    The Finite Element Method,
+    Sixth Edition,
+    Butterworth-Heinemann, 2005,
+    ISBN: 0750663200,
+    LC: TA640.2.Z54
+
+  Parameters:
+
+    Input, int RULE, the index of the rule.
+     1, order 1, precision 0, Newton Cotes formula #0, Zienkiewicz #1.
+     2, order 4, precision 1, Newton Cotes formula #1.
+     3, order 4, precision 2, Zienkiewicz #2.
+     4, order 10, precision 2, Newton Cotes formula #2
+     5, order 5, precision 3, Zienkiewicz #3.
+     6, order 8, precision 3, Newton Cotes formula #3.
+     7, order 35, precision 4, Newton Cotes formula #4.
+     8, order 11, precision 4, a Keast rule.
+
+    Output, int TETRA_UNIT_SET, the order of the rule.
+*/
 {
   int order;
-//
-//  Newton Cotes #0.
-//
+/*
+  Newton Cotes #0.
+*/
   if ( rule == 1 )
   {
     order = 1;
   }
-//
-//  Newton Cotes #1.
-//
+/*
+  Newton Cotes #1.
+*/
   else if ( rule == 2 )
   {
     order = 4;
   }
-//
-//  Zienkiewicz #2.
-//
+/*
+  Zienkiewicz #2.
+*/
   else if ( rule == 3 )
   {
     order = 4;
   }
-//
-//  Newton Cotes #2.
-//
+/*
+  Newton Cotes #2.
+*/
   else if ( rule == 4 )
   {
     order = 10;
   }
-//
-//  Zienkiewicz #3.
-//
+/*
+  Zienkiewicz #3.
+*/
   else if ( rule == 5 )
   {
     order = 5;
   }
-//
-//  Newton Cotes #3.
-//  (This is actually formally a 20 point rule, but with 12 zero coefficients//)
-//
+/*
+  Newton Cotes #3.
+  (This is actually formally a 20 point rule, but with 12 zero coefficients//)
+*/
   else if ( rule == 6 )
   {
     order = 8;
   }
-//
-//  Newton Cotes #4.
-//
+/*
+  Newton Cotes #4.
+*/
   else if ( rule == 7 )
   {
     order = 35;
   }
-//
-//  Keast Rule of order 11
-//
+/*
+  Keast Rule of order 11
+*/
   else if ( rule == 8 )
   {
     order = 11;
@@ -28155,53 +28152,53 @@ int tetra_unit_size ( int rule )
 
   return order;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double tetra_unit_sum ( double func ( double x, double y, double z ), 
+double tetra_unit_sum ( double func ( double x, double y, double z ),
   int order, double xtab[], double ytab[], double ztab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TETRA_UNIT_SUM carries out a quadrature rule in the unit tetrahedron in 3D.
-//
-//  Integration region:
-//
-//      0 <= X,
-//    and
-//      0 <= Y,
-//    and
-//      0 <= Z, 
-//    and
-//      X + Y + Z <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    15 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], ZTAB[ORDER], the
-//    abscissas.
-//
-//    Input, double WEIGHT[ORDER], the weights.
-//
-//    Output, double RESULT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TETRA_UNIT_SUM carries out a quadrature rule in the unit tetrahedron in 3D.
+
+  Integration region:
+
+      0 <= X,
+    and
+      0 <= Y,
+    and
+      0 <= Z,
+    and
+      X + Y + Z <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], ZTAB[ORDER], the
+    abscissas.
+
+    Input, double WEIGHT[ORDER], the weights.
+
+    Output, double RESULT, the approximate integral of the function.
+*/
 {
   int i;
   double quad;
@@ -28220,41 +28217,41 @@ double tetra_unit_sum ( double func ( double x, double y, double z ),
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double tetra_unit_volume ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TETRA_UNIT_VOLUME returns the volume of the unit tetrahedron.
-//
-//  Discussion:
-//
-//    The integration region is:
-//
-//      0 <= X,
-//      0 <= Y,
-//      0 <= Z, 
-//      X + Y + Z <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double TETRA_UNIT_VOLUME, the volume.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TETRA_UNIT_VOLUME returns the volume of the unit tetrahedron.
+
+  Discussion:
+
+    The integration region is:
+
+      0 <= X,
+      0 <= Y,
+      0 <= Z,
+      X + Y + Z <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double TETRA_UNIT_VOLUME, the volume.
+*/
 {
   double volume;
 
@@ -28262,38 +28259,38 @@ double tetra_unit_volume ( )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double tetra_volume ( double x[4], double y[4], double z[4] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TETRA_VOLUME computes the volume of a tetrahedron.
-//
-//  Integration region:
-//
-//    Points inside a tetrahedron whose four vertices are given.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X[4], Y[4], Z[4], the vertices.
-//
-//    Output, double TETRA_VOLUME, the volume of the tetrahedron.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TETRA_VOLUME computes the volume of a tetrahedron.
+
+  Integration region:
+
+    Points inside a tetrahedron whose four vertices are given.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X[4], Y[4], Z[4], the vertices.
+
+    Output, double TETRA_VOLUME, the volume of the tetrahedron.
+*/
 {
   double volume;
 
@@ -28319,7 +28316,7 @@ void timestamp ( void )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
@@ -28351,57 +28348,57 @@ void timestamp ( void )
   return;
 # undef TIME_SIZE
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double torus_1 ( double func ( double x, double y, double z ), double r1, 
+double torus_1 ( double func ( double x, double y, double z ), double r1,
   double r2, int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_1 approximates an integral on the surface of a torus in 3D.
-//
-//  Integration region:
-//
-//    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z = R2 * R2.
-//
-//  Discussion:
-//
-//    An (N+1)*(N+2) point N-th degree formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double R1, R2, the two radii that define the torus.
-//
-//    Input, int N, defines the degree of the formula
-//    used to approximate the integral.
-//
-//    Output, double TORUS_1, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_1 approximates an integral on the surface of a torus in 3D.
+
+  Integration region:
+
+    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z = R2 * R2.
+
+  Discussion:
+
+    An (N+1)*(N+2) point N-th degree formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Input, double R1, R2, the two radii that define the torus.
+
+    Input, int N, defines the degree of the formula
+    used to approximate the integral.
+
+    Output, double TORUS_1, the approximate integral of the function.
+*/
 {
   double angle;
   double ct1;
@@ -28443,54 +28440,54 @@ double torus_1 ( double func ( double x, double y, double z ), double r1,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double torus_14s ( double func ( double x, double y, double z ), double r1, 
+double torus_14s ( double func ( double x, double y, double z ), double r1,
   double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_14S approximates an integral inside a torus in 3D.
-//
-//  Integration region:
-//
-//    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z <= R2 * R2.
-//
-//  Discussion:
-//
-//    A 960 point 14-th degree formula is used.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    17 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the
-//    user function which is to be integrated.
-//
-//    Input, double R1, R2, the two radii that define the torus.
-//
-//    Output, double TORUS_14S, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_14S approximates an integral inside a torus in 3D.
+
+  Integration region:
+
+    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z <= R2 * R2.
+
+  Discussion:
+
+    A 960 point 14-th degree formula is used.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user function which is to be integrated.
+
+    Input, double R1, R2, the two radii that define the torus.
+
+    Output, double TORUS_14S, the approximate integral of the function.
+*/
 {
   double angle;
   double ct;
@@ -28544,54 +28541,54 @@ double torus_14s ( double func ( double x, double y, double z ), double r1,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double torus_5s2 ( double func ( double x, double y, double z ), double r1, 
+double torus_5s2 ( double func ( double x, double y, double z ), double r1,
   double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_5S2 approximates an integral inside a torus in 3D.
-//
-//  Integration region:
-//
-//    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z <= R2 * R2.
-//
-//  Discussion:
-//
-//    A 24 point, 5-th degree formula is used, Stroud number TOR3-S2:5-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    17 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of 
-//    the user supplied function to be integrated.
-//
-//    Input, double R1, R2, the two radii that define the torus.
-//
-//    Output, double TORUS_5S2, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_5S2 approximates an integral inside a torus in 3D.
+
+  Integration region:
+
+    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z <= R2 * R2.
+
+  Discussion:
+
+    A 24 point, 5-th degree formula is used, Stroud number TOR3-S2:5-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of
+    the user supplied function to be integrated.
+
+    Input, double R1, R2, the two radii that define the torus.
+
+    Output, double TORUS_5S2, the approximate integral of the function.
+*/
 {
   double angle;
   double cs;
@@ -28649,54 +28646,54 @@ double torus_5s2 ( double func ( double x, double y, double z ), double r1,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double torus_6s2 ( double func ( double x, double y, double z ), double r1, 
+double torus_6s2 ( double func ( double x, double y, double z ), double r1,
   double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_6S2 approximates an integral inside a torus in 3D.
-//
-//  Integration region:
-//
-//    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z <= R2 * R2.
-//
-//  Discussion:
-//
-//    An 84 point 6-th degree formula is used, Stroud number TOR3-S2:6-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    17 March 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the
-//    user defined function to be integrated.
-//
-//    Input, double R1, R2, the two radii that define the torus.
-//
-//    Output, double TORUS_6S2, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_6S2 approximates an integral inside a torus in 3D.
+
+  Integration region:
+
+    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z <= R2 * R2.
+
+  Discussion:
+
+    An 84 point 6-th degree formula is used, Stroud number TOR3-S2:6-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 March 2007
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user defined function to be integrated.
+
+    Input, double R1, R2, the two radii that define the torus.
+
+    Output, double TORUS_6S2, the approximate integral of the function.
+*/
 {
   double cth;
   int i;
@@ -28769,38 +28766,38 @@ double torus_6s2 ( double func ( double x, double y, double z ), double r1,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double torus_area_3d ( double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_AREA_3D returns the area of a torus in 3D.
-//
-//  Integration region:
-//
-//    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z = R2*R2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R1, R2, the two radii that define the torus.
-//
-//    Output, double TORUS_AREA_3D, the area of the torus.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_AREA_3D returns the area of a torus in 3D.
+
+  Integration region:
+
+    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z*Z = R2*R2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R1, R2, the two radii that define the torus.
+
+    Output, double TORUS_AREA_3D, the area of the torus.
+*/
 {
   double area;
   double pi = 3.141592653589793;
@@ -28809,56 +28806,56 @@ double torus_area_3d ( double r1, double r2 )
 
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double torus_square_14c ( double func ( double x, double y, double z ), 
+double torus_square_14c ( double func ( double x, double y, double z ),
   double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_SQUARE_14C approximates an integral in a "square" torus in 3D.
-//
-//  Discussion:
-//
-//    A 14-th degree 960 point formula is used.
-//
-//  Integration region:
-//
-//      R1 - R2 <= SQRT ( X*X + Y*Y ) <= R1 + R2,
-//    and
-//      -R2 <= Z <= R2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double R1, R2, the radii that define the torus.
-//
-//    Output, double RESULT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_SQUARE_14C approximates an integral in a "square" torus in 3D.
+
+  Discussion:
+
+    A 14-th degree 960 point formula is used.
+
+  Integration region:
+
+      R1 - R2 <= SQRT ( X*X + Y*Y ) <= R1 + R2,
+    and
+      -R2 <= Z <= R2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Input, double R1, R2, the radii that define the torus.
+
+    Output, double RESULT, the approximate integral of the function.
+*/
 {
   double angle;
   double cth;
@@ -28915,59 +28912,59 @@ double torus_square_14c ( double func ( double x, double y, double z ),
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double torus_square_5c2 ( double func ( double x, double y, double z ), 
+double torus_square_5c2 ( double func ( double x, double y, double z ),
   double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_SQUARE_5C2 approximates an integral in a "square" torus in 3D.
-//
-//  Integration region:
-//
-//      R1 - R2 <= SQRT ( X*X + Y*Y ) <= R1 + R2,
-//    and
-//      -R2 <= Z <= R2.
-//
-//  Discussion:
-//
-//    A 24 point 5-th degree formula is used, Stroud number TOR3-C2:5-1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double R1, the primary radius of the torus.
-//
-//    Input, double R2, one-half the length of a side of the
-//    square cross-section.
-//
-//    Output, double TORUS_SQUARE_5C2, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_SQUARE_5C2 approximates an integral in a "square" torus in 3D.
+
+  Integration region:
+
+      R1 - R2 <= SQRT ( X*X + Y*Y ) <= R1 + R2,
+    and
+      -R2 <= Z <= R2.
+
+  Discussion:
+
+    A 24 point 5-th degree formula is used, Stroud number TOR3-C2:5-1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Input, double R1, the primary radius of the torus.
+
+    Input, double R2, one-half the length of a side of the
+    square cross-section.
+
+    Output, double TORUS_SQUARE_5C2, the approximate integral of the function.
+*/
 {
   double b1 = 5.0 / 108.0;
   double b2 = 4.0 / 108.0;
@@ -29025,40 +29022,40 @@ double torus_square_5c2 ( double func ( double x, double y, double z ),
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double torus_square_area_3d ( double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_SQUARE_AREA_3D returns the area of a square torus in 3D.
-//
-//  Integration region:
-//
-//      R1 - R2 <= SQRT ( X*X + Y*Y ) <= R1 + R2,
-//    and
-//      -R2 <= Z <= R2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R1, R2, the two radii that define the torus.
-//
-//    Output, double TORUS_SQUARE_AREA_3D, the area of the torus.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_SQUARE_AREA_3D returns the area of a square torus in 3D.
+
+  Integration region:
+
+      R1 - R2 <= SQRT ( X*X + Y*Y ) <= R1 + R2,
+    and
+      -R2 <= Z <= R2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R1, R2, the two radii that define the torus.
+
+    Output, double TORUS_SQUARE_AREA_3D, the area of the torus.
+*/
 {
   double area;
   double pi = 3.141592653589793;
@@ -29067,40 +29064,40 @@ double torus_square_area_3d ( double r1, double r2 )
 
   return area;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double torus_square_volume_3d ( double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_SQUARE_VOLUME_3D returns the volume of a square torus in 3D.
-//
-//  Integration region:
-//
-//      R1 - R2 <= SQRT ( X*X + Y*Y ) <= R1 + R2,
-//    and
-//      -R2 <= Z <= R2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R1, R2, the two radii that define the torus.
-//
-//    Output, double TORUS_SQUARE_VOLUME_3D, the volume of the torus.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_SQUARE_VOLUME_3D returns the volume of a square torus in 3D.
+
+  Integration region:
+
+      R1 - R2 <= SQRT ( X*X + Y*Y ) <= R1 + R2,
+    and
+      -R2 <= Z <= R2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R1, R2, the two radii that define the torus.
+
+    Output, double TORUS_SQUARE_VOLUME_3D, the volume of the torus.
+*/
 {
   double pi = 3.141592653589793;
   double volume;
@@ -29109,38 +29106,38 @@ double torus_square_volume_3d ( double r1, double r2 )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double torus_volume_3d ( double r1, double r2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TORUS_VOLUME_3D returns the volume of a torus in 3D.
-//
-//  Integration region:
-//
-//    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z * Z = R2 * R2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double R1, R2, the two radii that define the torus.
-//
-//    Output, double TORUS_VOLUME_3D, the volume of the torus.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TORUS_VOLUME_3D returns the volume of a torus in 3D.
+
+  Integration region:
+
+    ( SQRT ( X*X + Y*Y ) - R1 )^2 + Z * Z = R2 * R2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R1, R2, the two radii that define the torus.
+
+    Output, double TORUS_VOLUME_3D, the volume of the torus.
+*/
 {
   double pi = 3.141592653589793;
   double volume;
@@ -29149,65 +29146,65 @@ double torus_volume_3d ( double r1, double r2 )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void triangle_rule_adjust ( double xval[3], double yval[3], int order, 
-  double xtab[], double ytab[], double weight[], double xtab2[], double ytab2[], 
+void triangle_rule_adjust ( double xval[3], double yval[3], int order,
+  double xtab[], double ytab[], double weight[], double xtab2[], double ytab2[],
   double weight2[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_RULE_ADJUST adjusts a unit quadrature rule to an arbitrary triangle.
-//
-//  Integration region:
-//
-//      (X,Y) = ALPHA * (X1,Y1) + BETA * (X2,Y2) + ( 1 - ALPHA - BETA ) * (X3,Y3)
-//    and
-//      0 <= ALPHA <= 1 - BETA
-//    and
-//      0 <= BETA <= 1 - ALPHA
-//
-//  Discussion:
-//
-//    This routine accepts as input abscissas and weights appropriate for
-//    quadrature in the unit triangle, and returns abscissas and weights
-//    appropriate for quadrature in a given triangle.
-//
-//    Once this routine has been called, an integral over the given triangle
-//    can be approximated as:
-//
-//      QUAD = sum ( 1 <= I <= ORDER ) WTAB2(I) * FUNC ( XTAB2(I), YTAB2(I) )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double XVAL[3], YVAL[3], the coordinates of the nodes.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas for
-//    the unit triangle.
-//
-//    Input, double WEIGHT[ORDER], the weights for the unit triangle.
-//
-//    Output, double XTAB2[ORDER], YTAB2[ORDER], the adjusted
-//    abscissas.
-//
-//    Output, double WEIGHT2[ORDER], the adjusted weights.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_RULE_ADJUST adjusts a unit quadrature rule to an arbitrary triangle.
+
+  Integration region:
+
+      (X,Y) = ALPHA * (X1,Y1) + BETA * (X2,Y2) + ( 1 - ALPHA - BETA ) * (X3,Y3)
+    and
+      0 <= ALPHA <= 1 - BETA
+    and
+      0 <= BETA <= 1 - ALPHA
+
+  Discussion:
+
+    This routine accepts as input abscissas and weights appropriate for
+    quadrature in the unit triangle, and returns abscissas and weights
+    appropriate for quadrature in a given triangle.
+
+    Once this routine has been called, an integral over the given triangle
+    can be approximated as:
+
+      QUAD = sum ( 1 <= I <= ORDER ) WTAB2(I) * FUNC ( XTAB2(I), YTAB2(I) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double XVAL[3], YVAL[3], the coordinates of the nodes.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas for
+    the unit triangle.
+
+    Input, double WEIGHT[ORDER], the weights for the unit triangle.
+
+    Output, double XTAB2[ORDER], YTAB2[ORDER], the adjusted
+    abscissas.
+
+    Output, double WEIGHT2[ORDER], the adjusted weights.
+*/
 {
   int i;
   double volume;
@@ -29216,12 +29213,12 @@ void triangle_rule_adjust ( double xval[3], double yval[3], int order,
 
   for ( i = 0; i < order; i++ )
   {
-    xtab2[i] =         xtab[i]             * xval[0] 
-             +                   ytab[i]   * xval[1] 
+    xtab2[i] =         xtab[i]             * xval[0]
+             +                   ytab[i]   * xval[1]
              + ( 1.0 - xtab[i] - ytab[i] ) * xval[2];
 
-    ytab2[i] =         xtab[i]             * yval[0] 
-             +                   ytab[i]   * yval[1] 
+    ytab2[i] =         xtab[i]             * yval[0]
+             +                   ytab[i]   * yval[1]
              + ( 1.0 - xtab[i] - ytab[i] ) * yval[2];
 
     weight2[i] = weight[i] * 2.0 * volume;
@@ -29229,61 +29226,61 @@ void triangle_rule_adjust ( double xval[3], double yval[3], int order,
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double triangle_sub ( double func ( double x, double y ), double xval[3], 
-  double yval[], int nsub, int order, double xtab[], double ytab[], 
+double triangle_sub ( double func ( double x, double y ), double xval[3],
+  double yval[], int nsub, int order, double xtab[], double ytab[],
   double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_SUB carries out quadrature over subdivisions of a triangular region.
-//
-//  Integration region:
-//
-//      (X,Y) =       ALPHA          * ( XVAL[0], YVAL[0] )
-//            +               BETA   * ( XVAL[1], YVAL[1] )
-//            + ( 1 - ALPHA - BETA ) * ( XVAL[2], YVAL[2] )
-//    and
-//      0 <= ALPHA <= 1 - BETA
-//    and
-//      0 <= BETA <= 1 - ALPHA
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    17 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the user supplied
-//    function to be integrated.
-//
-//    Input, double XVAL[3], YVAL[3], the coordinates of the triangle vertices.
-//
-//    Input, int NSUB, the number of subdivisions of each side of the
-//    input triangle to be made.  NSUB = 1 means no subdivisions are made.
-//    NSUB = 3 means that each side of the triangle is subdivided into
-//    three portions, and that the original triangle is subdivided into
-//    NSUB * NSUB triangles.  NSUB must be at least 1.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Input, double WEIGHT[ORDER], the weights of the rule.
-//
-//    Output, double TRIANGLE_SUB, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_SUB carries out quadrature over subdivisions of a triangular region.
+
+  Integration region:
+
+      (X,Y) =       ALPHA          * ( XVAL[0], YVAL[0] )
+            +               BETA   * ( XVAL[1], YVAL[1] )
+            + ( 1 - ALPHA - BETA ) * ( XVAL[2], YVAL[2] )
+    and
+      0 <= ALPHA <= 1 - BETA
+    and
+      0 <= BETA <= 1 - ALPHA
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the user supplied
+    function to be integrated.
+
+    Input, double XVAL[3], YVAL[3], the coordinates of the triangle vertices.
+
+    Input, int NSUB, the number of subdivisions of each side of the
+    input triangle to be made.  NSUB = 1 means no subdivisions are made.
+    NSUB = 3 means that each side of the triangle is subdivided into
+    three portions, and that the original triangle is subdivided into
+    NSUB * NSUB triangles.  NSUB must be at least 1.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Input, double WEIGHT[ORDER], the weights of the rule.
+
+    Output, double TRIANGLE_SUB, the approximate integral of the function.
+*/
 {
   int i;
   int j;
@@ -29301,48 +29298,48 @@ double triangle_sub ( double func ( double x, double y ), double xval[3],
   double y1;
   double y2;
   double y3;
-//
-//  Initialize RESULT, the approximate integral.
-//
+/*
+  Initialize RESULT, the approximate integral.
+*/
   result = 0.0;
-//
-//  NSUB must be positive.
-//
+/*
+  NSUB must be positive.
+*/
   if ( nsub <= 0 )
   {
     return result;
   }
-//
-//  Initialize QUAD, the quadrature sum.
-//
+/*
+  Initialize QUAD, the quadrature sum.
+*/
   quad = 0.0;
-//
-//  The sub-triangles can be grouped into NSUB strips.
-//
+/*
+  The sub-triangles can be grouped into NSUB strips.
+*/
   for ( i = 1; i <= nsub; i++ )
   {
     temp1 = 0.0;
     temp2 = ( double ) ( i ) / ( double ) ( nsub );
 
-    x2 = xval[1] + temp1 * ( xval[2] - xval[1] ) 
+    x2 = xval[1] + temp1 * ( xval[2] - xval[1] )
                  + temp2 * ( xval[0] - xval[1] );
 
-    y2 = yval[1] + temp1 * ( yval[2] - yval[1] ) 
+    y2 = yval[1] + temp1 * ( yval[2] - yval[1] )
                  + temp2 * ( yval[0] - yval[1] );
 
     temp1 = 0.0;
     temp2 = ( double ) ( i - 1 ) / ( double ) ( nsub );
 
-    x3 = xval[1] + temp1 * ( xval[2] - xval[1] ) 
+    x3 = xval[1] + temp1 * ( xval[2] - xval[1] )
                  + temp2 * ( xval[0] - xval[1] );
 
-    y3 = yval[1] + temp1 * ( yval[2] - yval[1] ) 
+    y3 = yval[1] + temp1 * ( yval[2] - yval[1] )
                  + temp2 * ( yval[0] - yval[1] );
-//
-//  There are 2*I-1 triangles in strip number I.
-//  The next triangle in the strip shares two nodes with the previous one.
-//  Compute its corners, (X1,Y1), (X2,Y2), (X3,Y3).
-//
+/*
+  There are 2*I-1 triangles in strip number I.
+  The next triangle in the strip shares two nodes with the previous one.
+  Compute its corners, (X1,Y1), (X2,Y2), (X3,Y3).
+*/
     for ( j = 1; j <= 2 * i - 1; j++ )
     {
       x1 = x2;
@@ -29352,15 +29349,15 @@ double triangle_sub ( double func ( double x, double y ), double xval[3],
       temp1 = ( double ) ( ( ( j + 1 ) / 2 ) ) / ( double ) ( nsub );
       temp2 = ( double ) ( ( i - 1 - ( j / 2 ) ) ) / ( double ) ( nsub );
 
-      x3 = xval[1] + temp1 * ( xval[2] - xval[1] ) 
+      x3 = xval[1] + temp1 * ( xval[2] - xval[1] )
                    + temp2 * ( xval[0] - xval[1] );
 
       y3 = yval[1] + temp1 * ( yval[2] - yval[1] )
                    + temp2 * ( yval[0] - yval[1] );
-//
-//  Now integrate over the triangle, mapping the points ( XTAB(K), YTAB(K) )
-//  into the triangle.
-//
+/*
+  Now integrate over the triangle, mapping the points ( XTAB(K), YTAB(K) )
+  into the triangle.
+*/
       for ( k = 0; k < order; k++ )
       {
         x = x2 + xtab[k] * ( x3 - x2 ) + ytab[k] * ( x1 - x2 );
@@ -29375,55 +29372,55 @@ double triangle_sub ( double func ( double x, double y ), double xval[3],
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double triangle_sum ( double func ( double x, double y ), 
-  double xval[3], double yval[3], int order, double xtab[], double ytab[], 
+double triangle_sum ( double func ( double x, double y ),
+  double xval[3], double yval[3], int order, double xtab[], double ytab[],
   double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_SUM carries out a unit quadrature rule in an arbitrary triangle.
-//
-//  Integration region:
-//
-//      (X,Y) =       ALPHA          * (X1,Y1) 
-//            +               BETA   * (X2,Y2) 
-//            + ( 1 - ALPHA - BETA ) * (X3,Y3)
-//    and
-//      0 <= ALPHA <= 1 - BETA
-//    and
-//      0 <= BETA <= 1 - ALPHA
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    17 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y, double z ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, double XVAL[3], YVAL[3], the coordinates of the nodes.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Input, double WEIGHT[ORDER], the weights of the rule.
-//
-//    Output, double RESULT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_SUM carries out a unit quadrature rule in an arbitrary triangle.
+
+  Integration region:
+
+      (X,Y) =       ALPHA          * (X1,Y1)
+            +               BETA   * (X2,Y2)
+            + ( 1 - ALPHA - BETA ) * (X3,Y3)
+    and
+      0 <= ALPHA <= 1 - BETA
+    and
+      0 <= BETA <= 1 - ALPHA
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y, double z ), the name of the
+    user supplied function to be integrated.
+
+    Input, double XVAL[3], YVAL[3], the coordinates of the nodes.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Input, double WEIGHT[ORDER], the weights of the rule.
+
+    Output, double RESULT, the approximate integral of the function.
+*/
 {
   int i;
   double quad;
@@ -29436,11 +29433,11 @@ double triangle_sum ( double func ( double x, double y ),
 
   for ( i = 0; i < order; i++ )
   {
-    x =         xtab[i]             * xval[0] 
+    x =         xtab[i]             * xval[0]
       +                   ytab[i]   * xval[1]
       + ( 1.0 - xtab[i] - ytab[i] ) * xval[2];
 
-    y =         xtab[i]             * yval[0] 
+    y =         xtab[i]             * yval[0]
       +                   ytab[i]   * yval[1]
       + ( 1.0 - xtab[i] - ytab[i] ) * yval[2];
 
@@ -29452,58 +29449,58 @@ double triangle_sum ( double func ( double x, double y ),
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double triangle_sum_adjusted ( double func ( double x, double y ), 
+double triangle_sum_adjusted ( double func ( double x, double y ),
   int order, double xtab[], double ytab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_SUM_ADJUSTED carries out an adjusted quadrature rule in a triangle.
-//
-//  Integration region:
-//
-//      (X,Y) =       ALPHA          * (X1,Y1) 
-//                          + BETA   * (X2,Y2) 
-//            + ( 1 - ALPHA - BETA ) * (X3,Y3)
-//    and
-//      0 <= ALPHA <= 1 - BETA
-//    and
-//      0 <= BETA <= 1 - ALPHA
-//
-//  Discussion:
-//
-//    It is assumed that a quadrature rule approprate for the unit triangle
-//    was generated, and then adjusted to a particular triangle by calling
-//    TRIANGLE_RULE_ADJUST.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the 
-//    user supplied function to be integrated.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Input, double WEIGHT[ORDER], the weights of the rule.
-//
-//    Output, double TRIANGLE_SUM_ADJUSTED, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_SUM_ADJUSTED uses an adjusted quadrature rule in a triangle.
+
+  Integration region:
+
+      (X,Y) =       ALPHA          * (X1,Y1)
+                          + BETA   * (X2,Y2)
+            + ( 1 - ALPHA - BETA ) * (X3,Y3)
+    and
+      0 <= ALPHA <= 1 - BETA
+    and
+      0 <= BETA <= 1 - ALPHA
+
+  Discussion:
+
+    It is assumed that a quadrature rule approprate for the unit triangle
+    was generated, and then adjusted to a particular triangle by calling
+    TRIANGLE_RULE_ADJUST.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function to be integrated.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Input, double WEIGHT[ORDER], the weights of the rule.
+
+    Output, double TRIANGLE_SUM_ADJUSTED, the approximate integral of the function.
+*/
 {
   int i;
   double result;
@@ -29517,64 +29514,64 @@ double triangle_sum_adjusted ( double func ( double x, double y ),
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void triangle_unit_product_set ( int rule, int order, double xtab[], 
+void triangle_unit_product_set ( int rule, int order, double xtab[],
   double ytab[], double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_UNIT_PRODUCT_SET sets a product rule on the unit triangle.
-//
-//  Discussion:
-//
-//    For a given order of accuracy, a product rule on a triangle usually
-//    uses more points than necessary.  That is, there is usually a rule
-//    of the same order that uses fewer points.
-//
-//    However, one advantage of product rules is that a rule of any
-//    desired order can be generated automatically.
-//   
-//    The integration region is:
-//
-//      0 <= X,
-//    and
-//      0 <= Y, 
-//    and
-//      X + Y <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    10 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the order of the 1D rule.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Output, double WEIGHT[ORDER], the weights of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_UNIT_PRODUCT_SET sets a product rule on the unit triangle.
+
+  Discussion:
+
+    For a given order of accuracy, a product rule on a triangle usually
+    uses more points than necessary.  That is, there is usually a rule
+    of the same order that uses fewer points.
+
+    However, one advantage of product rules is that a rule of any
+    desired order can be generated automatically.
+
+    The integration region is:
+
+      0 <= X,
+    and
+      0 <= Y,
+    and
+      X + Y <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the order of the 1D rule.
+
+    Input, int ORDER, the order of the rule.
+
+    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Output, double WEIGHT[ORDER], the weights of the rule.
+*/
 {
   double a;
   double b;
@@ -29627,52 +29624,52 @@ void triangle_unit_product_set ( int rule, int order, double xtab[],
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int triangle_unit_product_size ( int rule )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_UNIT_PRODUCT_SIZE sizes a product rule on the unit triangle.
-//
-//  Discussion:
-//
-//    The integration region is:
-//
-//      0 <= X,
-//    and
-//      0 <= Y, 
-//    and
-//      X + Y <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//  Parameters:
-//
-//    Input, int RULE, the order of the 1D rule.
-//
-//    Input, int TRIANGLE_UNIT_PRODUCT_SIZE, the order of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_UNIT_PRODUCT_SIZE sizes a product rule on the unit triangle.
+
+  Discussion:
+
+    The integration region is:
+
+      0 <= X,
+    and
+      0 <= Y,
+    and
+      X + Y <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+  Parameters:
+
+    Input, int RULE, the order of the 1D rule.
+
+    Input, int TRIANGLE_UNIT_PRODUCT_SIZE, the order of the rule.
+*/
 {
   int order;
 
@@ -29680,149 +29677,149 @@ int triangle_unit_product_size ( int rule )
 
   return order;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void triangle_unit_set ( int rule, int order, double xtab[], double ytab[], 
+void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
   double weight[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_UNIT_SET sets a quadrature rule in the unit triangle.
-//
-//  Discussion:
-//
-//    The user is responsible for determining the value of ORDER,
-//    and appropriately dimensioning the arrays XTAB, YTAB and
-//    WEIGHT so that they can accommodate the data.
-//
-//    The value of ORDER for each rule can be found by invoking
-//    the function TRIANGLE_RULE_SIZE.
-//
-//  Integration region:
-//
-//      0 <= X,
-//    and
-//      0 <= Y, 
-//    and
-//      X + Y <= 1.
-//
-//  Graph:
-//
-//      ^
-//    1 | *
-//      | |\
-//    Y | | \
-//      | |  \
-//    0 | *---*
-//      +------->
-//        0 X 1
-//
-//   The rules are accessed by an index number, RULE.  The indices,
-//   and the descriptions of the corresponding rules, are:
-//
-//     1, ORDER =  1, precision 1, Zienkiewicz #1.
-//     2, ORDER =  2, precision 1, (the "vertex rule").
-//     3, ORDER =  3, precision 2, Strang and Fix formula #1.
-//     4, ORDER =  3, precision 2, Strang and Fix formula #2,
-//                                 Zienkiewicz #2.
-//     5, ORDER =  4, precision 3, Strang and Fix formula #3,
-//                                 Zienkiewicz #3.
-//     6, ORDER =  6, precision 3, Strang and Fix formula #4.
-//     7, ORDER =  6, precision 3, Stroud formula T2:3-1.
-//     8, ORDER =  6, precision 4, Strang and Fix formula #5.
-//     9, ORDER =  7, precision 4, Strang and Fix formula #6.
-//    10, ORDER =  7, precision 5, Strang and Fix formula #7,
-//                                 Stroud formula T2:5-1, 
-//                                 Zienkiewicz #4, 
-//                                 Schwarz Table 2.2.
-//    11, ORDER =  9, precision 6, Strang and Fix formula #8.
-//    12, ORDER = 12, precision 6, Strang and Fix formula #9.
-//    13, ORDER = 13, precision 7, Strang and Fix formula #10.
-//        Note that there is a typographical error in Strang and Fix
-//        which lists the value of the XSI(3) component of the
-//        last generator point as 0.4869... when it should be 0.04869...
-//    14, ORDER =  7, precision 3.
-//    15, ORDER = 16, precision 7, conical product Gauss, Stroud formula T2:7-1.
-//    16, ORDER = 64, precision 15, triangular product Gauss rule.
-//    17, ORDER = 19, precision 8, from CUBTRI, ACM TOMS #584.
-//    18, ORDER = 19, precision 9, from TRIEX, ACM TOMS #612.
-//    19, ORDER = 28, precision 11, from TRIEX, ACM TOMS #612.
-//    20, ORDER = 37, precision 13, from ACM TOMS #706.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    25 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Jarle Berntsen, Terje Espelid,
-//    Algorithm 706,
-//    DCUTRI: an algorithm for adaptive cubature over a collection of triangles, 
-//    ACM Transactions on Mathematical Software,
-//    Volume 18, Number 3, September 1992, pages 329-342.
-//
-//    Elise deDoncker, Ian Robinson,
-//    Algorithm 612:
-//    Integration over a Triangle Using Nonlinear Extrapolation,
-//    ACM Transactions on Mathematical Software,
-//    Volume 10, Number 1, March 1984, pages 17-22.
-//
-//    Dirk Laurie,
-//    Algorithm 584,
-//    CUBTRI, Automatic Cubature Over a Triangle,
-//    ACM Transactions on Mathematical Software,
-//    Volume 8, Number 2, 1982, pages 210-218.
-//
-//    James Lyness, Dennis Jespersen,
-//    Moderate Degree Symmetric Quadrature Rules for the Triangle,
-//    Journal of the Institute of Mathematics and its Applications,
-//    Volume 15, Number 1, February 1975, pages 19-32.
-//
-//    Hans Rudolf Schwarz,
-//    Finite Element Methods,
-//    Academic Press, 1988,
-//    ISBN: 0126330107,
-//    LC: TA347.F5.S3313.
-//
-//    Gilbert Strang, George Fix,
-//    An Analysis of the Finite Element Method,
-//    Cambridge, 1973,
-//    ISBN: 096140888X,
-//    LC: TA335.S77.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//    Olgierd Zienkiewicz,
-//    The Finite Element Method,
-//    Sixth Edition,
-//    Butterworth-Heinemann, 2005,
-//    ISBN: 0750663200,
-//    LC: TA640.2.Z54
-//
-//  Parameters:
-//
-//    Input, int RULE, the index of the rule.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Output, double WEIGHT[ORDER], the weights of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_UNIT_SET sets a quadrature rule in the unit triangle.
+
+  Discussion:
+
+    The user is responsible for determining the value of ORDER,
+    and appropriately dimensioning the arrays XTAB, YTAB and
+    WEIGHT so that they can accommodate the data.
+
+    The value of ORDER for each rule can be found by invoking
+    the function TRIANGLE_RULE_SIZE.
+
+  Integration region:
+
+      0 <= X,
+    and
+      0 <= Y,
+    and
+      X + Y <= 1.
+
+  Graph:
+
+      ^
+    1 | *
+      | |\
+    Y | | \
+      | |  \
+    0 | *---*
+      +------->
+        0 X 1
+
+   The rules are accessed by an index number, RULE.  The indices,
+   and the descriptions of the corresponding rules, are:
+
+     1, ORDER =  1, precision 1, Zienkiewicz #1.
+     2, ORDER =  2, precision 1, (the "vertex rule").
+     3, ORDER =  3, precision 2, Strang and Fix formula #1.
+     4, ORDER =  3, precision 2, Strang and Fix formula #2,
+                                 Zienkiewicz #2.
+     5, ORDER =  4, precision 3, Strang and Fix formula #3,
+                                 Zienkiewicz #3.
+     6, ORDER =  6, precision 3, Strang and Fix formula #4.
+     7, ORDER =  6, precision 3, Stroud formula T2:3-1.
+     8, ORDER =  6, precision 4, Strang and Fix formula #5.
+     9, ORDER =  7, precision 4, Strang and Fix formula #6.
+    10, ORDER =  7, precision 5, Strang and Fix formula #7,
+                                 Stroud formula T2:5-1,
+                                 Zienkiewicz #4,
+                                 Schwarz Table 2.2.
+    11, ORDER =  9, precision 6, Strang and Fix formula #8.
+    12, ORDER = 12, precision 6, Strang and Fix formula #9.
+    13, ORDER = 13, precision 7, Strang and Fix formula #10.
+        Note that there is a typographical error in Strang and Fix
+        which lists the value of the XSI(3) component of the
+        last generator point as 0.4869... when it should be 0.04869...
+    14, ORDER =  7, precision 3.
+    15, ORDER = 16, precision 7, conical product Gauss, Stroud formula T2:7-1.
+    16, ORDER = 64, precision 15, triangular product Gauss rule.
+    17, ORDER = 19, precision 8, from CUBTRI, ACM TOMS #584.
+    18, ORDER = 19, precision 9, from TRIEX, ACM TOMS #612.
+    19, ORDER = 28, precision 11, from TRIEX, ACM TOMS #612.
+    20, ORDER = 37, precision 13, from ACM TOMS #706.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Jarle Berntsen, Terje Espelid,
+    Algorithm 706,
+    DCUTRI: an algorithm for adaptive cubature over a collection of triangles,
+    ACM Transactions on Mathematical Software,
+    Volume 18, Number 3, September 1992, pages 329-342.
+
+    Elise deDoncker, Ian Robinson,
+    Algorithm 612:
+    Integration over a Triangle Using Nonlinear Extrapolation,
+    ACM Transactions on Mathematical Software,
+    Volume 10, Number 1, March 1984, pages 17-22.
+
+    Dirk Laurie,
+    Algorithm 584,
+    CUBTRI, Automatic Cubature Over a Triangle,
+    ACM Transactions on Mathematical Software,
+    Volume 8, Number 2, 1982, pages 210-218.
+
+    James Lyness, Dennis Jespersen,
+    Moderate Degree Symmetric Quadrature Rules for the Triangle,
+    Journal of the Institute of Mathematics and its Applications,
+    Volume 15, Number 1, February 1975, pages 19-32.
+
+    Hans Rudolf Schwarz,
+    Finite Element Methods,
+    Academic Press, 1988,
+    ISBN: 0126330107,
+    LC: TA347.F5.S3313.
+
+    Gilbert Strang, George Fix,
+    An Analysis of the Finite Element Method,
+    Cambridge, 1973,
+    ISBN: 096140888X,
+    LC: TA335.S77.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+    Olgierd Zienkiewicz,
+    The Finite Element Method,
+    Sixth Edition,
+    Butterworth-Heinemann, 2005,
+    ISBN: 0750663200,
+    LC: TA640.2.Z54
+
+  Parameters:
+
+    Input, int RULE, the index of the rule.
+
+    Input, int ORDER, the order of the rule.
+
+    Output, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Output, double WEIGHT[ORDER], the weights of the rule.
+*/
 {
   double a;
   double b;
@@ -29862,9 +29859,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
   double y;
   double z;
 
-//
-//  1 point, precision 1.
-//
+/*
+  1 point, precision 1.
+*/
   if ( rule == 1 )
   {
     xtab[0]   = 0.33333333333333333333;
@@ -29873,9 +29870,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
 
     weight[0] = 1.00000000000000000000;
   }
-//
-//  3 points, precision 1, the "vertex rule".
-//
+/*
+  3 points, precision 1, the "vertex rule".
+*/
   else if ( rule == 2 )
   {
     xtab[0] =   1.00000000000000000000;
@@ -29890,9 +29887,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[1] = 0.33333333333333333333;
     weight[2] = 0.33333333333333333333;
   }
-//
-//  3 points, precision 2, Strang and Fix formula #1.
-//
+/*
+  3 points, precision 2, Strang and Fix formula #1.
+*/
   else if ( rule == 3 )
   {
     xtab[0]   = 0.66666666666666666667;
@@ -29907,9 +29904,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[1] = 0.33333333333333333333;
     weight[2] = 0.33333333333333333333;
   }
-//
-//  3 points, precision 2, Strang and Fix formula #2.
-//
+/*
+  3 points, precision 2, Strang and Fix formula #2.
+*/
   else if ( rule == 4 )
   {
     xtab[0]   = 0.50000000000000000000;
@@ -29924,9 +29921,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[1] = 0.33333333333333333333;
     weight[2] = 0.33333333333333333333;
   }
-//
-//  4 points, precision 3, Strang and Fix formula #3.
-//
+/*
+  4 points, precision 3, Strang and Fix formula #3.
+*/
   else if ( rule == 5 )
   {
     a =   6.0 / 30.0;
@@ -29951,9 +29948,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[2] = d;
     weight[3] = d;
   }
-//
-//  6 points, precision 3, Strang and Fix formula #4.
-//
+/*
+  6 points, precision 3, Strang and Fix formula #4.
+*/
   else if ( rule == 6 )
   {
     a = 0.659027622374092;
@@ -29981,9 +29978,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[4] = 0.16666666666666666667;
     weight[5] = 0.16666666666666666667;
   }
-//
-//  6 points, precision 3, Stroud T2:3-1.
-//
+/*
+  6 points, precision 3, Stroud T2:3-1.
+*/
   else if ( rule == 7 )
   {
     a = 0.0;
@@ -30014,9 +30011,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[4] = w;
     weight[5] = w;
   }
-//
-//  6 points, precision 4, Strang and Fix, formula #5.
-//
+/*
+  6 points, precision 4, Strang and Fix, formula #5.
+*/
   else if ( rule == 8 )
   {
     a = 0.816847572980459;
@@ -30047,9 +30044,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[4] = w;
     weight[5] = w;
   }
-//
-//  7 points, precision 4, Strang and Fix formula #6.
-//
+/*
+  7 points, precision 4, Strang and Fix formula #6.
+*/
   else if ( rule == 9 )
   {
     a = 1.0 / 3.0;
@@ -30083,9 +30080,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[5] = w;
     weight[6] = w;
   }
-//
-//  7 points, precision 5, Strang and Fix formula #7, Stroud T2:5-1
-//
+/*
+  7 points, precision 5, Strang and Fix formula #7, Stroud T2:5-1
+*/
   else if ( rule == 10 )
   {
     a = 1.0 / 3.0;
@@ -30121,9 +30118,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[5] = w;
     weight[6] = w;
   }
-//
-//  9 points, precision 6, Strang and Fix formula #8.
-//
+/*
+  9 points, precision 6, Strang and Fix formula #8.
+*/
   else if ( rule == 11 )
   {
     a = 0.124949503233232;
@@ -30165,9 +30162,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[7] = v;
     weight[8] = v;
   }
-//
-//  12 points, precision 6, Strang and Fix, formula #9.
-//
+/*
+  12 points, precision 6, Strang and Fix, formula #9.
+*/
   else if ( rule == 12 )
   {
     a = 0.873821971016996;
@@ -30221,13 +30218,13 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[10] = w;
     weight[11] = w;
   }
-//
-//  13 points, precision 7, Strang and Fix, formula #10.
-//
-//  Note that there is a typographical error in Strang and Fix
-//  which lists the value of the XSI[2] component of the
-//  last generator point as 0.4869... when it should be 0.04869...
-//
+/*
+  13 points, precision 7, Strang and Fix, formula #10.
+
+  Note that there is a typographical error in Strang and Fix
+  which lists the value of the XSI[2] component of the
+  last generator point as 0.4869... when it should be 0.04869...
+*/
   else if ( rule == 13 )
   {
     h = 1.0 / 3.0;
@@ -30286,9 +30283,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[11] = v;
     weight[12] = v;
   }
-//
-//  7 points, precision 3.
-//
+/*
+  7 points, precision 3.
+*/
   else if ( rule == 14 )
   {
     a = 1.0 / 3.0;
@@ -30324,14 +30321,14 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[5] = w;
     weight[6] = w;
   }
-//
-//  16 points, precision 5, Stroud T2:7-1.
-//
+/*
+  16 points, precision 5, Stroud T2:7-1.
+*/
   else if ( rule == 15 )
   {
-//
-//  Legendre rule of order 4.
-//
+/*
+  Legendre rule of order 4.
+*/
     order2 = 4;
 
     xtab[0] = - 0.861136311594052575223946488893;
@@ -30371,14 +30368,14 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
       }
     }
   }
-//
-//  64 points, precision 15.
-//
+/*
+  64 points, precision 15.
+*/
   else if ( rule == 16 )
   {
-//
-//  Legendre rule of order 8.
-//
+/*
+  Legendre rule of order 8.
+*/
     order2 = 8;
 
     xtab1[0] = -0.960289856497536231683560868569;
@@ -30429,9 +30426,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
       }
     }
   }
-//
-//  19 points, precision 8, from CUBTRI.
-//
+/*
+  19 points, precision 8, from CUBTRI.
+*/
   else if ( rule == 17 )
   {
     a = 1.0 / 3.0;
@@ -30439,36 +30436,36 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     c = ( 6.0 -       sqrt ( 15.0 ) ) / 21.0;
     d = ( 9.0 - 2.0 * sqrt ( 15.0 ) ) / 21.0;
     e = ( 6.0 +       sqrt ( 15.0 ) ) / 21.0;
-    f = ( 40.0 - 10.0 * sqrt ( 15.0 ) 
+    f = ( 40.0 - 10.0 * sqrt ( 15.0 )
       + 10.0 * sqrt ( 7.0 ) + 2.0 * sqrt ( 105.0 ) ) / 90.0;
-    g = ( 25.0 +  5.0 * sqrt ( 15.0 ) 
+    g = ( 25.0 +  5.0 * sqrt ( 15.0 )
       -  5.0 * sqrt ( 7.0 ) - sqrt ( 105.0 ) ) / 90.0;
-    p = ( 40.0 + 10.0 * sqrt ( 15.0 ) 
+    p = ( 40.0 + 10.0 * sqrt ( 15.0 )
       + 10.0 * sqrt ( 7.0 ) - 2.0 * sqrt ( 105.0 ) ) / 90.0;
-    q = ( 25.0 -  5.0 * sqrt ( 15.0 ) 
+    q = ( 25.0 -  5.0 * sqrt ( 15.0 )
       -  5.0 * sqrt ( 7.0 ) + sqrt ( 105.0 ) ) / 90.0;
     r = ( 40.0 + 10.0 * sqrt ( 7.0 ) ) / 90.0;
-    s = ( 25.0 +  5.0 * sqrt ( 15.0 ) - 5.0 * sqrt ( 7.0 ) 
+    s = ( 25.0 +  5.0 * sqrt ( 15.0 ) - 5.0 * sqrt ( 7.0 )
       - sqrt ( 105.0 ) ) / 90.0;
-    t = ( 25.0 -  5.0 * sqrt ( 15.0 ) - 5.0 * sqrt ( 7.0 ) 
+    t = ( 25.0 -  5.0 * sqrt ( 15.0 ) - 5.0 * sqrt ( 7.0 )
       + sqrt ( 105.0 ) ) / 90.0;
 
     w1 = ( 7137.0 - 1800.0 * sqrt ( 7.0 ) ) / 62720.0;
-    w2 = -9301697.0 / 4695040.0 - 13517313.0 * sqrt ( 15.0 ) 
-      / 23475200.0 + 764885.0 * sqrt ( 7.0 ) / 939008.0 
+    w2 = -9301697.0 / 4695040.0 - 13517313.0 * sqrt ( 15.0 )
+      / 23475200.0 + 764885.0 * sqrt ( 7.0 ) / 939008.0
       + 198763.0 * sqrt ( 105.0 ) / 939008.0;
     w2 = w2 / 3.0;
-    w3 = -9301697.0 / 4695040.0 + 13517313.0 * sqrt ( 15.0 ) 
-      / 23475200.0 
-      + 764885.0 * sqrt ( 7.0 ) / 939008.0 
+    w3 = -9301697.0 / 4695040.0 + 13517313.0 * sqrt ( 15.0 )
+      / 23475200.0
+      + 764885.0 * sqrt ( 7.0 ) / 939008.0
       - 198763.0 * sqrt ( 105.0 ) / 939008.0;
     w3 = w3 / 3.0;
-    w4 = ( 102791225.0 - 23876225.0 * sqrt ( 15.0 ) 
-      - 34500875.0 * sqrt ( 7.0 ) 
+    w4 = ( 102791225.0 - 23876225.0 * sqrt ( 15.0 )
+      - 34500875.0 * sqrt ( 7.0 )
       + 9914825.0 * sqrt ( 105.0 ) ) / 59157504.0;
     w4 = w4 / 3.0;
-    w5 = ( 102791225.0 + 23876225.0 * sqrt ( 15.0 ) 
-      - 34500875.0 * sqrt ( 7.0 ) 
+    w5 = ( 102791225.0 + 23876225.0 * sqrt ( 15.0 )
+      - 34500875.0 * sqrt ( 7.0 )
       - 9914825 * sqrt ( 105.0 ) ) / 59157504.0;
     w5 = w5 / 3.0;
     w6 = ( 11075.0 - 3500.0 * sqrt ( 7.0 ) ) / 8064.0;
@@ -30534,10 +30531,10 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[17] = w6;
     weight[18] = w6;
   }
-//
-//  19 points, precision 9.
-//  Lyness and Jesperson.
-//
+/*
+  19 points, precision 9.
+  Lyness and Jesperson.
+*/
   else if ( rule == 18 )
   {
     a = 1.0 / 3.0;
@@ -30620,10 +30617,10 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[17] = w6;
     weight[18] = w6;
   }
-//
-//  28 points, precision 11.
-//  Lyness and Jesperson.
-//
+/*
+  28 points, precision 11.
+  Lyness and Jesperson.
+*/
   else if ( rule == 19 )
   {
     a = 1.0 / 3.0;
@@ -30740,9 +30737,9 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
     weight[26] = w8;
     weight[27] = w8;
   }
-//
-//  37 points, precision 13.
-//
+/*
+  37 points, precision 13.
+*/
   else if ( rule == 20 )
   {
     a = 1.0 / 3.0;
@@ -30936,104 +30933,104 @@ void triangle_unit_set ( int rule, int order, double xtab[], double ytab[],
 
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 int triangle_unit_size ( int rule )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_UNIT_SIZE returns the "size" of a unit triangle quadrature rule.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    18 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Jarle Berntsen, Terje Espelid,
-//    Algorithm 706,
-//    DCUTRI: an algorithm for adaptive cubature over a collection of triangles, 
-//    ACM Transactions on Mathematical Software,
-//    Volume 18, Number 3, September 1992, pages 329-342.
-//
-//    Elise deDoncker, Ian Robinson,
-//    Algorithm 612:
-//    Integration over a Triangle Using Nonlinear Extrapolation,
-//    ACM Transactions on Mathematical Software,
-//    Volume 10, Number 1, March 1984, pages 17-22.
-//
-//    DP Laurie,
-//    Algorithm 584,
-//    CUBTRI, Automatic Cubature Over a Triangle,
-//    ACM Transactions on Mathematical Software,
-//    Volume 8, Number 2, 1982, pages 210-218.
-//
-//    James Lyness, Dennis Jespersen,
-//    Moderate Degree Symmetric Quadrature Rules for the Triangle,
-//    Journal of the Institute of Mathematics and its Applications,
-//    Volume 15, Number 1, February 1975, pages 19-32.
-//
-//    Hans Rudolf Schwarz,
-//    Methode der Finiten Elemente,
-//    Teubner Studienbuecher, 1980,
-//    ISBN: 3-519-02349-0.
-//
-//    Gilbert Strang, George Fix,
-//    An Analysis of the Finite Element Method,
-//    Prentice Hall, 1973, page 184,
-//    ISBN: 096140888X,
-//    LC: TA335.S77.
-//
-//    Arthur Stroud,
-//    Approximate Calculation of Multiple Integrals,
-//    Prentice Hall, 1971,
-//    ISBN: 0130438936,
-//    LC: QA311.S85.
-//
-//    Olgierd Zienkiewicz,
-//    The Finite Element Method,
-//    Sixth Edition,
-//    Butterworth-Heinemann, 2005,
-//    ISBN: 0750663200,
-//    TA640.2.Z54
-//
-//  Parameters:
-//
-//    Input, int RULE, the index of the rule.
-//     1, ORDER =  1, precision 1, Zienkiewicz #1.
-//     2, ORDER =  2, precision 1, (the "vertex rule").
-//     3, ORDER =  3, precision 2, Strang and Fix formula #1.
-//     4, ORDER =  3, precision 2, Strang and Fix formula #2, Zienkiewicz #2.
-//     5, ORDER =  4, precision 3, Strang and Fix formula #3, Zienkiewicz #3.
-//     6, ORDER =  6, precision 3, Strang and Fix formula #4.
-//     7, ORDER =  6, precision 3, Stroud formula T2:3-1.
-//     8, ORDER =  6, precision 4, Strang and Fix formula #5.
-//     9, ORDER =  7, precision 4, Strang and Fix formula #6.
-//    10, ORDER =  7, precision 5, Strang and Fix formula #7,
-//        Stroud formula T2:5-1, Zienkiewicz #4, Schwarz Table 2.2.
-//    11, ORDER =  9, precision 6, Strang and Fix formula #8.
-//    12, ORDER = 12, precision 6, Strang and Fix formula #9.
-//    13, ORDER = 13, precision 7, Strang and Fix formula #10.
-//    14, ORDER =  7, precision ?.
-//    15, ORDER = 16, precision 7, conical product Gauss, Stroud formula T2:7-1.
-//    16, ORDER = 64, precision 15, triangular product Gauss rule.
-//    17, ORDER = 19, precision 8, from CUBTRI, ACM TOMS #584.
-//    18, ORDER = 19, precision 9, from TRIEX, Lyness and Jespersen.
-//    19, ORDER = 28, precision 11, from TRIEX, Lyness and Jespersen.
-//    20, ORDER = 37, precision 13, from ACM TOMS #706.
-//
-//    Output, int TRIANGLE_UNIT_SIZE, the order of the rule.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_UNIT_SIZE returns the "size" of a unit triangle quadrature rule.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Jarle Berntsen, Terje Espelid,
+    Algorithm 706,
+    DCUTRI: an algorithm for adaptive cubature over a collection of triangles,
+    ACM Transactions on Mathematical Software,
+    Volume 18, Number 3, September 1992, pages 329-342.
+
+    Elise deDoncker, Ian Robinson,
+    Algorithm 612:
+    Integration over a Triangle Using Nonlinear Extrapolation,
+    ACM Transactions on Mathematical Software,
+    Volume 10, Number 1, March 1984, pages 17-22.
+
+    DP Laurie,
+    Algorithm 584,
+    CUBTRI, Automatic Cubature Over a Triangle,
+    ACM Transactions on Mathematical Software,
+    Volume 8, Number 2, 1982, pages 210-218.
+
+    James Lyness, Dennis Jespersen,
+    Moderate Degree Symmetric Quadrature Rules for the Triangle,
+    Journal of the Institute of Mathematics and its Applications,
+    Volume 15, Number 1, February 1975, pages 19-32.
+
+    Hans Rudolf Schwarz,
+    Methode der Finiten Elemente,
+    Teubner Studienbuecher, 1980,
+    ISBN: 3-519-02349-0.
+
+    Gilbert Strang, George Fix,
+    An Analysis of the Finite Element Method,
+    Prentice Hall, 1973, page 184,
+    ISBN: 096140888X,
+    LC: TA335.S77.
+
+    Arthur Stroud,
+    Approximate Calculation of Multiple Integrals,
+    Prentice Hall, 1971,
+    ISBN: 0130438936,
+    LC: QA311.S85.
+
+    Olgierd Zienkiewicz,
+    The Finite Element Method,
+    Sixth Edition,
+    Butterworth-Heinemann, 2005,
+    ISBN: 0750663200,
+    TA640.2.Z54
+
+  Parameters:
+
+    Input, int RULE, the index of the rule.
+     1, ORDER =  1, precision 1, Zienkiewicz #1.
+     2, ORDER =  2, precision 1, (the "vertex rule").
+     3, ORDER =  3, precision 2, Strang and Fix formula #1.
+     4, ORDER =  3, precision 2, Strang and Fix formula #2, Zienkiewicz #2.
+     5, ORDER =  4, precision 3, Strang and Fix formula #3, Zienkiewicz #3.
+     6, ORDER =  6, precision 3, Strang and Fix formula #4.
+     7, ORDER =  6, precision 3, Stroud formula T2:3-1.
+     8, ORDER =  6, precision 4, Strang and Fix formula #5.
+     9, ORDER =  7, precision 4, Strang and Fix formula #6.
+    10, ORDER =  7, precision 5, Strang and Fix formula #7,
+        Stroud formula T2:5-1, Zienkiewicz #4, Schwarz Table 2.2.
+    11, ORDER =  9, precision 6, Strang and Fix formula #8.
+    12, ORDER = 12, precision 6, Strang and Fix formula #9.
+    13, ORDER = 13, precision 7, Strang and Fix formula #10.
+    14, ORDER =  7, precision ?.
+    15, ORDER = 16, precision 7, conical product Gauss, Stroud formula T2:7-1.
+    16, ORDER = 64, precision 15, triangular product Gauss rule.
+    17, ORDER = 19, precision 8, from CUBTRI, ACM TOMS #584.
+    18, ORDER = 19, precision 9, from TRIEX, Lyness and Jespersen.
+    19, ORDER = 28, precision 11, from TRIEX, Lyness and Jespersen.
+    20, ORDER = 37, precision 13, from ACM TOMS #706.
+
+    Output, int TRIANGLE_UNIT_SIZE, the order of the rule.
+*/
 {
   int size;
 
@@ -31124,48 +31121,48 @@ int triangle_unit_size ( int rule )
 
   return size;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-double triangle_unit_sum ( double func ( double x, double y ), int order, 
+double triangle_unit_sum ( double func ( double x, double y ), int order,
   double xtab[], double ytab[], double weight[] )
 
-//****************************************************************************80
-//
-//// TRIANGLE_UNIT_SUM carries out a quadrature rule in the unit triangle.
-//
-//  Integration region:
-//
-//      0 <= X,
-//    and
-//      0 <= Y, 
-//    and
-//      X + Y <= 1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    15 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FUNC ( double x, double y ), the name of the
-//    user supplied function to be integrated.
-//
-//    Input, int ORDER, the order of the rule.
-//
-//    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
-//
-//    Input, double WEIGHT[ORDER], the weights of the rule.
-//
-//    Output, double RESULT, the approximate integral of the function.
-//
+/******************************************************************************/
+/*
+// TRIANGLE_UNIT_SUM carries out a quadrature rule in the unit triangle.
+
+  Integration region:
+
+      0 <= X,
+    and
+      0 <= Y,
+    and
+      X + Y <= 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FUNC ( double x, double y ), the name of the
+    user supplied function to be integrated.
+
+    Input, int ORDER, the order of the rule.
+
+    Input, double XTAB[ORDER], YTAB[ORDER], the abscissas.
+
+    Input, double WEIGHT[ORDER], the weights of the rule.
+
+    Output, double RESULT, the approximate integral of the function.
+*/
 {
   int i;
   double quad;
@@ -31183,45 +31180,45 @@ double triangle_unit_sum ( double func ( double x, double y ), int order,
 
   return result;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double triangle_unit_volume ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_UNIT_VOLUME returns the "volume" of the unit triangle in 2D.
-//
-//  Integration region:
-//
-//      0 <= X,
-//    and
-//      0 <= Y, 
-//    and
-//      X + Y <= 1.
-//
-//  Discussion:
-//
-//    The "volume" of a triangle is usually called its area.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    13 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double TRIANGLE_UNIT_VOLUME, the volume of the unit
-//    triangle.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_UNIT_VOLUME returns the "volume" of the unit triangle in 2D.
+
+  Integration region:
+
+      0 <= X,
+    and
+      0 <= Y,
+    and
+      X + Y <= 1.
+
+  Discussion:
+
+    The "volume" of a triangle is usually called its area.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double TRIANGLE_UNIT_VOLUME, the volume of the unit
+    triangle.
+*/
 {
   double volume;
 
@@ -31229,82 +31226,82 @@ double triangle_unit_volume ( )
 
   return volume;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double triangle_volume ( double x[3], double y[3] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TRIANGLE_VOLUME returns the "volume" of a triangle in 2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    10 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X[3], Y[3], the vertices of the triangle.
-//
-//    Output, double TRIANGLE_VOLUME, the volume of the triangle.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TRIANGLE_VOLUME returns the "volume" of a triangle in 2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X[3], Y[3], the vertices of the triangle.
+
+    Output, double TRIANGLE_VOLUME, the volume of the triangle.
+*/
 {
   double value;
 
-  value = 0.5 * r8_abs ( 
-    x[0] * ( y[1] - y[2] ) + 
-    x[1] * ( y[2] - y[0] ) + 
+  value = 0.5 * r8_abs (
+    x[0] * ( y[1] - y[2] ) +
+    x[1] * ( y[2] - y[0] ) +
     x[2] * ( y[0] - y[1] ) );
 
   return value;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double *tvec_even ( int nt )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TVEC_EVEN computes an evenly spaced set of angles between 0 and 2*PI.
-//
-//  Discussion:
-//
-//    The computation realizes that 0 = 2 * PI.
-//
-//  Example:
-//
-//    NT = 4
-//
-//    T = ( 0, PI/2, PI, 3*PI/2 )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    19 April 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int NT, the number of values to compute.
-//
-//    Output, double TVEC[NT], the evenly spaced angles, in radians.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TVEC_EVEN computes an evenly spaced set of angles between 0 and 2*PI.
+
+  Discussion:
+
+    The computation realizes that 0 = 2 * PI.
+
+  Example:
+
+    NT = 4
+
+    T = ( 0, PI/2, PI, 3*PI/2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int NT, the number of values to compute.
+
+    Output, double TVEC[NT], the evenly spaced angles, in radians.
+*/
 {
   int i;
   double pi = 3.141592653589793;
@@ -31324,45 +31321,45 @@ double *tvec_even ( int nt )
 
   return t;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double *tvec_even2 ( int nt )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TVEC_EVEN2 computes evenly spaced angles between 0 and 2*PI.
-//
-//  Discussion:
-//
-//    The computation realizes that 0 = 2 * PI.  The values are equally
-//    spaced in the circle, do not include 0, and are symmetric about 0.
-//
-//  Example:
-//
-//    NT = 4
-//
-//    T = ( PI/4, 3*PI/4, 5*PI/4, 7*PI/4 )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    19 April 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int NT, the number of values to compute.
-//
-//    Output, double TVEC[NT], the evenly spaced angles, in radians.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TVEC_EVEN2 computes evenly spaced angles between 0 and 2*PI.
+
+  Discussion:
+
+    The computation realizes that 0 = 2 * PI.  The values are equally
+    spaced in the circle, do not include 0, and are symmetric about 0.
+
+  Example:
+
+    NT = 4
+
+    T = ( PI/4, 3*PI/4, 5*PI/4, 7*PI/4 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int NT, the number of values to compute.
+
+    Output, double TVEC[NT], the evenly spaced angles, in radians.
+*/
 {
   int i;
   double pi = 3.141592653589793;
@@ -31382,44 +31379,44 @@ double *tvec_even2 ( int nt )
 
   return t;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double *tvec_even3 ( int nt )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TVEC_EVEN3 computes an evenly spaced set of angles between 0 and 2*PI.
-//
-//  Discussion:
-//
-//    The angles begin with 0 and end with 2*PI.
-//
-//  Example:
-//
-//    NT = 4
-//
-//    T = ( 0, 2*PI/3, 4*PI/3 2*PI )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    19 April 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int NT, the number of values to compute.
-//
-//    Output, double TVEC[NT], the evenly spaced angles, in radians.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TVEC_EVEN3 computes an evenly spaced set of angles between 0 and 2*PI.
+
+  Discussion:
+
+    The angles begin with 0 and end with 2*PI.
+
+  Example:
+
+    NT = 4
+
+    T = ( 0, 2*PI/3, 4*PI/3 2*PI )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int NT, the number of values to compute.
+
+    Output, double TVEC[NT], the evenly spaced angles, in radians.
+*/
 {
   int i;
   double pi = 3.141592653589793;
@@ -31446,56 +31443,56 @@ double *tvec_even3 ( int nt )
 
   return t;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double *tvec_even_bracket ( int nt, double theta1, double theta2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TVEC_EVEN_BRACKET computes evenly spaced angles between THETA1 and THETA2.
-//
-//  Example:
-//
-//    NT = 4
-//    THETA1 = 30
-//    THETA2 = 90
-//
-//    T = ( 30, 50, 70, 90 )
-//
-//  Discussion:
-//
-//    The interval between THETA1 and THETA2 is divided into NT-1 subintervals.
-//
-//    The angles returned are the breakpoints of these subintervals,
-//    including THETA1 and THETA2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    19 April 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int NT, the number of values to compute.
-//
-//    Input, double THETA1, THETA2, the limiting angles.
-//
-//    Output, double TVEC_EVEN_BRACKET[NT], the evenly spaced angles.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TVEC_EVEN_BRACKET computes evenly spaced angles between THETA1 and THETA2.
+
+  Example:
+
+    NT = 4
+    THETA1 = 30
+    THETA2 = 90
+
+    T = ( 30, 50, 70, 90 )
+
+  Discussion:
+
+    The interval between THETA1 and THETA2 is divided into NT-1 subintervals.
+
+    The angles returned are the breakpoints of these subintervals,
+    including THETA1 and THETA2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int NT, the number of values to compute.
+
+    Input, double THETA1, THETA2, the limiting angles.
+
+    Output, double TVEC_EVEN_BRACKET[NT], the evenly spaced angles.
+*/
 {
   int i;
   double *t;
 
-  if ( nt < 1 ) 
+  if ( nt < 1 )
   {
     return NULL;
   }
@@ -31510,63 +31507,63 @@ double *tvec_even_bracket ( int nt, double theta1, double theta2 )
   {
     for ( i = 1; i <= nt; i++ )
     {
-      t[i-1] = ( ( double ) ( nt - i     ) * theta1   
-               + ( double ) (      i - 1 ) * theta2 ) 
+      t[i-1] = ( ( double ) ( nt - i     ) * theta1
+               + ( double ) (      i - 1 ) * theta2 )
                / ( double ) ( nt     - 1 );
     }
   }
 
   return t;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double *tvec_even_bracket2 ( int nt, double theta1, double theta2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TVEC_EVEN_BRACKET2 computes evenly spaced angles from THETA1 to THETA2.
-//
-//  Discussion:
-//
-//    The interval between THETA1 and THETA2 is divided into NT+1 subintervals.
-//
-//    The angles returned are the internal NT breakpoints of the subintervals.
-//
-//  Example:
-//
-//    NT = 5
-//    THETA1 = 30
-//    THETA2 = 90
-//
-//    T = ( 40, 50, 60, 70, 80 )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    19 April 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int NT, the number of values to compute.
-//
-//    Input, double THETA1, THETA2, the limiting angles.
-//
-//    Output, double TVEC_EVEN_BRACKET2[NT], the evenly spaced angles.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TVEC_EVEN_BRACKET2 computes evenly spaced angles from THETA1 to THETA2.
+
+  Discussion:
+
+    The interval between THETA1 and THETA2 is divided into NT+1 subintervals.
+
+    The angles returned are the internal NT breakpoints of the subintervals.
+
+  Example:
+
+    NT = 5
+    THETA1 = 30
+    THETA2 = 90
+
+    T = ( 40, 50, 60, 70, 80 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int NT, the number of values to compute.
+
+    Input, double THETA1, THETA2, the limiting angles.
+
+    Output, double TVEC_EVEN_BRACKET2[NT], the evenly spaced angles.
+*/
 {
   int i;
   double *t;
 
-  if ( nt < 1 ) 
+  if ( nt < 1 )
   {
     return NULL;
   }
@@ -31575,57 +31572,57 @@ double *tvec_even_bracket2 ( int nt, double theta1, double theta2 )
 
   for ( i = 1; i <= nt; i++ )
   {
-    t[i-1] = ( ( double ) ( nt + 1 - i ) * theta1   
-             + ( double ) (          i ) * theta2 ) 
+    t[i-1] = ( ( double ) ( nt + 1 - i ) * theta1
+             + ( double ) (          i ) * theta2 )
              / ( double ) ( nt + 1     );
   }
 
   return t;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double *tvec_even_bracket3 ( int nt, double theta1, double theta2 )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TVEC_EVEN_BRACKET3 computes evenly spaced angles from THETA1 to THETA2.
-//
-//  Discussion:
-//
-//    The interval between THETA1 and THETA2 is divided into NT subintervals.
-//
-//    The angles returned are the midpoints of each subinterval.
-//
-//  Example:
-//
-//    NT = 3
-//    THETA1 = 30
-//    THETA2 = 90
-//
-//    T = ( 40, 60, 80 )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    19 April 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int NT, the number of values to compute.
-//
-//    Input, double THETA1, THETA2, the limiting angles.
-//
-//    Output, double TVEC_EVEN_BRACKET3[NT], the evenly spaced angles.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TVEC_EVEN_BRACKET3 computes evenly spaced angles from THETA1 to THETA2.
+
+  Discussion:
+
+    The interval between THETA1 and THETA2 is divided into NT subintervals.
+
+    The angles returned are the midpoints of each subinterval.
+
+  Example:
+
+    NT = 3
+    THETA1 = 30
+    THETA2 = 90
+
+    T = ( 40, 60, 80 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int NT, the number of values to compute.
+
+    Input, double THETA1, THETA2, the limiting angles.
+
+    Output, double TVEC_EVEN_BRACKET3[NT], the evenly spaced angles.
+*/
 {
   int i;
   double *t;
@@ -31634,72 +31631,72 @@ double *tvec_even_bracket3 ( int nt, double theta1, double theta2 )
 
   for ( i = 1; i <= nt; i++ )
   {
-    t[i-1] = ( ( double ) ( 2 * nt - 2 * i + 1 ) * theta1   
-             + ( double ) (          2 * i - 1 ) * theta2 ) 
+    t[i-1] = ( ( double ) ( 2 * nt - 2 * i + 1 ) * theta1
+             + ( double ) (          2 * i - 1 ) * theta2 )
              / ( double ) ( 2 * nt             );
   }
 
   return t;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 void vec_lex_next ( int dim_num, int base, int a[], int *more )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    VEC_LEX_NEXT generates vectors in lex order.
-//
-//  Discussion:
-//
-//    The vectors are produced in lexical order, starting with
-//    (0,0,...,0),
-//    (0,0,...,1), 
-//    ...
-//    (BASE-1,BASE-1,...,BASE-1).
-//
-//  Examples:
-//
-//    DIM_NUM = 2,
-//    BASE = 3
-//
-//    0   0
-//    0   1
-//    0   2
-//    1   0
-//    1   1
-//    1   2
-//    2   0
-//    2   1
-//    2   2
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license. 
-//
-//  Modified:
-//
-//    25 May 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int DIM_NUM, the size of the vectors to be used.
-//
-//    Input, int BASE, the base to be used.  BASE = 2 will
-//    give vectors of 0's and 1's, for instance.
-//
-//    Output, int A[DIM_NUM], the next vector.  
-//
-//    Input/output, int *MORE.  Set this variable false before
-//    the first call.  On return, MORE is TRUE if another vector has
-//    been computed.  If MORE is returned FALSE, ignore the output 
-//    vector and stop calling the routine.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    VEC_LEX_NEXT generates vectors in lex order.
+
+  Discussion:
+
+    The vectors are produced in lexical order, starting with
+    (0,0,...,0),
+    (0,0,...,1),
+    ...
+    (BASE-1,BASE-1,...,BASE-1).
+
+  Examples:
+
+    DIM_NUM = 2,
+    BASE = 3
+
+    0   0
+    0   1
+    0   2
+    1   0
+    1   1
+    1   2
+    2   0
+    2   1
+    2   2
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 May 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int DIM_NUM, the size of the vectors to be used.
+
+    Input, int BASE, the base to be used.  BASE = 2 will
+    give vectors of 0's and 1's, for instance.
+
+    Output, int A[DIM_NUM], the next vector.
+
+    Input/output, int *MORE.  Set this variable false before
+    the first call.  On return, MORE is TRUE if another vector has
+    been computed.  If MORE is returned FALSE, ignore the output
+    vector and stop calling the routine.
+*/
 {
   int i;
 

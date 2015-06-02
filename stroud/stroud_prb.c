@@ -12,80 +12,80 @@ int function_2d_index = 0;
 int function_3d_index = 0;
 int function_nd_index = 0;
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
-void test045 ( void );
-void test05 ( void );
-void test052 ( void );
-void test054 ( void );
-void test07 ( void );
-void test08 ( void );
-void test085 ( void );
-void test09 ( void );
-void test10 ( void );
-void test11 ( void );
-void test12 ( void );
-void test13 ( void );
-void test14 ( void );
-void test15 ( void );
-void test16 ( void );
-void test163 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
+void test045 ( );
+void test05 ( );
+void test052 ( );
+void test054 ( );
+void test07 ( );
+void test08 ( );
+void test085 ( );
+void test09 ( );
+void test10 ( );
+void test11 ( );
+void test12 ( );
+void test13 ( );
+void test14 ( );
+void test15 ( );
+void test16 ( );
+void test163 ( );
 void cn_geg_test ( int n, double alpha, int expon[] );
-void test165 ( void );
+void test165 ( );
 void cn_jac_test ( int n, double alpha, double beta, int expon[] );
-void test167 ( void );
+void test167 ( );
 void cn_leg_test ( int n, int expon[] );
-void test17 ( void );
-void test18 ( void );
-void test19 ( void );
-void test20 ( void );
-void test205 ( void );
-void test207 ( void );
+void test17 ( );
+void test18 ( );
+void test19 ( );
+void test20 ( );
+void test205 ( );
+void test207 ( );
 void en_r2_test ( int n, int expon[] );
-void test2075 ( void );
+void test2075 ( );
 void epn_glg_test ( int n, int expon[], double alpha );
-void test208 ( void );
+void test208 ( );
 void epn_lag_test ( int n, int expon[] );
-void test21 ( void );
-void test215 ( void );
-void test22 ( void );
-void test23 ( void );
-void test24 ( void );
-void test25 ( void );
-void test255 ( void );
-void test26 ( void );
-void test27 ( void );
-void test28 ( void );
-void test29 ( void );
-void test30 ( void );
-void test31 ( void );
-void test32 ( void );
-void test322 ( void );
-void test324 ( void );
-void test326 ( void );
-void test33 ( void );
-void test335 ( void );
-void test34 ( void );
-void test345 ( void );
-void test35 ( void );
-void test36 ( void );
-void test37 ( void );
-void test38 ( void );
-void test39 ( void );
-void test40 ( void );
-void test41 ( void );
-void test42 ( void );
-void test425 ( void );
-void test43 ( void );
-void test44 ( void );
-void test45 ( void );
-void test46 ( void );
-void test47 ( void );
-void test48 ( void );
-void test49 ( void );
+void test21 ( );
+void test215 ( );
+void test22 ( );
+void test23 ( );
+void test24 ( );
+void test25 ( );
+void test255 ( );
+void test26 ( );
+void test27 ( );
+void test28 ( );
+void test29 ( );
+void test30 ( );
+void test31 ( );
+void test32 ( );
+void test322 ( );
+void test324 ( );
+void test326 ( );
+void test33 ( );
+void test335 ( );
+void test34 ( );
+void test345 ( );
+void test35 ( );
+void test36 ( );
+void test37 ( );
+void test38 ( );
+void test39 ( );
+void test40 ( );
+void test41 ( );
+void test42 ( );
+void test425 ( );
+void test43 ( );
+void test44 ( );
+void test45 ( );
+void test46 ( );
+void test47 ( );
+void test48 ( );
+void test49 ( );
 double fu18 ( double x );
 double fl18 ( double x );
 double fu28 ( double x, double y );
@@ -93,19 +93,19 @@ double fl28 ( double x, double y );
 
 double function_1d ( double x );
 void function_1d_name ( char *name );
-int function_1d_num ( void );
+int function_1d_num ( );
 
 double function_2d ( double x, double y );
 void function_2d_name ( char *name );
-int function_2d_num ( void );
+int function_2d_num ( );
 
 double function_3d ( double x, double y, double z );
 void function_3d_name ( char *name );
-int function_3d_num ( void );
+int function_3d_num ( );
 
 double function_nd ( int n, double x[] );
 void function_nd_name ( char *name );
-int function_nd_num ( void );
+int function_nd_num ( );
 
 double f_1_2d ( double x, double y );
 double f_x_2d ( double x, double y );
@@ -118,7 +118,7 @@ double *setsim ( int n );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -128,7 +128,7 @@ int main ( void )
 
   Discussion:
 
-    STROUD_PRB calls the STROUD tests.
+    STROUD_PRB tests the STROUD library.
 
   Licensing:
 
@@ -226,34 +226,33 @@ int main ( void )
   printf ( "\n" );
   printf ( "STROUD_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
   return 0;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test01 ( void )
+void test01 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST01 tests BALL_F1_ND, BALL_F3_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST01 tests BALL_F1_ND, BALL_F3_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double *center;
   int i;
@@ -310,28 +309,28 @@ void test01 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test02 ( void )
+void test02 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST02 tests BALL_MONOMIAL_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST02 tests BALL_MONOMIAL_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double center[3] = { 0.0, 0.0, 0.0 };
   int dim_num = 3;
@@ -400,28 +399,28 @@ void test02 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test03 ( void )
+void test03 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST03 tests BALL_UNIT_**_3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    01 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST03 tests BALL_UNIT_**_3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   char name[8];
@@ -442,7 +441,7 @@ void test03 ( void )
   printf ( "    Rule:      #7             #14           #15\n" );
   printf ( "    F(X)\n" );
   printf ( "\n" );
- 
+
   num = function_3d_num ( );
 
   for ( i = 1; i <= num; i++ )
@@ -458,28 +457,28 @@ void test03 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test04 ( void )
+void test04 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST04 tests BALL_UNIT_F1_ND, BALL_UNIT_F3_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    17 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST04 tests BALL_UNIT_F1_ND, BALL_UNIT_F3_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int n;
@@ -495,7 +494,7 @@ void test04 ( void )
   printf ( "  BALL_UNIT_F1_ND approximates the integral;\n" );
   printf ( "  BALL_UNIT_F3_ND approximates the integral.\n" );
   printf ( "\n" );
- 
+
   for ( n = 2; n <= n_max; n++ )
   {
     printf ( "\n" );
@@ -506,7 +505,7 @@ void test04 ( void )
     printf ( "    Rule:      F1          F3\n" );
     printf ( "    F(X)\n" );
     printf ( "\n" );
- 
+
     num = function_nd_num ( );
 
     for ( i = 1; i <= num; i++ )
@@ -522,28 +521,28 @@ void test04 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test045 ( void )
+void test045 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST045 tests BALL_UNIT_VOLUME_3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST045 tests BALL_UNIT_VOLUME_3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int dim_num = 3;
 
@@ -556,36 +555,36 @@ void test045 ( void )
   printf ( "    N    Volume    Method\n" );
   printf ( "\n" );
 
-  printf ( "  %3d  %14f  BALL_UNIT_VOLUME_3D\n", 
+  printf ( "  %3d  %14f  BALL_UNIT_VOLUME_3D\n",
     dim_num, ball_unit_volume_3d ( ) );
 
-  printf ( "  %3d  %14f  BALL_UNIT_VOLUME_ND\n", 
+  printf ( "  %3d  %14f  BALL_UNIT_VOLUME_ND\n",
     dim_num, ball_unit_volume_nd ( dim_num ) );
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test05 ( void )
+void test05 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST05 tests BALL_UNIT_VOLUME_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST05 tests BALL_UNIT_VOLUME_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int dim_num;
 
@@ -603,28 +602,28 @@ void test05 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test052 ( void )
+void test052 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST052 tests BALL_VOLUME_3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST052 tests BALL_VOLUME_3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int n = 3;
@@ -651,28 +650,28 @@ void test052 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test054 ( void )
+void test054 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST054 tests BALL_VOLUME_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST054 tests BALL_VOLUME_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int n;
@@ -697,33 +696,33 @@ void test054 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test07 ( void )
+void test07 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST07 tests CIRCLE_ANNULUS.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST07 tests CIRCLE_ANNULUS.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area;
   double center[2];
   double center_test[2*2] = {
-    0.0, 0.0, 
+    0.0, 0.0,
     0.0, 0.0 };
   int dim;
   int dim_num = 2;
@@ -759,7 +758,7 @@ void test07 ( void )
     area = circle_annulus_area_2d ( radius1, radius2 );
 
     printf ( "\n" );
-    printf ( "     Area  %8f  %8f  %8f  %8f  %10f\n", 
+    printf ( "     Area  %8f  %8f  %8f  %8f  %10f\n",
       center[0], center[1], radius1, radius2, area );
 
     num = function_2d_num ( );
@@ -781,34 +780,34 @@ void test07 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test08 ( void )
+void test08 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST08 tests CIRCLE_ANNULUS, CIRCLE_RT_SET, CIRCLE_RT_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    12 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST08 tests CIRCLE_ANNULUS, CIRCLE_RT_SET, CIRCLE_RT_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area;
   double center[2];
   double center_test[2*3] = {
-    0.0, 0.0, 
-    0.0, 0.0, 
+    0.0, 0.0,
+    0.0, 0.0,
     0.0, 0.0 };
   int dim;
   int dim_num = 2;
@@ -878,10 +877,10 @@ void test08 ( void )
       nr = 5;
       result1 = circle_annulus ( function_2d, center, radius1, radius2, nr );
 
-      result2 = circle_rt_sum ( function_2d, center, radius1, nr2, ra, rw, nt, 
+      result2 = circle_rt_sum ( function_2d, center, radius1, nr2, ra, rw, nt,
         ta, tw, zw );
 
-      result3 = circle_rt_sum ( function_2d, center, radius2, nr2, ra, rw, nt, 
+      result3 = circle_rt_sum ( function_2d, center, radius2, nr2, ra, rw, nt,
         ta, tw, zw );
 
      printf ( "  %8s  %9f  %9f  %9f  %9f  %9f  %9f\n",
@@ -890,34 +889,34 @@ void test08 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test085 ( void )
+void test085 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST085 tests CIRCLE_ANNULUS_AREA_2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST085 tests CIRCLE_ANNULUS_AREA_2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area;
   double center[2];
   double center_test[2*3] = {
-    0.0, 0.0, 
-    1.0, 0.0, 
+    0.0, 0.0,
+    1.0, 0.0,
     3.0, 4.0 };
   int dim;
   int dim_num = 2;
@@ -949,34 +948,34 @@ void test085 ( void )
     area = circle_annulus_area_2d ( radius1, radius2 );
 
     printf ( "\n" );
-    printf ( "  %9f  %9f  %9f  %9f  %9f\n", 
+    printf ( "  %9f  %9f  %9f  %9f  %9f\n",
       center[0], center[1], radius1, radius2, area );
   }
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test09 ( void )
+void test09 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST09 tests CIRCLE_ANNULUS_SECTOR, CIRCLE_RT_SET, CIRCLE_RT_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST09 tests CIRCLE_ANNULUS_SECTOR, CIRCLE_RT_SET, CIRCLE_RT_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double as1;
   double as2;
@@ -1082,21 +1081,21 @@ void test09 ( void )
   {
     function_2d_index = j;
 
-    as1 = circle_annulus_sector ( function_2d, center, radius1a, radius2a, theta1a, 
+    as1 = circle_annulus_sector ( function_2d, center, radius1a, radius2a, theta1a,
       theta2a, nr );
 
-    as2 = circle_annulus_sector ( function_2d, center, radius1b, radius2b, theta1b, 
+    as2 = circle_annulus_sector ( function_2d, center, radius1b, radius2b, theta1b,
       theta2b, nr );
 
-    as3 = circle_annulus_sector ( function_2d, center, radius1c, radius2c, theta1c, 
+    as3 = circle_annulus_sector ( function_2d, center, radius1c, radius2c, theta1c,
       theta2c, nr );
 
-    as4 = circle_annulus_sector ( function_2d, center, radius1d, radius2d, theta1d, 
+    as4 = circle_annulus_sector ( function_2d, center, radius1d, radius2d, theta1d,
       theta2d, nr );
 
     result1 = as1 + as2 + as3 + as4;
 
-    result2 = circle_rt_sum ( function_2d, center, radius, nr2, ra, rw, nt, 
+    result2 = circle_rt_sum ( function_2d, center, radius, nr2, ra, rw, nt,
       ta, tw, zw );
 
     function_2d_name ( name );
@@ -1106,28 +1105,28 @@ void test09 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test10 ( void )
+void test10 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST10 tests CIRCLE_CUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    17 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST10 tests CIRCLE_CUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double center[2] = { 0.0, 0.0 };
   int dim_num = 2;
@@ -1137,7 +1136,7 @@ void test10 ( void )
   int num;
   int order;
   double r = 3.0;
- 
+
   printf ( "\n" );
   printf ( "TEST10\n" );
   printf ( "  CIRCLE_CUM approximates an integral over a circle.\n" );
@@ -1151,7 +1150,7 @@ void test10 ( void )
   printf ( "    Order:      2             4              8            16\n" );
   printf ( "  F(X)\n" );
   printf ( "\n" );
- 
+
   num = function_2d_num ( );
 
   for ( i = 1; i <= num; i++ )
@@ -1172,28 +1171,28 @@ void test10 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test11 ( void )
+void test11 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST11 tests LENS_HALF_AREA_2D, CIRCLE_SECTOR_AREA_2D, CIRCLE_TRIANGLE_AREA_2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST11 tests LENS_HALF_AREA_2D, CIRCLE_SECTOR_AREA_2D, CIRCLE_TRIANGLE_AREA_2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area1;
   double area2;
@@ -1238,28 +1237,28 @@ void test11 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test12 ( void )
+void test12 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST12 tests LENS_HALF_AREA_2D, LENS_HALF_H_AREA_2D, LENS_HALF_W_AREA_2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST12 tests LENS_HALF_AREA_2D, LENS_HALF_H_AREA_2D, LENS_HALF_W_AREA_2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area1;
   double area2;
@@ -1305,35 +1304,35 @@ void test12 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test13 ( void )
+void test13 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST13 tests CIRCLE_SECTOR, CIRCLE_SECTOR_AREA_2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    19 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST13 tests CIRCLE_SECTOR, CIRCLE_SECTOR_AREA_2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area;
   double center[2];
   double center_test[2*4] = {
-    0.0, 0.0, 
-    0.0, 0.0, 
-    0.0, 0.0, 
+    0.0, 0.0,
+    0.0, 0.0,
+    0.0, 0.0,
     0.0, 0.0 };
   int dim;
   int dim_num = 2;
@@ -1407,7 +1406,7 @@ void test13 ( void )
 
       for ( nr = nrlo; nr <= nrhi; nr++ )
       {
-        result = circle_sector ( function_2d, center, radius, theta1, theta2, 
+        result = circle_sector ( function_2d, center, radius, theta1, theta2,
           nr );
         printf ( "%14f", result );
       }
@@ -1417,37 +1416,37 @@ void test13 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test14 ( void )
+void test14 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST14 tests CIRCLE_SECTOR, CIRCLE_RT_SET, CIRCLE_RT_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    12 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST14 tests CIRCLE_SECTOR, CIRCLE_RT_SET, CIRCLE_RT_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area1;
   double area2;
   double area3;
   double center[2];
   double center_test[2*4] = {
-    0.0, 0.0, 
-    0.0, 0.0, 
-    0.0, 0.0, 
+    0.0, 0.0,
+    0.0, 0.0,
+    0.0, 0.0,
     0.0, 0.0 };
   int dim;
   int dim_num = 2;
@@ -1543,15 +1542,15 @@ void test14 ( void )
       function_2d_index = j;
       function_2d_name ( name );
 
-      resulta = circle_sector ( function_2d, center, radius, theta1, 
+      resulta = circle_sector ( function_2d, center, radius, theta1,
         theta2, nr );
 
-      resultb = circle_sector ( function_2d, center, radius, theta2, 
+      resultb = circle_sector ( function_2d, center, radius, theta2,
         theta3, nr );
 
       result1 = resulta + resultb;
 
-      result2 = circle_rt_sum ( function_2d, center, radius, nr2, ra, rw, 
+      result2 = circle_rt_sum ( function_2d, center, radius, nr2, ra, rw,
         nt, ta, tw, zw );
 
       printf ( "  %8s  %14f  %14f  %14f  %14f\n",
@@ -1560,28 +1559,28 @@ void test14 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test15 ( void )
+void test15 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST15 tests CIRCLE_RT_SET and CIRCLE_RT_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    12 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST15 tests CIRCLE_RT_SET and CIRCLE_RT_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double center[2] = { 1.0, 1.0 };
   int dim_num = 2;
@@ -1647,7 +1646,7 @@ void test15 ( void )
 
         circle_rt_set ( rule, nr, nt, nc, ra, rw, ta, tw, &zw );
 
-        result = circle_rt_sum ( function_2d, center, r, nr, ra, rw, nt, ta, 
+        result = circle_rt_sum ( function_2d, center, r, nr, ra, rw, nt, ta,
           tw, zw );
         printf ( "%14f", result );
 
@@ -1656,33 +1655,33 @@ void test15 ( void )
         free ( ta );
         free ( tw );
       }
-      printf ( "\n" );      
+      printf ( "\n" );
     }
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test16 ( void )
+void test16 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST16 tests CIRCLE_XY_SET and CIRCLE_XY_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    16 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST16 tests CIRCLE_XY_SET and CIRCLE_XY_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double center[2] = { 1.0, 1.0 };
   int dim_num = 2;
@@ -1759,28 +1758,28 @@ void test16 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test163 ( void )
+void test163 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST163 tests the rules for CN with Gegenbauer weight on monomials.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    30 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST163 tests the rules for CN with Gegenbauer weight on monomials.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
 # define TEST_NUM 5
 
@@ -1855,28 +1854,28 @@ void test163 ( void )
   return;
 # undef TEST_NUM
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void cn_geg_test ( int n, double alpha, int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_GEG_TEST tests the rules for CN with Gegenbauer weight on a monomial.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    CN_GEG_TEST tests the rules for CN with Gegenbauer weight on a monomial.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 March 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
   double c1;
   int d;
@@ -1964,7 +1963,7 @@ void cn_geg_test ( int n, double alpha, int expon[] )
     gamma0 = 1.0;
     delta0 = 0.0;
     c1 = 1.0 / ( 2.0 * alpha + 3.0 );
-    volume_1d = sqrt ( pi ) * r8_gamma ( alpha + 1.0 ) 
+    volume_1d = sqrt ( pi ) * r8_gamma ( alpha + 1.0 )
       / r8_gamma ( alpha + 1.5 );
     x = ( double * ) malloc ( n * o * sizeof ( double ) );
     w = ( double * ) malloc ( o * sizeof ( double ) );
@@ -1999,28 +1998,28 @@ void cn_geg_test ( int n, double alpha, int expon[] )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test165 ( void )
+void test165 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST165 tests the rules for CN with Jacobi weight on monomials.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    26 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST165 tests the rules for CN with Jacobi weight on monomials.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
 # define TEST_NUM 4
 
@@ -2101,28 +2100,28 @@ void test165 ( void )
   return;
 # undef TEST_NUM
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void cn_jac_test ( int n, double alpha, double beta, int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_JAC_TEST tests the rules for CN with Jacobi weight on a monomial.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    CN_JAC_TEST tests the rules for CN with Jacobi weight on a monomial.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 March 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
   double c1;
   int d;
@@ -2209,9 +2208,9 @@ void cn_jac_test ( int n, double alpha, double beta, int expon[] )
     o = gw_02_xiu_size ( n );
     gamma0 = ( alpha + beta + 2.0 ) / 2.0;
     delta0 = ( alpha - beta ) / 2.0;
-    c1 = 2.0 * ( alpha + 1.0 ) * ( beta + 1.0 ) / ( alpha + beta + 3.0 ) 
+    c1 = 2.0 * ( alpha + 1.0 ) * ( beta + 1.0 ) / ( alpha + beta + 3.0 )
       / ( alpha + beta + 2.0 );
-    volume_1d = pow ( 2.0, alpha + beta + 1.0 ) * r8_gamma ( alpha + 1.0 ) 
+    volume_1d = pow ( 2.0, alpha + beta + 1.0 ) * r8_gamma ( alpha + 1.0 )
       * r8_gamma ( beta + 1.0 ) / ( alpha + beta + 1.0 ) / r8_gamma ( alpha + beta + 1.0 );
     x = ( double * ) malloc ( n * o * sizeof ( double ) );
     w = ( double * ) malloc ( o * sizeof ( double ) );
@@ -2228,28 +2227,28 @@ void cn_jac_test ( int n, double alpha, double beta, int expon[] )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test167 ( void )
+void test167 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST167 tests the rules for CN with Legendre weight on monomials.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST167 tests the rules for CN with Legendre weight on monomials.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
   int *expon;
   int i;
@@ -2314,28 +2313,28 @@ void test167 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void cn_leg_test ( int n, int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    CN_LEG_TEST tests the rules for CN with Legendre weight on a monomial.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 March 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    CN_LEG_TEST tests the rules for CN with Legendre weight on a monomial.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
   double c1;
   int d;
@@ -2501,28 +2500,28 @@ void cn_leg_test ( int n, int expon[] )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test17 ( void )
+void test17 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST17 tests CONE_UNIT_3D, CONE_VOLUME_3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    01 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST17 tests CONE_UNIT_3D, CONE_VOLUME_3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double h;
   int i;
@@ -2555,28 +2554,28 @@ void test17 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test18 ( void )
+void test18 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST18 tests CUBE_SHELL_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST18 tests CUBE_SHELL_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int n;
@@ -2605,7 +2604,7 @@ void test18 ( void )
     printf ( "  Inner radius = %f\n", r1 );
     printf ( "  Outer radius = %f\n", r2 );
     printf ( "\n" );
- 
+
     for ( n = 2; n <= n_max; n++ )
     {
       printf ( "\n" );
@@ -2614,7 +2613,7 @@ void test18 ( void )
       printf ( "\n" );
       printf ( "    F(X)      CUBE_SHELL_ND\n" );
       printf ( "\n" );
- 
+
       num = function_nd_num ( );
 
       for ( i = 1; i <= num; i++ )
@@ -2630,28 +2629,28 @@ void test18 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test19 ( void )
+void test19 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST19 tests CUBE_UNIT_3D, QMULT_3D, RECTANGLE_3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST19 tests CUBE_UNIT_3D, QMULT_3D, RECTANGLE_3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double a1;
   double a[3];
@@ -2701,28 +2700,28 @@ void test19 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test20 ( void )
+void test20 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST20 tests CUBE_UNIT_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    19 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST20 tests CUBE_UNIT_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int i_test;
@@ -2792,33 +2791,33 @@ void test20 ( void )
           printf ( "%14f", qb[k2] );
         }
         printf ( "\n" );
-      }                                    
+      }
     }
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test205 ( void )
+void test205 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST205 tests ELLIPSE_AREA_2D, ELLIPSE_CIRCUMFERENCE_2D, ELLIPSE_ECCENTRICITY_2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST205 tests ELLIPSE_AREA_2D, ELLIPSE_CIRCUMFERENCE_2D, ELLIPSE_ECCENTRICITY_2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area;
   double e;
@@ -2853,7 +2852,7 @@ void test205 ( void )
     }
 
     e = ellipse_eccentricity_2d ( r1, r2 );
-    p = ellipse_circumference_2d ( r1, r2 ) ;   
+    p = ellipse_circumference_2d ( r1, r2 ) ;
     area = ellipse_area_2d ( r1, r2 );
 
     printf ( "  %10f  %10f  %10f  %10f  %10f\n", r1, r2, e, p, area );
@@ -2865,30 +2864,31 @@ void test205 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test207 ( void )
+void test207 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST207 tests the Stroud EN_R2 rules on monomials.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST207 tests the Stroud EN_R2 rules on monomials.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 April 2013
+
+  Author:
+
+    John Burkardt
+*/
 {
   int *expon;
+  int expon_dim;
   int i;
   int n;
 
@@ -2908,7 +2908,8 @@ void test207 ( void )
 
   for ( n = 1; n <= 7; n++ )
   {
-    expon = ( int * ) malloc ( n * sizeof ( int ) );
+    expon_dim = i4_max ( n, 2 );
+    expon = ( int * ) malloc ( expon_dim * sizeof ( int ) );
 
     for ( i = 0; i < n; i++ )
     {
@@ -2979,28 +2980,28 @@ void test207 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void en_r2_test ( int n, int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EN_R2_TEST tests the Stroud EN_R2 rules on a monomial.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    26 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    EN_R2_TEST tests the Stroud EN_R2 rules on a monomial.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
   double c1;
   int d;
@@ -3378,28 +3379,28 @@ void en_r2_test ( int n, int expon[] )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test2075 ( void )
+void test2075 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST2075 tests the rules for EPN with GLG on monomials.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    29 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST2075 tests the rules for EPN with GLG on monomials.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 January 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
 # define TEST_NUM 5
 
@@ -3468,28 +3469,28 @@ void test2075 ( void )
   return;
 # undef TEST_NUM
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void epn_glg_test ( int n, int expon[], double alpha )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_GLG_TEST tests the rules for EPN with GLG weight on a monomial.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    27 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    EPN_GLG_TEST tests the rules for EPN with GLG weight on a monomial.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 January 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
   double c1;
   int d;
@@ -3592,28 +3593,28 @@ void epn_glg_test ( int n, int expon[], double alpha )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test208 ( void )
+void test208 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST208 tests the rules for EPN with Laguerre weight on monomials.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    28 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST208 tests the rules for EPN with Laguerre weight on monomials.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
   int *expon;
   int i;
@@ -3662,28 +3663,28 @@ void test208 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void epn_lag_test ( int n, int expon[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    EPN_LAG_TEST tests the rules for EPN with Laguerre weight on a monomial.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    27 January 2010
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    EPN_LAG_TEST tests the rules for EPN with Laguerre weight on a monomial.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 January 2010
+
+  Author:
+
+    John Burkardt
+*/
 {
   double c1;
   int d;
@@ -3786,28 +3787,28 @@ void epn_lag_test ( int n, int expon[] )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test21 ( void )
+void test21 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//   TEST21 tests HEXAGON_UNIT_SET and HEXAGON_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+   TEST21 tests HEXAGON_UNIT_SET and HEXAGON_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double center[2] = { 0.0, 0.0 };
   int dim_num = 2;
@@ -3826,7 +3827,7 @@ void test21 ( void )
   double *ytab;
 
   rad = 2.0;
- 
+
   printf ( "\n" );
   printf ( "TEST21\n" );
   printf ( "  HEXAGON_UNIT_SET sets a quadrature rule for the\n" );
@@ -3836,7 +3837,7 @@ void test21 ( void )
   printf ( "\n" );
   printf ( "  We use a radius %f\n", rad );
   printf ( "  and center:\n" );
-  printf ( "  CENTER = (%f, %f)\n", center[0], center[1] ); 
+  printf ( "  CENTER = (%f, %f)\n", center[0], center[1] );
   printf ( "\n" );
 
   for ( ilo = 1; ilo <= rule_max; ilo = ilo + 5 )
@@ -3871,7 +3872,7 @@ void test21 ( void )
 
         hexagon_unit_set ( rule, order, xtab, ytab, weight );
 
-        result = hexagon_sum ( function_2d, center, rad, order, xtab, ytab, 
+        result = hexagon_sum ( function_2d, center, rad, order, xtab, ytab,
           weight );
 
         printf ( "%14f", result );
@@ -3885,28 +3886,28 @@ void test21 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test215 ( void )
+void test215 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST215 tests LENS_HALF_2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    15 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST215 tests LENS_HALF_2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area;
   double center[2] = { 0.0, 0.0 };
@@ -3999,28 +4000,28 @@ void test215 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test22 ( void )
+void test22 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST22 tests OCTAHEDRON_UNIT_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST22 tests OCTAHEDRON_UNIT_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int n;
@@ -4037,7 +4038,7 @@ void test22 ( void )
   printf ( "\n" );
   printf ( "    F(X)    N = 1    N = 2   N = 3\n" );
   printf ( "\n" );
- 
+
   num = function_nd_num ( );
 
   for ( i = 1; i <= num; i++ )
@@ -4055,28 +4056,28 @@ void test22 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test23 ( void )
+void test23 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST23 tests PARALLELIPIPED_VOLUME_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST23 tests PARALLELIPIPED_VOLUME_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int j;
@@ -4094,9 +4095,9 @@ void test23 ( void )
   {
     printf ( "\n" );
     printf ( "  Spatial dimension N = %d\n", n );
-//
-//  Set the values of the parallelipiped.
-//
+/*
+  Set the values of the parallelipiped.
+*/
     v = setsim ( n );
 
     printf ( "\n" );
@@ -4120,28 +4121,28 @@ void test23 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test24 ( void )
+void test24 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST24 tests POLYGON_**_2D;
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST24 tests POLYGON_**_2D;
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double result;
   int npts = 4;
@@ -4160,49 +4161,49 @@ void test24 ( void )
   printf ( "\n" );
   printf ( "  F(X,Y)    Integral\n" );
   printf ( "\n" );
- 
+
   result = polygon_1_2d ( npts, x, y );
   printf ( "     1    %f\n", result );
- 
+
   result = polygon_x_2d ( npts, x, y );
   printf ( "     X    %f\n", result );
- 
+
   result = polygon_y_2d ( npts, x, y );
   printf ( "     Y    %f\n", result );
- 
+
   result = polygon_xx_2d ( npts, x, y );
   printf ( "   X*X    %f\n", result );
- 
+
   result = polygon_xy_2d ( npts, x, y );
   printf ( "   X*Y    %f\n", result );
- 
+
   result = polygon_yy_2d ( npts, x, y );
   printf ( "   Y*Y    %f\n", result );
- 
+
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test25 ( void )
+void test25 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST25 tests PYRAMID_UNIT_O**_3D, PYRAMID_VOLUME_3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    01 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST25 tests PYRAMID_UNIT_O**_3D, PYRAMID_VOLUME_3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int j;
@@ -4211,7 +4212,7 @@ void test25 ( void )
   char name[8];
   int num;
   int order[10] = { 1, 5, 6, 8, 8, 9, 13, 18, 27, 48 };
-  double result; 
+  double result;
 
   printf ( "\n" );
   printf ( "TEST25\n" );
@@ -4231,7 +4232,7 @@ void test25 ( void )
   printf ( "\n" );
   printf ( "  Volume = %f\n", pyramid_unit_volume_3d ( ) );
   printf ( "\n" );
-    
+
   num = function_3d_num ( );
 
   for ( jlo = 1; jlo <= num; jlo = jlo + 5 )
@@ -4320,28 +4321,28 @@ void test25 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test255 ( void )
+void test255 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST255 tests PYRAMID_UNIT_MONOMIAL_3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST255 tests PYRAMID_UNIT_MONOMIAL_3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int alpha;
   int beta;
@@ -4374,28 +4375,28 @@ void test255 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test26 ( void )
+void test26 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST26 tests QMULT_1D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST26 tests QMULT_1D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double a;
   double b;
@@ -4406,7 +4407,7 @@ void test26 ( void )
 
   a = -1.0;
   b = 1.0;
- 
+
   printf ( "\n" );
   printf ( "TEST26\n" );
   printf ( "  QMULT_1D approximates an integral on a\n" );
@@ -4418,7 +4419,7 @@ void test26 ( void )
   printf ( "\n" );
   printf ( "    F(X)     QMULT_1D\n" );
   printf ( "\n" );
- 
+
   num = function_1d_num ( );
 
   for ( i = 1; i <= num; i++ )
@@ -4427,33 +4428,33 @@ void test26 ( void )
     function_1d_name ( name );
 
     result = qmult_1d ( function_1d, a, b );
-    printf ( "  %8s  %14f\n", name, result ); 
+    printf ( "  %8s  %14f\n", name, result );
   }
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test27 ( void )
+void test27 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST27 tests SIMPLEX_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST27 tests SIMPLEX_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 April 2013
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int j;
@@ -4466,22 +4467,22 @@ void test27 ( void )
   printf ( "\n" );
   printf ( "TEST27\n" );
   printf ( "  SIMPLEX_ND approximates integrals inside an\n" );
-  printf ( "    arbitrary simplex in ND.\n" );
+  printf ( "  arbitrary simplex in ND.\n" );
   printf ( "\n" );
- 
+
   for ( n = 2; n <= 4; n++ )
   {
     printf ( "\n" );
     printf ( "  Spatial dimension N = %d\n", n );
-//
-//  Restore values of simplex.
-//
+/*
+  Restore values of simplex.
+*/
     v = setsim ( n );
 
     printf ( "\n" );
     printf ( "  Simplex vertices:\n" );
     printf ( "\n" );
- 
+
     for ( i = 0; i < n; i++ )
     {
       for ( j = 0; j < n + 1; j++ )
@@ -4490,7 +4491,9 @@ void test27 ( void )
       }
       printf ( "\n" );
     }
- 
+
+    free ( v );
+
     printf ( "\n" );
     printf ( "  F(X)    SIMPLEX_ND\n" );
     printf ( "\n" );
@@ -4499,40 +4502,39 @@ void test27 ( void )
 
     for ( i = 1; i <= num; i++ )
     {
+      v = setsim ( n );
       function_nd_index = i;
       function_nd_name ( name );
 
       result = simplex_nd ( function_nd, n, v );
       printf ( "  %8s  %14f\n", name, result );
- 
-      v = setsim ( n );
+      free ( v );
     }
-    free ( v );
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test28 ( void )
+void test28 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST28 tests SIMPLEX_VOLUME_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST28 tests SIMPLEX_VOLUME_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int j;
@@ -4550,9 +4552,9 @@ void test28 ( void )
   {
     printf ( "\n" );
     printf ( "  Spatial dimension N = %d\n", n );
-//
-//  Set the values of the simplex.
-//
+/*
+  Set the values of the simplex.
+*/
     v = setsim ( n );
 
     printf ( "\n" );
@@ -4576,28 +4578,28 @@ void test28 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test29 ( void )
+void test29 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST29 tests SIMPLEX_UNIT_**_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST29 tests SIMPLEX_UNIT_**_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int n;
@@ -4642,28 +4644,28 @@ void test29 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test30 ( void )
+void test30 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST30 tests SPHERE_UNIT_**_3D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    01 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST30 tests SPHERE_UNIT_**_3D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   char name[8];
@@ -4685,7 +4687,7 @@ void test30 ( void )
   printf ( "\n" );
   printf ( "    F(X)    S3S07        S3S11         S3S14          S3S15\n" );
   printf ( "\n" );
- 
+
   num = function_3d_num ( );
 
   for ( i = 1; i <= num; i++ )
@@ -4697,34 +4699,34 @@ void test30 ( void )
     result2 = sphere_unit_11_3d ( function_3d );
     result3 = sphere_unit_14_3d ( function_3d );
     result4 = sphere_unit_15_3d ( function_3d );
- 
+
     printf ( "  %8s  %14f  %14f  %14f  %14f\n",
       name, result1, result2, result3, result4 );
   }
   return;
 }
-//****************************************************************************80
+/******************************************************************************/
 
-void test31 ( void )
+void test31 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST31 tests SPHERE_UNIT_**_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    13 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST31 tests SPHERE_UNIT_**_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int n;
@@ -4754,7 +4756,7 @@ void test31 ( void )
     printf ( "  Spatial dimension N = %d\n", n );
     printf ( "  Unit sphere area = %f\n", sphere_unit_area_nd ( n ) );
     printf ( "\n" );
-    printf ( "    Rule:     #3            #4            #5\n" );          
+    printf ( "    Rule:     #3            #4            #5\n" );
     printf ( "              #7.1          #7.2          #11\n" );
     printf ( "    Function\n" );
     printf ( "\n" );
@@ -4775,33 +4777,33 @@ void test31 ( void )
 
       printf ( "  %8s  %14f  %14f  %14f\n",
         name, result1, result2, result3 );
-      printf ( "         %14f  %14f  %14f\n", result4, result5, result6 );
+      printf ( "            %14f  %14f  %14f\n", result4, result5, result6 );
     }
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test32 ( void )
+void test32 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST32 tests SPHERE_05_ND, SPHERE_07_1_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    13 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST32 tests SPHERE_05_ND, SPHERE_07_1_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double *center;
   int dim;
@@ -4859,28 +4861,28 @@ void test32 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test322 ( void )
+void test322 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST322 tests SPHERE_CAP_AREA_3D, SPHERE_CAP_AREA_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST322 tests SPHERE_CAP_AREA_3D, SPHERE_CAP_AREA_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area1;
   double area2;
@@ -4922,28 +4924,28 @@ void test322 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test324 ( void )
+void test324 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST324 tests SPHERE_CAP_VOLUME_2D, SPHERE_CAP_VOLUME_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST324 tests SPHERE_CAP_VOLUME_2D, SPHERE_CAP_VOLUME_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double center[2] = { 0.0, 0.0 };
   int dim_num = 2;
@@ -4987,28 +4989,28 @@ void test324 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test326 ( void )
+void test326 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST326 tests SPHERE_CAP_VOLUME_3D, SPHERE_CAP_VOLUME_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST326 tests SPHERE_CAP_VOLUME_3D, SPHERE_CAP_VOLUME_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double center[3] = { 0.0, 0.0, 0.0 };
   int dim_num = 3;
@@ -5018,7 +5020,7 @@ void test326 ( void )
   double r = 1.0;
   double volume1;
   double volume2;
-  
+
   printf ( "\n" );
   printf ( "TEST326\n" );
   printf ( "  SPHERE_CAP_VOLUME_3D computes the volume of a\n" );
@@ -5052,28 +5054,28 @@ void test326 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test33 ( void )
+void test33 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST33 tests SPHERE_CAP_AREA_ND, SPHERE_CAP_VOLUME_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST33 tests SPHERE_CAP_AREA_ND, SPHERE_CAP_VOLUME_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area;
   double h;
@@ -5121,28 +5123,28 @@ void test33 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test335 ( void )
+void test335 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST335 tests SPHERE_SHELL_03_ND.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    15 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST335 tests SPHERE_SHELL_03_ND.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double center[3];
   int i;
@@ -5173,7 +5175,7 @@ void test335 ( void )
 
   for ( j = 1; j <= 2; j++ )
   {
-    if ( j == 1 ) 
+    if ( j == 1 )
     {
       r1 = 0.0;
       r2 = 1.0;
@@ -5201,7 +5203,7 @@ void test335 ( void )
       }
       printf ( "  Inner sphere radius = %f\n", r1 );
       printf ( "  Outer sphere radius = %f\n", r2 );
-      printf ( "  Spherical shell volume = %f\n", 
+      printf ( "  Spherical shell volume = %f\n",
         sphere_shell_volume_nd ( n, r1, r2 ) );
       printf ( "\n" );
       printf ( "\n" );
@@ -5221,39 +5223,39 @@ void test335 ( void )
 
         result3 = ball_f1_nd ( function_nd, n, center, r1 );
         result4 = ball_f1_nd ( function_nd, n, center, r2 );
-      
+
         result5 = ball_f3_nd ( function_nd, n, center, r1 );
         result6 = ball_f3_nd ( function_nd, n, center, r2 );
 
-        printf ( "%14f  %14f  %14f\n", 
+        printf ( "%14f  %14f  %14f\n",
           result1, result4 - result3, result6 - result5 );
       }
     }
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test34 ( void )
+void test34 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST34 tests SPHERE_UNIT_AREA_ND, SPHERE_UNIT_AREA_VALUES.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST34 tests SPHERE_UNIT_AREA_ND, SPHERE_UNIT_AREA_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double area;
   double area2;
@@ -5286,28 +5288,28 @@ void test34 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test345 ( void )
+void test345 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST345 tests SPHERE_UNIT_VOLUME_ND, SPHERE_UNIT_VOLUME_VALUES.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST345 tests SPHERE_UNIT_VOLUME_ND, SPHERE_UNIT_VOLUME_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int dim_num;
   int n_data;
@@ -5341,28 +5343,28 @@ void test345 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test35 ( void )
+void test35 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST35 tests SQUARE_UNIT_SET, RECTANGLE_SUB_2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    15 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST35 tests SQUARE_UNIT_SET, RECTANGLE_SUB_2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int j;
@@ -5391,9 +5393,9 @@ void test35 ( void )
   printf ( "\n" );
   printf ( "%14f  %14f\n", xval[0], yval[0] );
   printf ( "%14f  %14f\n", xval[1], yval[1] );
-//
-//  Get the quadrature abscissas and weights for a unit square.
-//
+/*
+  Get the quadrature abscissas and weights for a unit square.
+*/
   rule = 2;
   order = square_unit_size ( rule );
 
@@ -5406,18 +5408,18 @@ void test35 ( void )
   printf ( "\n" );
   printf ( "  Using unit square integration rule number %d\n", rule );
   printf ( "  Order of rule is %d\n", order );
-//
-//  Set the function.
-//
+/*
+  Set the function.
+*/
   num = function_2d_num ( );
 
   for ( i = 1; i <= num; i++ )
   {
     function_2d_index = i;
     function_2d_name ( name );
-//
-//  Try an increasing number of subdivisions.
-//
+/*
+  Try an increasing number of subdivisions.
+*/
     printf ( "\n" );
     printf ( "    Function  Subdivisions  Integral\n" );
     printf ( "\n" );
@@ -5427,7 +5429,7 @@ void test35 ( void )
       nsub[0] = j;
       nsub[1] = 2 * j;
 
-      result = rectangle_sub_2d ( function_2d, xval, yval, nsub, order, xtab, 
+      result = rectangle_sub_2d ( function_2d, xval, yval, nsub, order, xtab,
         ytab, weight );
 
       printf ( "  %8s  %4d  %4d  %14f\n", name, nsub[0], nsub[1], result );
@@ -5440,28 +5442,28 @@ void test35 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test36 ( void )
+void test36 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST36 tests SQUARE_UNIT_SET and SQUARE_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    13 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST36 tests SQUARE_UNIT_SET and SQUARE_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double center[2] = { 2.0, 2.0 };
   int dim_num = 2;
@@ -5523,7 +5525,7 @@ void test36 ( void )
 
         square_unit_set ( rule, order, xtab, ytab, weight );
 
-        result = square_sum ( function_2d, center, r, order, xtab, ytab, 
+        result = square_sum ( function_2d, center, r, order, xtab, ytab,
           weight );
 
         printf ( "%13f", result );
@@ -5537,28 +5539,28 @@ void test36 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test37 ( void )
+void test37 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST37 tests SQUARE_UNIT_SET and SQUARE_UNIT_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    15 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST37 tests SQUARE_UNIT_SET and SQUARE_UNIT_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int ihi;
@@ -5578,7 +5580,7 @@ void test37 ( void )
   printf ( "  SQUARE_UNIT_SET sets up quadrature on the unit square;\n" );
   printf ( "  SQUARE_UNIT_SUM carries it out on the unit square.\n" );
   printf ( "\n" );
- 
+
   for ( ilo = 1; ilo <= rule_max; ilo = ilo + 5 )
   {
     ihi = i4_min ( ilo + 4, rule_max );
@@ -5624,28 +5626,28 @@ void test37 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test38 ( void )
+void test38 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST38 tests TETRA_07, TETRA_TPRODUCT.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    15 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST38 tests TETRA_07, TETRA_TPRODUCT.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   char name[8];
@@ -5708,28 +5710,28 @@ void test38 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test39 ( void )
+void test39 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST39 tests TETRA_UNIT_SET and TETRA_UNIT_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    14 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST39 tests TETRA_UNIT_SET and TETRA_UNIT_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int ihi;
@@ -5784,7 +5786,7 @@ void test39 ( void )
         ztab = ( double * ) malloc ( order * sizeof ( double ) );
 
         tetra_unit_set ( rule, order, xtab, ytab, ztab, weight );
- 
+
         result = tetra_unit_sum ( function_3d, order, xtab, ytab, ztab,
           weight );
 
@@ -5800,28 +5802,28 @@ void test39 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test40 ( void )
+void test40 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST40 tests TETRA_UNIT_SET and TETRA_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    14 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST40 tests TETRA_UNIT_SET and TETRA_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int ihi;
@@ -5888,7 +5890,7 @@ void test40 ( void )
 
         tetra_unit_set ( rule, order, xtab, ytab, ztab, weight );
 
-        result = tetra_sum ( function_3d, x, y, z, order, xtab, ytab, ztab, 
+        result = tetra_sum ( function_3d, x, y, z, order, xtab, ytab, ztab,
           weight );
 
         printf ( "%14f", result );
@@ -5903,34 +5905,34 @@ void test40 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test41 ( void )
+void test41 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST41 tests TRIANGLE_UNIT_SET, TRIANGLE_SUB.
-//
-//  Discussion:
-//
-//    Break up the triangle into NSUB*NSUB equal subtriangles.  Approximate 
-//    the integral over the triangle by the sum of the integrals over each
-//    subtriangle.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    14 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST41 tests TRIANGLE_UNIT_SET, TRIANGLE_SUB.
+
+  Discussion:
+
+    Break up the triangle into NSUB*NSUB equal subtriangles.  Approximate
+    the integral over the triangle by the sum of the integrals over each
+    subtriangle.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   char name[8];
@@ -5957,9 +5959,9 @@ void test41 ( void )
   printf ( "  %12f  %12f\n", xval[0], yval[0] );
   printf ( "  %12f  %12f\n", xval[1], yval[1] );
   printf ( "  %12f  %12f\n", xval[2], yval[2] );
-//
-//  Get the quadrature abscissas and weights for a unit triangle.
-//
+/*
+  Get the quadrature abscissas and weights for a unit triangle.
+*/
   rule = 3;
   order = triangle_unit_size ( rule );
 
@@ -5975,21 +5977,21 @@ void test41 ( void )
   printf ( "\n" );
   printf ( "  Function Nsub  Result\n" );
   printf ( "\n" );
-//
-//  Set the function.
-//
+/*
+  Set the function.
+*/
   num = function_2d_num ( );
 
   for ( i = 1; i <= num; i++ )
   {
     function_2d_index = i;
     function_2d_name ( name );
-//
-//  Try an increasing number of subdivisions.
-//
+/*
+  Try an increasing number of subdivisions.
+*/
     for ( nsub = 1; nsub <= 5; nsub++ )
     {
-      result = triangle_sub ( function_2d, xval, yval, nsub, order, xtab, 
+      result = triangle_sub ( function_2d, xval, yval, nsub, order, xtab,
         ytab,  weight );
       printf ( "  %8s  %4d  %14f\n", name, nsub, result );
     }
@@ -6000,28 +6002,28 @@ void test41 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test42 ( void )
+void test42 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST42 tests TRIANGLE_UNIT_SET and TRIANGLE_UNIT_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    14 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST42 tests TRIANGLE_UNIT_SET and TRIANGLE_UNIT_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int ihi;
@@ -6074,8 +6076,8 @@ void test42 ( void )
         weight = ( double * ) malloc ( order * sizeof ( double ) );
 
         triangle_unit_set ( rule, order, xtab, ytab, weight );
- 
-        result = triangle_unit_sum ( function_2d, order, xtab, ytab, 
+
+        result = triangle_unit_sum ( function_2d, order, xtab, ytab,
           weight );
 
         printf ( "%14f", result );
@@ -6089,28 +6091,28 @@ void test42 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test425 ( void )
+void test425 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST425 tests TRIANGLE_UNIT_SET.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST425 tests TRIANGLE_UNIT_SET.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int a;
   int b;
@@ -6157,9 +6159,9 @@ void test425 ( void )
         xtab = ( double * ) malloc ( order * sizeof ( double ) );
         ytab = ( double * ) malloc ( order * sizeof ( double ) );
         weight = ( double * ) malloc ( order * sizeof ( double ) );
-        
+
         triangle_unit_set ( rule, order, xtab, ytab, weight );
- 
+
         quad = 0.0;
 
         for ( i = 0; i < order; i++ )
@@ -6194,28 +6196,28 @@ void test425 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test43 ( void )
+void test43 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST43 tests TRIANGLE_UNIT_PRODUCT_SET and TRIANGLE_UNIT_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    08 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST43 tests TRIANGLE_UNIT_PRODUCT_SET and TRIANGLE_UNIT_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int ihi;
@@ -6269,7 +6271,7 @@ void test43 ( void )
 
         triangle_unit_product_set ( rule, order, xtab, ytab, weight );
 
-        result = triangle_unit_sum ( function_2d, order, xtab, ytab, 
+        result = triangle_unit_sum ( function_2d, order, xtab, ytab,
           weight );
 
         printf ( "%14f", result );
@@ -6283,28 +6285,28 @@ void test43 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test44 ( void )
+void test44 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST44 tests TRIANGLE_UNIT_SET and TRIANGLE_SUM.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    17 May 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST44 tests TRIANGLE_UNIT_SET and TRIANGLE_SUM.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 May 2007
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int ihi;
@@ -6324,7 +6326,7 @@ void test44 ( void )
   printf ( "\n" );
   printf ( "TEST44\n" );
   printf ( "  TRIANGLE_UNIT_SET sets up quadrature\n" );
-  printf ( "    in the unit triangle,\n" );
+  printf ( "  in the unit triangle,\n" );
   printf ( "  TRIANGLE_SUM applies it to an arbitrary triangle.\n" );
   printf ( "\n" );
 
@@ -6360,8 +6362,8 @@ void test44 ( void )
         weight = ( double * ) malloc ( order * sizeof ( double ) );
 
         triangle_unit_set ( rule, order, xtab, ytab, weight );
- 
-        result = triangle_sum ( function_2d, xval, yval, order, xtab, ytab, 
+
+        result = triangle_sum ( function_2d, xval, yval, order, xtab, ytab,
           weight );
 
         printf ( "%14f", result );
@@ -6375,28 +6377,28 @@ void test44 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test45 ( void )
+void test45 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST45 tests TORUS_1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST45 tests TORUS_1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   int j;
@@ -6411,7 +6413,7 @@ void test45 ( void )
   r1 = 0.5;
   r2 = 1.0;
   n = 10;
- 
+
   printf ( "\n" );
   printf ( "TEST45\n" );
   printf ( "  TORUS_1 approximates integrals on a torus.\n" );
@@ -6430,7 +6432,7 @@ void test45 ( void )
   }
   printf ( "\n" );
   printf ( "\n" );
- 
+
   num = function_3d_num ( );
 
   for ( i = 1; i <= num; i++ )
@@ -6451,28 +6453,28 @@ void test45 ( void )
    }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test46 ( void )
+void test46 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST46 tests TORUS_5S2, TORUS_6S2 and TORUS_14S.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST46 tests TORUS_5S2, TORUS_6S2 and TORUS_14S.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   char name[8];
@@ -6485,7 +6487,7 @@ void test46 ( void )
 
   r1 = 0.5;
   r2 = 1.0;
- 
+
   printf ( "\n" );
   printf ( "TEST46\n" );
   printf ( "  For the interior of a torus,\n" );
@@ -6500,7 +6502,7 @@ void test46 ( void )
   printf ( "    Rule:        #5S2          #6S2          #14S\n" );
   printf ( "    F(X)\n" );
   printf ( "\n" );
- 
+
   num = function_3d_num ( );
 
   for ( i = 1; i <= num; i++ )
@@ -6516,28 +6518,28 @@ void test46 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test47 ( void )
+void test47 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST47 tests TORUS_SQUARE_5C2 and TORUS_SQUARE_14C.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST47 tests TORUS_SQUARE_5C2 and TORUS_SQUARE_14C.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int i;
   char name[8];
@@ -6549,7 +6551,7 @@ void test47 ( void )
 
   r1 = 1.0;
   r2 = 0.125;
- 
+
   printf ( "\n" );
   printf ( "TEST47\n" );
   printf ( "  For integrals inside a torus with square cross-section:\n" );
@@ -6562,7 +6564,7 @@ void test47 ( void )
   printf ( "\n" );
   printf ( "    F(X)    5C2           14C\n" );
   printf ( "\n" );
- 
+
   num = function_3d_num ( );
 
   for ( i = 1; i <= num; i++ )
@@ -6577,28 +6579,28 @@ void test47 ( void )
   }
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test48 ( void )
+void test48 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST48 tests TVEC_EVEN, TVEC_EVEN2 and TVEC_EVEN3.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    01 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST48 tests TVEC_EVEN, TVEC_EVEN2 and TVEC_EVEN3.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int nt;
   double *t;
@@ -6627,28 +6629,28 @@ void test48 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-void test49 ( void )
+void test49 ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    TEST49 tests TVEC_EVEN_BRACKET, TVEC_EVEN_BRACKET2 and TVEC_EVEN_BRACKET3.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    03 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    TEST49 tests TVEC_EVEN_BRACKET, TVEC_EVEN_BRACKET2 and TVEC_EVEN_BRACKET3.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 April 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   int nt;
   double *t;
@@ -6686,28 +6688,28 @@ void test49 ( void )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double fu18 ( double x )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FU18 is the upper limit of integration for x.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FU18 is the upper limit of integration for x.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double value;
 
@@ -6715,28 +6717,28 @@ double fu18 ( double x )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double fl18 ( double x )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FL18 is the lower limit of integration for x.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FL18 is the lower limit of integration for x.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double value;
 
@@ -6744,28 +6746,28 @@ double fl18 ( double x )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double fu28 ( double x, double y )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FU28 computes the upper limit of integration for (x,y).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FU28 computes the upper limit of integration for (x,y).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double value;
 
@@ -6773,28 +6775,28 @@ double fu28 ( double x, double y )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double fl28 ( double x, double y )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FL28 computes the lower limit of integration for (x,y).
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FL28 computes the lower limit of integration for (x,y).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+*/
 {
   double value;
 
@@ -6802,39 +6804,39 @@ double fl28 ( double x, double y )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double function_1d ( double x )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_1D evaluates the current 1D function.
-//
-//  Discussion:
-//
-//    This routine assumes that the global variable FUNCTION_1D_INDEX has been
-//    set, and is accessible.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, the value of the variable.
-//
-//    Output, double FUNCTION_1D, the value of the function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_1D evaluates the current 1D function.
+
+  Discussion:
+
+    This routine assumes that the global variable FUNCTION_1D_INDEX has been
+    set, and is accessible.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the value of the variable.
+
+    Output, double FUNCTION_1D, the value of the function.
+*/
 {
   double value;
 
@@ -6893,37 +6895,37 @@ double function_1d ( double x )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void function_1d_name ( char *name )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_1D_NAME returns the name of the current 1D function.
-//
-//  Discussion:
-//
-//    This routine assumes that the global variable FUNCTION_1D_INDEX has been
-//    set, and is accessible.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, char NAME[8], the name of the current 1D function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_1D_NAME returns the name of the current 1D function.
+
+  Discussion:
+
+    This routine assumes that the global variable FUNCTION_1D_INDEX has been
+    set, and is accessible.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, char NAME[8], the name of the current 1D function.
+*/
 {
   if ( function_1d_index == 1 )
   {
@@ -6965,7 +6967,7 @@ void function_1d_name ( char *name )
   {
     strcpy ( name, " EXP(X)" );
   }
-  else if ( function_1d_index == 11 ) 
+  else if ( function_1d_index == 11 )
   {
     strcpy ( name, "1/(1+R)" );
   }
@@ -6980,70 +6982,70 @@ void function_1d_name ( char *name )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-int function_1d_num ( void )
+int function_1d_num ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_1D_NUM returns the number of 1D functions.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, int FUNCTION_1D_NUM, the number of 1D functions.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_1D_NUM returns the number of 1D functions.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, int FUNCTION_1D_NUM, the number of 1D functions.
+*/
 {
   int value = 12;
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double function_2d ( double x, double y )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_2D evaluates the current 2D function.
-//
-//  Discussion:
-//
-//    This routine assumes that the global variable FUNCTION_2D_INDEX has been
-//    set, and is accessible.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, double Y, the value of the variables.
-//
-//    Output, double FUNCTION_2D, the value of the function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_2D evaluates the current 2D function.
+
+  Discussion:
+
+    This routine assumes that the global variable FUNCTION_2D_INDEX has been
+    set, and is accessible.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, double Y, the value of the variables.
+
+    Output, double FUNCTION_2D, the value of the function.
+*/
 {
   double value;
 
@@ -7102,37 +7104,37 @@ double function_2d ( double x, double y )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void function_2d_name ( char *name )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_2D_NAME returns the name of the current 2D function.
-//
-//  Discussion:
-//
-//    This routine assumes that the global variable FUNCTION_2D_INDEX has been
-//    set, and is accessible.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    07 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, char NAME[8], the name of the current 2D function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_2D_NAME returns the name of the current 2D function.
+
+  Discussion:
+
+    This routine assumes that the global variable FUNCTION_2D_INDEX has been
+    set, and is accessible.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, char NAME[8], the name of the current 2D function.
+*/
 {
   if ( function_2d_index == 1 )
   {
@@ -7174,7 +7176,7 @@ void function_2d_name ( char *name )
   {
     strcpy ( name, " EXP(X)" );
   }
-  else if ( function_2d_index == 11 ) 
+  else if ( function_2d_index == 11 )
   {
     strcpy ( name, "1/(1+R)" );
   }
@@ -7189,70 +7191,70 @@ void function_2d_name ( char *name )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-int function_2d_num ( void )
+int function_2d_num ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_2D_NUM returns the number of 2D functions.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, int FUNCTION_2D_NUM, the number of 2D functions.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_2D_NUM returns the number of 2D functions.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, int FUNCTION_2D_NUM, the number of 2D functions.
+*/
 {
   int value = 12;
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double function_3d ( double x, double y, double z )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_3D evaluates a function F(X,Y,Z) of 3 variables.
-//
-///  Discussion:
-//
-//    This routine assumes that the global variable FUNCTION_3D_INDEX has been
-//    set, and is accessible.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, Y, Z, the value of the variables.
-//
-//    Output, double FUNC_3D, the value of the function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_3D evaluates a function F(X,Y,Z) of 3 variables.
+
+/  Discussion:
+
+    This routine assumes that the global variable FUNCTION_3D_INDEX has been
+    set, and is accessible.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, Y, Z, the value of the variables.
+
+    Output, double FUNC_3D, the value of the function.
+*/
 {
   double value;
 
@@ -7355,37 +7357,37 @@ double function_3d ( double x, double y, double z )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void function_3d_name ( char *name )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_3D_NAME returns the name of the current 3D function.
-//
-//  Discussion:
-//
-//    This routine assumes that the global variable FUNCTION_3D_INDEX has been
-//    set, and is accessible.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, char NAME[8], the name of the current 3D function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_3D_NAME returns the name of the current 3D function.
+
+  Discussion:
+
+    This routine assumes that the global variable FUNCTION_3D_INDEX has been
+    set, and is accessible.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, char NAME[8], the name of the current 3D function.
+*/
 {
   if ( function_3d_index == 1 )
   {
@@ -7486,72 +7488,72 @@ void function_3d_name ( char *name )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-int function_3d_num ( void )
+int function_3d_num ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_3D_NUM returns the number of 3D functions.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    05 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, int FUNCTION_3D_NUM, the number of 3D functions.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_3D_NUM returns the number of 3D functions.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, int FUNCTION_3D_NUM, the number of 3D functions.
+*/
 {
   int value = 23;
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double function_nd ( int n, double x[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_ND evaluates the current ND function.
-//
-//  Discussion:
-//
-//    This routine assumes that the global variable FUNCTION_ND_INDEX has been
-//    set, and is accessible.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the number of variables.
-//
-//    Input, double X[N], the value of the variables.
-//
-//    Output, double FUNCTION_ND, the value of the function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_ND evaluates the current ND function.
+
+  Discussion:
+
+    This routine assumes that the global variable FUNCTION_ND_INDEX has been
+    set, and is accessible.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of variables.
+
+    Input, double X[N], the value of the variables.
+
+    Output, double FUNCTION_ND, the value of the function.
+*/
 {
   int i;
   double temp;
@@ -7627,37 +7629,37 @@ double function_nd ( int n, double x[] )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 void function_nd_name ( char *name )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_ND_NAME returns the name of the current ND function.
-//
-//  Discussion:
-//
-//    This routine assumes that the global variable FUNCTION_ND_INDEX has been
-//    set, and is accessible.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    12 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, char NAME[8], the name of the current ND function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_ND_NAME returns the name of the current ND function.
+
+  Discussion:
+
+    This routine assumes that the global variable FUNCTION_ND_INDEX has been
+    set, and is accessible.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, char NAME[8], the name of the current ND function.
+*/
 {
   if ( function_nd_index == 1 )
   {
@@ -7699,7 +7701,7 @@ void function_nd_name ( char *name )
   {
     strcpy ( name, " EXP(X)" );
   }
-  else if ( function_nd_index == 11 ) 
+  else if ( function_nd_index == 11 )
   {
     strcpy ( name, "1/(1+R)" );
   }
@@ -7714,65 +7716,65 @@ void function_nd_name ( char *name )
 
   return;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
-int function_nd_num ( void )
+int function_nd_num ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FUNCTION_ND_NUM returns the number of ND functions.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, int FUNCTION_ND_NUM, the number of ND functions.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    FUNCTION_ND_NUM returns the number of ND functions.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, int FUNCTION_ND_NUM, the number of ND functions.
+*/
 {
   int value = 12;
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double f_1_2d ( double x, double y )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    F_1_2D evaluates the function 1 in 2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    17 May 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, Y, the arguments.
-//
-//    Output, double F_1_2D, the value of the function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    F_1_2D evaluates the function 1 in 2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 May 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, Y, the arguments.
+
+    Output, double F_1_2D, the value of the function.
+*/
 {
   double value;
 
@@ -7780,34 +7782,34 @@ double f_1_2d ( double x, double y )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double f_x_2d ( double x, double y )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    F_X_2D evaluates the function X in 2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    17 May 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, Y, the arguments.
-//
-//    Output, double F_X_2D, the value of the function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    F_X_2D evaluates the function X in 2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 May 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, Y, the arguments.
+
+    Output, double F_X_2D, the value of the function.
+*/
 {
   double value;
 
@@ -7815,34 +7817,34 @@ double f_x_2d ( double x, double y )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double f_r_2d ( double x, double y )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    F_R_2D evaluates the function sqrt ( X**2 + Y**2 ) in 2D.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    17 May 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, Y, the arguments.
-//
-//    Output, double F_R_2D, the value of the function.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    F_R_2D evaluates the function sqrt ( X**2 + Y**2 ) in 2D.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 May 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, Y, the arguments.
+
+    Output, double F_R_2D, the value of the function.
+*/
 {
   double value;
 
@@ -7850,36 +7852,36 @@ double f_r_2d ( double x, double y )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double mono_000_3d ( int n, double x[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    MONO_000_3D evaluates X^0 Y^0 Z^0.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension (which is 3 here).
-//
-//    Input, double X[N], the evaluation point.
-//
-//    Output, double MONO_000_3D, the value of the monomial at X.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    MONO_000_3D evaluates X^0 Y^0 Z^0.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension (which is 3 here).
+
+    Input, double X[N], the evaluation point.
+
+    Output, double MONO_000_3D, the value of the monomial at X.
+*/
 {
   double value;
 
@@ -7887,158 +7889,158 @@ double mono_000_3d ( int n, double x[] )
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double mono_111_3d ( int n, double x[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    MONO_111_3D evaluates X^1 Y^1 Z^1.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension (which is 3 here).
-//
-//    Input, double X[N], the evaluation point.
-//
-//    Output, double MONO_111_3D, the value of the monomial at X.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    MONO_111_3D evaluates X^1 Y^1 Z^1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension (which is 3 here).
+
+    Input, double X[N], the evaluation point.
+
+    Output, double MONO_111_3D, the value of the monomial at X.
+*/
 {
   double value;
 
-  value = pow ( x[0], 1 ) 
+  value = pow ( x[0], 1 )
         * pow ( x[1], 1 )
         * pow ( x[2], 1 );
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double mono_202_3d ( int n, double x[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    MONO_202_3D evaluates X^2 Y^0 Z^2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension (which is 3 here).
-//
-//    Input, double X[N], the evaluation point.
-//
-//    Output, double MONO_202_3D, the value of the monomial at X.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    MONO_202_3D evaluates X^2 Y^0 Z^2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension (which is 3 here).
+
+    Input, double X[N], the evaluation point.
+
+    Output, double MONO_202_3D, the value of the monomial at X.
+*/
 {
   double value;
 
-  value = pow ( x[0], 2 ) 
+  value = pow ( x[0], 2 )
         * pow ( x[1], 0 )
         * pow ( x[2], 2 );
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double mono_422_3d ( int n, double x[] )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    MONO_422_3D evaluates X^4 Y^2 Z^2.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    31 March 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension (which is 3 here).
-//
-//    Input, double X[N], the evaluation point.
-//
-//    Output, double MONO_422_3D, the value of the monomial at X.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    MONO_422_3D evaluates X^4 Y^2 Z^2.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension (which is 3 here).
+
+    Input, double X[N], the evaluation point.
+
+    Output, double MONO_422_3D, the value of the monomial at X.
+*/
 {
   double value;
 
-  value = pow ( x[0], 4 ) 
+  value = pow ( x[0], 4 )
         * pow ( x[1], 2 )
         * pow ( x[2], 2 );
 
   return value;
 }
-//****************************************************************************80
+/*****************************************************************************80*/
 
 double *setsim ( int n )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    SETSIM defines a unit simplex.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 April 2008
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the spatial dimension.
-//
-//    Output, double V[N*(N+1)], the coordinates of the N+1 vertices.
-//
+/*****************************************************************************80
+
+  Purpose:
+
+    SETSIM defines a unit simplex.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the spatial dimension.
+
+    Output, double V[N*(N+1)], the coordinates of the N+1 vertices.
+*/
 {
   int i;
   int j;
   double *v;
 
   v = ( double * ) malloc ( n * ( n + 1 ) * sizeof ( double ) );
- 
+
   for ( i = 0; i < n; i++ )
   {
     for ( j = 0; j < n + 1; j++ )

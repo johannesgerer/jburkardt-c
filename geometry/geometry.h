@@ -77,10 +77,7 @@ double cone_area_3d ( double h, double r );
 double *cone_centroid_3d ( double r, double pc[3], double pt[3] );
 double cone_volume_3d ( double h, double r );
 void conv3d ( char axis, double theta, int n, double cor3[], double cor2[] );
-double cos_deg ( double angle );
-double cot_deg ( double angle );
 double cot_rad ( double angle );
-double csc_deg ( double angle );
 void cube_shape_3d ( int point_num, int face_num, int face_order_max, 
   double point_coord[], int face_order[], int face_point[] );
 void cube_size_3d ( int *point_num, int *edge_num, int *face_num, 
@@ -220,8 +217,14 @@ double line_par_point_dist_2d ( double f, double g, double x0, double y0,
   double p[2] );
 double line_par_point_dist_3d ( double f, double g, double h, double x0, 
   double y0, double z0, double p[3] );
+double *line_par_point_near_2d ( double f, double g, double x0, double y0, 
+  double p[2] );
+double *line_par_point_near_3d ( double f, double g, double h, double x0, 
+  double y0, double z0, double p[3] );
 void line_par2exp_2d ( double f, double g, double x0, double y0, 
   double p1[2], double p2[2] );
+void line_par2exp_3d ( double f, double g, double h, double x0, double y0, 
+  double z0, double p1[3], double p2[3] );
 void line_par2imp_2d ( double f, double g, double x0, double y0, double *a, 
   double *b, double *c );
 double lines_exp_angle_3d ( double p1[3], double p2[3], double p3[3], 
@@ -442,17 +445,23 @@ double r8_abs ( double x );
 double r8_acos ( double c );
 double r8_asin ( double s );
 double r8_atan ( double y, double x );
-double r8_epsilon ( void );
-double r8_huge ( void );
+double r8_cosd ( double angle );
+double r8_cotd ( double angle );
+double r8_cscd ( double angle );
+double r8_epsilon ( );
+double r8_huge ( );
 double r8_max ( double x, double y );
 double r8_min ( double x, double y );
 double r8_modp ( double x, double y );
 int r8_nint ( double x );
 double r8_normal_01 ( int *seed );
-double r8_pi ( void );
+double r8_pi ( );
+double r8_secd ( double angle );
 double r8_sign ( double x );
 int r8_sign_opposite_strict ( double r1, double r2 );
+double r8_sind ( double angle );
 void r8_swap ( double *x, double *y );
+double r8_tand ( double angle );
 double r8_uniform ( double b, double c, int *seed );
 double r8_uniform_01 ( int *seed );
 void r82vec_part_quick_a ( int n, double a[], int *l, int *r );
@@ -530,7 +539,6 @@ void rotation_quat2axis_3d ( double q[4], double axis[3], double *angle );
 void rotation_quat2mat_3d ( double q[4], double a[3*3] );
 void rtp_to_xyz ( double r, double theta, double phi, double xyz[3] );
 int s_len_trim ( char *s );
-double sec_deg ( double angle );
 void segment_contains_point_1d ( double p1, double p2, double p3, double *u );
 void segment_contains_point_2d ( double p1[2], double p2[2], double p3[2], 
   double u[2] );
@@ -568,7 +576,6 @@ void simplex_lattice_point_next ( int n, int c[], int v[], int *more );
 int simplex_unit_lattice_point_num_nd ( int d, int s );
 double simplex_unit_volume_nd ( int ndim );
 double simplex_volume_nd ( int ndim, double a[] );
-double sin_deg ( double angle );
 double sin_power_int ( double a, double b, int n );
 void soccer_shape_3d ( int point_num, int face_num, int face_order_max, 
   double point_coord[], int face_order[], int face_point[] );
@@ -626,8 +633,6 @@ void sphere_imp2exp_3d ( double r, double pc[3], double p1[3], double p2[3],
   double p3[3], double p4[3] );
 double sphere_k ( int n );
 double sphere_triangle_angles_to_area ( double r, double a, double b, double c );
-double sphere_triangle_contains_point ( double v1[3], double v2[3], double v3[3], 
-  double p[3] );
 void sphere_triangle_sides_to_angles ( double r, double as, double bs, double cs, 
   double *a, double *b, double *c );
 void sphere_triangle_vertices_to_angles ( double r, double v1[3], double v2[3], 
@@ -667,7 +672,6 @@ void string_2d ( int vec_num, double p1[], double p2[], int *string_num,
   int order[], int string[] );
 void super_ellipse_points_2d ( double pc[2], double r1, double r2, 
   double expo, double psi, int n, double p[] );
-double tan_deg ( double angle );
 double *tetrahedron_barycentric_3d ( double tetra[3*4], double p[3] );
 double *tetrahedron_centroid_3d ( double tetra[3*4] );
 void tetrahedron_circumsphere_3d ( double tetra[3*4], double *r, double pc[3] );
@@ -698,7 +702,7 @@ int tetrahedron_unit_lattice_point_num_3d ( int s );
 double tetrahedron_volume_3d ( double tetra[3*4] );
 void theta2_adjust ( double *theta1, double *theta2 );
 void theta3_adjust ( double *theta1, double *theta2, double *theta3 );
-void timestamp ( void );
+void timestamp ( );
 void tmat_init ( double a[4*4] );
 void tmat_mxm ( double a[4*4], double b[4*4], double c[4*4] );
 void tmat_mxp ( double a[4*4], double x[4], double y[4] );

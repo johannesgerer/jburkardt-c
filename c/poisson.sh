@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c poisson.c >& compiler.txt
+gcc -c poisson.c
 if [ $? -ne 0 ]; then
   echo "Errors while compiling poisson.c"
   exit
 fi
-rm compiler.txt
 #
 gcc poisson.o
 if [ $? -ne 0 ]; then

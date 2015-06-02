@@ -6,12 +6,11 @@
 int main ( int argc, char *argv[] );
 void compute ( int np, int nd, double pos[], double vel[], 
   double mass, double f[], double *pot, double *kin );
-double cpu_time ( void );
+double cpu_time ( );
 double dist ( int nd, double r1[], double r2[], double dr[] );
-void initialize ( int np, int nd, double box[], int *seed, double pos[], 
-  double vel[], double acc[] );
-double r8_uniform_01 ( int *seed );
-void timestamp ( void );
+void initialize ( int np, int nd, double pos[], double vel[], double acc[] );
+void r8mat_uniform_ab ( int m, int n, double a, double b, int *seed, double r[] );
+void timestamp ( );
 void update ( int np, int nd, double pos[], double vel[], double f[], 
   double acc[], double mass, double dt );
 
@@ -33,13 +32,18 @@ int main ( int argc, char *argv[] )
 
     The particles interact with a central pair potential.
 
+    This program is based on a FORTRAN90 program by Bill Magro.
+
   Usage:
 
-    md nd np step_num
-    where
+    md nd np step_num dt
+
+    where:
+
     * nd is the spatial dimension (2 or 3);
     * np is the number of particles (500, for instance);
     * step_num is the number of time steps (500, for instance).
+    * dt is the time step (0.1 for instance)
 
   Licensing:
 
@@ -47,24 +51,16 @@ int main ( int argc, char *argv[] )
 
   Modified:
 
-    05 November 2010
+    27 December 2014
 
   Author:
 
-    Original FORTRAN90 version by Bill Magro.
-    C version by John Burkardt.
-
-  Parameters:
-
-    None
+    John Burkardt.
 */
 {
   double *acc;
-  double *box;
   double ctime;
-  double ctime1;
-  double ctime2;
-  double dt = 0.0001;
+  double dt;
   double e0;
   double *force;
   int i;
@@ -75,7 +71,6 @@ int main ( int argc, char *argv[] )
   int np;
   double *pos;
   double potential;
-  int seed = 123456789;
   int step;
   int step_num;
   int step_print;
@@ -102,7 +97,7 @@ int main ( int argc, char *argv[] )
     scanf ( "%d", &nd );
   }
 //
-//  Get the number of points.
+//  Get the number of particles.
 //
   if ( 2 < argc )
   {
@@ -111,7 +106,7 @@ int main ( int argc, char *argv[] )
   else
   {
     printf ( "\n" );
-    printf ( "  Enter NP, the number of points (500, for instance).\n" );
+    printf ( "  Enter NP, the number of particles (500, for instance).\n" );
     scanf ( "%d", &np );
   }
 //
@@ -127,6 +122,19 @@ int main ( int argc, char *argv[] )
     printf ( "  Enter ND, the number of time steps (500 or 1000, for instance).\n" );
     scanf ( "%d", &step_num );
   }
+//
+//  Get the time steps.
+//
+  if ( 4 < argc )
+  {
+    dt = atof ( argv[4] );
+  }
+  else
+  {
+    printf ( "\n" );
+    printf ( "  Enter DT, the size of the time step (0.1, for instance).\n" );
+    scanf ( "%g", &dt );
+  }
 /*
   Report.
 */
@@ -139,33 +147,9 @@ int main ( int argc, char *argv[] )
   Allocate memory.
 */
   acc = ( double * ) malloc ( nd * np * sizeof ( double ) );
-  box = ( double * ) malloc ( nd * sizeof ( double ) );
   force = ( double * ) malloc ( nd * np * sizeof ( double ) );
   pos = ( double * ) malloc ( nd * np * sizeof ( double ) );
   vel = ( double * ) malloc ( nd * np * sizeof ( double ) );
-/*
-  Set the dimensions of the box.
-*/
-  for ( i = 0; i < nd; i++ )
-  {
-    box[i] = 10.0;
-  }
-
-  printf ( "\n" );
-  printf ( "  Initializing positions, velocities, and accelerations.\n" );
-/*
-  Set initial positions, velocities, and accelerations.
-*/
-  initialize ( np, nd, box, &seed, pos, vel, acc );
-/*
-  Compute the forces and energies.
-*/
-  printf ( "\n" );
-  printf ( "  Computing initial forces and energies.\n" );
-
-  compute ( np, nd, pos, vel, mass, force, &potential, &kinetic );
-
-  e0 = potential + kinetic;
 /*
   This is the main time stepping loop:
     Compute forces and energies,
@@ -185,17 +169,25 @@ int main ( int argc, char *argv[] )
   step_print_index = 0;
   step_print_num = 10;
   
-  step = 0;
-  printf ( "  %8d  %14f  %14f  %14e\n",
-    step, potential, kinetic, ( potential + kinetic - e0 ) / e0 );
-  step_print_index = step_print_index + 1;
-  step_print = ( step_print_index * step_num ) / step_print_num;
+  ctime = cpu_time ( );
 
-  ctime1 = cpu_time ( );
-
-  for ( step = 1; step <= step_num; step++ )
+  for ( step = 0; step <= step_num; step++ )
   {
+    if ( step == 0 )
+    {
+      initialize ( np, nd, pos, vel, acc );
+    }
+    else
+    {
+      update ( np, nd, pos, vel, force, acc, mass, dt );
+    }
+
     compute ( np, nd, pos, vel, mass, force, &potential, &kinetic );
+
+    if ( step == 0 )
+    {
+      e0 = potential + kinetic;
+    }
 
     if ( step == step_print )
     {
@@ -204,17 +196,18 @@ int main ( int argc, char *argv[] )
       step_print_index = step_print_index + 1;
       step_print = ( step_print_index * step_num ) / step_print_num;
     }
-    update ( np, nd, pos, vel, force, acc, mass, dt );
+
   }
-  ctime2 = cpu_time ( );
-  ctime = ctime2 - ctime1;
-
+/*
+  Report timing.
+*/
+  ctime = cpu_time ( ) - ctime;
   printf ( "\n" );
-  printf ( "  Elapsed cpu time for main computation:\n" );
-  printf ( "  %f seconds.\n", ctime );
-
+  printf ( "  Elapsed cpu time: %f seconds.\n", ctime );
+/*
+  Free memory.
+*/
   free ( acc );
-  free ( box );
   free ( force );
   free ( pos );
   free ( vel );
@@ -224,7 +217,6 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "MD\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -232,8 +224,8 @@ int main ( int argc, char *argv[] )
 }
 /******************************************************************************/
 
-void compute ( int np, int nd, double pos[], double vel[], 
-  double mass, double f[], double *pot, double *kin )
+void compute ( int np, int nd, double pos[], double vel[], double mass, 
+  double f[], double *pot, double *kin )
 
 /******************************************************************************/
 /*
@@ -248,12 +240,12 @@ void compute ( int np, int nd, double pos[], double vel[],
     The potential function V(X) is a harmonic well which smoothly
     saturates to a maximum value at PI/2:
 
-      v(x) = ( sin ( min ( x, PI2 ) ) )^2
+      v(x) = ( sin ( min ( x, PI/2 ) ) )^2
 
     The derivative of the potential is:
 
-      dv(x) = 2.0 * sin ( min ( x, PI2 ) ) * cos ( min ( x, PI2 ) )
-            = sin ( 2.0 * min ( x, PI2 ) )
+      dv(x) = 2.0 * sin ( min ( x, PI/2 ) ) * cos ( min ( x, PI/2 ) )
+            = sin ( 2.0 * min ( x, PI/2 ) )
 
   Licensing:
 
@@ -265,8 +257,7 @@ void compute ( int np, int nd, double pos[], double vel[],
 
   Author:
 
-    Original FORTRAN90 version by Bill Magro.
-    C version by John Burkardt.
+    John Burkardt.
 
   Parameters:
 
@@ -274,9 +265,9 @@ void compute ( int np, int nd, double pos[], double vel[],
 
     Input, int ND, the number of spatial dimensions.
 
-    Input, double POS[ND*NP], the position of each particle.
+    Input, double POS[ND*NP], the positions.
 
-    Input, double VEL[ND*NP], the velocity of each particle.
+    Input, double VEL[ND*NP], the velocities.
 
     Input, double MASS, the mass of each particle.
 
@@ -353,7 +344,7 @@ void compute ( int np, int nd, double pos[], double vel[],
 }
 /*******************************************************************************/
 
-double cpu_time ( void )
+double cpu_time ( )
 
 /*******************************************************************************/
 /*
@@ -404,8 +395,7 @@ double dist ( int nd, double r1[], double r2[], double dr[] )
 
   Author:
 
-    Original FORTRAN90 version by Bill Magro.
-    C version by John Burkardt.
+    John Burkardt.
 
   Parameters:
 
@@ -433,8 +423,7 @@ double dist ( int nd, double r1[], double r2[], double dr[] )
 }
 /******************************************************************************/
 
-void initialize ( int np, int nd, double box[], int *seed, double pos[], 
-  double vel[], double acc[] )
+void initialize ( int np, int nd, double pos[], double vel[], double acc[] )
 
 /******************************************************************************/
 /*
@@ -448,12 +437,11 @@ void initialize ( int np, int nd, double box[], int *seed, double pos[],
 
   Modified:
 
-    20 July 2008
+    26 December 2014
 
   Author:
 
-    Original FORTRAN90 version by Bill Magro.
-    C version by John Burkardt.
+    John Burkardt.
 
   Parameters:
 
@@ -461,43 +449,53 @@ void initialize ( int np, int nd, double box[], int *seed, double pos[],
 
     Input, int ND, the number of spatial dimensions.
 
-    Input, double BOX[ND], specifies the maximum position
-    of particles in each dimension.
+    Output, double POS[ND*NP], the positions.
 
-    Input, int *SEED, a seed for the random number generator.
+    Output, double VEL[ND*NP], the velocities.
 
-    Output, double POS[ND*NP], the position of each particle.
-
-    Output, double VEL[ND*NP], the velocity of each particle.
-
-    Output, double ACC[ND*NP], the acceleration of each particle.
+    Output, double ACC[ND*NP], the accelerations.
 */
 {
   int i;
   int j;
+  int seed;
 /*
-  Give the particles random positions within the box.
+  Set positions.
+*/
+  seed = 123456789;
+  r8mat_uniform_ab ( nd, np, 0.0, 10.0, &seed, pos );
+/*
+  Set velocities.
 */
   for ( j = 0; j < np; j++ )
   {
     for ( i = 0; i < nd; i++ )
     {
-      pos[i+j*nd] = box[i] * r8_uniform_01 ( seed );
       vel[i+j*nd] = 0.0;
+    }
+  }
+/*
+  Set accelerations.
+*/
+  for ( j = 0; j < np; j++ )
+  {
+    for ( i = 0; i < nd; i++ )
+    {
       acc[i+j*nd] = 0.0;
     }
   }
+
   return;
 }
 /******************************************************************************/
 
-double r8_uniform_01 ( int *seed )
+void r8mat_uniform_ab ( int m, int n, double a, double b, int *seed, double r[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8_UNIFORM_01 is a unit pseudorandom R8.
+    R8MAT_UNIFORM_AB returns a scaled pseudorandom R8MAT.
 
   Discussion:
 
@@ -515,7 +513,7 @@ double r8_uniform_01 ( int *seed )
 
   Modified:
 
-    11 August 2004
+    03 October 2005
 
   Author:
 
@@ -525,42 +523,78 @@ double r8_uniform_01 ( int *seed )
 
     Paul Bratley, Bennett Fox, Linus Schrage,
     A Guide to Simulation,
-    Springer Verlag, pages 201-202, 1983.
+    Second Edition,
+    Springer, 1987,
+    ISBN: 0387964673,
+    LC: QA76.9.C65.B73.
 
     Bennett Fox,
     Algorithm 647:
     Implementation and Relative Efficiency of Quasirandom
     Sequence Generators,
     ACM Transactions on Mathematical Software,
-    Volume 12, Number 4, pages 362-376, 1986.
+    Volume 12, Number 4, December 1986, pages 362-376.
+
+    Pierre L'Ecuyer,
+    Random Number Generation,
+    in Handbook of Simulation,
+    edited by Jerry Banks,
+    Wiley, 1998,
+    ISBN: 0471134031,
+    LC: T57.62.H37.
+
+    Peter Lewis, Allen Goodman, James Miller,
+    A Pseudo-Random Number Generator for the System/360,
+    IBM Systems Journal,
+    Volume 8, Number 2, 1969, pages 136-143.
 
   Parameters:
 
-    Input/output, int *SEED, a seed for the random number generator.
+    Input, int M, N, the number of rows and columns.
 
-    Output, double R8_UNIFORM_01, a new pseudorandom variate, strictly between
-    0 and 1.
+    Input, double A, B, the limits of the pseudorandom values.
+
+    Input/output, int *SEED, the "seed" value.  Normally, this
+    value should not be 0.  On output, SEED has 
+    been updated.
+
+    Output, double R[M*N], a matrix of pseudorandom values.
 */
 {
+  int i;
+  const int i4_huge = 2147483647;
+  int j;
   int k;
-  double r;
 
-  k = *seed / 127773;
-
-  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
-
-  if ( *seed < 0 )
+  if ( *seed == 0 )
   {
-    *seed = *seed + 2147483647;
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8MAT_UNIFORM_AB - Fatal error!\n" );
+    fprintf ( stderr, "  Input value of SEED = 0.\n" );
+    exit ( 1 );
   }
 
-  r = ( double ) ( *seed ) * 4.656612875E-10;
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      k = *seed / 127773;
 
-  return r;
+      *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
+
+      if ( *seed < 0 )
+      {
+        *seed = *seed + i4_huge;
+      }
+      r[i+j*m] = a + ( b - a ) * ( double ) ( *seed ) * 4.656612875E-10;
+    }
+  }
+
+  return;
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*
@@ -637,8 +671,7 @@ void update ( int np, int nd, double pos[], double vel[], double f[],
 
   Author:
 
-    Original FORTRAN90 version by Bill Magro.
-    C version by John Burkardt.
+    John Burkardt.
 
   Parameters:
 
@@ -646,15 +679,15 @@ void update ( int np, int nd, double pos[], double vel[], double f[],
 
     Input, int ND, the number of spatial dimensions.
 
-    Input/output, double POS[ND*NP], the position of each particle.
+    Input/output, double POS[ND*NP], the positions.
 
-    Input/output, double VEL[ND*NP], the velocity of each particle.
+    Input/output, double VEL[ND*NP], the velocities.
 
-    Input, double F[ND*NP], the force on each particle.
+    Input, double F[ND*NP], the forces.
 
-    Input/output, double ACC[ND*NP], the acceleration of each particle.
+    Input/output, double ACC[ND*NP], the accelerations.
 
-    Input, double MASS, the mass of each particle.
+    Input, double MASS, the mass.
 
     Input, double DT, the time step.
 */

@@ -90,6 +90,11 @@ int main ( int argc, char *argv[] )
     printf ( "  Elapsed wallclock time is %g\n", wtime );
   }
 /*
+  Terminate MPI.
+*/
+  MPI_Finalize ( );
+
+/*
   Terminate.
 */
   if ( id == 0 )
@@ -100,8 +105,6 @@ int main ( int argc, char *argv[] )
     printf ( "\n" );
     timestamp ( );
   }
-
-  MPI_Finalize ( );
 
   return 0;
 }

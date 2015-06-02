@@ -38,18 +38,18 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "WTIME_PRB\n" );
   printf ( "  C version\n" );
   printf ( "  Test the WTIME library.\n" );
 
   test01 ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "WTIME_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

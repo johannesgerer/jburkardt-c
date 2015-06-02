@@ -1126,6 +1126,76 @@ void r8mat_transpose_print_some ( int m, int n, double a[], int ilo, int jlo,
 }
 /******************************************************************************/
 
+void r8mat_write ( char *output_filename, int m, int n, double table[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_WRITE writes an R8MAT file.
+
+  Discussion:
+
+    An R8MAT is an array of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    01 June 2009
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *OUTPUT_FILENAME, the output filename.
+
+    Input, int M, the spatial dimension.
+
+    Input, int N, the number of points.
+
+    Input, double TABLE[M*N], the data.
+*/
+{
+  int i;
+  int j;
+  FILE *output;
+/*
+  Open the file.
+*/
+  output = fopen ( output_filename, "wt" );
+
+  if ( !output )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8MAT_WRITE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the output file.\n" );
+    exit ( 1 );
+  }
+/*
+  Write the data.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      fprintf ( output, "  %24.16g", table[i+j*m] );
+    }
+    fprintf ( output, "\n" );
+  }
+/*
+  Close the file.
+*/
+  fclose ( output );
+
+  return;
+}
+/******************************************************************************/
+
 void r8vec_copy ( int n, double a1[], double a2[] )
 
 /******************************************************************************/

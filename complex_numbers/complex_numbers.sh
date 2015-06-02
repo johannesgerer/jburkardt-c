@@ -7,7 +7,7 @@ if [ $? -ne 0 ]; then
 fi
 rm compiler.txt
 #
-gcc complex_numbers.o
+gcc complex_numbers.o -lm
 if [ $? -ne 0 ]; then
   echo "Errors linking and loading complex_numbers.o"
   exit

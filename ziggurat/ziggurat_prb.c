@@ -1,23 +1,27 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <time.h>
+# include <stdint.h>
 
 # include "ziggurat.h"
 
-int main ( void );
-double cpu_time ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
 void test05 ( int sample_num );
 void test06 ( int sample_num );
 void test07 ( int sample_num );
 void test08 ( int sample_num );
+void test09 ( );
+void test10 ( );
+void test11 ( );
+void test12 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -27,7 +31,7 @@ int main ( void )
 
   Discussion:
 
-    ZIGGURAT_PRB calls sample problems for the ZIGGURAT library.
+    ZIGGURAT_PRB tests the ZIGGURAT library.
 
   Licensing:
 
@@ -35,7 +39,7 @@ int main ( void )
 
   Modified:
 
-    08 December 2008
+    16 October 2013
 
   Author:
 
@@ -45,7 +49,6 @@ int main ( void )
   int sample_num = 1000000;
 
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ZIGGURAT_PRB\n" );
   printf ( "  C version:\n" );
@@ -65,12 +68,18 @@ int main ( void )
   test07 ( sample_num );
   test08 ( sample_num );
 /*
+  Sample 10 values of the unsigned integer 32 bit generators.
+*/
+  test09 ( );
+  test10 ( );
+  test11 ( );
+  test12 ( );
+/*
   Terminate.
 */
   printf ( "\n" );
   printf ( "ZIGGURAT_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -78,13 +87,13 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST01 tests SHR3.
+    TEST01 tests SHR3_SEEDED.
 
   Licensing:
 
@@ -92,7 +101,7 @@ void test01 ( void )
 
   Modified:
 
-    08 December 2008
+    14 October 2013
 
   Author:
 
@@ -101,13 +110,13 @@ void test01 ( void )
 {
   int i;
   int j;
-  unsigned long int seed;
-  unsigned long int value;
+  uint32_t seed;
+  uint32_t value;
 
   printf ( "\n" );
   printf ( "TEST01\n" );
-  printf ( "  SHR3 returns pseudorandom uniformly distributed\n" );
-  printf ( "  unsigned long integers.\n" );
+  printf ( "  SHR3_SEEDED returns pseudorandom uniformly distributed\n" );
+  printf ( "  unsigned 32 bit integers.\n" );
 
   for ( j = 0; j < 3; j++ )
   {
@@ -121,13 +130,13 @@ void test01 ( void )
     }
 
     printf ( "\n" );
-    printf ( "  %6d  %12d  %12lu\n", 0, ( long int ) seed, seed );
+    printf ( "  %6d  %12d  %12u\n", 0, ( int ) seed, seed );
     printf ( "\n" );
 
     for ( i = 1; i <= 10; i++ )
     {
-      value = shr3 ( &seed );
-      printf ( "  %6d  %12d  %12lu  %12d\n", i, ( long int ) seed, seed, value );
+      value = shr3_seeded ( &seed );
+      printf ( "  %6d  %12d  %12u  %12u\n", i, ( int ) seed, seed, value );
     }
   }
 
@@ -135,7 +144,7 @@ void test01 ( void )
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -149,7 +158,7 @@ void test02 ( void )
 
   Modified:
 
-    08 December 2008
+    04 October 2013
 
   Author:
 
@@ -158,13 +167,13 @@ void test02 ( void )
 {
   int i;
   int j;
-  unsigned long int seed;
+  uint32_t seed;
   float value;
 
   printf ( "\n" );
   printf ( "TEST02\n" );
   printf ( "  R4_UNI returns pseudorandom uniformly distributed\n" );
-  printf ( "  floats between 0 and 1.\n" );
+  printf ( "  floats (single precision real numbers) between 0 and 1.\n" );
 
   for ( j = 0; j < 3; j++ )
   {
@@ -178,14 +187,14 @@ void test02 ( void )
     }
 
     printf ( "\n" );
-    printf ( "  %6d  %12d  %12lu\n", 0, ( long int ) seed, seed );
+    printf ( "  %6d  %12d  %12u\n", 0, ( int ) seed, seed );
     printf ( "\n" );
 
     for ( i = 1; i <= 10; i++ )
     {
       value = r4_uni ( &seed );
 
-      printf ( "  %6d  %12d  %12lu  %14f\n", i, ( long int ) seed, seed, value );
+      printf ( "  %6d  %12d  %12u  %14f\n", i, ( int ) seed, seed, value );
     }
   }
 
@@ -193,7 +202,7 @@ void test02 ( void )
 }
 /******************************************************************************/
 
-void test03 ( void )
+void test03 ( )
 
 /******************************************************************************/
 /*
@@ -207,7 +216,7 @@ void test03 ( void )
 
   Modified:
 
-    08 December 2008
+    14 October 2013
 
   Author:
 
@@ -217,15 +226,15 @@ void test03 ( void )
   float fn[128];
   int i;
   int j;
-  int kn[128];
-  unsigned long int seed;
+  uint32_t kn[128];
+  uint32_t seed;
   float value;
   float wn[128];
 
   printf ( "\n" );
   printf ( "TEST03\n" );
   printf ( "  R4_NOR returns pseudorandom normally distributed\n" );
-  printf ( "  real numbers between 0 and 1.\n" );
+  printf ( "  floats (single precision real numbers) between 0 and 1.\n" );
 
   r4_nor_setup ( kn, fn, wn );
 
@@ -241,14 +250,14 @@ void test03 ( void )
     }
 
     printf ( "\n" );
-    printf ( "  %6d  %12d  %12lu\n", 0, ( long int ) seed, seed );
+    printf ( "  %6d  %12d  %12u\n", 0, ( int ) seed, seed );
     printf ( "\n" );
 
     for ( i = 1; i <= 10; i++ )
     {
       value = r4_nor ( &seed, kn, fn, wn );
 
-      printf ( "  %6d  %12d  %12lu  %14f\n", i, ( long int ) seed, seed, value );
+      printf ( "  %6d  %12d  %12u  %14f\n", i, ( int ) seed, seed, value );
     }
   }
 
@@ -256,7 +265,7 @@ void test03 ( void )
 }
 /******************************************************************************/
 
-void test04 ( void )
+void test04 ( )
 
 /******************************************************************************/
 /*
@@ -270,7 +279,7 @@ void test04 ( void )
 
   Modified:
 
-    08 December 2008
+    14 October 2013
 
   Author:
 
@@ -280,15 +289,15 @@ void test04 ( void )
   float fe[256];
   int i;
   int j;
-  int ke[256];
-  unsigned long seed;
+  uint32_t ke[256];
+  uint32_t seed;
   float value;
   float we[256];
 
   printf ( "\n" );
   printf ( "TEST04\n" );
   printf ( "  R4_EXP returns pseudorandom exponentially distributed\n" );
-  printf ( "  real numbers between 0 and 1.\n" );
+  printf ( "  floats (single precision real numbers) between 0 and 1.\n" );
 
   r4_exp_setup ( ke, fe, we );
 
@@ -304,14 +313,14 @@ void test04 ( void )
     }
 
     printf ( "\n" );
-    printf ( "  %6d  %12d  %12lu\n", 0, ( long int ) seed, seed );
+    printf ( "  %6d  %12d  %12u\n", 0, ( int ) seed, seed );
     printf ( "\n" );
 
     for ( i = 1; i <= 10; i++ )
     {
       value = r4_exp ( &seed, ke, fe, we );
 
-      printf ( "  %6d  %12d  %12lu  %14f\n", i, ( long int ) seed, seed, value );
+      printf ( "  %6d  %12d  %12u  %14f\n", i, ( int ) seed, seed, value );
     }
   }
 
@@ -325,7 +334,7 @@ void test05 ( int sample_num )
 /*
   Purpose:
 
-    TEST05 times SHR3.
+    TEST05 times SHR3_SEEDED.
 
   Licensing:
 
@@ -333,7 +342,7 @@ void test05 ( int sample_num )
 
   Modified:
 
-    08 December 2008
+    04 October 2013
 
   Author:
 
@@ -342,13 +351,13 @@ void test05 ( int sample_num )
 {
   double ctime;
   int sample;
-  unsigned long int seed;
-  unsigned long int value;
+  uint32_t seed;
+  uint32_t value;
 
   printf ( "\n" );
   printf ( "TEST05\n" );
-  printf ( "  Measure the time it takes SHR3 to generate\n" );
-  printf ( "  %d unsigned long int values.\n", sample_num );
+  printf ( "  Measure the time it takes SHR3_SEEDED to generate\n" );
+  printf ( "  %d unsigned 32 bit integers.\n", sample_num );
 
   seed = 123456789;
 
@@ -356,7 +365,7 @@ void test05 ( int sample_num )
 
   for ( sample = 0; sample < sample_num; sample++ )
   {
-    value = shr3 ( &seed );
+    value = shr3_seeded ( &seed );
   }
   ctime = cpu_time ( ) - ctime;
 
@@ -381,7 +390,7 @@ void test06 ( int sample_num )
 
   Modified:
 
-    08 December 2008
+    04 October 2013
 
   Author:
 
@@ -390,13 +399,13 @@ void test06 ( int sample_num )
 {
   double ctime;
   int sample;
-  unsigned long int seed;
+  uint32_t seed;
   float value;
 
   printf ( "\n" );
   printf ( "TEST06\n" );
   printf ( "  Measure the time it takes R4_UNI to generate\n" );
-  printf ( "  %d uniformly random float values.\n", sample_num );
+  printf ( "  %d uniformly random floats.\n", sample_num );
 
   seed = 123456789;
 
@@ -421,7 +430,7 @@ void test07 ( int sample_num )
 /*
   Purpose:
 
-    TEST07 times R8_NOR.
+    TEST07 times R4_NOR.
 
   Licensing:
 
@@ -429,7 +438,7 @@ void test07 ( int sample_num )
 
   Modified:
 
-    08 December 2008
+    14 October 2013
 
   Author:
 
@@ -438,16 +447,16 @@ void test07 ( int sample_num )
 {
   double ctime;
   float fn[128];
-  int kn[128];
+  uint32_t kn[128];
   int sample;
-  unsigned long seed;
+  uint32_t seed;
   float value;
   float wn[129];
 
   printf ( "\n" );
   printf ( "TEST07\n" );
-  printf ( "  Measure the time it takes R8_NOR to generate\n" );
-  printf ( "  %d normal random float values.\n", sample_num );
+  printf ( "  Measure the time it takes R4_NOR to generate\n" );
+  printf ( "  %d normal random floats.\n", sample_num );
 
   r4_nor_setup ( kn, fn, wn );
 
@@ -482,7 +491,7 @@ void test08 ( int sample_num )
 
   Modified:
 
-    08 December 2008
+    14 October 2013
 
   Author:
 
@@ -491,9 +500,9 @@ void test08 ( int sample_num )
 {
   double ctime;
   float fe[256];
-  int ke[256];
+  uint32_t ke[256];
   int sample;
-  unsigned long int seed;
+  uint32_t seed;
   float value;
   float we[256];
 
@@ -505,7 +514,6 @@ void test08 ( int sample_num )
   r4_exp_setup ( ke, fe, we );
 
   seed = 123456789;
-
 
   ctime = cpu_time ( );
 
@@ -522,34 +530,208 @@ void test08 ( int sample_num )
 }
 /******************************************************************************/
 
-double cpu_time ( void )
+void test09 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CPU_TIME returns the current reading on the CPU clock.
+    TEST09 tests CONG_SEEDED.
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    08 December 2008
+    16 October 2013
 
   Author:
 
     John Burkardt
-
-  Parameters:
-
-    Output, double CPU_TIME, the current reading of the CPU clock, in seconds.
 */
 {
-  double value;
+  int j;
+  uint32_t jcong_new;
+  uint32_t jcong_in;
+  uint32_t jcong_old;
 
-  value = ( double ) clock ( ) / ( double ) CLOCKS_PER_SEC;
+  printf ( "\n" );
+  printf ( "TEST09\n" );
+  printf ( "  CONG_SEEDED is a generator of pseudorandom uniformly\n" );
+  printf ( "  distributed unsigned 32 bit integers.\n" );
+  printf ( "\n" );
+  printf ( "    Input Seed   Output Seed  Output Value\n" );
+  printf ( "\n" );
 
-  return value;
+  jcong_new = 234567891;
+
+  for ( j = 1; j <= 10; j++ )
+  {
+    jcong_old = jcong_new;
+    jcong_in = jcong_new;
+    jcong_new = cong_seeded ( &jcong_in );
+    printf ( "  %12u  %12u  %12u\n", jcong_old, jcong_in, jcong_new );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void test10 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST10 tests KISS_SEEDED.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 October 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int j;
+  uint32_t jcong_in;
+  uint32_t jcong_old;
+  uint32_t jsr_in;
+  uint32_t jsr_old;
+  uint32_t w_in;
+  uint32_t w_old;
+  uint32_t value;
+  uint32_t z_in;
+  uint32_t z_old;
+
+  printf ( "\n" );
+  printf ( "TEST10\n" );
+  printf ( "  KISS_SEEDED is a generator of pseudorandom uniformly\n" );
+  printf ( "  distributed unsigned 32 bit integers.\n" );
+  printf ( "\n" );
+  printf ( "              JCONG           JSR             W             Z         Value\n" );
+  printf ( "\n" );
+
+  jcong_in = 234567891;
+  jsr_in = 123456789;
+  w_in = 345678912;
+  z_in = 456789123;
+
+  for ( j = 1; j <= 10; j++ )
+  {
+    jcong_old = jcong_in;
+    jsr_old = jsr_in;
+    w_old = w_in;
+    z_old = z_in;
+    value = kiss_seeded ( &jcong_in, &jsr_in, &w_in, &z_in );
+    printf ( "  In   %12u  %12u  %12u  %12u\n", jcong_old, jsr_old, w_old, z_old );
+    printf ( "  Out  %12u  %12u  %12u  %12u  %12u\n", jcong_in, jsr_in, w_in, z_in, value );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void test11 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST11 tests MWC_SEEDED.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 October 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int j;
+  uint32_t w_in;
+  uint32_t w_old;
+  uint32_t value;
+  uint32_t z_in;
+  uint32_t z_old;
+
+  printf ( "\n" );
+  printf ( "TEST11\n" );
+  printf ( "  MWC_SEEDED is a generator of pseudorandom uniformly\n" );
+  printf ( "  distributed unsigned 32 bit integers.\n" );
+  printf ( "\n" );
+  printf ( "       Input W       Input Z      Output W      Output Z  Output Value\n" );
+  printf ( "\n" );
+
+  w_in = 345678912;
+  z_in = 456789123;
+
+  for ( j = 1; j <= 10; j++ )
+  {
+    w_old = w_in;
+    z_old = z_in;
+    value = mwc_seeded ( &w_in, &z_in );
+    printf ( "  %12u  %12u  %12u  %12u  %12u\n", w_old, z_old, w_in, z_in, value );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void test12 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST12 tests SHR3_SEEDED.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 October 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int j;
+  uint32_t jsr_new;
+  uint32_t jsr_in;
+  uint32_t jsr_old;
+
+  printf ( "\n" );
+  printf ( "TEST12\n" );
+  printf ( "  SHR3_SEEDED is a generator of pseudorandom uniformly\n" );
+  printf ( "  distributed unsigned 32 bit integers.\n" );
+  printf ( "\n" );
+  printf ( "    Input Seed   Output Seed  Output Value\n" );
+  printf ( "\n" );
+
+  jsr_new = 123456789;
+
+  for ( j = 1; j <= 10; j++ )
+  {
+    jsr_old = jsr_new;
+    jsr_in = jsr_new;
+    jsr_new = shr3_seeded ( &jsr_in );
+    printf ( "  %12u  %12u  %12u\n", jsr_old, jsr_in, jsr_new );
+  }
+
+  return;
 }

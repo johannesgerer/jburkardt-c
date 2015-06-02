@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c not_allocated_arrays.c >& compiler.txt
+gcc -c not_allocated_arrays.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling not_allocated_arrays.c."
   exit
 fi
-rm compiler.txt
 #
 gcc not_allocated_arrays.o
 if [ $? -ne 0 ]; then

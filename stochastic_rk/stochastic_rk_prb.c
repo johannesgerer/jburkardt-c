@@ -21,7 +21,7 @@ int main ( void )
 
   Discussion:
 
-    STOCHASTIC_RK_PRB calls a set of problems for STOCHASTIC_RK.
+    STOCHASTIC_RK_PRB tests the STOCHASTIC_RK library.
 
   Licensing:
 
@@ -37,21 +37,19 @@ int main ( void )
 */
 {
   timestamp ( );
-
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, "STOCHASTIC_RK_PRB\n" );
-  fprintf ( stdout, "  C version\n" );
-  fprintf ( stdout, "  Test the STOCHASTIC_RK library.\n" );
+  printf ( "\n" );
+  printf ( "STOCHASTIC_RK_PRB\n" );
+  printf ( "  C version\n" );
+  printf ( "  Test the STOCHASTIC_RK library.\n" );
  
   test01 ( );
 /*
   Terminate.
 */
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, "STOCHASTIC_RK_PRB\n" );
-  fprintf ( stdout, "  Normal end of execution.\n" );
-   
-  fprintf ( stdout, "\n" );
+  printf ( "\n" );
+  printf ( "STOCHASTIC_RK_PRB\n" );
+  printf ( "  Normal end of execution.\n" );
+  printf ( "\n" );
   timestamp ( );
 
   return 0;

@@ -4,12 +4,12 @@
 
 # include "asa005.h"
 
-int main ( void );
-void test01 ( void );
+int main ( );
+void test01 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    ASA005_PRB calls the ASA005 routines.
+    ASA005_PRB tests the ASA005 library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA005_PRB:\n" );
   printf ( "  C version\n" );
@@ -48,7 +47,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA005_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -111,7 +109,7 @@ void test01 ( void )
     fx2 = prncst ( x, df, lambda, &ifault );
 
     printf ( "  %6.2f  %6.2f  %2d  %24.16f  %24.16f  %10.4e\n",
-      x, lambda, df, fx, fx2, r8_abs ( fx - fx2 ) );
+      x, lambda, df, fx, fx2, fabs ( fx - fx2 ) );
   }
 
   return;

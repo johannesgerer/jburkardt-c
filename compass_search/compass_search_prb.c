@@ -37,7 +37,11 @@ int main ( void )
 /*
   Purpose:
 
-    COMPASS_SEARCH_TEST tests COMPASS_SEARCH.
+    MAIN is the main program for COMPASS_SEARCH_PRB.
+
+  Discussion:
+
+    COMPASS_SEARCH_PRB tests the COMPASS_SEARCH library.
 
   Licensing:
 

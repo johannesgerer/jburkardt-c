@@ -3,9 +3,416 @@
 # include <string.h>
 # include <time.h>
 # include <math.h>
+# include <complex.h>
 
 # include "linplus.h"
 
+/******************************************************************************/
+
+void c8vec_print ( int n, double complex a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_PRINT prints a C8VEC.
+
+  Discussion:
+
+    A C8VEC is a vector of double complex values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of components of the vector.
+
+    Input, double complex A[N], the vector to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+  fprintf ( stdout, "\n" );
+
+  for ( i = 0; i < n; i++ )
+  {
+    fprintf ( stdout, "  %8d: %14f  %14f\n", i, creal( a[i] ), cimag ( a[i] ) );
+  }
+
+  return;
+}
+//****************************************************************************80
+
+void c8vec_sort_a2 ( int n, double complex x[] )
+
+//****************************************************************************80
+//
+//  Purpose:
+//
+//    C8VEC_SORT_A2 ascending sorts a double complex array by L2 norm.
+//
+//  Discussion:
+//
+//    The L2 norm of A+Bi is sqrt ( A * A + B * B ).
+//
+//  Licensing:
+//
+//    This code is distributed under the GNU LGPL license. 
+//
+//  Modified:
+//
+//    18 March 2013
+//
+//  Author:
+//
+//    John Burkardt
+//
+//  Parameters:
+//
+//    Input, int N, length of input array.
+//
+//    Input/output, double complex X[N].
+//    On input, an unsorted array.
+//    On output, X has been sorted.
+//
+{
+  int i;
+  int indx;
+  int isgn;
+  int j;
+  double normsq_i;
+  double normsq_j;
+  double complex temp;
+
+  i = 0;
+  indx = 0;
+  isgn = 0;
+  j = 0;
+
+  for ( ; ; )
+  {
+    sort_heap_external ( n, &indx, &i, &j, isgn );
+
+    if ( 0 < indx )
+    {
+      temp = x[i-1];
+      x[i-1] = x[j-1];
+      x[j-1] = temp;
+    }
+    else if ( indx < 0 )
+    {
+      normsq_i = pow ( creal ( x[i-1] ), 2 )
+               + pow ( cimag ( x[i-1] ), 2 );
+
+      normsq_j = pow ( creal ( x[j-1] ), 2 )
+               + pow ( cimag ( x[j-1] ), 2 );
+
+      if ( normsq_i < normsq_j )
+      {
+        isgn = -1;
+      }
+      else
+      {
+        isgn = +1;
+      }
+    }
+    else if ( indx == 0 )
+    {
+      break;
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double complex *c8vec_unity ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8VEC_UNITY returns the N roots of unity in a C8VEC.
+
+  Discussion:
+
+    A C8VEC is a vector of C8's.
+
+    X(1:N) = exp ( 2 * PI * (0:N-1) / N )
+
+    X(1:N)^N = ( (1,0), (1,0), ..., (1,0) ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 September 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of elements of A.
+
+    Output, double complex C8VEC_UNITY[N], the N roots of unity.
+*/
+{
+  double complex *a;
+  int i;
+  double pi = 3.141592653589793;
+  double theta;
+
+  a = ( double complex * ) malloc ( n * sizeof ( double complex ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    theta = pi * ( double ) ( 2 * i ) / ( double ) ( n );
+    a[i] = cos ( theta ) + sin ( theta ) * I;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void daxpy ( int n, double da, double dx[], int incx, double dy[], int incy )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DAXPY computes constant times a vector plus a vector.
+
+  Discussion:
+
+    This routine uses unrolled loops for increments equal to one.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    30 March 2007
+
+  Author:
+
+    Original FORTRAN77 version by Charles Lawson, Richard Hanson, 
+    David Kincaid, Fred Krogh.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979.
+
+    Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,
+    Basic Linear Algebra Subprograms for Fortran Usage,
+    Algorithm 539, 
+    ACM Transactions on Mathematical Software, 
+    Volume 5, Number 3, September 1979, pages 308-323.
+
+  Parameters:
+
+    Input, int N, the number of elements in DX and DY.
+
+    Input, double DA, the multiplier of DX.
+
+    Input, double DX[*], the first vector.
+
+    Input, int INCX, the increment between successive entries of DX.
+
+    Input/output, double DY[*], the second vector.
+    On output, DY[*] has been replaced by DY[*] + DA * DX[*].
+
+    Input, int INCY, the increment between successive entries of DY.
+*/
+{
+  int i;
+  int ix;
+  int iy;
+  int m;
+
+  if ( n <= 0 )
+  {
+    return;
+  }
+
+  if ( da == 0.0 )
+  {
+    return;
+  }
+/*
+  Code for unequal increments or equal increments
+  not equal to 1.
+*/
+  if ( incx != 1 || incy != 1 )
+  {
+    if ( 0 <= incx )
+    {
+      ix = 0;
+    }
+    else
+    {
+      ix = ( - n + 1 ) * incx;
+    }
+
+    if ( 0 <= incy )
+    {
+      iy = 0;
+    }
+    else
+    {
+      iy = ( - n + 1 ) * incy;
+    }
+
+    for ( i = 0; i < n; i++ )
+    {
+      dy[iy] = dy[iy] + da * dx[ix];
+      ix = ix + incx;
+      iy = iy + incy;
+    }
+  }
+/*
+  Code for both increments equal to 1.
+*/
+  else
+  {
+    m = n % 4;
+
+    for ( i = 0; i < m; i++ )
+    {
+      dy[i] = dy[i] + da * dx[i];
+    }
+
+    for ( i = m; i < n; i = i + 4 )
+    {
+      dy[i  ] = dy[i  ] + da * dx[i  ];
+      dy[i+1] = dy[i+1] + da * dx[i+1];
+      dy[i+2] = dy[i+2] + da * dx[i+2];
+      dy[i+3] = dy[i+3] + da * dx[i+3];
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+int file_delete ( char *filename )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    FILE_DELETE deletes a named file if it exists.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *FILENAME, the name of the file.
+
+    Output, int FILE_DELETE, is 0 if the file deletion was successful.
+*/
+{
+  int value;
+/*
+  Does the file exist?
+*/
+  if ( !file_exist ( filename ) )
+  {
+    return 1;
+  }
+/*
+  Try to remove it.
+*/
+  value = remove ( filename );
+
+  if ( value != 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "FILE_DELETE: Warning!\n" );
+    fprintf ( stderr, "  Could not delete \"%s\".\n", filename );
+    return value;
+  }
+
+  printf ( "\n" );
+  printf ( "FILE_DELETE:\n" );
+  printf ( "  Deleting old version of \"%s\".\n", filename );
+
+  return value;
+}
+/******************************************************************************/
+
+int file_exist ( char *filename )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    FILE_EXIST reports whether a file exists.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    28 November 2009
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *FILENAME, the name of the file.
+
+    Output, int FILE_EXIST, is TRUE (1) if the file exists.
+*/
+{
+  FILE *filepointer;
+  int value;
+
+  filepointer = fopen ( filename, "r" );
+
+  if ( filepointer == NULL )
+  {
+    value = 0;
+  }
+  else
+  {
+    value = 1;
+  }
+  return value;
+}
 /******************************************************************************/
 
 int get_seed ( void )
@@ -484,9 +891,9 @@ int i4_power ( int i, int j )
     }
     else if ( i == 0 )
     {
-      printf ( "\n" );
-      printf ( "I4_POWER - Fatal error!\n" );
-      printf ( "  I^J requested, with I = 0 and J negative.\n" );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "I4_POWER - Fatal error!\n" );
+      fprintf ( stderr, "  I^J requested, with I = 0 and J negative.\n" );
       exit ( 1 );
     }
     else
@@ -498,9 +905,9 @@ int i4_power ( int i, int j )
   {
     if ( i == 0 )
     {
-      printf ( "\n" );
-      printf ( "I4_POWER - Fatal error!\n" );
-      printf ( "  I^J requested, with I = 0 and J = 0.\n" );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "I4_POWER - Fatal error!\n" );
+      fprintf ( stderr, "  I^J requested, with I = 0 and J = 0.\n" );
       exit ( 1 );
     }
     else
@@ -1572,9 +1979,9 @@ double *r83_cr_fa ( int n, double a[] )
 
   if ( n <= 0 )
   {
-    printf ( "\n" );
-    printf ( "R83_CR_FA - Fatal error!\n" );
-    printf ( "  Nonpositive N = %d\n", n );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R83_CR_FA - Fatal error!\n" );
+    fprintf ( stderr, "  Nonpositive N = %d\n", n );
     return NULL;
   }
 
@@ -1745,9 +2152,9 @@ double *r83_cr_sl ( int n, double a_cr[], double b[] )
 
   if ( n <= 0 )
   {
-    printf ( "\n" );
-    printf ( "R83_CR_SL - Fatal error!\n" );
-    printf ( "  Nonpositive N = %d\n", n );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R83_CR_SL - Fatal error!\n" );
+    fprintf ( stderr, "  Nonpositive N = %d\n", n );
     return NULL;
   }
 
@@ -1908,9 +2315,9 @@ double *r83_cr_sls ( int n, double a_cr[], int nb, double b[] )
 
   if ( n <= 0 )
   {
-    printf ( "\n" );
-    printf ( "R83_CR_SLS - Fatal error!\n" );
-    printf ( "  Nonpositive N = %d\n", n );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R83_CR_SLS - Fatal error!\n" );
+    fprintf ( stderr, "  Nonpositive N = %d\n", n );
     exit ( 1 );
   }
 
@@ -2080,9 +2487,9 @@ void r83_gs_sl ( int n, double a[], double b[], double x[], int it_max,
   {
     if ( a[1+i*3] == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "R83_GS_SL - Fatal error!\n" );
-      printf ( "  Zero diagonal entry, index = %d\n", i );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R83_GS_SL - Fatal error!\n" );
+      fprintf ( stderr, "  Zero diagonal entry, index = %d\n", i );
       return;
     }
   }
@@ -2274,9 +2681,9 @@ void r83_jac_sl ( int n, double a[], double b[], double x[], int it_max,
   {
     if ( a[1+i*3] == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "R83_JAC_SL - Fatal error!\n" );
-      printf ( "  Zero diagonal entry, index = %d\n", i );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R83_JAC_SL - Fatal error!\n" );
+      fprintf ( stderr, "  Zero diagonal entry, index = %d\n", i );
       return;
     }
   }
@@ -2382,7 +2789,7 @@ double *r83_mxv ( int n, double a[], double x[] )
   {
     b[i] =        a[1+i*3] * x[i];
   }
-  for ( i = 0; i < n-1; i++ )
+  for ( i = 0; i < n - 1; i++ )
   {
     b[i] = b[i] + a[0+(i+1)*3] * x[i+1];
   }
@@ -2515,9 +2922,9 @@ int r83_np_fa ( int n, double a[] )
   {
     if ( a[1+(i-1)*3] == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "R83_NP_FA - Fatal error!\n" );
-      printf ( "  Zero pivot on step %d\n", i );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R83_NP_FA - Fatal error!\n" );
+      fprintf ( stderr, "  Zero pivot on step %d\n", i );
       return i;
     }
 /*
@@ -2532,9 +2939,9 @@ int r83_np_fa ( int n, double a[] )
 
   if ( a[1+(n-1)*3] == 0.0 )
   {
-    printf ( "\n" );
-    printf ( "R83_NP_FA - Fatal error!\n" );
-    printf ( "  Zero pivot on step %d\n", n );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R83_NP_FA - Fatal error!\n" );
+    fprintf ( stderr, "  Zero pivot on step %d\n", n );
     return n;
   }
 
@@ -3392,9 +3799,9 @@ double *r83np_fs ( int n, double a[], double b[] )
   {
     if ( a[1+i*3] == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "R83NP_FS - Fatal error!\n" );
-      printf ( "  A[1+%d*3] = 0.\n", i );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R83NP_FS - Fatal error!\n" );
+      fprintf ( stderr, "  A[1+%d*3] = 0.\n", i );
       exit ( 1 );
     }
   }
@@ -3594,12 +4001,12 @@ int r83p_fa ( int n, double a[], double work2[], double work3[], double *work4 )
 
   if ( info != 0 )
   {
-    printf ( "\n" );
-    printf ( "R83P_FA - Fatal error!\n" );
-    printf ( "  R83_NP_FA returned INFO = %d\n", info );
-    printf ( "  Factoring failed for column INFO.\n" );
-    printf ( "  The tridiagonal matrix A1 is singular.\n" );
-    printf ( "  This algorithm cannot continue!\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R83P_FA - Fatal error!\n" );
+    fprintf ( stderr, "  R83_NP_FA returned INFO = %d\n", info );
+    fprintf ( stderr, "  Factoring failed for column INFO.\n" );
+    fprintf ( stderr, "  The tridiagonal matrix A1 is singular.\n" );
+    fprintf ( stderr, "  This algorithm cannot continue!\n" );
     return info;
   }
 /*
@@ -3641,10 +4048,10 @@ int r83p_fa ( int n, double a[], double work2[], double work3[], double *work4 )
 
   if ( *work4 == 0.0 )
   {
-    printf ( "\n" );
-    printf ( "R83P_FA - Fatal error!\n" );
-    printf ( "  The factored A4 submatrix is zero.\n" );
-    printf ( "  This algorithm cannot continue!\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R83P_FA - Fatal error!\n" );
+    fprintf ( stderr, "  The factored A4 submatrix is zero.\n" );
+    fprintf ( stderr, "  This algorithm cannot continue!\n" );
     return n;
   }
 
@@ -4501,6 +4908,325 @@ double *r83p_zero ( int n )
 }
 /******************************************************************************/
 
+double *r83s_mxv ( int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R83S_MXV multiplies an R83S matrix times a vector.
+
+  Discussion:
+
+    The R83S storage format is used for a tridiagonal scalar matrix.
+    The vector A(3) contains the subdiagonal, diagonal, and superdiagonal
+    values that occur on every row.
+
+  Example:
+
+    Here is how an R83S matrix of order 5, stored as (A1,A2,A3), would
+    be interpreted:
+
+      A2  A3   0   0   0
+      A1  A2  A3   0   0
+       0  A1  A2  A3   0 
+       0   0  A1  A2  A3
+       0   0   0  A1  A2
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    09 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the linear system.
+
+    Input, double A[3], the R83S matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R83S_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+  }
+
+  for ( i = 1; i < n; i++ )
+  {
+    b[i] = b[i] + a[0] * x[i-1];
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = b[i] + a[1] * x[i];
+  }
+
+  for ( i = 0; i < n - 1; i++ )
+  {
+    b[i] = b[i] + a[2] * x[i+1];
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r83s_print ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R83S_PRINT prints an R83S matrix.
+
+  Discussion:
+
+    The R83S storage format is used for a tridiagonal scalar matrix.
+    The vector A(3) contains the subdiagonal, diagonal, and superdiagonal
+    values that occur on every row.
+
+  Example:
+
+    Here is how an R83S matrix of order 5, stored as (A1,A2,A3), would
+    be interpreted:
+
+      A2  A3   0   0   0
+      A1  A2  A3   0   0
+       0  A1  A2  A3   0 
+       0   0  A1  A2  A3
+       0   0   0  A1  A2
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    09 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[3], the R83S matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r83s_print_some ( n, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r83s_print_some ( int n, double a[], int ilo, int jlo, int ihi, int jhi,
+  char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R83S_PRINT_SOME prints some of an R83S matrix.
+
+  Discussion:
+
+    The R83S storage format is used for a tridiagonal scalar matrix.
+    The vector A(3) contains the subdiagonal, diagonal, and superdiagonal
+    values that occur on every row.
+
+  Example:
+
+    Here is how an R83S matrix of order 5, stored as (A1,A2,A3), would
+    be interpreted:
+
+      A2  A3   0   0   0
+      A1  A2  A3   0   0
+       0  A1  A2  A3   0 
+       0   0  A1  A2  A3
+       0   0   0  A1  A2
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    09 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[3], the R83S matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column, to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int inc;
+  int j;
+  int j2;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    inc = j2hi + 1 - j2lo;
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      j2 = j + 1 - j2lo;
+      printf ( "%7d       ", j );
+    }
+
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2lo = i4_max ( i2lo, j2lo - 1 );
+
+    i2hi = i4_min ( ihi, n );
+    i2hi = i4_min ( i2hi, j2hi + 1 );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      printf ( "%6d  ", i );
+
+      for ( j2 = 1; j2 <= inc; j2++ )
+      {
+        j = j2lo - 1 + j2;
+
+        if ( 1 < i-j || 1 < j-i )
+        {
+          printf ( "              " );
+        }
+        else if ( j == i-1 )
+        {
+          printf ( "%12f  ", a[0] );
+        }
+        else if ( j == i )
+        {
+          printf ( "%12f  ", a[1] );
+        }
+        else if ( j == i+1 )
+        {
+          printf ( "%12f  ", a[2] );
+        }
+
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r83s_random ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R83S_RANDOM randomizes an R83S matrix.
+
+  Discussion:
+
+    The R83S storage format is used for a tridiagonal scalar matrix.
+    The vector A(3) contains the subdiagonal, diagonal, and superdiagonal
+    values that occur on every row.
+
+  Example:
+
+    Here is how an R83S matrix of order 5, stored as (A1,A2,A3), would
+    be interpreted:
+
+      A2  A3   0   0   0
+      A1  A2  A3   0   0
+       0  A1  A2  A3   0 
+       0   0  A1  A2  A3
+       0   0   0  A1  A2
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    09 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the linear system.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R83S_RANDOM[3], the R83S matrix.
+*/
+{
+  double *a;
+
+  a = r8vec_uniform_01_new ( 3, seed );
+
+  return a;
+}
+/******************************************************************************/
+
 double *r85_indicator ( int n )
 
 /******************************************************************************/
@@ -5301,6 +6027,12485 @@ double *r85_zero ( int n )
     for ( i = 0; i < 5; i++ )
     {
       a[i+j*5] = 0.0;
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+void r8bb_add ( int n1, int n2, int ml, int mu, double a[], int i, int j, 
+  double value )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_ADD adds a value to an entry in a R8BB matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, 
+    and N2 by N2, respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input/output, double A[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], the R8BB matrix.
+
+    Input, int I, J, the row and column of the entry to be incremented.
+    Some combinations of I and J are illegal.
+
+    Input, double VALUE, the value to be added to the (I,J)-th entry.
+*/
+{
+  int ij;
+
+  if ( value == 0.0 )
+  {
+    return;
+  }
+
+  if ( i <= 0 || n1 + n2 < i )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8BB_ADD - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of row index I = %d\n", i );
+    exit ( 1 );
+  }
+
+  if ( j <= 0 || n1 + n2 < j )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8BB_ADD - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of column index J = %d\n", j );
+    exit ( 1 );
+  }
+/*
+  The A1 block of the matrix.
+
+  Check for out of band problems.
+
+  Normally, we would check the condition MU < (J-I), but the storage
+  format requires extra entries be set aside in case of pivoting, which
+  means that the condition becomes MU+ML < (J-I).
+*/
+  if ( i <= n1 && j <= n1 )
+  {
+    if ( (mu+ml) < (j-i) || ml < (i-j) )
+    {
+      printf ( "\n" );
+      printf ( "R8BB_ADD - Warning!\n" );
+      printf ( "  Unable to add to entry (%d,%d).\n", i, j );
+    }
+    else
+    {
+      ij = (i-j+ml+mu+1)+(j-1)*(2*ml+mu+1);
+    }
+  }
+/*
+  The A2 block of the matrix.
+*/
+  else if ( i <= n1 && n1 < j )
+  {
+    ij = (2*ml+mu+1)*n1+(j-n1-1)*n1 + i;
+  }
+/*
+  The A3 and A4 blocks of the matrix.
+*/
+  else if ( n1 < i )
+  {
+    ij = (2*ml+mu+1)*n1+n2*n1+(j-1)*n2 + (i-n1);
+  }
+
+  a[ij-1] = a[ij-1] + value;
+
+  return;
+}
+/******************************************************************************/
+
+int r8bb_fa ( int n1, int n2, int ml, int mu, double a[], int pivot[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_FA factors a R8BB matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1-1.
+
+    Input/output, double A[(2*ML+MU+1)*N1 + 2*N1*N2 + N2*N2 ].
+    On input, the border-banded matrix to be factored.
+    On output, information describing a partial factorization
+    of the original coefficient matrix.  This information is required
+    by R8BB_SL in order to solve linear systems associated with that
+    matrix.
+
+    Output, int PIVOT[N1+N2], contains pivoting information.
+
+    Output, int R8BB_FA, singularity flag.
+    0, no singularity detected.
+    nonzero, the factorization failed on the INFO-th step.
+*/
+{
+  double *b;
+  int i;
+  int ij;
+  int ik;
+  int info;
+  int j;
+  int jk;
+  int job;
+  int k;
+  int nband;
+  double *x;
+
+  nband = (2*ml+mu+1) * n1;
+/*
+  Factor the A1 band matrix, overwriting A1 by its factors.
+*/
+  if ( 0 < n1 )
+  {
+    info = r8gb_fa ( n1, ml, mu, a, pivot );
+
+    if ( info != 0 )
+    {
+      return info;
+    }
+  }
+
+  if ( 0 < n1 && 0 < n2 )
+  {
+/*
+  Solve A1 * x = -A2 for x, and overwrite A2 by the results.
+*/
+    for ( i = nband+1; i <= nband+n1*n2; i++ )
+    {
+      a[i-1] = -a[i-1];
+    }
+
+    b = ( double * ) malloc ( n1 * sizeof ( double ) );
+    x = ( double * ) malloc ( n1 * sizeof ( double ) );
+
+    job = 0;
+    for ( j = 1; j <= n2; j++ )
+    {
+      for ( i = 0; i < n1; i++ )
+      {
+        b[i] = a[nband+(j-1)*n1+i];
+      }
+      x = r8gb_sl ( n1, ml, mu, a, pivot, b, job );
+      for ( i = 0; i < n1; i++ )
+      {
+        a[nband+(j-1)*n1+i] = x[i];
+      }
+      free ( x );
+    }
+    free ( b );
+/*
+  A4 := A4 + A3 * A2.
+*/
+    for ( i = 1; i <= n2; i++ )
+    {
+      for ( j = 1; j <= n1; j++ )
+      {
+        ij = nband + n1*n2 + (j-1)*n2 + i;
+        for ( k = 1; k <= n2; k++ )
+        {
+          ik = nband + 2*n1*n2 + (k-1)*n2 + i;
+          jk = nband + (k-1) * n1 + j;
+          a[ik-1] = a[ik-1] + a[ij-1] * a[jk-1];
+        }
+      }
+    }
+  }
+/*
+  Factor A4.
+*/
+  if ( 0 < n2 )
+  {
+    info = r8ge_fa ( n2, a+(nband+2*n1*n2), pivot+n1 );
+
+    if ( info != 0 )
+    {
+      return info;
+    }
+  }
+
+  return 0;
+}
+/******************************************************************************/
+
+double r8bb_get ( int n1, int n2, int ml, int mu, double a[], int i, int j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_GET gets a value of a R8BB matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input/output, double A[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], the R8BB matrix.
+
+    Input, int I, J, the row and column of the entry to be incremented.
+    Some combinations of I and J are illegal.
+
+    Output, double R8BB_GET, the value of the (I,J)-th entry.
+*/
+{
+  int ij;
+
+  if ( i <= 0 || n1 + n2 < i )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8BB_GET - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of row index I = %d\n", i );
+    exit ( 1 );
+  }
+
+  if ( j <= 0 || n1 + n2 < j )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8BB_GET - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of column index J = %d\n", j );
+    exit ( 1 );
+  }
+/*
+  The A1 block of the matrix.
+
+  Check for out of band problems.
+
+  Normally, we would check the condition MU < (J-I), but the storage
+  format requires extra entries be set aside in case of pivoting, which
+  means that the condition becomes MU+ML < (J-I).
+*/
+  if ( i <= n1 && j <= n1 )
+  {
+    if ( (mu+ml) < (j-i) || ml < (i-j) )
+    {
+      return 0.0;
+    }
+    else
+    {
+      ij = (i-j+ml+mu+1) + (j-1)*(2*ml+mu+1);
+    }
+  }
+/*
+  The A2 block of the matrix.
+*/
+  else if ( i <= n1 && n1 < j )
+  {
+    ij = (2*ml+mu+1)*n1 + (j-n1-1)*n1 + i;
+  }
+/*
+  The A3 and A4 blocks of the matrix.
+*/
+  else if ( n1 < i )
+  {
+    ij = (2*ml+mu+1)*n1 + n2*n1 + (j-1)*n2 + (i-n1);
+  }
+
+  return a[ij-1];
+}
+/******************************************************************************/
+
+double *r8bb_indicator ( int n1, int n2, int ml, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_INDICATOR sets up a R8BB indicator matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+    The matrix is actually stored as a vector, and we will simply suggest
+    the structure and values of the indicator matrix as:
+
+      00 00 00 00 00
+      00 00 13 24 35     16 17     61 62 63 64 65     66 67
+      00 12 23 34 45  +  26 27  +  71 72 73 74 75  +  76 77
+      11 22 33 44 55     36 37     
+      21 32 43 54 00     46 47     
+                         56 57     
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1-1.
+
+    Output, double R8BB_INDICATOR[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], 
+    the matrix.
+*/
+{
+  double *a;
+  int base;
+  int fac;
+  int i;
+  int j;
+  int row;
+
+  a = ( double * ) malloc ( ( (2*ml+mu+1)*n1+2*n1*n2+n2*n2 ) * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n1 + n2 ) + 1 );
+/*
+  Set the banded matrix A1.
+*/
+  for ( j = 1; j <= n1; j++ )
+  {
+    for ( row = 1; row <= 2 * ml + mu + 1; row++ )
+    {
+      i = row + j - ml - mu - 1;
+      if ( ml < row && 1 <= i && i <= n1 )
+      {
+        a[row-1+(j-1)*(2*ml+mu+1)] = ( double ) ( fac * i + j );
+      }
+      else
+      {
+        a[row-1+(j-1)*(2*ml+mu+1)] = 0.0;
+      }
+    }
+  }
+/*
+  Set the N1 by N2 rectangular strip A2.
+*/
+  base = ( 2 * ml + mu + 1 ) * n1;
+
+  for ( i = 1; i <= n1; i++ )
+  {
+    for ( j = n1 + 1; j <= n1 + n2; j++ )
+    {
+      a[base + i-1 + (j-n1-1)*n1 ] = ( double ) ( fac * i + j );
+    }
+  }
+/*
+  Set the N2 by N1 rectangular strip A3.
+*/
+  base = ( 2 * ml + mu + 1 ) * n1 + n1 * n2;
+
+  for ( i = n1 + 1; i <= n1 + n2; i++ )
+  {
+    for ( j = 1; j <= n1; j++ )
+    {
+      a[base + i-n1-1 + (j-1)*n2 ] = ( double ) ( fac * i + j );
+    }
+  }
+/*
+  Set the N2 by N2 square A4.
+*/
+  base = ( 2 * ml + mu + 1 ) * n1 + n1 * n2 + n2 * n1;
+
+  for ( i = n1 + 1; i <= n1 + n2; i++ )
+  {
+    for ( j = n1 + 1; j <= n1 + n2; j++ )
+    {
+      a[base + i-n1-1 + (j-n1-1)*n2 ] = ( double ) ( fac * i + j );
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8bb_mxv ( int n1, int n2, int ml, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_MXV multiplies a R8BB matrix times a vector.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1-1.
+
+    Input, double A[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], the R8BB matrix.
+
+    Input, double X[N1+N2], the vector to be multiplied by A.
+
+    Output, double R8BB_MXV[N1+N2], the result of multiplying A by X.
+*/
+{
+  double *b;
+  int i;
+  int ihi;
+  int ij;
+  int ilo;
+  int j;
+/*
+  Initialize B.
+*/
+  b = ( double * ) malloc ( ( n1+n2) * sizeof ( double ) );
+  for ( i = 0; i < n1 + n2; i++ )
+  {
+    b[i] = 0.0;
+  }
+/*
+  Multiply by A1.
+*/
+  for ( j = 1; j <= n1; j++ )
+  {
+    ilo = i4_max ( 1, j - mu - ml );
+    ihi = i4_min ( n1, j + ml );
+    ij = (j-1) * (2*ml+mu+1) - j + ml + mu + 1;
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      b[i-1] = b[i-1] + a[ij+i-1] * x[j-1];
+    }
+  }
+/*
+  Multiply by A2.
+*/
+  for ( j = n1+1; j <= n1 + n2; j++ )
+  {
+    ij = (2*ml+mu+1)*n1 + (j-n1-1)*n1;
+    for ( i = 1; i <= n1; i++ )
+    {
+      b[i-1] = b[i-1] + a[ij+i-1] * x[j-1];
+    }
+  }
+/*
+  Multiply by A3 and A4.
+*/
+  for ( j = 1; j <= n1 + n2; j++ )
+  {
+    ij = (2*ml+mu+1)*n1 + n1*n2 + (j-1)*n2 - n1;
+    for ( i = n1+1; i <= n1+n2; i++ )
+    {
+      b[i-1] = b[i-1] + a[ij+i-1] * x[j-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8bb_print ( int n1, int n2, int ml, int mu, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_PRINT prints a R8BB matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input, double A[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], the R8BB matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8bb_print_some ( n1, n2, ml, mu, a, 1, 1, n1+n2, n1+n2, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8bb_print_some ( int n1, int n2, int ml, int mu, double a[], int ilo, 
+  int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_PRINT_SOME prints some of a R8BB matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input, double A[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], the R8BB matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int ij;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n1+n2 );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n1+n2 );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        aij = 0.0;
+
+        if ( i <= n1 && j <= n1 )
+        {
+          if ( (j-i) <= mu+ml && (i-j) <= ml )
+          {
+            ij = (i-j+ml+mu+1) + (j-1)*(2*ml+mu+1);
+            aij = a[ij-1];
+          }
+        }
+        else if ( i <= n1 && n1 < j )
+        {
+          ij = (2*ml+mu+1)*n1 + (j-n1-1)*n1 + i;
+          aij = a[ij-1];
+        }
+        else if ( n1 < i )
+        {
+          ij = (2*ml+mu+1)*n1 + n2*n1 + (j-1)*n2 + (i-n1);
+          aij = a[ij-1];
+        }
+
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8bb_random ( int n1, int n2, int ml, int mu, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_RANDOM randomizes a R8BB matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1-1.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8BB_RANDOM[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], the R8BB matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  double r;
+  int row;
+
+  a = ( double * ) malloc ( ( (2*ml+mu+1)*n1+2*n1*n2+n2*n2) * sizeof ( double ) );
+/*
+  Randomize the banded matrix A1.
+  We still believe that the "junk" entries should be set to 0.
+*/
+  for ( j = 1; j <= n1; j++ )
+  {
+    for ( row = 1; row <= 2 * ml + mu + 1; row++ )
+    {
+      i = row + j - ml - mu - 1;
+      if ( ml < row && 1 <= i && i <= n1 )
+      {
+        r = r8_uniform_01 ( seed );
+      }
+      else
+      {
+        r = 0.0;
+      }
+      a[row-1+(j-1)*(2*ml+mu+1)] = r;
+    }
+  }
+/*
+  Randomize the rectangular strips A2+A3+A4.
+*/
+  for ( i = (2*ml+mu+1)*n1; i < (2*ml+mu+1)*n1+2*n1*n2+n2*n2; i++ )
+  {
+    a[i] = r8_uniform_01 ( seed );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8bb_set ( int n1, int n2, int ml, int mu, double a[], int i, int j, 
+  double value )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_SET sets a value of a R8BB matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input/output, double A[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], the R8BB matrix.
+
+    Input, int I, J, the row and column of the entry to be incremented.
+    Some combinations of I and J are illegal.
+
+    Input, double VALUE, the value to be assigned to the (I,J)-th entry.
+*/
+{
+  int ij;
+
+  if ( i <= 0 || n1 + n2 < i )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8BB_SET - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of row index I = %d\n", i );
+    exit ( 1 );
+  }
+
+  if ( j <= 0 || n1 + n2 < j )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8BB_SET - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of column index J = %d\n", j );
+    exit ( 1 );
+  }
+/*
+  The A1 block of the matrix.
+
+  Check for out of band problems.
+
+  Normally, we would check the condition MU < (J-I), but the storage
+  format requires extra entries be set aside in case of pivoting, which
+  means that the condition becomes MU+ML < (J-I).
+*/
+  if ( i <= n1 && j <= n1 )
+  {
+    if ( (mu+ml) < (j-i) || ml < (i-j) )
+    {
+      printf ( "\n" );
+      printf ( "R8BB_SET - Warning!\n" );
+      printf ( "  Unable to set entry (%d,%d).\n", i, j );
+    }
+    else
+    {
+      ij = (i-j+ml+mu+1) + (j-1)*(2*ml+mu+1);
+    }
+  }
+/*
+  The A2 block of the matrix.
+*/
+  else if ( i <= n1 && n1 < j )
+  {
+    ij = (2*ml+mu+1)*n1 + (j-n1-1)*n1 + i;
+  }
+/*
+  The A3 and A4 blocks of the matrix.
+*/
+  else if ( n1 < i )
+  {
+    ij = (2*ml+mu+1)*n1 + n2*n1 + (j-1)*n2 + (i-n1);
+  }
+
+  a[ij-1] = value;
+
+  return;
+}
+/******************************************************************************/
+
+double *r8bb_sl ( int n1, int n2, int ml, int mu, double a_lu[], int pivot[], 
+  double b[] )
+
+/******************************************************************************/
+/*
+  Discussion:
+
+    R8BB_SL solves a R8BB system factored by SBB_FA.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1-1.
+
+    Input, double A_LU[(2*ML+MU+1)*N1 + 2*N1*N2 + N2*N2], the LU factors from R8BB_FA.
+
+    Input, int PIVOT[N1+N2], the pivoting information from R8BB_FA.
+
+    Input, double B[N1+N2], the right hand side.
+
+    Output, double R8BB_SL[N1+N2], the solution.
+*/
+{
+  double *b22;
+  int i;
+  int ij;
+  int j;
+  int job;
+  int nband;
+  double *x;
+  double *x1;
+  double *x2;
+
+  nband = (2*ml+mu+1)*n1;
+/*
+  Set X1 := inverse(A1) * B1.
+*/
+  if ( 0 < n1 )
+  {
+    job = 0;
+    x1 = r8gb_sl ( n1, ml, mu, a_lu, pivot, b, job );
+  }
+/*
+  Modify the right hand side of the second linear subsystem.
+  Set B22 := B2 - A3*X1.
+*/
+  if ( 0 < n2 )
+  {
+    b22 = ( double * ) malloc ( n2 * sizeof ( double ) );
+
+    for ( i = 0; i < n2; i++ )
+    {
+      b22[i] = b[n1+i];
+      for ( j = 0; j < n1; j++ )
+      {
+        ij = nband + n1*n2 + j*n2 + i;
+        b22[i] = b22[i] - a_lu[ij] * x1[j];
+      }
+    }
+  }
+/*
+  Set X2 := inverse(A4) * B22.
+*/
+  if ( 0 < n2 )
+  {
+    job = 0;
+    x2 = r8ge_sl_new ( n2, a_lu+(nband+2*n1*n2), pivot+n1, b22, job );
+    free ( b22 );
+  }
+/*
+  Modify the first subsolution.
+  Set X1 := X1 + A2*X2.
+*/
+  for ( i = 0; i < n1; i++ )
+  {
+    for ( j = 0; j < n2; j++ )
+    {
+      ij = nband + j*n1 + i;
+      x1[i] = x1[i] + a_lu[ij] * x2[j];
+    }
+  }
+/*
+  Set X = [ X1 | X2 ].
+*/
+  x = ( double * ) malloc ( ( n1 + n2 ) * sizeof ( double ) );
+
+  if ( 0 < n1 )
+  {
+    for ( i = 0; i < n1; i++ )
+    {
+      x[i] = x1[i];
+    }
+    free ( x1 );
+  }
+
+  if ( 0 < n2 )
+  {
+    for ( i = 0; i < n2; i++ )
+    {
+      x[n1+i] = x2[i];
+    }
+    free ( x2 );
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8bb_to_r8ge ( int n1, int n2, int ml, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_TO_R8GE copies a R8BB matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input, double A[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], the R8BB matrix.
+
+    Output, double R8BB_TO_R8GE[(N1+N2)*(N1+N2)], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int ij;
+  int j;
+
+  b = ( double * ) malloc ( ( 1 + n2 ) * ( n1 + n2 ) * sizeof ( double ) );
+
+  for ( i = 1; i <= n1; i++ )
+  {
+    for ( j = 1; j <= n1; j++ )
+    {
+      if ( mu+ml < (j-i) || ml < (i-j) )
+      {
+        b[i-1+(j-1)*(n1+n2)] = 0.0;
+      }
+      else
+      {
+        ij = (i-j+ml+mu+1) + (j-1)*(2*ml+mu+1);
+        b[i-1+(j-1)*(n1+n2)]  = a[ij-1];
+      }
+    }
+  }
+
+  for ( i = 1; i <= n1; i++ )
+  {
+    for ( j = n1+1; j <= n2; j++ )
+    {
+      ij = (2*ml+mu+1)*n1 + (j-n1-1)*n1 + i;
+      b[i-1+(j-1)*(n1+n2)]  = a[ij-1];
+    }
+  }
+
+  for ( i = n1+1; i <= n2; i++ )
+  {
+    for ( j = 1; j <= n1+n2; j++ )
+    {
+      ij = (2*ml+mu+1)*n1 + n2*n1 + (j-1)*n2 + (i-n1);
+      b[i-1+(j-1)*(n1+n2)]  = a[ij-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8bb_vxm ( int n1, int n2, int ml, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_VXM multiplies a vector by a R8BB matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1-1.
+
+    Input, double A[(2*ML+MU+1)*N1 + 2*N1*N2 + N2*N2], the R8BB matrix.
+
+    Input, double X[N1+N2], the vector to multiply A.
+
+    Output, double R8BB_VXM[N1+N2], the product X times A.
+*/
+{
+  double *b;
+  int i;
+  int ihi;
+  int ij;
+  int ilo;
+  int j;
+/*
+  Initialize B.
+*/
+  b = ( double * ) malloc ( ( n1 + n2 ) * sizeof ( double ) );
+  for ( i = 0; i < n1+n2; i++ )
+  {
+    b[i] = 0.0;
+  }
+/*
+  Multiply by A1.
+*/
+  for ( j = 1; j <= n1; j++ )
+  {
+    ilo = i4_max ( 1, j - mu - ml );
+    ihi = i4_min ( n1, j + ml );
+    ij = (j-1) * (2*ml+mu+1) - j + ml + mu + 1;
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      b[j-1] = b[j-1] + x[i-1] * a[ij+i-1];
+    }
+  }
+/*
+  Multiply by A2.
+*/
+  for ( j = n1+1; j <= n1+n2; j++ )
+  {
+    ij = (2*ml+mu+1)*n1 + (j-n1-1)*n1;
+    for ( i = 1; i <= n1; i++ )
+    {
+      b[j-1] = b[j-1] + x[i-1] * a[ij+i-1];
+    }
+  }
+/*
+  Multiply by A3 and A4.
+*/
+  for ( j = 1; j <= n1+n2; j++ )
+  {
+    ij = (2*ml+mu+1)*n1 + n1*n2 + (j-1)*n2 - n1;
+    for ( i = n1+1; i <= n1+n2; i++ )
+    {
+      b[j-1] = b[j-1] + x[i-1] * a[ij+i-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8bb_zero ( int n1, int n2, int ml, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BB_ZERO zeros a R8BB matrix.
+
+  Discussion:
+
+    The R8BB storage format is for a border banded matrix.  Such a
+    matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (2*ML+MU+1)*N1 entries of A, using standard LINPACK
+    general band format.  The reason for the factor of 2 in front of
+    ML is to allocate space that may be required if pivoting occurs.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+ML+MU+1)+(J-1)*(2*ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (2*ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Example:
+
+    With N1 = 4, N2 = 1, ML = 1, MU = 2, the matrix entries would be:
+
+       00
+       00  00
+       00  00  00 --- ---
+      A11 A12 A13  00 ---  A16 A17
+      A21 A22 A23 A24  00  A26 A27
+      --- A32 A33 A34 A35  A36 A37
+      --- --- A43 A44 A45  A46 A47
+      --- --- --- A54 A55  A56 A57
+                       00
+
+      A61 A62 A63 A64 A65  A66 A67
+      A71 A72 A73 A74 A75  A76 A77
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1-1.
+
+    Output, double R8BB_ZERO[(2*ML+MU+1)*N1+2*N1*N2+N2*N2], the R8BB matrix.
+*/
+{
+  double *a;
+  int i;
+
+  a = ( double * ) malloc ( ( (2*ml+mu+1)*n1+2*n1*n2+n2*n2 ) * sizeof ( double ) );
+
+  for ( i = 0; i < (2*ml+mu+1)*n1 + 2*n1*n2 + n2*n2; i++ )
+  {
+    a[i] = 0.0;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double r8blt_det ( int n, int ml, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_DET computes the determinant of a R8BLT matrix.
+
+  Discussion:
+
+    The R8BLT storage format is appropriate for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int ML, the lower bandwidth.
+
+    Input, double A[(ML+1)*N], the R8BLT matrix.
+
+    Output, double R8BLT_DET, the determinant of A.
+*/
+{
+  double det;
+  int j;
+
+  det = 1.0;
+  for ( j = 0; j < n; j++ )
+  {
+    det = det * a[0+j*(ml+1)];
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+double *r8blt_indicator ( int n, int ml )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_INDICATOR sets up a R8BLT indicator matrix.
+
+  Discussion:
+
+    The R8BLT storage format is appropriate for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+  Example:
+
+    N = 5, ML = 2
+
+    A11   0   0   0   0
+    A21 A22   0   0   0
+    A31 A32 A33   0   0
+      0 A42 A43 A44   0
+      0   0 A53 A54 A55
+                --- ---
+                    ---
+
+    The indicator matrix is stored as:
+
+      11  22  33  44  55
+      21  32  43  54   0
+      31  42  53   0   0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int ML, the lower bandwidth.
+
+    Output, double R8BLT_INDICATOR[(ML+1)*N], the R8BLT matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+  int jlo;
+
+  a = ( double * ) malloc ( (ml+1)*n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    jlo = i4_max ( 1, i - ml );
+    for ( j = jlo; j <= i; j++ )
+    {
+      a[i-j+(j-1)*(ml+1)] = ( double ) ( fac * i + j );
+    }
+  }
+/*
+  The junk entries can be thought of as corresponding to
+  elements of a phantom portion of the matrix.
+*/
+  for ( i = n; i < n + ml; i++ )
+  {
+    for ( j = i - ml; j < n; j++ )
+    {
+      a[i-j+j*(ml+1)] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8blt_mxv ( int n, int ml, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_MXV multiplies a R8BLT matrix times a vector.
+
+  Discussion:
+
+    The R8BLT storage format is appropriate for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int ML, the lower bandwidth.
+
+    Input, double A[(ML+1)*N], the R8BLT matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8BLT_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int jhi;
+  int jlo;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    jlo = i4_max ( 0, i - ml );
+    jhi = i;
+    for ( j = jlo; j <= jhi; j++ )
+    {
+      b[i] = b[i] + a[i-j+j*(ml+1)] * x[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8blt_print ( int n, int ml, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_PRINT prints a R8BLT matrix.
+
+  Discussion:
+
+    The R8BLT storage format is appropriate for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int ML, the lower bandwidth.
+
+    Input, double A[(ML+1)*N], the R8BLT matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8blt_print_some ( n, ml, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8blt_print_some ( int n, int ml, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_PRINT_SOME prints some of a R8BLT matrix.
+
+  Discussion:
+
+    The R8BLT storage format is appropriate for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int ML, the lower bandwidth.
+
+    Input, double A[(ML+1)*N], the R8BLT matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2lo = i4_max ( i2lo, j2lo );
+    i2hi = i4_min ( ihi, n );
+    i2hi = i4_min ( i2hi, j2hi + ml );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%5d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( ml < i-j || 0 < j-i )
+        {
+          printf ( "              " );
+        }
+        else
+        {
+          printf ( "%12g  ", a[i-j+(j-1)*(ml+1)] );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8blt_random ( int n, int ml, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_RANDOM randomizes a R8BLT matrix.
+
+  Discussion:
+
+    The R8BLT storage format is appropriate for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int ML, the lower bandwidth.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8BLT_RANDOM[(ML+1)*N], the R8BLT matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int jlo;
+
+  a = ( double * ) malloc ( (ml+1)*n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    jlo = i4_max ( 0, i - ml );
+    for ( j = jlo; j <= i; j++ )
+    {
+      a[i-j+j*(ml+1)] = r8_uniform_01 ( seed );
+    }
+  }
+/*
+  The junk entries can be thought of as corresponding to
+  elements of a phantom portion of the matrix.
+*/
+  for ( i = n; i < n + ml; i++ )
+  {
+    for ( j = i - ml; j < n; j++ )
+    {
+      a[i-j+j*(ml+1)] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8blt_sl ( int n, int ml, double a[], double b[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_SL solves a R8BLT system.
+
+  Discussion:
+
+    The R8BLT storage format is appropriate for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+    No factorization of the lower triangular matrix is required.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int ML, the lower bandwidth.
+
+    Input, double A[(ML+1)*N], the R8BLT matrix.
+
+    Input, double B(N), the right hand side.
+
+    Input, int JOB, is 0 to solve the untransposed system,
+    nonzero to solve the transposed system.
+
+    Output, double R8BLT_SL[N], the solution vector.
+*/
+{
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+  }
+
+  if ( job == 0 )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      x[j] = x[j] / a[0+j*(ml+1)];
+      ihi = i4_min ( j + ml, n - 1 );
+      for ( i = j+1; i <= ihi; i++ )
+      {
+        x[i] = x[i] - a[i-j+j*(ml+1)] * x[j];
+      }
+    }
+  }
+  else
+  {
+    for ( j = n-1; 0 <= j; j-- )
+    {
+      x[j] = x[j] / a[0+j*(ml+1)];
+      ilo = i4_max ( j - ml, 0 );
+      for ( i = ilo; i <= j-1; i++ )
+      {
+        x[i] = x[i] - a[j-i+i*(ml+1)] * x[j];
+      }
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8blt_to_r8ge ( int n, int ml, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_TO_R8GE copies a R8BLT matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8BLT storage format is used for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+  Example:
+
+    N = 5, ML = 2
+
+    A11   0   0   0   0
+    A21 A22   0   0   0
+    A31 A32 A33   0   0
+      0 A42 A43 A44   0
+      0   0 A53 A54 A55
+                --- ---
+                    ---
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrices.
+    N must be positive.
+
+    Input, int ML, the lower bandwidth of A.
+    ML must be nonnegative, and no greater than N-1.
+
+    Input, double A[(ML+1)*N], the R8BLT matrix.
+
+    Output, double R8BLT_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = 1; j <= n; j++ )
+    {
+      if ( j <= i && i <= j + ml )
+      {
+        b[i-1+(j-1)*n] = a[i-j+(j-1)*(ml+1)];
+      }
+      else
+      {
+        b[i-1+(j-1)*n] = 0.0;
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8blt_vxm ( int n, int ml, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_VXM multiplies a vector by a R8BLT matrix.
+
+  Discussion:
+
+    The R8BLT storage format is appropriate for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int ML, the lower bandwidth.
+
+    Input, double A[(ML+1)*N], the R8BLT matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8BLT_VXM[N], the product X*A.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int jhi;
+  int jlo;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    jlo = i4_max ( 0, i - ml );
+    jhi = i;
+    for ( j = jlo; j <= jhi; j++ )
+    {
+      b[j] = b[j] + x[i] * a[i-j+j*(ml+1)];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8blt_zero ( int n, int ml )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLT_ZERO zeros a R8BLT matrix.
+
+  Discussion:
+
+    The R8BLT storage format is appropriate for a banded lower triangular matrix.
+    The matrix is assumed to be zero below the ML-th subdiagonal.
+    The matrix is stored in an ML+1 by N array, in which the diagonal
+    appears in the first row, followed by successive subdiagonals.
+    Columns are preserved.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int ML, the lower bandwidth.
+
+    Output, double R8BLT_ZERO[(ML+1)*N], the R8BLT matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( (ml+1)*n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < ml+1; i++ )
+    {
+      a[i+j*(ml+1)] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8bto_indicator ( int m, int l )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BTO_INDICATOR sets up a R8BTO indicator matrix.
+
+  Discussion:
+
+    The R8BTO storage format is for a block Toeplitz matrix. The matrix
+    can be regarded as an L by L array of blocks, each of size M by M.
+    The full matrix has order N = M * L.  The L by L matrix is Toeplitz,
+    that is, along its diagonal, the blocks repeat.
+
+    Storage for the matrix consists of the L blocks of the first row,
+    followed by the L-1 blocks of the first column (skipping the first row).
+    These items are stored in the natural way in an (M,M,2*L-1) array.
+
+  Example:
+
+    M = 2, L = 3
+
+    1 2 | 3 4 | 5 6
+    5 5 | 6 6 | 7 7
+    ----+-----+-----
+    7 8 | 1 2 | 3 4
+    8 8 | 5 5 | 6 6
+    ----+-----+-----
+    9 0 | 7 8 | 1 2
+    9 9 | 8 8 | 5 5
+
+    X = (/ 1, 2, 3, 4, 5, 6 /)
+
+    B = (/ 91, 134, 73, 125, 97, 129 /)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the order of the blocks of the matrix A.
+
+    Input, int L, the number of blocks in a row or column of A.
+
+    Output, double R8BTO_INDICATOR[M*M*(2*L-1)], the R8BTO matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int i2;
+  int j;
+  int j2;
+  int k;
+
+  a = ( double * ) malloc ( m*m*(2*l-1) * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( m * l ) + 1 );
+/*
+  Blocks 1 to L form the first row.
+*/
+  j = 0;
+
+  for ( k = 1; k <= l; k++ )
+  {
+    for ( j2 = 1; j2 <= m; j2++ )
+    {
+      j = j + 1;
+      for ( i = 1; i <= m; i++ )
+      {
+        a[i-1+(j2-1)*m+(k-1)*m*m] = ( double ) ( fac * i + j );
+      }
+    }
+  }
+/*
+  Blocks L+1 through 2*L-1 form the remainder of the first column.
+*/
+  i = m;
+
+  for ( k = l+1; k <= 2*l-1; k++ )
+  {
+    for ( i2 = 1; i2 <= m; i2++ )
+    {
+      i = i + 1;
+      for ( j = 1; j <= m; j++ )
+      {
+        a[i2-1+(j-1)*m+(k-1)*m*m] = ( double ) ( fac * i + j );
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8bto_mxv ( int m, int l, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BTO_MXV multiplies a R8BTO matrix times a vector.
+
+  Discussion:
+
+    The R8BTO storage format is for a block Toeplitz matrix. The matrix
+    can be regarded as an L by L array of blocks, each of size M by M.
+    The full matrix has order N = M * L.  The L by L matrix is Toeplitz,
+    that is, along its diagonal, the blocks repeat.
+
+    Storage for the matrix consists of the L blocks of the first row,
+    followed by the L-1 blocks of the first column (skipping the first row).
+    These items are stored in the natural way in an (M,M,2*L-1) array.
+
+  Example:
+
+    M = 2, L = 3
+
+    1 2 | 3 4 | 5 6
+    5 5 | 6 6 | 7 7
+    ----+-----+-----
+    7 8 | 1 2 | 3 4
+    8 8 | 5 5 | 6 6
+    ----+-----+-----
+    9 0 | 7 8 | 1 2
+    9 9 | 8 8 | 5 5
+
+    X = (/ 1, 2, 3, 4, 5, 6 /)
+
+    B = (/ 91, 134, 73, 125, 79, 138 /)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the order of the blocks of the matrix A.
+
+    Input, int L, the number of blocks in a row or column of A.
+
+    Input, double A[M*M*(2*L-1)], the R8BTO matrix.
+
+    Input, double X[M*L], the vector to be multiplied.
+
+    Output, double R8BTO_MXV[M*L], the product A * X.
+*/
+{
+  double *b;
+  int i;
+  int i2;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( m*l * sizeof ( double ) );
+/*
+  Construct the right hand side by blocks.
+*/
+  for ( j = 0; j < l; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      b[i+j*m] = 0.0;
+    }
+
+    for ( k = 0; k <= j-1; k++ )
+    {
+      for ( i = 0; i < m; i++ )
+      {
+        for ( i2 = 0; i2 < m; i2++ )
+        {
+          b[i+j*m] = b[i+j*m] + a[i+i2*m+(l+j-k-1)*m*m] * x[i2+k*m];
+        }
+      }
+    }
+
+    for ( k = j; k < l; k++ )
+    {
+      for ( i = 0; i < m; i++ )
+      {
+        for ( i2 = 0; i2 < m; i2++ )
+        {
+          b[i+j*m] = b[i+j*m] + a[i+i2*m+(k-j)*m*m] * x[i2+k*m];
+        }
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8bto_print ( int m, int l, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BTO_PRINT prints a R8BTO matrix.
+
+  Discussion:
+
+    The R8BTO storage format is for a block Toeplitz matrix. The matrix
+    can be regarded as an L by L array of blocks, each of size M by M.
+    The full matrix has order N = M * L.  The L by L matrix is Toeplitz,
+    that is, along its diagonal, the blocks repeat.
+
+    Storage for the matrix consists of the L blocks of the first row,
+    followed by the L-1 blocks of the first column (skipping the first row).
+    These items are stored in the natural way in an (M,M,2*L-1) array.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the order of the blocks of the matrix A.
+
+    Input, int L, the number of blocks in a row or column of A.
+
+    Input, double A[M*M*(2*L-1)], the R8BTO matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8bto_print_some ( m, l, a, 1, 1, m*l, m*l, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8bto_print_some ( int m, int l, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BTO_PRINT_SOME prints some of a R8BTO matrix.
+
+  Discussion:
+
+    The R8BTO storage format is for a block Toeplitz matrix. The matrix
+    can be regarded as an L by L array of blocks, each of size M by M.
+    The full matrix has order N = M * L.  The L by L matrix is Toeplitz,
+    that is, along its diagonal, the blocks repeat.
+
+    Storage for the matrix consists of the L blocks of the first row,
+    followed by the L-1 blocks of the first column (skipping the first row).
+    These items are stored in the natural way in an (M,M,2*L-1) array.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the order of the blocks of the matrix A.
+
+    Input, int L, the number of blocks in a row or column of A.
+
+    Input, double A[M*M*(2*L-1)], the R8BTO matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i1;
+  int i2;
+  int i3hi;
+  int i3lo;
+  int inc;
+  int j;
+  int j1;
+  int j2;
+  int j3hi;
+  int j3lo;
+  int n;
+
+  n = m * l;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j3lo = jlo; j3lo <= jhi; j3lo = j3lo + INCX )
+  {
+    j3hi = j3lo + INCX - 1;
+    j3hi = i4_min ( j3hi, n );
+    j3hi = i4_min ( j3hi, jhi );
+
+    inc = j3hi + 1 - j3lo;
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j3lo; j <= j3hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i3lo = i4_max ( ilo, 1 );
+    i3hi = i4_min ( ihi, n );
+
+    for ( i = i3lo; i <= i3hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j3lo; j <= j3lo + inc - 1; j++ )
+      {
+/*
+  i = M * ( i1 - 1 ) + i2
+  j = M * ( j1 - 1 ) + j2
+*/
+        i1 = ( i - 1 ) / m + 1;
+        i2 = i - m * ( i1 - 1 );
+        j1 = ( j - 1 ) / m + 1;
+        j2 = j - m * ( j1 - 1 );
+
+        if ( i1 <= j1 )
+        {
+          printf ( "%12g  ", a[i2-1+(j2-1)*m+(j1-i1)*m*m] );
+        }
+        else
+        {
+          printf ( "%12g  ", a[i2-1+(j2-1)*m+(l-1+i1-j1)*m*m] );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8bto_random ( int m, int l, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BTO_RANDOM randomizes a R8BTO matrix.
+
+  Discussion:
+
+    The R8BTO storage format is for a block Toeplitz matrix. The matrix
+    can be regarded as an L by L array of blocks, each of size M by M.
+    The full matrix has order N = M * L.  The L by L matrix is Toeplitz,
+    that is, along its diagonal, the blocks repeat.
+
+    Storage for the matrix consists of the L blocks of the first row,
+    followed by the L-1 blocks of the first column (skipping the first row).
+    These items are stored in the natural way in an (M,M,2*L-1) array.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the order of the blocks of the matrix A.
+
+    Input, int L, the number of blocks in a row or column of A.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8BTO_RANDOM[M*M*(2*L-1)], the R8BTO matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( m*m*(2*l-1) * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < m; j++ )
+    {
+      for ( k = 0; k < 2 * l - 1; k++ )
+      {
+        a[i+j*m+k*m*m] = r8_uniform_01 ( seed );
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8bto_to_r8ge ( int m, int l, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BTO_TO_R8GE copies a R8BTO matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8BTO storage format is for a block Toeplitz matrix. The matrix
+    can be regarded as an L by L array of blocks, each of size M by M.
+    The full matrix has order N = M * L.  The L by L matrix is Toeplitz,
+    that is, along its diagonal, the blocks repeat.
+
+    Storage for the matrix consists of the L blocks of the first row,
+    followed by the L-1 blocks of the first column (skipping the first row).
+    These items are stored in the natural way in an (M,M,2*L-1) array.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the order of the blocks of the R8BTO matrix.
+
+    Input, int L, the number of blocks in a row or column of the
+    R8BTO matrix.
+
+    Input, double A[M*M*(2*L-1)], the R8BTO matrix.
+
+    Output, double R8BTO_TO_R8GE[(M*L)*(M*L)], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int i1;
+  int i2;
+  int j;
+  int j1;
+  int j2;
+  int n;
+
+  n = m * l;
+  b = ( double * ) malloc ( n*n * sizeof ( double ) );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    i1 = ( i - 1 ) / m + 1;
+    i2 = i - m * ( i1 - 1 );
+
+    for ( j = 1; j <= n; j++ )
+    {
+      j1 = ( j - 1 ) / m + 1;
+      j2 = j - m * ( j1 - 1 );
+
+      if ( i1 <= j1 )
+      {
+        b[i-1+(j-1)*n] = a[i2-1+(j2-1)*m+(j1-i1)*m*m];
+      }
+      else
+      {
+        b[i-1+(j-1)*n] = a[i2-1+(j2-1)*m+(l+i1-j1-1)*m*m];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8bto_vxm ( int m, int l, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BTO_VXM multiplies a vector times a R8BTO matrix.
+
+  Discussion:
+
+    The R8BTO storage format is for a block Toeplitz matrix. The matrix
+    can be regarded as an L by L array of blocks, each of size M by M.
+    The full matrix has order N = M * L.  The L by L matrix is Toeplitz,
+    that is, along its diagonal, the blocks repeat.
+
+    Storage for the matrix consists of the L blocks of the first row,
+    followed by the L-1 blocks of the first column (skipping the first row).
+    These items are stored in the natural way in an (M,M,2*L-1) array.
+
+  Example:
+
+    M = 2, L = 3
+
+    1 2 | 3 4 | 5 6
+    5 5 | 6 6 | 7 7
+    ----+-----+-----
+    7 8 | 1 2 | 3 4
+    8 8 | 5 5 | 6 6
+    ----+-----+-----
+    9 0 | 7 8 | 1 2
+    9 9 | 8 8 | 5 5
+
+    X = (/ 1, 2, 3, 4, 5, 6 /)
+
+    B = (/ 163, 122, 121, 130, 87, 96 /)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the order of the blocks of the matrix A.
+
+    Input, int L, the number of blocks in a row or column of A.
+
+    Input, double A[M*M*(2*L-1)], the R8BTO matrix.
+
+    Input, double X[M*L], the vector to be multiplied.
+
+    Output, double R8BTO_VXM[M*L], the product X * A.
+*/
+{
+  double *b;
+  int i;
+  int i2;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( m*l * sizeof ( double ) );
+/*
+  Construct the right hand side by blocks.
+*/
+  for ( j = 1; j <= l; j++ )
+  {
+    for ( i = 1; i <= m; i++ )
+    {
+      b[i-1+(j-1)*m] = 0.0;
+    }
+
+    for ( k = 1; k <= j; k++ )
+    {
+      for ( i = 1; i <= m; i++ )
+      {
+        for ( i2 = 1; i2 <= m; i2++ )
+        {
+          b[i-1+(j-1)*m] = b[i-1+(j-1)*m] 
+          + a[i2-1+(i-1)*m+(j-k)*m*m] * x[i2-1+(k-1)*m];
+        }
+      }
+    }
+    for ( k = j+1; k <= l; k++ )
+    {
+      for ( i = 1; i <= m; i++ )
+      {
+        for ( i2 = 1; i2 <= m; i2++ )
+        {
+          b[i-1+(j-1)*m] = b[i-1+(j-1)*m] 
+          + a[i2-1+(i-1)*m+(l+k-j-1)*m*m] * x[i2-1+(k-1)*m];
+        }
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8bto_zero ( int m, int l )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BTO_ZERO zeros a R8BTO matrix.
+
+  Discussion:
+
+    The R8BTO storage format is for a block Toeplitz matrix. The matrix
+    can be regarded as an L by L array of blocks, each of size M by M.
+    The full matrix has order N = M * L.  The L by L matrix is Toeplitz,
+    that is, along its diagonal, the blocks repeat.
+
+    Storage for the matrix consists of the L blocks of the first row,
+    followed by the L-1 blocks of the first column (skipping the first row).
+    These items are stored in the natural way in an (M,M,2*L-1) array.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the order of the blocks of the matrix A.
+
+    Input, int L, the number of blocks in a row or column of A.
+
+    Output, double R8BTO_ZERO[M*M*(2*L-1)], the R8BTO matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( m*m*(2*l-1) * sizeof ( double ) );
+
+  for ( k = 0; k <= 2 * l - 1; k++ )
+  {
+    for ( j = 0; j < m; j++ )
+    {
+      for ( i = 0; i < m; i++ )
+      {
+        a[i+m*(j+m*k)] = 0.0;
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+double r8but_det ( int n, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BUT_DET computes the determinant of a R8BUT matrix.
+
+  Discussion:
+
+    The R8BUT storage format is used for a banded upper triangular matrix.
+    The matrix is assumed to be zero above the MU-th superdiagonal.
+    The matrix is stored in an MU+1 by N array.
+    Columns are preserved.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Example:
+
+    N = 5, MU = 2
+
+    A11 A12 A13   0   0
+      0 A22 A23 A24   0
+      0   0 A33 A34 A35
+      0   0   0 A44 A45
+      0   0   0   0 A55
+                --- ---
+                    ---
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int MU, the upper bandwidth.
+
+    Input, double A[(MU+1)*N], the R8BUT matrix.
+
+    Output, double R8BUT_DET, the determinant of A.
+*/
+{
+  double det;
+  int j;
+
+  det = 1.0;
+  for ( j = 1; j <= n; j++ )
+  {
+    det = det * a[(mu+1-1)+(j-1)*(mu+1)];
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+double *r8but_indicator ( int n, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BUT_INDICATOR sets up a R8BUT indicator matrix.
+
+  Discussion:
+
+    The R8BUT storage format is used for a banded upper triangular matrix.
+    The matrix is assumed to be zero above the MU-th superdiagonal.
+    The matrix is stored in an MU+1 by N array.
+    Columns are preserved.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Example:
+
+    N = 5, MU = 2
+
+    A11 A12 A13   0   0
+      0 A22 A23 A24   0
+      0   0 A33 A34 A35
+      0   0   0 A44 A45
+      0   0   0   0 A55
+                --- ---
+                    ---
+
+    The indicator matrix is stored as:
+
+       0   0  13  24  35
+       0  12  23  34  45
+      11  22  33  44  55
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int MU, the upper bandwidth.
+
+    Output, double A[(MU+1)*N], the R8BUT matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( (mu+1)*n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = i; j <= i4_min ( n, i + mu ); j++ )
+    {
+      a[i-j+mu+1-1+(j-1)*(mu+1)] = ( double ) ( fac * i + j );
+    }
+  }
+
+  for ( i = 1; i <= mu; i++ )
+  {
+    for ( j = 1; j <= mu+1-i; j++ )
+    {
+      a[i-1+(j-1)*(mu+1)] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8but_mxv ( int n, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BUT_MXV multiplies a R8BUT matrix times a vector.
+
+  Discussion:
+
+    The R8BUT storage format is used for a banded upper triangular matrix.
+    The matrix is assumed to be zero above the MU-th superdiagonal.
+    The matrix is stored in an MU+1 by N array.
+    Columns are preserved.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Example:
+
+    N = 5, MU = 2
+
+    A11 A12 A13   0   0
+      0 A22 A23 A24   0
+      0   0 A33 A34 A35
+      0   0   0 A44 A45
+      0   0   0   0 A55
+                --- ---
+                    ---
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int MU, the upper bandwidth.
+
+    Input, double A[(MU+1)*N], the R8BUT matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8BUT_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    b[i-1] = 0.0;
+    for ( j = i; j <= i4_min ( n, i + mu ); j++ )
+    {
+      b[i-1] = b[i-1] + a[i-j+mu+1-1+(j-1)*(mu+1)] * x[j-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8but_print ( int n, int mu, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BUT_PRINT prints a R8BUT matrix.
+
+  Discussion:
+
+    The R8BUT storage format is used for a banded upper triangular matrix.
+    The matrix is assumed to be zero above the MU-th superdiagonal.
+    The matrix is stored in an MU+1 by N array.
+    Columns are preserved.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Example:
+
+    N = 5, MU = 2
+
+    A11 A12 A13   0   0
+      0 A22 A23 A24   0
+      0   0 A33 A34 A35
+      0   0   0 A44 A45
+      0   0   0   0 A55
+                --- ---
+                    ---
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int MU, the upper bandwidth.
+
+    Input, double A[(MU+1)*N], the R8BUT matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8but_print_some ( n, mu, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8but_print_some ( int n, int mu, double a[], int ilo, int jlo, 
+  int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BUT_PRINT_SOME prints some of a R8BUT matrix.
+
+  Discussion:
+
+    The R8BUT storage format is used for a banded upper triangular matrix.
+    The matrix is assumed to be zero above the MU-th superdiagonal.
+    The matrix is stored in an MU+1 by N array.
+    Columns are preserved.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Example:
+
+    N = 5, MU = 2
+
+    A11 A12 A13   0   0
+      0 A22 A23 A24   0
+      0   0 A33 A34 A35
+      0   0   0 A44 A45
+      0   0   0   0 A55
+                --- ---
+                    ---
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int MU, the upper bandwidth.
+
+    Input, double A[(MU+1)*N], the R8BUT matrix.
+
+    Input, int ILO, JLO, IHI, JHI, the first row and
+    column, and the last row and column to be printed.
+
+    Input, string TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int inc;
+  int j;
+  int j2;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    inc = j2hi + 1 - j2lo;
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2lo = i4_max ( i2lo, j2lo );
+    i2hi = i4_min ( ihi, n );
+    i2hi = i4_min ( i2hi, j2hi + mu );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j2 = 1; j2 <= inc; j2++ )
+      {
+        j = j2lo - 1 + j2;
+
+        if ( i <= j && j <= i + mu )
+        {
+          printf ( "%12g  ", a[i-j+mu+1-1+(j-1)*(mu+1)] );
+        }
+        else
+        {
+          printf ( "              " );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8but_random ( int n, int mu, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BUT_RANDOM randomizes a R8BUT matrix.
+
+  Discussion:
+
+    The R8BUT storage format is used for a banded upper triangular matrix.
+    The matrix is assumed to be zero above the MU-th superdiagonal.
+    The matrix is stored in an MU+1 by N array.
+    Columns are preserved.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Example:
+
+    N = 5, MU = 2
+
+    A11 A12 A13   0   0
+      0 A22 A23 A24   0
+      0   0 A33 A34 A35
+      0   0   0 A44 A45
+      0   0   0   0 A55
+                --- ---
+                    ---
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int MU, the upper bandwidth.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8BUT_RANDOM[(MU+1)*N], the R8BUT matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( (mu+1)*n * sizeof ( double ) );
+
+  for ( i = 1; i <= mu + 1; i++ )
+  {
+    for ( j = 1; j <= mu + 1 - i; j++ )
+    {
+      a[i-1+(j-1)*(mu+1)] = 0.0;
+    }
+
+    for ( j = i4_max ( 1, mu + 2 - i ); j <= n; j++ )
+    {
+      a[i-1+(j-1)*(mu+1)] = r8_uniform_01 ( seed );
+    }
+
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8but_sl ( int n, int mu, double a[], double b[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BUT_SL solves a R8BUT system.
+
+  Discussion:
+
+    The R8BUT storage format is used for a banded upper triangular matrix.
+    The matrix is assumed to be zero above the MU-th superdiagonal.
+    The matrix is stored in an MU+1 by N array.
+    Columns are preserved.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Example:
+
+    N = 5, MU = 2
+
+    A11 A12 A13   0   0
+      0 A22 A23 A24   0
+      0   0 A33 A34 A35
+      0   0   0 A44 A45
+      0   0   0   0 A55
+                --- ---
+                    ---
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int MU, the upper bandwidth.
+
+    Input, double A[(MU+1)*N], the R8BUT matrix.
+
+    Input, double B[N], the right hand side.
+
+    Input, int JOB, is 0 to solve the untransposed system,
+    nonzero to solve the transposed system.
+
+    Output, double X[N], the solution vector.
+*/
+{
+  int i;
+  int ihi;
+  int j;
+  int jlo;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+  }
+
+  if ( job == 0 )
+  {
+    for ( j = n; 1 <= j; j-- )
+    {
+      x[j-1] = x[j-1] / a[j-j+mu+(j-1)*(mu+1)];
+      jlo = i4_max ( 1, j - mu );
+      for ( i = jlo; i <= j-1; i++ )
+      {
+        x[i-1] = x[i-1] - a[i-j+mu+(j-1)*(mu+1)] * x[j-1];
+      }
+    }
+  }
+  else
+  {
+    for ( j = 1; j <= n; j++ )
+    {
+      x[j-1] = x[j-1] / a[j-j+mu+(j-1)*(mu+1)];
+      ihi = i4_min ( n, j + mu );
+      for ( i = j + 1; i <= ihi; i++ )
+      {
+        x[i-1] = x[i-1] - a[j-i+mu+(i-1)*(mu+1)] * x[j-1];
+      }
+    }
+
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8but_to_r8ge ( int n, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BUT_TO_R8GE copies a R8BUT matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8BUT storage format is for a banded upper triangular matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrices.
+    N must be positive.
+
+    Input, int MU, the upper bandwidth of A.
+    MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(MU+1)*N], the R8BUT matrix.
+
+    Output, double R8BUT_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n*n * sizeof ( double ) );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = 1; j <= n; j++ )
+    {
+      if ( i <= j && j <= i+mu )
+      {
+        b[i-1+(j-1)*n] = a[mu+i-j+(j-1)*(mu+1)];
+      }
+      else
+      {
+        b[i-1+(j-1)*n] = 0.0;
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8but_vxm ( int n, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BUT_VXM multiplies a vector by a R8BUT matrix.
+
+  Discussion:
+
+    The R8BUT storage format is used for a banded upper triangular matrix.
+    The matrix is assumed to be zero above the MU-th superdiagonal.
+    The matrix is stored in an MU+1 by N array.
+    Columns are preserved.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Example:
+
+    N = 5, MU = 2
+
+    A11 A12 A13   0   0
+      0 A22 A23 A24   0
+      0   0 A33 A34 A35
+      0   0   0 A44 A45
+      0   0   0   0 A55
+                --- ---
+                    ---
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int MU, the upper bandwidth.
+
+    Input, double A[(MU+1)*N], the R8BUT matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8BUT_VXM(N), the product X*A.
+*/
+{
+  double *b;
+  int i;
+  int ilo;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    b[i-1] = 0.0;
+    ilo = i4_max ( 1, i - mu );
+    for ( j = ilo; j <= i; j++ )
+    {
+      b[i-1] = b[i-1] + x[j-1] * a[j-i+mu+(i-1)*(mu+1)];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double r8cb_det ( int n, int ml, int mu, double a_lu[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_DET computes the determinant of a R8CB matrix factored by R8CB_NP_FA.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A_LU[(ML+MU+1)*N], the LU factors from R8CB_FA.
+
+    Output, double R8CB_DET, the determinant of the matrix.
+*/
+{
+  double det;
+  int j;
+
+  det = 1.0;
+  for ( j = 0; j < n; j++ )
+  {
+    det = det * a_lu[mu+j*(ml+mu+1)];
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+double *r8cb_indicator ( int m, int n, int ml, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_INDICATOR sets up a R8CB indicator matrix.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically ML+MU+1 by N.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Output, double R8CB_INDICATOR[(ML+MU+1)*N], the R8CB matrix.
+*/
+{
+  double *a;
+  int col = ml + mu + 1;
+  int diag;
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( (ml+mu+1)*n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+  k = 0;
+
+  for ( j = 1; j <= n; j++ )
+  {
+    for ( diag = 1; diag <= ml + mu + 1; diag++ )
+    {
+      i = diag + j - mu - 1;
+
+      if ( 1 <= i && i <= m && i - ml <= j && j <= i + mu )
+      {
+        a[diag-1+(j-1)*col] = ( double ) ( fac * i + j );
+      }
+      else
+      {
+        k = k + 1;
+        a[diag-1+(j-1)*col] = - ( double ) k;
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8cb_ml ( int n, int ml, int mu, double a_lu[], double x[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_ML computes A * x or A' * X, using R8CB_NP_FA factors.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+    It is assumed that R8CB_NP_FA has overwritten the original matrix
+    information by LU factors.  R8CB_ML is able to reconstruct the
+    original matrix from the LU factor data.
+
+    R8CB_ML allows the user to check that the solution of a linear
+    system is correct, without having to save an unfactored copy
+    of the matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A_LU[(ML+MU+1)*N], the LU factors from R8CB_NP_FA.
+
+    Input, double X[N], the vector to be multiplied.
+
+    Input, int JOB, specifies the operation to be done:
+    JOB = 0, compute A * x.
+    JOB nonzero, compute A' * x.
+
+    Output, double R8CB_ML[N], the result of the multiplication.
+*/
+{
+  double *b;
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+  int jhi;
+  int nrow = ml + mu + 1;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = x[i];
+  }
+
+  if ( job == 0 )
+  {
+/*
+  Y = U * X.
+*/
+    for ( j = 0; j < n; j++ )
+    {
+      ilo = i4_max ( 0, j - mu );
+      for ( i = ilo; i < j; i++ )
+      {
+        b[i] = b[i] + a_lu[i-j+mu+j*nrow] * b[j];
+      }
+      b[j] = a_lu[j-j+mu+j*nrow] * b[j];
+    }
+/*
+  B = PL * Y = PL * U * X = A * x.
+*/
+    for ( j = n - 2; 0 <= j; j-- )
+    {
+      ihi = i4_min ( n - 1, j + ml );
+      for ( i = j + 1; i <= ihi; i++ )
+      {
+        b[i] = b[i] - a_lu[i-j+mu+j*nrow] * b[j];
+      }
+    }
+  }
+  else
+  {
+/*
+  Y = ( PL )' * X.
+*/
+    for ( j = 0; j < n - 1; j++ )
+    {
+      jhi = i4_min ( n - 1, j + ml );
+      for ( i = j + 1; i <= jhi; i++ )
+      {
+        b[j] = b[j] - b[i] * a_lu[i-j+mu+j*nrow];
+      }
+    }
+/*
+  B = U' * Y = ( PL * U )' * X = A' * X.
+*/
+    for ( i = n - 1; 0 <= i; i-- )
+    {
+      jhi = i4_min ( n - 1, i + mu );
+      for ( j = i+1; j <= jhi; j++ )
+      {
+        b[j] = b[j] + b[i] * a_lu[i-j+mu+j*nrow];
+      }
+      b[i] = b[i] * a_lu[i-i+mu+i*nrow];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8cb_mxv ( int n, int ml, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_MXV multiplies a R8CB matrix times a vector.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(ML+MU+1)*N], the R8CB matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8CB_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int jhi;
+  int jlo;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    jlo = i4_max ( 0, i - ml );
+    jhi = i4_min ( n-1, i + mu );
+    for ( j = jlo; j <= jhi; j++ )
+    {
+      b[i] = b[i] + a[i-j+mu+j*(ml+mu+1)] * x[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+int r8cb_np_fa ( int n, int ml, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_NP_FA factors a R8CB matrix by Gaussian elimination.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+    R8CB_NP_FA is a version of the LINPACK routine SGBFA, modifed to use
+    no pivoting, and to be applied to the R8CB compressed band matrix storage
+    format.  It will fail if the matrix is singular, or if any zero
+    pivot is encountered.
+
+    If R8CB_NP_FA successfully factors the matrix, R8CB_NP_SL may be called
+    to solve linear systems involving the matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input/output, double A[(ML+MU+1)*N], the compact band matrix.
+    On input, the coefficient matrix of the linear system.
+    On output, the LU factors of the matrix.
+
+    Output, int R8CB_NP_FA, singularity flag.
+    0, no singularity detected.
+    nonzero, the factorization failed on the INFO-th step.
+*/
+{
+  int i;
+  int j;
+  int ju;
+  int k;
+  int lm;
+  int m;
+  int mm;
+/*
+  The value of M is MU + 1 rather than ML + MU + 1.
+*/
+  m = mu + 1;
+  ju = 0;
+
+  for ( k = 1; k <= n-1; k++ )
+  {
+/*
+  If our pivot entry A(MU+1,K) is zero, then we must give up.
+*/
+    if ( a[m-1+(k-1)*(ml+mu+1)] == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8CB_FA - Fatal error!\n" );
+      fprintf ( stderr, "  Zero pivot on step %d\n", k );
+      exit ( 1 );
+    }
+/*
+  LM counts the number of nonzero elements that lie below the current
+  diagonal entry, A(K,K).
+
+  Multiply the LM entries below the diagonal by -1/A(K,K), turning
+  them into the appropriate "multiplier" terms in the L matrix.
+*/
+    lm = i4_min ( ml, n-k );
+    for ( i = m+1; i <= m+lm; i++ )
+    {
+      a[i-1+(k-1)*(ml+mu+1)] = -a[i-1+(k-1)*(ml+mu+1)] / a[m-1+(k-1)*(ml+mu+1)];
+    }
+/*
+  MM points to the row in which the next entry of the K-th row is, A(K,J).
+  We then add L(I,K)*A(K,J) to A(I,J) for rows I = K+1 to K+LM.
+*/
+    ju = i4_max ( ju, mu + k );
+    ju = i4_min ( ju, n );
+    mm = m;
+
+    for ( j = k+1; j <= ju; j++ )
+    {
+      mm = mm - 1;
+      for ( i = 1; i <= lm; i++ )
+      {
+        a[mm+i-1+(j-1)*(ml+mu+1)] = a[mm+i-1+(j-1)*(ml+mu+1)] 
+          + a[mm-1+(j-1)*(ml+mu+1)] * a[m+i-1+(k-1)*(ml+mu+1)];
+      }
+    }
+  }
+
+  if ( a[m-1+(n-1)*(ml+mu+1)] == 0.0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CB_FA - Fatal error!\n" );
+    fprintf ( stderr, "  Zero pivot on step %d\n", n );
+    exit ( 1 );
+  }
+
+  return 0;
+}
+/******************************************************************************/
+
+double *r8cb_np_sl ( int n, int ml, int mu, double a_lu[], double b[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_NP_SL solves a R8CB system factored by R8CB_NP_FA.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+    R8CB_NP_SL can also solve the related system A' * x = b.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A_LU[(ML+MU+1)*N], the LU factors from R8CB_NP_FA.
+
+    Input, double B[N], the right hand side of the linear system.
+
+    Input, int JOB.
+    If JOB is zero, the routine will solve A * x = b.
+    If JOB is nonzero, the routine will solve A' * x = b.
+
+    Output, double R8CB_NP_SL[N], the solution of the linear system, X.
+*/
+{
+  int i;
+  int k;
+  int la;
+  int lb;
+  int lm;
+  int m;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  m = mu + 1;
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+  }
+/*
+  Solve A * x = b.
+*/
+  if ( job == 0 )
+  {
+/*
+  Solve PL * Y = B.
+*/
+    if ( 0 < ml )
+    {
+      for ( k = 1; k <= n-1; k++ )
+      {
+        lm = i4_min ( ml, n-k );
+        for ( i = 0; i < lm; i++ )
+        {
+          x[k+i] = x[k+i] + x[k-1] * a_lu[m+i+(k-1)*(ml+mu+1)];
+        }
+      }
+    }
+/*
+  Solve U * X = Y.
+*/
+    for ( k = n; 1 <= k; k-- )
+    {
+      x[k-1] = x[k-1] / a_lu[m-1+(k-1)*(ml+mu+1)];
+      lm = i4_min ( k, m ) - 1;
+      la = m - lm;
+      lb = k - lm;
+      for ( i = 0; i <= lm-1; i++ )
+      {
+        x[lb+i-1] = x[lb+i-1] - x[k-1] * a_lu[la+i-1+(k-1)*(ml+mu+1)];
+      }
+    }
+  }
+/*
+  Solve A' * X = B.
+*/
+  else
+  {
+/*
+  Solve U' * Y = B.
+*/
+    for ( k = 1; k <= n; k++ )
+    {
+      lm = i4_min ( k, m ) - 1;
+      la = m - lm;
+      lb = k - lm;
+      for ( i = 0; i <= lm-1; i++ )
+      {
+        x[k-1] = x[k-1] - a_lu[la+i-1+(k-1)*(ml+mu+1)] * x[lb+i-1];
+      }
+      x[k-1] = x[k-1] / a_lu[m-1+(k-1)*(ml+mu+1)];
+
+    }
+/*
+  Solve ( PL )' * X = Y.
+*/
+    if ( 0 < ml )
+    {
+      for ( k = n-1; 1 <= k; k-- )
+      {
+        lm = i4_min ( ml, n-k );
+        for ( i = 0; i < lm; i++ )
+        {
+          x[k-1] = x[k-1] + a_lu[m+i+(k-1)*(ml+mu+1)] * x[k+i];
+        }
+      }
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+void r8cb_print ( int m, int n, int ml, int mu, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_PRINT prints a R8CB matrix.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1..
+
+    Input, double A[(ML+MU+1)*N], the R8CB matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8cb_print_some ( m, n, ml, mu, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8cb_print_some ( int m, int n, int ml, int mu, double a[], int ilo, 
+  int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_PRINT_SOME prints some of a R8CB matrix.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Input, double A[(ML+MU+1)*N], the R8CB matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2lo = i4_max ( i2lo, j2lo - mu );
+    i2hi = i4_min ( ihi, m );
+    i2hi = i4_min ( i2hi, j2hi + ml );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( ml < i-j || mu < j-i )
+        {
+          printf ( "              " );
+        }
+        else
+        {
+          printf ( "%12g  ", a[i-j+mu+(j-1)*(ml+mu+1)] );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8cb_random ( int n, int ml, int mu, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_RANDOM randomizes a R8CB matrix.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8CB_RANDOM[(ML+MU+1)*N], the R8CB matrix.
+*/
+{
+  double *a;
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+
+  a = ( double * ) malloc ( (ml+mu+1)*n * sizeof ( double ) );
+/*
+  Set the entries that correspond to matrix elements.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    ilo = i4_max ( 0, j - mu );
+    ihi = i4_min ( n-1, j + ml );
+
+    for ( i = j - mu; i < 0; i++ )
+    {
+      a[i-j+mu+j*(ml+mu+1)] = 0.0;
+    }
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      a[i-j+mu+j*(ml+mu+1)] = r8_uniform_01 ( seed );
+    }
+    for ( i = n; i <= j+ml; i++ )
+    {
+      a[i-j+mu*j*(ml+mu+1)] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8cb_to_r8vec ( int m, int n, int ml, int mu, double *a )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_TO_R8VEC copies a R8CB matrix to a real vector.
+
+  Discussion:
+
+    In C++ and FORTRAN, this routine is not really needed.  In MATLAB,
+    a data item carries its dimensionality implicitly, and so cannot be
+    regarded sometimes as a vector and sometimes as an array.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns in the array.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+
+    Input, double A[(ML+MU+1)*N], the array to be copied.
+
+    Output, double R8CB_TO_R8VEC[(ML+MU+1)*N], the vector.
+*/
+{
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+  double *x;
+
+  x = ( double * ) malloc ( (ml+mu+1)*n * sizeof ( double ) );
+
+  for ( j = 1; j <= n; j++ )
+  {
+    ihi = i4_min ( mu, mu + 1 - j );
+    for ( i = 1; i <= ihi; i++ )
+    {
+      x[i-1+(j-1)*(ml+mu+1)] = 0.0;
+    }
+
+    ilo = i4_max ( ihi + 1, 1 );
+    ihi = i4_min ( ml+mu+1, mu+1+m-j );
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      x[i-1+(j-1)*(ml+mu+1)] = a[i-1+(j-1)*(ml+mu+1)];
+    }
+
+    ilo = ihi + 1;
+    ihi = ml+mu+1;
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      x[i-1+(j-1)*(ml+mu+1)] = 0.0;
+    }
+
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8cb_to_r8ge ( int n, int ml, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_TO_R8GE copies a R8CB matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrices.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths of A.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(ML+MU+1)*N], the R8CB matrix.
+
+    Output, double R8CB_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n*n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( j-mu <= i && i <= j+ml )
+      {
+        b[i+j*n] = a[mu+i-j+j*(ml+mu+1)];
+      }
+      else
+      {
+        b[i+j*n] = 0.0;
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8cb_vxm ( int n, int ml, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_VXM multiplies a vector by a R8CB matrix.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(ML+MU+1)*N], the R8CB matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8CB_VXM[N], the product X*A.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int jhi;
+  int jlo;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    jlo = i4_max ( 0, i - ml );
+    jhi = i4_min ( n-1, i + mu );
+    for ( j = jlo; j <= jhi; j++ )
+    {
+      b[j] = b[j] + x[i] * a[i-j+mu+j*(ml+mu+1)];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8cb_zero ( int n, int ml, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CB_ZERO zeros a R8CB matrix.
+
+  Discussion:
+
+    The R8CB storage format is appropriate for a compact banded matrix.
+    It is assumed that the matrix has lower and upper bandwidths ML and MU,
+    respectively.  The matrix is stored in a way similar to that used
+    by LINPACK and LAPACK for a general banded matrix, except that in
+    this mode, no extra rows are set aside for possible fillin during pivoting.
+    Thus, this storage format is suitable if you do not intend to factor
+    the matrix, or if you can guarantee that the matrix can be factored
+    without pivoting.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    25 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be nonnegative.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N-1.
+
+    Output, double R8CB_ZERO[(ML+MU+1)*N), the R8CB matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( (ml+mu+1)*n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < ml+mu+1; i++ )
+    {
+      a[i+j*(ml+mu+1)] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8cbb_add ( int n1, int n2, int ml, int mu, double a[], int i, int j, 
+  double value )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_ADD adds a value to an entry of a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input/output, double A[(ML+MU+1)*N1 + 2*N1*N2 + N2*N2], the R8CBB matrix.
+
+    Input, int I, J, the indices of the entry to be incremented.
+
+    Input, double VALUE, the value to be added to the (I,J) entry.
+*/
+{
+  int ij;
+
+  if ( value == 0.0 )
+  {
+    return;
+  }
+/*
+  Check for I or J out of bounds.
+*/
+  if ( i <= 0 || n1+n2 < i )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CBB_ADD - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of row index I = %d\n", i );
+    exit ( 1 );
+  }
+
+  if ( j <= 0 || n1+n2 < j )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CBB_ADD - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of column index J = %d\n", j );
+    exit ( 1 );
+  }
+/*
+  The A1 block of the matrix.
+
+  Check for out of band problems.
+*/
+  if ( i <= n1 && j <= n1 )
+  {
+    if ( mu < (j-i) || ml < (i-j) )
+    {
+      printf ( "\n" );
+      printf ( "R8CBB_ADD - Warning!\n" );
+      printf ( "  Unable to add to entry (%d, %d).\n", i, j );
+      return;
+    }
+    else
+    {
+      ij = (i-j+mu+1)+(j-1)*(ml+mu+1);
+    }
+  }
+/*
+  The A2 block of the matrix:
+*/
+  else if ( i <= n1 && n1 < j )
+  {
+    ij = (ml+mu+1)*n1+(j-n1-1)*n1 + i;
+  }
+/*
+  The A3 and A4 blocks of the matrix.
+*/
+  else if ( n1 < i )
+  {
+    ij = (ml+mu+1)*n1+n2*n1+(j-1)*n2 + (i-n1);
+  }
+
+  a[ij-1] = a[ij-1] + value;
+
+  return;
+}
+/******************************************************************************/
+
+int r8cbb_error ( int n1, int n2, int ml, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_ERROR checks the dimensions of a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1 - 1.
+
+    Output, int R8CBB_ERROR, is TRUE if an error was detected.
+*/
+{
+  if ( ml < 0 ) 
+  {
+    printf ( "\n" );
+    printf ( "R8CBB_ERROR:\n" );
+    printf ( "  Illegal ML = %d\n", ml );
+    printf ( "  but ML must be greater than or equal to 0.\n" );
+    return 1;
+  }
+
+  if ( i4_max ( n1 - 1, 0 ) < ml )
+  {
+    printf ( "\n" );
+    printf ( "R8CBB_ERROR - Illegal ML = %d\n", ml );
+    printf ( "  but ML must be <= Max ( N1 - 1, 0 ).\n" );
+    return 1;
+  }
+
+  if ( mu < 0  )
+  {
+    printf ( "\n" );
+    printf ( "R8CBB_ERROR - Illegal MU = %d\n", mu );
+    printf ( "  but MU must be greater than or equal to 0.\n" );
+    return 1;
+  }
+
+  if ( i4_max ( n1 - 1, 0 ) < ml )
+  {
+    printf ( "\n" );
+    printf ( "R8CBB_ERROR - Illegal MU = %d\n", mu );
+    printf ( "  but MU must be <= Max ( N1 - 1, 0 ).\n" );
+    return 1;
+  }
+
+  if ( n1 < 0 )
+  {
+    printf ( "\n" );
+    printf ( "R8CBB_ERROR - Illegal N1 = %d\n", n1 );
+    return 1;
+  }
+
+  if ( n2 < 0 )
+  {
+    printf ( "\n" );
+    printf ( "R8CBB_ERROR - Illegal N2 = %d\n", n2 );
+    return 1;
+  }
+
+  if ( n1 + n2 <= 0 )
+  {
+    printf ( "\n" );
+    printf ( "R8CBB_ERROR - Illegal N1+N2 = %d\n", n1 + n2 );
+    return 1;
+  }
+
+  return 0;
+}
+/******************************************************************************/
+
+int r8cbb_fa ( int n1, int n2, int ml, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_FA factors a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+
+    Once the matrix has been factored by SCCB_FA, SCCB_SL may be called
+    to solve linear systems involving the matrix.
+
+    SCCB_FA uses special non-pivoting versions of LINPACK routines to
+    carry out the factorization.  The special version of the banded
+    LINPACK solver also results in a space saving, since no entries
+    need be set aside for fill in due to pivoting.
+
+    The linear system must be border banded, of the form:
+
+      ( A1 A2 ) (X1) = (B1)
+      ( A3 A4 ) (X2)   (B2)
+
+    where A1 is a (usually big) banded square matrix, A2 and A3 are
+    column and row strips which may be nonzero, and A4 is a dense
+    square matrix.
+
+    The algorithm rewrites the system as:
+
+         X1 + inverse(A1) A2 X2 = inverse(A1) B1
+
+      A3 X1 +             A4 X2 = B2
+
+    and then rewrites the second equation as
+
+      ( A4 - A3 inverse(A1) A2 ) X2 = B2 - A3 inverse(A1) B1
+
+    The algorithm will certainly fail if the matrix A1 is singular,
+    or requires pivoting.  The algorithm will also fail if the A4 matrix,
+    as modified during the process, is singular, or requires pivoting.
+    All these possibilities are in addition to the failure that will
+    if the total matrix A is singular.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input/output, double A[ (ML+MU+1)*N1 + 2*N1*N2 + N2*N2].
+    On input, A contains the compact border-banded coefficient matrix.
+    On output, A contains information describing a partial factorization
+    of the original coefficient matrix.  
+
+    Output, int R8CBB_FA, singularity flag.
+    0, no singularity detected.
+    nonzero, the factorization failed on the INFO-th step.
+*/
+{
+  double *b1;
+  int i;
+  int ij;
+  int ik;
+  int info;
+  int j;
+  int jk;
+  int job;
+  int k;
+  int nband;
+  double *x1;
+
+  nband = (ml+mu+1)*n1;
+/*
+  Factor the A1 band matrix, overwriting A1 by its factors.
+*/
+  if ( 0 < n1 )
+  {
+    info = r8cb_np_fa ( n1, ml, mu, a );
+    if ( info != 0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8CBB_FA - Fatal error!\n" );
+      fprintf ( stderr, "  R8CB_NP_FA returned INFO = %d\n", info );
+      fprintf ( stderr, "  Factoring failed for column INFO.\n" );
+      fprintf ( stderr, "  The band matrix A1 is singular.\n" );
+      fprintf ( stderr, "  This algorithm cannot continue!\n" );
+      exit ( 1 );
+    }
+  }
+
+  if ( 0 < n1 && 0 < n2 )
+  {
+/*
+  Set A2 := -inverse(A1) * A2.
+*/
+    for ( j = 0; j < n2; j++ )
+    {
+      for ( i = 0; i < n1; i++ )
+      {
+        a[nband+i+j*n1] = -a[nband+i+j*n1];
+      }
+    }
+
+    b1 = ( double * ) malloc ( n1 * sizeof ( double ) );
+    x1 = ( double * ) malloc ( n1 * sizeof ( double ) );
+    job = 0;
+
+    for ( j = 0; j < n2; j++ )
+    {
+      for ( i = 0; i < n1; i++ )
+      {
+        b1[i] = a[nband+i+j*n1];
+      }
+      x1 = r8cb_np_sl ( n1, ml, mu, a, b1, job );
+      for ( i = 0; i < n1; i++ )
+      {
+        a[nband+i+j*n1] = x1[i];
+      }
+    }
+    free ( b1 );
+    free ( x1 );
+/*
+  Set A4 := A4 + A3*A2
+*/
+    for ( i = 1; i <= n2; i++ )
+    {
+      for ( j = 1; j <= n1; j++ )
+      {
+        ij = nband + n1*n2 + (j-1)*n2 + i - 1;
+        for ( k = 1; k <= n2; k++ )
+        {
+          ik = nband + 2*n1*n2 + (k-1)*n2 + i - 1;
+          jk = nband + (k-1)*n1 + j - 1;
+          a[ik] = a[ik] + a[ij] * a[jk];
+        }
+      }
+    }
+  }
+/*
+  Factor A4.
+*/
+  if ( 0 < n2 )
+  {
+    info = r8ge_np_fa ( n2, a+(nband+2*n1*n2) );
+
+    if ( info != 0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8CBB_FA - Fatal error!\n" );
+      fprintf ( stderr, "  R8GE_NP_FA returned INFO = %d\n", info );
+      fprintf ( stderr, "  This indicates singularity in column %d.\n", n1 + info );
+      fprintf ( stderr, "  The dense matrix A4 is singular.\n" );
+      fprintf ( stderr, "  This algorithm cannot continue!\n" );
+      exit ( 1 );
+    }
+  }
+
+  return 0;
+}
+/******************************************************************************/
+
+double r8cbb_get ( int n1, int n2, int ml, int mu, double a[], int i, int j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_GET gets the value of an entry of a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input/output, double A[(ML+MU+1)*N1 + 2*N1*N2 + N2*N2], the R8CBB matrix.
+
+    Input, int I, J, the indices of the entry to be incremented.
+
+    Output, double R8CBB_GET, the value of the (I,J) entry.
+*/
+{
+  int ij;
+/*
+  Check for I or J out of bounds.
+*/
+  if ( i <= 0 || n1+n2 < i )
+  {
+    return 0.0;
+  }
+
+  if ( j <= 0 || n1+n2 < j )
+  {
+    return 0.0;
+  }
+/*
+  The A1 block of the matrix.
+
+  Check for out of band problems.
+*/
+  if ( i <= n1 && j <= n1 )
+  {
+    if ( mu < (j-i) || ml < (i-j) )
+    {
+      return 0.0;
+    }
+    else
+    {
+      ij = (i-j+mu+1)+(j-1)*(ml+mu+1);
+    }
+  }
+/*
+  The A2 block of the matrix:
+*/
+  else if ( i <= n1 && n1 < j )
+  {
+    ij = (ml+mu+1)*n1+(j-n1-1)*n1 + i;
+  }
+/*
+  The A3 and A4 blocks of the matrix.
+*/
+  else if ( n1 < i )
+  {
+    ij = (ml+mu+1)*n1+n2*n1+(j-1)*n2 + (i-n1);
+  }
+
+  return a[ij-1];
+}
+/******************************************************************************/
+
+double *r8cbb_indicator ( int n1, int n2, int ml, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_INDICATOR sets up a R8CBB indicator matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1-1.
+
+    Output, double R8CBB_INDICATOR[(ML+MU+1)*N1+2*N1*N2+N2*N2], the R8CBB indicator matrix.
+*/
+{
+  double *a;
+  int base;
+  int fac;
+  int i;
+  int j;
+  int row;
+
+  a = ( double * ) malloc ( ( (ml+mu+1)*n1+2*n1*n2+n2*n2 ) * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n1 + n2 ) + 1 );
+/*
+  Set the banded matrix A1.
+*/
+  for ( j = 1; j <= n1; j++ )
+  {
+    for ( row = 1; row <= ml + mu + 1; row++ )
+    {
+      i = row + j - mu - 1;
+      if ( 1 <= i && i <= n1 )
+      {
+        a[row-1+(j-1)*(ml+mu+1)] = ( double ) ( fac * i + j );
+      }
+      else
+      {
+        a[row-1+(j-1)*(ml+mu+1)] = 0.0;
+      }
+    }
+  }
+/*
+  Set the N1 by N2 rectangular strip A2.
+*/
+  base = ( ml + mu + 1 ) * n1;
+
+  for ( i = 1; i <= n1; i++ )
+  {
+    for ( j = n1 + 1; j <= n1 + n2; j++ )
+    {
+      a[base + i-1 + (j-n1-1)*n1 ] = ( double ) ( fac * i + j );
+    }
+  }
+/*
+  Set the N2 by N1 rectangular strip A3.
+*/
+  base = ( ml + mu + 1 ) * n1 + n1 * n2;
+
+  for ( i = n1 + 1; i <= n1 + n2; i++ )
+  {
+    for ( j = 1; j <= n1; j++ )
+    {
+      a[base + i-n1-1 + (j-1)*n2 ] = ( double ) ( fac * i + j );
+    }
+  }
+/*
+  Set the N2 by N2 square A4.
+*/
+  base = ( ml + mu + 1 ) * n1 + n1 * n2 + n2 * n1;
+
+  for ( i = n1 + 1; i <= n1 + n2; i++ )
+  {
+    for ( j = n1 + 1; j <= n1 + n2; j++ )
+    {
+      a[base + i-n1-1 + (j-n1-1)*n2 ] = ( double ) ( fac * i + j );
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8cbb_mxv ( int n1, int n2, int ml, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_MXV multiplies a R8CBB matrix times a vector.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, double A[(ML+MU+1)*N1 + 2*N1*N2 + N2*N2], the R8CBB matrix.
+
+    Input, double X[N1+N2], the vector to be multiplied by A.
+
+    Output, double R8CBB_MXV[N1+N2], the result of multiplying A by X.
+*/
+{
+  double *b;
+  int i;
+  int ihi;
+  int ij;
+  int ilo;
+  int j;
+/*
+  Set B to zero.
+*/
+  b = ( double * ) malloc ( ( n1+n2 )  * sizeof ( double ) );
+
+  for ( i = 0; i < n1+n2; i++ )
+  {
+    b[i] = 0.0;
+  }
+/*
+  Multiply by A1.
+*/
+  for ( j = 1; j <= n1; j++ )
+  {
+    ilo = i4_max ( 1, j-mu );
+    ihi = i4_min ( n1, j+ml );
+    ij = (j-1)*(ml+mu+1)-j+mu+1;
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      b[i-1] = b[i-1] + a[ij+i-1] * x[j-1];
+    }
+  }
+/*
+  Multiply by A2.
+*/
+  for ( j = n1+1; j <= n1+n2; j++ )
+  {
+    ij = (ml+mu+1)*n1+(j-n1-1)*n1;
+    for ( i = 1; i <= n1; i++ )
+    {
+      b[i-1] = b[i-1] + a[ij+i-1] * x[j-1];
+    }
+  }
+/*
+  Multiply by A3 and A4.
+*/
+  for ( j = 1; j <= n1+n2; j++ )
+  {
+    ij = (ml+mu+1)*n1+n1*n2+(j-1)*n2-n1;
+    for ( i = n1+1; i <= n1+n2; i++ )
+    {
+      b[i-1] = b[i-1] + a[ij+i-1] * x[j-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8cbb_print ( int n1, int n2, int ml, int mu, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_PRINT prints a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input, double A[(ML+MU+1)*N1+2*N1*N2+N2*N2], the R8CBB matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8cbb_print_some ( n1, n2, ml, mu, a, 1, 1, n1+n2, n1+n2, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8cbb_print_some ( int n1, int n2, int ml, int mu, double a[], int ilo, 
+  int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_PRINT_SOME prints some of a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input, double A[(ML+MU+1)*N1+2*N1*N2+N2*N2], the R8CBB matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *ITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int ij;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n1+n2 );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n1+n2 );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+    printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        aij = 0.0;
+
+        if ( i <= n1 && j <= n1 )
+        {
+          if ( j - i <= mu && i - j <= ml )
+          {
+            ij = (i-j+mu+1)+(j-1)*(ml+mu+1);
+            aij = a[ij-1];
+          }
+        }
+        else if ( i <= n1 && n1 < j )
+        {
+          ij = (ml+mu+1)*n1+(j-n1-1)*n1+i;
+          aij = a[ij-1];
+        }
+        else if ( n1 < i )
+        {
+          ij = (ml+mu+1)*n1+n2*n1+(j-1)*n2+(i-n1);
+          aij = a[ij-1];
+        }
+
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8cbb_random ( int n1, int n2, int ml, int mu, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_RANDOM randomizes a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than N1-1.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8CBB_RANDOM[(ML+MU+1)*N1 + 2*N1*N2 + N2*N2], the R8CBB matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  double r;
+  int row;
+
+  a = ( double * ) malloc ( ( (ml+mu+1)*n1+2*n1*n2+n2*n2) * sizeof ( double ) );
+/*
+  Randomize the banded matrix A1.
+  We still believe that the "junk" entries should be set to 0.
+*/
+  for ( j = 1; j <= n1; j++ )
+  {
+    for ( row = 1; row <= ml+mu+1; row++ )
+    {
+      i = row + j - mu - 1;
+      if ( 1 <= i && i <= n1 )
+      {
+        r = r8_uniform_01 ( seed );
+      }
+      else
+      {
+        r = 0.0;
+      }
+      a[row-1+(j-1)*(ml+mu+1)] = r;
+    }
+  }
+/*
+  Randomize the rectangular strips A2+A3+A4.
+*/
+  for ( i = (ml+mu+1)*n1+1; i <= (ml+mu+1)*n1+2*n1*n2+n2*n2; i++ )
+  {
+    a[i-1] = r8_uniform_01 ( seed );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8cbb_set ( int n1, int n2, int ml, int mu, double a[], int i, int j, 
+  double value )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_SET sets an entry of a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input/output, double A[(ML+MU+1)*N1 + 2*N1*N2 + N2*N2], the R8CBB matrix.
+
+    Input, int I, J, the indices of the entry to be incremented.
+
+    Input, double VALUE, the value to be assigned to the (I,J) entry.
+*/
+{
+  int ij;
+/*
+  Check for I or J out of bounds.
+*/
+  if ( i <= 0 || n1+n2 < i )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CBB_SET - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of row index I = %d\n", i );
+    exit ( 1 );
+  }
+
+  if ( j <= 0 || n1+n2 < j )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CBB_SET - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal input value of column index J = %d\n", j );
+    exit ( 1 );
+  }
+/*
+  The A1 block of the matrix.
+
+  Check for out of band problems.
+*/
+  if ( i <= n1 && j <= n1 )
+  {
+    if ( mu < (j-i) || ml < (i-j) )
+    {
+      printf ( "\n" );
+      printf ( "R8CBB_SET - Warning!\n" );
+      printf ( "  Unable to set entry (%d, %d).\n", i, j );
+      return;
+    }
+    else
+    {
+      ij = (i-j+mu+1)+(j-1)*(ml+mu+1);
+    }
+  }
+/*
+  The A2 block of the matrix:
+*/
+  else if ( i <= n1 && n1 < j )
+  {
+    ij = (ml+mu+1)*n1+(j-n1-1)*n1 + i;
+  }
+/*
+  The A3 and A4 blocks of the matrix.
+*/
+  else if ( n1 < i )
+  {
+    ij = (ml+mu+1)*n1+n2*n1+(j-1)*n2 + (i-n1);
+  }
+
+  a[ij-1] = value;
+
+  return;
+}
+/******************************************************************************/
+
+double *r8cbb_sl ( int n1, int n2, int ml, int mu, double a_lu[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_SL solves a R8CBB system factored by R8CBB_FA.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+
+    The linear system A * x = b is decomposable into the block system:
+
+      ( A1 A2 ) * (X1) = (B1)
+      ( A3 A4 )   (X2)   (B2)
+
+    where A1 is a (usually big) banded square matrix, A2 and A3 are
+    column and row strips which may be nonzero, and A4 is a dense
+    square matrix.
+
+    All the arguments except B are input quantities only, which are
+    not changed by the routine.  They should have exactly the same values
+    they had on exit from R8CBB_FA.
+
+    If more than one right hand side is to be solved, with the same
+    matrix, R8CBB_SL should be called repeatedly.  However, R8CBB_FA only
+    needs to be called once to create the factorization.
+
+    See the documentation of R8CBB_FA for details on the matrix storage.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input, double A_LU[ (ML+MU+1)*N1 + 2*N1*N2 + N2*N2].
+    the LU factors from R8CBB_FA.
+
+    Input, double B[N1+N2], the right hand side of the linear system.
+
+    Output, double R8CBB_SL[N1+N2], the solution.
+*/
+{
+  double *b2;
+  int i;
+  int ij;
+  int j;
+  int job;
+  int nband;
+  double *x;
+  double *x1;
+  double *x2;
+
+  nband = (ml+mu+1)*n1;
+/*
+  Set X1 := inverse(A1) * B1.
+*/
+  if ( 0 < n1 )
+  {
+    job = 0;
+    x1 = r8cb_np_sl ( n1, ml, mu, a_lu, b, job );
+  }
+/*
+  Modify the right hand side of the second linear subsystem.
+  Set B2 = B2-A3*X1.
+*/
+  b2 = ( double * ) malloc ( n2 * sizeof ( double ) );
+
+  for ( i = 0; i < n2; i++ )
+  {
+    ij = nband + n1*n2 + j*n2 + i;
+    b2[i] = b[n1+i];
+  }
+
+  for ( j = 0; j < n1; j++ )
+  {
+    for ( i = 0; i < n2; i++ )
+    {
+      ij = nband + n1*n2 + j*n2 + i;
+      b2[i] = b2[i] - a_lu[ij] * x1[j];
+    }
+  }
+/*
+  Solve A4*X2 = B2.
+*/
+  if ( 0 < n2 )
+  {
+    job = 0;
+    x2 = r8ge_np_sl ( n2, a_lu+(nband+2*n1*n2), b2, job );
+  }
+/*
+  Modify the first subsolution.
+  Set X1 = X1+A2*X2.
+*/
+  for ( i = 0; i < n1; i++ )
+  {
+    for ( j = 0; j < n2; j++ )
+    {
+      ij = nband + j*n1 + i;
+      x1[i] = x1[i] + a_lu[ij] * x2[j];
+    }
+  }
+/*
+  Collect X1 and X2 into X.
+*/
+  x = ( double * ) malloc ( ( n1+n2 ) * sizeof ( double ) );
+
+  for ( i = 0; i < n1; i++ )
+  {
+    x[i] = x1[i];
+  }
+  for ( i = 0; i < n2; i++ )
+  {
+    x[n1+i] = x2[i];
+  }
+
+  free ( b2 );
+  free ( x1 );
+  free ( x2 );
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8cbb_to_r8ge ( int n1, int n2, int ml, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_TO_R8GE copies a R8CBB matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input, double A[(ML+MU+1)*N1+2*N1*N2+N2*N2], the R8CBB matrix.
+
+    Output, double R8CBB_TO_R8GE[(N1+N2)*(N1+N2)], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int ij;
+  int j;
+
+  b = ( double * ) malloc ( (n1+n2)*(n1+n2) * sizeof ( double ) );
+
+  for ( i = 1; i <= n1; i++ )
+  {
+    for ( j = 1; j <= n1; j++ )
+    {
+      if ( mu+ml < (j-i) || ml < (i-j) )
+      {
+        b[i-1+(j-1)*(n1+n2)] = 0.0;
+      }
+      else
+      {
+        ij = (i-j+mu+1)+(j-1)*(ml+mu+1);
+        b[i-1+(j-1)*(n1+n2)] = a[ij-1];
+      }
+    }
+  }
+
+  for ( i = 1; i <= n1; i++ )
+  {
+    for ( j = n1+1; j <= n2; j++ )
+    {
+      ij = (ml+mu+1)*n1+(j-n1-1)*n1+i;
+      b[i-1+(j-1)*(n1+n2)] = a[ij-1];
+    }
+  }
+
+  for ( i = n1+1; i <= n2; i++ )
+  {
+    for ( j = 1; j <= n1+n2; j++)
+    {
+      ij = (ml+mu+1)*n1+n2*n1+(j-1)*n2+(i-n1);
+      b[i-1+(j-1)*(n1+n2)] = a[ij-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8cbb_vxm ( int n1, int n2, int ml, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_VXM multiplies a vector by a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, double A[(ML+MU+1)*N1 + 2*N1*N2 + N2*N2], the R8CBB matrix.
+
+    Input, double X[N1+N2], the vector to multiply the matrix.
+
+    Output, double R8CBB_VXM[N1+N2], the product X * A.
+*/
+{
+  double *b;
+  int i;
+  int ihi;
+  int ij;
+  int ilo;
+  int j;
+/*
+  Set B to zero.
+*/
+  b = ( double * ) malloc ( ( n1+n2 )  * sizeof ( double ) );;
+  for ( i = 0; i < n1+n2; i++ )
+  {
+    b[i] = 0.0;
+  }
+/*
+  Multiply by A1.
+*/
+  for ( j = 1; j <= n1; j++ )
+  {
+    ilo = i4_max ( 1, j-mu );
+    ihi = i4_min ( n1, j+ml );
+    ij = (j-1)*(ml+mu+1)-j+mu+1;
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      b[j] = b[j] + x[i-1] * a[ij+i-1];
+    }
+  }
+/*
+  Multiply by A2.
+*/
+  for ( j = n1+1; j <= n1+n2; j++ )
+  {
+    ij = (ml+mu+1)*n1+(j-n1-1)*n1;
+    for ( i = 1; i <= n1; i++ )
+    {
+      b[j] = b[j] + x[i-1] * a[ij+i-1];
+    }
+  }
+/*
+  Multiply by A3 and A4.
+*/
+  for ( j = 1; j <= n1+n2; j++ )
+  {
+    ij = (ml+mu+1)*n1+n1*n2+(j-1)*n2-n1;
+    for ( i = n1+1; i <= n1+n2; i++ )
+    {
+      b[j-1] = b[j-1] + x[i-1] * a[ij+i-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8cbb_zero ( int n1, int n2, int ml, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CBB_ZERO zeros a R8CBB matrix.
+
+  Discussion:
+
+    The R8CBB storage format is for a compressed border banded matrix.  
+    Such a matrix has the logical form:
+
+      A1 | A2
+      ---+---
+      A3 | A4
+
+    with A1 a (usually large) N1 by N1 banded matrix, while A2, A3 and A4
+    are dense rectangular matrices of orders N1 by N2, N2 by N1, and N2 by N2,
+    respectively.  
+
+    The R8CBB format is the same as the R8BB format, except that the banded
+    matrix A1 is stored in compressed band form rather than standard
+    banded form.  In other words, we do not include the extra room
+    set aside for fill in during pivoting.
+
+    A should be defined as a vector.  The user must then store
+    the entries of the four blocks of the matrix into the vector A.
+    Each block is stored by columns.
+
+    A1, the banded portion of the matrix, is stored in
+    the first (ML+MU+1)*N1 entries of A, using the obvious variant
+    of the LINPACK general band format.
+
+    The following formulas should be used to determine how to store
+    the entry corresponding to row I and column J in the original matrix:
+
+    Entries of A1:
+
+      1 <= I <= N1, 1 <= J <= N1, (J-I) <= MU and (I-J) <= ML.
+
+      Store the I, J entry into location
+      (I-J+MU+1)+(J-1)*(ML+MU+1).
+
+    Entries of A2:
+
+      1 <= I <= N1, N1+1 <= J <= N1+N2.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+(J-N1-1)*N1+I.
+
+    Entries of A3:
+
+      N1+1 <= I <= N1+N2, 1 <= J <= N1.
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+
+    Entries of A4:
+
+      N1+1 <= I <= N1+N2, N1+1 <= J <= N1+N2
+
+      Store the I, J entry into location
+      (ML+MU+1)*N1+N1*N2+(J-1)*N2+(I-N1).
+      (same formula used for A3).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, the order of the banded and dense blocks.
+    N1 and N2 must be nonnegative, and at least one must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N1-1.
+
+    Output, double R8CBB_ZERO[(ML+MU+1)*N1 + 2*N1*N2 + N2*N2], the R8CBB matrix.
+*/
+{
+  double *a;
+  int i;
+
+  a = ( double *) malloc ( ( (ml+mu+1)*n1+2*n1*n2+n2*n2 ) * sizeof ( double ) );
+
+  for ( i = 0; i < (ml+mu+1)*n1+2*n1*n2+n2*n2; i++ )
+  {
+    a[i] = 0.0;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double r8cc_get ( int m, int n, int nz_num, int col[], int row[], 
+  double a[], int i, int j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_GET gets a value of a R8CC matrix.
+
+  Discussion:
+
+    It is legal to request entries of the matrix for which no storage
+    was set aside.  In that case, a zero value will be returned.
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    04 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero entries.
+
+    Input, int COL[N+1], indicate where each column's data begins.
+
+    Input, int ROW[NZ_NUM], the row indices.
+
+    Input, double A[NZ_NUM], the nonzero entries.
+
+    Input, int I, J, the indices of the value to retrieve.
+
+    Output, double R8CC_GET, the value of A(I,J).
+*/
+{
+  double aij;
+  int k;
+/*
+  Seek sparse index K corresponding to full index (I,J).
+*/
+  k = r8cc_ijk ( m, n, nz_num, col, row, i, j );
+/*
+  If no K was found, then be merciful, and simply return 0.
+*/
+  if ( k == -1 )
+  {
+    aij = 0.0;
+  }
+  else
+  {
+    aij = a[k-1];
+  }
+
+  return aij;
+}
+/******************************************************************************/
+
+int r8cc_ijk ( int m, int n, int nz_num, int col[], int row[], int i, 
+  int j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_IJK seeks K, the sparse index of (I,J), the full index of a R8CC matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    04 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero entries.
+
+    Input, int COL[N+1], indicate where each column's data begins.
+
+    Input, int ROW[NZ_NUM], the row indices.
+
+    Input, int I, J, the indices of the value to retrieve.
+
+    Output, int R8CC_IJK, the index of the sparse matrix in which entry
+    (I,J) is stored, or -1 if no such entry exists.
+*/
+{
+  int k;
+  int k1;
+  int k2;
+/*
+  Determine the part of ROW containing row indices of entries
+  in column J.
+*/
+  k1 = col[j-1];
+  k2 = col[j]-1;
+/*
+  Seek the location K for which ROW(K) = I.
+*/  
+  k = i4vec_search_binary_a ( k2+1-k1, row+k1-1, i );
+
+  if ( k != -1 )
+  {
+    k = k + k1 - 1;
+  }
+
+  return k;
+}
+/******************************************************************************/
+
+void r8cc_inc ( int m, int n, int nz_num, int col[], int row[], double a[], 
+  int i, int j, double aij )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_INC increments a value of a R8CC matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    04 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero entries.
+
+    Input, int COL[N+1], indicate where each column's data begins.
+
+    Input, int ROW[NZ_NUM], the row indices.
+
+    Input/output, double A[NZ_NUM], the nonzero entries.
+    On output, entry (I,J) has been incremented.
+
+    Input, int I, J, the indices of the value to retrieve.
+
+    Input, double AIJ, the value to be added to A(I,J).
+*/
+{
+  int k;
+/*
+  Seek sparse index K corresponding to full index (I,J).
+*/
+  k = r8cc_ijk ( m, n, nz_num, col, row, i, j );
+/*
+  If no K was found, we fail.
+*/
+  if ( k == -1 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CC_INC - Fatal error!\n" );
+    fprintf ( stderr, "  R8CC_IJK could not find the entry.\n" );
+    fprintf ( stderr, "  Row I = %d\n", i );
+    fprintf ( stderr, "  Col J = %d\n", j );
+    exit ( 1 );
+  }
+  a[k-1] = a[k-1] + aij;
+
+  return;
+}
+/******************************************************************************/
+
+double *r8cc_indicator ( int m, int n, int nz_num, int col[], int row[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_INDICATOR sets up a R8CC indicator matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    04 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in A.
+
+    Input, int COL[N+1], points to the first element of each column.
+
+    Input, int ROW[NZ_NUM], contains the row indices of the elements.
+
+    Output, double R8CC_INDICATOR[NZ_NUM], the R8CC matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( nz_num * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( j = 1; j <= n; j++ )
+  {
+    for ( k = col[j-1]; k <= col[j] - 1; k++ )
+    {
+      i = row[k-1];
+      a[k-1] = ( double ) ( fac * i + j );
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8cc_kij ( int m, int n, int nz_num, int col[], int row[], int k, 
+  int *i, int *j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_KIJ seeks (I,J), the full index of K, the sparse index of a R8CC matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    04 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero entries.
+
+    Input, int COL[N+1], indicate where each column's data begins.
+
+    Input, int ROW[NZ_NUM], the row indices.
+
+    Input, int K, the sparse index of an entry of the matrix.
+    1 <= K <= NZ_NUM.
+
+    Output, int *I, *J, the full indices corresponding to the sparse
+    index K.
+*/
+{
+  int jj;
+  int k1;
+  int k2;
+
+  *i = -1;
+  *j = -1;
+
+  if ( k < 1 || nz_num < k )
+  {
+    return;
+  }
+/*
+  The row index is easy.
+*/
+  *i = row[k-1];
+/*
+  Determine the column by bracketing in COl.
+*/
+  for ( jj = 1; jj <= n; jj++ )
+  {
+    k1 = col[jj-1];
+    k2 = col[jj]-1;
+    if ( k1 <= k && k <= k2 )
+    {
+      *j = jj;
+      break;
+    }
+  }
+
+  if ( *j == -1 )
+  {
+    return;
+  }
+  return;
+}
+/******************************************************************************/
+
+double *r8cc_mxv ( int m, int n, int nz_num, int col[], int row[], 
+  double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_MXV multiplies a R8CC matrix times a vector.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    04 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in A.
+
+    Input, int COL[N+1], points to the first element of each column.
+
+    Input, int ROW[NZ_NUM], contains the row indices of the elements.
+
+    Input, double A[NZ_NUM], the R8CC matrix.
+
+    Input, double X[N], the vector to be multiplied.
+
+    Output, double R8CC_MXV[M], the product A * X.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    b[i] = 0.0;
+  }
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( k = col[j]; k <= col[j+1] - 1; k++ )
+    {
+      i = row[k-1] - 1;
+      b[i] = b[i] + a[k-1] * x[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8cc_print ( int m, int n, int nz_num, int col[], int row[], 
+  double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_PRINT prints a R8CC matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    05 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in A.
+
+    Input, int COL[N+1], points to the first element of each column.
+
+    Input, int ROW[NZ_NUM], contains the row indices of the elements.
+
+    Input, double A[NZ_NUM], the R8CC matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8cc_print_some ( m, n, nz_num, col, row, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8cc_print_some ( int m, int n, int nz_num, int col[], int row[], 
+  double a[], int ilo, int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_PRINT_SOME prints some of a R8CC matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    05 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in A.
+
+    Input, int COL[N+1], points to the first element of each column.
+
+    Input, int ROW[NZ_NUM], contains the row indices of the elements.
+
+    Input, double A[NZ_NUM], the R8CC matrix.
+
+    Input, int ILO, JLO, IHI, JHI, the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+  int k;
+  double value;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col:  " );
+
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, m );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+
+
+  Now consider each column J in J2LO to J2HI,
+  and look at every nonzero, and check if it occurs in row I.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        value = 0.0;
+        for ( k = col[j-1]; k <= col[j]-1; k++ )
+        {
+          if ( row[k-1] == i )
+          {
+            value = a[k-1];
+          }
+        }
+        printf ( "%12g  ", value );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8cc_random ( int m, int n, int nz_num, int col[], int row[], 
+  int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_RANDOM randomizes a R8CC matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    05 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in A.
+
+    Input, int COL[N+1], points to the first element of each column.
+
+    Input, int ROW[NZ_NUM], contains the row indices of the elements.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8CC_RANDOM[NZ_NUM], the R8CC matrix.
+*/
+{
+  double *a;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( nz_num * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( k = col[j]; k <= col[j+1] - 1; k++ )
+    {
+      a[k-1] = r8_uniform_01 ( seed );
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8cc_set ( int m, int n, int nz_num, int col[], int row[], double a[], 
+  int i, int j, double aij )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_SET sets a value of a R8CC matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992.
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero entries.
+
+    Input, int COL[N+1], indicate where each column's data begins.
+
+    Input, int ROW[NZ_NUM], the row indices.
+
+    Input/output, double A[NZ_NUM], the nonzero entries.
+    On output, the entry of A corresponding to (I,J) has been reset.
+
+    Input, int I, J, the indices of the value to retrieve.
+
+    Input, double AIJ, the new value of A(I,J).
+*/
+{
+  int k;
+/*
+  Seek sparse index K corresponding to full index (I,J).
+*/
+  k = r8cc_ijk ( m, n, nz_num, col, row, i, j );
+/*
+  If no K was found, we fail.
+*/
+  if ( k == -1 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CC_SET - Fatal error!\n" );
+    fprintf ( stderr, "  R8CC_IJK could not find the entry.\n" );
+    fprintf ( stderr, "  Row I = %d\n", i );
+    fprintf ( stderr, "  Col J = %d\n", j );
+    exit ( 1 );
+  }
+  a[k-1] = aij;
+
+  return;
+}
+/******************************************************************************/
+
+double *r8cc_to_r8ge ( int m, int n, int nz_num, int col[], int row[], 
+  double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_TO_R8GE converts a R8CC matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992.
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in A.
+
+    Input, int COL[N+1], points to the first element of each column.
+
+    Input, int ROW[NZ_NUM], contains the row indices of the elements.
+
+    Input, double A[NZ_NUM], the R8CC matrix.
+
+    Input, double R8CC_TO_R8GE[M*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      b[i+j*m] = 0.0;
+    }
+  }
+
+  if ( col[0] < 0 || nz_num < col[0] )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CC_TO_R8GE - Fatal error!\n" );
+    fprintf ( stderr, "  COL[%d] = %d\n", j, col[j] );
+    exit ( 1 );
+  }
+
+  for ( j = 0; j < n; j++ )
+  {
+    if ( col[j+1] < 0 || nz_num < col[j+1] - 1 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8CC_TO_R8GE - Fatal error!\n" );
+      fprintf ( stderr, "  COL[%d] = %d\n", j + 1, col[j+1] );
+      exit ( 1 );
+    }
+
+    for ( k = col[j]; k <= col[j+1] - 1; k++ )
+    {
+      i = row[k-1] - 1;
+      if ( i < 0 || m <= i )
+      {
+        fprintf ( stderr, "\n" );
+        fprintf ( stderr, "R8CC_TO_R8GE - Fatal error!\n" );
+        fprintf ( stderr, "  ROW[%d] = %d\n", k - 1, i );
+        exit ( 1 );
+      }
+      b[i+j*m] = a[k-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8cc_vxm ( int m, int n, int nz_num, int col[], int row[], 
+  double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_VXM multiplies a vector times a R8CC matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992.
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in A.
+
+    Input, int COL[N+1], points to the first element of each column.
+
+    Input, int ROW[NZ_NUM], contains the row indices of the elements.
+
+    Input, double A[NZ_NUM], the R8CC matrix.
+
+    Input, double X[M], the vector to be multiplied.
+
+    Output, double R8CC_VXM[N], the product A' * X.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    b[j] = 0.0;
+  }
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( k = col[j]; k <= col[j+1] - 1; k++ )
+    {
+      i = row[k-1] - 1;
+      b[j] = b[j] + a[k-1] * x[i];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8cc_write ( char *col_file, char *row_file, char *a_file, int m, int n,
+  int nz_num, int col[], int row[], double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_WRITE writes a R8CC matrix to three files.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, char *COL_FILE, *ROW_FILE, *A_FILE, the names of the 
+    files containing the column pointers, row entries, and matrix entries.
+
+    Input, int M, N, the number of rows and columns in the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int COL[N+1], the column pointers.
+
+    Input, int ROW[NZ_NUM], the row indices.
+
+    Input, double A[NZ_NUM], the nonzero elements of the matrix.
+*/
+{
+  FILE *output;
+  int k;
+
+  output = fopen ( col_file, "wt" );
+
+  if ( !output )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CC_WRITE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the file \"%s\".\n", col_file );
+    exit ( 1 );
+  }
+
+  for ( k = 0; k < n+1; k++ )
+  {
+    fprintf ( output, "%d\n", col[k] );
+  }
+
+  fclose ( output );
+/*
+  Write the row information.
+*/
+  output = fopen ( row_file, "wt" );
+
+  if ( !output )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CC_WRITE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the file \"%s\".\n", row_file );
+    exit ( 1 );
+  }
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    fprintf ( output, "%d\n", row[k] );
+  }
+
+  fclose ( output );
+/*
+  Write the value information.
+*/
+  output = fopen ( a_file, "wt" );
+
+  if ( !output )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8CC_WRITE - Fatal error!\n" );
+    fprintf ( stderr,"  Could not open the file \"%s\".\n", a_file );
+    exit ( 1 );
+  }
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    fprintf ( output, "%g\n", a[k] );
+  }
+  fclose ( output );
+
+  return;
+}
+/******************************************************************************/
+
+double *r8cc_zero ( int m, int n, int nz_num, int col[], int row[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CC_ZERO zeros a R8CC matrix.
+
+  Discussion:
+
+    The R8CC format is the double precision sparse compressed column
+    format.  Associated with this format, we have an M by N matrix
+    with NZ_NUM nonzero entries.  We construct the column pointer
+    vector COL of length N+1, such that entries of column J will be
+    stored in positions COL(J) through COL(J+1)-1.  This indexing
+    refers to both the ROW and A vectors, which store the row indices
+    and the values of the nonzero entries.  The entries of the
+    ROW vector corresponding to each column are assumed to be
+    ascending sorted.
+
+    The R8CC format is equivalent to the MATLAB "sparse" format,
+    and the Harwell Boeing "real unsymmetric assembled" (RUA) format.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    05 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Iain Duff, Roger Grimes, John Lewis,
+    User's Guide for the Harwell-Boeing Sparse Matrix Collection,
+    October 1992
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in A.
+
+    Input, int COL[N+1], points to the first element of each column.
+
+    Input, int ROW[NZ_NUM], contains the row indices of the elements.
+
+    Output, double R8CC_ZERO[NZ_NUM], the R8CC matrix.
+*/
+{
+  double *a;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( nz_num * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( k = col[j]; k <= col[j+1] - 1; k++ )
+    {
+      a[k-1] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double complex *r8ci_eval ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_EVAL returns the eigenvalues of a R8CI matrix.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+
+    A circulant matrix data structure simply records the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Philip Davis,
+    Circulant Matrices,
+    Wiley, 1979.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N], the R8CI matrix.
+
+    Output, double complex R8CI_EVAL[N], the eigenvalues.
+*/
+{
+  int i;
+  int j;
+  double complex *lambda;
+  double complex *w;
+
+  lambda = ( double complex * ) malloc ( n * sizeof ( double complex ) );
+
+  w = c8vec_unity ( n );
+
+  for ( i = 0; i < n; i++ )
+  {
+    lambda[i] = ( double complex ) a[n-1];
+  }
+
+  for ( i = n - 2; 0 <= i; i-- )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      lambda[j] = lambda[j] * w[j] + ( double complex ) a[i];
+    }
+  }
+
+  c8vec_sort_a2 ( n, lambda );
+
+  free ( w );
+
+  return lambda;
+}
+/******************************************************************************/
+
+double *r8ci_indicator ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_INDICATOR sets up a R8CI indicator matrix.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+    The R8CI format simply records the first row of the matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Output, double R8CI_INDICATOR[N], the R8CI matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  i = 1;
+
+  for ( j = 1; j <= n; j++ )
+  {
+    a[j-1] = ( double ) ( fac * i + j );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8ci_mxv ( int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_MXV multiplies a R8CI matrix times a vector.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+
+    A circulant matrix data structure simply records the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N], the R8CI matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8CI_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j <= i-1; j++ )
+    {
+      b[i] = b[i] + a[j-i+n] * x[j];
+    }
+    for ( j = i; j < n; j++ )
+    {
+      b[i] = b[i] + a[j-i] * x[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8ci_print ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_PRINT prints a R8CI matrix.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+
+    A circulant matrix data structure simply records the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[N], the R8CI matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8ci_print_some ( n, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8ci_print_some ( int n, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_PRINT_SOME prints some of a R8CI matrix.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+
+    A circulant matrix data structure simply records the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[N], the R8CI matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      printf ( "%6d  ", i );
+
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( i <= j )
+        {
+          printf ( "%12g  ", a[j-i] );
+        }
+        else
+        {
+          printf ( "%12g  ", a[n+j-i] );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8ci_random ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_RANDOM randomizes a R8CI matrix.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+
+    A circulant matrix data structure simply records the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8CI_RANDOM[N], the R8CI matrix.
+*/
+{
+  double *a;
+  int i;
+
+  a = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = r8_uniform_01 ( seed );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8ci_sl ( int n, double a[], double b[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_SL solves a R8CI system.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+
+    A circulant matrix data structure simply records the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2013
+
+  Author:
+
+    John Burkardt.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N], the R8CI matrix.
+
+    Input, double B[N], the right hand side.
+
+    Input, int JOB, specifies the system to solve.
+    0, solve A * x = b.
+    nonzero, solve A' * x = b.
+
+    Output, double R8CI_SL[N], the solution of the linear system.
+*/
+{
+  int i;
+  int nsub;
+  double r1;
+  double r2;
+  double r3;
+  double r5;
+  double r6;
+  double *work;
+  double *x;
+
+  work = ( double * ) malloc ( ( 2 * n - 2 ) * sizeof ( double ) );
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  if ( job == 0 )
+  {
+/*
+  Solve the system with the principal minor of order 1.
+*/
+    r1 = a[0];
+    x[0] = b[0] / r1;
+
+    r2 = 0.0;
+/*
+  Recurrent process for solving the system.
+*/
+    for ( nsub = 2; nsub <= n; nsub++ )
+    {
+/*
+  Compute multiples of the first and last columns of
+  the inverse of the principal minor of order N.
+*/
+      r5 = a[n+2-nsub-1];
+      r6 = a[nsub-1];
+
+      if ( 2 < nsub )
+      {
+        work[nsub-2] = r2;
+
+        for ( i = 1; i <= nsub - 2; i++ )
+        {
+          r5 = r5 + a[n-i] * work[nsub-i-1];
+          r6 = r6 + a[i] * work[n-2+i];
+        }
+      }
+
+      r2 = - r5 / r1;
+      r3 = - r6 / r1;
+      r1 = r1 + r5 * r3;
+
+      if ( 2 < nsub )
+      {
+        r6 = work[n-1];
+        work[n+nsub-3] = 0.0;
+        for ( i = 2; i <= nsub - 1; i++ )
+        {
+          r5 = work[n-2+i];
+          work[n-2+i] = work[i-1] * r3 + r6;
+          work[i-1] = work[i-1] + r6 * r2;
+          r6 = r5;
+        }
+      }
+
+      work[n-1] = r3;
+/*
+  Compute the solution of the system with the principal minor of order NSUB.
+*/
+      r5 = 0.0;
+      for ( i = 1; i <= nsub - 1; i++ )
+      {
+        r5 = r5 + a[n-i] * x[nsub-i-1];
+      }
+
+      r6 = ( b[nsub-1] - r5 ) / r1;
+      for ( i = 1; i <= nsub-1; i++ )
+      {
+        x[i-1] = x[i-1] + work[n+i-2] * r6;
+      }
+      x[nsub-1] = r6;
+    }
+  }
+  else
+  {
+/*
+  Solve the system with the principal minor of order 1.
+*/
+    r1 = a[0];
+    x[0] = b[0] / r1;
+
+    r2 = 0.0;
+/*
+  Recurrent process for solving the system.
+*/
+    for ( nsub = 2; nsub <= n; nsub++ )
+    {
+/*
+  Compute multiples of the first and last columns of
+  the inverse of the principal minor of order N.
+*/
+      r5 = a[nsub-1];
+      r6 = a[n+1-nsub];
+
+      if ( 2 < nsub )
+      {
+        work[nsub-2] = r2;
+        for ( i = 1; i <= nsub - 2; i++ )
+        {
+          r5 = r5 + a[i] * work[nsub-i-1];
+          r6 = r6 + a[n-i] * work[n-2+i];
+        }
+      }
+
+      r2 = - r5 / r1;
+      r3 = - r6 / r1;
+      r1 = r1 + r5 * r3;
+
+      if ( 2 < nsub )
+      {
+        r6 = work[n-1];
+        work[n+nsub-3] = 0.0;
+        for ( i = 2; i <= nsub-1; i++ )
+        {
+          r5 = work[n-2+i];
+          work[n-2+i] = work[i-1] * r3 + r6;
+          work[i-1] = work[i-1] + r6 * r2;
+          r6 = r5;
+        }
+      }
+
+      work[n-1] = r3;
+/*
+  Compute the solution of the system with the principal minor of order NSUB.
+*/
+      r5 = 0.0;
+      for ( i = 1; i <= nsub - 1; i++ )
+      {
+        r5 = r5 + a[i] * x[nsub-i-1];
+      }
+
+      r6 = ( b[nsub-1] - r5 ) / r1;
+      for ( i = 1; i <= nsub - 1; i++ )
+      {
+        x[i-1] = x[i-1] + work[n-2+i] * r6;
+      }
+
+      x[nsub-1] = r6;
+    }
+  }
+
+  free ( work );
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8ci_to_r8ge ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_TO_R8GE copies a R8CI matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+
+    A circulant matrix data structure simply records the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N], the R8CI matrix.
+
+    Output, double R8CI_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 1; i < n; i++ )
+    {
+      k = i4_modp (  j - i, n );
+      b[i+j*n] = a[k];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8ci_vxm ( int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_VXM multiplies a vector times a R8CI matrix.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+
+    A circulant matrix data structure simply records the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N], the R8CI matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8CI_VXM[N], the product A' * X.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j <= i; j++ )
+    {
+      b[i] = b[i] + a[i-j] * x[j];
+    }
+    for ( j = i+1; j < n; j++ )
+    {
+      b[i] = b[i] + a[n+i-j] * x[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8ci_zero ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CI_ZERO zeros a R8CI matrix.
+
+  Discussion:
+
+    The R8CI storage format is used for an N by N circulant matrix.
+    An N by N circulant matrix A has the property that the entries on
+    row I appear again on row I+1, shifted one position to the right,
+    with the final entry of row I appearing as the first of row I+1.
+
+    A circulant matrix data structure simply records the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Output, double R8CI_ZERO[N], the R8CI matrix.
+*/
+{
+  double *a;
+  int i;
+
+  a = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = 0.0;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double r8gb_det ( int n, int ml, int mu, double a_lu[], int pivot[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_DET computes the determinant of a matrix factored by R8GB_FA or R8GB_TRF.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A_LU[(2*ML+MU+1)*N], the LU factors from R8GB_FA or R8GB_TRF.
+
+    Input, int PIVOT[N], the pivot vector, as computed by R8GB_FA
+    or R8GB_TRF.
+
+    Output, double R8GB_DET, the determinant of the matrix.
+*/
+{
+  int col = 2 * ml + mu + 1;
+  double det;
+  int i;
+
+  det = 1.0;
+
+  for ( i = 0; i < n; i++ )
+  {
+    det = det * a_lu[ml+mu+i*col];
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    if ( pivot[i] != i+1 ) 
+    {
+      det = -det;
+    }
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+int r8gb_fa ( int n, int ml, int mu, double a[], int pivot[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_FA performs a LINPACK-style PLU factorization of a R8GB matrix.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2012
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979,
+    ISBN13: 978-0-898711-72-1,
+    LC: QA214.L56.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input/output, double A[(2*ML+MU+1)*N], the matrix in band storage.  
+    On output, A has been overwritten by the LU factors.
+
+    Output, int PIVOT[N], the pivot vector.
+
+    Output, int R8GB_FA, singularity flag.
+    0, no singularity detected.
+    nonzero, the factorization failed on the INFO-th step.
+*/
+{
+  int col = 2 * ml + mu + 1;
+  int i;
+  int i0;
+  int j;
+  int j0;
+  int j1;
+  int ju;
+  int jz;
+  int k;
+  int l;
+  int lm;
+  int m;
+  int mm;
+  double t;
+
+  m = ml + mu + 1;
+/*
+  Zero out the initial fill-in columns.
+*/
+  j0 = mu + 2;
+  j1 = i4_min ( n, m ) - 1;
+
+  for ( jz = j0; jz <= j1; jz++ )
+  {
+    i0 = m + 1 - jz;
+    for ( i = i0; i <= ml; i++ )
+    {
+      a[i-1+(jz-1)*col] = 0.0;
+    }
+  }
+
+  jz = j1;
+  ju = 0;
+
+  for ( k = 1; k <= n-1; k++ )
+  {
+/*
+  Zero out the next fill-in column.
+*/
+    jz = jz + 1;
+    if ( jz <= n ) 
+    {
+      for ( i = 1; i <= ml; i++ )
+      {
+        a[i-1+(jz-1)*col] = 0.0;
+      }
+    }
+/*
+  Find L = pivot index.
+*/
+    lm = i4_min ( ml, n-k );
+    l = m;
+
+    for ( j = m+1; j <= m + lm; j++ )
+    {
+      if ( r8_abs ( a[l-1+(k-1)*col] ) < r8_abs ( a[j-1+(k-1)*col] ) )
+      {
+        l = j;
+      }
+    }
+
+    pivot[k-1] = l + k - m;
+/*
+  Zero pivot implies this column already triangularized.
+*/
+    if ( a[l-1+(k-1)*col] == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8GB_FA - Fatal error!\n" );
+      fprintf ( stderr, "  Zero pivot on step %d\n", k );
+      exit ( 1 );
+    }
+/*
+  Interchange if necessary.
+*/
+    t                = a[l-1+(k-1)*col];
+    a[l-1+(k-1)*col] = a[m-1+(k-1)*col];
+    a[m-1+(k-1)*col] = t;
+/*
+  Compute multipliers.
+*/
+    for ( i = m+1; i <= m+lm; i++ )
+    {
+      a[i-1+(k-1)*col] = - a[i-1+(k-1)*col] / a[m-1+(k-1)*col];
+    }
+/*
+  Row elimination with column indexing.
+*/
+    ju = i4_max ( ju, mu + pivot[k-1] );
+    ju = i4_min ( ju, n );
+    mm = m;
+
+    for ( j = k+1; j <= ju; j++ )
+    {
+      l = l - 1;
+      mm = mm - 1;
+
+      if ( l != mm )
+      {
+        t                 = a[l-1+(j-1)*col];
+        a[l-1+(j-1)*col]  = a[mm-1+(j-1)*col];
+        a[mm-1+(j-1)*col] = t;
+      }
+      for ( i = 1; i <= lm; i++ )
+      {
+        a[mm+i-1+(j-1)*col] = a[mm+i-1+(j-1)*col] 
+          + a[mm-1+(j-1)*col] * a[m+i-1+(k-1)*col];
+      }
+    }
+  }
+
+  pivot[n-1] = n;
+
+  if ( a[m-1+(n-1)*col] == 0.0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8GB_FA - Fatal error!\n" );
+    fprintf ( stderr, "  Zero pivot on step %d\n", n );
+    exit ( 1 );
+  }
+
+  return 0;
+}
+/******************************************************************************/
+
+double *r8gb_indicator ( int m, int n, int ml, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_INDICATOR sets up a R8GB indicator matrix.
+
+  Discussion:
+
+    Note that the R8GB storage format includes extra room for
+    fillin entries that occur during Gauss elimination.  This routine
+    will leave those values at 0.
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Output, double R8GB_INDICATOR[(2*ML+MU+1)*N], the R8GB matrix.
+*/
+{
+  double *a;
+  int col = 2 * ml + mu + 1;
+  int diag;
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( (2*ml+mu+1)*n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+  k = 0;
+
+  for ( j = 1; j <= n; j++ )
+  {
+    for ( diag = 1; diag <= 2 * ml + mu + 1; diag++ )
+    {
+      i = diag + j - ml - mu - 1;
+
+      if ( 1 <= i && i <= m && i - ml <= j && j <= i + mu )
+      {
+        a[diag-1+(j-1)*col] = ( double ) ( fac * i + j );
+      }
+      else if ( 1 <= i && i <= m && i - ml <= j && j <= i + mu + ml )
+      {
+        a[diag-1+(j-1)*col] = 0.0;
+      }
+      else
+      {
+        k = k + 1;
+        a[diag-1+(j-1)*col] = - ( double ) k;
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8gb_ml ( int n, int ml, int mu, double a_lu[], int pivot[], double x[], 
+  int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_ML computes A * x or A' * X, using R8GB_FA factors.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+    It is assumed that R8GB_FA has overwritten the original matrix
+    information by LU factors.  R8GB_ML is able to reconstruct the
+    original matrix from the LU factor data.
+
+    R8GB_ML allows the user to check that the solution of a linear
+    system is correct, without having to save an unfactored copy
+    of the matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A_LU[(2*ML+MU+1)*N], the LU factors from R8GB_FA.
+
+    Input, int PIVOT[N], the pivot vector computed by R8GB_FA.
+
+    Input, double X[N], the vector to be multiplied.
+
+    Input, int JOB, specifies the operation to be done:
+    JOB = 0, compute A * x.
+    JOB nonzero, compute A' * X.
+
+    Output, double R8GB_ML[N], the result of the multiplication.
+*/
+{
+  double *b;
+  int col = 2 * ml + mu + 1;
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+  int jhi;
+  int k;
+  double temp;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = x[i];
+  }
+
+  if ( job == 0 )
+  {
+/*
+  Y = U * X.
+*/
+    for ( j = 1; j <= n; j++ )
+    {
+      ilo = i4_max ( 1, j - ml - mu );
+      for ( i = ilo; i <= j-1; i++ )
+      {
+        b[i-1] = b[i-1] + a_lu[i-j+ml+mu+(j-1)*col] * b[j-1];
+      }
+      b[j-1] = a_lu[j-j+ml+mu+(j-1)*col] * b[j-1];
+    }
+/*
+  B = PL * Y = PL * U * X = A * x.
+*/
+    for ( j = n-1; 1 <= j; j-- )
+    {
+      ihi = i4_min ( n, j + ml );
+      for ( i = j+1; i <= ihi; i++ )
+      {
+        b[i-1] = b[i-1] - a_lu[i-j+ml+mu+(j-1)*col] * b[j-1];
+      }
+
+      k = pivot[j-1];
+
+      if ( k != j )
+      {
+        temp   = b[k-1];
+        b[k-1] = b[j-1];
+        b[j-1] = temp;
+      }
+    }
+  }
+  else
+  {
+/*
+  Y = ( PL )' * X.
+*/
+    for ( j = 1; j <= n-1; j++ )
+    {
+      k = pivot[j-1];
+
+      if ( k != j )
+      {
+        temp   = b[k-1];
+        b[k-1] = b[j-1];
+        b[j-1] = temp;
+      }
+
+      jhi = i4_min ( n, j + ml );
+      for ( i = j+1; i <= jhi; i++ )
+      {
+        b[j-1] = b[j-1] - b[i-1] * a_lu[i-j+ml+mu+(j-1)*col];
+      }
+
+    }
+/*
+  B = U' * Y = ( PL * U )' * X = A' * X.
+*/
+    for ( i = n; 1 <= i; i-- )
+    {
+      jhi = i4_min ( n, i + ml + mu );
+      for ( j = i+1; j <= jhi; j++ )
+      {
+        b[j-1] = b[j-1] + b[i-1] * a_lu[i-j+ml+mu+(j-1)*col];
+      }
+      b[i-1] = b[i-1] * a_lu[i-i+ml+mu+(i-1)*col];
+    }
+
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8gb_mu ( int n, int ml, int mu, double a_lu[], int pivot[], double x[], 
+  int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_MU computes A * x or A' * X, using R8GB_TRF factors.
+
+  Warning:
+
+    This routine must be updated to allow for rectangular matrices.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    It is assumed that R8GB_TRF has overwritten the original matrix
+    information by LU factors.  R8GB_MU is able to reconstruct the
+    original matrix from the LU factor data.
+
+    R8GB_MU allows the user to check that the solution of a linear
+    system is correct, without having to save an unfactored copy
+    of the matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Edward Anderson, Zhaojun Bai, Christian Bischof, Susan Blackford, 
+    James Demmel, Jack Dongarra, Jeremy Du Croz, Anne Greenbaum, 
+    Sven Hammarling, Alan McKenney, Danny Sorensen,
+    LAPACK User's Guide,
+    Second Edition,
+    SIAM, 1995.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A_LU[(2*ML+MU+1)*N], the LU factors from R8GB_TRF.
+
+    Input, int PIVOT[N], the pivot vector computed by R8GB_TRF.
+
+    Input, double X[N], the vector to be multiplied.
+
+    Input, int JOB, specifies the operation to be done:
+    JOB = 0, compute A * x.
+    JOB nonzero, compute A' * X.
+
+    Output, double R8GB_MU[N], the result of the multiplication.
+*/
+{
+  double *b;
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+  int jhi;
+  int k;
+  double t;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = x[i];
+  }
+
+  if ( job == 0 )
+  {
+/*
+  Y = U * X.
+*/
+    for ( j = 1; j <= n; j++ )
+    {
+      ilo = i4_max ( 1, j - ml - mu );
+      for ( i = ilo; i <= j - 1; i++ )
+      {
+        b[i-1] = b[i-1] + a_lu[i-j+ml+mu+(j-1)*(2*ml+mu+1)] * b[j-1];
+      }
+      b[j-1] = a_lu[j-j+ml+mu+(j-1)*(2*ml+mu+1)] * b[j-1];
+    }
+/*
+  B = PL * Y = PL * U * X = A * x.
+*/
+    for ( j = n-1; 1 <= j; j-- )
+    {
+      ihi = i4_min ( n, j + ml );
+      for ( i = j+1; i <= ihi; i++ )
+      {
+        b[i-1] = b[i-1] + a_lu[i-j+ml+mu+(j-1)*(2*ml+mu+1)] * b[j-1];
+      }
+
+      k = pivot[j-1];
+
+      if ( k != j )
+      {
+        t      = b[k-1];
+        b[k-1] = b[j-1];
+        b[j-1] = t;
+      }
+    }
+  }
+  else
+  {
+/*
+  Y = ( PL )' * X.
+*/
+    for ( j = 1; j <= n-1; j++ )
+    {
+      k = pivot[j-1];
+
+      if ( k != j )
+      {
+        t      = b[k-1];
+        b[k-1] = b[j-1];
+        b[j-1] = t;
+      }
+
+      jhi = i4_min ( n, j + ml );
+      for ( i = j+1; i <= jhi; i++ )
+      {
+        b[j-1] = b[j-1] + b[i-1] * a_lu[i-j+ml+mu+(j-1)*(2*ml+mu+1)];
+      }
+    }
+/*
+  B = U' * Y = ( PL * U )' * X = A' * X.
+*/
+    for ( i = n; 1 <= i; i-- )
+    {
+      jhi = i4_min ( n, i + ml + mu );
+      for ( j = i+1; j <= jhi; j++ )
+      {
+        b[j-1] = b[j-1] + b[i-1] * a_lu[i-j+ml+mu+(j-1)*(2*ml+mu+1)];
+      }
+      b[i-1] = b[i-1] * a_lu[i-i+ml+mu+(i-1)*(2*ml+mu+1)];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8gb_mxv ( int m, int n, int ml, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_MXV multiplies a R8GB matrix times a vector.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+    LINPACK and LAPACK storage of general band matrices requires
+    an extra ML upper diagonals for possible fill in entries during
+    Gauss elimination.  This routine does not access any entries
+    in the fill in diagonals, because it assumes that the matrix
+    has NOT had Gauss elimination applied to it.  If the matrix
+    has been Gauss eliminated, then the routine R8GB_MU must be
+    used instead.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Input, double A[(2*ML+MU+1)*N], the R8GB matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8GB_MXV[M], the product A * x.
+*/
+{
+  double *b;
+  int col = 2 * ml + mu + 1;
+  int i;
+  int j;
+  int jhi;
+  int jlo;
+
+  b = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 1; i <= m; i++ )
+  {
+    b[i-1] = 0.0;
+    jlo = i4_max ( 1, i - ml );
+    jhi = i4_min ( n, i + mu );
+    for ( j = jlo; j <= jhi; j++ )
+    {
+      b[i-1] = b[i-1] + a[i-j+ml+mu+(j-1)*col] * x[j-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+int r8gb_nz_num ( int m, int n, int ml, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_NZ_NUM counts the nonzeroes in a R8GB matrix.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    LINPACK and LAPACK band storage requires that an extra ML
+    superdiagonals be supplied to allow for fillin during Gauss
+    elimination.  Even though a band matrix is described as
+    having an upper bandwidth of MU, it effectively has an
+    upper bandwidth of MU+ML.  This routine will examine
+    values it finds in these extra bands, so that both unfactored
+    and factored matrices can be handled.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Input, double A[(2*ML+MU+1)*N], the R8GB matrix.
+
+    Output, int R8GB_NZ_NUM, the number of nonzero entries in A.
+*/
+{
+  int i;
+  int j;
+  int jhi;
+  int jlo;
+  int nz_num;
+
+  nz_num = 0;
+
+  for ( i = 0; i < m; i++ )
+  {
+    jlo = i4_max ( 0, i - ml );
+    jhi = i4_min ( n-1, i + mu + ml );
+    for ( j = jlo; j <= jhi; j++ )
+    {
+      if ( a[i-j+ml+mu+j*(2*ml+mu+1)] != 0.0 )
+      {
+        nz_num = nz_num + 1;
+      }
+    }
+  }
+
+  return nz_num;
+}
+/******************************************************************************/
+
+void r8gb_print ( int m, int n, int ml, int mu, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_PRINT prints a R8GB matrix.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1..
+
+    Input, double A[(2*ML+MU+1)*N], the R8GB matrix.
+
+    Input, char *ITLE, a title.
+*/
+{
+  r8gb_print_some ( m, n, ml, mu, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8gb_print_some ( int m, int n, int ml, int mu, double a[], int ilo, 
+  int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_PRINT_SOME prints some of a R8GB matrix.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1..
+
+    Input, double A[(2*ML+MU+1)*N], the R8GB matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int col = 2 * ml + mu + 1;
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2lo = i4_max ( i2lo, j2lo - mu - ml );
+
+    i2hi = i4_min ( ihi, m );
+    i2hi = i4_min ( i2hi, j2hi + ml );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      printf ( "%6d  ", i );
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( i < j - mu - ml || j + ml < i )
+        {
+          printf ( "            " );
+        }
+        else
+        {
+          printf ( "%10g  ", a[i-j+ml+mu+(j-1)*col] );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8gb_random ( int m, int n, int ml, int mu, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_RANDOM randomizes a R8GB matrix.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+    LINPACK and LAPACK band storage requires that an extra ML
+    superdiagonals be supplied to allow for fillin during Gauss
+    elimination.  Even though a band matrix is described as
+    having an upper bandwidth of MU, it effectively has an
+    upper bandwidth of MU+ML.  This routine assumes it is setting
+    up an unfactored matrix, so it only uses the first MU upper bands,
+    and does not place nonzero values in the fillin bands.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8GB_RANDOM[(2*ML+MU+1)*N], the R8GB matrix.
+*/
+{
+  double *a;
+  int col = 2 * ml + mu + 1;
+  int i;
+  int j;
+  int row;
+
+  a = ( double * ) malloc ( col * n * sizeof ( double ) );
+
+  for ( j = 1; j <= n; j++ )
+  {
+    for ( row = 1; row <= col; row++ )
+    {
+      i = row + j - ml - mu - 1;
+      if ( ml < row && 1 <= i && i <= m )
+      {
+        a[row-1+(j-1)*col] = r8_uniform_01 ( seed );
+      }
+      else
+      {
+        a[(row-1)+(j-1)*col] = 0.0;
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+double *r8gb_sl ( int n, int ml, int mu, double a_lu[], int pivot[], 
+  double b[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_SL solves a system factored by R8GB_FA.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2012
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979,
+    ISBN13: 978-0-898711-72-1,
+    LC: QA214.L56.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than N-1.
+
+    Input, double A_LU[(2*ML+MU+1)*N], the LU factors from R8GB_FA.
+
+    Input, int PIVOT[N], the pivot vector from R8GB_FA.
+
+    Input, double B[N], the right hand side vector.
+
+    Input, int JOB.
+    0, solve A * x = b.
+    nonzero, solve A' * x = b.
+
+    Output, double R8GB_SL[N], the solution.
+*/
+{
+  int col = 2 * ml + mu + 1;
+  int i;
+  int k;
+  int l;
+  int la;
+  int lb;
+  int lm;
+  int m;
+  double t;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+  }
+
+  m = mu + ml + 1;
+/*
+  Solve A * x = b.
+*/
+  if ( job == 0 )
+  {
+/*
+  Solve L * Y = B.
+*/
+    if ( 1 <= ml )
+    {
+      for ( k = 1; k <= n-1; k++ )
+      {
+        lm = i4_min ( ml, n-k );
+        l = pivot[k-1];
+
+        if ( l != k )
+        {
+          t      = x[l-1];
+          x[l-1] = x[k-1];
+          x[k-1] = t;
+        }
+        for ( i = 1; i <= lm; i++ )
+        {
+          x[k+i-1] = x[k+i-1] + x[k-1] * a_lu[m+i-1+(k-1)*col];
+        }
+      }
+    }
+/*
+  Solve U * X = Y.
+*/
+    for ( k = n; 1 <= k; k-- )
+    {
+      x[k-1] = x[k-1] / a_lu[m-1+(k-1)*col];
+      lm = i4_min ( k, m ) - 1;
+      la = m - lm;
+      lb = k - lm;
+      for ( i = 0; i <= lm-1; i++ )
+      {
+        x[lb+i-1] = x[lb+i-1] - x[k-1] * a_lu[la+i-1+(k-1)*col];
+      }
+    }
+  }
+/*
+  Solve A' * X = B.
+*/
+  else
+  {
+/*
+  Solve U' * Y = B.
+*/
+    for ( k = 1; k <= n; k++ )
+    {
+      lm = i4_min ( k, m ) - 1;
+      la = m - lm;
+      lb = k - lm;
+      for ( i = 0; i <= lm-1; i++ )
+      {
+        x[k-1] = x[k-1] - x[lb+i-1] * a_lu[la+i-1+(k-1)*col];
+      }
+      x[k-1] = x[k-1] / a_lu[m-1+(k-1)*col];
+    }
+/*
+  Solve L' * X = Y.
+*/
+    if ( 1 <= ml )
+    {
+      for ( k = n-1; 1 <= k; k-- )
+      {
+        lm = i4_min ( ml, n-k );
+        for ( i = 1; i <= lm; i++ )
+        {
+          x[k-1] = x[k-1] + x[k+i-1] * a_lu[m+i-1+(k-1)*col];
+        }
+        l = pivot[k-1];
+
+        if ( l != k )
+        {
+          t      = x[l-1];
+          x[l-1] = x[k-1];
+          x[k-1] = t;
+        }
+      }
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+void r8gb_to_r8s3 ( int m, int n, int ml, int mu, double a[], int nz_num, 
+  int *isym, int row[], int col[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_TO_R8S3 copies a R8GB matrix to a R8S3 matrix.
+
+  Discussion:
+
+    The R8GB storage format is for an M by N banded matrix, with lower 
+    bandwidth ML and upper bandwidth MU.  Storage includes room for ML 
+    extra superdiagonals, which may be required to store nonzero entries 
+    generated during Gaussian elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    LINPACK and LAPACK band storage requires that an extra ML
+    superdiagonals be supplied to allow for fillin during Gauss
+    elimination.  Even though a band matrix is described as
+    having an upper bandwidth of MU, it effectively has an
+    upper bandwidth of MU+ML.  This routine will copy nonzero
+    values it finds in these extra bands, so that both unfactored
+    and factored matrices can be handled.
+
+    The R8S3 storage format corresponds to the SLAP Triad format.
+
+    The R8S3 storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.  The entries may be given in any order.  No
+    check is made for the erroneous case in which a given matrix entry is
+    specified more than once.
+
+    There is a symmetry option for square matrices.  If the symmetric storage
+    option is used, the format specifies that only nonzeroes on the diagonal
+    and lower triangle are stored.  However, this routine makes no attempt
+    to enforce this.  The only thing it does is to "reflect" any nonzero
+    offdiagonal value.  Moreover, no check is made for the erroneous case
+    in which both A(I,J) and A(J,I) are specified, but with different values.
+
+    This routine reorders the entries of A so that the first N entries
+    are exactly the diagonal entries of the matrix, in order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrices.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrices.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths of A1.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Input, double A[(2*ML+MU+1)*N], the R8GB matrix.
+
+    Input, int NZ_NUM, the number of nonzero entries in A.
+    This number can be obtained by calling R8GB_NZ_NUM.
+
+    Output, int *ISYM, is 0 if the matrix is not symmetric, and 1
+    if the matrix is symmetric.  If the matrix is symmetric, then
+    only the nonzeroes on the diagonal and in the lower triangle are stored.
+    For this routine, ISYM is always output 0.
+
+    Output, int ROW[NZ_NUM]), the row indices.
+
+    Output, int COL[NZ_NUM], the column indices.
+
+    Output, double B[NZ_NUM], the R8S3 matrix.
+*/
+{
+  int i;
+  int j;
+  int nz;
+
+  *isym = 0;
+  nz = 0;
+
+  for ( i = 1; i <= m; i++ )
+  {
+    for ( j = 1; j <= n; j++ )
+    {
+      if ( i - ml <= j && j <= i + mu + ml )
+      {
+        if ( a[ml+mu+1+i-j-1+(j-1)*(2*ml+mu+1)] != 0.0 )
+        {
+          if ( nz_num <= nz )
+          {
+            fprintf ( stderr, "\n" );
+            fprintf ( stderr, "R8GB_TO_R8S3 - Fatal error!\n" );
+            fprintf ( stderr, "  NZ_NUM = %d\n", nz_num );
+            fprintf ( stderr, 
+            "  But the matrix has more nonzeros than that!\n" );
+            exit ( 1 );
+          }
+
+          row[nz] = i;
+          col[nz] = j;
+          b[nz] = a[ml+mu+1+i-j-1+(j-1)*(2*ml+mu+1)];
+          nz = nz + 1;
+        }
+      }
+    }
+  }
+
+  if ( nz < nz_num )
+  {
+    printf ( "\n" );
+    printf ( "R8GB_TO_R8S3 - Warning!\n" );
+    printf ( "  NZ_NUM = %d\n", nz_num );
+    printf ( "  But the number of nonzeros is %d\n", nz );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8gb_to_r8sp ( int m, int n, int ml, int mu, double a[], int nz_num, 
+  int row[], int col[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_TO_R8SP copies a R8GB matrix to a R8SP matrix.
+
+  Discussion:
+
+    The R8GB storage format is for an M by N banded matrix, with lower 
+    bandwidth ML and upper bandwidth MU.  Storage includes room for ML 
+    extra superdiagonals, which may be required to store nonzero entries 
+    generated during Gaussian elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    LINPACK and LAPACK band storage requires that an extra ML
+    superdiagonals be supplied to allow for fillin during Gauss
+    elimination.  Even though a band matrix is described as
+    having an upper bandwidth of MU, it effectively has an
+    upper bandwidth of MU+ML.  This routine will copy nonzero
+    values it finds in these extra bands, so that both unfactored
+    and factored matrices can be handled.
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrices.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrices.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths of A1.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Input, double A[(2*ML+MU+1)*N], the R8GB matrix.
+
+    Input, int NZ_NUM, the number of nonzero entries in A.
+    This number can be obtained by calling R8GB_NZ_NUM.
+
+    Output, int ROW[NZ_NUM]), the row indices.
+
+    Output, int COL[NZ_NUM], the column indices.
+
+    Output, double B[NZ_NUM], the R8S3 matrix.
+*/
+{
+  int i;
+  int j;
+  int jhi;
+  int jlo;
+  int nz;
+
+  nz = 0;
+
+  for ( i = 1; i <= m; i++ )
+  {
+    jlo = i4_max ( 1, i - ml );
+    jhi = i4_min ( n, i + ml + mu );
+
+    for ( j = jlo; j <= jhi; j++ )
+    {
+      if ( a[ml+mu+1+i-j-1+(j-1)*(2*ml+mu+1)] == 0.0 )
+      {
+        continue;
+      }
+      if ( nz_num <= nz )
+      {
+        fprintf ( stderr, "\n" );
+        fprintf ( stderr, "R8GB_TO_R8SP - Fatal error!\n" );
+        fprintf ( stderr, "  NZ_NUM = %d\n", nz_num );
+        fprintf ( stderr, "  But the matrix has more nonzeros than that!\n" );
+        exit ( 1 );
+      }
+
+      row[nz] = i;
+      col[nz] = j;
+      b[nz] = a[ml+mu+1+i-j-1+(j-1)*(2*ml+mu+1)];
+      nz = nz + 1;
+    }
+  }
+
+  if ( nz < nz_num )
+  {
+    printf ( "\n" );
+    printf ( "R8GB_TO_R8SP - Warning!\n" );
+    printf ( "  NZ_NUM = %d\n", nz_num );
+    printf ( "  But the number of nonzeros is %d\n", nz );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8gb_to_r8vec ( int m, int n, int ml, int mu, double *a )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_TO_R8VEC copies a R8GB matrix to a real vector.
+
+  Discussion:
+
+    In C++ and FORTRAN, this routine is not really needed.  In MATLAB,
+    a data item carries its dimensionality implicitly, and so cannot be
+    regarded sometimes as a vector and sometimes as an array.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns in the array.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+
+    Input, double A[(2*ML+MU+1)*N], the array.
+
+    Output, double R8GB_TO_R8VEC[(2*ML+MU+1)*N], the vector.
+*/
+{
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+  double *x;
+
+  x = ( double * ) malloc ( (2*ml+mu+1) * n * sizeof ( double ) );
+
+  for ( j = 1; j <= n; j++ )
+  {
+    ihi = i4_min ( ml + mu, ml + mu + 1 - j );
+    for ( i = 1; i <= ihi; i++ )
+    {
+      x[i-1+(j-1)*(2*ml+mu+1)] = 0.0;
+    }
+
+    ilo = i4_max ( ihi + 1, 1 );
+    ihi = i4_min ( 2*ml+mu+1, ml+mu+m+1-j );
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      x[i-1+(j-1)*(2*ml+mu+1)] = a[i-1+(j-1)*(2*ml+mu+1)];
+    }
+
+    ilo = ihi + 1;
+    ihi = 2*ml+mu+1;
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      x[i-1+(j-1)*(2*ml+mu+1)] = 0.0;
+    }
+
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8gb_to_r8ge ( int m, int n, int ml, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_TO_R8GE copies a R8GB matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+    LINPACK and LAPACK band storage requires that an extra ML
+    superdiagonals be supplied to allow for fillin during Gauss
+    elimination.  Even though a band matrix is described as
+    having an upper bandwidth of MU, it effectively has an
+    upper bandwidth of MU+ML.  This routine will copy nonzero
+    values it finds in these extra bands, so that both unfactored
+    and factored matrices can be handled.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrices.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrices.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths of A1.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Input, double A[(2*ML+MU+1)*N], the R8GB matrix.
+
+    Output, double R8GB_TO_R8GE[M*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( i = 1; i <= m; i++ )
+  {
+    for ( j = 1; j <= n; j++ )
+    {
+      if ( i - ml <= j && j <= i + mu )
+      {
+        b[i-1+(j-1)*m] = a[ml+mu+i-j+(j-1)*(2*ml+mu+1)];
+      }
+      else
+      {
+        b[i-1+(j-1)*m] = 0.0;
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+int r8gb_trf ( int m, int n, int ml, int mu, double a[], int pivot[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_TRF performs a LAPACK-style PLU factorization of a R8GB matrix.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+    This is a simplified, standalone version of the LAPACK
+    routine SGBTRF.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2012
+
+  Author:
+
+    Original FORTRAN77 version by Anderson, Bai, Bischof, Blackford,
+    Demmel, Dongarra, DuCroz, Greenbaum, Hammarling, McKenney, Sorensen.
+    C version by John Burkardt.
+
+  Reference:
+
+    Edward Anderson, Zhaojun Bai, Christian Bischof, Susan Blackford, 
+    James Demmel, Jack Dongarra, Jeremy Du Croz, Anne Greenbaum, 
+    Sven Hammarling, Alan McKenney, Danny Sorensen,
+    LAPACK User's Guide,
+    Second Edition,
+    SIAM, 1995.
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix A.  0 <= M.
+
+    Input, int N, the number of columns of the matrix A.  0 <= N.
+
+    Input, int ML, the number of subdiagonals within the band of A.
+    0 <= ML.
+
+    Input, int MU, the number of superdiagonals within the band of A.
+    0 <= MU.
+
+    Input/output, double A[(2*ML+MU+1)*N].  On input, the matrix A in band 
+    storage, and on output, information about the PLU factorization.
+
+    Output, int PIVOT(min(M,N)), the pivot indices;
+    for 1 <= i <= min(M,N), row i of the matrix was interchanged with
+    row IPIV(i).
+
+    Output, int R8GB_TRF, error flag.
+    = 0: successful exit;
+    < 0: an input argument was illegal;
+    > 0: if INFO = +i, U(i,i) is exactly zero. The factorization
+         has been completed, but the factor U is exactly
+         singular, and division by zero will occur if it is used
+         to solve a system of equations.
+*/
+{
+  int i;
+  int info;
+  int j;
+  int jp;
+  int ju;
+  int k;
+  int km;
+  int kv;
+  double piv;
+  double temp;
+
+  info = 0;
+/*
+  KV is the number of superdiagonals in the factor U, allowing for fill-in.
+*/
+  kv = mu + ml;
+/*
+  Set fill-in elements in columns MU+2 to KV to zero.
+*/
+  for ( j = mu+2; j <= i4_min ( kv, n ); j++ )
+  {
+    for ( i = kv - j + 1; i <= ml; i++ )
+    {
+      a[i-1+(j-1)*(2*ml+mu+1)] = 0.0;
+    }
+  }
+/*
+  JU is the index of the last column affected by the current stage
+  of the factorization.
+*/
+  ju = 1;
+
+  for ( j = 1; j <= i4_min ( m, n ); j++ )
+  {
+/*
+  Set the fill-in elements in column J+KV to zero.
+*/
+    if ( j + kv <= n )
+    {
+      for ( i = 1; i <= ml; i++ )
+      {
+        a[i-1+(j+kv-1)*(2*ml+mu+1)] = 0.0;
+      }
+    }
+/*
+  Find the pivot and test for singularity.
+  KM is the number of subdiagonal elements in the current column.
+*/
+    km = i4_min ( ml, m-j );
+
+    piv = r8_abs ( a[kv+(j-1)*(2*ml+mu+1)] );
+    jp = kv + 1;
+
+    for ( i = kv + 2; i <= kv + km + 1; i++ )
+    {
+      if ( piv < r8_abs ( a[i-1+(j-1)*(2*ml+mu+1)] ) )
+      {
+        piv = r8_abs ( a[i-1+(j-1)*(2*ml+mu+1)] );
+        jp = i;
+      }
+    }
+
+    jp = jp - kv;
+
+    pivot[j-1] = jp + j - 1;
+
+    if ( a[kv+jp-1+(j-1)*(2*ml+mu+1)] != 0.0 )
+    {
+      ju = i4_max ( ju, i4_min ( j+mu+jp-1, n ) );
+/*
+  Apply interchange to columns J to JU.
+*/
+      if ( jp != 1 )
+      {
+        for ( i = 0; i <= ju - j; i++ )
+        {
+          temp = a[kv+jp-i-1+(j+i-1)*(2*ml+mu+1)];
+          a[kv+jp-i-1+(j+i-1)*(2*ml+mu+1)] = a[kv+1-i-1+(j+i-1)*(2*ml+mu+1)];
+          a[kv+1-i-1+(j+i-1)*(2*ml+mu+1)] = temp; 
+        }
+      }
+/*
+  Compute the multipliers.
+*/
+      if ( 0 < km )
+      {
+        for ( i = kv+2; i <= kv+km+1; i++ )
+        {
+          a[i-1+(j-1)*(2*ml+mu+1)] = a[i-1+(j-1)*(2*ml+mu+1)] 
+            / a[kv+(j-1)*(2*ml+mu+1)];
+        }
+/*
+  Update the trailing submatrix within the band.
+*/
+        if ( j < ju )
+        {
+          for ( k = 1; k <= ju - j; k++ )
+          {
+            if ( a[kv-k+(j+k-1)*(2*ml+mu+1)] != 0.0 )
+            {
+              for ( i = 1; i <= km; i++ )
+              {
+                a[kv+i-k+(j+k-1)*(2*ml+mu+1)] = a[kv+i-k+(j+k-1)*(2*ml+mu+1)] 
+                  - a[kv+i+(j-1)*(2*ml+mu+1)] * a[kv-k+(j+k-1)*(2*ml+mu+1)];
+              }
+            }
+          }
+        }
+      }
+    }
+    else
+/*
+  If pivot is zero, set INFO to the index of the pivot
+  unless a zero pivot has already been found.
+*/
+    {
+      if ( info == 0 )
+      {
+        info = j;
+      }
+    }
+  }
+
+  return info;
+}
+/******************************************************************************/
+
+double *r8gb_trs ( int n, int ml, int mu, int nrhs, char trans, double a[], 
+  int pivot[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_TRS solves a linear system factored by R8GB_TRF.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2012
+
+  Author:
+
+    Original FORTRAN77 version by Anderson, Bai, Bischof, Blackford,
+    Demmel, Dongarra, DuCroz, Greenbaum, Hammarling, McKenney, Sorensen.
+    C version by John Burkardt.
+
+  Reference:
+
+    Edward Anderson, Zhaojun Bai, Christian Bischof, Susan Blackford, 
+    James Demmel, Jack Dongarra, Jeremy Du Croz, Anne Greenbaum, 
+    Sven Hammarling, Alan McKenney, Danny Sorensen,
+    LAPACK User's Guide,
+    Second Edition,
+    SIAM, 1995.
+
+  Parameters:
+
+    Input, int N, the order of the matrix A.
+    N must be positive.
+
+    Input, int ML, the number of subdiagonals within the band of A.
+    ML must be at least 0, and no greater than N - 1.
+
+    Input, int MU, the number of superdiagonals within the band of A.
+    MU must be at least 0, and no greater than N - 1.
+
+    Input, int NRHS, the number of right hand sides and the number of
+    columns of the matrix B.  NRHS must be positive.
+
+    Input, char TRANS, specifies the form of the system.
+    'N':  A * x = b  (No transpose)
+    'T':  A'* X = B  (Transpose)
+    'C':  A'* X = B  (Conjugate transpose = Transpose)
+
+    Input, double A[(2*ML+MU+1)*N], the LU factorization of the band matrix
+    A, computed by R8GB_TRF.  
+
+    Input, int PIVOT[N], the pivot indices; for 1 <= I <= N, row I
+    of the matrix was interchanged with row PIVOT(I).
+
+    Input, double B[N*NRHS], the right hand side vectors.
+
+    Output, double R8GB_TRS[N*NRHS], the solution vectors.
+*/
+{
+  int i;
+  int j;
+  int k;
+  int kd;
+  int l;
+  int lm;
+  double temp;
+  double *x;
+/*
+  Test the input parameters.
+*/
+  if ( trans != 'N' && trans != 'n' &&
+       trans != 'T' && trans != 't' &&
+       trans != 'C' && trans != 'c' )
+  {
+    return NULL;
+  }
+  else if ( n <= 0 )
+  {
+    return NULL;
+  }
+  else if ( ml < 0 )
+  {
+    return NULL;
+  }
+  else if ( mu < 0 )
+  {
+    return NULL;
+  }
+  else if ( nrhs <= 0 )
+  {
+    return NULL;
+  }
+
+  x = ( double * ) malloc ( n * nrhs * sizeof ( double ) );
+
+  for ( k = 0; k < nrhs; k++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      x[i+k*n] = b[i+k*n];
+    }
+  }
+
+  kd = mu + ml + 1;
+/*
+  Solve A * x = b.
+
+  Solve L * x = b, overwriting b with x.
+
+  L is represented as a product of permutations and unit lower
+  triangular matrices L = P(1) * L(1) * ... * P(n-1) * L(n-1),
+  where each transformation L(i) is a rank-one modification of
+  the identity matrix.
+*/
+  if ( trans == 'N' || trans == 'n' )
+  {
+    if ( 0 < ml )
+    {
+      for ( j = 1; j <= n-1; j++ )
+      {
+        lm = i4_min ( ml, n-j );
+        l = pivot[j-1];
+
+        for ( k = 0; k < nrhs; k++ )
+        {
+          temp       = x[l-1+k*n];
+          x[l-1+k*n] = x[j-1+k*n];
+          x[j-1+k*n] = temp;
+        }
+
+        for ( k = 0; k < nrhs; k++ )
+        {
+          if ( x[j-1+k*n] != 0.0 )
+          {
+            for ( i = 1; i <= lm; i++ )
+            {
+              x[j+i-1+k*n] = x[j+i-1+k*n] 
+                - a[kd+i-1+(j-1)*(2*ml+mu+1)] * x[j-1+k*n];
+            }
+          }
+        }
+      }
+    }
+/*
+  Solve U * x = b, overwriting b with x.
+*/
+    for ( k = 0; k < nrhs; k++ )
+    {
+      for ( j = n; 1 <= j; j-- )
+      {
+        if ( x[j-1+k*n] != 0.0 )
+        {
+          l = ml + mu + 1 - j;
+          x[j-1+k*n] = x[j-1+k*n] / a[ml+mu+(j-1)*(2*ml+mu+1)];
+          for ( i = j - 1; i4_max ( 1, j - ml - mu ) <= i; i-- )
+          {
+            x[i-1+k*n] = x[i-1+k*n] 
+              - a[l+i-1+(j-1)*(2*ml+mu+1)] * x[j-1+k*n];
+          }
+        }
+      }
+    }
+  }
+  else
+  {
+/*
+  Solve A' * x = b.
+
+  Solve U' * x = b, overwriting b with x.
+*/
+    for ( k = 0; k < nrhs; k++ )
+    {
+      for ( j = 1; j <= n; j++ )
+      {
+        temp = x[j-1+k*n];
+        l = ml + mu + 1 - j;
+        for ( i = i4_max ( 1, j - ml - mu ); i <= j - 1; i++ )
+        {
+          temp = temp - a[l+i-1+(j-1)*(2*ml+mu+1)] * x[i-1+k*n];
+        }
+        x[j-1+k*n] = temp / a[ml+mu+(j-1)*(2*ml+mu+1)];
+      }
+    }
+/*
+  Solve L' * x = b, overwriting b with x.
+*/
+    if ( 0 < ml )
+    {
+      for ( j = n-1; 1 <= j; j-- )
+      {
+        lm = i4_min ( ml, n-j );
+
+        for ( k = 0; k < nrhs; k++ )
+        {
+          for ( i = 1; i <= lm; i++ )
+          {
+            x[j-1+k*n] = x[j-1+k*n] 
+              - x[j+i-1+k*n] * a[kd+i-1+(j-1)*(2*ml+mu+1)];
+          }
+        }
+
+        l = pivot[j-1];
+
+        for ( k = 0; k < nrhs; k++ )
+        {
+          temp       = x[l-1+k*n];
+          x[l-1+k*n] = x[j-1+k*n];
+          x[j-1+k*n] = temp;
+        }
+      }
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8gb_vxm ( int m, int n, int ml, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_VXM multilies a vector times a R8GB matrix.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+    For our purposes, X*A and A'*X mean the same thing.
+
+    LINPACK and LAPACK storage of general band matrices requires
+    an extra ML upper diagonals for possible fill in entries during
+    Gauss elimination.  This routine does not access any entries
+    in the fill in diagonals, because it assumes that the matrix
+    has NOT had Gauss elimination applied to it.  If the matrix
+    has been Gauss eliminated, then the routine R8GB_MU must be
+    used instead.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative, and no greater than min(M,N)-1.
+
+    Input, double A[(2*ML+MU+1)*N], the R8GB matrix.
+
+    Input, double X[M], the vector to be multiplied by A.
+
+    Output, double R8GB_VXM[N], the product X*A or A'*X.
+*/
+{
+  double *b;
+  int col = 2 * ml + mu + 1;
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( j = 1; j <= n; j++ )
+  {
+    b[j-1] = 0.0;
+    ilo = i4_max ( 1, j - mu );
+    ihi = i4_min ( m, j + ml );
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      b[j-1] = b[j-1] + x[i-1] * a[i-j+ml+mu+(j-1)*col];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8gb_zero ( int m, int n, int ml, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GB_ZERO zeros a R8GB matrix.
+
+  Discussion:
+
+    The R8GB storage format is used for an M by N banded matrix, with lower bandwidth ML
+    and upper bandwidth MU.  Storage includes room for ML extra superdiagonals, 
+    which may be required to store nonzero entries generated during Gaussian 
+    elimination.
+
+    The original M by N matrix is "collapsed" downward, so that diagonals
+    become rows of the storage array, while columns are preserved.  The
+    collapsed array is logically 2*ML+MU+1 by N.  
+
+    The two dimensional array can be further reduced to a one dimensional
+    array, stored by columns.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be nonnegative.
+
+    Input, int N, the number of columns of the matrix.
+    N must be nonnegative.
+
+    Input, int ML, MU, the lower and upper bandwidths.
+    ML and MU must be nonnegative and no greater than min(M,N)-1.
+
+    Output, double R8GB_ZERO[(2*ML+MU+1)*N], the R8GB matrix.
+*/
+{
+  double *a;
+  int col = 2 * ml + mu + 1;
+  int j;
+  int row;
+
+  a = ( double * ) malloc ( col * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( row = 0; row < col; row++ )
+    {
+      a[row+j*col] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+int r8gd_error ( int n, int ndiag )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GD_ERROR checks the dimensions of a R8GD matrix.
+
+  Discussion:
+
+    The R8GD storage format is used for matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0.
+    Each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+    Similarly, the subdiagonals are assigned offsets of -1 through -(N-1).
+
+    Now, assuming that only a few of these diagonals contain nonzeros,
+    then for the I-th diagonal to be saved, we stored its offset in
+    OFFSET(I), and its entries in column I of the matrix.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than 2 * N - 1.
+
+    Output, int R8GD_ERROR, is TRUE if an error was detected.
+*/
+{
+  if ( n < 1 )
+  {
+    printf ( "\n" );
+    printf ( "R8GD_ERROR - Illegal N = %d\n", n );
+    return 1;
+  }
+
+  if ( ndiag < 1 || 2 * n - 1 < ndiag )
+  {
+    printf ( "\n" );
+    printf ( "R8GD_ERROR - Illegal NDIAG = %d\n", ndiag );
+    return 1;
+  }
+
+  return 0;
+}
+/******************************************************************************/
+
+double *r8gd_indicator ( int n, int ndiag, int offset[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GD_INDICATOR sets up a R8GD indicator matrix.
+
+  Discussion:
+
+    The R8GD storage format is used for matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0.
+    Each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+    Similarly, the subdiagonals are assigned offsets of -1 through -(N-1).
+
+    Now, assuming that only a few of these diagonals contain nonzeros,
+    then for the I-th diagonal to be saved, we stored its offset in
+    OFFSET(I), and its entries in column I of the matrix.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than 2 * N - 1.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Output, double R8GD_INDICATOR[N*NDIAG], the R8GD matrix.
+*/
+{
+  double *a;
+  int diag;
+  int fac;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * ndiag * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( diag = 1; diag <= ndiag; diag++ )
+    {
+      j = i + offset[diag-1];
+      if ( 1 <= j && j <= n )
+      {
+        a[i-1+(diag-1)*n] = ( double ) ( fac * i + j );
+      }
+      else
+      {
+        a[i-1+(diag-1)*n] = 0.0;
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8gd_mxv ( int n, int ndiag, int offset[], double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GD_MXV multiplies a R8GD matrix by a vector.
+
+  Discussion:
+
+    The R8GD storage format is used for matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0.
+    Each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+    Similarly, the subdiagonals are assigned offsets of -1 through -(N-1).
+
+    Now, assuming that only a few of these diagonals contain nonzeros,
+    then for the I-th diagonal to be saved, we stored its offset in
+    OFFSET(I), and its entries in column I of the matrix.  
+
+  Example:
+
+    The "offset" value is printed near the first entry of each diagonal
+    in the original matrix, and above the columns in the new matrix.
+
+    Original matrix               New Matrix
+
+      0    1   2   3   4   5        -3  -2   0   1   3   5
+                             
+        11  12   0  14   0  16      --  --  11  12  14  16
+   -1 =  0  22  23   0  25   0      --  --  22  23  25  --
+   -2 = 31   0  33  34   0  36      --  31  33  34  36  --
+   -3 = 41  42   0  44  45   0      41  42  44  45  --  --
+   -4 =  0  52  53   0  55  56      52  53  55  56  --  --
+   -5 =  0   0  63  64  65  66      63  64  66  --  --  --
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than 2 * N - 1.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8GD matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8GD_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int diag;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( diag = 0; diag < ndiag; diag++ )
+    {
+      j = i + offset[diag];
+      if ( 0 <= j && j < n )
+      {
+        b[i] = b[i] + a[i+diag*n] * x[j];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8gd_print ( int n, int ndiag, int offset[], double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GD_PRINT prints a R8GD matrix.
+
+  Discussion:
+
+    The R8GD storage format is used for matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0.
+    Each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+    Similarly, the subdiagonals are assigned offsets of -1 through -(N-1).
+
+    Now, assuming that only a few of these diagonals contain nonzeros,
+    then for the I-th diagonal to be saved, we stored its offset in
+    OFFSET(I), and its entries in column I of the matrix.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than 2 * N - 1.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8GD matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8gd_print_some ( n, ndiag, offset, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8gd_print_some ( int n, int ndiag, int offset[], double a[], int ilo, 
+  int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GD_PRINT_SOME prints some of a R8GD matrix.
+
+  Discussion:
+
+    The R8GD storage format is used for matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0.
+    Each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+    Similarly, the subdiagonals are assigned offsets of -1 through -(N-1).
+
+    Now, assuming that only a few of these diagonals contain nonzeros,
+    then for the I-th diagonal to be saved, we stored its offset in
+    OFFSET(I), and its entries in column I of the matrix.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than 2 * N - 1.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8GD matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int diag;
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col:  " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j2 = j2lo; j2 <= j2hi; j2++ )
+      {
+        aij = 0.0;
+        for ( diag = 0; diag < ndiag; diag++ )
+        {
+          if ( j2 - i == offset[diag] )
+          {
+            aij = a[i-1+diag*n];
+          }
+        }
+
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8gd_random ( int n, int ndiag, int offset[], int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GD_RANDOM randomizes a R8GD matrix.
+
+  Discussion:
+
+    The R8GD storage format is used for matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0.
+    Each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+    Similarly, the subdiagonals are assigned offsets of -1 through -(N-1).
+
+    Now, assuming that only a few of these diagonals contain nonzeros,
+    then for the I-th diagonal to be saved, we stored its offset in
+    OFFSET(I), and its entries in column I of the matrix.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than 2 * N - 1.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8GD_RANDOM[N*NDIAG], the R8GD matrix.
+*/
+{
+  double *a;
+  int diag;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * ndiag * sizeof ( double ) );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( diag = 0; diag < ndiag; diag++ )
+    {
+      j = i + offset[diag];
+      if ( 1 <= j && j <= n )
+      {
+        a[i-1+diag*n] = r8_uniform_01 ( seed );
+      }
+      else
+      {
+        a[i-1+diag*n] = 0.0;
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8gd_to_r8ge ( int n, int ndiag, int offset[], double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GD_TO_R8GE copies a R8GD matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8GD storage format is used for matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0.
+    Each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+    Similarly, the subdiagonals are assigned offsets of -1 through -(N-1).
+
+    Now, assuming that only a few of these diagonals contain nonzeros,
+    then for the I-th diagonal to be saved, we stored its offset in
+    OFFSET(I), and its entries in column I of the matrix.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than 2 * N - 1.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8GD matrix.
+
+    Output, double R8GD_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int diag;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      b[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( diag = 0; diag < ndiag; diag++ )
+    {
+      j = i + offset[diag];
+      if ( 0 <= j && j <= n-1 )
+      {
+        b[i+j*n] = a[i+diag*n];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8gd_vxm ( int n, int ndiag, int offset[], double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GD_VXM multiplies a vector by a R8GD matrix.
+
+  Discussion:
+
+    The R8GD storage format is used for matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0.
+    Each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+    Similarly, the subdiagonals are assigned offsets of -1 through -(N-1).
+
+    Now, assuming that only a few of these diagonals contain nonzeros,
+    then for the I-th diagonal to be saved, we stored its offset in
+    OFFSET(I), and its entries in column I of the matrix.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than 2 * N - 1.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8GD matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8GD_VXM[N], the product X*A.
+*/
+{
+  double *b;
+  int diag;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( diag = 0; diag < ndiag; diag++ )
+    {
+      j = i + offset[diag];
+      if ( 0 <= j && j < n )
+      {
+        b[j] = b[j] + x[i] * a[i+diag*n];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8gd_zero ( int n, int ndiag )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GD_ZERO zeros a R8GD matrix.
+
+  Discussion:
+
+    The R8GD storage format is used for matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0.
+    Each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+    Similarly, the subdiagonals are assigned offsets of -1 through -(N-1).
+
+    Now, assuming that only a few of these diagonals contain nonzeros,
+    then for the I-th diagonal to be saved, we stored its offset in
+    OFFSET(I), and its entries in column I of the matrix.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than 2 * N - 1.
+
+    Output, double R8GD_ZERO[N*NDIAG], the R8GD matrix.
+*/
+{
+  double *a;
+  int diag;
+  int i;
+
+  a = ( double * ) malloc ( n * ndiag * sizeof ( double ) );
+
+  for ( diag = 0; diag < ndiag; diag++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+diag*n] = 0.0;
     }
   }
   return a;
@@ -6742,7 +19947,7 @@ double *r8ge_inverse ( int n, double a[], int pivot[] )
 
     Input, double A[N*N], the factor information computed by R8GE_FA.
 
-    Input, int PIVOT(N), the pivot vector from R8GE_FA.
+    Input, int PIVOT[N], the pivot vector from R8GE_FA.
 
     Output, double R8GE_INVERSE[N*N], the inverse matrix.
 */
@@ -8684,13 +21889,14 @@ double *r8ge_res ( int m, int n, double a[], double x[], double b[] )
 }
 /******************************************************************************/
 
-double *r8ge_sl ( int n, double a_lu[], int pivot[], double b[], int job )
+double *r8ge_sl_it ( int n, double a[], double a_lu[], int pivot[], double b[], 
+  int job, double x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8GE_SL solves a R8GE system factored by R8GE_FA.
+    R8GE_SL_IT applies one step of iterative refinement following R8GE_SL_NEW.
 
   Discussion:
 
@@ -8699,7 +21905,98 @@ double *r8ge_sl ( int n, double a_lu[], int pivot[], double b[], int job )
     dimensional logical array is mapped to a vector, in which storage is 
     by columns.
 
-    R8GE_SL is a simplified version of the LINPACK routine SGESL.
+    It is assumed that:
+
+    * the original matrix A has been factored by R8GE_FA;
+    * the linear system A * x = b has been solved once by R8GE_SL_NEW.
+
+    (Actually, it is not necessary to solve the system once using R8GE_SL_NEW.
+    You may simply supply the initial estimated solution X = 0.)
+
+    Each time this routine is called, it will compute the residual in
+    the linear system, apply one step of iterative refinement, and
+    add the computed correction to the current solution.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 March 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[N*N], the original, UNFACTORED R8GE matrix.
+
+    Input, double A_LU[N*N], the LU factors from R8GE_FA.
+
+    Input, int PIVOT[N], the pivot vector from R8GE_FA.
+
+    Input, double B[N], the right hand side vector.
+
+    Input, int JOB, specifies the operation.
+    0, solve A*X=B.
+    nonzero, solve A'*X=B.
+
+    Input, double X[N], an estimate of the solution of A * x = b.
+
+    Output, double R8GE_SL_IT[N], the solution after one step of 
+    iterative refinement.
+*/
+{
+  double *dx;
+  int i;
+  double *r;
+  double *x_new;
+/*
+  Compute the residual vector.
+*/
+  r = r8ge_res ( n, n, a, x, b );
+/*
+  Solve A * dx = r
+*/
+  dx = r8ge_sl_new ( n, a_lu, pivot, r, job );
+/*
+  Add dx to x.
+*/
+  x_new = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x_new[i] = x[i] + dx[i];
+  }
+
+  free ( r );
+  free ( dx );
+
+  return x_new;
+}
+/******************************************************************************/
+
+double *r8ge_sl_new ( int n, double a_lu[], int pivot[], double b[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GE_SL_NEW solves a R8GE system factored by R8GE_FA.
+
+  Discussion:
+
+    The R8GE storage format is used for a "general" M by N matrix.  
+    A physical storage space is made for each logical entry.  The two 
+    dimensional logical array is mapped to a vector, in which storage is 
+    by columns.
+
+    R8GE_SL_NEW is a simplified version of the LINPACK routine SGESL.
 
   Licensing:
 
@@ -8728,7 +22025,7 @@ double *r8ge_sl ( int n, double a_lu[], int pivot[], double b[], int job )
     0, solve A * x = b.
     nonzero, solve A' * x = b.
 
-    Output, double R8GE_SL[N], the solution vector.
+    Output, double R8GE_SL_NEW[N], the solution vector.
 */
 {
   int i;
@@ -8821,98 +22118,6 @@ double *r8ge_sl ( int n, double a_lu[], int pivot[], double b[], int job )
   }
 
   return x;
-}
-/******************************************************************************/
-
-double *r8ge_sl_it ( int n, double a[], double a_lu[], int pivot[], double b[], 
-  int job, double x[] )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8GE_SL_IT applies one step of iterative refinement following R8GE_SL.
-
-  Discussion:
-
-    The R8GE storage format is used for a "general" M by N matrix.  
-    A physical storage space is made for each logical entry.  The two 
-    dimensional logical array is mapped to a vector, in which storage is 
-    by columns.
-
-    It is assumed that:
-
-    * the original matrix A has been factored by R8GE_FA;
-    * the linear system A * x = b has been solved once by R8GE_SL.
-
-    (Actually, it is not necessary to solve the system once using R8GE_SL.
-    You may simply supply the initial estimated solution X = 0.)
-
-    Each time this routine is called, it will compute the residual in
-    the linear system, apply one step of iterative refinement, and
-    add the computed correction to the current solution.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    06 March 2012
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-    N must be positive.
-
-    Input, double A[N*N], the original, UNFACTORED R8GE matrix.
-
-    Input, double A_LU[N*N], the LU factors from R8GE_FA.
-
-    Input, int PIVOT[N], the pivot vector from R8GE_FA.
-
-    Input, double B[N], the right hand side vector.
-
-    Input, int JOB, specifies the operation.
-    0, solve A*X=B.
-    nonzero, solve A'*X=B.
-
-    Input, double X[N], an estimate of the solution of A * x = b.
-
-    Output, double R8GE_SL_IT[N], the solution after one step of 
-    iterative refinement.
-*/
-{
-  double *dx;
-  int i;
-  double *r;
-  double *x_new;
-/*
-  Compute the residual vector.
-*/
-  r = r8ge_res ( n, n, a, x, b );
-/*
-  Solve A * dx = r
-*/
-  dx = r8ge_sl ( n, a_lu, pivot, r, job );
-/*
-  Add dx to x.
-*/
-  x_new = ( double * ) malloc ( n * sizeof ( double ) );
-
-  for ( i = 0; i < n; i++ )
-  {
-    x_new[i] = x[i] + dx[i];
-  }
-
-  free ( r );
-  free ( dx );
-
-  return x_new;
 }
 /******************************************************************************/
 
@@ -9032,6 +22237,180 @@ double *r8ge_to_r8gb ( int m, int n, int ml, int mu, double a[] )
 }
 /******************************************************************************/
 
+void r8ge_to_r8ri ( int n, double a[], int nz, int ija[], double sa[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GE_TO_R8RI converts a R8GE matrix to R8RI form.
+
+  Discussion:
+
+    A R8GE matrix is in general storage.
+
+    An R8RI matrix is in row indexed sparse storage form.
+
+    The size of the arrays IJA and SA can be determined by calling
+    R8GE_TO_R8RI_SIZE.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    William Press, Brian Flannery, Saul Teukolsky, William Vetterling,
+    Numerical Recipes in FORTRAN: The Art of Scientific Computing,
+    Third Edition,
+    Cambridge University Press, 2007,
+    ISBN13: 978-0-521-88068-8,
+    LC: QA297.N866.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N*N], the matrix stored in GE 
+    or "general" format.
+
+    Input, int NZ, the size required for the RI
+    or "row indexed" sparse storage.
+
+    Output, int IJA[NZ], the index vector.
+
+    Output, double SA[NZ], the value vector.
+*/
+{
+  int i;
+  int im;
+  int j;
+  int k;
+  int l;
+
+  for ( k = 0; k < n; k++ )
+  {
+    i = k;
+    j = k;
+    sa[k] = a[i+j*n];
+  }
+
+  k = n;
+  sa[k] = 0.0;
+
+  for ( i = 0; i <= n; i++ )
+  {
+    ija[i] = 0;
+  }
+
+  im = 0;
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i != j )
+      {
+        if ( a[i+j*n] != 0.0 )
+        {
+          k = k + 1;
+          if ( ija[i] == 0 )
+          {
+            for ( l = im; l <= i; l++ )
+            {
+              ija[l] = k;
+            }
+            im = i + 1;
+          }
+          ija[k] = j;
+          sa[k] = a[i+j*n];
+        }
+      }
+    }
+  }
+
+  ija[n] = k + 1;
+
+  return;
+}
+/******************************************************************************/
+
+int r8ge_to_r8ri_size ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8GE_TO_R8RI_SIZE determines the size of an R8RI matrix.
+
+  Discussion:
+
+    N spaces are always used for the diagonal entries, plus a dummy.
+    The remaining spaces store off-diagonal nonzeros.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    William Press, Brian Flannery, Saul Teukolsky, William Vetterling,
+    Numerical Recipes in FORTRAN: The Art of Scientific Computing,
+    Third Edition,
+    Cambridge University Press, 2007,
+    ISBN13: 978-0-521-88068-8,
+    LC: QA297.N866.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N*N], the matrix stored in GE or "general" format.
+
+    Output, int R8GE_TO_R8RI_SIZE, the size required for the RI
+    or "row indexed" sparse storage.
+*/
+{
+  int i;
+  int j;
+  int nz;
+
+  nz = n + 1;
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i != j )
+      {
+        if ( a[i+j*n] != 0.0 )
+        {
+          nz = nz + 1;
+        }
+      }
+    }
+  }
+
+  return nz;
+}
+/******************************************************************************/
+
 double *r8ge_to_r8vec ( int m, int n, double *a )
 
 /******************************************************************************/
@@ -9047,7 +22426,7 @@ double *r8ge_to_r8vec ( int m, int n, double *a )
     dimensional logical array is mapped to a vector, in which storage is 
     by columns.
 
-    In C++  and FORTRAN, this routine is not really needed.  In MATLAB,
+    In C++ and FORTRAN, this routine is not really needed.  In MATLAB,
     a data item carries its dimensionality implicitly, and so cannot be
     regarded sometimes as a vector and sometimes as an array.
 
@@ -9732,9 +23111,9 @@ double *r8lt_inverse ( int n, double a[] )
   {
     if ( a[i+i*n] == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "R8LT_INVERSE - Fatal error!\n" );
-      printf ( "  Zero diagonal element.\n" );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8LT_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  Zero diagonal element.\n" );
       exit ( 1 );
     }
   }
@@ -10446,6 +23825,11010 @@ void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi,
 }
 /******************************************************************************/
 
+double *r8mat_uniform_01_new ( int m, int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_UNIFORM_01_NEW fills an R8MAT with pseudorandom values scaled to [0,1].
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+    This routine implements the recursion
+
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
+
+    The integer arithmetic never requires more than 32 bits,
+    including a sign bit.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 June 2009
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Paul Bratley, Bennett Fox, Linus Schrage,
+    A Guide to Simulation,
+    Springer Verlag, pages 201-202, 1983.
+
+    Bennett Fox,
+    Algorithm 647:
+    Implementation and Relative Efficiency of Quasirandom
+    Sequence Generators,
+    ACM Transactions on Mathematical Software,
+    Volume 12, Number 4, pages 362-376, 1986.
+
+    Philip Lewis, Allen Goodman, James Miller,
+    A Pseudo-Random Number Generator for the System/360,
+    IBM Systems Journal,
+    Volume 8, pages 136-143, 1969.
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input/output, int *SEED, the "seed" value.  Normally, this
+    value should not be 0, otherwise the output value of SEED
+    will still be 0, and R8_UNIFORM will be 0.  On output, SEED has
+    been updated.
+
+    Output, double R8MAT_UNIFORM_01_NEW[M*N], a matrix of pseudorandom values.
+*/
+{
+  int i;
+  int j;
+  int k;
+  double *r;
+
+  r = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      k = *seed / 127773;
+
+      *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
+
+      if ( *seed < 0 )
+      {
+        *seed = *seed + 2147483647;
+      }
+      r[i+j*m] = ( double ) ( *seed ) * 4.656612875E-10;
+    }
+  }
+
+  return r;
+}
+/******************************************************************************/
+
+double *r8ncf_indicator ( int m, int n, int nz_num, int rowcol[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8NCF_INDICATOR sets up a R8NCF indicator matrix.
+
+  Discussion:
+
+    The R8NCF storage format stores NZ_NUM, the number of nonzeros,
+    a real array containing the nonzero values, a 2 by NZ_NUM integer
+    array storing the row and column of each nonzero entry.
+
+    The R8NCF format is used by NSPCG.  NSPCG requires that the information
+    for the diagonal entries of the matrix must come first.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns in the matrix.
+
+    Input, int NZ_NUM, the number of nonzero entries.
+
+    Input, int ROWCOL[2*NZ_NUM], the coordinates of the nonzero entries.
+
+    Output, double A[NZ_NUM], the indicator matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( nz_num * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    i = rowcol[0+k*2];
+    j = rowcol[1+k*2];
+    a[k] = ( double ) ( fac * i + j );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8ncf_print ( int m, int n, int nz_num, int rowcol[], 
+  double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8NCF_PRINT prints a R8NCF matrix.
+
+  Discussion:
+
+    The R8NCF storage format stores NZ_NUM, the number of nonzeros,
+    a real array containing the nonzero values, a 2 by NZ_NUM integer
+    array storing the row and column of each nonzero entry.
+
+    The R8NCF format is used by NSPCG.  NSPCG requires that the information
+    for the diagonal entries of the matrix must come first.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROWCOL[2*NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements of the matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8ncf_print_some ( m, n, nz_num, rowcol, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8ncf_print_some ( int m, int n, int nz_num, int rowcol[], 
+  double a[], int ilo, int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8NCF_PRINT_SOME prints some of a R8NCF matrix.
+
+  Discussion:
+
+    The R8NCF storage format stores NZ_NUM, the number of nonzeros,
+    a real array containing the nonzero values, a 2 by NZ_NUM integer
+    array storing the row and column of each nonzero entry.
+
+    The R8NCF format is used by NSPCG.  NSPCG requires that the information
+    for the diagonal entries of the matrix must come first.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROWCOL[2*NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements of the matrix.
+
+    Input, int ILO, JLO, IHI, JHI, the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int inc;
+  int j;
+  int j2;
+  int j2hi;
+  int j2lo;
+  int k;
+  int nonzero;
+  double temp[INCX];
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    inc = j2hi + 1 - j2lo;
+
+    printf ( "\n" );
+
+    printf ( "  Col:  " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, m );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      nonzero = 0;
+      for ( j2 = 1; j2 <= INCX; j2++ )
+      {
+        temp[j2-1] = 0.0;
+      }
+
+      for ( k = 1; k <= nz_num; k++ )
+      {
+        if ( i == rowcol[0+(k-1)*2] && 
+          j2lo <= rowcol[1+(k-1)*2] && 
+          rowcol[1+(k-1)*2] <= j2hi )
+        {
+          j2 = rowcol[1+(k-1)*2] - j2lo + 1;
+
+          if ( a[k-1] == 0.0 )
+          {
+            continue;
+          }
+
+          nonzero = 1;
+          temp[j2-1] = a[k-1];
+        }
+      }
+
+      if ( nonzero )
+      {
+        printf ( "%6d", i );
+        for ( j2 = 1; j2 <= inc; j2++ )
+        {
+          printf ( "%12g  ", temp[j2-1] );
+        }
+        printf ( "\n" );
+      }
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double r8pbl_det ( int n, int mu, double a_lu[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBL_DET computes the determinant of a matrix factored by R8PBL_FA.
+
+  Discussion:
+
+    The R8PBL storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and lower triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row 1 of the array.
+    The first subdiagonal in row 2, columns 1 through MU.
+    The second subdiagonal in row 3, columns 1 through MU-1.
+    The MU-th subdiagonal in row MU+1, columns 1 through 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979,
+    ISBN13: 978-0-898711-72-1,
+    LC: QA214.L56.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the upper (and lower) bandwidth.
+    MU must be nonnegative, and no greater than N-1.
+
+    Input, double A_LU[(MU+1)*N], the LU factors from R8PBL_FA.
+
+    Output, double R8PBL_DET, the determinant of the matrix.
+*/
+{
+  double det;
+  int j;
+
+  det = 1.0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    det = det * a_lu[0+j*(mu+1)] * a_lu[0+j*(mu+1)];
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+double *r8pbl_indicator ( int n, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBL_INDICATOR sets up a R8PBL indicator matrix.
+
+  Discussion:
+
+    The R8PBL storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and lower triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row 1 of the array.
+    The first subdiagonal in row 2, columns 1 through MU.
+    The second subdiagonal in row 3, columns 1 through MU-1.
+    The MU-th subdiagonal in row MU+1, columns 1 through 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of subdiagonals in the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Output, double R8PBL_INDICATOR[(MU+1)*N], the R8PBL matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( ( mu + 1 ) * n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+/*
+  Zero out the "junk" entries.
+*/
+  for ( j = n - mu + 1; j <= n; j++ )
+  {
+    for ( i = n + 1; i <= j + mu; i++ )
+    {
+      a[i-j+(j-1)*(mu+1)] = 0.0;
+    }
+  }
+/*
+  Set the meaningful values.
+*/
+  for ( i = 0; i <= n; i++ )
+  {
+    for ( j = i4_max ( 1, i - mu ); j <= i; j++ )
+    {
+      a[i-j+(j-1)*(mu+1)] = ( double ) ( fac * i + j );
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+void r8pbl_print ( int n, int mu, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBL_PRINT prints a R8PBL matrix.
+
+  Discussion:
+
+    The R8PBL storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and lower triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row 1 of the array.
+    The first subdiagonal in row 2, columns 1 through MU.
+    The second subdiagonal in row 3, columns 1 through MU-1.
+    The MU-th subdiagonal in row MU+1, columns 1 through 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the upper (and lower) bandwidth.
+    MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBL matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8pbl_print_some ( n, mu, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8pbl_print_some ( int n, int mu, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBL_PRINT_SOME prints some of a R8PBL matrix.
+
+  Discussion:
+
+    The R8PBL storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and lower triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row 1 of the array.
+    The first subdiagonal in row 2, columns 1 through MU.
+    The second subdiagonal in row 3, columns 1 through MU-1.
+    The MU-th subdiagonal in row MU+1, columns 1 through 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the upper (and lower) bandwidth.
+    MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBL matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2lo = i4_max ( i2lo, j2lo - mu );
+
+    i2hi = i4_min ( ihi, n );
+    i2hi = i4_min ( i2hi, j2hi + mu );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( i <= j && j <= i + mu )
+        {
+          printf ( "%12g  ", a[j-i+(i-1)*(mu+1)] );
+        }
+        else if ( j <= i && i <= j + mu )
+        {
+          printf ( "%12g  ", a[i-j+(j-1)*(mu+1)] );
+        }
+        else
+        {
+          printf ( "              " );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8pbl_random ( int n, int mu, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBL_RANDOM randomizes a R8PBL matrix.
+
+  Discussion:
+
+    The R8PBL storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and lower triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row 1 of the array.
+    The first subdiagonal in row 2, columns 1 through MU.
+    The second subdiagonal in row 3, columns 1 through MU-1.
+    The MU-th subdiagonal in row MU+1, columns 1 through 1.
+
+    The matrix returned will be positive definite, but of limited
+    randomness.  The off diagonal elements are random values between
+    0 and 1, and the diagonal element of each row is selected to
+    ensure strict diagonal dominance.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of subdiagonals in the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8PBL_RANDOM[(MU+1)*N], the R8PBL matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  double r;
+  double sum2;
+
+  a = ( double * ) malloc ( ( mu + 1 ) * n * sizeof ( double ) );
+/*
+  Zero out the "junk" entries.
+*/
+  for ( j = n - mu; j <= n-1; j++ )
+  {
+    for ( i = n-j; i <= mu; i++ )
+    {
+      a[i+j*(mu+1)] = 0.0;
+    }
+  }
+/*
+  Set the off diagonal values.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = i4_max ( 0, i - mu ); j <= i - 1; j++ )
+    {
+      a[i-j+j*(mu+1)] = r8_uniform_01 ( seed );
+    }
+  }
+/*
+  Set the diagonal values.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    sum2 = 0.0;
+
+    for ( j = i4_max ( 0, i - mu ); j <= i-1; j++ )
+    {
+      sum2 = sum2 + r8_abs ( a[i-j+j*(mu+1)] );
+    }
+
+    for ( j = i+1; j <= i4_min ( i + mu, n -1 ); j++ )
+    {
+      sum2 = sum2 + r8_abs ( a[j-i+i*(mu+1)] );
+    }
+
+    r = r8_uniform_01 ( seed );
+
+    a[0+i*(mu+1)] = ( 1.0 + r ) * ( sum2 + 0.01 );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8pbl_to_r8ge ( int n, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBL_TO_R8GE copies a R8PBL matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8PBL storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and lower triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row 1 of the array.
+    The first subdiagonal in row 2, columns 1 through MU.
+    The second subdiagonal in row 3, columns 1 through MU-1.
+    The MU-th subdiagonal in row MU+1, columns 1 through 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrices.
+    N must be positive.
+
+    Input, int MU, the upper bandwidth of A1.
+    MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBL matrix.
+
+    Output, double R8PBL_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i <= j && j <= i + mu )
+      {
+        b[i+j*n] = a[j-i+i*(mu+1)];
+      }
+      else if ( i - mu <= j && j < i )
+      {
+        b[i+j*n] = a[i-j+j*(mu+1)];
+      }
+      else
+      {
+        b[i+j*n] = 0.0;
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8pbl_zero ( int n, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBL_ZERO zeros a R8PBL matrix.
+
+  Discussion:
+
+    The R8PBL storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and lower triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row 1 of the array.
+    The first subdiagonal in row 2, columns 1 through MU.
+    The second subdiagonal in row 3, columns 1 through MU-1.
+    The MU-th subdiagonal in row MU+1, columns 1 through 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of subdiagonals in the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Output, double R8PBL_ZERO[(MU+1)*N], the R8PBL matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( ( mu + 1 ) * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < mu+1; i++ )
+    {
+      a[i+j*(mu+1)] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8pbu_cg ( int n, int mu, double a[], double b[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_CG uses the conjugate gradient method on a R8PBU system.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+    The matrix A must be a positive definite symmetric band matrix.
+
+    The method is designed to reach the solution after N computational
+    steps.  However, roundoff may introduce unacceptably large errors for
+    some problems.  In such a case, calling the routine again, using
+    the computed solution as the new starting estimate, should improve
+    the results.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Frank Beckman,
+    The Solution of Linear Equations by the Conjugate Gradient Method,
+    in Mathematical Methods for Digital Computers,
+    edited by John Ralston, Herbert Wilf,
+    Wiley, 1967,
+    ISBN: 0471706892,
+    LC: QA76.5.R3.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals.
+    MU must be at least 0, and no more than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBU matrix.
+
+    Input, double B[N], the right hand side vector.
+
+    Input, double X[N], an estimate for the solution.
+
+    Output, double R8PBU_CG[N], the approximate solution vector.
+*/
+{
+  double alpha;
+  double *ap;
+  double beta;
+  int i;
+  int it;
+  double *p;
+  double pap;
+  double pr;
+  double *r;
+  double rap;
+  double *x2;
+
+  p = ( double * ) malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
+  x2 = ( double * ) malloc ( n * sizeof ( double ) );
+/*
+  Initialize
+    AP = A * x,
+    R  = b - A * x,
+    P  = b - A * x.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    x2[i] = x[i];
+  }
+
+  ap = r8pbu_mxv ( n, mu, a, x2 );
+  for ( i = 0; i < n; i++ )
+  {
+    r[i] = b[i] - ap[i];
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    p[i] = b[i] - ap[i];
+  }
+/*
+  Do the N steps of the conjugate gradient method.
+*/
+  for ( it = 1; it <= n; it++ )
+  {
+/*
+  Compute the matrix*vector product AP=A*P.
+*/
+    free ( ap );
+
+    ap = r8pbu_mxv ( n, mu, a, p );
+/*
+  Compute the dot products
+    PAP = P*AP,
+    PR  = P*R
+  Set
+    ALPHA = PR / PAP.
+*/
+    pap = 0.0;
+    for ( i = 0; i < n; i++ )
+    {
+      pap = pap + p[i] * ap[i];
+    }
+    if ( pap == 0.0 )
+    {
+      break;
+    }
+
+    pr = 0.0;
+    for ( i = 0; i < n; i++ )
+    {
+      pr = pr + p[i] * r[i];
+    }
+    alpha = pr / pap;
+/*
+  Set
+    X = X + ALPHA * P
+    R = R - ALPHA * AP.
+*/
+    for ( i = 0; i < n; i++ )
+    {
+      x2[i] = x2[i] + alpha * p[i];
+    }
+
+    for ( i = 0; i < n; i++ )
+    {
+      r[i] = r[i] - alpha * ap[i];
+    }
+/*
+  Compute the vector dot product
+    RAP = R*AP
+  Set
+    BETA = - RAP / PAP.
+*/
+    rap = 0.0;
+    for ( i = 0; i < n; i++ )
+    {
+      rap = rap + r[i] * ap[i];
+    }
+    beta = - rap / pap;
+/*
+  Update the perturbation vector
+    P = R + BETA * P.
+*/
+    for ( i = 0; i < n; i++ )
+    {
+      p[i] = r[i] + beta * p[i];
+    }
+  }
+
+  free ( ap );
+  free ( p );
+  free ( r );
+
+  return x2;
+}
+/******************************************************************************/
+
+double r8pbu_det ( int n, int mu, double a_lu[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_DET computes the determinant of a matrix factored by R8PBU_FA.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979,
+    ISBN13: 978-0-898711-72-1,
+    LC: QA214.L56.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals of the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Input, double A_LU[(MU+1)*N], the LU factors from R8PBU_FA.
+
+    Output, double R8PBU_DET, the determinant of the matrix.
+*/
+{
+  double det;
+  int j;
+
+  det = 1.0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    det = det * a_lu[mu+j*(mu+1)] * a_lu[mu+j*(mu+1)];
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+double *r8pbu_fa ( int n, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_FA factors a R8PBU matrix.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+    The matrix A must be a positive definite symmetric band matrix.
+
+    Once factored, linear systems A*x=b involving the matrix can be solved
+    by calling R8PBU_SL.  No pivoting is performed.  Pivoting is not necessary
+    for positive definite symmetric matrices.  If the matrix is not positive
+    definite, the algorithm may behave correctly, but it is also possible
+    that an illegal divide by zero will occur.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979,
+    ISBN13: 978-0-898711-72-1,
+    LC: QA214.L56.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals of the matrix.
+    MU must be at least 0, and no more than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBU matrix.
+
+    Output, double R8PBU_FA[(MU+1)*N], information describing a factored
+    form of the matrix.
+*/
+{
+  double *b;
+  int i;
+  int ik;
+  int j;
+  int jk;
+  int k;
+  int mm;
+  double s;
+  double t;
+
+  b = ( double * ) malloc ( ( mu + 1 ) * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < mu+1; i++ )
+    {
+      b[i+j*(mu+1)] = a[i+j*(mu+1)];
+    }
+  }
+
+  for ( j = 1; j <= n; j++ )
+  {
+
+    ik = mu + 1;
+    jk = i4_max ( j - mu, 1 );
+    mm = i4_max ( mu + 2 - j, 1 );
+
+    s = 0.0;
+
+    for ( k = mm; k <= mu; k++ )
+    {
+      t = 0.0;
+      for ( i = 0; i <= k-mm-1; i++ )
+      {
+        t = t + b[ik+i-1+(jk-1)*(mu+1)] * b[mm+i-1+(j-1)*(mu+1)];
+      }
+      b[k-1+(j-1)*(mu+1)] = ( b[k-1+(j-1)*(mu+1)] - t ) /
+        b[mu+(jk-1)*(mu+1)];
+
+      s = s + b[k-1+(j-1)*(mu+1)] * b[k-1+(j-1)*(mu+1)];
+      ik = ik - 1;
+      jk = jk + 1;
+    }
+
+    s = b[mu+(j-1)*(mu+1)] - s;
+
+    if ( s <= 0.0 )
+    {
+      return NULL;
+    }
+
+    b[mu+(j-1)*(mu+1)] = sqrt ( s );
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8pbu_indicator ( int n, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_INDICATOR sets up a R8PBU indicator matrix.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals in the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Output, double R8PBU_INDICATOR[(MU+1)*N], the R8PBU matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( ( mu + 1 ) * n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+/*
+  Zero out the "junk" entries.
+*/
+  for ( j = 0; j < mu; j++ )
+  {
+    for ( i = 0; i <= mu - j; i++ )
+    {
+      a[i+j*(mu+1)] = 0.0;
+    }
+  }
+/*
+  Set the meaningful values.
+*/
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = i; j <= i4_min ( i + mu, n ); j++ )
+    {
+      a[mu+i-j+(j-1)*(mu+1)] = ( double ) ( fac * i + j );
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+double *r8pbu_ml ( int n, int mu, double a_lu[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_ML multiplies a vector times a matrix that was factored by R8PBU_FA.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals of the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Input, double A_LU[(MU+1)*N], the LU factors from R8PBU_FA.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8PBU_ML[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int ilo;
+  int j;
+  int jhi;
+  int k;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = x[i];
+  }
+/*
+  Multiply U * X = Y.
+*/
+  for ( k = 1; k <= n; k++ )
+  {
+    ilo = i4_max ( 1, k - mu );
+    for ( i = ilo; i <= k - 1; i++ )
+    {
+      b[i-1] = b[i-1] + a_lu[mu+i-k+(k-1)*(mu+1)] * b[k-1];
+    }
+    b[k-1] = a_lu[mu+(k-1)*(mu+1)] * b[k-1];
+  }
+/*
+  Multiply L * Y = B.
+*/
+  for ( k = n; 1 <= k; k-- )
+  {
+    jhi = i4_min ( k + mu, n );
+    for ( j = k+1; j <= jhi; j++ )
+    {
+      b[j-1] = b[j-1] + a_lu[mu+k-j+(j-1)*(mu+1)] * b[k-1];
+    }
+
+    b[k-1] = a_lu[mu+(k-1)*(mu+1)] * b[k-1];
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8pbu_mxv ( int n, int mu, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_MXV multiplies a R8PBU matrix times a vector.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals in the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBU matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8PBU_MXV[N], the result vector A * x.
+*/
+{
+  double *b;
+  int i;
+  int ieqn;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+/*
+  Multiply X by the diagonal of the matrix.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    b[j] = a[mu+j*(mu+1)] * x[j];
+  }
+/*
+  Multiply X by the superdiagonals of the matrix.
+*/
+  for ( i = mu; 1 <= i; i-- )
+  {
+    for ( j = mu+2-i; j <= n; j++ )
+    {
+      ieqn = i + j - mu - 1;
+      b[ieqn-1] = b[ieqn-1] + a[i-1+(j-1)*(mu+1)] * x[j-1];
+      b[j-1] = b[j-1] + a[i-1+(j-1)*(mu+1)] * x[ieqn-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8pbu_print ( int n, int mu, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_PRINT prints a R8PBU matrix.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the upper (and lower) bandwidth.
+    MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBU matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8pbu_print_some ( n, mu, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8pbu_print_some ( int n, int mu, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_PRINT_SOME prints some of a R8PBU matrix.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the upper (and lower) bandwidth.
+    MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBU matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2lo = i4_max ( i2lo, j2lo - mu );
+    i2hi = i4_min ( ihi, n );
+    i2hi = i4_min ( i2hi, j2hi + mu );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( mu < i-j || mu < j-i ) 
+        {
+          printf ( "              " );
+        }
+        else if ( i <= j && j <= i + mu )
+        {
+          printf ( "%12g  ", a[mu+i-j+(j-1)*(mu+1)] );
+        }
+        else if ( i - mu <= j && j <= i )
+        {
+          printf ( "%12g  ", a[mu+j-i+(i-1)*(mu+1)] );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8pbu_random ( int n, int mu, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_RANDOM randomizes a R8PBU matrix.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+    The matrix returned will be positive definite, but of limited
+    randomness.  The off diagonal elements are random values between
+    0 and 1, and the diagonal element of each row is selected to
+    ensure strict diagonal dominance.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals in the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8PBU_RANDOM[(MU+1)*N], the R8PBU matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int jhi;
+  int jlo;
+  double r;
+  double sum2;
+
+  a = ( double * ) malloc ( ( mu + 1 ) * n * sizeof ( double ) );
+/*
+  Zero out the "junk" entries.
+*/
+  for ( j = 0; j < mu; j++ )
+  {
+    for ( i = 0; i <= mu - j; i++ )
+    {
+      a[i+j*(mu+1)] = 0.0;
+    }
+  }
+/*
+  Set the off diagonal values.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = i+1; j <= i4_min ( i + mu, n-1 ); j++ )
+    {
+      a[mu+i-j+j*(mu+1)] = r8_uniform_01 ( seed );
+    }
+  }
+/*
+  Set the diagonal values.
+*/
+  for ( i = 1; i <= n; i++ )
+  {
+    sum2 = 0.0;
+
+    jlo = i4_max ( 1, i - mu );
+    for ( j = jlo; j <= i-1; j++ )
+    {
+      sum2 = sum2 + r8_abs ( a[(mu+j-i)+(i-1)*(mu+1)] );
+    }
+
+    jhi = i4_min ( i + mu, n );
+    for ( j = i+1; j <= jhi; j++ )
+    {
+      sum2 = sum2 + r8_abs ( a[mu+i-j+(j-1)*(mu+1)] );
+    }
+
+    r = r8_uniform_01 ( seed );
+
+    a[mu+(i-1)*(mu+1)] = ( 1.0 + r ) * ( sum2 + 0.01 );
+
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8pbu_sl ( int n, int mu, double a_lu[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_SL solves a R8PBU system factored by R8PBU_FA.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979,
+    ISBN13: 978-0-898711-72-1,
+    LC: QA214.L56.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals of the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Input, double A_LU[(MU+1)*N], the LU factors from R8PBU_FA.
+
+    Input, double B[N], the right hand side of the linear system.
+
+    Output, double R8PBU_SL[N], the solution vector.
+*/
+{
+  int i;
+  int ilo;
+  int k;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+/*
+  Solve L * Y = B.
+*/
+  for ( k = 0; k < n; k++ )
+  {
+    ilo = i4_max ( 0, k - mu );
+
+    x[k] = b[k];
+    for ( i = ilo; i <= k-1; i++ )
+    {
+      x[k] = x[k] - x[i] * a_lu[mu+i-k+k*(mu+1)];
+    }
+    x[k] = x[k] / a_lu[mu+k*(mu+1)];
+  }
+/*
+  Solve U * X = Y.
+*/
+  for ( k = n-1; 0 < k; k-- )
+  {
+    x[k] = x[k] / a_lu[mu+k*(mu+1)];
+
+    ilo = i4_max ( 0, k - mu );
+    for ( i = ilo; i <= k-1; i++ )
+    {
+      x[i] = x[i] - x[k] * a_lu[mu+i-k+k*(mu+1)];
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8pbu_sor ( int n, int mu, double a[], double b[], double eps, int itchk, 
+  int itmax, double omega, double x_init[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_SOR uses SOR iteration to solve a R8PBU linear system.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+    The matrix A must be a positive definite symmetric band matrix.
+
+    A relaxation factor OMEGA may be used.
+
+    The iteration will proceed until a convergence test is met,
+    or the iteration limit is reached.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals in the matrix.
+    MU must be at least 0, and no more than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBU matrix.
+
+    Input, double B[N], the right hand side of the system.
+
+    Input, double EPS, convergence tolerance for the system.  The vector
+    b - A * x is computed every ITCHK iterations, and if the maximum
+    entry of this vector is of norm less than EPS, the program
+    will return.
+
+    Input, int ITCHK, the interval between convergence checks.  ITCHK steps
+    will be taken before any check is made on whether the iteration
+    has converged.  ITCHK should be at least 1 and no greater
+    than ITMAX.
+
+    Input, int ITMAX, the maximum number of iterations allowed.  The
+    program will return to the user if this many iterations are taken
+    without convergence.
+
+    Input, double OMEGA, the relaxation factor.  OMEGA must be strictly between
+    0 and 2.  Use OMEGA = 1 for no relaxation, classical Jacobi iteration.
+
+    Input, double X_INIT[N], a starting vector for the iteration.
+
+    Output, double R8PBU_SOR[N], the approximation to the solution.
+*/
+{
+  double err;
+  int i;
+  int it;
+  int itknt;
+  double *x;
+  double *xtemp;
+
+  if ( itchk <= 0 || itmax < itchk )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8PBU_SOR - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal ITCHK = %d\n", itchk );
+    exit ( 1 );
+  }
+
+  if ( itmax <= 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8PBU_SOR - Fatal error!\n" );
+    fprintf ( stderr, "  Nonpositive ITMAX = %d\n", itmax );
+    exit ( 1 );
+  }
+
+  if ( omega <= 0.0 || 2.0 <= omega )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8PBU_SOR - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal value of OMEGA = %g\n", omega );
+    exit ( 1 );
+  }
+
+  itknt = 0;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = x_init[i];
+  }
+/*
+  Take ITCHK steps of the iteration before doing a convergence check.
+*/
+  while ( itknt <= itmax )
+  {
+    for ( it = 1; it <= itchk; it++ )
+    {
+/*
+  Compute XTEMP(I) = B(I) + A(I,I) * X(I) - SUM ( J=1 to N ) A(I,J) * X(J).
+*/
+      xtemp = r8pbu_mxv ( n, mu, a, x );
+
+      for ( i = 0; i < n; i++ )
+      {
+        xtemp[i] = x[i] + ( b[i] - xtemp[i] ) / a[mu+i*(mu+1)];
+      }
+/*
+  Compute the next iterate as a weighted combination of the
+  old iterate and the just computed standard Jacobi iterate.
+*/
+      if ( omega != 1.0 )
+      {
+        for ( i = 0; i < n; i++ )
+        {
+          xtemp[i] = ( 1.0 - omega ) * x[i] + omega * xtemp[i];
+        }
+      }
+/*
+  Copy the new result into the old result vector.
+*/
+      for ( i = 0; i < n; i++ )
+      {
+        x[i] = xtemp[i];
+      }
+    }
+    free ( xtemp );
+/*
+  Compute the maximum residual, the greatest entry in the vector
+  RESID(I) = B(I) - A(I,J) * X(J).
+*/
+    xtemp = r8pbu_mxv ( n, mu, a, x );
+
+    err = 0.0;
+    for ( i = 0; i < n; i++ )
+    {
+      err = r8_max ( err, r8_abs ( b[i] - xtemp[i] ) );
+    }
+    free ( xtemp );
+/*
+  Test to see if we can quit because of convergence,
+*/
+    if ( err <= eps )
+    {
+      return x;
+    }
+
+  }
+
+  printf ( "\n" );
+  printf ( "R8PBU_SOR - Warning!\n" );
+  printf ( "  The iteration did not converge.\n" );
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8pbu_to_r8ge ( int n, int mu, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_TO_R8GE copies a R8PBU matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrices.
+    N must be positive.
+
+    Input, int MU, the upper bandwidth of A1.
+    MU must be nonnegative, and no greater than N-1.
+
+    Input, double A[(MU+1)*N], the R8PBU matrix.
+
+    Output, double R8PBU_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i <= j && j <= i+mu )
+      {
+        b[i+j*n] = a[mu+i-j+j*(mu+1)];
+      }
+      else if ( i-mu <= j && j < i )
+      {
+        b[i+j*n] = a[mu+j-i+i*(mu+1)];
+      }
+      else
+      {
+        b[i+j*n] = 0.0;
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8pbu_zero ( int n, int mu )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PBU_ZERO zeros a R8PBU matrix.
+
+  Discussion:
+
+    The R8PBU storage format is used for a symmetric positive definite band matrix.
+
+    To save storage, only the diagonal and upper triangle of A is stored,
+    in a compact diagonal format that preserves columns.
+
+    The diagonal is stored in row MU+1 of the array.
+    The first superdiagonal in row MU, columns 2 through N.
+    The second superdiagonal in row MU-1, columns 3 through N.
+    The MU-th superdiagonal in row 1, columns MU+1 through N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int MU, the number of superdiagonals in the matrix.
+    MU must be at least 0 and no more than N-1.
+
+    Output, double R8PBU_ZERO[(MU+1)*N], the R8PBU matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( ( mu + 1 ) * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < mu+1; i++ )
+    {
+      a[i+j*(mu+1)] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double r8po_det ( int n, double a_lu[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_DET computes the determinant of a matrix factored by R8PO_FA.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A_LU[N*N], the LU factors from R8PO_FA.
+
+    Output, double R8PO_DET, the determinant of A.
+*/
+{
+  double det;
+  int i;
+
+  det = 1.0;
+
+  for ( i = 0; i < n; i++ )
+  {
+    det = det * a_lu[i+i*n];
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+double *r8po_fa ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_FA factors a R8PO matrix.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+    The positive definite symmetric matrix A has a Cholesky factorization
+    of the form:
+
+      A = R' * R
+
+    where R is an upper triangular matrix with positive elements on
+    its diagonal.  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979,
+    ISBN13: 978-0-898711-72-1,
+    LC: QA214.L56.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N*N], the matrix in R8PO storage.
+
+    Output, double R8PO_FA[N*N], the Cholesky factor in SGE
+    storage, or NULL if there was an error.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+  double s;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      b[i+j*n] = a[i+j*n];
+    }
+  }
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( k = 0; k <= j-1; k++ )
+    {
+      for ( i = 0; i <= k-1; i++ )
+      {
+        b[k+j*n] = b[k+j*n] - b[i+k*n] * b[i+j*n];
+      }
+      b[k+j*n] = b[k+j*n] / b[k+k*n];
+    }
+
+    s = b[j+j*n];
+    for ( i = 0; i <= j-1; i++ )
+    {
+      s = s - b[i+j*n] * b[i+j*n];
+    }
+
+    if ( s <= 0.0 )
+    {
+      free ( b );
+      return NULL;
+    }
+
+    b[j+j*n] = sqrt ( s );
+  }
+/*
+  Since the Cholesky factor is in R8GE format, zero out the lower triangle.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < i; j++ )
+    {
+      b[i+j*n] = 0.0;
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8po_indicator ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_INDICATOR sets up a R8PO indicator matrix.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix.
+    N must be positive.
+
+    Output, double R8PO_INDICATOR[N*N], the R8PO matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = 1; j <= i-1; j++ )
+    {
+      a[i-1+(j-1)*n] = 0.0;
+    }
+    for ( j = i; j <= n; j++ )
+    {
+      a[i-1+(j-1)*n] = ( double ) ( fac * i + j );
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8po_inverse ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_INVERSE computes the inverse of a matrix factored by R8PO_FA.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979,
+    ISBN13: 978-0-898711-72-1,
+    LC: QA214.L56.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N*N], the Cholesky factor, in R8GE storage, returned by R8PO_FA.
+
+    Output, double R8PO_INVERSE[N*N], the inverse, in R8PO storage.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+  double t;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      b[i+j*n] = a[i+j*n];
+    }
+  }
+/*
+  Compute Inverse ( R ).
+*/
+  for ( k = 0; k < n; k++ )
+  {
+    b[k+k*n] = 1.0 / b[k+k*n];
+    for ( i = 0; i < k; i++ )
+    {
+      b[i+k*n] = -b[i+k*n] * b[k+k*n];
+    }
+
+    for ( j = k+1; j < n; j++ )
+    {
+      t = b[k+j*n];
+      b[k+j*n] = 0.0;
+      for ( i = 0; i <= k; i++ )
+      {
+        b[i+j*n] = b[i+j*n] + t * b[i+k*n];
+      }
+    }
+  }
+/*
+  Compute Inverse ( R ) * Transpose ( Inverse ( R ) ).
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    for ( k = 0; k < j; k++ )
+    {
+      t = b[k+j*n];
+      for ( i = 0; i <= k; i++ )
+      {
+        b[i+k*n] = b[i+k*n] + t * b[i+j*n];
+      }
+    }
+    t = b[j+j*n];
+    for ( i = 0; i <= j; i++ )
+    {
+      b[i+j*n] = b[i+j*n] * t;
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8po_ml ( int n, double a_lu[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_ML computes A * x = b after A has been factored by R8PO_FA.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A_LU[N*N], the Cholesky factor from R8PO_FA.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8PO_ML[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+/*
+  Compute R * x = y.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = a_lu[i+i*n] * x[i];
+    for ( j = i+1; j < n; j++ )
+    {
+      b[i] = b[i] + a_lu[i+j*n] * x[j];
+    }
+  }
+/*
+  Compute R' * y = b.
+*/
+  for ( j = n-1; 0 <= j; j-- )
+  {
+    b[j] = a_lu[j+j*n] * b[j];
+    for ( i = 0; i < j; i++ )
+    {
+      b[j] = b[j] + b[i] * a_lu[i+j*n];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8po_mxm ( int n, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_MXM multiplies two R8PO matrices.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrices.
+    N must be positive.
+
+    Input, double A[N*N], B[N*N], the R8PO factor matrices.
+
+    Output, double R8PO_MXM[N*N], the R8PO product matrix.
+*/
+{
+  double aik;
+  double bkj;
+  double *c;
+  int i;
+  int j;
+  int k;
+
+  c = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = 1; j <= n; j++ )
+    {
+      c[i-1+(j-1)*n] = 0.0;
+    }
+  }
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = i; j <= n; j++ )
+    {
+      for ( k = 1; k <= n; k++ )
+      {
+        if ( i <= k )
+        {
+          aik = a[i-1+(k-1)*n];
+        }
+        else
+        {
+          aik = a[k-1+(i-1)*n];
+        }
+
+        if ( k <= j )
+        {
+          bkj = b[k-1+(j-1)*n];
+        }
+        else
+        {
+          bkj = b[j-1+(k-1)*n];
+        }
+
+        c[i-1+(j-1)*n] = c[i-1+(j-1)*n] + aik * bkj;
+
+      }
+    }
+
+  }
+
+  return c;
+}
+/******************************************************************************/
+
+double *r8po_mxv ( int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_MXV multiplies a R8PO matrix times a vector.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N*N], the R8PO matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8PO_MXV(N), the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j < i; j++ )
+    {
+      b[i] = b[i] + a[j+i*n] * x[j];
+    }
+    for ( j = i; j < n; j++ )
+    {
+      b[i] = b[i] + a[i+j*n] * x[j];
+    }
+  }
+  return b;
+}
+/******************************************************************************/
+
+void r8po_print ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_PRINT prints a R8PO matrix.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[M*N], the R8PO matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8po_print_some ( n, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8po_print_some ( int n, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_PRINT_SOME prints some of a R8PO matrix.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, double A[M*N], the R8PO matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+/*
+  For each column J in the current range...
+
+  Write the header.
+*/
+    printf ( "  Col:    " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      printf ( "%5d  ", i );
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( i <= j )
+        {
+          printf ( "%12g  ", a[i-1+(j-1)*n] );
+        }
+        else
+        {
+          printf ( "%12g  ", a[j-1+(i-1)*n] );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8po_random ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_RANDOM randomizes a R8PO matrix.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+    The matrix computed here is not simply a set of random numbers in
+    the nonzero slots of the R8PO array.  It is also a positive definite
+    matrix.  It is computed by setting a "random" upper triangular
+    Cholesky factor R, and then computing A = R'*R.
+    The randomness is limited by the fact that all the entries of
+    R will be between 0 and 1.  A truly random R is only required
+    to have positive entries on the diagonal.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8PO_RANDOM[N*N], the R8PO matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = n; 1 <= i; i-- )
+  {
+/*
+  Set row I of R.
+*/
+    for ( j = i; j <= n; j++ )
+    {
+      a[i-1+(j-1)*n] = r8_uniform_01 ( seed );
+    }
+/*
+  Consider element J of row I, last to first.
+*/
+    for ( j = n; i <= j; j-- )
+    {
+/*
+  Add multiples of row I to lower elements of column J.
+*/
+      for ( k = i+1; k <= j; k++ )
+      {
+        a[k-1+(j-1)*n] = a[k-1+(j-1)*n] + a[i-1+(k-1)*n] * a[i-1+(j-1)*n];
+      }
+/*
+  Reset element J.
+*/
+      a[i-1+(j-1)*n] = a[i-1+(i-1)*n] * a[i-1+(j-1)*n];
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8po_sl ( int n, double a_lu[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_SL solves a linear system that has been factored by R8PO_FA.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, 1979,
+    ISBN13: 978-0-898711-72-1,
+    LC: QA214.L56.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A_LU[N*N], the Cholesky factor from R8PO_FA.
+
+    Input, double B[N], the right hand side.
+
+    Output, double R8PO_SL[N], the solution vector.
+*/
+{
+  int i;
+  int k;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( k = 0; k < n; k++ )
+  {
+    x[k] = b[k];
+  }
+/*
+  Solve R' * y = b.
+*/
+  for ( k = 0; k < n; k++ )
+  {
+    for ( i = 0; i < k; i++ )
+    {
+      x[k] = x[k] - x[i] * a_lu[i+k*n];
+    }
+    x[k] = x[k] / a_lu[k+k*n];
+  }
+/*
+  Solve R * x = y.
+*/
+  for ( k = n-1; 0 <= k; k-- )
+  {
+    x[k] = x[k] / a_lu[k+k*n];
+    for ( i = 0; i < k; i++ )
+    {
+      x[i] = x[i] - a_lu[i+k*n] * x[k];
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8po_to_r8ge ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_TO_R8GE copies a R8PO matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N*N], the R8PO matrix.
+
+    Output, double R8PO_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i <= j )
+      {
+        b[i+j*n] = a[i+j*n];
+      }
+      else
+      {
+        b[i+j*n] = a[j+i*n];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8po_zero ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PO_ZERO zeros a R8PO matrix.
+
+  Discussion:
+
+    The R8PO storage format is appropriate for a symmetric positive definite 
+    matrix and its inverse.  (The Cholesky factor of a R8PO matrix is an
+    upper triangular matrix, so it will be in R8GE storage format.)
+
+    Only the diagonal and upper triangle of the square array are used.
+    This same storage format is used when the matrix is factored by
+    R8PO_FA, or inverted by R8PO_INVERSE.  For clarity, the lower triangle
+    is set to zero.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix.
+    N must be positive.
+
+    Output, double R8PO_ZERO[N*N], the R8PO matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double r8pp_det ( int n, double a_lu[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_DET computes the determinant of a matrix factored by R8PP_FA.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A_LU[(N*(N+1))/2], the LU factors from R8PO_FA.
+
+    Output, double R8PP_DET, the determinant of A.
+*/
+{
+  double det;
+  int i;
+  int k;
+
+  det = 1.0;
+
+  k = 0;
+  for ( i = 0; i < n; i++ )
+  {
+    k = k + i;
+    det = det * a_lu[k];
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+double *r8pp_fa ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_FA factors a R8PP matrix.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, (Society for Industrial and Applied Mathematics),
+    3600 University City Science Center,
+    Philadelphia, PA, 19104-2688.
+    ISBN 0-89871-172-X
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[(N*(N+1))/2], the R8PP matrix.
+
+    Output, double R8PP_FA[(N*(N+1))/2], an upper triangular matrix R, stored 
+    in packed form, so that A = R'*R.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int jj;
+  int k;
+  int kj;
+  int kk;
+  double s;
+  double t;
+
+  b = ( double * ) malloc ( ( n * ( n + 1 ) ) / 2 * sizeof ( double ) );
+
+  for ( i = 0; i < (n*(n+1))/2; i++ )
+  {
+    b[i] = a[i];
+  }
+
+  jj = 0;
+
+  for ( j = 1; j <= n; j++ )
+  {
+    s = 0.0;
+    kj = jj;
+    kk = 0;
+
+    for ( k = 1; k <= j-1; k++ )
+    {
+      kj = kj + 1;
+      t = b[kj-1];
+      for ( i = 1; i <= k-1; i++ )
+      {
+        t = t - b[kk+i-1] * b[jj+i-1];
+      }
+      kk = kk + k;
+      t = t / b[kk-1];
+      b[kj-1] = t;
+      s = s + t * t;
+    }
+
+    jj = jj + j;
+    s = b[jj-1] - s;
+
+    if ( s <= 0.0 )
+    {
+      return NULL;
+    }
+
+    b[jj-1] = sqrt ( s );
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8pp_indicator ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_INDICATOR sets up a R8PP indicator matrix.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Output, double R8PP_INDICATOR((N*(N+1))/2), the R8PP matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( ( n * ( n + 1 ) ) / 2 * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  k = 0;
+  for ( j = 1; j <= n; j++ )
+  {
+    for ( i = 1; i <= j; i++ )
+    {
+      a[k] = ( double ) ( fac * i + j );
+      k = k + 1;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8pp_mxv ( int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_MXV multiplies a R8PP matrix times a vector.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[(N*(N+1))/2], the R8PP matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8PP_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j < i; j++ )
+    {
+      k = j + ( i * ( i + 1 ) ) / 2;
+      b[i] = b[i] + a[k] * x[j];
+    }
+    for ( j = i; j < n; j++ )
+    {
+      k = i + ( j * ( j + 1 ) ) / 2;
+      b[i] = b[i] + a[k] * x[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8pp_print ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_PRINT prints a R8PP matrix.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[(N*(N+1))/2], the R8PP matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8pp_print_some ( n, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8pp_print_some ( int n, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_PRINT_SOME prints some of a R8PP matrix.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[(N*(N+1))/2], the R8PP matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%6d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( i <= j )
+        {
+          aij = a[i-1+(j*(j-1))/2];
+        }
+        else
+        {
+          aij = a[j-1+(i*(i-1))/2];
+        }
+
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8pp_random ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_RANDOM randomizes a R8PP matrix.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+    The matrix is computed by setting a "random" upper triangular
+    Cholesky factor R, and then computing A = R'*R.
+    The randomness is limited by the fact that all the entries of
+    R will be between 0 and 1.  A truly random R is only required
+    to have positive entries on the diagonal.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8PP_RANDOM[(N*(N+1))/2], the R8PP matrix.
+*/
+{
+  double *a;
+  int i;
+  int ii;
+  int ij;
+  int ik;
+  int j;
+  int k;
+  int kj;
+
+  a = ( double * ) malloc ( ( n * ( n + 1 ) ) / 2 * sizeof ( double ) );
+
+  for ( i = 0; i < (n*(n+1))/2; i++ )
+  {
+    a[i] = 0.0;
+  }
+
+  for ( i = n; 1 <=i; i-- )
+  {
+/*
+  Set row I of R.
+*/
+    for ( j = i; j <= n; j++ )
+    {
+      ij = i + ( j * ( j - 1 ) ) / 2;
+      a[ij-1] = r8_uniform_01 ( seed );
+    }
+/*
+  Consider element J of row I, last to first.
+*/
+    for ( j = n; i <= j; j-- )
+    {
+/*
+  Add multiples of row I to lower elements of column J.
+*/
+      ij = i + ( j * ( j - 1 ) ) / 2;
+
+      for ( k = i+1; k <= j; k++ )
+      {
+        kj = k + (j*(j-1))/2;
+        ik = i + (k*(k-1))/2;
+        a[kj-1] = a[kj-1] + a[ik-1] * a[ij-1];
+      }
+/*
+  Reset element J.
+*/
+      ii = i + (i*(i-1))/2;
+      a[ij-1] = a[ii-1] * a[ij-1];
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8pp_sl ( int n, double a_lu[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_SL solves a R8PP system factored by R8PP_FA.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    Original FORTRAN77 version by Dongarra, Bunch, Moler, Stewart.
+    C version by John Burkardt.
+
+  Reference:
+
+    Jack Dongarra, Jim Bunch, Cleve Moler, Pete Stewart,
+    LINPACK User's Guide,
+    SIAM, (Society for Industrial and Applied Mathematics),
+    3600 University City Science Center,
+    Philadelphia, PA, 19104-2688.
+    ISBN 0-89871-172-X
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A_LU[(N*(N+1))/2], the LU factors from R8PP_FA.
+
+    Input, double B[N], the right hand side.
+
+    Output, double R8PP_SL[N], the solution.
+*/
+{
+  int i;
+  int k;
+  int kk;
+  double t;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  kk = 0;
+
+  for ( k = 1; k <= n; k++ )
+  {
+    t = 0.0;
+    for ( i = 0; i < k-1; i++ )
+    {
+      t = t + a_lu[kk+i] * x[i];
+    }
+    kk = kk + k;
+    x[k-1] = ( b[k-1] - t ) / a_lu[kk-1];
+  }
+
+  for ( k = n; 1 <= k; k-- )
+  {
+    x[k-1] = x[k-1] / a_lu[kk-1];
+    kk = kk - k;
+    t = -x[k-1];
+    for ( i = 0; i < k-1; i++ )
+    {
+      x[i] = x[i] + t * a_lu[kk+i];
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8pp_to_r8ge ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_TO_R8GE copies a R8PP matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[(N*(N+1))/2], the R8PP matrix.
+
+    Output, double R8PP_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i <= j )
+      {
+        b[i+j*n] = a[i+(j*(j+1))/2];
+      }
+      else
+      {
+        b[i+j*n] = a[j+(i*(i+1))/2];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8pp_zero ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8PP_ZERO zeros a R8PP matrix.
+
+  Discussion:
+
+    The R8PP storage format is appropriate for a symmetric positive
+    definite matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix.
+    N must be positive.
+
+    Output, double R8PP_ZERO[(N*(N+1))/2], the R8PP matrix.
+*/
+{
+  double *a;
+  int k;
+
+  a = ( double * ) malloc ( ( n * ( n + 1 ) ) / 2 * sizeof ( double ) );
+
+  for ( k = 0; k < (n*(n+1))/2; k++ )
+  {
+    a[k] = 0.0;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8ri_to_r8ge ( int nz, int ija[], double sa[], int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RI_TO_R8GE converts an R8RI matrix to R8GE form.
+
+  Discussion:
+
+    An R8RI matrix is in row indexed sparse storage form.
+
+    A R8GE matrix is in general storage.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    William Press, Brian Flannery, Saul Teukolsky, William Vetterling,
+    Numerical Recipes in FORTRAN: The Art of Scientific Computing,
+    Third Edition,
+    Cambridge University Press, 2007,
+    ISBN13: 978-0-521-88068-8,
+    LC: QA297.N866.
+
+  Parameters:
+
+    Input, int NZ, the size required for the RI
+    or "row indexed" sparse storage.
+
+    Input, int IJA[NZ], the index vector.
+
+    Input, double SA[NZ], the value vector.
+
+    Input, int N, the order of the matrix.
+
+    Output, double R8RI_TO_R8GE[N*N], the matrix stored in GE 
+    or "general" format.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  for ( k = 0; k < n; k++ )
+  {
+    i = k;
+    j = k;
+    a[i+j*n] = sa[k];
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( k = ija[i]; k < ija[i+1]; k++ )
+    {
+      j = ija[k];
+      a[i+j*n] = sa[k];
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8row_swap ( int m, int n, double a[], int irow1, int irow2 )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8ROW_SWAP swaps two rows of an R8ROW.
+
+  Discussion:
+
+    The two dimensional information is stored as a one dimensional
+    array, by columns.
+
+    The row indices are 1 based, NOT 0 based.  However, a preprocessor
+    variable, called OFFSET, can be reset from 1 to 0 if you wish to
+    use 0-based indices.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 September 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input/output, double A[M*N], an array of data.
+
+    Input, int IROW1, IROW2, the two rows to swap.
+    These indices should be between 1 and M.
+*/
+{
+# define OFFSET 1
+  int j;
+  double t;
+/*
+  Check.
+*/
+  if ( irow1 < 1 || m < irow1 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8ROW_SWAP - Fatal error!\n" );
+    fprintf ( stderr, "  IROW1 is out of range.\n" );
+    exit ( 1 );
+  }
+
+  if ( irow2 < 1 || m < irow2 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8ROW_SWAP - Fatal error!\n" );
+    fprintf ( stderr, "  IROW2 is out of range.\n" );
+    exit ( 1 );
+  }
+
+  if ( irow1 == irow2 )
+  {
+    return;
+  }
+
+  for ( j = 0; j < n; j++ )
+  {
+    t              = a[irow1-1+j*m];
+    a[irow1-1+j*m] = a[irow2-1+j*m];
+    a[irow2-1+j*m] = t;
+  }
+
+  return;
+# undef OFFSET
+}
+/******************************************************************************/
+
+double *r8s3_indicator ( int n, int nz_num, int isym, int row[], int col[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8S3_INDICATOR sets up a R8S3 indicator matrix.
+
+  Discussion:
+
+    The R8S3 storage format corresponds to the SLAP Triad format.
+
+    The R8S3 storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.  The entries may be given in any order.  No
+    check is made for the erroneous case in which a given matrix entry is
+    specified more than once.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NZ_NUM, the number of nonzero entries.
+
+    Input, int ISYM, is 0 if the matrix is not symmetric, and 1
+    if the matrix is symmetric.  If the matrix is symmetric, then
+    only the nonzeroes on the diagonal and in the lower triangle are stored.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Output, double R8S3_INDICATOR[NZ_NUM], the indicator matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( nz_num * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    i = row[k];
+    j = col[k];
+    a[k] = ( double ) ( fac * i + j );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8s3_print ( int m, int n, int nz_num, int isym, int row[], int col[], 
+  double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8S3_PRINT prints a R8S3 matrix.
+
+  Discussion:
+
+    The R8S3 storage format corresponds to the SLAP Triad format.
+
+    The R8S3 storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.  The entries may be given in any order.  No
+    check is made for the erroneous case in which a given matrix entry is
+    specified more than once.
+
+    There is a symmetry option for square matrices.  If the symmetric storage
+    option is used, the format specifies that only nonzeroes on the diagonal
+    and lower triangle are stored.  However, this routine makes no attempt
+    to enforce this.  The only thing it does is to "reflect" any nonzero
+    offdiagonal value.  Moreover, no check is made for the erroneous case
+    in which both A(I,J) and A(J,I) are specified, but with different values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ISYM, is 0 if the matrix is not symmetric, and 1
+    if the matrix is symmetric.  If the matrix is symmetric, then
+    only the nonzeroes on the diagonal and in the lower triangle are stored.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements 
+    of the matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8s3_print_some ( m, n, nz_num, isym, row, col, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8s3_print_some ( int m, int n, int nz_num, int isym, int row[], 
+  int col[], double a[], int ilo, int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8S3_PRINT_SOME prints some of a R8S3 matrix.
+
+  Discussion:
+
+    The R8S3 storage format corresponds to the SLAP Triad format.
+
+    The R8S3 storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.  The entries may be given in any order.  No
+    check is made for the erroneous case in which a given matrix entry is
+    specified more than once.
+
+    There is a symmetry option for square matrices.  If the symmetric storage
+    option is used, the format specifies that only nonzeroes on the diagonal
+    and lower triangle are stored.  However, this routine makes no attempt
+    to enforce this.  The only thing it does is to "reflect" any nonzero
+    offdiagonal value.  Moreover, no check is made for the erroneous case
+    in which both A(I,J) and A(J,I) are specified, but with different values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ISYM, is 0 if the matrix is not symmetric, and 1
+    if the matrix is symmetric.  If the matrix is symmetric, then
+    only the nonzeroes on the diagonal and in the lower triangle are stored.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements 
+    of the matrix.
+
+    Input, int ILO, JLO, IHI, JHI, the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int inc;
+  int index[INCX];
+  int j;
+  int j2;
+  int j2hi;
+  int j2lo;
+  int k;
+  int nonzero;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    inc = j2hi + 1 - j2lo;
+
+    printf ( "\n" );
+
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, m );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      nonzero = 0;
+ 
+      for ( j2 = 0; j2 < inc; j2++ )
+      {
+        index[j2] = -1;
+      }
+
+      for ( k = 0; k < nz_num; k++ )
+      {
+        if ( i == row[k] && j2lo <= col[k] && col[k] <= j2hi )
+        {
+          j2 = col[k] - j2lo + 1;
+
+          if ( a[k] != 0.0 )
+          {
+            index[j2-1] = k;
+            nonzero = 1;
+          }
+        }
+        else if ( isym == 1 && m == n &&
+          i == col[k] && j2lo <= row[k] && row[k] <= j2hi )
+        {
+          j2 = row[k] - j2lo + 1;
+
+          if ( a[k] != 0.0 )
+          {
+            index[j2-1] = k;
+            nonzero = 1;
+          }
+        }
+      }
+
+      if ( nonzero )
+      {
+        printf ( "%5d ", i );
+        for ( j2 = 0; j2 < inc; j2++ )
+        {
+          if ( 0 <= index[j2] )
+          {
+            aij = a[index[j2]];
+          }
+          else
+          {
+            aij = 0.0;
+          }
+          printf ( "%14g", aij );
+        }
+        printf ( "\n" );
+      }
+    }
+  }
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+void r8s3_read ( char *input_file, int n, int nz_num, int row[], int col[], 
+  double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8S3_READ reads a square R8S3 matrix from a file.
+
+  Discussion:
+
+    This routine needs the value of NZ_NUM, which can be determined
+    by a call to R8S3_READ_SIZE.
+
+    The R8S3 storage format corresponds to the SLAP Triad format.
+
+    The R8S3 storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.  The entries may be given in any order.  No
+    check is made for the erroneous case in which a given matrix entry is
+    specified more than once.
+
+    There is a symmetry option for square matrices.  If the symmetric storage
+    option is used, the format specifies that only nonzeroes on the diagonal
+    and lower triangle are stored.  However, this routine makes no attempt
+    to enforce this.  The only thing it does is to "reflect" any nonzero
+    offdiagonal value.  Moreover, no check is made for the erroneous case
+    in which both A(I,J) and A(J,I) are specified, but with different values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    22 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *INPUT_FILE, the name of the file to be read.
+
+    Unused, int N, the order of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Output, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Output, double A[NZ_NUM], the nonzero elements of the matrix.
+*/
+{
+  FILE *input;
+  int k;
+
+  input = fopen ( input_file, "rt" );
+
+  if ( !input )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8S3_READ - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_file );
+    exit ( 1 );
+  }
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    fscanf ( input, "%d%d%f\n", row+k, col+k, a+k );
+  }
+
+  fclose ( input );
+
+  return;
+}
+/******************************************************************************/
+
+void r8s3_read_size ( char *input_file, int *n, int *nz_num )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8S3_READ_SIZE reads the size of a square R8S3 matrix from a file.
+
+  Discussion:
+
+    The value of NZ_NUM is simply the number of records in the input file.
+
+    The value of N is determined as the maximum entry in the row and column
+    vectors.
+
+    The R8S3 storage format corresponds to the SLAP Triad format.
+
+    The R8S3 storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.  The entries may be given in any order.  No
+    check is made for the erroneous case in which a given matrix entry is
+    specified more than once.
+
+    There is a symmetry option for square matrices.  If the symmetric storage
+    option is used, the format specifies that only nonzeroes on the diagonal
+    and lower triangle are stored.  However, this routine makes no attempt
+    to enforce this.  The only thing it does is to "reflect" any nonzero
+    offdiagonal value.  Moreover, no check is made for the erroneous case
+    in which both A(I,J) and A(J,I) are specified, but with different values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    22 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+   Input, char *INPUT_FILE, the name of the file to 
+   be read.
+
+    Output, int *N, the order of the matrix.
+
+    Output, int *NZ_NUM, the number of nonzero elements in the matrix.
+*/
+{
+  double a_k;
+  int col_k;
+  int flag;
+  FILE *input;
+  int row_k;
+
+  *nz_num = 0;
+  *n = 0;
+
+  input = fopen ( input_file, "rt" );
+
+  if ( !input )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8S3_READ_SIZE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_file );
+    exit ( 1 );
+  }
+
+  for ( ; ; )
+  {
+    flag = fscanf ( input, "%d%d%f\n", &row_k, &col_k, &a_k );
+
+    if ( flag == EOF )
+    {
+      break;
+    }
+
+    *nz_num = *nz_num + 1;
+    *n = i4_max ( *n, row_k );
+    *n = i4_max ( *n, col_k );
+  }
+
+  fclose ( input );
+
+  return;
+}
+/******************************************************************************/
+
+void r8s3_write ( int n, int nz_num, int isym, int row[], int col[], 
+  double a[], char *output_file )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8S3_WRITE writes a square R8S3 matrix to a file.
+
+  Discussion:
+
+    The R8S3 storage format corresponds to the SLAP Triad format.
+
+    The R8S3 storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.  The entries may be given in any order.  No
+    check is made for the erroneous case in which a given matrix entry is
+    specified more than once.
+
+    There is a symmetry option for square matrices.  If the symmetric storage
+    option is used, the format specifies that only nonzeroes on the diagonal
+    and lower triangle are stored.  However, this routine makes no attempt
+    to enforce this.  The only thing it does is to "reflect" any nonzero
+    offdiagonal value.  Moreover, no check is made for the erroneous case
+    in which both A(I,J) and A(J,I) are specified, but with different values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ISYM, is 0 if the matrix is not symmetric, and 1
+    if the matrix is symmetric.  If the matrix is symmetric, then
+    only the nonzeroes on the diagonal and in the lower triangle are stored.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements 
+    of the matrix.
+
+    Input, char *OUTPUT_FILE, the name of the file to which
+    the information is to be written.
+*/
+{
+  int k;
+  FILE *output_unit;
+
+  output_unit = fopen ( output_file, "wt" );
+
+  if ( !output_unit )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8S3_WRITE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the output file.\n" );
+    exit ( 1 );
+  }
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    fprintf ( output_unit, "  %8d  %8d  %12g\n", row[k], col[k], a[k] );
+  }
+
+  fclose ( output_unit );
+
+  return;
+}
+/******************************************************************************/
+
+double *r8sd_cg ( int n, int ndiag, int offset[], double a[], double b[], 
+  double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SD_CG uses the conjugate gradient method on a R8SD linear system.
+
+  Discussion:
+
+    The R8SD storage format is used for symmetric matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0, and 
+    each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+
+    Assuming there are NDIAG nonzero diagonals (ignoring subdiagonals!),
+    we then create an array B that has N rows and NDIAG columns, and simply
+    "collapse" the matrix A to the left:
+
+    For the conjugate gradient method to be applicable, the matrix A must 
+    be a positive definite symmetric matrix.
+
+    The method is designed to reach the solution to the linear system
+      A * x = b
+    after N computational steps.  However, roundoff may introduce
+    unacceptably large errors for some problems.  In such a case,
+    calling the routine a second time, using the current solution estimate
+    as the new starting guess, should result in improved results.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Frank Beckman,
+    The Solution of Linear Equations by the Conjugate Gradient Method,
+    in Mathematical Methods for Digital Computers,
+    edited by John Ralston, Herbert Wilf,
+    Wiley, 1967,
+    ISBN: 0471706892,
+    LC: QA76.5.R3.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals that are stored.
+    NDIAG must be at least 1 and no more than N.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8SD matrix.
+
+    Input, double B[N], the right hand side vector.
+
+    Input, double X[N], an estimate for the solution, which may be 0.
+
+    Output, double R8SD_CG[N], the approximate solution vector.  Note that 
+    repeated calls to this routine, using the approximate solution
+    output on the previous call, MAY improve the solution.
+*/
+{
+  double alpha;
+  double *ap;
+  double beta;
+  int i;
+  int it;
+  double *p;
+  double pap;
+  double pr;
+  double *r;
+  double rap;
+  double *x_new;
+/*
+  Initialize
+    AP = A * x,
+    R  = b - A * x,
+    P  = b - A * x.
+*/
+  x_new = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x_new[i] = x[i];
+  }
+
+  ap = r8sd_mxv ( n, ndiag, offset, a, x_new );
+
+  r = ( double * ) malloc ( n * sizeof ( double ) );
+  for ( i = 0; i < n; i++ )
+  {
+    r[i] = b[i] - ap[i];
+  }
+
+  p = ( double * ) malloc ( n * sizeof ( double ) );
+  for ( i = 0; i < n; i++ )
+  {
+    p[i] = b[i] - ap[i];
+  }
+/*
+  Do the N steps of the conjugate gradient method.
+*/
+  for ( it = 1; it < n; it++ )
+  {
+/*
+  Compute the matrix*vector product AP = A*P.
+*/
+    free ( ap );
+    ap = r8sd_mxv ( n, ndiag, offset, a, p );
+/*
+  Compute the dot products
+    PAP = P*AP,
+    PR  = P*R
+  Set
+    ALPHA = PR / PAP.
+*/
+    pap = r8vec_dot_product ( n, p, ap );
+
+    if ( pap == 0.0 )
+    {
+      break;
+    }
+
+    pr = r8vec_dot_product ( n, p, r );
+
+    alpha = pr / pap;
+/*
+  Set
+    X = X + ALPHA * P
+    R = R - ALPHA * AP.
+*/
+    for ( i = 0; i < n; i++ )
+    {
+      x_new[i] = x_new[i] + alpha * p[i];
+    }
+    for ( i = 0; i < n; i++ )
+    {
+      r[i] = r[i] - alpha * ap[i];
+    }
+/*
+  Compute the vector dot product
+    RAP = R*AP
+  Set
+    BETA = - RAP / PAP.
+*/
+    rap = r8vec_dot_product ( n, r, ap );
+
+    beta = -rap / pap;
+/*
+  Update the perturbation vector
+    P = R + BETA * P.
+*/
+    for ( i = 0; i < n; i++ )
+    {
+      p[i] = r[i] + beta * p[i];
+    }
+  }
+
+  free ( ap );
+  free ( p );
+  free ( r );
+
+  return x_new;
+}
+/******************************************************************************/
+
+double *r8sd_indicator ( int n, int ndiag, int offset[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SD_INDICATOR sets up a R8SD indicator matrix.
+
+  Discussion:
+
+    The R8SD storage format is used for symmetric matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0, and 
+    each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+
+    Assuming there are NDIAG nonzero diagonals (ignoring subdiagonals!),
+    we then create an array B that has N rows and NDIAG columns, and simply
+    "collapse" the matrix A to the left.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals that are stored.
+    NDIAG must be at least 1 and no more than N.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Output, double R8SD_INDICATOR[N*NDIAG], the R8SD matrix.
+*/
+{
+  double *a;
+  int diag;
+  int fac;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * ndiag * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( diag = 1; diag <= ndiag; diag++ )
+    {
+      j = i + offset[diag-1];
+      if ( 1 <= j && j <= n )
+      {
+        a[i-1+(diag-1)*n] = ( double ) ( fac * i + j );
+      }
+      else
+      {
+        a[i-1+(diag-1)*n] = 0.0;
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8sd_mxv ( int n, int ndiag, int offset[], double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SD_MXV multiplies a R8SD matrix times a vector.
+
+  Discussion:
+
+    The R8SD storage format is used for symmetric matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0, and 
+    each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+
+    Assuming there are NDIAG nonzero diagonals (ignoring subdiagonals!),
+    we then create an array B that has N rows and NDIAG columns, and simply
+    "collapse" the matrix A to the left.
+
+  Example:
+
+    The "offset" value is printed above each column.
+
+    Original matrix               New Matrix
+
+       0   1   2   3   4   5       0   1   3   5
+
+      11  12   0  14   0  16      11  12  14  16
+      21  22  23   0  25   0      22  23  25  --
+       0  32  33  34   0  36      33  34  36  --
+      41   0  43  44  45   0      44  45  --  --
+       0  52   0  54  55  56      55  56  --  --
+      61   0  63   0  65  66      66  --  --  --
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals that are stored.
+    NDIAG must be at least 1 and no more than N.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8SD matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8SD_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int jdiag;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( jdiag = 0; jdiag < ndiag; jdiag++ )
+    {
+      j = i + offset[jdiag];
+      if ( 0 <= j && j < n )
+      {
+        b[i] = b[i] + a[i+jdiag*n] * x[j];
+        if ( offset[jdiag] != 0 )
+        {
+          b[j] = b[j] + a[i+jdiag*n] * x[i];
+        }
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8sd_print ( int n, int ndiag, int offset[], double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SD_PRINT prints a R8SD matrix.
+
+  Discussion:
+
+    The R8SD storage format is used for symmetric matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0, and 
+    each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+
+    Assuming there are NDIAG nonzero diagonals (ignoring subdiagonals!),
+    we then create an array B that has N rows and NDIAG columns, and simply
+    "collapse" the matrix A to the left:
+
+  Example:
+
+    The "offset" value is printed above each column.
+
+    Original matrix               New Matrix
+
+       0   1   2   3   4   5       0   1   3   5
+
+      11  12   0  14   0  16      11  12  14  16
+      21  22  23   0  25   0      22  23  25  --
+       0  32  33  34   0  36      33  34  36  --
+      41   0  43  44  45   0      44  45  --  --
+       0  52   0  54  55  56      55  56  --  --
+      61   0  63   0  65  66      66  --  --  --
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than N.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8SD matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8sd_print_some ( n, ndiag, offset, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8sd_print_some ( int n, int ndiag, int offset[], double a[], int ilo, 
+  int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SD_PRINT_SOME prints some of a R8SD matrix.
+
+  Discussion:
+
+    The R8SD storage format is used for symmetric matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0, and 
+    each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+
+    Assuming there are NDIAG nonzero diagonals (ignoring subdiagonals!),
+    we then create an array B that has N rows and NDIAG columns, and simply
+    "collapse" the matrix A to the left:
+
+  Example:
+
+    The "offset" value is printed above each column.
+
+    Original matrix               New Matrix
+
+       0   1   2   3   4   5       0   1   3   5
+
+      11  12   0  14   0  16      11  12  14  16
+      21  22  23   0  25   0      22  23  25  --
+       0  32  33  34   0  36      33  34  36  --
+      41   0  43  44  45   0      44  45  --  --
+       0  52   0  54  55  56      55  56  --  --
+      61   0  63   0  65  66      66  --  --  --
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals of the matrix
+    that are stored in the array.
+    NDIAG must be at least 1, and no more than N.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8SD matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+  int jdiag;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+    printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        aij = 0.0;
+
+        for ( jdiag = 0; jdiag < ndiag; jdiag++ )
+        {
+          if ( j - i == offset[jdiag] )
+          {
+            aij = a[i-1+jdiag*n];
+          }
+          else if ( j - i == - offset[jdiag] )
+          {
+            aij = a[j-1+jdiag*n];
+          }
+        }
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8sd_random ( int n, int ndiag, int offset[], int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SD_RANDOM randomizes a R8SD matrix.
+
+  Discussion:
+
+    The R8SD storage format is used for symmetric matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0, and 
+    each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+
+    Assuming there are NDIAG nonzero diagonals (ignoring subdiagonals!),
+    we then create an array B that has N rows and NDIAG columns, and simply
+    "collapse" the matrix A to the left.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals that are stored.
+    NDIAG must be at least 1 and no more than N.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8SD_RANDOM[N*NDIAG], the R8SD matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int jj;
+
+  a = ( double * ) malloc ( n * ndiag * sizeof ( double ) );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = 1; j <= ndiag; j++ )
+    {
+      jj = i + offset[j-1];
+      if ( 1 <= jj && jj <= n )
+      {
+        a[i-1+(j-1)*n] = r8_uniform_01 ( seed );
+      }
+      else
+      {
+        a[i-1+(j-1)*n] = 0.0;
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8sd_to_r8ge ( int n, int ndiag, int offset[], double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SD_TO_R8GE copies a R8SD matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8SD storage format is used for symmetric matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0, and 
+    each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+
+    Assuming there are NDIAG nonzero diagonals (ignoring subdiagonals!),
+    we then create an array B that has N rows and NDIAG columns, and simply
+    "collapse" the matrix A to the left:
+
+  Example:
+
+    The "offset" value is printed above each column.
+
+    Original matrix               New Matrix
+
+       0   1   2   3   4   5       0   1   3   5
+
+      11  12   0  14   0  16      11  12  14  16
+      21  22  23   0  25   0      22  23  25  --
+       0  32  33  34   0  36      33  34  36  --
+      41   0  43  44  45   0      44  45  --  --
+       0  52   0  54  55  56      55  56  --  --
+      61   0  63   0  65  66      66  --  --  --
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals that are stored.
+    NDIAG must be at least 1 and no more than N.
+
+    Input, int OFFSET[NDIAG], the offsets for the diagonal storage.
+
+    Input, double A[N*NDIAG], the R8SD matrix.
+
+    Output, double R8SD_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int jj;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      b[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < ndiag; j++ )
+    {
+      jj = i + offset[j];
+      if ( 0 <= jj && jj <= n-1 )
+      {
+        b[i+jj*n] = a[i+j*n];
+        if ( i != jj )
+        {
+          b[jj+i*n] = a[i+j*n];
+        }
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8sd_zero ( int n, int ndiag )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SD_ZERO zeros a R8SD matrix.
+
+  Discussion:
+
+    The R8SD storage format is used for symmetric matrices whose only nonzero entries
+    occur along a few diagonals, but for which these diagonals are not all
+    close enough to the main diagonal for band storage to be efficient.
+
+    In that case, we assign the main diagonal the offset value 0, and 
+    each successive superdiagonal gets an offset value 1 higher, until
+    the highest superdiagonal (the A(1,N) entry) is assigned the offset N-1.
+
+    Assuming there are NDIAG nonzero diagonals (ignoring subdiagonals!),
+    we then create an array B that has N rows and NDIAG columns, and simply
+    "collapse" the matrix A to the left.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NDIAG, the number of diagonals that are stored.
+    NDIAG must be at least 1 and no more than N.
+
+    Output, double R8SD_ZERO[N*NDIAG], the R8SD matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * ndiag * sizeof ( double ) );
+
+  for ( j = 0; j < ndiag; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8sm_ml ( int n, double a_lu[], double u[], double v[], int pivot[], 
+  double x[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SM_ML multiplies a factored square R8SM matrix times a vector.
+
+  Discussion:
+
+    The R8SM storage format is used for an M by N Sherman Morrison matrix B,
+    which is defined by an M by N matrix A, an M vector U, and
+    an N vector V, by B = A - U * V'
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A_LU[N*N], the LU factors from R8GE_FA.
+
+    Input, double U[N], V[N], the Sherman Morrison vectors.
+
+    Input, int PIVOT[N], the pivot vector computed by R8GE_FA.
+
+    Input, double X[N], the vector to be multiplied.
+
+    Input, int JOB, specifies the operation to be done:
+    JOB = 0, compute (A-u*v') * x.
+    JOB nonzero, compute (A-u*v')' * x.
+
+    Output, double R8SM_ML[N], the result of the multiplication.
+*/
+{
+  double *b;
+  int i;
+  double ux;
+  double vx;
+
+  b = r8ge_ml ( n, a_lu, pivot, x, job );
+
+  if ( job == 0 )
+  {
+    vx = 0.0;
+    for ( i = 0; i < n; i++ )
+    {
+      vx = vx + v[i] * x[i];
+    }
+    for ( i = 0; i < n; i++ )
+    {
+      b[i] = b[i] - u[i] * vx;
+    }
+  }
+  else
+  {
+    ux = 0.0;
+    for ( i = 0; i < n; i++ )
+    {
+      ux = ux + u[i] * x[i];
+    }
+    for ( i = 0; i < n; i++ )
+    {
+      b[i] = b[i] - v[i] * ux;
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8sm_mxv ( int m, int n, double a[], double u[], double v[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SM_MXV multiplies a R8SM matrix times a vector.
+
+  Discussion:
+
+    The R8SM storage format is used for an M by N Sherman Morrison matrix B,
+    which is defined by an M by N matrix A, an M vector U, and
+    an N vector V, by B = A - U * V'
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[M*N], the R8SM matrix.
+
+    Input, double U[M], V[N], the R8SM vectors U and V.
+
+    Input, double X[N], the vector to be multiplied by (A-u*v').
+
+    Output, double R8SM_MXV[M], the product (A-u*v') * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  double vx;
+
+  b = ( double * ) malloc ( m * sizeof ( double ) );
+
+  vx = 0.0;
+  for ( j = 0; j < n; j++ )
+  {
+    vx = vx + v[j] * x[j];
+  }
+
+  for ( i = 0; i < m; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j < n; j++ )
+    {
+      b[i] = b[i] + a[i+j*m] * x[j];
+    }
+    b[i] = b[i] - u[i] * vx;
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8sm_print ( int m, int n, double a[], double u[], double v[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SM_PRINT prints a R8SM matrix.
+
+  Discussion:
+
+    The R8SM storage format is used for an M by N Sherman Morrison matrix B,
+    which is defined by an M by N matrix A, an M vector U, and
+    an N vector V, by B = A - U * V'
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[M*N], the R8SM matrix.
+
+    Input, double U[M], V[N], the R8SM vectors.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8sm_print_some ( m, n, a, u, v, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8sm_print_some ( int m, int n, double a[], double u[], double v[], int ilo, 
+  int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SM_PRINT_SOME prints some of a R8SM matrix.
+
+  Discussion:
+
+    The R8SM storage format is used for an M by N Sherman Morrison matrix B,
+    which is defined by an M by N matrix A, an M vector U, and
+    an N vector V, by B = A - U * V'
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[M*N], the R8SM matrix.
+
+    Input, double U[M], V[N], the R8SM vectors.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, m );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        printf ( "%12g  ", a[i-1+(j-1)*n] - u[i-1] * v[j-1] );;
+      }
+      printf ( "\n" );
+    }
+  }
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+void r8sm_random ( int m, int n, double a[], double u[], double v[], int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SM_RANDOM randomizes a R8SM matrix.
+
+  Discussion:
+
+    The R8SM storage format is used for an M by N Sherman Morrison matrix B,
+    which is defined by an M by N matrix A, an M vector U, and
+    an N vector V, by B = A - U * V'
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Output, double A[M*N], the R8SM matrix.
+
+    Output, double U[M], V[N], the R8SM vectors.
+
+    Input/output, int *SEED, a seed for the random number generator.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = r8_uniform_01 ( seed );
+    }
+  }
+  for ( i = 0; i < m; i++ )
+  {
+    u[i] = r8_uniform_01 ( seed );
+  }
+  for ( j = 0; j < n; j++ )
+  {
+    v[j] = r8_uniform_01 ( seed );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8sm_sl ( int n, double a_lu[], double u[], double v[], double b[], 
+  int pivot[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SM_SL solves a square R8SM system that has been factored.
+
+  Discussion:
+
+    The R8SM storage format is used for an M by N Sherman Morrison matrix B,
+    which is defined by an M by N matrix A, an M vector U, and
+    an N vector V, by B = A - U * V'
+
+    It is assumed that A has been decomposed into its LU factors
+    by R8GE_FA.  The Sherman Morrison formula allows
+    us to solve linear systems involving (A-u*v') by solving linear
+    systems involving A and adjusting the results.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    David Kahaner, Cleve Moler, Stephen Nash
+    Numerical Methods and Software,
+    Prentice Hall, 1989
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A_LU[N*N], the LU factors from R8GE_FA.
+
+    Input, double U[N], V[N], the R8SM vectors U and V.
+
+    Input, double B[N], the right hand side vector.
+
+    Input, int PIVOT[N], the pivot vector produced by R8GE_FA.
+
+    Input, int JOB, specifies the system to solve.
+    0, solve (A-u*v') * X = B.
+    nonzero, solve (A-u*v') * X = B.
+
+    Output, double R8SM_SL[N], the solution vector, or NULL if
+    an error occurred.
+*/
+{
+  double alpha;
+  double beta;
+  int i;
+  int job_local;
+  double *w;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  if ( job == 0 )
+  {
+/*
+  Solve A' * w = v.
+*/
+    job_local = 1;
+    w = r8ge_sl_new ( n, a_lu, pivot, v, job_local );
+/*
+  Set beta = w' * b.
+*/
+    beta = 0.0;
+    for ( i = 0; i < n; i++ )
+    {
+      beta = beta + w[i] * b[i];
+    }
+/*
+  Solve A * x = b.
+*/
+    job_local = 0;
+    x = r8ge_sl_new ( n, a_lu, pivot, b, job_local );
+/*
+  Solve A * w = u.
+*/
+    job_local = 0;
+    free ( w );
+    w = r8ge_sl_new ( n, a_lu, pivot, u, job_local );
+/*
+  Set alpha = 1 / ( 1 - v' * w ).
+*/
+    alpha = 1.0;
+    for ( i = 0; i < n; i++ )
+    {
+      alpha = alpha - v[i] * w[i];
+    }
+  }
+  else
+  {
+/*
+  Solve A * w = u.
+*/
+    job_local = 0;
+    w = r8ge_sl_new ( n, a_lu, pivot, u, job_local );
+/*
+  Set beta = w' * b.
+*/
+    beta = 0.0;
+    for ( i = 0; i < n; i++ )
+    {
+      beta = beta + w[i] * b[i];
+    }
+/*
+  Solve A' * x = b.
+*/
+    job_local = 1;
+    x = r8ge_sl_new ( n, a_lu, pivot, b, job_local );
+/*
+  Solve A' * w = v.
+*/
+    job_local = 1;
+    free ( w );
+    w = r8ge_sl_new ( n, a_lu, pivot, v, job_local );
+/*
+  Set alpha = 1 / ( 1 - u' * w ).
+*/
+    alpha = 1.0;
+    for ( i = 0; i < n; i++ ) 
+    {
+      alpha = alpha - u[i] * w[i];
+    }
+  }
+
+  if ( alpha == 0.0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8SM_SL - Fatal error!\n" );
+    fprintf ( stderr, "  The divisor ALPHA is zero.\n" );
+    exit ( 1 );
+  }
+
+  alpha = 1.0 / alpha;
+/*
+  Set b = b + alpha * beta * w.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = x[i] + alpha * beta * w[i];
+  }
+  free ( w );
+  return x;
+}
+/******************************************************************************/
+
+double *r8sm_to_r8ge ( int m, int n, double a[], double u[], double v[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SM_TO_R8GE copies a R8SM matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8SM storage format is used for an M by N Sherman Morrison matrix B,
+    which is defined by an M by N matrix A, an M vector U, and
+    an N vector V, by B = A - U * V'
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[M*N], the R8SM matrix.
+
+    Input, double U[M], V[N], the R8SM vectors.
+
+    Output, double R8SM_TO_R8GE[M*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      b[i+j*m] = a[i+j*m] - u[i] * v[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8sm_vxm ( int m, int n, double a[], double u[], double v[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SM_VXM multiplies a vector by a R8SM matrix.
+
+  Discussion:
+
+    The R8SM storage format is used for an M by N Sherman Morrison matrix B,
+    which is defined by an M by N matrix A, an M vector U, and
+    an N vector V, by B = A - U * V'
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[M*N], the R8SM matrix.
+
+    Input, double U[M], V[N], the R8SM vectors.
+
+    Input, double X[M], the vector to be multiplied.
+
+    Output, double R8SM_VXM[N], the product (A-u*v')' * X.
+*/
+{
+  double *b;
+  double dot;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j < m; j++ )
+    {
+      b[i] = b[i] + x[j] * a[j+i*m];
+    }
+    dot = 0.0;
+    for ( j = 0; j < m; j++ )
+    {
+      dot = dot + u[j] * x[j];
+    }
+    b[i] = b[i] - v[i] * dot;
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8sm_zero ( int m, int n, double a[], double u[], double v[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SM_ZERO zeros a R8SM matrix.
+
+  Discussion:
+
+    The R8SM storage format is used for an M by N Sherman Morrison matrix B,
+    which is defined by an M by N matrix A, an M vector U, and
+    an N vector V, by B = A - U * V'
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Output, double A[M*N], the R8SM matrix.
+
+    Output, double U[M], V[N], the R8SM vectors.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = 0.0;
+    }
+  }
+  for ( i = 0; i < m; i++ )
+  {
+    u[i] = 0.0;
+  }
+  for ( i = 0; i < n; i++ )
+  {
+    v[i] = 0.0;
+  }
+
+  return;
+}
+/******************************************************************************/
+
+int r8sp_check ( int m, int n, int nz_num, int row[], int col[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_CHECK checks that a R8SP matrix data structure is properly sorted.
+
+  Discussion:
+
+    This routine assumes that the data structure has been sorted,
+    so that the entries of ROW are ascending sorted, and that the
+    entries of COL are ascending sorted, within the group of entries
+    that have a common value of ROW.
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    ("nonsymmetric SLAP triad"), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of
+    the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in
+    the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and
+    column indices of the nonzero elements.
+
+    Output, int R8SP_CHECK, is TRUE if the matrix is properly defined.
+*/
+{
+  int check;
+  int k;
+
+  check = 1;
+/*
+  Check 1 <= ROW(*) <= M.
+*/
+  for ( k = 0; k < nz_num; k++ )
+  {
+    if ( row[k] < 1 || m < row[k] )
+    {
+      check = 0;
+      return check;
+    }
+  }
+/*
+  Check 1 <= COL(*) <= N.
+*/
+  for ( k = 0; k < nz_num; k++ )
+  {
+    if ( col[k] < 1 || n < col[k] )
+    {
+      check = 0;
+      return check;
+    }
+  }
+/*
+  Check that ROW(K) <= ROW(K+1).
+*/
+  for ( k = 0; k < nz_num - 1; k++ )
+  {
+    if ( row[k+1] < row[k] )
+    {
+      check = 0;
+      return check;
+    }
+  }
+/*
+  Check that, if ROW(K) == ROW(K+1), that COL(K) < COL(K+1).
+*/
+  for ( k = 0; k < nz_num - 1; k++ )
+  {
+    if ( row[k] == row[k+1] )
+    {
+      if ( col[k+1] <= col[k] )
+      {
+        check = 0;
+        return check;
+      }
+    }
+  }
+  return check;
+}
+/******************************************************************************/
+
+int r8sp_ij_to_k ( int nz_num, int row[], int col[], int i, int j )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_IJ_TO_K seeks the compressed index of the (I,J) entry of A.
+
+  Discussion:
+
+    If A(I,J) is nonzero, then its value is stored in location K.
+
+    This routine searches the R8SP storage structure for the index K
+    corresponding to (I,J), returning -1 if no such entry was found.
+
+    This routine assumes that the data structure has been sorted,
+    so that the entries of ROW are ascending sorted, and that the
+    entries of COL are ascending sorted, within the group of entries
+    that have a common value of ROW.
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    ("nonsymmetric SLAP triad"), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int NZ_NUM, the number of nonzero elements in
+    the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and
+    column indices of the nonzero elements.
+
+    Input, int I, J, the row and column indices of the
+    matrix entry.
+
+    Output, int R8SP_IJ_TO_K, the R8SP index of the (I,J) entry.
+*/
+{
+  int hi;
+  int k;
+  int lo;
+  int md;
+
+  lo = 1;
+  hi = nz_num;
+
+  for ( ; ; )
+  {
+    if ( hi < lo )
+    {
+      k = -1;
+      break;
+    }
+
+    md = ( lo + hi ) / 2;
+
+    if ( row[md-1] < i || ( row[md-1] == i && col[md-1] < j ) )
+    {
+      lo = md + 1;
+    }
+    else if ( i < row[md-1] || ( row[md-1] == i && j < col[md-1] ) )
+    {
+      hi = md - 1;
+    }
+    else
+    {
+      k = md;
+      break;
+    }
+  }
+
+  return k;
+}
+/******************************************************************************/
+
+double *r8sp_indicator ( int m, int n, int nz_num, int row[], int col[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_INDICATOR sets up a R8SP indicator matrix.
+
+  Discussion:
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Output, double R8SP_INDICATOR[NZ_NUM], the nonzero elements of the matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( nz_num * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    i = row[k];
+    j = col[k];
+    a[k] = ( double ) ( fac * i + j );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8sp_mxv ( int m, int n, int nz_num, int row[], int col[], 
+  double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_MXV multiplies a R8SP matrix times a vector.
+
+  Discussion:
+
+    The R8SP storage format stores the row, column and value of each nonzero
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements of the matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8SP_MXV[M], the product vector A*X.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    b[i] = 0.0;
+  }
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    i = row[k];
+    j = col[k];
+    b[i-1] = b[i-1] + a[k] * x[j-1];
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8sp_print ( int m, int n, int nz_num, int row[], int col[], 
+  double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_PRINT prints a R8SP matrix.
+
+  Discussion:
+
+    This version of R8SP_PRINT has been specifically modified to allow,
+    and correctly handle, the case in which a single matrix location
+    A(I,J) is referenced more than once by the sparse matrix structure.
+    In such cases, the routine prints out the sum of all the values.
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements of the matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8sp_print_some ( m, n, nz_num, row, col, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8sp_print_some ( int m, int n, int nz_num, int row[], int col[], 
+  double a[], int ilo, int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_PRINT_SOME prints some of a R8SP matrix.
+
+  Discussion:
+
+    This version of R8SP_PRINT_SOME has been specifically modified to allow,
+    and correctly handle, the case in which a single matrix location
+    A(I,J) is referenced more than once by the sparse matrix structure.
+    In such cases, the routine prints out the sum of all the values.
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements of the matrix.
+
+    Input, int ILO, JLO, IHI, JHI, the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij[INCX];
+  int i;
+  int i2hi;
+  int i2lo;
+  int inc;
+  int j;
+  int j2;
+  int j2hi;
+  int j2lo;
+  int k;
+  int nonzero;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    inc = j2hi + 1 - j2lo;
+
+    printf ( "\n" );
+
+    printf ( "  Col:  " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, m );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      nonzero = 0;
+      for ( j2 = 0; j2 < INCX; j2++ )
+      {
+        aij[j2] = 0.0;
+      }
+
+      for ( k = 1; k <= nz_num; k++ )
+      {
+        if ( i == row[k-1] && j2lo <= col[k-1] && col[k-1] <= j2hi )
+        {
+          j2 = col[k-1] - j2lo;
+
+          if ( a[k-1] == 0.0 )
+          {
+            continue;
+          }
+
+          nonzero = 1;
+          aij[j2] = aij[j2] + a[k-1];
+        }
+      }
+
+      if ( nonzero )
+      {
+        printf ( "%6d", i );
+        for ( j2 = 0; j2 < inc; j2++ )
+        {
+          printf ( "%12g  ", aij[j2] );
+        }
+        printf ( "\n" );
+      }
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8sp_random ( int m, int n, int nz_num, int row[], int col[], 
+  int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_RANDOM sets a random R8SP matrix.
+
+  Discussion:
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8SP_RANDOM[NZ_NUM], the nonzero elements of the matrix.
+*/
+{
+  double *a;
+
+  a = r8vec_uniform_01_new ( nz_num, seed );
+
+  return a;
+}
+/******************************************************************************/
+
+void r8sp_read ( char *input_file, int m, int n, int nz_num, int row[], 
+  int col[], double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_READ reads a R8SP matrix from a file.
+
+  Discussion:
+
+    This routine needs the value of NZ_NUM, which can be determined
+    by a call to R8SP_READ_SIZE.
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    21 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *INPUT_FILE, the name of the file to be read.
+
+    Unused, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Output, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Output, double A[NZ_NUM], the nonzero elements of the matrix.
+*/
+{
+  FILE *input;
+  int k;
+
+  input = fopen ( input_file, "rt" );
+
+  if ( !input )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8SP_READ - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_file );
+    exit ( 1 );
+  }
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    fscanf ( input, "%d%d%f\n", row+k, col+k, a+k );
+  }
+
+  fclose ( input );
+
+  return;
+}
+/******************************************************************************/
+
+void r8sp_read_size ( char *input_file, int *m, int *n, int *nz_num )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_READ_SIZE reads the size of a R8SP matrix from a file.
+
+  Discussion:
+
+    The value of NZ_NUM is simply the number of records in the input file.
+
+    The values of M and N are determined as the maximum entry in the row 
+    and column vectors.
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    21 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *INPUT_FILE, the name of the file to 
+    be read.
+
+    Output, int *M, *N, the number of rows and columns of the matrix.
+
+    Output, int *NZ_NUM, the number of nonzero elements in the matrix.
+*/
+{
+  double a_k;
+  int col_k;
+  int flag;
+  FILE *input;
+  int row_k;
+
+  *m = 0;
+  *n = 0;
+  *nz_num = 0;
+
+  input = fopen ( input_file, "rt" );
+
+  if ( !input )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8SP_READ_SIZE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the input file: \"%s\"\n", input_file );
+    exit ( 1 );
+  }
+
+  for ( ; ; )
+  {
+    flag = fscanf ( input, "%d%d%f\n", &row_k, &col_k, &a_k );
+
+    if ( flag == EOF )
+    {
+      break;
+    }
+
+    *m = i4_max ( *m, row_k );
+    *n = i4_max ( *n, col_k );
+    *nz_num = *nz_num + 1;
+  }
+
+  fclose ( input );
+
+  return;
+}
+/******************************************************************************/
+
+double *r8sp_to_r8ge ( int m, int n, int nz_num, int row[], int col[], 
+  double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_TO_R8GE converts a R8SP matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements of the matrix.
+
+    Output, double B[M*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      b[i+j*m] = 0.0;
+    }
+  }
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    b[row[k]-1+(col[k]-1)*m] = a[k];
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8sp_to_r8ncf ( int m, int n, int nz_num, int row[], int col[], 
+  double a[], int rowcol[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_TO_R8NCF converts a R8SP matrix to a R8NCF matrix.
+
+  Discussion:
+
+    The R8SP and R8NCF formats are essentially identical, except that
+    R8SP keeps separate ROW and COLUMN vectors, while R8NCF uses a single
+    ROWCOL array.  Therefore, the input values NZ_NUM and A used in
+    the R8SP representation can be regarded as part of the output
+    values used for the R8NCF representation.
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+    The R8NCF storage format stores NZ_NUM, the number of nonzeros,
+    a real array containing the nonzero values, a 2 by NZ_NUM integer
+    array storing the row and column of each nonzero entry.
+
+    The R8NCF format is used by NSPCG.  NSPCG requires that the information
+    for the diagonal entries of the matrix must come first.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements of the matrix.
+
+    Output, int ROWCOL[2*NZ_NUM], the R8NCF row and column index vector.
+*/
+{
+  int i;
+
+  for ( i = 0; i < nz_num; i++ )
+  {
+    rowcol[0+i*2] = row[i];
+    rowcol[1+i*2] = col[i];
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8sp_vxm ( int m, int n, int nz_num, int row[], int col[], 
+  double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_VXM multiplies a vector times a R8SP matrix.
+
+  Discussion:
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements of the matrix.
+
+    Input, double X[M], the vector to be multiplied by A.
+
+    Output, double B[N], the product vector A'*X.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    b[j] = 0.0;
+  }
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    i = row[k];
+    if ( i < 0 || m < i )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8SP_VXM - Fatal error!\n" );
+      fprintf ( stderr, "  I < 0 or %d < I.\n", m );
+      exit ( 1 );
+    }
+    j = col[k];
+    if ( j < 0 || n < j )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8SP_VXM - Fatal error!\n" );
+      fprintf ( stderr, "  J < 0 or %d < J.\n", n );
+      exit ( 1 );
+    }
+    b[j-1] = b[j-1] + a[k] * x[i-1];
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8sp_write ( int m, int n, int nz_num, int row[], int col[], double a[], 
+  char *output_file )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_WRITE writes a R8SP matrix to a file.
+
+  Discussion:
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    It is possible that a pair of indices (I,J) may occur more than
+    once.  Presumably, in this case, the intent is that the actual value
+    of A(I,J) is the sum of all such entries.  This is not a good thing
+    to do, but I seem to have come across this in MATLAB.
+
+    The R8SP format is used by CSPARSE ("sparse triplet"), DLAP/SLAP
+    (nonsymmetric case), by MATLAB, and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Input, double A[NZ_NUM], the nonzero elements 
+    of the matrix.
+
+    Input, char *OUTPUT_FILE, the name of the file to which
+    the information is to be written.
+*/
+{
+  int k;
+  FILE *output_unit;
+
+  output_unit = fopen ( output_file, "wt" );
+
+  if ( !output_unit )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8SP_WRITE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the output file.\n" );
+    exit ( 1 );
+  }
+
+  for ( k = 0; k < nz_num; k++ )
+  {
+    fprintf ( output_unit, "  %d  %d  %g\n", row[k], col[k], a[k] );
+  }
+
+  fclose ( output_unit );
+
+  return;
+}
+/******************************************************************************/
+
+double *r8sp_zero ( int m, int n, int nz_num, int row[], int col[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SP_ZERO returns a zero R8SP matrix.
+
+  Discussion:
+
+    The R8SP storage format stores the row, column and value of each nonzero
+    entry of a sparse matrix.
+
+    The R8SP format is used by DLAP/SLAP (nonsymmetric case), by MATLAB,
+    and by SPARSEKIT ("COO" format).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, int NZ_NUM, the number of nonzero elements in the matrix.
+
+    Input, int ROW[NZ_NUM], COL[NZ_NUM], the row and column indices
+    of the nonzero elements.
+
+    Output, double R8SP_ZERO[NZ_NUM], the (potentially) nonzero elements 
+    of the matrix.
+*/
+{
+  double *a;
+  int i;
+
+  a = ( double * ) malloc ( nz_num * sizeof ( double ) );
+
+  for ( i = 0; i < nz_num; i++ )
+  {
+    a[i] = 0.0;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8sr_indicator ( int n, int nz, int row[], int col[], double diag[], 
+  double off[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SR_INDICATOR sets up a R8SR indicator matrix.
+
+  Discussion:
+
+    The R8SR storage format stores the diagonal of a sparse matrix in DIAG.
+    The off-diagonal entries of row I are stored in entries ROW(I)
+    through ROW(I+1)-1 of OFF.  COL(J) records the column index of the
+    the entry stored in OFF(J).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int NZ, the number of offdiagonal nonzero elements in A.
+
+    Input, int ROW[N+1].  The nonzero offdiagonal elements of row I of A
+    are contained in A(ROW(I)) through A(ROW(I+1)-1).
+
+    Input, int COL[NZ], contains the column index of the element
+    in the corresponding position in A.
+
+    Output, double DIAG[N], the diagonal elements of A.
+
+    Output, double OFF[NZ], the off-diagonal elements of A.
+*/
+{
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    j = i;
+    diag[i-1] = ( double ) ( fac * i + j );
+
+    for ( k = row[i-1]; k <= row[i]-1; k++ )
+    {
+      j = col[k-1];
+      off[k-1] = ( double ) ( fac * i + j );
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8sr_mxv ( int n, int nz, int row[], int col[], double diag[], 
+  double off[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SR_MXV multiplies a R8SR matrix times a vector.
+
+  Discussion:
+
+    The R8SR storage format stores the diagonal of a sparse matrix in DIAG.
+    The off-diagonal entries of row I are stored in entries ROW(I)
+    through ROW(I+1)-1 of OFF.  COL(J) records the column index of the
+    the entry stored in OFF(J).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int NZ, the number of offdiagonal nonzero elements in A.
+
+    Input, int ROW[N+1].  The nonzero offdiagonal elements of row I of A
+    are contained in A(ROW(I)) through A(ROW(I+1)-1).
+
+    Input, int COL[NZ], contains the column index of the element
+    in the corresponding position in A.
+
+    Input, double DIAG[N], the diagonal elements of A.
+
+    Input, double OFF[NZ], the off-diagonal elements of A.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8SR_MXV[N], the product A * X.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = diag[i] * x[i];
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( k = row[i]; k <= row[i+1] - 1; k++ )
+    {
+      j = col[k-1];
+      b[i] = b[i] + off[k-1] * x[j-1];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8sr_print ( int n, int nz, int row[], int col[], double diag[], 
+  double off[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SR_PRINT prints a R8SR matrix.
+
+  Discussion:
+
+    The R8SR storage format stores the diagonal of a sparse matrix in DIAG.
+    The off-diagonal entries of row I are stored in entries ROW(I)
+    through ROW(I+1)-1 of OFF.  COL(J) records the column index
+    of the entry in A(J).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int NZ, the number of offdiagonal nonzero elements in A.
+
+    Input, int ROW[N+1].  The nonzero offdiagonal elements of row I of A
+    are contained in A(ROW(I)) through A(ROW(I+1)-1).
+
+    Input, int COL[NZ], contains the column index of the element
+    in the corresponding position in A.
+
+    Input, double DIAG[N], the diagonal elements of A.
+
+    Input, double OFF[NZ], the off-diagonal elements of A.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8sr_print_some ( n, nz, row, col, diag, off, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8sr_print_some ( int n, int nz, int row[], int col[], double diag[], 
+  double off[], int ilo, int jlo, int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SR_PRINT_SOME prints some of a R8SR matrix.
+
+  Discussion:
+
+    The R8SR storage format stores the diagonal of a sparse matrix in DIAG.
+    The off-diagonal entries of row I are stored in entries ROW(I)
+    through ROW(I+1)-1 of OFF.  COL(J) records the column index
+    of the entry in A(J).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int NZ, the number of offdiagonal nonzero elements in A.
+
+    Input, int ROW[N+1].  The nonzero offdiagonal elements of row I of A
+    are contained in A(ROW(I)) through A(ROW(I+1)-1).
+
+    Input, int COL[NZ], contains the column index of the element
+    in the corresponding position in A.
+
+    Input, double DIAG[N], the diagonal elements of A.
+
+    Input, double OFF[NZ], the off-diagonal elements of A.
+
+    Input, int ILO, JLO, IHI, JHI, the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+  int k;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col:  " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%6d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        aij = 0.0;
+        if ( j == i )
+        {
+          aij = diag[i-1];
+        }
+        else
+        {
+          for ( k = row[i-1]; k <= row[i]-1; k++ )
+          {
+            if ( j == col[k-1] )
+            {
+              aij = off[k-1];
+            }
+          }
+        }
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+void r8sr_random ( int n, int nz, int row[], int col[], double diag[], 
+  double off[], int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SR_RANDOM randomizes a R8SR matrix.
+
+  Discussion:
+
+    The R8SR storage format stores the diagonal of a sparse matrix in DIAG.
+    The off-diagonal entries of row I are stored in entries ROW(I)
+    through ROW(I+1)-1 of OFF.  COL(J) records the column index of the
+    the entry stored in OFF(J).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int NZ, the number of offdiagonal nonzero elements in A.
+
+    Input, int ROW[N+1].  The nonzero offdiagonal elements of row I of A
+    are contained in A(ROW(I)) through A(ROW(I+1)-1).
+
+    Input, int COL[NZ], contains the column index of the element
+    in the corresponding position in A.
+
+    Output, double DIAG[N], the diagonal elements of A.
+
+    Output, double OFF[NZ], the off-diagonal elements of A.
+
+    Input/output, int *SEED, a seed for the random number generator.
+*/
+{
+  int i;
+  int j;
+
+  for ( i = 0; i < n; i++ )
+  {
+    diag[i] = r8_uniform_01 ( seed );
+    for ( j = row[i]-1; j <= row[i+1]-2; j++ )
+    {
+      off[j] = r8_uniform_01 ( seed );
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8sr_to_r8ge ( int n, int nz, int row[], int col[], double diag[], 
+  double off[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SR_TO_R8GE converts a R8SR matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8SR storage format stores the diagonal of a sparse matrix in DIAG.
+    The off-diagonal entries of row I are stored in entries ROW(I)
+    through ROW(I+1)-1 of OFF.  COL(J) records the column index of the
+    the entry stored in OFF(J).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int NZ, the number of offdiagonal nonzero elements in A.
+
+    Input, int ROW[N+1].  The nonzero offdiagonal elements of row I of A
+    are contained in A(ROW(I)) through A(ROW(I+1)-1).
+
+    Input, int COL[NZ], contains the column index of the element
+    in the corresponding position in A.
+
+    Input, double DIAG[N], the diagonal elements of A.
+
+    Input, double OFF[NZ], the off-diagonal elements of A.
+
+    Output, double R8SR_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      b[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i+i*n] = diag[i];
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = row[i]-1; j <= row[i+1]-2; j++ )
+    {
+      b[i+(col[j]-1)*n] = off[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8sr_vxm ( int n, int nz, int row[], int col[], double diag[], 
+  double off[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SR_VXM multiplies a vector times a R8SR matrix.
+
+  Discussion:
+
+    The R8SR storage format stores the diagonal of a sparse matrix in DIAG.
+    The off-diagonal entries of row I are stored in entries ROW(I)
+    through ROW(I+1)-1 of OFF.  COL(J) records the column index of the
+    the entry stored in OFF(J).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int NZ, the number of offdiagonal nonzero elements in A.
+
+    Input, int ROW[N+1].  The nonzero offdiagonal elements of row I of A
+    are contained in A(ROW(I)) through A(ROW(I+1)-1).
+
+    Input, int COL[NZ], contains the column index of the element
+    in the corresponding position in A.
+
+    Input, double DIAG[N], the diagonal elements of A.
+
+    Input, double OFF[NZ], the off-diagonal elements of A.
+
+    Input, double X[N], the vector to be multiplies by A.
+
+    Output, double R8SR_VXM[N], the product A' * X.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = diag[i] * x[i];
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( k = row[i]; k <= row[i+1] - 1; k++ )
+    {
+      j = col[k-1];
+      b[j-1] = b[j-1] + off[k-1] * x[i];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8sr_zero ( int n, int nz, int row[], int col[], double diag[], 
+  double off[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SR_ZERO zeros a R8SR matrix.
+
+  Discussion:
+
+    The R8SR storage format stores the diagonal of a sparse matrix in DIAG.
+    The off-diagonal entries of row I are stored in entries ROW(I)
+    through ROW(I+1)-1 of OFF.  COL(J) records the column index of the
+    the entry stored in OFF(J).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int NZ, the number of offdiagonal nonzero elements in A.
+
+    Input, int ROW[N+1].  The nonzero offdiagonal elements of row I of A
+    are contained in A(ROW(I)) through A(ROW(I+1)-1).
+
+    Input, int COL[NZ], contains the column index of the element
+    in the corresponding position in A.
+
+    Output, double DIAG[N], the diagonal elements of A.
+
+    Output, double OFF[NZ], the off-diagonal elements of A.
+*/
+{
+  int i;
+  int j;
+
+  for ( i = 0; i < n; i++ )
+  {
+    diag[i] = 0.0;
+    for ( j = row[i]-1; j <= row[i+1]-2; j++ )
+    {
+      off[j] = 0.0;
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+int r8ss_error ( int diag[], int n, int na )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SS_ERROR checks dimensions for a R8SS matrix.
+
+  Discussion:
+
+    The R8SS storage format is used for real symmetric skyline matrices.
+    This storage is appropriate when the nonzero entries of the
+    matrix are generally close to the diagonal, but the number
+    of nonzeroes above each diagonal varies in an irregular fashion.
+
+    In this case, the strategy is essentially to assign column J
+    its own bandwidth, and store the strips of nonzeros one after
+    another.   Note that what's important is the location of the
+    furthest nonzero from the diagonal.  A slot will be set up for
+    every entry between that and the diagonal, whether or not
+    those entries are zero.
+
+    A skyline matrix can be Gauss-eliminated without disrupting
+    the storage format, as long as no pivoting is required.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int DIAG[N], the indices in A of the N diagonal elements.
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NA, the dimension of the array A.
+    NA must be at least N.
+
+    Output, int R8SS_ERROR, is 1 if an error was detected.
+*/
+{
+  int i;
+
+  if ( n < 1 )
+  {
+    printf ( "\n" );
+    printf ( "R8SS_ERROR - Illegal N = %d\n", n );
+    return 1;
+  }
+
+  if ( na < n )
+  {
+    printf ( "\n" );
+    printf ( "R8SS_ERROR - Illegal NA < N = %d\n", n );
+    return 1;
+  }
+
+  if ( diag[0] != 1 )
+  {
+    printf ( "\n" );
+    printf ( "R8SS_ERROR - DIAG[0] != 1.\n" );
+    return 1;
+  }
+
+  for ( i = 0; i < n-1; i++ )
+  { 
+    if ( diag[i+1] <= diag[i] ) 
+    {
+      printf ( "\n" );
+      printf ( "R8SS_ERROR - DIAG[I+1] <= DIAG[I].\n" );
+      return 1;
+    }
+  }
+
+  if ( na < diag[n-1] ) 
+  {
+    printf ( "\n" );
+    printf ( "R8SS_ERROR - NA < DIAG[N-1].\n" );
+    return 1;
+  }
+
+  return 0;
+}
+/******************************************************************************/
+
+double *r8ss_indicator ( int n, int *na, int diag[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SS_INDICATOR sets up a R8SS indicator matrix.
+
+  Discussion:
+
+    The R8SS storage format is used for real symmetric skyline matrices.
+    This storage is appropriate when the nonzero entries of the
+    matrix are generally close to the diagonal, but the number
+    of nonzeroes above each diagonal varies in an irregular fashion.
+
+    In this case, the strategy is essentially to assign column J
+    its own bandwidth, and store the strips of nonzeros one after
+    another.   Note that what's important is the location of the
+    furthest nonzero from the diagonal.  A slot will be set up for
+    every entry between that and the diagonal, whether or not
+    those entries are zero.
+
+    A skyline matrix can be Gauss-eliminated without disrupting
+    the storage format, as long as no pivoting is required.
+
+    The user must set aside ( N * ( N + 1 ) ) / 2 entries for the array,
+    although the actual storage needed will generally be about half of
+    that.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Output, int *NA, the dimension of the array A, which for this
+    special case will be the maximum, ( N * ( N + 1 ) ) / 2.
+
+    Output, int DIAG[N], the indices in A of the N diagonal elements.
+
+    Output, double R8SS_INDICATOR[(N*(N+1))/2], the R8SS matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( ( n * ( n + 1 ) ) / 2 * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  *na = 0;
+
+  for ( j = 1; j <= n; j++ )
+  {
+    for ( i = 1; i <= j; i++ )
+    {
+      a[*na] = ( double ) ( fac * i + j );
+      *na = *na + 1;
+    }
+    diag[j-1] = *na;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8ss_mxv ( int n, int na, int diag[], double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SS_MXV multiplies a R8SS matrix times a vector.
+
+  Discussion:
+
+    The R8SS storage format is used for real symmetric skyline matrices.
+    This storage is appropriate when the nonzero entries of the
+    matrix are generally close to the diagonal, but the number
+    of nonzeroes above each diagonal varies in an irregular fashion.
+
+    In this case, the strategy is essentially to assign column J
+    its own bandwidth, and store the strips of nonzeros one after
+    another.   Note that what's important is the location of the
+    furthest nonzero from the diagonal.  A slot will be set up for
+    every entry between that and the diagonal, whether or not
+    those entries are zero.
+
+    A skyline matrix can be Gauss-eliminated without disrupting
+    the storage format, as long as no pivoting is required.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NA, the dimension of the array A.
+    NA must be at least N.
+
+    Input, int DIAG[N], the indices in A of the N diagonal elements.
+
+    Input, double A[NA], the R8SS matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8SS_MXV[N], the product vector A*x.
+*/
+{
+  double *b;
+  int diagold;
+  int i;
+  int ilo;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+  }
+
+  diagold = 0;
+  k = 0;
+
+  for ( j = 1; j <= n; j++ )
+  {
+    ilo = j + 1 + diagold - diag[j-1];
+
+    for ( i = ilo; i < j; i++ )
+    {
+      b[i-1] = b[i-1] + a[k] * x[j-1];
+      b[j-1] = b[j-1] + a[k] * x[i-1];
+      k = k + 1;
+    }
+
+    b[j-1] = b[j-1] + a[k] * x[j-1];
+    k = k + 1;
+    diagold = diag[j-1];
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8ss_print ( int n, int na, int diag[], double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SS_PRINT prints a R8SS matrix.
+
+  Discussion:
+
+    The R8SS storage format is used for real symmetric skyline matrices.
+    This storage is appropriate when the nonzero entries of the
+    matrix are generally close to the diagonal, but the number
+    of nonzeroes above each diagonal varies in an irregular fashion.
+
+    In this case, the strategy is essentially to assign column J
+    its own bandwidth, and store the strips of nonzeros one after
+    another.   Note that what's important is the location of the
+    furthest nonzero from the diagonal.  A slot will be set up for
+    every entry between that and the diagonal, whether or not
+    those entries are zero.
+
+    A skyline matrix can be Gauss-eliminated without disrupting
+    the storage format, as long as no pivoting is required.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NA, the dimension of the array A.
+
+    Input, int DIAG[N], the indices in A of the N diagonal elements.
+
+    Input, double A[NA], the R8SS matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8ss_print_some ( n, na, diag, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8ss_print_some ( int n, int na, int diag[], double a[], int ilo, int jlo, 
+  int ihi, int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SS_PRINT_SOME prints some of a R8SS matrix.
+
+  Discussion:
+
+    The R8SS storage format is used for real symmetric skyline matrices.
+    This storage is appropriate when the nonzero entries of the
+    matrix are generally close to the diagonal, but the number
+    of nonzeroes above each diagonal varies in an irregular fashion.
+
+    In this case, the strategy is essentially to assign column J
+    its own bandwidth, and store the strips of nonzeros one after
+    another.   Note that what's important is the location of the
+    furthest nonzero from the diagonal.  A slot will be set up for
+    every entry between that and the diagonal, whether or not
+    those entries are zero.
+
+    A skyline matrix can be Gauss-eliminated without disrupting
+    the storage format, as long as no pivoting is required.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NA, the dimension of the array A.
+
+    Input, int DIAG[N], the indices in A of the N diagonal elements.
+
+    Input, double A[NA], the R8SS matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int ij;
+  int ijm1;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        aij = 0.0;
+
+        if ( j < i )
+        {
+          if ( i == 1 )
+          {
+            ijm1 = 0;
+          }
+          else
+          {
+            ijm1 = diag[i-2];
+          }
+          ij = diag[i-1];
+          if ( ijm1 < ij+j-i )
+          {
+            aij = a[ij+j-i-1];
+          }
+        }
+        else if ( j == i )
+        {
+          ij = diag[j-1];
+          aij = a[ij-1];
+        }
+        else if ( i < j )
+        {
+          if ( j == 1 )
+          {
+            ijm1 = 0;
+          }
+          else
+          {
+            ijm1 = diag[j-2];
+          }
+          ij = diag[j-1];
+          if ( ijm1 < ij+i-j )
+          {
+            aij = a[ij+i-j-1];
+          }
+        }
+
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+void r8ss_random ( int n, int *na, int diag[], double a[], int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SS_RANDOM randomizes a R8SS matrix.
+
+  Discussion:
+
+    The R8SS storage format is used for real symmetric skyline matrices.
+    This storage is appropriate when the nonzero entries of the
+    matrix are generally close to the diagonal, but the number
+    of nonzeroes above each diagonal varies in an irregular fashion.
+
+    In this case, the strategy is essentially to assign column J
+    its own bandwidth, and store the strips of nonzeros one after
+    another.   Note that what's important is the location of the
+    furthest nonzero from the diagonal.  A slot will be set up for
+    every entry between that and the diagonal, whether or not
+    those entries are zero.
+
+    A skyline matrix can be Gauss-eliminated without disrupting
+    the storage format, as long as no pivoting is required.
+
+    The user must set aside ( N * ( N + 1 ) ) / 2 entries for the array,
+    although the actual storage needed will generally be about half of
+    that.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Output, int *NA, the dimension of the array A.
+    NA will be at least N and no greater than ( N * ( N + 1 ) ) / 2.
+
+    Output, int DIAG[N], the indices in A of the N diagonal elements.
+
+    Output, double A[(N*(N+1))/2], the R8SS matrix.
+
+    Input/output, int *SEED, a seed for the random number generator.
+*/
+{
+  int diagold;
+  int i;
+  int ilo;
+  int j;
+  int k;
+/*
+  Set the values of DIAG.
+*/
+  diag[0] = 1;
+  *na = 1;
+  for ( i = 1; i < n; i++ )
+  {
+    k = i4_uniform ( 1, i, seed );
+    diag[i] = diag[i-1] + k;
+    *na = *na + k;
+  }
+/*
+  Now set the values of A.
+*/
+  diagold = 0;
+  k = 0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    ilo = j + diagold + 1 - diag[j];
+
+    for ( i = ilo; i <= j; i++ )
+    {
+      a[k] = r8_uniform_01 ( seed );
+      k = k + 1;
+    }
+    diagold = diag[j];
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8ss_to_r8ge ( int n, int na, int diag[], double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SS_TO_R8GE copies a R8SS matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8SS storage format is used for real symmetric skyline matrices.
+    This storage is appropriate when the nonzero entries of the
+    matrix are generally close to the diagonal, but the number
+    of nonzeroes above each diagonal varies in an irregular fashion.
+
+    In this case, the strategy is essentially to assign column J
+    its own bandwidth, and store the strips of nonzeros one after
+    another.   Note that what's important is the location of the
+    furthest nonzero from the diagonal.  A slot will be set up for
+    every entry between that and the diagonal, whether or not
+    those entries are zero.
+
+    A skyline matrix can be Gauss-eliminated without disrupting
+    the storage format, as long as no pivoting is required.
+
+  Example:
+
+    11   0  13  0 15
+     0  22  23  0  0
+    31  32  33 34  0
+     0   0  43 44  0
+    51   0   0  0 55
+
+    A = ( 11 | 22 | 13, 23, 33 | 34, 44 | 15, 0, 0, 0, 55 )
+    NA = 12
+    DIAG = ( 1, 2, 5, 7, 12 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NA, the dimension of the array A.
+    NA must be at least N.
+
+    Input, int DIAG[N], the indices in A of the N diagonal elements.
+
+    Input, double A[NA], the R8SS matrix.
+
+    Output, double R8SS_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int diagold;
+  int i;
+  int ilo;
+  int j;
+  int k;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  diagold = 0;
+  k = 0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    ilo = j + diagold + 1 - diag[j];
+
+    for ( i = 0; i < ilo; i++ )
+    {
+      b[i+j*n] = 0.0;
+      b[j+i*n] = 0.0;
+    }
+
+    for ( i = ilo; i < j; i++ )
+    {
+      b[i+j*n] = a[k];
+      b[j+i*n] = a[k];
+      k = k + 1;
+    }
+
+    b[j+j*n] = a[k];
+    k = k + 1;
+
+    diagold = diag[j];
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8ss_zero ( int n, int na, int diag[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8SS_ZERO zeros a R8SS matrix.
+
+  Discussion:
+
+    The R8SS storage format is used for real symmetric skyline matrices.
+    This storage is appropriate when the nonzero entries of the
+    matrix are generally close to the diagonal, but the number
+    of nonzeroes above each diagonal varies in an irregular fashion.
+
+    In this case, the strategy is essentially to assign column J
+    its own bandwidth, and store the strips of nonzeros one after
+    another.   Note that what's important is the location of the
+    furthest nonzero from the diagonal.  A slot will be set up for
+    every entry between that and the diagonal, whether or not
+    those entries are zero.
+
+    A skyline matrix can be Gauss-eliminated without disrupting
+    the storage format, as long as no pivoting is required.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, int NA, the dimension of the array A.
+    NA must be at least N.
+
+    Input, int DIAG[N], the indices in A of the N diagonal elements.
+
+    Output, double R8SS_ZERO[NA], the R8SS matrix.
+*/
+{
+  double *a;
+  int diagold;
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( na * sizeof ( double ) );
+
+  diagold = 0;
+  k = 0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    ilo = j + diagold + 1 - diag[j];
+    ihi = j;
+
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      a[k] = 0.0;
+      k = k + 1;
+    }
+
+    diagold = diag[j];
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8sto_indicator ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_INDICATOR sets up a R8STO indicator matrix.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 January 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Output, double R8STO_INDICATOR[N], the R8STO matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  i = 1;
+  k = 0;
+  for ( j = 1; j <= n; j++ )
+  {
+    a[k] = ( double ) ( fac * i + j );
+    k = k + 1;
+  }
+  
+  return a;
+}
+/******************************************************************************/
+
+double *r8sto_inverse ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_INVERSE computes the inverse of a R8STO matrix.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+    For this routine, the matrix is also required to be positive definite.
+
+    The original implementation of the algorithm assumed that the
+    diagonal element was 1.  The algorithm has been modified so that
+    this is no longer necessary.
+
+    The inverse matrix is NOT guaranteed to be a Toeplitz matrix.  
+    It is guaranteed to be symmetric and persymmetric.
+    The inverse matrix is returned in general storage, that is,
+    as an "SGE" matrix.
+
+  Example:
+
+    To compute the inverse of
+
+     1.0 0.5 0.2
+     0.5 1.0 0.5
+     0.2 0.5 1.0
+
+    we input:
+
+      N = 3
+      A = { 1.0, 0.5, 0.2 }
+
+    with output:
+
+      B = ( 1/56) * [ 75, -40,   5,
+                     -40,  96, -40,
+                       5, -40,  75 ]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    09 February 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Gene Golub, Charles Van Loan,
+    Section 4.7.3, "Computing the Inverse",
+    Matrix Computations,
+    Third Edition,
+    Johns Hopkins, 1996.
+
+  Parameters:
+
+    Input, int N, the order of the system.
+
+    Input, double A[N], the R8STO matrix.
+
+    Output, double R8STO_INVERSE[N*N], the inverse of the matrix.
+*/
+{
+  double *a2;
+  double *b;
+  int i;
+  int j;
+  double t;
+  double *v;
+  double vn;
+
+  a2 = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n-1; i++ )
+  {
+    a2[i] = a[i+1] / a[0];
+  }
+
+  v = r8sto_yw_sl ( n-1, a2 );
+/*
+  Compute the N-th entry of V.
+*/
+  t = 0.0;
+  for ( i = 0; i < n-1; i++ )
+  {
+    t = t + a2[i] * v[i];
+  }
+  vn = 1.0 / ( 1.0 + t );
+/*
+  Reverse the first N-1 entries of V.
+*/
+  for ( i = 0; i < (n-1)/2; i++ )
+  {
+    j = n - 2 - i;
+    t    = v[i];
+    v[i] = v[j];
+    v[j] = t;
+  }
+/*
+  Scale the entries.
+*/
+  for ( i = 0; i < n-1; i++ )
+  {
+    v[i] = vn * v[i];
+  }
+/*
+  Set the boundaries of B.
+*/
+  b[0+0*n] = vn;
+  for ( j = 1; j < n; j++ )
+  {
+  b[0+j*n] = v[n-j-1];
+  }
+
+  for ( j = 0; j < n-1; j++ )
+  {
+    b[n-1+j*n] = v[j];
+  }
+  b[n-1+(n-1)*n] = vn;
+
+  for ( i = 1; i < n-1; i++ )
+  {
+    b[i+0*n]     = v[n-1-i];
+    b[i+(n-1)*n] = v[i];
+  }
+/*
+  Fill the interior.
+*/
+  for ( i = 2; i <= 1+(n-1)/2; i++ )
+  {
+    for ( j = i; j <= n - i + 1; j++ )
+    {
+      t = b[i-2+(j-2)*n] + ( v[n-j] * v[n-i] - v[i-2] * v[j-2] ) / vn;
+      b[i-1+(j-1)*n] = t;
+      b[j-1+(i-1)*n] = t;
+      b[n-i+(n-j)*n] = t;
+      b[n-j+(n-i)*n] = t;
+    }
+  }
+/*
+  Scale B.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      b[i+j*n] = b[i+j*n] / a[0];
+    }
+  }
+
+  free ( a2 );
+  free ( v );
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8sto_mxv ( int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_MXV multiplies a R8STO matrix times a vector.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    30 September 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N], the R8STO matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8STO_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j <= i-1; j++ )
+    {
+      b[i] = b[i] + a[i-j] * x[j];
+    }
+    for ( j = i; j < n; j++ )
+    {
+      b[i] = b[i] + a[j-i] * x[j];
+    }
+
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8sto_print ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_PRINT prints a R8STO matrix.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 April 2006
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[N], the R8STO matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8sto_print_some ( n, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8sto_print_some ( int n, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_PRINT_SOME prints some of am R8STO matrix.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 April 2006
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[N], the R8STO matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%4d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( i <= j )
+        {
+          aij = a[j-i];
+        }
+        else
+        {
+          aij = a[i-j];
+        }
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8sto_random ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_RANDOM randomizes a R8STO matrix.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 September 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8STO_RANDOM[N], the R8STO matrix.
+*/
+{
+  double *a;
+
+  a = r8vec_uniform_01_new ( n, seed );
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8sto_sl ( int n, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_SL solves a R8STO system.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+    The matrix is also required to be positive definite.
+
+    This implementation of the algorithm assumes that the diagonal element
+    (the first element of A) is 1.
+
+    Note that there is a typographical error in the presentation
+    of this algorithm in the reference, and another in the presentation
+    of a sample problem.  Both involve sign errors.  A minor error
+    makes the algorithm incorrect for the case N = 1.
+
+  Example:
+
+    To solve
+
+     1.0 0.5 0.2    x1    4.0
+     0.5 1.0 0.5 *  x2 = -1.0
+     0.2 0.5 1.0    x3    3.0
+
+    we input:
+
+      N = 3
+      A = (/ 1.0, 0.5, 0.2 /)
+      B = (/ 4.0, -1.0, 3.0 /)
+
+    with output:
+
+      X = (/ 355, -376, 285 /) / 56
+        = (/ 6.339, -6.714, 5.089 /)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    30 September 2003
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Gene Golub, Charles Van Loan,
+    Section 4.7.3, "The General Right Hand Side Problem",
+    Matrix Computations,
+    Third Edition,
+    Johns Hopkins, 1996.
+
+  Parameters:
+
+    Input, int N, the order of the system.
+
+    Input, double A[N], the R8STO matrix, with the EXTRA CONDITION
+    that the first entry is 1.
+
+    Input, double B[N], the right hand side of the linear system.
+
+    Output, double R8STO_SL[N], the solution of the linear system.
+*/
+{
+  double beta;
+  int i;
+  int k;
+  double *x;
+  double *y;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+  y = ( double * ) malloc ( n * sizeof ( double ) );
+
+  k = 0;
+  beta = 1.0;
+  x[k] = b[k] / beta;
+
+  if ( k < n-1 )
+  {
+    y[k] = -a[k+1] / beta;
+  }
+
+  for ( k = 1; k <= n-1; k++ )
+  {
+    beta = ( 1.0 - y[k-1] * y[k-1] ) * beta;
+
+    x[k] = b[k];
+    for ( i = 1; i <= k; i++ )
+    {
+      x[k] = x[k] - a[i] * x[k-i];
+    }
+    x[k] = x[k] / beta;
+
+    for ( i = 1; i <= k; i++ )
+    {
+      x[i-1] = x[i-1] + x[k] * y[k-i]; 
+    }
+
+    if ( k < n - 1 )
+    {
+      y[k] = -a[k+1];
+      for ( i = 1; i <= k; i++ )
+      {
+        y[k] = y[k] - a[i] * y[k-i];
+      }
+      y[k] = y[k] / beta;
+
+      for ( i = 1; i <= k; i++ )
+      {
+        y[i-1] = y[i-1] + y[k] * y[k-i];
+      }
+    }
+  }
+
+  free ( y );
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8sto_to_r8ge ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_TO_R8GE copies a R8STO matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    30 September 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double R8STO_TO_R8GE[N], the R8STO matrix.
+
+    Output, double R8STO_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < i; j++ )
+    {
+      b[i+j*n] = a[i-j];
+    }
+    for ( j = i; j < n; j++ )
+    {
+      b[i+j*n] = a[j-i];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8sto_yw_sl ( int n, double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_YW_SL solves the Yule-Walker equations for a R8STO matrix.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+    The matrix is also required to be positive definite.
+
+    This implementation of the algorithm assumes that the diagonal element
+    is 1.
+
+    The real symmetric Toeplitz matrix can be described by N numbers, which,
+    for convenience, we will label B(0:N-1).  We assume there is one more
+    number, B(N).  If we let A be the symmetric Toeplitz matrix whose first
+    row is B(0:N-1), then the Yule-Walker equations are:
+
+      A * X = -B(1:N)
+
+  Example:
+
+    To solve
+
+     1.0 0.5 0.2    x1   0.5
+     0.5 1.0 0.5 *  x2 = 0.2
+     0.2 0.5 1.0    x3   0.1
+
+    we input:
+
+      N = 3
+      B = (/ 0.5, 0.2, 0.1 /)
+
+    with output:
+
+      X = (/ -75, 12, -5 /) / 140
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    30 September 2003
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Gene Golub, Charles Van Loan,
+    Section 4.7.2, "Solving the Yule-Walker Equations",
+    Matrix Computations,
+    Third Edition,
+    Johns Hopkins, 1996.
+
+  Parameters:
+
+    Input, int N, the order of the system.
+
+    Input, double B[N], defines the linear system.  The first entry of the
+    symmetric Toeplitz matrix is assumed to be a 1, which is NOT stored.  The N-1
+    remaining elements of the first row of are stored in B, followed by
+    the remaining scalar that defines the linear system.
+
+    Output, double R8STO_YW_SL[N], the solution of the linear system.
+*/
+{
+  double alpha;
+  double beta;
+  int i;
+  int j;
+  double *x;
+  double *x2;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+  x2 = ( double * ) malloc ( n * sizeof ( double ) );
+
+  x[0] = -b[0];
+  beta = 1.0;
+  alpha = -b[0];
+
+  for ( i = 1; i <= n-1; i++ )
+  {
+    beta = ( 1.0 - alpha * alpha ) * beta;
+
+    alpha = b[i];
+    for ( j = 1; j <= i; j++ )
+    {
+      alpha = alpha + b[i-j] * x[j-1];
+    }
+
+    alpha = -alpha / beta;
+
+    for ( j = 1; j <= i; j++ )
+    {
+      x2[j-1] = x[j-1];
+    }
+
+    for ( j = 1; j <= i; j++ )
+    {
+      x[j-1] = x[j-1] + alpha * x2[i-j];
+    }
+
+    x[i] = alpha;
+  }
+
+  free ( x2 );
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8sto_zero ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8STO_ZERO zeros a R8STO matrix.
+
+  Discussion:
+
+    The R8STO storage format is used for a symmetric Toeplitz matrix.
+    It stores the N elements of the first row.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 September 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Output, double R8STO_ZERO[N], the R8STO matrix.
+*/
+{
+  double *a;
+  int i;
+
+  a = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = 0.0;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8to_indicator ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8TO_INDICATOR sets up a R8TO indicator matrix.
+
+  Discussion:
+
+    The R8TO storage format is used for a Toeplitz matrix, which is constant
+    along diagonals.  Thus, in an N by N Toeplitz matrix, there are at most 
+    2*N-1 distinct entries.  The format stores the N elements of the first
+    row, followed by the N-1 elements of the first column (skipping the
+    entry in the first row).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Output, double R8TO_INDICATOR[2*N-1], the R8TO matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( ( 2 * n - 1 ) * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  i = 1;
+  k = 0;
+  for ( j = 1; j <= n; j++ )
+  {
+    a[k] = ( double ) ( fac * i + j );
+    k = k + 1;
+  }
+
+  j = 1;
+  for ( i = 2; i <= n; i++ )
+  {
+    a[k] = ( double ) ( fac * i + j );
+    k = k + 1;
+  }
+  
+  return a;
+}
+/******************************************************************************/
+
+double *r8to_mxv ( int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8TO_MXV multiplies a R8TO matrix times a vector.
+
+  Discussion:
+
+    The R8TO storage format is used for a Toeplitz matrix, which is constant
+    along diagonals.  Thus, in an N by N Toeplitz matrix, there are at most 
+    2*N-1 distinct entries.  The format stores the N elements of the first
+    row, followed by the N-1 elements of the first column (skipping the
+    entry in the first row).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[2*N-1], the R8TO matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8TO_MXV[N], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j < i; j++ )
+    {
+      b[i] = b[i] + a[n+i-j-1] * x[j];
+    }
+    for ( j = i; j < n; j++ )
+    {
+      b[i] = b[i] + a[j-i] * x[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8to_print ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8TO_PRINT prints a R8TO matrix.
+
+  Discussion:
+
+    The R8TO storage format is used for a Toeplitz matrix, which is constant
+    along diagonals.  Thus, in an N by N Toeplitz matrix, there are at most 
+    2*N-1 distinct entries.  The format stores the N elements of the first
+    row, followed by the N-1 elements of the first column (skipping the
+    entry in the first row).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[2*N-1], the R8TO matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8to_print_some ( n, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8to_print_some ( int n, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8TO_PRINT_SOME prints some of a R8TO matrix.
+
+  Discussion:
+
+    The R8TO storage format is used for a Toeplitz matrix, which is constant
+    along diagonals.  Thus, in an N by N Toeplitz matrix, there are at most 
+    2*N-1 distinct entries.  The format stores the N elements of the first
+    row, followed by the N-1 elements of the first column (skipping the
+    entry in the first row).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[2*N-1], the R8TO matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "  Col: " );
+
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      printf ( "%4d  ", i );
+
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( i <= j ) 
+        {
+          printf ( "%12g  ", a[j-i] );
+        }
+        else
+        {
+          printf ( "%12g  ", a[n+i-j-1] );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8to_random ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8TO_RANDOM randomizes a R8TO matrix.
+
+  Discussion:
+
+    The R8TO storage format is used for a Toeplitz matrix, which is constant
+    along diagonals.  Thus, in an N by N Toeplitz matrix, there are at most 
+    2*N-1 distinct entries.  The format stores the N elements of the first
+    row, followed by the N-1 elements of the first column (skipping the
+    entry in the first row).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8TO_RANDOM[2*N-1], the R8TO matrix.
+*/
+{
+  double *a;
+  int i;
+
+  a = ( double * ) malloc ( ( 2 * n - 1 ) * sizeof ( double ) );
+
+  for ( i = 0; i < 2*n-1; i++ )
+  {
+    a[i] = r8_uniform_01 ( seed );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8to_sl ( int n, double a[], double b[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8TO_SL solves a R8TO system.
+
+  Discussion:
+
+    The R8TO storage format is used for a Toeplitz matrix, which is constant
+    along diagonals.  Thus, in an N by N Toeplitz matrix, there are at most 
+    2*N-1 distinct entries.  The format stores the N elements of the first
+    row, followed by the N-1 elements of the first column (skipping the
+    entry in the first row).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    C version by John Burkardt.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[2*N-1], the R8TO matrix.
+
+    Input, double B[N] the right hand side vector.
+
+    Input, int JOB,
+    0 to solve A*X=B,
+    nonzero to solve A'*X=B.
+
+    Output, double R8TO_SL[N], the solution vector.  X and B may share the
+    same storage.
+*/
+{
+  double *c1;
+  double *c2;
+  int i;
+  int nsub;
+  double r1;
+  double r2;
+  double r3;
+  double r5;
+  double r6;
+  double *x;
+
+  if ( n < 1 )
+  {
+    return NULL;
+  }
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+/*
+  Solve the system with the principal minor of order 1.
+*/
+  r1 = a[0];
+  x[0] = b[0] / r1;
+
+  if ( n == 1 )
+  {
+    return x;
+  }
+
+  c1 = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+  c2 = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+/*
+  Recurrent process for solving the system with the Toeplitz matrix.
+*/
+  for ( nsub = 2; nsub <= n; nsub++ )
+  {
+/*
+  Compute multiples of the first and last columns of the inverse of
+  the principal minor of order NSUB.
+*/
+    if ( job == 0 )
+    {
+      r5 = a[n+nsub-2];
+      r6 = a[nsub-1];
+    }
+    else
+    {
+      r5 = a[nsub-1];
+      r6 = a[n+nsub-2];
+    }
+
+    if ( 2 < nsub )
+    {
+      c1[nsub-2] = r2;
+
+      for ( i = 1; i <= nsub-2; i++ )
+      {
+        if ( job == 0 )
+        {
+          r5 = r5 + a[n+i-1] * c1[nsub-i-1];
+          r6 = r6 + a[i] * c2[i-1];
+        }
+        else
+        {
+          r5 = r5 + a[i] * c1[nsub-i-1];
+          r6 = r6 + a[n+i-1] * c2[i-1];
+        }
+      }
+    }
+
+    r2 = - r5 / r1;
+    r3 = - r6 / r1;
+    r1 = r1 + r5 * r3;
+
+    if ( 2 < nsub )
+    {
+      r6 = c2[0];
+      c2[nsub-2] = 0.0;
+
+      for ( i = 2; i <= nsub-1; i++ )
+      {
+        r5 = c2[i-1];
+        c2[i-1] = c1[i-1] * r3 + r6;
+        c1[i-1] = c1[i-1] + r6 * r2;
+        r6 = r5;
+      }
+    }
+
+    c2[0] = r3;
+/*
+  Compute the solution of the system with the principal minor of order NSUB.
+*/
+    if ( job == 0 )
+    {
+      r5 = 0.0;
+      for ( i = nsub-1; 1 <= i; i-- )
+      {
+        r5 = r5 + a[n+nsub-i-1] * x[i-1];
+      }
+    }
+    else
+    {
+      r5 = 0.0;
+      for ( i = nsub-1; 1 <= i; i-- )
+      {
+        r5 = r5 + a[nsub-i] * x[i-1];
+      }
+    }
+
+    r6 = ( b[nsub-1] - r5 ) / r1;
+
+    for ( i = 0; i < nsub-1; i++ )
+    {
+      x[i] = x[i] + c2[i] * r6;
+    }
+    x[nsub-1] = r6;
+  }
+
+  free ( c1 );
+  free ( c2 );
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8to_to_r8ge ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8TO_TO_R8GE copies a R8TO matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8TO storage format is used for a Toeplitz matrix, which is constant
+    along diagonals.  Thus, in an N by N Toeplitz matrix, there are at most 
+    2*N-1 distinct entries.  The format stores the N elements of the first
+    row, followed by the N-1 elements of the first column (skipping the
+    entry in the first row).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[2*N-1], the R8TO matrix.
+
+    Output, double R8TO_TO_R8GE[N*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < i; j++ )
+    {
+      b[i+j*n] = a[n+i-j-1];
+    }
+    for ( j = i; j < n; j++ )
+    {
+      b[i+j*n] = a[j-i];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8to_vxm ( int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8TO_VXM multiplies a vector times a R8TO matrix.
+
+  Discussion:
+
+    The R8TO storage format is used for a Toeplitz matrix, which is constant
+    along diagonals.  Thus, in an N by N Toeplitz matrix, there are at most 
+    2*N-1 distinct entries.  The format stores the N elements of the first
+    row, followed by the N-1 elements of the first column (skipping the
+    entry in the first row).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[2*N-1], the R8TO matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8TO_VXM[N], the product A' * X.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j <= i; j++ )
+    {
+      b[i] = b[i] + a[i-j] * x[j];
+    }
+    for ( j = i+1; j < n; j++ )
+    {
+      b[i] = b[i] + a[n+j-i-1] * x[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8to_zero ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8TO_ZERO zeros a R8TO matrix.
+
+  Discussion:
+
+    The R8TO storage format is used for a Toeplitz matrix, which is constant
+    along diagonals.  Thus, in an N by N Toeplitz matrix, there are at most 
+    2*N-1 distinct entries.  The format stores the N elements of the first
+    row, followed by the N-1 elements of the first column (skipping the
+    entry in the first row).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix.
+    N must be positive.
+
+    Output, double R8TO_ZERO[2*N-1], the R8TO matrix.
+*/
+{
+  double *a;
+  int i;
+
+  a = ( double * ) malloc ( ( 2 * n - 1 ) * sizeof ( double ) );
+
+  for ( i = 0; i < 2*n-1; i++ )
+  {
+    a[i] = 0.0;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double r8ut_det ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_DET computes the determinant of a R8UT matrix.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[N*N], the R8UT matrix.
+
+    Output, double R8UT_DET, the determinant of the matrix.
+*/
+{
+  double det;
+  int i;
+
+  det = 1.0;
+
+  for ( i = 0; i < n; i++ )
+  {
+    det = det * a[i+i*n];
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+double *r8ut_indicator ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_INDICATOR sets up a R8UT indicator matrix.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+    M and N must be positive.
+
+    Output, double R8UT_INDICATOR[M*N], the R8UT matrix.
+*/
+{
+  double *a;
+  int fac;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  fac = i4_power ( 10, i4_log_10 ( n ) + 1 );
+
+  for ( i = 1; i <= m; i++ )
+  {
+    for ( j = 1; j <= i4_min ( i-1, n ); j++ )
+    {
+      a[i-1+(j-1)*m] = 0.0;
+    }
+    for ( j = i; j <= n; j++ )
+    {
+      a[i-1+(j-1)*m] = ( double ) ( fac * i + j );
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8ut_inverse ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_INVERSE computes the inverse of a R8UT matrix.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Albert Nijenhuis, Herbert Wilf,
+    Combinatorial Algorithms,
+    Academic Press, 1978, second edition,
+    ISBN 0-12-519260-6
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N*N], the R8UT matrix.
+
+    Output, double R8UT_INVERSE[N*N], the inverse of the upper triangular matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  int k;
+/*
+  Check.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    if ( a[i+i*n] == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8UT_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  Zero diagonal element.\n" );
+      exit ( 1 );
+    }
+  }
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = n-1; 0 <= j; j-- )
+  {
+    for ( i = n-1; 0 <= i; i-- )
+    {
+      if ( j < i )
+      {
+        b[i+j*n] = 0.0;
+      }
+      else if ( i == j )
+      {
+        b[i+j*n] = 1.0 / a[i+j*n];
+      }
+      else if ( i < j )
+      {
+        b[i+j*n] = 0.0;
+
+        for ( k = i+1; k <= j; k++ )
+        {
+          b[i+j*n] = b[i+j*n] - a[i+k*n] * b[k+j*n];
+        }
+        b[i+j*n] = b[i+j*n] / a[i+i*n];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8ut_mxm ( int n, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_MXM multiplies two R8UT matrices.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrices.
+    N must be positive.
+
+    Input, double A[N*N], B[N*N], the R8UT factor matrices.
+
+    Output, double R8UT_MXM[N*N], the R8UT product matrix.
+*/
+{
+  double *c;
+  int i;
+  int j;
+  int k;
+
+  c = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = i; j < n; j++ )
+    {
+      c[i+j*n] = 0.0;
+      for ( k = i; k <= j; k++ )
+      {
+        c[i+j*n] = c[i+j*n] + a[i+k*n] * b[k+j*n];
+      }
+    }
+  }
+
+  return c;
+}
+/******************************************************************************/
+
+double *r8ut_mxv ( int m, int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_MXV multiplies a R8UT matrix times a vector.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, double A[M*N], the R8UT matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8UT_MXV[M], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = i; j < n; j++ )
+    {
+      b[i] = b[i] + a[i+j*m] * x[j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8ut_print ( int m, int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_PRINT prints a R8UT matrix.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, double A[M*N], the R8UT matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8ut_print_some ( m, n, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8ut_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_PRINT_SOME prints some of a R8UT matrix.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, double A[M*N], the R8UT matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+
+  if ( ilo < jlo )
+  {
+    return;
+  }
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2lo = i4_max ( i2lo, j2lo );
+
+    i2hi = i4_min ( ihi, m );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      printf ( "%4d  ", i );
+
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( j < i )
+        {
+          printf ( "              " );
+        }
+        else
+        {
+          printf ( "%12g  ", a[i-1+(j-1)*m] );
+        }
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8ut_random ( int m, int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_RANDOM randomizes a R8UT matrix.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+    M and N must be positive.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8UT_RANDOM[M*N], the R8UT matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < i4_min ( i, n ); j++ )
+    {
+      a[i+j*m] = 0.0;
+    }
+    for ( j = i; j < n; j++ )
+    {
+      a[i+j*m] = r8_uniform_01 ( seed );
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *r8ut_sl ( int n, double a[], double b[], int job )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_SL solves a R8UT system.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+    No factorization of the upper triangular matrix is required.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double A[N*N], the R8UT matrix.
+
+    Input, double B[N], the right hand side.
+
+    Input, int JOB, is 0 to solve the untransposed system,
+    nonzero to solve the transposed system.
+
+    Output, double R8UT_SL[N], the solution vector.
+*/
+{
+  int i;
+  int j;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+  }
+
+  if ( job == 0 )
+  {
+    for ( j = n-1; 0 <= j; j-- )
+    {
+      x[j] = x[j] / a[j+j*n];
+      for ( i = 0; i < j; i++ )
+      {
+        x[i] = x[i] - a[i+j*n] * x[j];
+      }
+    }
+  }
+  else
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      x[j] = x[j] / a[j+j*n];
+      for ( i = j+1; i < n; i++ )
+      {
+        x[i] = x[i] - a[j+i*n] * x[j];
+      }
+    }
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8ut_vxm ( int m, int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_VXM multiplies a vector times a R8UT matrix.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, double A[M*N], the R8UT matrix.
+
+    Input, double X[M], the vector to be multiplied by A.
+
+    Output, double R8UT_VXM[N], the product A' * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    b[j] = 0.0;
+    for ( i = 0; i <= j && i < m; i++ )
+    {
+      b[j] = b[j] + x[i] * a[i+j*m];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8ut_zero ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UT_ZERO zeros a R8UT matrix.
+
+  Discussion:
+
+    The R8UT storage format is used for an M by N upper triangular matrix,
+    and allocates space even for the zero entries.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 February 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Output, double R8UT_ZERO[M*N], the R8UT matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8utp_print ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UTP_PRINT prints a R8UTP matrix.
+
+  Discussion:
+
+    The R8UTP storage format is appropriate for an upper triangulat
+    matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 April 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[(N*(N+1))/2], the matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8utp_print_some ( n, a, 1, 1, n, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8utp_print_some ( int n, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8UTP_PRINT_SOME prints some of a R8UTP matrix.
+
+  Discussion:
+
+    The R8UTP storage format is appropriate for an upper triangular
+    matrix.  Only the upper triangle of the matrix is stored,
+    by successive partial columns, in an array of length (N*(N+1))/2,
+    which contains (A11,A12,A22,A13,A23,A33,A14,...,ANN)  
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    16 April 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[(N*(N+1))/2], the matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, n );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+      printf ( "%6d  ", i );
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( i <= j )
+        {
+          aij = a[i-1+(j*(j-1))/2];
+        }
+        else
+        {
+          aij = 0.0;
+        }
+
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double r8vec_dot_product ( int n, double a1[], double a2[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_DOT_PRODUCT computes the dot product of a pair of R8VEC's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 July 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vectors.
+
+    Input, double A1[N], A2[N], the two vectors to be considered.
+
+    Output, double R8VEC_DOT_PRODUCT, the dot product of the vectors.
+*/
+{
+  int i;
+  double value;
+
+  value = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    value = value + a1[i] * a2[i];
+  }
+  return value;
+}
+/******************************************************************************/
+
 double *r8vec_indicator_new ( int n )
 
 /******************************************************************************/
@@ -10598,8 +34981,8 @@ double *r8vec_uniform ( int n, double b, double c, int *seed )
 
     This routine implements the recursion
 
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      unif = seed / ( 2**31 - 1 )
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
 
     The integer arithmetic never requires more than 32 bits,
     including a sign bit.
@@ -10653,7 +35036,7 @@ double *r8vec_uniform ( int n, double b, double c, int *seed )
 
     Input/output, int *SEED, a seed for the random number generator.
 
-    Output, double R8VEC_UNIFORM_01[N], the vector of pseudorandom values.
+    Output, double R8VEC_UNIFORM[N], the vector of pseudorandom values.
 */
 {
   int i;
@@ -10663,13 +35046,13 @@ double *r8vec_uniform ( int n, double b, double c, int *seed )
 
   if ( *seed == 0 )
   {
-    printf ( "\n" );
-    printf ( "R8VEC_UNIFORM - Fatal error!\n" );
-    printf ( "  Input value of SEED = 0.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8VEC_UNIFORM - Fatal error!\n" );
+    fprintf ( stderr, "  Input value of SEED = 0.\n" );
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -10689,6 +35072,1044 @@ double *r8vec_uniform ( int n, double b, double c, int *seed )
 }
 /******************************************************************************/
 
+double *r8vec_uniform_01_new ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_UNIFORM_01_NEW returns a unit pseudorandom R8VEC.
+
+  Discussion:
+
+    This routine implements the recursion
+
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
+
+    The integer arithmetic never requires more than 32 bits,
+    including a sign bit.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Paul Bratley, Bennett Fox, Linus Schrage,
+    A Guide to Simulation,
+    Second Edition,
+    Springer, 1987,
+    ISBN: 0387964673,
+    LC: QA76.9.C65.B73.
+
+    Bennett Fox,
+    Algorithm 647:
+    Implementation and Relative Efficiency of Quasirandom
+    Sequence Generators,
+    ACM Transactions on Mathematical Software,
+    Volume 12, Number 4, December 1986, pages 362-376.
+
+    Pierre L'Ecuyer,
+    Random Number Generation,
+    in Handbook of Simulation,
+    edited by Jerry Banks,
+    Wiley, 1998,
+    ISBN: 0471134031,
+    LC: T57.62.H37.
+
+    Peter Lewis, Allen Goodman, James Miller,
+    A Pseudo-Random Number Generator for the System/360,
+    IBM Systems Journal,
+    Volume 8, Number 2, 1969, pages 136-143.
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8VEC_UNIFORM_01_NEW[N], the vector of pseudorandom values.
+*/
+{
+  int i;
+  int i4_huge = 2147483647;
+  int k;
+  double *r;
+
+  if ( *seed == 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8VEC_UNIFORM_01_NEW - Fatal error!\n" );
+    fprintf ( stderr, "  Input value of SEED = 0.\n" );
+    exit ( 1 );
+  }
+
+  r = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    k = *seed / 127773;
+
+    *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
+
+    if ( *seed < 0 )
+    {
+      *seed = *seed + i4_huge;
+    }
+
+    r[i] = ( double ) ( *seed ) * 4.656612875E-10;
+  }
+
+  return r;
+}
+/******************************************************************************/
+
+void r8vec_write ( char *output_filename, int n, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_WRITE writes an R8VEC file.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    10 July 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *OUTPUT_FILENAME, the output filename.
+
+    Input, int N, the number of points.
+
+    Input, double X[N], the data.
+*/
+{
+  int j;
+  FILE *output;
+/*
+  Open the file.
+*/
+  output = fopen ( output_filename, "wt" );
+
+  if ( !output )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8VEC_WRITE - Fatal error!\n" );
+    fprintf ( stderr, "  Could not open the output file.\n" );
+    exit ( 1 );
+  }
+/*
+  Write the data.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    fprintf ( output, "  %24.16g\n", x[j] );
+  }
+/*
+  Close the file.
+*/
+  fclose ( output );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec2_print_some ( int n, double x1[], double x2[], int max_print,
+  char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC2_PRINT_SOME prints "some" of an R8VEC2.
+
+  Discussion:
+
+    An R8VEC2 is a dataset consisting of N pairs of real values, stored
+    as two separate vectors A1 and A2.
+
+    The user specifies MAX_PRINT, the maximum number of lines to print.
+
+    If N, the size of the vectors, is no more than MAX_PRINT, then
+    the entire vectors are printed, one entry of each per line.
+
+    Otherwise, if possible, the first MAX_PRINT-2 entries are printed,
+    followed by a line of periods suggesting an omission,
+    and the last entry.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 March 2009
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries of the vectors.
+
+    Input, double X1[N], X2[N], the vector to be printed.
+
+    Input, int MAX_PRINT, the maximum number of lines to print.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  if ( max_print <= 0 )
+  {
+    return;
+  }
+
+  if ( n <= 0 )
+  {
+    return;
+  }
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+  fprintf ( stdout, "\n" );
+
+  if ( n <= max_print )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      fprintf ( stdout, "  %4d: %14f  %14f\n", i, x1[i], x2[i] );
+    }
+  }
+  else if ( 3 <= max_print )
+  {
+    for ( i = 0; i < max_print-2; i++ )
+    {
+      fprintf ( stdout, "  %4d: %14f  %14f\n", i, x1[i], x2[i] );
+    }
+    fprintf ( stdout, "......  ..............  ..............\n" );
+    i = n - 1;
+    fprintf ( stdout, "  %4d: %14f  %14f\n", i, x1[i], x2[i] );
+  }
+  else
+  {
+    for ( i = 0; i < max_print - 1; i++ )
+    {
+      fprintf ( stdout, "  %4d: %14f  %14f\n", i, x1[i], x2[i] );
+    }
+    i = max_print - 1;
+    fprintf ( stdout, "  %4d: %14f  %14f  ...more entries...\n", i, x1[i], x2[i] );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double r8vm_det ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_DET computes the determinant of a R8VM matrix.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix.
+
+    Input, double A[N], the R8VM matrix.
+
+    Output, double R8VM_DET, the determinant of the matrix.
+*/
+{
+  double det;
+  int i;
+  int j;
+
+  det = 1.0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = j+1; i < n; i++ )
+    {
+      det = det * ( a[i] - a[j] );
+    }
+  }
+
+  return det;
+}
+/******************************************************************************/
+
+double *r8vm_mxv ( int m, int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_MXV multiplies a R8VM matrix times a vector.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[N], the R8VM matrix.
+
+    Input, double X[N], the vector to be multiplied by A.
+
+    Output, double R8VM_MXV[M], the product A * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    b[i] = 0.0;
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i == 0 )
+      {
+        b[i] = b[i] + x[j];
+      }
+      else
+      {
+        b[i] = b[i] + pow ( a[j], i ) * x[j];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8vm_print ( int m, int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_PRINT prints a R8VM matrix.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[N], the R8VM matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8vm_print_some ( m, n, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8vm_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi, 
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_PRINT_SOME prints some of a R8VM matrix.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[N], the R8VM matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  double aij;
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  printf ( "\n" );
+  printf ( "%s\n", title );
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    j2hi = i4_min ( j2hi, n );
+    j2hi = i4_min ( j2hi, jhi );
+
+    printf ( "\n" );
+    printf ( "  Col: " );
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      printf ( "%7d       ", j );
+    }
+    printf ( "\n" );
+    printf ( "  Row\n" );
+    printf ( "  ---\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    i2lo = i4_max ( ilo, 1 );
+    i2hi = i4_min ( ihi, m );
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        if ( i == 1 )
+        {
+          aij = 1.0;
+        }
+        else
+        {
+          aij = pow ( a[j-1], i-1 );
+        }
+
+        printf ( "%12g  ", aij );
+      }
+      printf ( "\n" );
+    }
+  }
+
+  printf ( "\n" );
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8vm_random ( int m, int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_RANDOM randomizes a R8VM matrix.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+    The parameter M is not actually needed by this routine.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8VM_RANDOM[N], the R8VM matrix.
+*/
+{
+  double *value;
+
+  value = r8vec_uniform_01_new ( n, seed );
+
+  return value;
+}
+/******************************************************************************/
+
+void r8vm_sl ( int n, double a[], double b[], int job, double x[], int *info )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_SL solves a R8VM system.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+    Vandermonde systems are very close to singularity.  The singularity
+    gets worse as N increases, and as any pair of values defining
+    the matrix get close.  Even a system as small as N = 10 will
+    involve the 9th power of the defining values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    11 November 2013
+
+  Author:
+
+    Original FORTRAN77 version by Golub, VanLoan.
+    C version by John Burkardt.
+
+  Reference:
+
+    Gene Golub, Charles Van Loan,
+    Matrix Computations,
+    Third Edition,
+    Johns Hopkins, 1996.
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix.
+
+    Input, double A[N], the R8VM matrix.
+
+    Input, double B[N], the right hand side.
+
+    Input, int JOB, specifies the system to solve.
+    0, solve A * x = b.
+    nonzero, solve A' * x = b.
+
+    Output, double X[N], the solution of the linear system.
+
+    Output, int *INFO.
+    0, no error.
+    nonzero, at least two of the values in A are equal.
+*/
+{
+  int i;
+  int j;
+/*
+  Check for explicit singularity.
+*/
+  *info = 0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = j + 1; i < n; i++ )
+    {
+      if ( a[i] == a[j] )
+      {
+        *info = 1;
+        return;
+      }
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+  }
+
+  if ( job == 0 )
+  {
+    for ( j = 1; j <= n - 1; j++ )
+    {
+      for ( i = n; j + 1 <= i; i-- )
+      {
+        x[i-1] = x[i-1] - a[j-1] * x[i-2];
+      }
+    }
+
+    for ( j = n - 1; 1 <= j; j-- )
+    {
+      for ( i = j + 1; i <= n; i++ )
+      {
+        x[i-1] = x[i-1] / ( a[i-1] - a[i-j-1] );
+      }
+
+      for ( i = j; i <= n - 1; i++ )
+      {
+        x[i-1] = x[i-1] - x[i];
+      }
+    }
+  }
+  else
+  {
+    for ( j = 1; j <= n - 1; j++ )
+    {
+      for ( i = n; j + 1 <= i; i-- )
+      {
+        x[i-1] = ( x[i-1] - x[i-2] ) / ( a[i-1] - a[i-j-1] );
+      }
+    }
+
+    for ( j = n - 1; 1 <= j; j-- )
+    {
+      for ( i = j; i <= n - 1; i++ )
+      {
+        x[i-1] = x[i-1] - x[i] * a[j-1];
+      }
+    }
+
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8vm_sl_new ( int n, double a[], double b[], int job, int *info )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_SL_NEW solves a R8VM system.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+    Vandermonde systems are very close to singularity.  The singularity
+    gets worse as N increases, and as any pair of values defining
+    the matrix get close.  Even a system as small as N = 10 will
+    involve the 9th power of the defining values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    11 November 2013
+
+  Author:
+
+    Original FORTRAN77 version by Golub, VanLoan.
+    C version by John Burkardt.
+
+  Reference:
+
+    Gene Golub, Charles Van Loan,
+    Matrix Computations,
+    Third Edition,
+    Johns Hopkins, 1996.
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix.
+
+    Input, double A[N], the R8VM matrix.
+
+    Input, double B[N], the right hand side.
+
+    Input, int JOB, specifies the system to solve.
+    0, solve A * x = b.
+    nonzero, solve A' * x = b.
+
+    Output, int *INFO.
+    0, no error.
+    nonzero, at least two of the values in A are equal.
+
+    Output, double R8VM_SL_NEW[N], the solution of the linear system.
+*/
+{
+  int i;
+  int j;
+  double *x;
+/*
+  Check for explicit singularity.
+*/
+  *info = 0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = j+1; i < n; i++ )
+    {
+      if ( a[i] == a[j] )
+      {
+        *info = 1;
+        return NULL;
+      }
+    }
+  }
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+  }
+
+  if ( job == 0 )
+  {
+    for ( j = 1; j <= n-1; j++ )
+    {
+      for ( i = n; j+1 <= i; i-- )
+      {
+        x[i-1] = x[i-1] - a[j-1] * x[i-2];
+      }
+    }
+
+    for ( j = n-1; 1 <= j; j-- )
+    {
+      for ( i = j+1; i <= n; i++ )
+      {
+        x[i-1] = x[i-1] / ( a[i-1] - a[i-j-1] );
+      }
+
+      for ( i = j; i <= n-1; i++ )
+      {
+        x[i-1] = x[i-1] - x[i];
+      }
+    }
+  }
+  else
+  {
+    for ( j = 1; j <= n-1; j++ )
+    {
+      for ( i = n; j+1 <= i; i-- )
+      {
+        x[i-1] = ( x[i-1] - x[i-2] ) / ( a[i-1] - a[i-j-1] );
+      }
+    }
+
+    for ( j = n-1; 1 <= j; j-- )
+    {
+      for ( i = j; i <= n-1; i++ )
+      {
+        x[i-1] = x[i-1] - x[i] * a[j-1];
+      }
+    }
+
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *r8vm_to_r8ge ( int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_TO_R8GE copies a R8VM matrix to a R8GE matrix.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[N], the R8VM matrix.
+
+    Output, double R8VM_TO_R8GE[M*N], the R8GE matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( m*n * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i == 0 )
+      {
+        b[i+j*m] = 1.0;
+      }
+      else
+      {
+        b[i+j*m] = b[i-1+j*m] * a[j];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8vm_vxm ( int m, int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_VXM multiplies a vector times a R8VM matrix.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Input, double A[N], the R8VM matrix.
+
+    Input, double X[M], the vector to be multiplied by A.
+
+    Output, double R8VM_VXM[N], the product A' * x.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    b[j] = 0.0;
+    for ( i = 0; i < m; i++ )
+    {
+      if ( i == 0 )
+      {
+        b[j] = b[j] + x[i];
+      }
+      else
+      {
+        b[j] = b[j] + pow ( a[j], i ) * x[i];
+      }
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8vm_zero ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VM_ZERO zeros a R8VM matrix.
+
+  Discussion:
+
+    The R8VM storage format is used for an M by N Vandermonde matrix.
+    An M by N Vandermonde matrix is defined by the values in its second
+    row, which will be written here as X(1:N).  The matrix has a first 
+    row of 1's, a second row equal to X(1:N), a third row whose entries
+    are the squares of the X values, up to the M-th row whose entries
+    are the (M-1)th powers of the X values.  The matrix can be stored
+    compactly by listing just the values X(1:N).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of the matrix.
+
+    Output, double R8VM_ZERO[M*N], the zero R8VM matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( m*n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[i+j*m] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
 int s_len_trim ( char *s )
 
 /******************************************************************************/
@@ -10697,13 +36118,17 @@ int s_len_trim ( char *s )
 
     S_LEN_TRIM returns the length of a string to the last nonblank.
 
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    26 April 2003
+    05 October 2014
 
   Author:
 
@@ -10723,9 +36148,9 @@ int s_len_trim ( char *s )
   n = strlen ( s );
   t = s + strlen ( s ) - 1;
 
-  while ( 0 < n ) 
+  while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }

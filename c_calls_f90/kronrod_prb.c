@@ -24,6 +24,10 @@ int main ( void )
 
     MAIN is the main program for KRONROD_PRB.
 
+  Discussion:
+
+    KRONROD_PRB tests the KRONROD library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -37,11 +41,7 @@ int main ( void )
     John Burkardt
 */
 {
-/*
-  To call the F77 version of TIMESTAMP, we append an underscore to its name.
-*/
   timestamp_ ( );
-
   printf ( "\n" );
   printf ( "KRONROD_PRB:\n" );
   printf ( "  C + F77 version.\n" );
@@ -49,15 +49,13 @@ int main ( void )
   printf ( "  This is an example of how a C program calls a FORTRAN77 routine.\n" );
   test01 ( );
   test02 ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "KRONROD_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
-/*
-  To call the F77 version of TIMESTAMP, we append an underscore to its name.
-*/
   timestamp_ ( );
 
   return 0;

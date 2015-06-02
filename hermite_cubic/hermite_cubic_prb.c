@@ -36,7 +36,7 @@ int main ( void )
 
   Discussion:
 
-    HERMITE_CUBIC_PRB calls the HERMITE_CUBIC tests.
+    HERMITE_CUBIC_PRB tests the HERMITE_CUBIC library.
 
   Licensing:
 
@@ -78,7 +78,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "HERMITE_CUBIC_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

@@ -26,7 +26,7 @@ int main ( )
 
   Discussion:
 
-    ASA047_PRB calls the ASA047 routines.
+    ASA047_PRB tests the ASA047 library.
 
   Licensing:
 
@@ -42,7 +42,6 @@ int main ( )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA047_PRB:\n" );
   printf ( "  C version\n" );
@@ -58,7 +57,6 @@ int main ( )
   printf ( "\n" );
   printf ( "ASA047_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

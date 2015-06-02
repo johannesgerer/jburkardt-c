@@ -8,13 +8,52 @@
 
 # include "matmul.h"
 
-int main ( void );
-void abortm ( void );
-void chop ( char *STRING, int ILO, int IHI );
-void CHRCTI ( char *STRING, int *INTVAL );
-char *CHRDB2 ( char *str );
-double cpu_time ( void );
-void Docom ( void );
+void abortm(void);
+void chop(char*,int,int);
+void Docom();
+void Explain(void);
+void Flclos(void);
+void Flopen(void);
+void Gbye(void);
+void Getcom(void);
+void Getlda(char*);
+void Getn(char*);
+void Getord(char*, int*);
+void Getsho(char* ,int);
+void Hello(void);
+void Help(void);
+void Init(void);
+int  min(int,int);
+void Mult(void);
+void Pdump(void);
+void Printr(void);
+void Putinp();
+void Putout();
+void Record(void);
+void Result(short lchop);
+#if MACHINE == VAX_VMS
+void second(int*);
+#elif MACHINE ==  IBM_PC
+void second(long*);
+#elif MACHINE ==  IBM_RS6
+void second(long*);
+#elif MACHINE ==  CRAY
+extern float SDOT();
+extern SAXPY();
+extern SGEMM();
+void second(long*);
+#else
+void second(long*,long*);
+#endif
+void Setval(void);
+void Shoord(void);
+void _TDOT();
+float tdot();
+void TSTART(void);
+void TSTOP(void);
+void TMSTART(void);
+void TMSTOP(void);
+void Zero(int len);
 
 /******************************************************************************/
 
@@ -67,9 +106,10 @@ int main ( void )
   }
   return 0;
 }
-/******************************************************************************/
+/******************************************************************************/
 
 void abortm ( void )
+
 /******************************************************************************/
 /*
   Purpose:
@@ -80,20 +120,23 @@ void abortm ( void )
 
     ABORTM dumps the results to a file, says "goodbye" to the user,
     and closes all files.
-
-/******************************************************************************/
+*/
 {
   Pdump();
   Gbye();
   Flclos();
-  exit(1);
-}
 
-/******************************************************************************
+  exit ( 1 );
+}
+/******************************************************************************/
+
+void chop ( char *STRING, int ILO, int IHI )
+
+/******************************************************************************/
+/*
   CHOP "chops" out entries ILO through IHI of STRING, shifts the string
   down, and pads the end of the string with NULLs.
-******************************************************************************/
-void chop ( char *STRING, int ILO, int IHI )
+*/
 {
    size_t l;
    int i,j;
@@ -103,27 +146,36 @@ void chop ( char *STRING, int ILO, int IHI )
    for(j=IHI+1;j<l;j++)
      STRING[i++]=STRING[j];
    memset(STRING+i,'\0',l-i);
-}
 
-/*****************************************************************************
+  return;
+}
+/******************************************************************************/
+
+void CHRCTI ( char *STRING, int *INTVAL )
+
+/******************************************************************************/
+/*
   CHRCTI accepts a STRING of characters and reads an integer
   from STRING into INTVAL.  The STRING must begin with an integer
   but that may be followed by other information.
   CHRCTI will read as many characters as possible until it reaches
   the end of the STRING, or encounters a character which cannot be
   part of the number.
-*****************************************************************************/
-void CHRCTI ( char *STRING, int *INTVAL )
+*/
 {
   *INTVAL=atoi(STRING);
 }
 
-/******************************************************************************
+/******************************************************************************/
+
+char *CHRDB2 ( char *str )
+
+/******************************************************************************/
+/*
   CHRDB2 accepts a STRING of characters.  It replaces all nulls
   by blanks.  It replaces all strings of consecutive blanks by a single
   blank, left justifying the remainder and padding with blanks.
-******************************************************************************
-char *CHRDB2 ( char *str )
+*/
 {
   char oldchar,newchar;
   size_t l;
@@ -144,11 +196,11 @@ char *CHRDB2 ( char *str )
       str[j]=newchar;
     }
   }
-  return(str);
+  return str;
 }
 /******************************************************************************/
 
-double cpu_time ( void )
+double cpu_time ( )
 
 /******************************************************************************/
 /*
@@ -186,15 +238,21 @@ double cpu_time ( void )
 
   return value;
 }
-/******************************************************************************
-  DOCOM figures out what the user's command is, and carries it out.
-******************************************************************************/
+/******************************************************************************/
+
 void Docom ( void )
+
+/******************************************************************************/
+/*
+  DOCOM figures out what the user's command is, and carries it out.
+*/
 {
   char out[80];
 
-  if(command[0] == 'A')
-    abortm();
+  if ( command[0] == 'A' )
+  {
+    abortm ( );
+  }
   else if (command[0] == 'E')
     Explain();
   else if (command[0] == 'H')
@@ -259,47 +317,58 @@ void Docom ( void )
   }
 
   memset(command,'\0',(int)strlen(command));
-}
 
-/******************************************************************************
+  return;
+}
+/******************************************************************************/
+
+void Explain()
+
+/******************************************************************************/
+/*
   EXPLAIN prints a brief explanation of MATMUL for beginners. To do so,
   it reads a file "matmul.exp" and prints it out to the screen.
-******************************************************************************/
-void Explain()
+*/
 {
   int line=0;
   char outline[80];
 
-  ifilee=(fopen(filee,"r"));
-  if (!ifilee)
+  ifilee = fopen ( filee, "rt" );
+
+  if ( !ifilee )
   {
     Putout("EXPLANATION file is not available!\n");
     sprintf(outline,"MATMUL could not find the file %s.\n",filee);
     Putout(outline);
     Putout("which explains the program.  This is not a fatal\n");
     Putout("error, but it means the EXPLAIN command won't work.\n");
+    return;
   }
-  else
-  {
-    for(line=0;!feof(ifilee);line++)
-    {
-      fgets(output,120,ifilee);
-      printf("%s",output);
-      if (line>22)
-      {
-        gets(command);
-        line=0;
-      }
-    }
-   }
-  fclose(ifilee);
-  ifilee=NULL;
-}
 
-/*****************************************************************************
-  FLCLOS closes all the files
-*****************************************************************************/
+  for(line=0;!feof(ifilee);line++)
+  {
+    fgets(output,120,ifilee);
+    printf("%s",output);
+    if (line>22)
+    {
+      gets(command);
+      line=0;
+    }
+  }
+  fclose ( ifilee );
+
+  ifilee=NULL;
+
+  return;
+}
+/******************************************************************************/
+
 void Flclos()
+
+/******************************************************************************/
+/*
+  FLCLOS closes all the files
+*/
 {
   if (ifilei)
     fclose(ifilei);
@@ -309,12 +378,17 @@ void Flclos()
     fclose(ifileh);
   if (ifiled)
     fclose(ifiled);
-}
 
-/******************************************************************************
-  FLOPEN opens all the files. EXCEPT for matmul.dat, which is opened in Pdump.
-******************************************************************************/
+  return;
+}
+/******************************************************************************/
+
 void Flopen()
+
+/******************************************************************************/
+/*
+  FLOPEN opens all the files. EXCEPT for matmul.dat, which is opened in Pdump.
+*/
 {
   char outline[80];
   ifileo=fopen(fileo,"w");
@@ -346,16 +420,20 @@ HELP system not available yet!
   }
 */
    ifileh=NULL;
-}
 
-/******************************************************************************
+  return;
+}
+/******************************************************************************/
+
+void Gbye()
+
+/******************************************************************************/
+/*
    GBYE says goodbye to the user, and prints a reminder about files created
    by the program.
-******************************************************************************/
-void Gbye()
+*/
 {
   char outline[80];
-  printf("MATMUL is stopping now.\n");
 
   if(ifilei)
     sprintf(outline,"A copy of your input is in the file %s\n",filei);
@@ -374,12 +452,21 @@ void Gbye()
   else
     sprintf(outline,"MATMUL could not create the session file %s\n",fileo);
   Putout(outline);
-}
 
-/******************************************************************************
-  GETCOM reads the next command from the user.
-******************************************************************************/
+  printf ( "\n" );
+  printf ( "MATMUL:\n" );
+  printf ( "  Normal end of execution.\n" );
+
+  return;
+}
+/******************************************************************************/
+
 void Getcom()
+
+/******************************************************************************/
+/*
+  GETCOM reads the next command from the user.
+*/
 {
   short i;
   char cx;
@@ -388,12 +475,17 @@ void Getcom()
   for(i=0;((cx=getchar()) != '\n'); i++)
     command[i]=toupper(cx);
   Putinp();
-}
 
-/******************************************************************************
-  GETLDA gets a new value of LDA from the user.
-******************************************************************************/
+  return;
+}
+/******************************************************************************/
+
 void Getlda(char *str)
+
+/******************************************************************************/
+/*
+  GETLDA gets a new value of LDA from the user.
+*/
 {
   char outline[80];
   int temp;
@@ -427,12 +519,17 @@ void Getlda(char *str)
     sprintf(outline,"N has been set to %d\n",n);
     Putout(outline);
   }
-}
 
-/******************************************************************************
-  GETN reads a new value of N from the user.
-******************************************************************************/
+  return;
+}
+/******************************************************************************/
+
 void Getn(char *str)
+
+/******************************************************************************/
+/*
+  GETN reads a new value of N from the user.
+*/
 {
   char outline[80],s[80];
   int temp,i,j,l,mult,lchop;
@@ -547,12 +644,16 @@ memset(s,'\0',l);
     sprintf(outline,"NMULT has been set to %d\n",nmult);
     Putout(outline);
   }
+  return;
 }
+/******************************************************************************/
 
-/******************************************************************************
-  GETORD reads a new value of ORDER from the user.
-******************************************************************************/
 void Getord(char *str, int *error)
+
+/******************************************************************************/
+/*
+  GETORD reads a new value of ORDER from the user.
+*/
 {
   char ctemp[10],outline[80];
 
@@ -582,13 +683,17 @@ void Getord(char *str, int *error)
      Putout(outline);
      strcpy(order,ctemp);
   }
+  return;
 }
+/******************************************************************************/
 
-/******************************************************************************
+void Getsho(char *str,int lval)
+
+/******************************************************************************/
+/*
   GETSHO gets information from the user about what is to be printed out
   as results after a multiplication is carried out.
-******************************************************************************/
-void Getsho(char *str,int lval)
+*/
 {
   if ((strncmp(str,"ALL",3) == 0) || (strncmp(str,"all",3) == 0))
     mshow=langshow=ashow=cshow=fshow=lshow=nshow=noshow=tshow=lval;
@@ -615,28 +720,39 @@ void Getsho(char *str,int lval)
     Putout("That is not a legal name! \n");
     Putout("Legal names are ORDER, LDA, N, TIME, OPS, LANGUAGE, MACHINE, MFLOPS and A(N,N).\n");
   }
+  return;
 }
+/******************************************************************************/
 
-/******************************************************************************
-  HELLO says hello to the user, printing the version, machine, and so on.
-******************************************************************************/
 void Hello()
+
+/******************************************************************************/
+/*
+  HELLO says hello to the user, printing the version, machine, and so on.
+*/
 {
   char out[80];
 
-  Putout("\nMATMULC\n\nAn interactive demonstration of the speed of");
+  printf ( "\n" );
+  printf ( "MATMUL\n" );
+  printf ( "  C version\n" );
+  printf ( "  An interactive demonstration of the speed of");
   Putout(" matrix multiplication.\n");
   sprintf(out,"Version 1.0c, last compiled on %s.  ",LASTMOD);
   Putout(out);
   sprintf(out,"This version is for a %s\n",machine[MACHINE]);
   Putout(out);
   Putout("\nIf you\'ve never used this program before, type EXPLAIN.\n\n");
+  return;
 }
+/******************************************************************************/
 
-/******************************************************************************
-  HELP prints a list of the available commands.
-******************************************************************************/
 void Help()
+
+/******************************************************************************/
+/*
+  HELP prints a list of the available commands.
+*/
 {
   Putout("This is the list of legal commands.\n");
   if(ifilee)
@@ -652,6 +768,7 @@ void Help()
   Putout("            NAME=ORDER, LDA, N, TIME, OPS or MFLOPS\n");
   Putout("SHOW=name   Value of NAME should be included in output.\n");
   Putout("            NAME=ORDER, LDA, N, TIME, OPS or MFLOPS\n\n");
+  return;
 }
 /*****************************************************************************/
 
@@ -700,14 +817,16 @@ void r8_ijk ( )
   return;
 }
 
+
+void NIJK()
 /******************************************************************************
   NIJK multiplies A=B*C using index order IJK with integers instead of
   floating point numbers.
 ******************************************************************************/
-void NIJK()
 {
   int i,j,k;
-  long ia[LENA][LENA],ib[LENA][LENA],ic[LENA][LENA];
+  long ia[LENA][LENA];
+  long ib[LENA][LENA],ic[LENA][LENA];
 
   for(i=0;i<n; i++)
   for(j=0;j<n;j++)
@@ -723,12 +842,14 @@ void NIJK()
          ia[i][k]=ia[i][k]+ib[i][j]*ic[j][k];
   sec2 = cpu_time ( );
   a[n-1][n-1]=(float)ia[n-1][n-1];
+  return;
 }
 
+
+void IUJK()
 /******************************************************************************
   IUJK multiplies A=B*C using index order IJK and unrolling on J.
 ******************************************************************************/
-void IUJK()
 {
   int i,j,k,jhi;
 
@@ -751,11 +872,13 @@ void IUJK()
          a[i][k]=a[i][k]+b[i][j]*c[j][k];
 
   sec2 = cpu_time ( );
+  return;
 }
+
+void IJUK()
 /******************************************************************************
   IJUK multiplies A=B*C using index order IJK and unrolling on K.
 ******************************************************************************/
-void IJUK()
 {
   int i,j,k,khi;
 
@@ -778,11 +901,13 @@ void IJUK()
          a[i][k]=a[i][k]+b[i][j]*c[j][k];
 
   sec2 = cpu_time ( );
+  return;
 }
+
+void UIJK()
 /******************************************************************************
   UIJK multiplies A=B*C using index order IJK and unrolling on I.
 ******************************************************************************/
-void UIJK()
 {
   int i,j,k,iroll;
 
@@ -805,17 +930,19 @@ void UIJK()
          a[i][k]=a[i][k]+b[i][j]*c[j][k];
 
   sec2 = cpu_time ( );
+  return;
 }
+
+void PIJKA()
 /******************************************************************************
   PIJKA multiplies A=B*C using index order IJK with pointers to arrays A and
   B.
 ******************************************************************************/
-void PIJKA()
 {
   int i,j,k;
   float *bptr,*cptr,*bp = &b[0][0],*cp = &c[0][0];
 
-sec1 = cpu_time ( );
+  sec1 = cpu_time ( );
   for (bptr=bp,i=0;i<n;i++,bptr=bp+LENA)
   {
    for(cptr=cp,j=0;j<n;j++,bptr++,cptr=cp+LENA)
@@ -824,18 +951,20 @@ sec1 = cpu_time ( );
        a[i][k]+=(*bptr)*(*cptr);
    }
   }
-sec2 = cpu_time ( );
+  sec2 = cpu_time ( );
+  return;
 }
+
+void PIJKP()
 /******************************************************************************
   PIJKP multiplies A=B*C using index order IJK with pointer to arrays A, B
   and C
 ******************************************************************************/
-void PIJKP()
 {
   int i,j,k;
   float *bptr,*cptr,*bp = &b[0][0],*cp = &c[0][0],*aptr,*ap = &a[0][0];
 
-sec1 = cpu_time ( );
+  sec1 = cpu_time ( );
   for (bptr=bp,i=0;i<n;i++,bptr=bp+LENA,ap+=LENA)
   {
    for(cptr=cp,j=0;j<n;j++,bptr++,cptr=cp+LENA)
@@ -844,13 +973,15 @@ sec1 = cpu_time ( );
        *aptr+=(*bptr)*(*cptr);
    }
   }
-sec2 = cpu_time ( );
+  sec2 = cpu_time ( );
+  return;
 }
+
+void TAXPYC()
 /******************************************************************************
   TAXPYC multiplies A=B*C taxpy routine from BLAS.  TAXPYC is used to carry
   out the multiplication coloumnwise.
 ******************************************************************************/
-void TAXPYC()
 {
   int j,k,LDA=LENA;
 
@@ -859,13 +990,15 @@ void TAXPYC()
     for (k=0;k < n;k++)
       taxpy(n,&c[j][k],&b[0][j],LDA,&a[0][k],LDA);
   sec2 = cpu_time ( );
+  return;
 }
 
+
+void TAXPYR()
 /******************************************************************************
   TAXPYR multiplies A=B*C taxpy routine from BLAS.  TAXPYR is used to carry
   out the multiplication rowwise.
 ******************************************************************************/
-void TAXPYR()
 {
   int i,j,one=1;
 
@@ -874,13 +1007,15 @@ void TAXPYR()
     for (j=0; j < n; j++)
       taxpy(n,&b[i][j],&c[j][0],one,&a[i][0],one);
   sec2 = cpu_time ( );
+  return;
 }
 #if (MACHINE == CRAY)
+
+void SAXPYC()
 /******************************************************************************
   SAXPYC multiplies A=B*C using the SAXPY routine from SCILIB.  SAXPYC is
   used to carrys out the multipication coloumnwise.
 ******************************************************************************/
-void SAXPYC()
 {
   int j,k,LDA=LENA;
 
@@ -889,12 +1024,14 @@ void SAXPYC()
     for (k=0;k < n;k++)
       SAXPY(&n,&c[j][k],&b[0][j],&LDA,&a[0][k],&LDA);
   sec2 = cpu_time ( );
+  return;
 }
+
+void SAXPYR()
 /******************************************************************************
   SAXPYR multiplies A=B*C using the SAXPY routine from SCILIB.  SAXPYR is
   used to carry out the multiplication rowwise.
 ******************************************************************************/
-void SAXPYR()
 {
   int i,j,one=1;
 
@@ -903,12 +1040,14 @@ void SAXPYR()
     for (j=0; j < n; j++)
       SAXPY(&n,&b[i][j],&c[j][0],&one,&a[i][0],&one);
   sec2 = cpu_time ( );
+  return;
 }
+
+void _SGEMMS()
 /******************************************************************************
   SGEMMS multiplies A=B*C using the SGEMMS routine from SCILIB.  SGEMMS uses
   Strassen's method.
 ******************************************************************************/
-void _SGEMMS()
 {
   int LDA=LENA,wn=2.34*n*n;
   float alpha=1.0,beta=1.0,work[wn];
@@ -917,11 +1056,13 @@ void _SGEMMS()
   sec1 = cpu_time ( );
     SGEMMS(&transa,&transb,&n,&n,&n,&alpha,&c,&LDA,&b,&LDA,&beta,&a,&LDA,&work);
   sec2 = cpu_time ( );
+  return;
 }
+
+void _SGEMM()
 /******************************************************************************
   SGEMM multiplies A=B*C using the SCILIB routine SGEMM.
 ******************************************************************************/
-void _SGEMM()
 {
   int LDA=LENA;
   float alpha=1.0,beta=1.0;
@@ -930,11 +1071,13 @@ void _SGEMM()
   sec1 = cpu_time ( );
     SGEMM(&transa,&transb,&n,&n,&n,&alpha,&c,&LDA,&b,&LDA,&beta,&a,&LDA);
   sec2 = cpu_time ( );
+  return;
 }
+
+void _MXMA()
 /******************************************************************************
   MXMA multiplies A=B*C using the SCILIB routine MXMA.
 ******************************************************************************/
-void _MXMA()
 {
   int LDA=LENA;
   int alpha=1.0,beta=1.0;
@@ -942,11 +1085,13 @@ void _MXMA()
   sec1 = cpu_time ( );
     MXMA(&b,&alpha,&LDA,&c,&beta,&LDA,&a,&beta,&LDA,&n,&n,&n);
   sec2 = cpu_time ( );
+  return;
 }
+
+void _SDOT()
 /******************************************************************************
   SDOT multiplies A=B*C using the SCILIB routine SDOT.
 ******************************************************************************/
-void _SDOT()
 {
   int i,j,one=1,LDA=LENA;
 
@@ -955,12 +1100,14 @@ void _SDOT()
     for (j=0; j < n; j++)
       a[i][j]=SDOT(&n,&b[i][0],&one,&c[0][j],&LDA);
   sec2 = cpu_time ( );
+  return;
 }
 #endif
+
+void _TDOT()
 /******************************************************************************
   TDOT multiplies A=B*C using the level 1 BLAS routine TDOT.
 ******************************************************************************/
-void _TDOT()
 {
   int i,j,one=1,LDA=LENA;
 
@@ -969,11 +1116,13 @@ void _TDOT()
     for (j=0; j < n; j++)
       a[i][j]=tdot(n,&b[i][0],one,&c[0][j],LDA);
   sec2 = cpu_time ( );
+  return;
 }
+
+void IJK()
 /******************************************************************************
   IJK multiplies A=B*C using index order IJK.
 ******************************************************************************/
-void IJK()
 {
   int i,j,k;
 
@@ -983,11 +1132,13 @@ void IJK()
        for (k=0; k < n; k++)
          a[i][k]=a[i][k]+b[i][j]*c[j][k];
   sec2 = cpu_time ( );
+  return;
 }
+
+void IKJ()
 /******************************************************************************
   IKJ multiplies A=B*C using index order IKJ.
 ******************************************************************************/
-void IKJ()
 {
   int i,j,k;
   sec1 = cpu_time ( );
@@ -996,14 +1147,16 @@ void IKJ()
        for (j=0; j < n; j++)
           a[i][k]=a[i][k]+b[i][j]*c[j][k];
   sec2 = cpu_time ( );
+  return;
 }
 
 #if MACHINE == CRAY
+
+void MIJK()
 /******************************************************************************
   MIJK multiplies A=B*C using index order IJK with the outer most loop
   multitasked.
 ******************************************************************************/
-void MIJK()
 {
   int i,j,k;
 
@@ -1014,12 +1167,14 @@ void MIJK()
        for (k=0; k < n; k++)/* vector loop */
          a[i][k]=a[i][k]+b[i][j]*c[j][k];
   TMSTOP();
+  return;
 }
 #endif
+
+void SIJK()
 /******************************************************************************
   SIJK multiplies A=B*C using index order IJK in scalar mode.
 ******************************************************************************/
-void SIJK()
 {
   int i,j,k;
 
@@ -1032,23 +1187,27 @@ void SIJK()
        for (k=0; k < n; k++)
          a[i][k]=a[i][k]+b[i][j]*c[j][k];
   sec2 = cpu_time ( );
+  return;
 }
 
+
+void  Init(void)
 /******************************************************************************
  INIT does initializations; setting variables, opening files, saying hello.
 ******************************************************************************/
-void  Init(void)
 {
   Setval();
   Flopen();
   Hello();
+  return;
 }
 
 
+
+void JIK()
 /******************************************************************************
   JIK multiplies A=B*C using index order JIK.
 ******************************************************************************/
-void JIK()
 {
 
   int i,j,k;
@@ -1058,12 +1217,17 @@ void JIK()
        for (k=0; k < n; k++)
           a[i][k]=a[i][k]+b[i][j]*c[j][k];
   sec2 = cpu_time ( );
+  return;
 }
 
-/******************************************************************************
-  JKI multiplies A=B*C using index order JKI.
-******************************************************************************/
+/******************************************************************************/
+
 void JKI()
+
+/******************************************************************************/
+/*
+  JKI multiplies A=B*C using index order JKI.
+*/
 {
   int i,j,k;
 
@@ -1073,12 +1237,14 @@ void JKI()
       for (i=0;i < n;i++)
           a[i][k]=a[i][k]+b[i][j]*c[j][k];
   sec2 = cpu_time ( );
+  return;
 }
 
+
+void KIJ()
 /******************************************************************************
   KIJ multiplies A=B*C using index order KIJ.
 ******************************************************************************/
-void KIJ()
 {
   int i,j,k;
 
@@ -1088,12 +1254,16 @@ void KIJ()
       for (j=0; j < n; j++)
           a[i][k]=a[i][k]+b[i][j]*c[j][k];
   sec2 = cpu_time ( );
+  return;
 }
+/******************************************************************************/
 
-/******************************************************************************
-  KJI multiplies A=B*C using index order KJI.
-******************************************************************************/
 void KJI()
+
+/******************************************************************************/
+/*
+  KJI multiplies A=B*C using index order KJI.
+*/
 {
   int i,j,k;
   sec1 = cpu_time ( );
@@ -1102,25 +1272,36 @@ void KJI()
        for (i=0;i < n;i++)
           a[i][k]=a[i][k]+b[i][j]*c[j][k];
   sec2 = cpu_time ( );
+  return;
 }
 
-/******************************************************************************
-min returns the minimum of a and b
-******************************************************************************/
+/******************************************************************************/
+
 int min(int x,int y)
+
+/******************************************************************************/
+/*
+  min returns the minimum of a and b
+*/
 {
+  int value;
+
   if (x<=y)
-    return (x);
+    value = x;
   else
-    return (y);
+    value = y;
+
+  return value;
 }
+/******************************************************************************/
 
+void Mult(void)
 
-/******************************************************************************
+/******************************************************************************/
+/*
   MULT carries out the matrix multiplication, using the requested method.
   If the method was "ALL", then use every available method.
-******************************************************************************/
-void Mult(void)
+*/
 {
   char ctemp[10];
 
@@ -1321,8 +1502,11 @@ void Mult(void)
     strcpy(order,ctemp);
   }
 }
+/******************************************************************************/
 
 int Nstep(void)
+
+/******************************************************************************/
 {
   if (ninc != 0)
   {
@@ -1360,14 +1544,14 @@ int Nstep(void)
   ido=3;
   return(ido);
 }
+/******************************************************************************/
 
-
-
-
-/******************************************************************************
- PDUMP writes the timing results to a data file.
-******************************************************************************/
 void Pdump()
+
+/******************************************************************************/
+/*
+ PDUMP writes the timing results to a data file.
+*/
 {
   int i;
   if(iplot >0 )
@@ -1380,9 +1564,15 @@ void Pdump()
   }
   else
     ifiled=NULL;
-}
 
-/******************************************************************************
+  return;
+}
+/******************************************************************************/
+
+void Printr()
+
+/******************************************************************************/
+/*
   PRINTR prints out the current values of parameters that the user should
   be interested in, including:
 
@@ -1391,8 +1581,7 @@ void Pdump()
   the maximum allowable dimension,
   the actual size of arrays,
   the number of multiplications carried out.
-******************************************************************************/
-void Printr()
+*/
 { char outline[80];
   sprintf(outline,"The algorithm chosen is %s\n",order);
   Putout(outline);
@@ -1404,14 +1593,17 @@ void Printr()
   Putout(outline);
   sprintf(outline,"A total of %d cases have been run.\n",iplot);
   Putout(outline);
+
+  return;
 }
 
 
+
+void Putinp()
 /******************************************************************************
  PUTINP prints the user's most recent input line to the command file and
  to the output file.
 ******************************************************************************/
-void Putinp()
 {
   size_t i;
 
@@ -1428,12 +1620,14 @@ void Putinp()
     fprintf(ifilei," \n");
     fprintf(ifilei," \n");
   }
+  return;
 }
 
+
+void Putout(char *outstr)
 /******************************************************************************
   PUTOUT prints a line of output to the user's screen, and to the output file.
 ******************************************************************************/
-void Putout(char *outstr)
 {
    size_t i;
 
@@ -1450,11 +1644,13 @@ void Putout(char *outstr)
      if (ifileo)
        fprintf(ifileo,"\n");
    }
+  return;
 }
+
+void Record()
 /******************************************************************************
   RECORD stores the results for the latest multiplication into various arrays.
 ******************************************************************************/
-void Record()
 {
   if(iplot < MAXPLT)
   {
@@ -1490,13 +1686,15 @@ void Record()
     Putout("and any further results will not make it into\n");
     Putout("the results file.\n");
   }
+  return;
 }
 
 
+
+void Result ( short lchop )
 /******************************************************************************
  RESULT prints out the results of all, or some, of the multiplications.
 ******************************************************************************/
-void Result ( short lchop )
 {
   char out[81];
   int i;
@@ -1545,11 +1743,13 @@ void Result ( short lchop )
       if (lplot[i] != 0) Putout(out);
     }
   }
+  return;
 }
+
+float tdot(int n,float *sx,int incx,float *sy,int incy )
 /******************************************************************************
   the C code for the TDOT routine
 ******************************************************************************/
-float tdot(int n,float *sx,int incx,float *sy,int incy )
 /*
     PURPOSE
         Forms the dot product of a vector.
@@ -1596,10 +1796,11 @@ float tdot(int n,float *sx,int incx,float *sy,int incy )
     stemp += (*sx)*(*sy);
   return( stemp );
 }
+
+void Setval()
 /*****************************************************************************
   SETVAL initializes all the COMMON block data.
 *****************************************************************************/
-void Setval()
 {
  int i,j;
 
@@ -1653,12 +1854,14 @@ void Setval()
    }
 
    Zero(LENA);
+  return;
 }
 
+
+void Shoord ( )
 /******************************************************************************
   SHOORD prints out the legal choices for ORDER
 ******************************************************************************/
-void Shoord ( )
 {
 
   printf ( "Valid choices for the order are:\n" );
@@ -1668,10 +1871,11 @@ void Shoord ( )
   return;
 }
 
+
+taxpy(int n,float *sa,float *sx,int  incx,float *sy,int incy)
 /******************************************************************************
    the C code for the TAXPY routine
 ******************************************************************************/
-taxpy(int n,float *sa,float *sx,int  incx,float *sy,int incy)
 /*
   PURPOSE
     Vector times a scalar plus a vector.  sy = sy + sa*sx.
@@ -1715,36 +1919,53 @@ taxpy(int n,float *sa,float *sx,int  incx,float *sy,int incy)
   if( incy < 0 ) sy += ((-n+1)*incy + 1);
   for( i=0; i<n; i++,sx+=incx,sy+=incy )
     (*sy) += (*sa)*(*sx);
+
+  return;
 }
 
 #if MACHINE == CRAY
+
+void TMSTART()
 /******************************************************************************
   TMSTART is called to record the time just before a Multitasked multiplication
   is carried out.
 ******************************************************************************/
-void TMSTART()
 {
   sec1=IRTC();
+  return;
 }
+/******************************************************************************/
 
-/******************************************************************************
+void TMSTOP()
+
+/******************************************************************************/
+/*
   TMSTOP is called to record the time just after a Multitasked multiplication
   is carried out.
-******************************************************************************/
-void TMSTOP()
+*/
 {
   sec2=IRTC();
+
+  return;
 }
 #endif
 
-/******************************************************************************
-  ZERO zeroes out a real vector.
-******************************************************************************/
+/******************************************************************************/
+
 void Zero(int len)
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ZERO zeroes out a real vector.
+*/
 {
   short i,j;
 
   for (i=0; i<len; i++)
     for (j=0; j<len; j++)
      a[i][j]=0.0;
+
+  return;
 }

@@ -31,7 +31,7 @@ int main ( )
 
   Discussion:
 
-    SFTPACK_PRB calls the SFTPACK test routines.
+    SFTPACK_PRB tests the SFTPACK library.
 
   Licensing:
 
@@ -47,7 +47,6 @@ int main ( )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "SFTPACK_PRB\n" );
   printf ( "  C version\n" );
@@ -71,7 +70,6 @@ int main ( )
   printf ( "\n" );
   printf ( "SFTPACK_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

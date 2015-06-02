@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g multigrid_poisson_1d_prb.c >& compiler.txt
+gcc -c multigrid_poisson_1d_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling multigrid_poisson_1d_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc multigrid_poisson_1d_prb.o /$HOME/libc/$ARCH/multigrid_poisson_1d.o -lm
 if [ $? -ne 0 ]; then

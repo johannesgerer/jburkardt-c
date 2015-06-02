@@ -233,7 +233,7 @@ double bivnor ( double ah, double ak, double r )
   double sp;
   double sqr;
   double t;
-  static double twopi = 6.283185307179587;
+  const double twopi = 6.283185307179587;
   double w2;
   double wh;
   double wk;
@@ -802,7 +802,7 @@ double q ( double h, double ah )
 */
 {
   double ahh;
-  double rroot2 = 0.70710678118654752440;
+  const double rroot2 = 0.70710678118654752440;
   double value;
   double x;
 
@@ -981,10 +981,10 @@ double t ( double h, double a )
   double absa;
   double absh;
   double ah;
-  double cut = 0.67;
+  const double cut = 0.67;
   double normah;
   double normh;
-  double rroot2 = 0.70710678118654752440;
+  const double rroot2 = 0.70710678118654752440;
   double value;
   double x;
 
@@ -1115,9 +1115,9 @@ double tfun ( double h, double a, double ah )
       0.81475510988760098605,      0.89711029755948965867,
       0.95723808085944261843,      0.99178832974629703586 };
   double r;
-  double rroot2 = 0.70710678118654752440;
-  double rrtpi = 0.39894228040143267794;
-  double rtwopi = 0.15915494309189533577;
+  const double rroot2 = 0.70710678118654752440;
+  const double rrtpi = 0.39894228040143267794;
+  const double rtwopi = 0.15915494309189533577;
   int select[15*8] = {
     1, 1, 2,13,13,13,13,13,13,13,13,16,16,16, 9,
     1, 2, 2, 3, 3, 5, 5,14,14,15,15,16,16,16, 9,

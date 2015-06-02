@@ -1,13 +1,12 @@
 #!/bin/bash
 #
-g++ -c -g -I/$HOME/include r4lib_prb.C >& compiler.txt
+gcc -c -I/$HOME/include r4lib_prb.c
 if [ $? -ne 0 ]; then
-  echo "Errors compiling r4lib_prb.C."
+  echo "Errors compiling r4lib_prb.c"
   exit
 fi
-rm compiler.txt
 #
-g++ r4lib_prb.o /$HOME/libcpp/$ARCH/r4lib.o -lm
+gcc r4lib_prb.o /$HOME/libc/$ARCH/r4lib.o -lm
 if [ $? -ne 0 ]; then
   echo "Errors linking and loading r4lib_prb.o."
   exit

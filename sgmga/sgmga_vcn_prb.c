@@ -49,11 +49,12 @@ int main ( void )
   sgmga_vcn_tests ( );
 
   sgmga_vcn_ordered_tests ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "SGMGA_VCN_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
   

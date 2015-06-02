@@ -4,12 +4,12 @@
 
 # include "asa310.h"
 
-int main ( void );
-void test01 ( void );
+int main ( );
+void test01 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    ASA310_PRB calls the ASA310 routines.
+    ASA310_PRB tests the ASA310 library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA310_PRB:\n" );
   printf ( "  C version\n" );
@@ -48,7 +47,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA310_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -56,7 +54,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -112,7 +110,7 @@ void test01 ( void )
     fx2 = ncbeta ( a, b, lambda, x, errmax, &ifault );
 
     printf ( "  %7.2f  %7.2f  %7.3f  %10.4f  %24.16f  %24.16f  %10.4e\n",
-      a, b, lambda, x, fx, fx2, r8_abs ( fx - fx2 ) );
+      a, b, lambda, x, fx, fx2, fabs ( fx - fx2 ) );
   }
 
   return;

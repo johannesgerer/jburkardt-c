@@ -5,19 +5,23 @@
 
 # include "asa241.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ASA241_PRB tests ASA241.
+    MAIN is the main program for ASA241_PRB.
+
+  Discussion:
+
+    ASA241_PRB tests the ASA241 library.
 
   Licensing:
 
@@ -32,9 +36,7 @@ int main ( void )
     John Burkardt
 */
 {
-  printf ( "\n" );
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA241_PRB:\n" );
   printf ( "  C version\n" );
@@ -48,7 +50,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA241_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -56,7 +57,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -110,14 +111,14 @@ void test01 ( void )
     fx2 = ( float ) ( fx );
     x2 = r4_normal_01_cdf_inverse ( fx2 );
 
-    printf ( "  %24.16f  %24.16f  %24.16f  %10.6g\n", fx, x, x2, r4_abs ( x - x2 ) );
+    printf ( "  %24.16f  %24.16f  %24.16f  %10.6g\n", fx, x, x2, fabs ( x - x2 ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -170,7 +171,7 @@ void test02 ( void )
 
     x2 = r8_normal_01_cdf_inverse ( fx );
 
-    printf ( "  %24.16f  %24.16f  %24.16f  %10.6g\n", fx, x, x2, r8_abs ( x - x2 ) );
+    printf ( "  %24.16f  %24.16f  %24.16f  %10.6g\n", fx, x, x2, fabs ( x - x2 ) );
   }
 
   return;

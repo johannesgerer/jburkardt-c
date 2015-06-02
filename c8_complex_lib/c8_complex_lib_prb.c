@@ -43,7 +43,11 @@ int main ( void )
 /*
   Purpose:
 
-    C8_COMPLEX_LIB_PRB calls the C8_COMPLEX_LIB tests.
+    MAIN is the main program for C8_COMPLEX_LIB_PRB.
+
+  Discussion:
+
+    C8_COMPLEX_LIB_PRB tests the C8_COMPLEX_LIB library.
 
   Licensing:
 
@@ -100,7 +104,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "C8_COMPLEX_LIB_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

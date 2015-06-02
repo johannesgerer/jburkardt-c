@@ -20,7 +20,7 @@ int main ( void )
 
   Discussion:
 
-    SPHERE_LEBEDEV_RULE_PRB calls the SPHERE_LEBEDEV_RULE tests.
+    SPHERE_LEBEDEV_RULE_PRB tests the SPHERE_LEBEDEV_RULE library.
 
   Licensing:
 
@@ -49,7 +49,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "SPHERE_LEBEDEV_RULE_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

@@ -16,6 +16,10 @@ int main ( int argc, char *argv[] )
 
     MAIN is the main program for IMAGE_EDGE_PRB.
 
+  Discussion:
+
+    IMAGE_EDGE_PRB tests the IMAGE_EDGE library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -41,14 +45,13 @@ int main ( int argc, char *argv[] )
   char output_filename[80] = "coin_edges.ascii.pbm";
 
   timestamp ( );
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, "IMAGE_EDGE_PRB\n" );
-  fprintf ( stdout, "  C version\n" );
-  fprintf ( stdout, "  Demonstrate the NEWS stencil for edge detection\n" );
-  fprintf ( stdout, "  in images.\n" );
+  printf ( "\n" );
+  printf ( "IMAGE_EDGE_PRB\n" );
+  printf ( "  C version\n" );
+  printf ( "  Test the IMAGE_EDGE library.\n" );
 
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, "  The input file is \"%s\".\n", input_filename );
+  printf ( "\n" );
+  printf ( "  The input file is \"%s\".\n", input_filename );
 //
 //  Open the input file and read the data.
 //
@@ -56,10 +59,10 @@ int main ( int argc, char *argv[] )
 
   pgma_read_header ( input_unit, &m, &n, &g_max );
 
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, "  Number of rows =          %d\n", m );
-  fprintf ( stdout, "  Number of columns =       %d\n", n );
-  fprintf ( stdout, "  Maximum pixel intensity = %d\n", g_max );
+  printf ( "\n" );
+  printf ( "  Number of rows =          %d\n", m );
+  printf ( "  Number of columns =       %d\n", n );
+  printf ( "  Maximum pixel intensity = %d\n", g_max );
 
   g = ( int * ) malloc ( m * n * sizeof ( int ) );
 
@@ -69,12 +72,12 @@ int main ( int argc, char *argv[] )
 
   g_histo = i4mat_histogram ( m, n, g, 255 );
 
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, " Gray     Count\n" );
-  fprintf ( stdout, "\n" );
+  printf ( "\n" );
+  printf ( " Gray     Count\n" );
+  printf ( "\n" );
   for ( i = 0; i <= 255; i++ )
   {
-    fprintf ( stdout, "  %3d  %8d\n", i, g_histo[i] );
+    printf ( "  %3d  %8d\n", i, g_histo[i] );
   }
 
   free ( g_histo );
@@ -85,19 +88,18 @@ int main ( int argc, char *argv[] )
 //
   pbma_write ( output_filename, m, n, e );
 
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, "  Wrote edge information to \"%s\".\n", output_filename );
+  printf ( "\n" );
+  printf ( "  Wrote edge information to \"%s\".\n", output_filename );
 
   free ( e );
   free ( g );
 /*
   Terminate.
 */
-  fprintf ( stdout, "\n" );
-  fprintf ( stdout, "IMAGE_EDGE_PRB\n" );
-  fprintf ( stdout, "  Normal end of execution.\n" );
-
-  fprintf ( stdout, "\n" );
+  printf ( "\n" );
+  printf ( "IMAGE_EDGE_PRB\n" );
+  printf ( "  Normal end of execution.\n" );
+  printf ( "\n" );
   timestamp ( );
 
   return 0;

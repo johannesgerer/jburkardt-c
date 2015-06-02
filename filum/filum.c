@@ -577,13 +577,13 @@ int file_column_count ( char *input_filename )
     to be in the file.
 */
 {
-# define LINE_MAX 256
+# define MY_LINE_MAX 256
 
   int column_num;
   char *error;
   FILE *input;
   int got_one;
-  char line[LINE_MAX];
+  char line[MY_LINE_MAX];
 /*
   Open the file.
 */
@@ -604,7 +604,7 @@ int file_column_count ( char *input_filename )
 
   for ( ; ; )
   {
-    error = fgets ( line, LINE_MAX, input );
+    error = fgets ( line, MY_LINE_MAX, input );
 
     if ( !error )
     {
@@ -634,7 +634,7 @@ int file_column_count ( char *input_filename )
 
     for ( ; ; )
     {
-      error = fgets ( line, LINE_MAX, input );
+      error = fgets ( line, MY_LINE_MAX, input );
 
       if ( !error )
       {
@@ -665,7 +665,63 @@ int file_column_count ( char *input_filename )
 
   return column_num;
 
-# undef LINE_MAX
+# undef MY_LINE_MAX
+}
+/******************************************************************************/
+
+int file_delete ( char *filename )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    FILE_DELETE deletes a named file if it exists.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *FILENAME, the name of the file.
+
+    Output, int FILE_DELETE, is 0 if the file deletion was successful.
+*/
+{
+  int value;
+/*
+  Does the file exist?
+*/
+  if ( !file_exist ( filename ) )
+  {
+    return 1;
+  }
+/*
+  Try to remove it.
+*/
+  value = remove ( filename );
+
+  if ( value != 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "FILE_DELETE: Warning!\n" );
+    fprintf ( stderr, "  Could not delete \"%s\".\n", filename );
+    return value;
+  }
+
+  printf ( "\n" );
+  printf ( "FILE_DELETE:\n" );
+  printf ( "  Deleting old version of \"%s\".\n", filename );
+
+  return value;
 }
 /******************************************************************************/
 
@@ -711,15 +767,107 @@ int file_exist ( char *filename )
   }
   return value;
 }
+/******************************************************************************/
+
+int file_row_count ( char *input_filename )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    FILE_ROW_COUNT counts the number of row records in a file.
+
+  Discussion:
+
+    It does not count lines that are blank, or that begin with a
+    comment symbol '#'.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 June 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *INPUT_FILENAME, the name of the input file.
+
+    Output, int FILE_ROW_COUNT, the number of rows found.
+*/
+{
+# define MY_LINE_MAX 256
+
+  int bad_num;
+  int comment_num;
+  char *error;
+  FILE *input;
+  int i;
+  char line[MY_LINE_MAX];
+  int record_num;
+  int row_num;
+
+  row_num = 0;
+  comment_num = 0;
+  record_num = 0;
+  bad_num = 0;
+
+  input = fopen ( input_filename, "r" );
+
+  if ( !input )
+  {
+    printf ( "\n" );
+    printf ( "FILE_ROW_COUNT - Fatal error!\n" );
+    printf ( "  Could not open the input file: \"%s\"\n", input_filename );
+    return (-1);
+  }
+
+  for ( ; ; )
+  {
+    error = fgets ( line, MY_LINE_MAX, input );
+
+    if ( !error )
+    {
+      break;
+    }
+
+    record_num = record_num + 1;
+
+    if ( line[0] == '#' )
+    {
+      comment_num = comment_num + 1;
+      continue;
+    }
+
+    if ( s_len_trim ( line ) == 0 )
+    {
+      comment_num = comment_num + 1;
+      continue;
+    }
+
+    row_num = row_num + 1;
+  }
+
+  fclose ( input );
+
+  return row_num;
+
+# undef MY_LINE_MAX
+}
 //****************************************************************************80
 
-char *file_name_ext_swap ( char *filename, char *ext )
+char *filename_ext_swap ( char *filename, char *ext )
 
 //****************************************************************************80
 //
 //  Purpose:
 //
-//    FILE_NAME_EXT_SWAP replaces the current "extension" of a file name.
+//    FILENAME_EXT_SWAP replaces the current "extension" of a file name.
 //
 //  Discussion:
 //
@@ -732,7 +880,7 @@ char *file_name_ext_swap ( char *filename, char *ext )
 //
 //          Input           Output
 //    ================     ==================
-//    FILENAME     EXT     FILE_NAME_EXT_SWAP
+//    FILENAME     EXT     FILENAME_EXT_SWAP
 //
 //    bob.for      obj     bob.obj
 //    bob.bob.bob  txt     bob.bob.txt
@@ -756,7 +904,7 @@ char *file_name_ext_swap ( char *filename, char *ext )
 //
 //    Input, char *EXT, the extension to be added to the file name.
 //
-//    Output, char *FILE_NAME_EXT_SWAP, the file name with the new extension.
+//    Output, char *FILENAME_EXT_SWAP, the file name with the new extension.
 //
 {
   char *filename2;
@@ -802,13 +950,13 @@ char *file_name_ext_swap ( char *filename, char *ext )
 }
 /******************************************************************************/
 
-void file_name_inc ( char *filename )
+void filename_inc ( char *filename )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    FILE_NAME_INC increments a partially numeric file name.
+    FILENAME_INC increments a partially numeric file name.
 
   Discussion:
 
@@ -837,7 +985,7 @@ void file_name_inc ( char *filename )
 
   Modified:
 
-    22 November 2011
+    07 April 2014
 
   Author:
 
@@ -854,12 +1002,12 @@ void file_name_inc ( char *filename )
   int n;
   char *t;
 
-  n = s_len_trim ( filename );
+  n = strlen ( filename );
 
   if ( n <= 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "FILE_NAME_INC - Fatal error!\n" );
+    fprintf ( stderr, "FILENAME_INC - Fatal error!\n" );
     fprintf ( stderr, "  The input string is empty.\n" );
     exit ( 1 );
   }
@@ -892,7 +1040,7 @@ void file_name_inc ( char *filename )
 */
   if ( change == 0 )
   {
-    n = s_len_trim ( filename );
+    n = strlen ( filename );
     t = filename + n - 1;
     while ( 0 < n )
     {
@@ -903,98 +1051,6 @@ void file_name_inc ( char *filename )
   }
 
   return;
-}
-/******************************************************************************/
-
-int file_row_count ( char *input_filename )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    FILE_ROW_COUNT counts the number of row records in a file.
-
-  Discussion:
-
-    It does not count lines that are blank, or that begin with a
-    comment symbol '#'.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    13 June 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, char *INPUT_FILENAME, the name of the input file.
-
-    Output, int FILE_ROW_COUNT, the number of rows found.
-*/
-{
-# define LINE_MAX 256
-
-  int bad_num;
-  int comment_num;
-  char *error;
-  FILE *input;
-  int i;
-  char line[LINE_MAX];
-  int record_num;
-  int row_num;
-
-  row_num = 0;
-  comment_num = 0;
-  record_num = 0;
-  bad_num = 0;
-
-  input = fopen ( input_filename, "r" );
-
-  if ( !input )
-  {
-    printf ( "\n" );
-    printf ( "FILE_ROW_COUNT - Fatal error!\n" );
-    printf ( "  Could not open the input file: \"%s\"\n", input_filename );
-    return (-1);
-  }
-
-  for ( ; ; )
-  {
-    error = fgets ( line, LINE_MAX, input );
-
-    if ( !error )
-    {
-      break;
-    }
-
-    record_num = record_num + 1;
-
-    if ( line[0] == '#' )
-    {
-      comment_num = comment_num + 1;
-      continue;
-    }
-
-    if ( s_len_trim ( line ) == 0 )
-    {
-      comment_num = comment_num + 1;
-      continue;
-    }
-
-    row_num = row_num + 1;
-  }
-
-  fclose ( input );
-
-  return row_num;
-
-# undef LINE_MAX
 }
 /******************************************************************************/
 
@@ -1488,13 +1544,17 @@ int s_len_trim ( char *s )
 
     S_LEN_TRIM returns the length of a string to the last nonblank.
 
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    26 April 2003
+    05 October 2014
 
   Author:
 
@@ -1514,9 +1574,9 @@ int s_len_trim ( char *s )
   n = strlen ( s );
   t = s + strlen ( s ) - 1;
 
-  while ( 0 < n ) 
+  while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }
@@ -2297,7 +2357,7 @@ int s_word_count ( char *s )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*

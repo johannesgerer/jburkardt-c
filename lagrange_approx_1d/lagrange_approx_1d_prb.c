@@ -19,7 +19,11 @@ int main ( )
 /*
   Purpose:
 
-    LAGRANGE_APPROX_1D_TEST tests LAGRANGE_APPROX_1D.
+    MAIN is the main program for LAGRANGE_APPROX_1D_PRB.
+
+  Discussion:
+
+    LAGRANGE_APPROX_1D_PRB tests LAGRANGE_APPROX_1D.
 
   Licensing:
 
@@ -47,7 +51,7 @@ int main ( )
 
   timestamp ( );
   printf ( "\n" );
-  printf ( "LAGRANGE_APPROX_1D_TEST:\n" );
+  printf ( "LAGRANGE_APPROX_1D_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the LAGRANGE_APPROX_1D library.\n" );
   printf ( "  The R8LIB library is needed.\n" );

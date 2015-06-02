@@ -1,0 +1,60 @@
+08 May 2014 03:05:58 PM
+
+TRIANGLE_PROPERTIES:
+  C version:
+  Determine properties of a triangle.
+
+  Read the header of "../../datasets/triangles/tex7.txt".
+
+  Spatial dimension DIM_NUM = 2
+  Number of points NODE_NUM = 3
+
+  Read the data in "../../datasets/triangles/tex7.txt".
+
+  Node coordinates:
+
+  Row:        0             1     
+  Col
+
+    0:               1               0
+    1:               2               1
+    2:               1               0
+
+  ANGLES (radians):
+
+         0:        3.14159
+         1:              0
+         2:        3.14159
+
+  ANGLES (degrees):
+
+         0:            180
+         1:              0
+         2:            180
+
+  AREA: 0
+
+  CENTROID:   1.33333  0.333333
+
+  CIRCUM_RADIUS: -1
+  CIRCUM_CENTER: 0  0
+
+  EDGE_LENGTHS:
+
+         0:        1.41421
+         1:        1.41421
+         2:              0
+
+  IN_RADIUS: 0
+  IN_CENTER: 1  0
+
+  ORIENTATION: Degenerate, at least two points identical.
+
+  ORTHO_CENTER: Could not be computed.
+
+  QUALITY: 0
+
+TRIANGLE_PROPERTIES:
+  Normal end of execution.
+
+08 May 2014 03:05:58 PM

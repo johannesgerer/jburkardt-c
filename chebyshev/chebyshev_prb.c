@@ -38,7 +38,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "CHEBYSHEV_PRB\n" );
   printf ( "  C version\n" );
@@ -51,7 +50,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "CHEBYSHEV_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

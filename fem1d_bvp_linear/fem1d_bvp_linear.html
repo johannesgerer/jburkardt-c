@@ -29,7 +29,7 @@
         - d/dx ( a(x) * du/dx ) + c(x) * u(x) = f(x)
       </pre>
       in the interval 0 &lt; x &lt; 1.  The functions a(x), c(x), and f(x) are
-      given functions, and a formula for a'(x) is also available.
+      given functions.
     </p>
 
     <p>
@@ -56,38 +56,6 @@
     </p>
 
     <h3 align = "center">
-      Usage:
-    </h3>
-
-    <p>
-      <blockquote>
-        <b>fem1d_bvp_linear</b> ( <i>n</i>, <i>a</i>, <i>c</i>, <i>f</i>,
-          <i>x</i>, <i>u</i> )
-      </blockquote>
-      where
-      <ul>
-        <li>
-          <i>n</i> is the number of equally spaced nodes.
-        </li>
-        <li>
-          <i>a</i> is the function which evaluates a(x);
-        </li>
-        <li>
-          <i>c</i> is the function which evaluates c(x);
-        </li>
-        <li>
-          <i>f</i> is the function which evaluates f(x).
-        </li>
-        <li>
-          <i>x</i> is the input vector of <i>n</i> nodes.
-        </li>
-        <li>
-          <i>u</i> is the output vector of <i>n</i> finite difference values.
-        </li>
-      </ul>
-    </p>
-
-    <h3 align = "center">
       Licensing:
     </h3>
 
@@ -107,7 +75,8 @@
       <a href = "../../cpp_src/fem1d_bvp_linear/fem1d_bvp_linear.html">a C++ version</a> and
       <a href = "../../f77_src/fem1d_bvp_linear/fem1d_bvp_linear.html">a FORTRAN77 version</a> and
       <a href = "../../f_src/fem1d_bvp_linear/fem1d_bvp_linear.html">a FORTRAN90 version</a> and
-      <a href = "../../m_src/fem1d_bvp_linear/fem1d_bvp_linear.html">a MATLAB version</a>.
+      <a href = "../../m_src/fem1d_bvp_linear/fem1d_bvp_linear.html">a MATLAB version</a> and
+      <a href = "../../py_src/fem1d_bvp_linear/fem1d_bvp_linear.html">a Python version</a>.
     </p>
 
     <h3 align = "center">
@@ -123,19 +92,31 @@
     </p>
 
     <p>
-      <a href = "../../data/fem1d/fem1d.html">
-      FEM1D</a>, 
-      a data directory which
-      contains examples of 1D FEM files, 
-      three text files that describe a 1D finite element model;
-    </p>
-
-    <p>
       <a href = "../../c_src/fem1d/fem1d.html">
       FEM1D</a>,
       a C program which
-      applies the finite element method to a linear two point boundary value problem
-      in a 1D region.
+      applies the finite element method (FEM) to a linear two point 
+      boundary value problem in a 1D region.
+    </p>
+
+    <p>
+      <a href = "../../c_src/fem1d_bvp_quadratic/fem1d_bvp_quadratic.html">
+      FEM1D_BVP_QUADRATIC</a>,
+      a C program which
+      applies the finite element method (FEM), with piecewise quadratic
+      elements, to a two point boundary value problem (BVP) in one 
+      spatial dimension, and compares the computed and exact solutions 
+      with the L2 and seminorm errors.
+    </p>
+
+    <p>
+      <a href = "../../c_src/fem2d_bvp_linear/fem2d_bvp_linear.html">
+      FEM2D_BVP_LINEAR</a>,
+      a C program which
+      applies the finite element method (FEM), with piecewise linear elements,
+      to a 2D boundary value problem (BVP) in a rectangle,
+      and compares the computed and exact solutions 
+      with the L2 and seminorm errors.
     </p>
 
     <h3 align = "center">
@@ -162,7 +143,7 @@
           Finite Element Methods,<br>
           Academic Press, 1988,<br>
           ISBN: 0126330107,<br>
-          LC: TA347.F5.S3313..
+          LC: TA347.F5.S3313.
         </li>
         <li>
           Gilbert Strang, George Fix,<br>
@@ -229,19 +210,31 @@
     <p>
       <ul>
         <li>
-          <b>COMPUTE_L2_ERROR</b> estimates the L2 error norm of a finite element solution.
-        </li>
-        <li>
-          <b>COMPUTE_SEMINORM_ERROR</b> estimates the seminorm error of a finite element solution.
-        </li>
-        <li>
           <b>FEM1D_BVP_LINEAR</b> solves a two point boundary value problem.
+        </li>
+        <li>
+          <b>H1S_ERROR_LINEAR</b> estimates the seminorm error of a finite element solution.
+        </li>
+        <li>
+          <b>I4VEC_ZERO_NEW</b> creates and zeroes an I4VEC.
+        </li>
+        <li>
+          <b>L1_ERROR</b> estimates the l1 error norm of a finite element solution.
+        </li>
+        <li>
+          <b>L2_ERROR_LINEAR</b> estimates the L2 error norm of a finite element solution.
         </li>
         <li>
           <b>R8MAT_SOLVE2</b> computes the solution of an N by N linear system.
         </li>
         <li>
-          <b>R8VEC_EVEN</b> returns an R8VEC of evenly spaced values.
+          <b>R8MAT_ZERO_NEW</b> returns a new zeroed R8MAT.
+        </li>
+        <li>
+          <b>R8VEC_EVEN_NEW</b> returns N real values, evenly spaced between ALO and AHI.
+        </li>
+        <li>
+          <b>R8VEC_ZERO_NEW</b> creates and zeroes an R8VEC.
         </li>
         <li>
           <b>TIMESTAMP</b> prints the current YMDHMS date as a time stamp.
@@ -257,7 +250,7 @@
     <hr>
 
     <i>
-      Last revised on 20 August 2010.
+      Last revised on 18 June 2014.
     </i>
 
     <!-- John Burkardt -->

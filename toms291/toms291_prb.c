@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    TOMS291_PRB calls the TOMS291 routines.
+    TOMS291_PRB tests the TOMS291 library.
 
   Modified:
 
@@ -31,7 +31,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "TOMS291_PRB:\n" );
   printf ( "  C version\n" );
@@ -42,7 +41,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "TOMS291_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

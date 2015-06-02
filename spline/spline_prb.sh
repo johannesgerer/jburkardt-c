@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g -I/$HOME/include spline_prb.c >& compiler.txt
+gcc -c -I/$HOME/include spline_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling spline_prb.c"
   exit
 fi
-rm compiler.txt
 #
 gcc spline_prb.o /$HOME/libc/$ARCH/spline.o -lm
 if [ $? -ne 0 ]; then

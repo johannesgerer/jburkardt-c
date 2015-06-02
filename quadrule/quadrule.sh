@@ -2,12 +2,11 @@
 #
 cp quadrule.h /$HOME/include
 #
-gcc -c -g quadrule.c >& compiler.txt
+gcc -c quadrule.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling quadrule.c."
   exit
 fi
-rm compiler.txt
 #
 mv quadrule.o ~/libc/$ARCH/quadrule.o
 #

@@ -23,6 +23,8 @@ int main ( void )
 
   Discussion:
 
+    POINT_MERGE_PRB tests the POINT_MERGE library.
+
     Compare correctness of the codes.
 
     Compare speed of the codes.
@@ -47,11 +49,10 @@ int main ( void )
   double tol;
 
   timestamp ( );
-
   printf (  " \n" );
   printf (  "POINT_MERGE_PRB\n" );
-  printf (  "  FORTRAN90 version\n" );
-  printf (  "  Test the routines in the POINT_MERGE library.\n" );
+  printf (  "  C version\n" );
+  printf (  "  Test the POINT_MERGE library.\n" );
 /*
   TEST01 gives me some confidence that, at least for zero-tolerance,
   the radial approach is accurate, as compared to the "Unique count"
@@ -171,11 +172,12 @@ int main ( void )
     seed = 123456789;
     test05 ( m, n, n_unique, tol, seed );
   }
-
+/*
+  Terminate.
+*/
   printf (  " \n" );
   printf (  "POINT_MERGE_PRB\n" );
   printf (  "  Normal end of execution.\n" );
-   
   printf (  " \n" );
   timestamp ( );
 

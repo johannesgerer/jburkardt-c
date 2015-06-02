@@ -20,6 +20,10 @@ int main ( void )
 
     MAIN is the main program for KRONROD_PRB.
 
+  Discussion:
+
+    KRONROD_PRB tests the KRONROD library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license. 
@@ -34,7 +38,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "KRONROD_PRB:\n" );
   printf ( "  C version.\n" );
@@ -49,7 +52,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "KRONROD_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

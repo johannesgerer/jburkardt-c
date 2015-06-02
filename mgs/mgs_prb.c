@@ -1,6 +1,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+# include <time.h>
 
 # include "mgs.h"
 
@@ -12,6 +13,7 @@ int r4_nint ( float x );
 void r4mat_delete ( float **a, int m, int n );
 float **r4mat_new ( int m, int n );
 void r4mat_uniform ( int m, int n, float b, float c, int *seed, float **r );
+void timestamp ( );
 
 /******************************************************************************/
 
@@ -25,7 +27,7 @@ int main ( void )
 
   Discussion:
 
-    MGS_PRB gives some test data to the MGS function.
+    MGS_PRB tests the MGS library.
 
   Modified:
 
@@ -52,8 +54,10 @@ int main ( void )
   int seed = 123456789;
   int test;
 
+  timestamp ( );
   printf ( "\n" );
   printf ( "MGS_PRB:\n" );
+  printf ( "  C version\n" );
   printf ( "  Test cases for MGS.\n" );
   printf ( "\n" );
 
@@ -131,6 +135,8 @@ int main ( void )
   printf ( "\n" );
   printf ( "MGS_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
+  printf ( "\n" );
+  timestamp ( );
 
   return 0;
 }
@@ -575,4 +581,51 @@ void r4mat_uniform ( int m, int n, float b, float c, int *seed, float **r )
   }
 
   return;
+}
+/******************************************************************************/
+
+void timestamp ( void )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TIMESTAMP prints the current YMDHMS date as a time stamp.
+
+  Example:
+
+    31 May 2001 09:45:54 AM
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    24 September 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    None
+*/
+{
+# define TIME_SIZE 40
+
+  static char time_buffer[TIME_SIZE];
+  const struct tm *tm;
+  time_t now;
+
+  now = time ( NULL );
+  tm = localtime ( &now );
+
+  strftime ( time_buffer, TIME_SIZE, "%d %B %Y %I:%M:%S %p", tm );
+
+  printf ( "%s\n", time_buffer );
+
+  return;
+# undef TIME_SIZE
 }

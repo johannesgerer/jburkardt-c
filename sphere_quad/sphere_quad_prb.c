@@ -30,7 +30,7 @@ int main ( void )
 
   Discussion:
 
-    SPHERE_QUAD_PRB tests SPHERE_QUAD.
+    SPHERE_QUAD_PRB tests the SPHERE_QUAD library.
 
   Licensing:
 
@@ -46,7 +46,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "SPHERE_QUAD_PRB\n" );
   printf ( "  C version\n" );
@@ -63,7 +62,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "SPHERE_QUAD_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

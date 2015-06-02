@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g duel_simulation.c >& compiler.txt
+gcc -c duel_simulation.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling duel_simulation.c"
   exit
 fi
-rm compiler.txt
 #
 gcc duel_simulation.o -lm
 if [ $? -ne 0 ]; then

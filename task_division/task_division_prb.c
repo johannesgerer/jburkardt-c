@@ -15,9 +15,11 @@ int main ( int argc, char *argv[] )
 /*
   Purpose:
 
-    TASK_DIVISION_PRB tests TASK_DIVISION.
+    MAIN is the main program for TASK_DIVISION_PRB.
 
   Discussion:
+
+    TASK_DIVISION_PRB tests the TASK_DIVISION library.
 
     This program simply demonstrates how one might automate the
     assignment of T tasks to P processors, assuming that the assignment
@@ -52,6 +54,7 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "TASK_DIVISION_PRB:\n" );
   printf ( "  C version\n" );
+  printf ( "  Test the TASK_DIVISION library.\n" );
   printf ( "  Demonstrate how to automate the division of\n" );
   printf ( "  T tasks among a range of P processors\n" );
   printf ( "  indexed from PROC_FIRST to PROC_LAST.\n" );
@@ -96,7 +99,6 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "TASK_DIVISION_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

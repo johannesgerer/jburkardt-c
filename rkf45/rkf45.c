@@ -48,29 +48,29 @@ float r4_abs ( float x )
 }
 /******************************************************************************/
 
-float r4_epsilon ( void )
+float r4_epsilon ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R4_EPSILON returns the R4 roundoff unit.
+    R4_EPSILON returns the R4 round off unit.
 
   Discussion:
 
-    The roundoff unit is a number R which is a power of 2 with the 
-    property that, to the precision of the computer's arithmetic,
+    R4_EPSILON is a number R which is a power of 2 with the property that,
+    to the precision of the computer's arithmetic,
       1 < 1 + R
-    but 
+    but
       1 = ( 1 + R / 2 )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    01 July 2004
+    01 September 2012
 
   Author:
 
@@ -81,16 +81,7 @@ float r4_epsilon ( void )
     Output, float R4_EPSILON, the R4 round-off unit.
 */
 {
-  float value;
-
-  value = 1.0;
-
-  while ( 1.0 < ( float ) ( 1.0 + value )  )
-  {
-    value = value / 2.0;
-  }
-
-  value = 2.0 * value;
+  static float value = 1.19209290E-07;
 
   return value;
 }
@@ -1115,7 +1106,7 @@ double r8_abs ( double x )
 }
 /******************************************************************************/
 
-double r8_epsilon ( void )
+double r8_epsilon ( )
 
 /******************************************************************************/
 /*
@@ -1128,16 +1119,16 @@ double r8_epsilon ( void )
     R8_EPSILON is a number R which is a power of 2 with the property that,
     to the precision of the computer's arithmetic,
       1 < 1 + R
-    but 
+    but
       1 = ( 1 + R / 2 )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    08 May 2006
+    01 September 2012
 
   Author:
 
@@ -1148,17 +1139,9 @@ double r8_epsilon ( void )
     Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  double r;
+  const double value = 2.220446049250313E-016;
 
-  r = 1.0;
-
-  while ( 1.0 < ( double ) ( 1.0 + r )  )
-  {
-    r = r / 2.0;
-  }
-  r = 2.0 * r;
-
-  return r;
+  return value;
 }
 /******************************************************************************/
 

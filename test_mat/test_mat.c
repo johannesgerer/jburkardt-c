@@ -1,12 +1,544 @@
-# include <stdlib.h>
-# include <stdio.h>
-# include <math.h>
 # include <complex.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <string.h>
 # include <time.h>
 
 # include "test_mat.h"
 
+/******************************************************************************/
+
+double *a123 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123 returns the A123 matrix.
+
+  Example:
+
+    1 2 3
+    4 5 6
+    7 8 9
+
+  Properties:
+
+    A is integral.
+
+    A is not symmetric.
+
+    A is singular.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double *A123[3,3], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( 3 * 3 * sizeof ( double ) );
+
+  k = 0;
+  for ( i = 0; i < 3; i++ )
+  {
+    for ( j = 0; j < 3; j++ )
+    {
+      k = k + 1;
+      a[i+j*3] = ( double ) ( k );
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double a123_determinant ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_DETERMINANT returns the determinant of the A123 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double VALUE, the determinant.
+*/
+{
+  double value;
+
+  value = 0.0;
+
+  return value;
+}
+/******************************************************************************/
+
+double *a123_eigen_left ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_EIGEN_LEFT returns left eigenvectors of the A123 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double A123_EIGEN_LEFT[3,3], the eigenvectors.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[3*3] = {
+  -0.464547273387671, 
+  -0.882905959653586, 
+   0.408248290463862, 
+  -0.570795531228578, 
+  -0.239520420054206, 
+  -0.816496580927726, 
+  -0.677043789069485, 
+   0.403865119545174, 
+   0.408248290463863 };
+    
+  a = r8mat_copy_new ( 3, 3, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
+double *a123_eigen_right ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_EIGEN_RIGHT returns right eigenvectors of the A123 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double A123_EIGEN_RIGHT[3,3], the eigenvectors.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[3*3] = {
+  -0.231970687246286, 
+  -0.525322093301234, 
+  -0.818673499356181, 
+  -0.785830238742067, 
+  -0.086751339256628, 
+   0.612327560228810, 
+   0.408248290463864, 
+  -0.816496580927726, 
+   0.408248290463863 };
+    
+  a = r8mat_copy_new ( 3, 3, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
+double *a123_eigenvalues ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_EIGENVALUES returns the eigenvalues of the A123 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double A123_EIGENVALUES[3], the eigenvalues.
+*/
+{
+  double *lambda;
+  static double lambda_save[3] = {
+    16.116843969807043, -1.116843969807043, 0.0 };
+
+  lambda = r8vec_copy_new ( 3, lambda_save );
+
+  return lambda;
+}
+/******************************************************************************/
+
+double *a123_inverse ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_INVERSE returns the pseudo-inverse of the A123 matrix.
+
+  Example:
+
+    -0.638888888888888  -0.166666666666666   0.305555555555555
+    -0.055555555555556   0.000000000000000   0.055555555555556
+     0.527777777777777   0.166666666666666  -0.194444444444444
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double A123_INVERSE[3,3], the matrix.
+*/
+{
+  double *b;
+  static double b_save[3*3] = {
+  -0.638888888888888, -0.055555555555556,  0.527777777777777, 
+  -0.166666666666666,  0.000000000000000,  0.166666666666666, 
+   0.305555555555555,  0.055555555555556, -0.194444444444444 };
+
+  b = r8mat_copy_new ( 3, 3, b_save );
+
+  return b;
+}
+/******************************************************************************/
+
+double *a123_null_left ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_NULL_LEFT returns a left null vector of the A123 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double A123_NULL_LEFT[3], a left null vector.
+*/
+{
+  double *x;
+  static double x_save[3] = { 1.0, -2.0, 1.0 };
+
+  x = r8vec_copy_new ( 3, x_save );
+
+  return x;
+}
+/******************************************************************************/
+
+double *a123_null_right ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_NULL_RIGHT returns a right null vector of the A123 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double A123_NULL_RIGHT[3], the vector.
+*/
+{
+  double *x;
+  static double x_save[3] = { 1.0, -2.0, 1.0 };
+
+  x = r8vec_copy_new ( 3, x_save );
+
+  return x;
+}
+/******************************************************************************/
+
+void a123_plu ( double p[], double l[], double u[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_PLU returns the PLU factors of the A123 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double P[3,3], L[3,3], U[3,3], the PLU factors.
+*/
+{
+  static double l_save[3*3] = {
+   1.0,  0.142857142857143, 0.571428571428571, 
+   0.0,  1.00,              0.5, 
+   0.0,  0.00,              1.0 };
+  static double p_save[3*3] = {
+    0.0,  0.0,  1.0, 
+    1.0,  0.0,  0.0, 
+    0.0,  1.0,  0.0 };
+  static double u_save[3*3] = {
+    7.0,  0.00,               0.0, 
+    8.0,  0.857142857142857,  0.0, 
+    9.0,  1.714285714285714,  0.0 };
+
+  r8mat_copy ( 3, 3, l_save, l );
+  r8mat_copy ( 3, 3, p_save, p );
+  r8mat_copy ( 3, 3, u_save, u );
+
+  return;
+}
+/******************************************************************************/
+
+void a123_qr ( double q[], double r[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_QR returns the QR factors of the A123 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double Q[3,3], R[3,3], the QR factors.
+*/
+{
+  static double q_save[3*3] = {
+    -0.123091490979333, -0.492365963917331, -0.861640436855329, 
+     0.904534033733291,  0.301511344577763, -0.301511344577763, 
+     0.408248290463862, -0.816496580927726,  0.408248290463863 };
+  static double r_save[3*3] = {
+     -8.124038404635959, 0.0,               0.0, 
+     -9.601136296387955, 0.904534033733293, 0.0, 
+    -11.078234188139948, 1.809068067466585, 0.0 };
+
+  r8mat_copy ( 3, 3, q_save, q );
+  r8mat_copy ( 3, 3, r_save, r );
+
+  return;
+}
+/******************************************************************************/
+
+double *a123_rhs ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_RHS returns the A123 right hand side.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double A123_RHS[3], the right hand side vector.
+*/
+{
+  static double b_save[3] = { 10.0, 28.0, 46.0 };
+  double *b;
+
+  b = r8vec_copy_new ( 3, b_save );
+
+  return b;
+}
+/******************************************************************************/
+
+double *a123_solution ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_SOLUTION returns the A123 solution vector.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, A123_SOLUTION[3], the solution.
+*/
+{
+  double *x;
+  static double x_save[3] = { 3.0, 2.0, 1.0 };
+
+  x = r8vec_copy_new ( 3, x_save );
+
+  return x;
+}
+/******************************************************************************/
+
+void a123_svd ( double u[], double s[], double v[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    A123_SVD returns the SVD factors of the A123 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double U[3,3], S[3,3], V[3,3], the SVD factors.
+*/
+{
+  static double s_save[3*3] = {
+    16.848103352614210,   0.0,                0.0, 
+                   0.0,   1.068369514554710,  0.0, 
+                   0.0,   0.0,                0.0 };
+  static double u_save[3*3] = {
+  -0.214837238368397,  -0.520587389464737,  -0.826337540561078,
+   0.887230688346371,   0.249643952988297,  -0.387942782369774, 
+   0.408248290463863,  -0.816496580927726,   0.408248290463863 };
+  static double v_save[3*3] = {
+  -0.479671177877772,  -0.572367793972062,  -0.665064410066353, 
+  -0.776690990321560,  -0.075686470104559,   0.625318050112443, 
+  -0.408248290463863,   0.816496580927726,  -0.408248290463863 };
+
+  r8mat_copy ( 3, 3, s_save, s );
+  r8mat_copy ( 3, 3, u_save, u );
+  r8mat_copy ( 3, 3, v_save, v );
+
+  return;
+}
 /******************************************************************************/
 
 double *aegerter ( int n )
@@ -423,6 +955,7 @@ double anticirculant_determinant ( int n, double x[] )
 {
   double determ;
   int i;
+  int ihi;
   int j;
   double complex *lambda;
   double complex *w;
@@ -449,9 +982,10 @@ double anticirculant_determinant ( int n, double x[] )
 /*
   Eigenvalues 2, 3     through ( N + 1 ) / 2 are paired with complex conjugates.
 */
-  for ( i = 1; i < ( n + 1 ) / 2; i++ )
+  ihi = ( n + 1 ) / 2;
+  for ( i = 1; i < ihi; i++ )
   {
-    determ = determ * pow ( abs ( lambda[i] ), 2 );
+    determ = determ * pow ( cabs ( lambda[i] ), 2 );
   }
 /*
   If N is even, there is another unpaired eigenvalue.
@@ -620,7 +1154,7 @@ double antihadamard_determinant ( int n )
 }
 /******************************************************************************/
 
-double *antisymm_random ( int n, int *seed )
+double *antisymm_random ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -670,8 +1204,7 @@ double *antisymm_random ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double ANTISYMM_RANDOM[N*N], the matrix.
 */
@@ -679,6 +1212,9 @@ double *antisymm_random ( int n, int *seed )
   double *a;
   int i;
   int j;
+  int seed;
+
+  seed = key;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -687,7 +1223,7 @@ double *antisymm_random ( int n, int *seed )
     a[i+i*n] = 0.0;
     for ( j = i + 1; j < n; j++ )
     {
-      a[i+j*n] = 2.0 * r8_uniform_01 ( seed ) - 1.0;
+      a[i+j*n] = 2.0 * r8_uniform_01 ( &seed ) - 1.0;
       a[j+i*n] = - a[i+j*n];
     }
   }
@@ -695,7 +1231,7 @@ double *antisymm_random ( int n, int *seed )
 }
 /******************************************************************************/
 
-double *archimedes ( void )
+double *archimedes ( )
 
 /******************************************************************************/
 /*
@@ -801,6 +1337,9 @@ double *archimedes ( void )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   double a_save[7*8] = {
     6.0,   0.0, -13.0,  0.0,  0.0,   0.0, -13.0, 
    -5.0,  20.0,   0.0, -7.0,  0.0,   0.0,   0.0, 
@@ -817,13 +1356,13 @@ double *archimedes ( void )
 }
 /******************************************************************************/
 
-double *archimedes_null ( void )
+double *archimedes_null_right ( )
 
 /******************************************************************************/
 /*
    Purpose:
  
-     ARCHIMEDES_NULL returns a null vector for the ARCHIMEDES matrix.
+     ARCHIMEDES_NULL_RIGHT returns a right null vector for the ARCHIMEDES matrix.
  
    Licensing:
  
@@ -839,7 +1378,7 @@ double *archimedes_null ( void )
  
    Parameters:
  
-     Output, double ARCHIMEDES_NULL[8], the null vector.
+     Output, double ARCHIMEDES_NULL_RIGHT[8], the null vector.
 */
 {
   int n = 8;
@@ -895,6 +1434,8 @@ double *bab ( int n, double alpha, double beta )
     Because A is normal, it is diagonalizable.
 
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -988,15 +1529,15 @@ double bab_condition ( int n, double alpha, double beta )
 
   if ( n == 1 )
   {
-    a_norm = r8_abs ( alpha );
+    a_norm = fabs ( alpha );
   }
   else if ( n == 2 )
   {
-    a_norm = r8_abs ( alpha ) + r8_abs ( beta );
+    a_norm = fabs ( alpha ) + fabs ( beta );
   }
   else
   {
-    a_norm = r8_abs ( alpha ) + 2.0 * r8_abs ( beta );
+    a_norm = fabs ( alpha ) + 2.0 * fabs ( beta );
   }
 
   b = bab_inverse ( n, alpha, beta );
@@ -1071,6 +1612,55 @@ double bab_determinant ( int n, double alpha, double beta )
 }
 /******************************************************************************/
 
+double *bab_eigen_right ( int n, double alpha, double beta )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BAB_EIGEN_RIGHT returns the right eigenvectors of the BAB matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double ALPHA, BETA, the parameters.
+
+    Output, double BAB_EIGEN_RIGHT[N*N], the right eigenvector matrix.
+*/
+{
+  double *a;
+  double angle;
+  int i;
+  int j;
+  const double r8_pi = 3.141592653589793;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      angle = ( double ) ( ( i + 1 ) * ( j + 1 ) ) * r8_pi / ( double ) ( n + 1 );
+      a[i+j*n] = sqrt ( 2.0 / ( double ) ( n + 1 ) ) * sin ( angle );
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
 double *bab_eigenvalues ( int n, double alpha, double beta )
 
 /******************************************************************************/
@@ -1103,13 +1693,13 @@ double *bab_eigenvalues ( int n, double alpha, double beta )
   double angle;
   int i;
   double *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 1 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 1 );
     lambda[i] = alpha + 2.0 * beta * cos ( angle );
   }
 
@@ -1156,9 +1746,9 @@ double *bab_inverse ( int n, double alpha, double beta )
   {
     if ( alpha == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "BAB_INVERSE - Fatal error!\n" );
-      printf ( "  ALPHA = BETA = 0.\n" );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "BAB_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  ALPHA = BETA = 0.\n" );
       exit ( 1 );
     }
 
@@ -1205,13 +1795,195 @@ double *bab_inverse ( int n, double alpha, double beta )
 }
 /******************************************************************************/
 
+double *bauer ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BAUER returns the BAUER matrix.
+
+  Example:
+
+    -74   80  18 -11  -4  -8
+     14  -69  21  28   0   7
+     66  -72  -5   7   1   4
+    -12   66 -30 -23   3  -3
+      3    8  -7  -4   1   0
+      4  -12   4   4   0   1
+
+  Properties:
+
+    The matrix is integral.
+
+    The inverse matrix is integral.
+
+    The matrix is ill-conditioned.
+
+    The determinant is 1.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Virginia Klema, Alan Laub,
+    The Singular Value Decomposition: Its Computation and Some Applications,
+    IEEE Transactions on Automatic Control,
+    Volume 25, Number 2, April 1980.
+
+  Parameters:
+
+    Output, double BAUER[6,6], the matrix.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  double a_save[6*6] = {
+   -74.0,   14.0,   66.0,  -12.0,    3.0,    4.0, 
+    80.0,  -69.0,  -72.0,   66.0,    8.0,  -12.0, 
+    18.0,   21.0,   -5.0,  -30.0,   -7.0,    4.0, 
+   -11.0,   28.0,    7.0,  -23.0,   -4.0,    4.0, 
+    -4.0,    0.0,    1.0,    3.0,    1.0,    0.0, 
+    -8.0,    7.0,    4.0,   -3.0,    0.0,    1.0 };
+
+  a = r8mat_copy_new ( 6, 6, a_save );
+  
+  return a;
+}
+/******************************************************************************/
+
+double bauer_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BAUER_CONDITION returns the L1 condition of the BAUER matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double VALUE, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 307.0;
+  b_norm = 27781.0;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double bauer_determinant ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BAUER_DETERMINANT returns the determinant of the BAUER matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double VALUE, the determinant.
+*/
+{
+  double value;
+
+  value = 1.0;
+
+  return value;
+}
+/******************************************************************************/
+
+double *bauer_inverse ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BAUER_INVERSE returns the inverse of the BAUER matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double BAUER_INVERSE[6*6], the matrix.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  double a_save[6*6] = {
+      1.0,     0.0,    -2.0,    15.0,    43.0,    -56.0, 
+      0.0,     1.0,     2.0,   -12.0,   -42.0,     52.0, 
+     -7.0,     7.0,    29.0,  -192.0,  -600.0,    764.0, 
+    -40.0,    35.0,   155.0, -1034.0, -3211.0,   4096.0, 
+    131.0,  -112.0,  -502.0,  3354.0, 10406.0, -13276.0, 
+    -84.0,    70.0,   319.0, -2130.0, -6595.0,   8421.0 };
+
+  a = r8mat_copy_new ( 6, 6, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
 double *bernstein ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    BERNSTEIN returns the Bernstein matrix.
+    BERNSTEIN returns the BERNSTEIN matrix.
 
   Discussion:
 
@@ -1223,6 +1995,16 @@ double *bernstein ( int n )
 
     The N power basis vectors are ordered as (1,X,X^2,...X^(N-1)) and the N 
     Bernstein basis vectors as ((1-X)^(N-1), X*(1_X)^(N-2),...,X^(N-1)).
+
+  Example:
+
+    N = 5
+
+    1    -4     6    -4     1
+    0     4   -12    12    -4
+    0     0     6   -12     6
+    0     0     0     4    -4
+    0     0     0     0     1
 
   Licensing:
 
@@ -1240,7 +2022,7 @@ double *bernstein ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double BERNSTEIN[N*N], the Bernstein matrix.
+    Output, double BERNSTEIN[N*N], the matrix.
 */
 {
   double *a;
@@ -1270,13 +2052,53 @@ double *bernstein ( int n )
 }
 /******************************************************************************/
 
+double bernstein_determinant ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BERNSTEIN_DETERMINANT returns the determinant of the BERNSTEIN matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double BERNSTEIN_DETERMINANT, the determinant.
+*/
+{
+  int i;
+  double value;
+
+  value = 1.0;
+  for ( i = 0; i < n; i++ )
+  {
+    value = value * r8_choose ( n - 1, i );
+  }
+
+  return value;
+}
+/******************************************************************************/
+
 double *bernstein_inverse ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    BERNSTEIN_INVERSE returns the inverse Bernstein matrix.
+    BERNSTEIN_INVERSE returns the inverse BERNSTEIN matrix.
 
   Discussion:
 
@@ -1289,6 +2111,16 @@ double *bernstein_inverse ( int n )
 
     The N power basis vectors are ordered as (1,X,X^2,...X^(N-1)) and the N 
     Bernstein basis vectors as ((1-X)^(N-1), X*(1_X)^(N-2),...,X^(N-1)).
+
+  Example:
+
+    N = 5
+
+   1.0000    1.0000    1.0000    1.0000    1.0000
+        0    0.2500    0.5000    0.7500    1.0000
+        0         0    0.1667    0.5000    1.0000
+        0         0         0    0.2500    1.0000
+        0         0         0         0    1.0000
 
   Licensing:
 
@@ -1335,7 +2167,7 @@ double *bernstein_inverse ( int n )
 }
 /******************************************************************************/
 
-double *bimarkov_random ( int n, int *seed )
+double *bimarkov_random ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -1361,7 +2193,7 @@ double *bimarkov_random ( int n, int *seed )
 
     A is generally not symmetric: A' /= A.
 
-    0 <= A(I,J) <= 1.0D+00 for every I and J.
+    0 <= A(I,J) <= 1.0 for every I and J.
 
     A has constant row sum 1.
 
@@ -1413,8 +2245,7 @@ double *bimarkov_random ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output,double BIMARKOV_RANDOM[N*N], the matrix.
 */
@@ -1425,7 +2256,7 @@ double *bimarkov_random ( int n, int *seed )
 /*
   Get a random orthogonal matrix.
 */
-  a = orth_random ( n, seed );
+  a = orth_random ( n, key );
 /*
   Square each entry.
 */
@@ -1474,24 +2305,17 @@ double *bis ( double alpha, double beta, int m, int n )
   Properties:
 
     A is bidiagonal.
-
     Because A is bidiagonal, it has property A (bipartite).
-
     A is upper triangular.
-
     A is banded with bandwidth 2.
-
     A is Toeplitz: constant along diagonals.
-
     A is generally not symmetric: A' /= A.
-
     A is nonsingular if and only if ALPHA is nonzero.
-
-    det ( A ) = ALPHA**N.
-
+    det ( A ) = ALPHA^N.
     LAMBDA(1:N) = ALPHA.
-
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -1540,6 +2364,50 @@ double *bis ( double alpha, double beta, int m, int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double bis_condition ( double alpha, double beta, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BIS_CONDITION returns the L1 condition of the BIS matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    20 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double ALPHA, BETA, the scalars which define the
+    diagonal and first superdiagonal of the matrix.
+
+    Input, int N, the order of the matrix.
+
+    Output, double BIS_CONDITION, the L1 condition of the matrix.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double ba;
+  double cond;
+
+  a_norm = fabs ( alpha ) + fabs ( beta );
+  ba = fabs ( beta / alpha );
+  b_norm = ( pow ( ba, n ) - 1.0 ) / ( ba - 1.0 ) / fabs ( alpha );
+  cond = a_norm * b_norm;
+
+  return cond;
 }
 /******************************************************************************/
 
@@ -1643,10 +2511,10 @@ double *bis_inverse ( double alpha, double beta, int n )
 
     ALPHA = 7.0, BETA = 2.0, N = 4
 
-   1/7  -1/2   1/4  -1/8
-    0    1/7  -1/2   1/4
-    0     0    1/7  -1/2
-    0     0     0    1/7
+    0.1429   -0.0408    0.0117   -0.0033
+        0     0.1429   -0.0408    0.0117
+        0          0    0.1429   -0.0408
+        0          0         0    0.1429
 
   Properties:
 
@@ -1658,9 +2526,11 @@ double *bis_inverse ( double alpha, double beta, int n )
 
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
 
-    det ( A ) = (1/ALPHA)**N.
+    det ( A ) = (1/ALPHA)^N.
 
     LAMBDA(1:N) = 1 / ALPHA.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -1690,9 +2560,9 @@ double *bis_inverse ( double alpha, double beta, int n )
 
   if ( alpha == 0.0 )
   {
-    printf ( "\n" );
-    printf ( "BIS_INVERSE - Fatal error.\n" );
-    printf ( "  The input parameter ALPHA was 0.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "BIS_INVERSE - Fatal error.\n" );
+    fprintf ( stderr, "  The input parameter ALPHA was 0.\n" );
     exit ( 1 );
   }
 
@@ -1713,6 +2583,256 @@ double *bis_inverse ( double alpha, double beta, int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double *biw ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BIW returns the BIW matrix.
+
+  Discussion:
+
+    BIW is a bidiagonal matrix of Wilkinson.   Originally, this matrix
+    was considered for N = 100.
+
+  Formula:
+
+    if ( I == J )
+      A(I,J) = 0.5 + I / ( 10 * N )
+    else if ( J == I+1 )
+      A(I,J) = -1.0
+    else
+      A(I,J) = 0
+
+  Example:
+
+    N = 5
+
+    0.52 -1.00  0.00  0.00  0.00
+    0.00  0.54 -1.00  0.00  0.00
+    0.00  0.00  0.56 -1.00  0.00
+    0.00  0.00  0.00  0.58 -1.00
+    0.00  0.00  0.00  0.00  0.60
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double BIW[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i+i*n] = 0.5 + ( double ) ( i + 1 ) / ( double ) ( 10 * n );
+  }
+
+  for ( i = 0; i < n - 1; i++ )
+  {
+    a[i+(i+1)*n] = - 1.0;
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double biw_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BIW_CONDITION computes the L1 condition of the BIW matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double VALUE, the L1 condition.
+*/
+{
+  double a_norm;
+  double aii;
+  double b_norm;
+  double bij;
+  int i;
+  int j;
+  double value;
+
+  if ( n == 1 )
+  {
+    a_norm = 0.6;
+  }
+  else
+  {
+    a_norm = 1.6;
+  }
+
+  b_norm = 0.0;
+  j = n;
+  for ( i = n; 1 <= i; i-- )
+  {
+    aii = 0.5 + ( double ) ( i ) / ( double ) ( 10 * n );
+    if ( i == j )
+    {
+      bij = 1.0 / aii;
+    }
+    else if ( i < j )
+    {
+      bij = bij / aii;
+    }
+    b_norm = b_norm + fabs ( bij );
+  }
+
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double biw_determinant ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BIW_DETERMINANT computes the determinant of the BIW matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double BIW_DETERMINANT, the determinant.
+*/
+{
+  int i;
+  double value;
+
+  value = 1.0;
+  for ( i = 0; i < n; i++ )
+  {
+    value = value * ( 0.5 + ( double ) ( i + 1 ) / ( double ) ( 10 * n ) );
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+double *biw_inverse ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BIW_INVERSE returns the inverse of the BIW matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double BIW_INVERSE[N,N], the matrix.
+*/
+{
+  double aii;
+  double aiip1;
+  double *b;
+  int i;
+  int j;
+ 
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      b[i+j*n] = 0.0;
+    }
+  }
+
+  for ( j = n - 1; 0 <= j; j-- )
+  {
+    for ( i = n - 1; 0 <= i; i-- )
+    {
+      aii = 0.5 + ( double ) ( i + 1 ) / ( double ) ( 10 * n );
+      aiip1 = -1.0;
+
+      if ( i == j )
+      {
+        b[i+j*n] = 1.0 / aii;
+      }
+      else if ( i < j )
+      {
+        b[i+j*n] = - aiip1 * b[i+1+j*n] / aii;
+      }
+    }
+  }
+
+  return b;
 }
 /******************************************************************************/
 
@@ -1767,6 +2887,9 @@ double *bodewig ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[4*4] = {
     2.0,  1.0,  3.0,  4.0, 
     1.0, -3.0,  1.0,  5.0, 
@@ -1845,6 +2968,59 @@ double bodewig_determinant ( )
 }
 /******************************************************************************/
 
+double *bodewig_eigen_right ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BODEWIG_EIGEN_RIGHT returns the right eigenvectors of the BODEWIG matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 September 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double BODEWIG_EIGEN_RIGHT[4*4], the right eigenvector matrix.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
+   0.263462395147524,  
+   0.659040718046439,
+  -0.199633529128396,
+  -0.675573350827063,
+   0.560144509774526,
+   0.211632763260098,
+   0.776708263894565,
+   0.195381612446620,
+   0.378702689441644,
+   0.362419048574935,
+  -0.537935161097828,
+   0.660198809976478,
+  -0.688047939843040,
+   0.624122855455373,
+   0.259800864702728,
+   0.263750269148100 };
+
+  a = r8mat_copy_new ( 4, 4, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
 double *bodewig_eigenvalues ( )
 
 /******************************************************************************/
@@ -1909,6 +3085,9 @@ double *bodewig_inverse ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[4*4] = {
     -139.0/ 568.0,  165.0/ 568.0,  79.0/ 568.0,  111.0/ 568.0, 
      165.0/ 568.0, -155.0/ 568.0, -57.0/ 568.0,   -1.0/ 568.0, 
@@ -1946,6 +3125,9 @@ void bodewig_plu ( double p[], double l[], double u[] )
     Output, double P[4*4], L[4*4], U[4*4], the PLU factors.
 */
 {
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double l_save[4*4] = {
    1.0, 0.25, 0.75,              0.50, 
    0.0, 1.00, 0.647058823529412, 0.352941176470588, 
@@ -2001,56 +3183,6 @@ double *bodewig_rhs ( )
   b = r8vec_copy_new ( 4, b_save );
 
   return b;
-}
-/******************************************************************************/
-
-double *bodewig_right ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    BODEWIG_RIGHT returns the right eigenvectors of the BODEWIG matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    07 September 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Output, double BODEWIG_RIGHT[4*4], the right eigenvector matrix.
-*/
-{
-  double *a;
-  static double a_save[4*4] = {
-   0.263462395147524,  
-   0.659040718046439,
-  -0.199633529128396,
-  -0.675573350827063,
-   0.560144509774526,
-   0.211632763260098,
-   0.776708263894565,
-   0.195381612446620,
-   0.378702689441644,
-   0.362419048574935,
-  -0.537935161097828,
-   0.660198809976478,
-  -0.688047939843040,
-   0.624122855455373,
-   0.259800864702728,
-   0.263750269148100 };
-
-  a = r8mat_copy_new ( 4, 4, a_save );
-
-  return a;
 }
 /******************************************************************************/
 
@@ -2166,6 +3298,63 @@ double *boothroyd ( int n )
 }
 /******************************************************************************/
 
+double boothroyd_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BOOTHROYD_CONDITION returns the L1 condition of the BOOTHROYD matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double BOOTHROYD_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  int i;
+  int j;
+  double s;
+  double value;
+
+  a_norm = 0.0;
+  for ( j = 1; j <= n; j++ )
+  {
+    s = 0.0;
+    for ( i = 1; i <= n; i++ )
+    {
+      s = s + r8_choose ( n + i - 1, i - 1 ) * r8_choose ( n - 1, n - j ) 
+        * ( double ) ( n ) / ( double ) ( i + j - 1 );
+    }
+    if ( a_norm < s )
+    {
+      a_norm = s;
+    }
+  }
+
+  b_norm = a_norm;
+
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double boothroyd_determinant ( int n )
 
 /******************************************************************************/
@@ -2193,11 +3382,11 @@ double boothroyd_determinant ( int n )
     Output, double BOOTHROYD_DETERMINANT, the determinant.
 */
 {
-  double determ;
+  double value;
 
-  determ = 1.0;
+  value = 1.0;
 
-  return determ;
+  return value;
 }
 /******************************************************************************/
 
@@ -2208,6 +3397,16 @@ double *boothroyd_inverse ( int n )
   Purpose:
 
     BOOTHROYD_INVERSE returns the inverse of the BOOTHROYD matrix.
+
+  Example:
+
+    N = 5
+
+      5   -10    10    -5     1
+    -15    40   -45    24    -5
+     35  -105   126   -70    15
+    -70   224  -280   160   -35
+    126  -420   540  -315    70
 
   Licensing:
 
@@ -2394,7 +3593,7 @@ double *borderband_inverse ( int n )
 
   Modified:
 
-    28 June 2011
+    26 March 2015
 
   Author:
 
@@ -2409,8 +3608,12 @@ double *borderband_inverse ( int n )
 {
   double *a;
   double *l;
+  double *l_inverse;
+  double *lp_inverse;
   double *p;
+  double *p_inverse;
   double *u;
+  double *u_inverse;
 
   p = ( double * ) malloc ( n * n * sizeof ( double ) );
   l = ( double * ) malloc ( n * n * sizeof ( double ) );
@@ -2418,11 +3621,23 @@ double *borderband_inverse ( int n )
 
   borderband_plu ( n, p, l, u );
 
-  a = plu_inverse ( n, p, l, u );
+  p_inverse = r8mat_transpose_new ( n, n, p );
+
+  l_inverse = tri_l1_inverse ( n, l );
+
+  lp_inverse = r8mat_mm_new ( n, n, n, l_inverse, p_inverse );
+
+  u_inverse = tri_u_inverse ( n, u );
+
+  a = r8mat_mm_new ( n, n, n, u_inverse, lp_inverse );
 
   free ( l );
+  free ( l_inverse );
+  free ( lp_inverse );
   free ( p );
+  free ( p_inverse );
   free ( u );
+  free ( u_inverse );
 
   return a;
 }
@@ -2524,7 +3739,146 @@ void borderband_plu ( int n, double p[], double l[], double u[] )
 }
 /******************************************************************************/
 
-double complex c8_zero ( void )
+void bvec_next_grlex ( int n, int bvec[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    BVEC_NEXT generates the next binary vector in GRLEX order.
+
+  Discussion:
+
+    N = 3
+
+    Input      Output
+    -----      ------
+    0 0 0  =>  0 0 1
+    0 0 1  =>  0 1 0
+    0 1 0  =>  1 0 0
+    1 0 0  =>  0 1 1
+    0 1 1  =>  1 0 1
+    1 0 1  =>  1 1 0
+    1 1 0  =>  1 1 1
+    1 1 1  =>  0 0 0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the dimension of the vectors.
+
+    Input/output, int BVEC[N], on output, the successor to the
+    input vector.  
+*/
+{
+  int i;
+  int o;
+  int s;
+  int z;
+/*
+  Initialize locations of 0 and 1.
+*/
+  if ( bvec[0] == 0 )
+  {
+    z = 0;
+    o = -1;
+  }
+  else
+  {
+    z = -1;
+    o = 0;
+  }
+/*
+  Moving from right to left, search for a "1", preceded by a "0".
+*/
+  for ( i = n - 1; 1 <= i; i-- )
+  {
+    if ( bvec[i] == 1 )
+    {
+      o = i;
+      if ( bvec[i-1] == 0 )
+      {
+        z = i - 1;
+        break;
+      }
+    }
+  }
+/*
+  BVEC = 0
+*/
+  if ( o == -1 )
+  {
+    bvec[n-1] = 1;
+  }
+/*
+  01 never occurs.  So for sure, B(1) = 1.
+*/
+  else if ( z == -1 )
+  {
+    s = 0;
+    for ( i = 0; i < n; i++ )
+    {
+      s = s + bvec[i];
+    }
+    if ( s == n )
+    {
+      for ( i = 0; i < n; i++ )
+      {
+        bvec[i] = 0;
+      }
+    }
+    else
+    {
+      for ( i = 0; i < n - s - 1; i++ )
+      {
+        bvec[i] = 0;
+      }
+      for ( i = n - s - 1; i < n; i++ )
+      {
+        bvec[i] = 1;
+      }
+    }
+  }
+/*
+  Found the rightmost "01" string.
+  Replace it by "10".
+  Shift following 1's to the right.
+*/
+  else
+  {
+    bvec[z] = 1;
+    bvec[o] = 0;
+    s = 0;
+    for ( i = o + 1; i < n; i++ )
+    {
+      s = s + bvec[i];
+    }
+    for ( i = o + 1; i < n - s; i++ )
+    {
+      bvec[i] = 0;
+    }
+    for ( i = n - s; i < n; i++ )
+    {
+      bvec[i] = 1;
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double complex c8_zero ( )
 
 /******************************************************************************/
 /*
@@ -2962,7 +4316,7 @@ double complex *c8mat_uniform_01 ( int m, int n, int *seed )
   int j;
   double r;
   int k;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double theta;
 
   c = ( double complex * ) malloc ( m * n * sizeof ( double complex ) );
@@ -2991,7 +4345,7 @@ double complex *c8mat_uniform_01 ( int m, int n, int *seed )
         *seed = *seed + 2147483647;
       }
 
-      theta = 2.0 * pi * ( ( double ) ( *seed ) * 4.656612875E-10 );
+      theta = 2.0 * r8_pi * ( ( double ) ( *seed ) * 4.656612875E-10 );
 
       c[i+j*m] = r * ( cos ( theta ) + sin ( theta ) * I );
     }
@@ -3124,14 +4478,14 @@ double complex *c8vec_unity ( int n )
 {
   double complex *a;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double theta;
 
   a = ( double complex * ) malloc ( n * sizeof ( double complex ) );
 
   for ( i = 0; i < n; i++ )
   {
-    theta = pi * ( double ) ( 2 * i ) / ( double ) ( n );
+    theta = r8_pi * ( double ) ( 2 * i ) / ( double ) ( n );
     a[i] = cos ( theta ) + sin ( theta ) * I;
   }
 
@@ -3139,7 +4493,7 @@ double complex *c8vec_unity ( int n )
 }
 /******************************************************************************/
 
-double *carry ( int alpha, int n )
+double *carry ( int n, int alpha )
 
 /******************************************************************************/
 /*
@@ -3211,10 +4565,9 @@ double *carry ( int alpha, int n )
 
   Parameters:
 
-    Input, int ALPHA, the numeric base being used 
-    in the addition.
-
     Input, int N, the order of the matrix.
+
+    Input, int ALPHA, the numeric base being used in the addition.
 
     Output, double CARRY[N*N], the matrix.
 */
@@ -3247,7 +4600,7 @@ double *carry ( int alpha, int n )
 }
 /******************************************************************************/
 
-double carry_determinant ( int alpha, int n )
+double carry_determinant ( int n, int alpha )
 
 /******************************************************************************/
 /*
@@ -3269,10 +4622,9 @@ double carry_determinant ( int alpha, int n )
 
   Parameters:
 
-    Input, int ALPHA, the numeric base being used 
-    in the addition.
-
     Input, int N, the order of the matrix.
+
+    Input, int ALPHA, the numeric base being used in the addition.
 
     Output, double CARRY_DETERMINANT, the determinant.
 */
@@ -3287,127 +4639,13 @@ double carry_determinant ( int alpha, int n )
 }
 /******************************************************************************/
 
-double *carry_eigenvalues ( int alpha, int n )
+double *carry_eigen_left ( int n, int alpha )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CARRY_EIGENVALUES returns the eigenvalues of the CARRY matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    09 June 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int ALPHA, the ALPHA value, which represents the
-    numeric base being used in the addition.
-
-    Input, int N, the order of the matrix.
-
-    Output, double CARRY_EIGENVALUES[N], the eigenvalues.
-*/
-{
-  int i;
-  double *lambda;
-
-  lambda = ( double * ) malloc ( n * sizeof ( double ) );
-
-  for ( i = 0; i < n; i++ )
-  {
-    lambda[i] = 1.0 / ( double ) ( i4_power ( alpha, i ) );
-  }
-  return lambda;
-}
-/******************************************************************************/
-
-double *carry_inverse ( int alpha, int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    CARRY_INVERSE returns the inverse of the CARRY matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    08 July 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int ALPHA, the numeric base being used in the addition.
-
-    Input, int N, the order of the matrix.
-
-    Output, double CARRY_INVERSE[N*N], the matrix.
-*/
-{
-  double *a;
-  double *d;
-  int i;
-  int j;
-  int k;
-  double t;
-  double *u;
-  double *v;
-
-  v = carry_left ( n );
-
-  d = carry_eigenvalues ( alpha, n );
-
-  u = carry_right ( n );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      v[i+j*n] = v[i+j*n] / d[i];
-    }
-  } 
-  
-  a = r8mat_mm_new ( n, n, n, u, v );
-
-  t = r8_factorial ( n );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      a[i+j*n] = a[i+j*n] / t;
-    }
-  }
-  free ( d );
-  free ( u );
-  free ( v );
-
-  return a;
-}
-/******************************************************************************/
-
-double *carry_left ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    CARRY_LEFT returns the left eigenvectors of the CARRY matrix.
+    CARRY_EIGEN_LEFT returns the left eigenvectors of the CARRY matrix.
 
   Formula:
 
@@ -3462,7 +4700,9 @@ double *carry_left ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double CARRY_LEFT[N*N], the matrix.
+    Input, int ALPHA, the numeric base being used in the addition.
+
+    Output, double CARRY_EIGEN_LEFT[N*N], the matrix.
 */
 {
   double *a;
@@ -3489,13 +4729,13 @@ double *carry_left ( int n )
 }
 /******************************************************************************/
 
-double *carry_right ( int n )
+double *carry_eigen_right ( int n, int alpha )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CARRY_RIGHT returns the right eigenvectors of the CARRY matrix.
+    CARRY_EIGEN_RIGHT returns the right eigenvectors of the CARRY matrix.
 
   Discussion:
 
@@ -3553,7 +4793,9 @@ double *carry_right ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double CARRY_RIGHT[N*N], the matrix.
+    Input, int ALPHA, the numeric base being used in the addition.
+
+    Output, double CARRY_EIGEN_RIGHT[N*N], the matrix.
 */
 {
   double *a;
@@ -3588,6 +4830,119 @@ double *carry_right ( int n )
     }
   }
   free ( s1 );
+
+  return a;
+}
+/******************************************************************************/
+
+double *carry_eigenvalues ( int n, int alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CARRY_EIGENVALUES returns the eigenvalues of the CARRY matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 June 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int ALPHA, the numeric base being used in the addition.
+
+    Output, double CARRY_EIGENVALUES[N], the eigenvalues.
+*/
+{
+  int i;
+  double *lambda;
+
+  lambda = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    lambda[i] = 1.0 / ( double ) ( i4_power ( alpha, i ) );
+  }
+  return lambda;
+}
+/******************************************************************************/
+
+double *carry_inverse ( int n, int alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CARRY_INVERSE returns the inverse of the CARRY matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 July 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int ALPHA, the numeric base being used in the addition.
+
+    Output, double CARRY_INVERSE[N*N], the matrix.
+*/
+{
+  double *a;
+  double *d;
+  int i;
+  int j;
+  int k;
+  double t;
+  double *u;
+  double *v;
+
+  v = carry_eigen_left ( n, alpha );
+
+  d = carry_eigenvalues ( n, alpha );
+
+  u = carry_eigen_right ( n, alpha );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      v[i+j*n] = v[i+j*n] / d[i];
+    }
+  } 
+  
+  a = r8mat_mm_new ( n, n, n, u, v );
+
+  t = r8_factorial ( n );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = a[i+j*n] / t;
+    }
+  }
+  free ( d );
+  free ( u );
+  free ( v );
 
   return a;
 }
@@ -3648,6 +5003,8 @@ double *cauchy ( int n, double x[], double y[] )
       INVERSE(A)(I,J) = product ( 1 <= K <= N ) [ (X(J)+Y(K)) * (X(K)+Y(I)) ] /
             [ (X(J)+Y(I)) * product ( 1 <= K <= N, K /= J ) (X(J)-X(K))
                           * product ( 1 <= K <= N, K /= I ) (Y(I)-Y(K)) ]
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -3710,13 +5067,13 @@ double *cauchy ( int n, double x[], double y[] )
     {
       if ( x[i] + y[j] == 0.0 )
       {
-        printf ( "\n" );
-        printf ( "CAUCHY - Fatal error!\n" );
-        printf ( "  The denominator X(I)+Y(J) was zero\n" );
-        printf ( "  for I = %d\n", i );
-        printf ( "  X(I)  = %f\n", x[i] );
-        printf ( "  and J = %d\n", j );
-        printf ( "  Y(J)  = %f\n", y[j] );
+        fprintf ( stderr, "\n" );
+        fprintf ( stderr, "CAUCHY - Fatal error!\n" );
+        fprintf ( stderr, "  The denominator X(I)+Y(J) was zero\n" );
+        fprintf ( stderr, "  for I = %d\n", i );
+        fprintf ( stderr, "  X(I)  = %f\n", x[i] );
+        fprintf ( stderr, "  and J = %d\n", j );
+        fprintf ( stderr, "  Y(J)  = %f\n", y[j] );
         exit ( 1 );
       }
       a[i+j*n] = 1.0 / ( x[i] + y[j] );
@@ -3740,7 +5097,7 @@ double cauchy_determinant ( int n, double x[], double y[] )
 
   Modified:
 
-    08 September 2010
+    04 February 2015
 
   Author:
 
@@ -3764,7 +5121,7 @@ double cauchy_determinant ( int n, double x[], double y[] )
   top = 1.0;
   for ( i = 0; i < n; i++ )
   {
-    for ( j = 0; j < n; j++ )
+    for ( j = i + 1; j < n; j++ )
     {
       top = top * ( x[j] - x[i] ) * ( y[j] - y[i] );
     }
@@ -3865,31 +5222,31 @@ double *cauchy_inverse ( int n, double x[], double y[] )
     {
       if ( x[i] + y[j] == 0.0 )
       {
-        printf ( "\n" );
-        printf ( "CAUCHY_INVERSE - Fatal error!\n" );
-        printf ( "  The denominator X(I)+Y(J) was zero\n" );
-        printf ( "  for I = %d\n", i );
-        printf ( "  and J = %d\n", j );
+        fprintf ( stderr, "\n" );
+        fprintf ( stderr, "CAUCHY_INVERSE - Fatal error!\n" );
+        fprintf ( stderr, "  The denominator X(I)+Y(J) was zero\n" );
+        fprintf ( stderr, "  for I = %d\n", i );
+        fprintf ( stderr, "  and J = %d\n", j );
         exit ( 1 );
       }
 
       if ( i != j && x[i] == x[j] )
       {
-        printf ( "\n" );
-        printf ( "CAUCHY_INVERSE - Fatal error!\n" );
-        printf ( "  X(I) equals X(J)\n" );
-        printf ( "  for I = %d\n", i );
-        printf ( "  and J = %d\n", j );
+        fprintf ( stderr, "\n" );
+        fprintf ( stderr, "CAUCHY_INVERSE - Fatal error!\n" );
+        fprintf ( stderr, "  X(I) equals X(J)\n" );
+        fprintf ( stderr, "  for I = %d\n", i );
+        fprintf ( stderr, "  and J = %d\n", j );
         exit ( 1 );
       }
 
       if ( i != j && y[i] == y[j] )
       {
-        printf ( "\n" );
-        printf ( "CAUCHY_INVERSE - Fatal error!\n" );
-        printf ( "  Y(I) equals Y(J)\n" );
-        printf ( "  for I = %d\n", i );
-        printf ( "  and J = %d\n", j );
+        fprintf ( stderr, "\n" );
+        fprintf ( stderr, "CAUCHY_INVERSE - Fatal error!\n" );
+        fprintf ( stderr, "  Y(I) equals Y(J)\n" );
+        fprintf ( stderr, "  for I = %d\n", i );
+        fprintf ( stderr, "  and J = %d\n", j );
         exit ( 1 );
       }
     }
@@ -3977,7 +5334,7 @@ double *cheby_diff1 ( int n )
   double *c;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double *x;
 
   if ( n <= 0 )
@@ -4007,7 +5364,7 @@ double *cheby_diff1 ( int n )
 
   for ( i = 0; i < n; i++ )
   {
-    x[i] = cos ( pi * ( double ) ( i ) / ( double ) ( n - 1 ) );
+    x[i] = cos ( r8_pi * ( double ) ( i ) / ( double ) ( n - 1 ) );
   }
 
   for ( j = 0; j < n; j++ )
@@ -4039,13 +5396,72 @@ double *cheby_diff1 ( int n )
 }
 /******************************************************************************/
 
-double *cheby_diff1_null ( int n )
+double *cheby_diff1_null_left ( int m, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CHEBY_DIFF1_NULL returns a null vector of the CHEBY_DIFF1 matrix.
+    CHEBY_DIFF1_NULL_LEFT returns a left null vector of the CHEBY_DIFF1 matrix.
+
+  Discussion:
+
+    The matrix only has a (nonzero) null vector when N is odd.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Output, double CHEBY1_NULL_LEFT[M], the null vector.
+*/
+{
+  int i;
+  double t;
+  double *x;
+  
+  x = ( double * ) malloc ( m * sizeof ( double ) );
+
+  if ( ( m % 2 ) == 1 )
+  {
+    x[0] = 1.0;
+    t = -2.0;
+    for ( i = 1; i < m - 1; i++ )
+    {
+      x[i] = t;
+      t = - t;
+    }
+    x[m-1] = 1.0;
+  }
+  else
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      x[i] = 0.0;
+    }
+  }
+  return x;
+}
+/******************************************************************************/
+
+double *cheby_diff1_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CHEBY_DIFF1_NULL_RIGHT returns a right null vector of the CHEBY_DIFF1 matrix.
 
   Discussion:
 
@@ -4065,9 +5481,9 @@ double *cheby_diff1_null ( int n )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
-    Output, double CHEBY1_NULL[N], the null vector.
+    Output, double CHEBY1_NULL_RIGHT[N], the null vector.
 */
 {
   int i;
@@ -4140,12 +5556,11 @@ double *cheby_t ( int n )
     A is not normal: A' * A /= A * A'.
 
     For I = 1:
-
       LAMBDA(1) = 1
-
     For 1 < I
-
       LAMBDA(I) = 2^(I-2)
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -4374,6 +5789,8 @@ double *cheby_u ( int n )
     det ( A ) = 2^((N*(N-1))/2).
 
     LAMBDA(I) = 2^(I-1)
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -4686,7 +6103,7 @@ double *cheby_u_polynomial ( int n, double x )
 }
 /******************************************************************************/
 
-double *cheby_van1 ( int n, double x[] )
+double *cheby_van1 ( int m, double a, double b, int n, double x[] )
 
 /******************************************************************************/
 /*
@@ -4696,16 +6113,23 @@ double *cheby_van1 ( int n, double x[] )
 
   Discussion:
 
-    if ( I = 1 ) then
-      A(1,J) = 1
-    else if ( I = 2 ) then
-      A(2,J) = X(J)
+    Normally, the Chebyshev polynomials are defined on -1 <= XI <= +1.
+    Here, we assume the Chebyshev polynomials have been defined on the
+    interval A <= X <= B, using the mapping
+      XI = ( - ( B - X ) + ( X - A ) ) / ( B - A )
+    so that
+      ChebyAB(A,B;X) = Cheby(XI).
+
+    if ( I == 1 ) then
+      V(1,1:N) = 1;
+    elseif ( I == 2 ) then
+      V(2,1:N) = XI(1:N);
     else
-      A(I,J) = 2.0 * X(J) * A(I-1,J) - A(I-2,J)
+      V(I,1:N) = 2.0 * XI(1:N) * V(I-1,1:N) - V(I-2,1:N);
 
   Example:
 
-    N = 5, X = ( 1, 2, 3, 4, 5 )
+    M = 5, A = -1, B = +1, N = 5, X = ( 1, 2, 3, 4, 5 )
 
     1  1   1    1    1
     1  2   3    4    5
@@ -4727,7 +6151,7 @@ double *cheby_van1 ( int n, double x[] )
 
   Modified:
 
-    23 September 2010
+    10 April 2014
 
   Author:
 
@@ -4743,38 +6167,44 @@ double *cheby_van1 ( int n, double x[] )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, the number of rows of the matrix.
 
-    Input, double X[N], the vector that defines A.
+    Input, double A, B, the interval.
 
-    Output, double CHEBY_VAN1[N*N], the matrix.
+    Input, int N, the number of columns of the matrix.
+
+    Input, double X[N], the vector that defines the matrix.
+
+    Output, double CHEBY_VAN1[M*N], the matrix.
 */
 {
-  double *a;
   int i;
   int j;
+  double *v;
+  double xi;
 
-  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+  v = ( double * ) malloc ( m * n * sizeof ( double ) );
 
   for ( j = 0; j < n; j++ )
   {
-    for ( i = 0; i < n; i++ )
+    xi = ( - ( b - x[j] ) + ( x[j] - a ) ) / ( b - a );
+    for ( i = 0; i < m; i++ )
     {
       if ( i == 0 )
       {
-        a[i+j*n] = 1.0;
+        v[i+j*m] = 1.0;
       }
       else if ( i == 1 )
       {
-        a[i+j*n] = x[j];
+        v[i+j*m] = xi;
       }
       else
       {
-        a[i+j*n] = 2.0 * x[j] * a[i-1+j*n] - a[i-2+j*n];
+        v[i+j*m] = 2.0 * xi * v[i-1+j*m] - v[i-2+j*m];
       }
     }
   }
-  return a;
+  return v;
 }
 /******************************************************************************/
 
@@ -4843,7 +6273,7 @@ double *cheby_van2 ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -4857,7 +6287,7 @@ double *cheby_van2 ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = ( double ) ( i * j ) * pi / ( double ) ( n - 1 );
+      angle = ( double ) ( i * j ) * r8_pi / ( double ) ( n - 1 );
       a[i+j*n] = cos ( angle );
     }
   }
@@ -4978,7 +6408,7 @@ double *cheby_van2_inverse ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -4992,7 +6422,7 @@ double *cheby_van2_inverse ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = ( double ) ( i * j ) * pi / ( double ) ( n - 1 );
+      angle = ( double ) ( i * j ) * r8_pi / ( double ) ( n - 1 );
       a[i+j*n] = cos ( angle );
     }
   }
@@ -5069,7 +6499,7 @@ double *cheby_van3 ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -5077,7 +6507,7 @@ double *cheby_van3 ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = ( double ) ( i * ( 2 * j + 1 ) ) * pi / ( double ) ( 2 * n );
+      angle = ( double ) ( i * ( 2 * j + 1 ) ) * r8_pi / ( double ) ( 2 * n );
       a[i+j*n] = cos ( angle );
     }
   }
@@ -5168,7 +6598,7 @@ double *cheby_van3_inverse ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -5176,7 +6606,7 @@ double *cheby_van3_inverse ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = ( double ) ( ( 2 * i + 1 ) * j ) * pi 
+      angle = ( double ) ( ( 2 * i + 1 ) * j ) * r8_pi 
             / ( double ) ( 2 * n );
 
       a[i+j*n] = cos ( angle ) / ( double ) ( n );
@@ -5252,12 +6682,11 @@ double *chow ( double alpha, double beta, int m, int n )
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
 
     For 1 <= I < N-(N+1)/2,
-
       LAMBDA(I) = BETA + 4 * ALPHA * cos ( i * pi / ( N+2 ) )^2,
-
     For N-(N+1)/2+1 <= I <= N
-
       LAMBDA(I) = BETA
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -5361,7 +6790,7 @@ double chow_determinant ( double alpha, double beta, int n )
   double determ;
   int i;
   int k;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   determ = 1.0;
 
@@ -5369,7 +6798,7 @@ double chow_determinant ( double alpha, double beta, int n )
 
   for ( i = 0; i < k; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 2 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 2 );
     determ = determ * ( beta + 4.0 * alpha * cos ( angle ) * cos ( angle ) );
   }
 
@@ -5424,7 +6853,7 @@ double *chow_eigenvalues ( double alpha, double beta, int n )
   int i;
   int k;
   double *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( n * sizeof ( double ) );
 
@@ -5432,7 +6861,7 @@ double *chow_eigenvalues ( double alpha, double beta, int n )
 
   for ( i = 0; i < k; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 2 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 2 );
     lambda[i] = beta + 4.0 * alpha * cos ( angle ) * cos ( angle );
   }
 
@@ -5485,10 +6914,10 @@ double *chow_inverse ( double alpha, double beta, int n )
 
   if ( 0.0 == alpha && beta == 0.0 )
   {
-    printf (  "\n" );
-    printf (  "CHOW_INVERSE - Fatal error!\n" );
-    printf (  "  The Chow matrix is not invertible, because\n" );
-    printf (  "  ALPHA = 0 and BETA = 0.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "CHOW_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The Chow matrix is not invertible, because\n" );
+    fprintf ( stderr, "  ALPHA = 0 and BETA = 0.\n" );
     exit ( 1 );
   }
   else if ( 0.0 == alpha && beta != 0.0 )
@@ -5513,10 +6942,10 @@ double *chow_inverse ( double alpha, double beta, int n )
   {
     if ( 1 < n )
     {
-      printf (  "\n" );
-      printf (  "CHOW_INVERSE - Fatal error!\n" );
-      printf (  "  The Chow matrix is not invertible, because\n" );
-      printf (  "  BETA = 0 and 1 < N.\n" );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "CHOW_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  The Chow matrix is not invertible, because\n" );
+      fprintf ( stderr, "  BETA = 0 and 1 < N.\n" );
       exit ( 1 );
     }
     else
@@ -5565,13 +6994,13 @@ double *chow_inverse ( double alpha, double beta, int n )
 }
 /******************************************************************************/
 
-double *chow_left ( double alpha, double beta, int n )
+double *chow_eigen_left ( double alpha, double beta, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CHOW_LEFT returns the left eigenvectors for the CHOW matrix.
+    CHOW_EIGEN_LEFT returns the left eigenvectors for the CHOW matrix.
 
   Licensing:
 
@@ -5593,14 +7022,14 @@ double *chow_left ( double alpha, double beta, int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double CHOW_LEFT[N*N], the left eigenvector matrix.
+    Output, double CHOW_EIGEN_LEFT[N*N], the left eigenvector matrix.
 */
 {
   double angle;
   int i;
   int j;
   int k;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double *v;
 
   v = ( double * ) malloc ( n * n * sizeof ( double ) );
@@ -5609,7 +7038,7 @@ double *chow_left ( double alpha, double beta, int n )
 
   for ( i = 0; i < k; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 2 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 2 );
     for ( j = 0; j < n; j++ )
     {
       v[i+j*n] = pow ( alpha, n - j - 1 ) * pow ( 2.0, n - j - 2 ) 
@@ -5631,13 +7060,13 @@ double *chow_left ( double alpha, double beta, int n )
 }
 /******************************************************************************/
 
-double *chow_right ( double alpha, double beta, int n )
+double *chow_eigen_right ( double alpha, double beta, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CHOW_RIGHT returns the right eigenvectors for the CHOW matrix.
+    CHOW_EIGEN_RIGHT returns the right eigenvectors for the CHOW matrix.
 
   Licensing:
 
@@ -5659,14 +7088,14 @@ double *chow_right ( double alpha, double beta, int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double CHOW_RIGHT[N*N], the right eigenvector matrix.
+    Output, double CHOW_EIGEN_RIGHT[N*N], the right eigenvector matrix.
 */
 {
   double angle;
   int i;
   int j;
   int k;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double *u;
 
   u = ( double * ) malloc ( n * n * sizeof ( double ) );
@@ -5675,7 +7104,7 @@ double *chow_right ( double alpha, double beta, int n )
 
   for ( j = 0; j < k; j++ )
   {
-    angle = ( double ) ( j + 1 ) * pi / ( double ) ( n + 2 );
+    angle = ( double ) ( j + 1 ) * r8_pi / ( double ) ( n + 2 );
     for ( i = 0; i < n; i++ )
     {
       u[i+j*n] = pow ( alpha, i ) * pow ( 2.0, i - 1 ) 
@@ -6488,300 +7917,6 @@ double *clement1 ( int n )
   Formula:
 
     if ( J = I + 1 )
-      A(I,J) = I
-    else if ( J = I - 1 )
-      A(I,J) = N-I
-    else
-      A(I,J) = 0
-
-  Example:
-
-    N = 5
-
-    . 1 . . .
-    4 . 2 . .
-    . 3 . 3 .
-    . . 2 . 4
-    . . . 1 .
-
-  Properties:
-
-    A is banded, with bandwidth 3.
-
-    A is generally not symmetric: A' /= A.
-
-    A is integral, therefore det ( A ) is integral, and 
-    det ( A ) * inverse ( A ) is integral.
-
-    A is tridiagonal.
-
-    Because A is tridiagonal, it has property A (bipartite).
-
-    The diagonal of A is zero.
-
-    A is singular if N is odd.
-
-    About 64 percent of the entries of the inverse of A are zero.
-
-    The eigenvalues are plus and minus the numbers
-
-      N-1, N-3, N-5, ..., (1 or 0).
-
-    If N is even,
-
-      det ( A ) = (-1)^(N/2) * ( N - 1 ) * ( N + 1 )^(N/2)
-
-    and if N is odd,
-
-      det ( A ) = 0.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    30 May 2008
-
-  Author:
-
-    John Burkardt
-
-  Reference:
-
-    Paul Clement,
-    A class of triple-diagonal matrices for test purposes,
-    SIAM Review,
-    Volume 1, 1959, pages 50-52.
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double CLEMENT1[N*N], the matrix.
-*/
-{
-  double *a;
-  int i;
-  int j;
-
-  a = ( double * ) malloc ( n * n * sizeof ( double ) );
-
-  for ( i = 0; i < n; i++ )
-  {
-    for ( j = 0; j < n; j++ )
-    {
-      if ( j == i + 1 )
-      {
-        a[i+j*n] = ( double ) ( i + 1 );
-      }
-      else if ( j == i - 1 )
-      {
-        a[i+j*n] = ( double ) ( n - j - 1 );
-      }
-      else
-      {
-        a[i+j*n] = 0.0;
-      }
-    }
-  }
-  return a;
-}
-/******************************************************************************/
-
-double clement1_determinant ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    CLEMENT1_DETERMINANT returns the determinant of the CLEMENT1 matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    30 May 2008
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double CLEMENT1_DETERMINANT, the determinant.
-*/
-{
-  double determ;
-  int i;
-
-  if ( ( n % 2 ) == 1 )
-  {
-    determ = 0.0;
-  }
-  else
-  {
-    determ = 1.0;
-    for ( i = 0; i < n; i++ )
-    {
-      determ = determ * ( double ) ( - n + 1 + 2 * i );
-    }
-  }
-  return determ;
-}
-/******************************************************************************/
-
-double *clement1_eigenvalues ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    CLEMENT1_EIGENVALUES returns the eigenvalues of the CLEMENT1 matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    30 May 2008
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double CLEMENT1_EIGENVALUES[N], the eigenvalues.
-*/
-{
-  int i;
-  double *lambda;
-
-  lambda = ( double * ) malloc ( n * sizeof ( double ) );
-
-  for ( i = 0; i < n; i++ )
-  {
-    lambda[i] = ( double ) ( - n + 1 + 2 * i );
-  }
-
-  return lambda;
-}
-/******************************************************************************/
-
-double *clement1_inverse ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    CLEMENT1_INVERSE returns the inverse of the CLEMENT1 matrix.
-
-  Example:
-
-    N = 6:
-
-      0     1/5    0  -2/15  0   8/15
-      1      0     0    0    0    0
-      0      0     0   1/3   0  -4/3
-    -4/3     0    1/3   0    0    0
-      0      0     0    0    0    1
-     8/15    0   -2/15  0   1/5   0
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    30 May 2008
-
-  Author:
-
-    John Burkardt
-
-  Reference:
-
-    Paul Clement,
-    A class of triple-diagonal matrices for test purposes,
-    SIAM Review,
-    Volume 1, 1959, pages 50-52.
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double CLEMENT1_INVERSE[N*N], the matrix.
-*/
-{
-  double *a;
-  int i;
-  int j;
-  double prod1;
-  double prod2;
-
-  if ( ( n % 2 ) == 1 )
-  {
-    printf ( "\n" );
-    printf ( "CLEMENT1_INVERSE - Fatal error!\n" );
-    printf ( "  The Clement matrix is singular for odd N.\n" );
-    exit ( 1 );
-  }
-
-  a = ( double * ) malloc ( n * n * sizeof ( double ) );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      a[i+j*n] = 0.0;
-    }
-  }
-
-  for ( i = 1; i <= n; i++ )
-  {
-    if ( ( i % 2 ) == 1 )
-    {
-      for ( j = i; j <= n - 1; j = j + 2 )
-      {
-        if ( j == i )
-        {
-          prod1 = 1.0 / ( double ) ( n - j );
-          prod2 = 1.0 / ( double ) (     j );
-        }
-        else
-        {
-          prod1 = - prod1 * ( double ) (     j - 1 ) / ( double ) ( n - j );
-          prod2 = - prod2 * ( double ) ( n - j + 1 ) / ( double ) (     j );
-        }
-
-        a[i-1+(j  )*n] = prod1;
-        a[j  +(i-1)*n] = prod2;
-      }
-    }
-  }
-  return a;
-}
-/******************************************************************************/
-
-double *clement2 ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    CLEMENT2 returns the CLEMENT2 matrix.
-
-  Formula:
-
-    if ( J = I + 1 )
       A(I,J) = sqrt(I*(N-I))
     else if ( I = J + 1 )
       A(I,J) = sqrt(J*(N-J))
@@ -6855,7 +7990,7 @@ double *clement2 ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double CLEMENT2[N*N], the matrix.
+    Output, double CLEMENT1[N*N], the matrix.
 */
 {
   double *a;
@@ -6886,13 +8021,13 @@ double *clement2 ( int n )
 }
 /******************************************************************************/
 
-double clement2_determinant ( int n )
+double clement1_determinant ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CLEMENT2_DETERMINANT returns the determinant of the CLEMENT2 matrix.
+    CLEMENT1_DETERMINANT returns the determinant of the CLEMENT1 matrix.
 
   Licensing:
 
@@ -6910,7 +8045,7 @@ double clement2_determinant ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double CLEMENT2_DETERMINANT, the determinant.
+    Output, double CLEMENT1_DETERMINANT, the determinant.
 */
 {
   double determ;
@@ -6937,13 +8072,13 @@ double clement2_determinant ( int n )
 }
 /******************************************************************************/
 
-double *clement2_eigenvalues ( int n )
+double *clement1_eigenvalues ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CLEMENT2_EIGENVALUES returns the eigenvalues of the CLEMENT2 matrix.
+    CLEMENT1_EIGENVALUES returns the eigenvalues of the CLEMENT1 matrix.
 
   Licensing:
 
@@ -6961,7 +8096,7 @@ double *clement2_eigenvalues ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double CLEMENT2_EIGENVALUES[N], the eigenvalues.
+    Output, double CLEMENT1_EIGENVALUES[N], the eigenvalues.
 */
 {
   int i;
@@ -6978,13 +8113,13 @@ double *clement2_eigenvalues ( int n )
 }
 /******************************************************************************/
 
-double *clement2_inverse ( int n )
+double *clement1_inverse ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CLEMENT2_INVERSE returns the inverse of the CLEMENT2 matrix.
+    CLEMENT1_INVERSE returns the inverse of the CLEMENT1 matrix.
 
   Licensing:
 
@@ -7002,7 +8137,7 @@ double *clement2_inverse ( int n )
 
     Input, int N, the order of the matrix.  N must not be odd.
 
-    Output, double CLEMENT2_INVERSE[N*N], the matrix.
+    Output, double CLEMENT1_INVERSE[N*N], the matrix.
 */
 {
   double *a;
@@ -7012,9 +8147,9 @@ double *clement2_inverse ( int n )
 
   if ( ( n % 2 ) == 1 )
   {
-    printf ( "\n" );
-    printf ( "CLEMENT2_INVERSE - Fatal error!\n" );
-    printf ( "  The Clement matrix is singular for odd N.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "CLEMENT1_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The matrix is singular for odd N.\n" );
     exit ( 1 );
   }
 
@@ -7053,13 +8188,13 @@ double *clement2_inverse ( int n )
 }
 /******************************************************************************/
 
-double *clement3 ( int n, double x[], double y[] )
+double *clement2 ( int n, double x[], double y[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CLEMENT3 returns the CLEMENT3 matrix.
+    CLEMENT2 returns the CLEMENT2 matrix.
 
   Formula:
 
@@ -7092,8 +8227,6 @@ double *clement3 ( int n, double x[], double y[] )
 
     A is generally not symmetric: A' /= A.
 
-    The Clement1 and Clement2 matrices are special cases of this one.
-
     A is tridiagonal.
 
     Because A is tridiagonal, it has property A (bipartite).
@@ -7107,13 +8240,12 @@ double *clement3 ( int n, double x[], double y[] )
     About 64 percent of the entries of the inverse of A are zero.
 
     If N is even,
-
       det ( A ) = (-1)^(N/2) * product ( 1 <= I <= N/2 )
         ( X(2*I-1) * Y(2*I-1) )
-
     and if N is odd,
-
       det ( A ) = 0.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -7158,7 +8290,7 @@ double *clement3 ( int n, double x[], double y[] )
     Input, double X[N-1], Y[N-1], the first super and
     subdiagonals of the matrix A.
 
-    Output, double CLEMENT3[N*N], the matrix.
+    Output, double CLEMENT2[N*N], the matrix.
 */
 {
   double *a;
@@ -7189,13 +8321,13 @@ double *clement3 ( int n, double x[], double y[] )
 }
 /******************************************************************************/
 
-double clement3_determinant ( int n, double x[], double y[] )
+double clement2_determinant ( int n, double x[], double y[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CLEMENT3_DETERMINANT returns the determinant of the CLEMENT3 matrix.
+    CLEMENT2_DETERMINANT returns the determinant of the CLEMENT2 matrix.
 
   Licensing:
 
@@ -7216,7 +8348,7 @@ double clement3_determinant ( int n, double x[], double y[] )
     Input, double X(N-1), Y(N-1), the first super and
     subdiagonals of the matrix A.
 
-    Output, double CLEMENT3_DETERMINANT, the determinant of A.
+    Output, double CLEMENT2_DETERMINANT, the determinant of A.
 */
 {
   double determ;
@@ -7243,13 +8375,13 @@ double clement3_determinant ( int n, double x[], double y[] )
 }
 /******************************************************************************/
 
-double *clement3_inverse ( int n, double x[], double y[] )
+double *clement2_inverse ( int n, double x[], double y[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CLEMENT3_INVERSE returns the inverse of the CLEMENT3 matrix.
+    CLEMENT2_INVERSE returns the inverse of the CLEMENT2 matrix.
 
   Example:
 
@@ -7289,7 +8421,7 @@ double *clement3_inverse ( int n, double x[], double y[] )
     subdiagonals of the matrix A.  None of the entries
     of X or Y may be zero.
 
-    Output, double CLEMENT3_INVERSE[N*N], the matrix.
+    Output, double CLEMENT2_INVERSE[N*N], the matrix.
 */
 {
   double *a;
@@ -7300,9 +8432,9 @@ double *clement3_inverse ( int n, double x[], double y[] )
 
   if ( ( n % 2 ) == 1 )
   {
-    printf ( "\n" );
-    printf ( "CLEMENT3_INVERSE - Fatal error!\n" );
-    printf ( "  The Clement matrix is singular for odd N.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "CLEMENT2_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The Clement matrix is singular for odd N.\n" );
     exit ( 1 );
   }
 
@@ -7310,18 +8442,18 @@ double *clement3_inverse ( int n, double x[], double y[] )
   {
     if ( x[i] == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "CLEMENT3_INVERSE - Fatal error!\n" );
-      printf ( "  The matrix is singular\n" );
-      printf ( "  X[%d] = 0\n", i );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "CLEMENT2_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  The matrix is singular\n" );
+      fprintf ( stderr, "  X[%d] = 0\n", i );
       exit ( 1 );
     }
     else if ( y[i] == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "CLEMENT3_INVERSE - Fatal error!\n" );
-      printf ( "  The matrix is singular\n" );
-      printf ( "  Y[%d] = 0\n", i );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "CLEMENT2_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  The matrix is singular\n" );
+      fprintf ( stderr, "  Y[%d] = 0\n", i );
       exit ( 1 );
     }
   }
@@ -7355,6 +8487,101 @@ double *clement3_inverse ( int n, double x[], double y[] )
         a[i+(j+1)*n] = prod1;
         a[j+1+i*n] = prod2;
       }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+double *colleague ( int n, double c[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    COLLEAGUE returns the COLLEAGUE matrix.
+
+  Discussion:
+
+    The colleague matrix is an analog of the companion matrix, adapted
+    for use with polynomials represented by a sum of Chebyshev polynomials.
+
+    Let the N-th degree polynomial be defined by
+
+      P(X) = C(N)*T_N(X) + C(N-1)*T_(N-1)(X) + ... + C(1)*T1(X) + C(0)*T0(X)
+
+    where T_I(X) is the I-th Chebyshev polynomial.
+
+    Then the roots of P(X) are the eigenvalues of the colleague matrix A(C):
+
+        0   1   0   ...  0                        0    0    0   ...   0
+       1/2  0  1/2  ...  0                        0    0    0   ...   0
+        0  1/2  0   ...  0      - 1/(2*C(N)) *    0    0    0   ...   0
+       ... ... ...  ... ...                      ...  ...  ...  ...  ...
+       ... ... ...   0  1/2                      ...  ...  ...  ...   0
+       ... ... ...  1/2  0                       C(0) C(1) C(2) ... C(N-1)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    I J Good,
+    The Colleague Matrix: A Chebyshev Analogue of the Companion Matrix,
+    The Quarterly Journal of Mathematics,
+    Volume 12, Number 1, 1961, pages 61-68.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double C[0:N], the coefficients of the polynomial.
+
+    Output, double COLLEAGUE[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  if ( n == 1 )
+  {
+    a[0+0*n] = - c[0] / c[1];
+  }
+  else
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      for ( i = 0; i < n; i++ )
+      {
+        if ( i == 0 && j == 1 )
+        {
+          a[i+j*n] = 1.0;
+        }
+        else if ( j == i - 1 || j == i + 1 )
+        {
+          a[i+j*n] = 0.5;
+        }
+        else
+        {
+          a[i+j*n] = 0.0;
+        }
+      }
+    }
+    for ( j = 0; j < n; j++ )
+    {
+      a[n-1+j*n] = a[n-1+j*n] - 0.5 * c[j] / c[n];
     }
   }
   return a;
@@ -7425,6 +8652,8 @@ double *combin ( double alpha, double beta, int n )
     for the space perpendicular to (1,1,1,...,1).
 
     A is nonsingular if ALPHA /= 0 and ALPHA + N * BETA /= 0.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -7519,12 +8748,12 @@ double combin_condition ( double alpha, double beta, int n )
   double b_norm_top;
   double cond;
 
-  a_norm = r8_abs ( alpha + beta ) + ( double ) ( n - 1 ) * r8_abs ( beta );
+  a_norm = fabs ( alpha + beta ) + ( double ) ( n - 1 ) * fabs ( beta );
 
-  b_norm_top = r8_abs ( alpha + ( double ) ( n - 1 ) * beta ) 
-    + ( double ) ( n - 1 ) * r8_abs ( beta );
+  b_norm_top = fabs ( alpha + ( double ) ( n - 1 ) * beta ) 
+    + ( double ) ( n - 1 ) * fabs ( beta );
 
-  b_norm_bot = r8_abs ( alpha * ( alpha + ( double ) ( n ) * beta ) );
+  b_norm_bot = fabs ( alpha * ( alpha + ( double ) ( n ) * beta ) );
 
   b_norm = b_norm_top / b_norm_bot;
 
@@ -7693,18 +8922,18 @@ double *combin_inverse ( double alpha, double beta, int n )
 
   if ( alpha == 0.0 )
   {
-    printf ( "\n" );
-    printf ( "COMBIN_INVERSE - Fatal error!\n" );
-    printf ( "  The entries of the matrix are undefined\n" );
-    printf ( "  because ALPHA = 0.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "COMBIN_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The entries of the matrix are undefined\n" );
+    fprintf ( stderr, "  because ALPHA = 0.\n" );
     exit ( 1 );
   }
   else if ( alpha + n * beta == 0.0 )
   {
-    printf ( "\n" );
-    printf ( "COMBIN_INVERSE - Fatal error!\n" );
-    printf ( "  The entries of the matrix are undefined\n" );
-    printf ( "  because ALPHA+N*BETA is zero.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "COMBIN_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The entries of the matrix are undefined\n" );
+    fprintf ( stderr, "  because ALPHA+N*BETA is zero.\n" );
     exit ( 1 );
   }
 
@@ -7730,13 +8959,13 @@ double *combin_inverse ( double alpha, double beta, int n )
 }
 /******************************************************************************/
 
-double *combin_right ( double alpha, double beta, int n )
+double *combin_eigen_right ( double alpha, double beta, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    COMBIN_RIGHT returns the right eigenvectors of the COMBIN matrix.
+    COMBIN_EIGEN_RIGHT returns the right eigenvectors of the COMBIN matrix.
 
   Licensing:
 
@@ -7756,7 +8985,7 @@ double *combin_right ( double alpha, double beta, int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double COMBIN_RIGHT[N*N], the right eigenvectors.
+    Output, double COMBIN_EIGEN_RIGHT[N*N], the right eigenvectors.
 */
 {
   int i;
@@ -7927,6 +9156,68 @@ double *companion ( int n, double x[] )
 }
 /******************************************************************************/
 
+double companion_condition ( int n, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    COMPANION_CONDITION returns the L1 condition of the COMPANION matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double X[N], the coefficients of the polynomial 
+    which define A.
+
+    Output, double COMPANION_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  int i;
+  double t;
+  double value;
+
+  a_norm = fabs ( x[0] );
+  for ( i = 1; i < n; i++ )
+  {
+    t = 1.0 + fabs ( x[i] );
+    if ( a_norm < t )
+    {
+      a_norm = t;
+    }
+  }
+
+  b_norm = 1.0 / fabs ( x[0] );
+  for ( i = 1; i < n; i++ )
+  {
+    t = 1.0 + fabs ( x[i] / x[0] );
+    if ( b_norm < t )
+    {
+      b_norm = t;
+    }
+  }
+
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double companion_determinant ( int n, double x[] )
 
 /******************************************************************************/
@@ -8063,6 +9354,105 @@ double *companion_inverse ( int n, double x[] )
 }
 /******************************************************************************/
 
+double complete_symmetric_poly ( int n, int r, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    COMPLETE_SYMMETRIC_POLY evaluates a complete symmetric polynomial.
+
+  Discussion:
+
+    N\R  0   1         2               3
+      +--------------------------------------------------------
+    0 |  1   0         0               0
+    1 |  1   X1        X1^2            X1^3
+    2 |  1   X1+X2     X1^2+X1X2+X2^2  X1^3+X1^2X2+X1X2^2+X2^3
+    3 |  1   X1+X2+X3  ...
+
+    If X = ( 1, 2, 3, 4, 5, ... ) then
+
+    N\R  0     1     2     3     4 ...
+      +--------------------------------------------------------
+    0 |  1     0     0     0     0
+    1 |  1     1     1     1     1
+    2 |  1     3     7    15    31
+    3 |  1     6    25    90   301
+    4 |  1    10    65   350  1701
+    5 |  1    15   140  1050  6951
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 November 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of variables.
+    0 <= N.
+
+    Input, int R, the degree of the polynomial.
+    0 <= R.
+
+    Input, double X[N], the value of the variables.
+
+    Output, double COMPLETE_SYMMETRIC_POLY, the value of TAU(N,R)(X).
+*/
+{
+  int i;
+  int nn;
+  int rr;
+  double *tau;
+  double value;
+
+  if ( n < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "COMPLETE_SYMMETRIC_POLY - Fatal error!\n" );
+    fprintf ( stderr, "  N < 0.\n" );
+    exit ( 1 );
+  }
+
+  if ( r < 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "COMPLETE_SYMMETRIC_POLY - Fatal error!\n" );
+    fprintf ( stderr, "  R < 0.\n" );
+    exit ( 1 );
+  }
+
+  tau = ( double * ) malloc ( ( 1 + i4_max ( n, r ) ) * sizeof ( double ) );
+
+  for ( i = 0; i <= i4_max ( n, r ); i++ )
+  {
+    tau[i] = 0.0;
+  }
+
+  tau[0] = 1.0;
+  for ( nn = 1; nn <= n; nn++ )
+  {
+    for ( rr = 1; rr <= r; rr++ )
+    {
+      tau[rr] = tau[rr] + x[nn-1] * tau[rr-1];
+    }
+  }
+
+  value = tau[r];
+
+  free ( tau );
+
+  return value;
+}
+/******************************************************************************/
+
 double complex *complex3 ( )
 
 /******************************************************************************/
@@ -8110,6 +9500,9 @@ double complex *complex3 ( )
 */
 {
   double complex *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   double complex a_save[3*3] = {
      1.0,
      1.0 +  1.0 * I,
@@ -8168,6 +9561,9 @@ double complex *complex3_inverse ( )
 */
 {
   double complex *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   double complex a_save[3*3] = {
       10.0 + 1.0 * I,
        9.0 - 3.0 * I,
@@ -8230,6 +9626,9 @@ double *complex_i ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   double a_save[2*2] = { 0.0, -1.0, 1.0, 0.0 };
 
   a = r8mat_copy_new ( 2, 2, a_save );
@@ -8297,6 +9696,9 @@ double *complex_i_inverse ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   double a_save[2*2] = { 0.0, 1.0, -1.0, 0.0 };
 
   a = r8mat_copy_new ( 2, 2, a_save );
@@ -8391,6 +9793,51 @@ double *conex1 ( double alpha )
   a[3+3*n] = alpha;
 
   return a;
+}
+/******************************************************************************/
+
+double conex1_condition ( double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CONEX1_CONDITION returns the L1 condition of the CONEX1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double ALPHA, the scalar defining A.  
+
+    Output, double CONEX1_CONDITION, the L1 condition number.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double v1;
+  double v2;
+  double v3;
+  double value;
+
+  a_norm = r8_max ( 3.0, 3.0 * fabs ( alpha ) + fabs ( 1.0 + alpha ) );
+  v1 = fabs ( 1.0 - alpha ) + fabs ( 1.0 + alpha ) + 1.0;
+  v2 = 2.0 * fabs ( alpha ) + 1.0;
+  v3 = 2.0 + 2.0 / fabs ( alpha );
+  b_norm = r8_max ( v1, r8_max ( v2, v3 ) );
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -8551,9 +9998,9 @@ double *conex2 ( double alpha )
 
   if ( alpha == 0.0 )
   {
-    printf ( "\n" );
-    printf ( "CONEX2 - Fatal error!\n" );
-    printf ( "  The input value of ALPHA was zero.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "CONEX2 - Fatal error!\n" );
+    fprintf ( stderr, "  The input value of ALPHA was zero.\n" );
     exit ( 1 );
   }
 
@@ -8570,6 +10017,54 @@ double *conex2 ( double alpha )
   a[2+2*n] =  1.0;
 
   return a;
+}
+/******************************************************************************/
+
+double conex2_condition ( double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CONEX2_CONDITION returns the L1 condition of the CONEX2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double ALPHA, the scalar defining A.  
+
+    Output, double CONEX2_CONDITION, the L1 condition number.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double c1;
+  double c2;
+  double c3;
+  double value;
+
+  c1 = 1.0;
+  c2 = fabs ( 1.0 - 1.0 / alpha / alpha ) + 1.0 / fabs ( alpha );
+  c3 = 3.0 + 1.0 / fabs ( alpha );
+  a_norm = r8_max ( c1, r8_max ( c2, c3 ) );
+  c1 = 1.0;
+  c2 = fabs ( ( 1.0 - alpha * alpha ) / alpha ) + fabs ( alpha );
+  c3 = fabs ( ( 1.0 + alpha * alpha ) / alpha / alpha ) + 2.0;
+  b_norm = r8_max ( c1, r8_max ( c2, c3 ) );
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -8643,9 +10138,9 @@ double *conex2_inverse ( double alpha )
 
   if ( alpha == 0.0 )
   {
-    printf ( "\n" );
-    printf ( "CONEX2_INVERSE - Fatal error!\n" );
-    printf ( "  The input value of ALPHA was zero.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "CONEX2_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The input value of ALPHA was zero.\n" );
     exit ( 1 );
   }
 
@@ -8949,6 +10444,9 @@ double *conex4 ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[4*4] = {
      7.0,  6.0,  5.0,  5.0,
     10.0,  8.0,  7.0,  7.0,
@@ -8958,6 +10456,76 @@ double *conex4 ( )
   a = r8mat_copy_new ( 4, 4, a_save );
 
   return a;
+}
+/******************************************************************************/
+
+double conex4_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CONEX4_CONDITION returns the L1 condition of the CONEX4 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double CONEX4_CONDITION, the L1 condition number.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 33.0;
+  b_norm = 136.0;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double conex4_determinant ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CONEX4_DETERMINANT returns the determinant of the CONEX4 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double CONEX4_DETERMINANT, the determinant.
+*/
+{
+  double determ;
+
+  determ = - 1.0;
+
+  return determ;
 }
 /******************************************************************************/
 
@@ -8987,6 +10555,9 @@ double *conex4_inverse ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[4*4] = {
    -41.0,  25.0,  10.0, -6.0,
    -17.0,  10.0,   5.0, -3.0,
@@ -9282,6 +10853,8 @@ double *creation ( int m, int n )
     the second lower diagonal.  A^(N-1) is the last nonzero power of A,
     with a single nonzero entry in the (N,1) position.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -9354,13 +10927,49 @@ double creation_determinant ( int n )
 }
 /******************************************************************************/
 
-double *creation_null ( int n )
+double *creation_null_left ( int m, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    CREATION_NULL returns a null vector of the CREATION matrix.
+    CREATION_NULL_LEFT returns a left null vector of the CREATION matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Output, double CREATION_NULL_LEFT[M], the null vector.
+*/
+{
+  double *x;
+
+  x = r8vec_zero_new ( n );
+  x[0] = 1.0;
+
+  return x;
+}
+/******************************************************************************/
+
+double *creation_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CREATION_NULL_RIGHT returns a right null vector of the CREATION matrix.
 
   Licensing:
 
@@ -9376,9 +10985,9 @@ double *creation_null ( int n )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
-    Output, double CREATION_NULL[N], the null vector.
+    Output, double CREATION_NULL_RIGHT[N], the null vector.
 */
 {
   double *x;
@@ -9390,7 +10999,7 @@ double *creation_null ( int n )
 }
 /******************************************************************************/
 
-double *cycol_random ( int m, int n, int k, int *seed )
+double *cycol_random ( int m, int n, int k, int key )
 
 /******************************************************************************/
 /*
@@ -9448,8 +11057,7 @@ double *cycol_random ( int m, int n, int k, int *seed )
 
     Input, int K, the number of distinct columns to form.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double CYCOL_RANDOM[M*N], the matrix.
 */
@@ -9458,14 +11066,16 @@ double *cycol_random ( int m, int n, int k, int *seed )
   int i;
   int j;
   int jj;
+  int seed;
 
+  seed = key;
   a = ( double * ) malloc ( m * n * sizeof ( double ) );
 
   for ( j = 0; j < k; j++ )
   {
     for ( i = 0; i < m; i++ )
     {
-      a[i+j*m] = r8_uniform_01 ( seed );
+      a[i+j*m] = r8_uniform_01 ( &seed );
     }
   }
 
@@ -9495,6 +11105,10 @@ double *daub2 ( int n )
     with 2 coefficients.
 
     The DAUB2 matrix is also known as the Haar matrix.
+
+  Properties:
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -9553,6 +11167,50 @@ double *daub2 ( int n )
   }
 
   return a;
+}
+/******************************************************************************/
+
+double daub2_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DAUB2_CONDITION returns the L1 condition of the DAUB2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DAUB2_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double c0;
+  double c1;
+  double value;
+
+  c0 = sqrt ( 2.0 ) / 2.0;
+  c1 = sqrt ( 2.0 ) / 2.0;
+
+  a_norm = fabs ( c0 ) + fabs ( c1 );
+  b_norm = a_norm;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -9644,6 +11302,10 @@ double *daub4 ( int n )
     The DAUB4 matrix is the Daubechies wavelet transformation matrix 
     with 4 coefficients.
 
+  Properties:
+
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -9710,6 +11372,54 @@ double *daub4 ( int n )
   }
 
   return a;
+}
+/******************************************************************************/
+
+double daub4_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DAUB4_CONDITION returns the L1 condition of the DAUB4 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DAUB4_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double c0;
+  double c1;
+  double c2;
+  double c3;
+  double value;
+
+  c0 = ( 1.0 + sqrt ( 3.0 ) ) / sqrt ( 32.0 );
+  c1 = ( 3.0 + sqrt ( 3.0 ) ) / sqrt ( 32.0 );
+  c2 = ( 3.0 - sqrt ( 3.0 ) ) / sqrt ( 32.0 );
+  c3 = ( 1.0 - sqrt ( 3.0 ) ) / sqrt ( 32.0 );
+
+  a_norm = fabs ( c0 ) + fabs ( c1 ) + fabs ( c2 ) + fabs ( c3 );
+  b_norm = a_norm;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -9801,6 +11511,10 @@ double *daub6 ( int n )
     The DAUB6 matrix is the Daubechies wavelet transformation matrix 
     with 6 coefficients.
 
+  Properties:
+
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -9882,6 +11596,68 @@ double *daub6 ( int n )
   }
 
   return a;
+}
+/******************************************************************************/
+
+double daub6_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DAUB6_CONDITION returns the L1 condition of the DAUB6 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DAUB6_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double c0;
+  double c1;
+  double c2;
+  double c3;
+  double c4;
+  double c5;
+  double value;
+
+  c0 =  1.0 + sqrt ( 10.0 ) +       sqrt ( 5.0 + sqrt ( 40.0 ) );
+  c1 =  5.0 + sqrt ( 10.0 ) + 3.0 * sqrt ( 5.0 + sqrt ( 40.0 ) );
+  c2 = 10.0 - sqrt ( 40.0 ) + 2.0 * sqrt ( 5.0 + sqrt ( 40.0 ) );
+  c3 = 10.0 - sqrt ( 40.0 ) - 2.0 * sqrt ( 5.0 + sqrt ( 40.0 ) );
+  c4 =  5.0 + sqrt ( 10.0 ) - 3.0 * sqrt ( 5.0 + sqrt ( 40.0 ) );
+  c5 =  1.0 + sqrt ( 10.0 ) -       sqrt ( 5.0 + sqrt ( 40.0 ) );
+
+  c0 = c0 / sqrt ( 512.0 );
+  c1 = c1 / sqrt ( 512.0 );
+  c2 = c2 / sqrt ( 512.0 );
+  c3 = c3 / sqrt ( 512.0 );
+  c4 = c4 / sqrt ( 512.0 );
+  c5 = c5 / sqrt ( 512.0 );
+
+  a_norm = 
+      fabs ( c0 ) + fabs ( c1 )
+    + fabs ( c2 ) + fabs ( c3 )
+    + fabs ( c4 ) + fabs ( c5 );
+  b_norm = a_norm;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -9973,6 +11749,10 @@ double *daub8 ( int n )
     The DAUB8 matrix is the Daubechies wavelet transformation matrix 
     with 8 coefficients.
 
+  Properties:
+
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -10055,6 +11835,54 @@ double *daub8 ( int n )
   }
 
   return a;
+}
+/******************************************************************************/
+
+double daub8_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DAUB8_CONDITION returns the L1 condition of the DAUB8 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DAUB8_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double c[8] = {
+    0.2303778133088964,
+    0.7148465705529154,
+    0.6308807679298587,
+   -0.0279837694168599,
+   -0.1870348117190931,
+    0.0308413818355607,
+    0.0328830116668852,
+   -0.0105974017850690 };
+  double value;
+
+  a_norm = r8vec_asum ( 8, c );
+  b_norm = a_norm;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -10146,8 +11974,12 @@ double *daub10 ( int n )
     The DAUB10 matrix is the Daubechies wavelet transformation matrix 
     with 10 coefficients.
 
-    Note that in the reference, the coefficient 0.0775714938400459D+00 
+    Note that in the reference, the coefficient 0.0775714938400459 
     is given incorrectly, with the "8" misrepresented as a "0".
+
+  Properties:
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -10239,6 +12071,56 @@ double *daub10 ( int n )
 }
 /******************************************************************************/
 
+double daub10_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DAUB10_CONDITION returns the L1 condition of the DAUB10 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DAUB10_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double c[10] = {
+    0.1601023979741929,
+    0.6038292697971895,
+    0.7243085284377726,
+    0.1384281459013203,
+   -0.2422948870663823,
+   -0.0322448695846381,
+    0.0775714938400459,
+   -0.0062414902127983,
+   -0.0125807519990820,
+    0.0033357252854738 };
+  double value;
+
+  a_norm = r8vec_asum ( 10, c );
+  b_norm = a_norm;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double daub10_determinant ( int n )
 
 /******************************************************************************/
@@ -10326,6 +12208,10 @@ double *daub12 ( int n )
 
     The DAUB12 matrix is the Daubechies wavelet transformation matrix 
     with 12 coefficients.
+
+  Properties:
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -10420,6 +12306,58 @@ double *daub12 ( int n )
   }
 
   return a;
+}
+/******************************************************************************/
+
+double daub12_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DAUB12_CONDITION returns the L1 condition of the DAUB12 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DAUB12_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double c[12] = {
+    0.1115407433501095,
+    0.4946238903984533,
+    0.7511339080210959,
+    0.3152503517091982,
+   -0.2262646939654400,
+   -0.1297668675672625,
+    0.0975016055873225,
+    0.0275228655303053,
+   -0.0315820393174862,
+    0.0005538422011614,
+    0.0047772575109455,
+   -0.0010773010853085 };
+  double value;
+
+  a_norm = r8vec_asum ( 12, c );
+  b_norm = a_norm;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -10545,6 +12483,8 @@ double *diagonal ( int m, int n, double x[] )
 
     Because A is diagonal, it has property A (bipartite).
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -10591,6 +12531,43 @@ double *diagonal ( int m, int n, double x[] )
 }
 /******************************************************************************/
 
+double diagonal_condition ( int n, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIAGONAL_CONDITION returns the L1 condition of the DIAGONAL matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double X[N], the diagonal entries of A.
+
+    Output, double DIAGONAL_CONDITION, the L1 condition.
+*/
+{
+  double cond;
+
+  cond = r8vec_amax ( n, x ) / r8vec_amin ( n, x );
+
+  return cond;
+}
+/******************************************************************************/
+
 double diagonal_determinant ( int n, double x[] )
 
 /******************************************************************************/
@@ -10629,6 +12606,112 @@ double diagonal_determinant ( int n, double x[] )
     determ = determ * x[i];
   }
   return determ;
+}
+/******************************************************************************/
+
+double *diagonal_eigen_left ( int n, double d[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIAGONAL_EIGEN_LEFT returns left eigenvectors of the DIAGONAL matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double D[N], the diagonal entries.
+
+    Output, double DIAGONAL_EIGEN_LEFT[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      if ( i == j )
+      {
+        a[i+j*n] = 1.0;
+      }
+      else
+      {
+        a[i+j*n] = 0.0;
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+double *diagonal_eigen_right ( int n, double d[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIAGONAL_EIGEN_RIGHT returns right eigenvectors of the DIAGONAL matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double D[N], the diagonal entries.
+
+    Output, double DIAGONAL_EIGEN_RIGHT[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      if ( i == j )
+      {
+        a[i+j*n] = 1.0;
+      }
+      else
+      {
+        a[i+j*n] = 0.0;
+      }
+    }
+  }
+  return a;
 }
 /******************************************************************************/
 
@@ -10725,9 +12808,9 @@ double *diagonal_inverse ( int n, double x[] )
   {
     if ( x[i] == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "DIAGONAL_INVERSE - Fatal error!\n" );
-      printf ( "  Matrix is not invertible.\n" );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "DIAGONAL_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  Matrix is not invertible.\n" );
       exit ( 1 );
     }
   }
@@ -10807,6 +12890,8 @@ double *dif1 ( int m, int n )
     If N is odd, det ( A ) = 0.0.
 
     If N is odd, a null vector is ( 1, 0, 1, 0, ..., 1, 0, 1 )..
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -10918,26 +13003,168 @@ double complex *dif1_eigenvalues ( int n )
   double angle;
   int i;
   double complex *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double complex * ) malloc ( n * sizeof ( double complex ) );
  
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 1 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 1 );
     lambda[i] = 2.0 * cos ( angle ) * I;
   }
   return lambda;
 }
 /******************************************************************************/
 
-double *dif1_null ( int n )
+double *dif1_inverse ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    DIF1_NULL returns a null vector of the DIF1 matrix.
+    DIF1_INVERSE returns the inverse of the DIF1 matrix.
+
+  Discussion:
+
+    The inverse only exists when N is even.
+
+  Example:
+
+    N = 8
+
+    0 -1  0 -1  0 -1  0 -1
+    1  0  0  0  0  0  0  0
+    0  0  0 -1  0 -1  0 -1
+    1  0  1  0  0  0  0  0
+    0  0  0  0  0 -1  0 -1
+    1  0  1  0  1  0  0  0
+    0  0  0  0  0  0  0 -1
+    1  0  1  0  1  0  1  0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DIF1_INVERSE[N,N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  if ( ( n % 2 ) != 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "DIF1_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  Inverse only exists for N even.\n" );
+    exit ( 1 );
+  }
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n - 1; i = i + 2 )
+  {
+    for ( j = i + 1; j < n; j = j + 2 )
+    {
+      a[i+j*n] = -1.0;
+    }
+  }
+
+  for ( i = 1; i < n; i = i + 2 )
+  {
+    for ( j = 0; j < i; j = j + 2 )
+    {
+      a[i+j*n] = 1.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double *dif1_null_left ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIF1_NULL_LEFT returns a left null vector of the DIF1 matrix.
+
+  Discussion:
+
+    The null vector only exists if M is odd.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Output, double DIF1_NULL_LEFT[M], the null vector.
+*/
+{
+  int i;
+  double *x;
+
+  if ( ( m % 2 ) == 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "DIF1_NULL_LEFT - Fatal error!\n" );
+    fprintf ( stderr, "  The matrix is not singular for even M.\n" );
+    exit ( 1 );
+  }
+
+  x = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 0; i <= m - 1; i = i + 2 )
+  {
+    x[i]   = 1.0;
+  }
+  for ( i = 1; i <= m - 2; i = i + 2 )
+  {
+    x[i] = 0.0;
+  }
+  return x;
+}
+/******************************************************************************/
+
+double *dif1_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIF1_NULL_RIGHT returns a right null vector of the DIF1 matrix.
 
   Discussion:
 
@@ -10957,9 +13184,9 @@ double *dif1_null ( int n )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
-    Output, double DIF1_NULL[N], the null vector.
+    Output, double DIF1_NULL_RIGHT[N], the null vector.
 */
 {
   int i;
@@ -10967,21 +13194,21 @@ double *dif1_null ( int n )
 
   if ( ( n % 2 ) == 0 )
   {
-    printf ( "\n" );
-    printf ( "DIF1_NULL - Fatal error!\n" );
-    printf ( "  The matrix is not singular even N.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "DIF1_NULL_RIGHT - Fatal error!\n" );
+    fprintf ( stderr, "  The matrix is not singular for even N.\n" );
     exit ( 1 );
   }
 
   x = ( double * ) malloc ( n * sizeof ( double ) );
 
-  for ( i = 0; i < n; i = i + 2 )
+  for ( i = 0; i <= n - 1; i = i + 2 )
   {
     x[i]   = 1.0;
   }
-  for ( i = 1; i + 1 < n; i = i + 2 )
+  for ( i = 1; i <= n - 2; i = i + 2 )
   {
-    x[i+1] = 0.0;
+    x[i] = 0.0;
   }
   return x;
 }
@@ -11048,7 +13275,7 @@ double *dif1cyclic ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double DIFCYCLIC1[N*N], the matrix.
+    Output, double DIF1CYCLIC[N*N], the matrix.
 */
 {
   double *a;
@@ -11094,7 +13321,7 @@ double dif1cyclic_determinant ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double DIFCYCLIC1_DETERMINANT, the determinant.
+    Output, double DIF1CYCLIC_DETERMINANT, the determinant.
 */
 {
   double determ;
@@ -11105,13 +13332,74 @@ double dif1cyclic_determinant ( int n )
 }
 /******************************************************************************/
 
-double *dif1cyclic_null ( int n )
+double *dif1cyclic_null_left ( int m, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    DIF1CYCLIC_NULL returns a null vector of the DIF1CYCLIC matrix.
+    DIF1CYCLIC_NULL_LEFT returns a left null vector of the DIF1CYCLIC matrix.
+
+  Discussion:
+
+    (1,1,1,...,1) is always a null vector.
+
+    If M is even,
+
+    (A,B,A,B,A,B,...,A,B) is also a null vector, for any A and B.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Output, double DIF1CYCLIC_NULL_LEFT[M], the null vector.
+*/
+{
+  double a = 1.0;
+  double b = 2.0;
+  int i;
+  double *x;
+
+  x = ( double * ) malloc ( m * sizeof ( double ) );
+
+  if ( ( m % 2 ) != 0 )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      x[i] = 1.0;
+    }
+  }
+  else
+  {
+    for ( i = 0; i < m; i = i + 2 )
+    {
+      x[i]   = a;
+      x[i+1] = b;
+    }
+  }
+  return x;
+}
+/******************************************************************************/
+
+double *dif1cyclic_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIF1CYCLIC_NULL_RIGHT returns a right null vector of the DIF1CYCLIC matrix.
 
   Discussion:
 
@@ -11135,9 +13423,9 @@ double *dif1cyclic_null ( int n )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
-    Output, double DIFCYCLIC1_NULL[N], the null vector.
+    Output, double DIF1CYCLIC_NULL_RIGHT[N], the null vector.
 */
 {
   double a = 1.0;
@@ -11187,72 +13475,44 @@ double *dif2 ( int m, int n )
   Properties:
 
     A is banded, with bandwidth 3.
-
     A is tridiagonal.
-
     Because A is tridiagonal, it has property A (bipartite).
-
     A is a special case of the TRIS or tridiagonal scalar matrix.
-
     A is integral, therefore det ( A ) is integral, and 
     det ( A ) * inverse ( A ) is integral.
-
     A is Toeplitz: constant along diagonals.
-
     A is symmetric: A' = A.
-
     Because A is symmetric, it is normal.
-
     Because A is normal, it is diagonalizable.
-
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
-
     A is positive definite.
-
     A is an M matrix.
-
     A is weakly diagonally dominant, but not strictly diagonally dominant.
-
     A has an LU factorization A = L * U, without pivoting.
-
       The matrix L is lower bidiagonal with subdiagonal elements:
-
         L(I+1,I) = -I/(I+1)
-
       The matrix U is upper bidiagonal, with diagonal elements
-
         U(I,I) = (I+1)/I
-
       and superdiagonal elements which are all -1.
-
     A has a Cholesky factorization A = L * L', with L lower bidiagonal.
-
       L(I,I) =    sqrt ( (I+1) / I )
       L(I,I-1) = -sqrt ( (I-1) / I )
-
     The eigenvalues are
-
       LAMBDA(I) = 2 + 2 * COS(I*PI/(N+1))
                 = 4 SIN^2(I*PI/(2*N+2))
-
     The corresponding eigenvector X(I) has entries
-
        X(I)(J) = sqrt(2/(N+1)) * sin ( I*J*PI/(N+1) ).
-
     Simple linear systems:
-
       x = (1,1,1,...,1,1),   A*x=(1,0,0,...,0,1)
-
       x = (1,2,3,...,n-1,n), A*x=(0,0,0,...,0,n+1)
-
     det ( A ) = N + 1.
-
     The value of the determinant can be seen by induction,
     and expanding the determinant across the first row:
-
       det ( A(N) ) = 2 * det ( A(N-1) ) - (-1) * (-1) * det ( A(N-2) )
                 = 2 * N - (N-1)
                 = N + 1
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -11334,13 +13594,13 @@ double *dif2 ( int m, int n )
 }
 /******************************************************************************/
 
-double *dif2_cholesky ( int n )
+double *dif2_llt ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    DIF2_CHOLESKY returns the Cholesky factor of the DIF2 matrix.
+    DIF2_LLT returns the Cholesky factor of the DIF2 matrix.
 
   Licensing:
 
@@ -11358,21 +13618,29 @@ double *dif2_cholesky ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double DIF2_CHOLESKY[N*N], the matrix.
+    Output, double DIF2_LLT[N*N], the matrix.
 */
 {
   double *a;
   int i;
   int j;
 
-  a = r8mat_zero_new ( n, n );
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
 
   for ( i = 0; i < n; i++ )
   {
     a[i+i*n] = sqrt ( ( double ) ( i + 2 ) ) 
-             / sqrt ( ( double ) ( i = 1 ) );
+             / sqrt ( ( double ) ( i + 1 ) );
   }
-
+ 
   for ( i = 1; i < n; i++ )
   {
     a[i+(i-1)*n] = - sqrt ( ( double ) ( i     ) ) 
@@ -11380,6 +13648,77 @@ double *dif2_cholesky ( int n )
   }
 
   return a;
+}
+/******************************************************************************/
+
+double dif2_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIF2_CONDITION returns the L1 condition of the DIF2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DIF2_CONDITION, the L1 condition of the matrix.
+*/
+{
+  double a_norm;
+  double b_norm;
+  int i;
+  int j;
+  double t;
+  double value;
+
+  if ( n == 1 )
+  {
+    a_norm = 2.0;
+  }
+  else if ( n == 2 )
+  {
+    a_norm = 3.0;
+  }
+  else
+  {
+    a_norm = 4.0;
+  }
+
+  b_norm = 0.0;
+  for ( j = 1; j <= n; j++ )
+  {
+    t = 0.0;
+    for ( i = 1; i <= n; i++ )
+    {
+      if ( i <= j )
+      {
+        t = t + ( double ) ( i * ( n - j + 1 ) ) / ( double ) ( n + 1 );
+      }
+      else
+      {
+        t = t + ( double ) ( j * ( n - i + 1 ) ) / ( double ) ( n + 1 );
+      }
+    }
+    b_norm = r8_max ( b_norm, t );
+  }
+
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -11448,13 +13787,13 @@ double *dif2_eigenvalues ( int n )
   double angle;
   double *lambda;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( 2 * ( n + 1 ) );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( 2 * ( n + 1 ) );
     lambda[i] = 4.0 * sin ( angle ) * sin ( angle );
   }
   return lambda;
@@ -11683,13 +14022,13 @@ double *dif2_rhs ( int m, int k )
 }
 /******************************************************************************/
 
-double *dif2_right ( int n )
+double *dif2_eigen_right ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    DIF2_RIGHT returns the right eigenvectors of the DIF2 matrix.
+    DIF2_EIGEN_RIGHT returns the right eigenvectors of the DIF2 matrix.
 
   Licensing:
 
@@ -11707,14 +14046,14 @@ double *dif2_right ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double DIF2_RIGHT[N*N], the right eigenvector matrix.
+    Output, double DIF2_EIGEN_RIGHT[N*N], the right eigenvector matrix.
 */
 {
   double *a;
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -11722,7 +14061,7 @@ double *dif2_right ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = ( double ) ( ( i + 1 ) * ( j + 1 ) ) * pi / ( double ) ( n + 1 );
+      angle = ( double ) ( ( i + 1 ) * ( j + 1 ) ) * r8_pi / ( double ) ( n + 1 );
       a[i+j*n] = sqrt ( 2.0 / ( double ) ( n + 1 ) ) * sin ( angle );
     }
   }
@@ -11920,13 +14259,57 @@ double dif2cyclic_determinant ( int n )
 }
 /******************************************************************************/
 
-double *dif2cyclic_null ( int n )
+double *dif2cyclic_null_left ( int m, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    DIF2CYCLIC_NULL: null vector of the DIF2CYCLIC matrix.
+    DIF2CYCLIC_NULL_LEFT returns a left null vector of the DIF2CYCLIC matrix.
+
+  Discussion:
+
+    X(1:M) = 1 is a null vector.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Output, double DIF2CYCLIC_NULL_LEFT[M], the null vector.
+*/
+{
+  int i;
+  double *x;
+
+  x = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    x[i] = 1.0;
+  }
+  return x;
+}
+/******************************************************************************/
+
+double *dif2cyclic_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DIF2CYCLIC_NULL_RIGHT returns a right null vector of the DIF2CYCLIC matrix.
 
   Discussion:
 
@@ -11946,9 +14329,9 @@ double *dif2cyclic_null ( int n )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
-    Output, double DIF2CYCLIC_NULL[N], the null vector.
+    Output, double DIF2CYCLIC_NULL_RIGHT[N], the null vector.
 */
 {
   int i;
@@ -12081,58 +14464,326 @@ double *dorr ( double alpha, int n )
   double *a;
   int i;
   int j;
-  double np1;
-  double np1sq;
+  double np1_r8;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
-  np1 = ( double ) ( n + 1 );
-  np1sq = np1 * np1;
+  np1_r8 = ( double ) ( n + 1 );
 
-  for ( j = 0; j < n; j++ )
+  for ( j = 1; j <= n; j++ )
   {
-    for ( i = 0; i < n; i++ )
+    for ( i = 1; i <= n; i++ )
     {
-      if ( i + 1 <= ( n + 1 ) / 2 )
+      if ( i <= ( n + 1 ) / 2 )
       {
         if ( j == i - 1 )
         {
-          a[i+j*n] = - alpha * np1sq;
+          a[i-1+(j-1)*n] = - alpha * pow ( np1_r8, 2 ); 
         }
         else if ( j == i )
         {
-          a[i+j*n] = 2.0 * alpha * np1sq + 0.5 * np1 - ( double ) ( i + 1 );
+          a[i-1+(j-1)*n] = 2.0 * alpha * pow ( np1_r8, 2 ) + 0.5 * np1_r8 
+           - ( double ) ( i );
         }
         else if ( j == i + 1 )
         {
-          a[i+j*n] = - alpha * np1sq - 0.5 * np1 + ( double ) ( i + 1 );
+          a[i-1+(j-1)*n] = - alpha * pow ( np1_r8, 2 ) - 0.5 * np1_r8 
+            + ( double ) ( i );
         }
         else
         {
-          a[i+j*n] = 0.0;
+          a[i-1+(j-1)*n] = 0.0;
         }
       }
       else
       {
         if ( j == i - 1 )
         {
-          a[i+j*n] = - alpha * np1sq + 0.5 * np1 - ( double ) ( i );
+          a[i-1+(j-1)*n] = - alpha * pow ( np1_r8, 2 ) + 0.5 * np1_r8 
+            - ( double ) ( i );
         }
         else if ( j == i )
         {
-          a[i+j*n] = 2.0 * alpha * np1sq - 0.5 * np1 + ( double ) ( i );
+          a[i-1+(j-1)*n] = 2.0 * alpha * pow ( np1_r8, 2 ) - 0.5 * np1_r8 
+            + ( double ) ( i );
         }
         else if ( j == i + 1 )
         {
-          a[i+j*n] = - alpha * np1sq;
+          a[i-1+(j-1)*n] = - alpha * pow ( np1_r8, 2 );
         }
         else
         {
-          a[i+j*n] = 0.0;
+          a[i-1+(j-1)*n] = 0.0;
         }
       }
     }
   }
+  return a;
+}
+/******************************************************************************/
+
+double dorr_determinant ( double alpha, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DORR_DETERMINANT computes the determinant of the DORR matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double ALPHA, scalar that defines the matrix.
+    A typical value of ALPHA is 0.01.
+
+    Input, int N, the order of the matrix.
+
+    Output, double DORR_DETERMINANT, the determinant.
+*/
+{
+  double determ;
+  double determ_nm1;
+  double determ_nm2;
+  int i;
+  int j;
+  double np1_r8;
+  double value;
+  double *x;
+  double *y;
+  double *z;
+/*
+  Form the three diagonals.
+*/
+  x = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+  y = ( double * ) malloc (   n       * sizeof ( double ) );
+  z = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+
+  np1_r8 = ( double ) ( n + 1 );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = 1; j <= n; j++ )
+    {
+      if ( i <= ( n + 1 ) / 2 )
+      {
+        if ( j == i - 1 )
+        {
+          x[i-2] = - alpha * pow ( np1_r8, 2 ); 
+        }
+        else if ( j == i )
+        {
+          y[i-1] = 2.0 * alpha * pow ( np1_r8, 2 ) + 0.5 * np1_r8 
+           - ( double ) ( i );
+        }
+        else if ( j == i + 1 )
+        {
+          z[i-1] = - alpha * pow ( np1_r8, 2 ) - 0.5 * np1_r8 
+            + ( double ) ( i );
+        }
+      }
+      else
+      {
+        if ( j == i - 1 )
+        {
+          x[i-2] = - alpha * pow ( np1_r8, 2 ) + 0.5 * np1_r8 
+            - ( double ) ( i );
+        }
+        else if ( j == i )
+        {
+          y[i-1] = 2.0 * alpha * pow ( np1_r8, 2 ) - 0.5 * np1_r8 
+            + ( double ) ( i );
+        }
+        else if ( j == i + 1 )
+        {
+          z[i-1] = - alpha * pow ( np1_r8, 2 );
+        }
+      }
+    }
+  }
+/*
+  Compute the determinant.
+*/
+  determ_nm1 = y[n-1];
+  value = determ_nm1;
+
+  if ( 1 < n )
+  {
+    determ_nm2 = determ_nm1;
+    determ_nm1 = y[n-2] * y[n-1] - z[n-2] * x[n-2];
+
+    value = determ_nm1;
+
+    for ( i = n - 3; 0 <= i; i-- )
+    {
+      value = y[i] * determ_nm1 - z[i] * x[i] * determ_nm2;
+      determ_nm2 = determ_nm1;
+      determ_nm1 = value;
+    }
+  }
+/*
+  Free memory.
+*/
+  free ( x );
+  free ( y );
+  free ( z );
+
+  return value;
+}
+/******************************************************************************/
+
+double *dorr_inverse ( double alpha, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DORR_INVERSE returns the inverse of the DORR matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    CM daFonseca, J Petronilho,
+    Explicit Inverses of Some Tridiagonal Matrices,
+    Linear Algebra and Its Applications,
+    Volume 325, 2001, pages 7-21.
+
+  Parameters:
+
+    Input, double ALPHA, scalar that defines the matrix.
+    A typical value of ALPHA is 0.01.
+
+    Input, int N, the order of the matrix.
+
+    Output, double DORR_INVERSE[N*N], the inverse of the matrix.
+*/
+{
+  double *a;
+  double *d;
+  double *e;
+  int i;
+  int j;
+  double np1_r8;
+  double *x;
+  double *y;
+  double *z;
+/*
+  Form the three diagonals.
+*/
+  x = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+  y = ( double * ) malloc (   n       * sizeof ( double ) );
+  z = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+
+  np1_r8 = ( double ) ( n + 1 );
+
+  for ( i = 1; i <= n; i++ )
+  {
+    for ( j = 1; j <= n; j++ )
+    {
+      if ( i <= ( n + 1 ) / 2 )
+      {
+        if ( j == i - 1 )
+        {
+          x[i-2] = - alpha * pow ( np1_r8, 2 ); 
+        }
+        else if ( j == i )
+        {
+          y[i-1] = 2.0 * alpha * pow ( np1_r8, 2 ) + 0.5 * np1_r8 
+            - ( double ) ( i );
+        }
+        else if ( j == i + 1 )
+        {
+          z[i-1] = - alpha * pow ( np1_r8, 2 ) - 0.5 * np1_r8 
+            + ( double ) ( i );
+        }
+      }
+      else
+      {
+        if ( j == i - 1 )
+        {
+          x[i-2] = - alpha * pow ( np1_r8, 2 ) + 0.5 * np1_r8 
+            - ( double ) ( i );
+        }
+        else if ( j == i )
+        {
+          y[i-1] = 2.0 * alpha * pow ( np1_r8, 2 ) - 0.5 * np1_r8 
+            + ( double ) ( i );
+        }
+        else if ( j == i + 1 )
+        {
+          z[i-1] = - alpha * pow ( np1_r8, 2 );
+        }
+      }
+    }
+  }
+/*
+  Compute the inverse.
+*/
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  d = ( double * ) malloc ( n * sizeof ( double ) );
+
+  d[n-1] = y[n-1];
+  for ( i = n - 2; 0 <= i; i-- )
+  {
+    d[i] = y[i] - x[i] * z[i]/ d[i+1];
+  }
+
+  e = ( double * ) malloc ( n * sizeof ( double ) );
+
+  e[0] = y[0];
+  for ( i = 1; i < n; i++ )
+  {
+    e[i] = y[i] - x[i-1] * z[i-1] / e[i-1];
+  }
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j <= i; j++ )
+    {
+      a[i+j*n] = r8_mop ( i + j ) 
+        * r8vec_product ( i - j, x+j ) 
+        * r8vec_product ( n - i - 1, d+i+1 ) 
+        / r8vec_product ( n - j, e+j );
+    }
+    for ( j = i + 1; j < n; j++ )
+    {
+      a[i+j*n] = r8_mop ( i + j ) 
+        * r8vec_product ( j - i, z+i) 
+        * r8vec_product ( n - j - 1, d+j+1) 
+        / r8vec_product ( n - i, e+i);
+    }
+  }
+
+  free ( d );
+  free ( e );
+  free ( x );
+  free ( y );
+  free ( z );
+
   return a;
 }
 /******************************************************************************/
@@ -12230,6 +14881,45 @@ double *downshift ( int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double downshift_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    DOWNSHIFT_CONDITION returns the L1 condition of the DOWNSHIFT matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DOWNSHIFT_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 1.0;
+  b_norm = 1.0;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -12555,13 +15245,13 @@ double *eberlein_eigenvalues ( double alpha, int n )
 }
 /******************************************************************************/
 
-double *eberlein_null_left ( int n )
+double *eberlein_null_left ( int m, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    EBERLEIN_NULL returns a left null vector of the EBERLEIN matrix.
+    EBERLEIN_NULL_LEFT returns a left null vector of the EBERLEIN matrix.
 
   Licensing:
 
@@ -12577,17 +15267,17 @@ double *eberlein_null_left ( int n )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
-    Output, double EBERLEIN_NULL_LEFT[N], the null vector.
+    Output, double EBERLEIN_NULL_LEFT[M], the null vector.
 */
 {
   int i;
   double *x;
 
-  x = ( double * ) malloc ( n * sizeof ( double ) );
+  x = ( double * ) malloc ( m * sizeof ( double ) );
 
-  for ( i = 0; i < n; i++ )
+  for ( i = 0; i < m; i++ )
   {
     x[i] = 1.0;
   }
@@ -12643,6 +15333,8 @@ double *eulerian ( int m, int n )
     A is unimodular.
 
     LAMBDA(1:N) = 1.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -12926,6 +15618,45 @@ double *exchange ( int m, int n )
 }
 /******************************************************************************/
 
+double exchange_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    EXCHANGE_CONDITION returns the L1 condition of the EXCHANGE matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double EXCHANGE_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 1.0;
+  b_norm = 1.0;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double exchange_determinant ( int n )
 
 /******************************************************************************/
@@ -12965,6 +15696,69 @@ double exchange_determinant ( int n )
   }
 
   return determ;
+}
+/******************************************************************************/
+
+double *exchange_eigen_right ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    EXCHANGE_EIGEN_RIGHT returns the right eigenvectors of the EXCHANGE matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 June 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double EXCHANGE_EIGEN_RIGHT[N*N], the eigenvector matrix.
+*/
+{
+  int i;
+  int j;
+  int n2;
+  double *x;
+
+  x = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      x[i+j*n] = 0.0;
+    }
+  }
+  n2 = n / 2;
+
+  for ( j = 0; j < n2; j++ )
+  {
+    i = n - 1 - j;
+
+    x[j+j*n] =  1.0;
+    x[i+j*n] = -1.0;
+
+    x[j+i*n] =  1.0;
+    x[i+i*n] =  1.0;
+  }
+
+  if ( ( n % 2 ) == 1 )
+  {
+    x[n2+n2*n] = 1.0;
+  }
+
+  return x;
 }
 /******************************************************************************/
 
@@ -13048,69 +15842,6 @@ double *exchange_inverse ( int n )
 }
 /******************************************************************************/
 
-double *exchange_right ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    EXCHANGE_RIGHT returns the right eigenvectors of the EXCHANGE matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    14 June 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double EXCHANGE_RIGHT[N*N], the eigenvector matrix.
-*/
-{
-  int i;
-  int j;
-  int n2;
-  double *x;
-
-  x = ( double * ) malloc ( n * n * sizeof ( double ) );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      x[i+j*n] = 0.0;
-    }
-  }
-  n2 = n / 2;
-
-  for ( j = 0; j < n2; j++ )
-  {
-    i = n - 1 - j;
-
-    x[j+j*n] =  1.0;
-    x[i+j*n] = -1.0;
-
-    x[j+i*n] =  1.0;
-    x[i+i*n] =  1.0;
-  }
-
-  if ( ( n % 2 ) == 1 )
-  {
-    x[n2+n2*n] = 1.0;
-  }
-
-  return x;
-}
-/******************************************************************************/
-
 double *fibonacci1 ( int n, double f1, double f2 )
 
 /******************************************************************************/
@@ -13153,20 +15884,16 @@ double *fibonacci1 ( int n, double f1, double f2 )
     of row 1 and row 2.
 
     For 2 <= N,
-
       rank ( A ) = 2
 
     If N = 1, then
-
       det ( A ) = 1
-
     else if N = 2 then
-
       det ( A ) = -1
-
     else if 1 < N then
-
       det ( A ) = 0
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -13277,13 +16004,68 @@ double fibonacci1_determinant ( int n, double f1, double f2 )
 }
 /******************************************************************************/
 
-double *fibonacci1_null ( int n, double f1, double f2 )
+double *fibonacci1_null_left ( int m, int n, double f1, double f2 )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    FIBONACCI1_NULL returns a null vector of the FIBONACCI1 matrix.
+    FIBONACCI1_NULL_LEFT returns a left null vector of the FIBONACCI1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Input, double F1, F2, the first two elements of the sequence
+    that will generate the Fibonacci sequence.
+
+    Output, double FIBONACCI1_NULL_LEFT[M], a null vector.
+*/
+{
+  int i;
+  double *x;
+
+  if ( m < 3 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "FIBONACCI1_NULL_LEFT - Fatal error!\n" );
+    fprintf ( stderr, "  3 <= N is required.\n" );
+    exit ( 1 );
+  }
+
+  x = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 0; i < m - 3; i++ )
+  {
+    x[i] = 0.0;
+  }
+  x[m-3] = - 1.0;
+  x[m-2] = - 1.0;
+  x[m-1] = + 1.0;
+
+  return x;
+}
+/******************************************************************************/
+
+double *fibonacci1_null_right ( int m, int n, double f1, double f2 )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    FIBONACCI1_NULL_RIGHT returns a right null vector of the FIBONACCI1 matrix.
 
   Licensing:
 
@@ -13299,12 +16081,12 @@ double *fibonacci1_null ( int n, double f1, double f2 )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
     Input, double F1, F2, the first two elements of the sequence
     that will generate the Fibonacci sequence.
 
-    Output, double FIBONACCI1_NULL[N], a null vector.
+    Output, double FIBONACCI1_NULL_RIGHT[N], a null vector.
 */
 {
   int i;
@@ -13312,9 +16094,9 @@ double *fibonacci1_null ( int n, double f1, double f2 )
 
   if ( n < 3 )
   {
-    printf ( "\n" );
-    printf ( "FIBONACCI1_NULL - Fatal error!\n" );
-    printf ( "  3 <= N is required.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "FIBONACCI1_NULL_RIGHT - Fatal error!\n" );
+    fprintf ( stderr, "  3 <= N is required.\n" );
     exit ( 1 );
   }
 
@@ -13388,6 +16170,8 @@ double *fibonacci2 ( int n )
     for instance, that the convergence of the eigenvector in the power 
     method will be very slow.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -13442,6 +16226,64 @@ double *fibonacci2 ( int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double fibonacci2_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    FIBONACCI2_CONDITION returns the L1 condition of the FIBONACCI2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double FIBONACCI2_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  if ( n == 1 )
+  {
+    printf ( "\n" );
+    printf ( "FIBONACCI2_CONDITION - Fatal error!\n" );
+    printf ( "  The condition number is infinite for N=1\n" );
+    exit ( 1 );
+  }
+
+  if ( n == 1 )
+  {
+    a_norm = 0.0;
+  }
+  else if ( n == 2 )
+  {
+    a_norm = 2.0;
+  }
+  else
+  {
+    a_norm = 3.0;
+  }
+  b_norm = ( double ) ( n );
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -13572,9 +16414,9 @@ double *fibonacci2_inverse ( int n )
 
   if ( n == 1 )
   {
-    printf ( "\n" );
-    printf ( "FIBONACCI2_INVERSE - Fatal error!\n" );
-    printf ( "  The inverse does not exist for N = 1.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "FIBONACCI2_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The inverse does not exist for N = 1.\n" );
     exit ( 1 );
   }
 
@@ -13652,6 +16494,8 @@ double *fibonacci3 ( int n )
     The determinant of A is the Fibonacci number F(N+1).
 
     A is a special case of the TRIS tridiagonal scalar matrix.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -13779,13 +16623,13 @@ double complex *fibonacci3_eigenvalues ( int n )
   double angle;
   int i;
   double complex *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double complex * ) malloc ( n * sizeof ( double complex ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 1 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 1 );
     lambda[i] =  1.0 + 2.0 * cos ( angle ) * I;
   }
 
@@ -13913,6 +16757,8 @@ double *fiedler ( int m, int n, double x[] )
 
     A has a dominant positive eigenvalue, and all others are negative.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -13958,7 +16804,7 @@ double *fiedler ( int m, int n, double x[] )
   {
     for ( i = 0; i < m; i++ )
     {
-      a[i+j*m] = r8_abs ( x[i] - x[j] );
+      a[i+j*m] = fabs ( x[i] - x[j] );
     }
   }
 
@@ -14165,16 +17011,16 @@ double *forsythe ( double alpha, double beta, int n )
 
     The characteristic equation of A is
 
-      ( BETA - LAMBDA )**N - (-1)**N*ALPHA = 0
+      ( BETA - LAMBDA )^N - (-1)^N*ALPHA = 0
 
     The eigenvalues of A are
 
       LAMBDA(I) = BETA
-        + abs ( ALPHA )**1/N * exp ( 2 * I * PI * sqrt ( - 1 ) / N )
+        + abs ( ALPHA )^1/N * exp ( 2 * I * PI * sqrt ( - 1 ) / N )
 
     Gregory and Karney consider the special case where BETA is 0,
     and ALPHA is a "small" value.  In that case, the characteristic
-    equation is LAMBDA**N - ALPHA = 0, and the eigenvalues are the
+    equation is LAMBDA^N - ALPHA = 0, and the eigenvalues are the
     N-th root of ALPHA times the N roots of unity.
 
   Licensing:
@@ -14254,7 +17100,7 @@ double forsythe_determinant ( double alpha, double beta, int n )
 
   Modified:
 
-    01 October 2010
+    04 February 2015
 
   Author:
 
@@ -14271,42 +17117,11 @@ double forsythe_determinant ( double alpha, double beta, int n )
     Output, double FORSYTHE_DETERMINANT, the determinant.
 */
 {
-  double angle;
-  double c;
-  double d;
-  double determ;
-  int i;
-  double pi = 3.141592653589793;
-  double s;
+  double value;
 
-  d = pow ( r8_abs ( alpha ), 1.0 / ( double ) ( n ) );
+  value = r8_mop ( n - 1 ) * alpha + pow ( beta, n );
 
-  determ = 1.0;
-
-  if ( ( n % 2 ) == 1 )
-  {
-    for ( i = 1; i <= ( n - 1 ) / 2; i++ )
-    {
-      angle = ( double ) ( 2 * i ) * pi / ( double ) ( n );
-      c = cos ( angle );
-      s = sin ( angle );
-      determ = determ * ( pow ( beta + d * c, 2 ) + d * d * s * s );
-    }
-    determ = determ * ( beta + d );
-  }
-  else if ( ( n % 2 ) == 0 )
-  {
-    for ( i = 1; i <= ( n / 2 ) - 1; i++ )
-    {
-      angle = ( double ) ( 2 * i ) * pi / ( double ) ( n );
-      c = cos ( angle );
-      s = sin ( angle );
-
-      determ = determ * ( pow ( beta + d * c, 2 ) + d * d * s * s );
-    }
-    determ = determ * ( beta * beta - d * d );
-  }
-  return determ;
+  return value;
 }
 /******************************************************************************/
 
@@ -14344,16 +17159,16 @@ double complex *forsythe_eigenvalues ( double alpha, double beta, int n )
   double complex angle;
   int i;
   double complex *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double complex w;
 
   lambda = ( double complex * ) malloc ( n * sizeof ( double complex ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( 2 * ( i + 1 ) ) * pi * I / ( double ) ( n );
+    angle = ( double ) ( 2 * ( i + 1 ) ) * r8_pi * I / ( double ) ( n );
     w = cexp ( angle );
-    lambda[i] = beta + pow ( r8_abs ( alpha ), 1.0 / ( double ) ( n ) ) * w;
+    lambda[i] = beta + pow ( fabs ( alpha ), 1.0 / ( double ) ( n ) ) * w;
   }
 
   return lambda;
@@ -14562,7 +17377,7 @@ double complex *fourier ( int n )
   double complex angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double complex * ) malloc ( n * n * sizeof ( double complex ) );
 
@@ -14570,7 +17385,7 @@ double complex *fourier ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = 2.0 * pi * ( double ) ( i * j ) * I / ( double ) ( n );
+      angle = 2.0 * r8_pi * ( double ) ( i * j ) * I / ( double ) ( n );
 
       a[i+j*n] = cexp ( angle ) / sqrt ( ( double ) ( n ) );
     }
@@ -14778,7 +17593,7 @@ double *fourier_cosine ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -14788,7 +17603,7 @@ double *fourier_cosine ( int n )
     a[i+j*n] = 1.0 / sqrt ( ( double ) ( n ) );
     for ( i = 1; i < n; i++ )
     {
-      angle = ( double ) ( i * ( 2 * j + 1 ) ) * pi / ( double ) ( 2 * n );
+      angle = ( double ) ( i * ( 2 * j + 1 ) ) * r8_pi / ( double ) ( 2 * n );
       a[i+j*n] = sqrt ( 2.0 ) * cos ( angle ) / sqrt ( ( double ) ( n ) );
     }
   }
@@ -14868,7 +17683,7 @@ double *fourier_cosine_inverse ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -14878,7 +17693,7 @@ double *fourier_cosine_inverse ( int n )
     a[j+i*n] = 1.0 / sqrt ( ( double ) ( n ) );
     for ( i = 1; i < n; i++ )
     {
-      angle = ( double ) ( i * ( 2 * j + 1 ) ) * pi / ( double ) ( 2 * n );
+      angle = ( double ) ( i * ( 2 * j + 1 ) ) * r8_pi / ( double ) ( 2 * n );
       a[j+i*n] = sqrt ( 2.0 ) * cos ( angle ) / sqrt ( ( double ) ( n ) );
     }
   }
@@ -14980,7 +17795,7 @@ double *fourier_sine ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -14988,7 +17803,7 @@ double *fourier_sine ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = ( double ) ( ( i + 1 ) * ( j + 1 ) ) * pi 
+      angle = ( double ) ( ( i + 1 ) * ( j + 1 ) ) * r8_pi 
             / ( double ) ( n + 1 );
       a[i+j*n] = sin ( angle ) * sqrt ( 2.0 / ( double ) ( n + 1 ) );
     }
@@ -15108,7 +17923,7 @@ double *frank ( int n )
     else if ( J = I-1 )
       A(I,J) = N-J
     else
-      A(I,J) = 0.0D+00
+      A(I,J) = 0.0
 
   Example:
 
@@ -15216,7 +18031,7 @@ double *frank ( int n )
     James Varah,
     A generalization of the Frank matrix,
     SIAM Journal on Scientific and Statistical Computing,
-    Volume 7, 1986, pages 835-839.
+    Volume 7, Number 3, August 1986, pages 835-839.
 
     Joan Westlake,
     A Handbook of Numerical Matrix Inversion and Solution of 
@@ -15301,6 +18116,57 @@ double frank_determinant ( int n )
   determ = 1.0;
 
   return determ;
+}
+/******************************************************************************/
+
+double *frank_eigenvalues ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    FRANK_EIGENVALUES returns the eigenvalues of the Frank matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 April 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    James Varah,
+    A generalization of the Frank matrix,
+    SIAM Journal on Scientific and Statistical Computing,
+    Volume 7, Number 3, August 1986, pages 835-839.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double FRANK_EIGENVALUES[N], the eigenvalues.
+*/
+{
+  int i;
+  double *lambda;
+
+  lambda = hermite_roots ( n );
+  for ( i = 0; i < n; i++ )
+  {
+    lambda[i] = lambda[i] * sqrt ( 2.0 );
+  }
+  for ( i = 0; i < n; i++ )
+  {
+    lambda[i] = pow ( 
+      0.5 * lambda[i] + sqrt ( 0.25 * lambda[i] * lambda[i] + 1.0 ), 2 );
+  }
+  return lambda;
 }
 /******************************************************************************/
 
@@ -15699,7 +18565,7 @@ double *gear_eigenvalues ( int ii, int jj, int n )
   double *lambda;
   int p;
   int phi;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   int w;
 
   alpha = ( double * ) malloc ( n * sizeof ( double ) );
@@ -15719,7 +18585,7 @@ double *gear_eigenvalues ( int ii, int jj, int n )
     phi = n - ( j + k ) / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p ) * pi / 
+      alpha[w] = ( double ) ( 2 * p ) * r8_pi / 
                  ( double ) ( 2 * n + 2 - j - k );
       w = w + 1;
     }
@@ -15727,23 +18593,23 @@ double *gear_eigenvalues ( int ii, int jj, int n )
     phi = ( j - 1 ) / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p ) * pi / ( double ) ( j );
+      alpha[w] = ( double ) ( 2 * p ) * r8_pi / ( double ) ( j );
       w = w + 1;
     }
 
     phi = ( k - 1 ) / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p ) * pi / ( double ) ( k );
+      alpha[w] = ( double ) ( 2 * p ) * r8_pi / ( double ) ( k );
       w = w + 1;
     }
 
     alpha[w] = 0.0;
     w = w + 1;
 
-    if ( i4_even ( j ) && i4_even ( k ) )
+    if ( i4_is_even ( j ) && i4_is_even ( k ) )
     {
-      alpha[w] = pi;
+      alpha[w] = r8_pi;
       w = w + 1;
     }
   }
@@ -15754,7 +18620,7 @@ double *gear_eigenvalues ( int ii, int jj, int n )
     phi = n + 1 - ( j + k + 1 ) / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p - 1 ) * pi / 
+      alpha[w] = ( double ) ( 2 * p - 1 ) * r8_pi / 
                  ( double ) ( 2 * n + 2 - j - k );
       w = w + 1;
     }
@@ -15762,20 +18628,20 @@ double *gear_eigenvalues ( int ii, int jj, int n )
     phi = ( j - 1 ) / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p ) * pi / ( double ) ( j );
+      alpha[w] = ( double ) ( 2 * p ) * r8_pi / ( double ) ( j );
       w = w + 1;
     }
 
     phi = k / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p - 1 ) * pi / ( double ) ( k );
+      alpha[w] = ( double ) ( 2 * p - 1 ) * r8_pi / ( double ) ( k );
       w = w + 1;
     }
 
-    if ( i4_even ( j ) && i4_odd ( k ) )
+    if ( i4_is_even ( j ) && i4_is_odd ( k ) )
     {
-      alpha[w] = pi;
+      alpha[w] = r8_pi;
       w = w + 1;
     }
   }
@@ -15786,7 +18652,7 @@ double *gear_eigenvalues ( int ii, int jj, int n )
     phi = n + 1 - ( j + k + 1 ) / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p - 1 ) * pi 
+      alpha[w] = ( double ) ( 2 * p - 1 ) * r8_pi 
                / ( double ) ( 2 * n + 2 - j - k );
       w = w + 1;
     }
@@ -15794,20 +18660,20 @@ double *gear_eigenvalues ( int ii, int jj, int n )
     phi = j / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p - 1 ) * pi / ( double ) ( j );
+      alpha[w] = ( double ) ( 2 * p - 1 ) * r8_pi / ( double ) ( j );
       w = w + 1;
     }
 
     phi = ( k - 1 ) / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p ) * pi / ( double ) ( k );
+      alpha[w] = ( double ) ( 2 * p ) * r8_pi / ( double ) ( k );
       w = w + 1;
     }
 
-    if ( i4_odd ( j ) && i4_even ( k ) )
+    if ( i4_is_odd ( j ) && i4_is_even ( k ) )
     {
-      alpha[w] = pi;
+      alpha[w] = r8_pi;
       w = w + 1;
     }
   }
@@ -15818,7 +18684,7 @@ double *gear_eigenvalues ( int ii, int jj, int n )
     phi = n - ( j + k ) / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p ) * pi 
+      alpha[w] = ( double ) ( 2 * p ) * r8_pi 
                / ( double ) ( 2 * n + 2 - j - k );
       w = w + 1;
     }
@@ -15826,20 +18692,20 @@ double *gear_eigenvalues ( int ii, int jj, int n )
     phi = j / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p - 1 ) * pi / ( double ) ( j );
+      alpha[w] = ( double ) ( 2 * p - 1 ) * r8_pi / ( double ) ( j );
       w = w + 1;
     }
 
     phi = k / 2;
     for ( p = 1; p <= phi; p++ )
     {
-      alpha[w] = ( double ) ( 2 * p - 1 ) * pi / ( double ) ( k );
+      alpha[w] = ( double ) ( 2 * p - 1 ) * r8_pi / ( double ) ( k );
       w = w + 1;
     }
 
-    if ( i4_odd ( j ) && i4_odd ( k ) )
+    if ( i4_is_odd ( j ) && i4_is_odd ( k ) )
     {
-      alpha[w] = pi;
+      alpha[w] = r8_pi;
       w = w + 1;
     }
   }
@@ -15874,7 +18740,7 @@ double *gfpp ( int n, double alpha )
     if ( I = J or J = N )
       A(I,J) = 1.0
     else if ( J < I )
-      A(I,J) = - ALPHA
+      A(I,J) = - abs ( ALPHA )
     else
       A(I,J) = 0
 
@@ -15930,7 +18796,7 @@ double *gfpp ( int n, double alpha )
 
   Modified:
 
-    02 October 2010
+    02 April 2015
 
   Author:
 
@@ -15951,10 +18817,7 @@ double *gfpp ( int n, double alpha )
 
     Input, int N, the order of the matrix.
 
-    Input, double ALPHA, the value to assign to all subdiagonal
-    elements of A.  Higham requires that ALPHA be in the interval [0,1], 
-    which produces a test matrix suitable for use with partial pivoting.
-    This routine does not restrict ALPHA in any way.
+    Input, double ALPHA, determines subdiagonal elements.
 
     Output, double GFPP[N*N], the matrix.
 */
@@ -15975,7 +18838,7 @@ double *gfpp ( int n, double alpha )
       }
       else if ( j < i )
       {
-        a[i+j*n] = - alpha;
+        a[i+j*n] = - fabs ( alpha );
       }
       else
       {
@@ -15984,6 +18847,47 @@ double *gfpp ( int n, double alpha )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double gfpp_condition ( int n, double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GFPP_CONDITION returns the L1 condition of the GFPP matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double ALPHA, determines subdiagonal elements.
+
+    Output, double GFPP_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 1.0 + ( double ) ( n - 1 ) * fabs ( alpha );
+  b_norm = 1.0;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -16001,7 +18905,7 @@ double gfpp_determinant ( int n, double alpha )
 
   Modified:
 
-    02 October 2010
+    02 April 2015
 
   Author:
 
@@ -16011,15 +18915,14 @@ double gfpp_determinant ( int n, double alpha )
 
     Input, int N, the order of the matrix.
 
-    Input, double ALPHA, the value to assign to all subdiagonal
-    elements of A. 
+    Input, double ALPHA, determines subdiagonal elements.
 
     Output, double GFPP_DETERMINANT, the determinant.
 */
 {
   double determ;
 
-  determ = pow ( 1.0 + alpha, n - 1 );
+  determ = pow ( 1.0 + fabs ( alpha ), n - 1 );
 
   return determ;
 }
@@ -16033,13 +18936,23 @@ double *gfpp_inverse ( int n, double alpha )
 
     GFPP_INVERSE returns the inverse of the GFPP matrix.
 
+  Example:
+
+    N = 5, ALPHA = 1
+
+    0.5000   -0.2500   -0.1250   -0.0625   -0.0625
+         0    0.5000   -0.2500   -0.1250   -0.1250
+         0         0    0.5000   -0.2500   -0.2500
+         0         0         0    0.5000   -0.5000
+    0.5000    0.2500    0.1250    0.0625    0.0625
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    02 October 2010
+    02 April 2015
 
   Author:
 
@@ -16049,28 +18962,43 @@ double *gfpp_inverse ( int n, double alpha )
 
     Input, int N, the order of the matrix.
 
-    Input, double ALPHA, the value to assign to all subdiagonal
-    elements of the original matrix.
+    Input, double ALPHA, determines subdiagonal elements.
 
     Output, double GFPP_INVERSE[N*N], the inverse matrix.
 */
 {
   double *a;
   double *l;
+  double *l_inverse;
+  double *lp_inverse;
   double *p;
+  double *p_inverse;
   double *u;
+  double *u_inverse;
 
   p = ( double * ) malloc ( n * n * sizeof ( double ) );
   l = ( double * ) malloc ( n * n * sizeof ( double ) );
   u = ( double * ) malloc ( n * n * sizeof ( double ) );
 
   gfpp_plu ( n, alpha, p, l, u );
-  
-  a = plu_inverse ( n, p, l, u );
- 
-  free ( p );
+
+  p_inverse = r8mat_transpose_new ( n, n, p );
+
+  l_inverse = tri_l1_inverse ( n, l );
+
+  lp_inverse = r8mat_mm_new ( n, n, n, l_inverse, p_inverse );
+
+  u_inverse = tri_u_inverse ( n, u );
+
+  a = r8mat_mm_new ( n, n, n, u_inverse, lp_inverse );
+
   free ( l );
+  free ( l_inverse );
+  free ( lp_inverse );
+  free ( p );
+  free ( p_inverse );
   free ( u );
+  free ( u_inverse );
  
   return a;
 }
@@ -16097,7 +19025,7 @@ void gfpp_plu ( int n, double alpha, double p[], double l[], double u[] )
 
   Modified:
 
-    02 October 2010
+    02 April 2015
 
   Author:
 
@@ -16107,10 +19035,7 @@ void gfpp_plu ( int n, double alpha, double p[], double l[], double u[] )
 
     Input, int N, the order of the matrix.
 
-    Input, double ALPHA, the value to assign to all subdiagonal
-    elements of A.  Higham requires that ALPHA be in the interval [0,1], 
-    which produces a test matrix suitable for use with partial pivoting.
-    This routine does not restrict ALPHA in any way.
+    Input, double ALPHA, determines subdiagonal elements.
 
     Output, double P[N*N], L[N*N], U[N*N], the P, L, U factors
     of the matrix.
@@ -16145,7 +19070,7 @@ void gfpp_plu ( int n, double alpha, double p[], double l[], double u[] )
     l[i+j*n] = 1.0;
     for ( i = j + 1; i < n; i++ )
     {
-      l[i+j*n] = - alpha;
+      l[i+j*n] = - fabs ( alpha );
     }
   }
 
@@ -16168,7 +19093,7 @@ void gfpp_plu ( int n, double alpha, double p[], double l[], double u[] )
   u_sum = 1.0;
   for ( i = 1; i < n; i++ )
   {
-    u[i+(n-1)*n] = 1.0 + alpha * u_sum;
+    u[i+(n-1)*n] = 1.0 + fabs ( alpha ) * u_sum;
     u_sum = u_sum + u[i+(n-1)*n];
   }
 
@@ -16225,6 +19150,8 @@ double *givens ( int m, int n )
       LAMBDA(I) = 0.5 * sec ( ( 2 * I - 1 ) * PI / ( 4 * N ) )^2
 
     The condition number P(A) is approximately 16 N^2 / PI^2.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -16284,6 +19211,54 @@ double *givens ( int m, int n )
 }
 /******************************************************************************/
 
+double givens_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GIVENS_CONDITION returns the L1 condition of the GIVENS matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double GIVENS_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = ( double ) ( n * n );
+
+  if ( n == 1 )
+  {
+    b_norm = 1.0;
+  }
+  else
+  {
+    b_norm = 2.0;
+  }
+
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double givens_determinant ( int n )
 
 /******************************************************************************/
@@ -16317,19 +19292,19 @@ double givens_determinant ( int n )
 */
 {
   double angle;
-  double determ;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
+  double value;
 
-  determ = 1.0;
+  value = 1.0;
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( 2 * i + 1 ) * pi / ( double ) ( 4 * n );
-    determ = determ * 0.5 / pow ( cos ( angle ), 2 );
+    angle = ( double ) ( 2 * i + 1 ) * r8_pi / ( double ) ( 4 * n );
+    value = value * 0.5 / pow ( cos ( angle ), 2 );
   }
 
-  return determ;
+  return value;
 }
 /******************************************************************************/
 
@@ -16363,13 +19338,13 @@ double *givens_eigenvalues ( int n )
   double angle;
   int i;
   double *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( 2 * i + 1 ) * pi / ( double ) ( 4 * n );
+    angle = ( double ) ( 2 * i + 1 ) * r8_pi / ( double ) ( 4 * n );
     lambda[i] = 0.5 / pow ( cos ( angle ), 2 );
   }
   return lambda;
@@ -16475,6 +19450,70 @@ double *givens_inverse ( int n )
       {
         a[i+j*n] = 0.0;
       }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+double *givens_llt ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GIVENS_LLT returns the Cholesky factor of the GIVENS matrix.
+
+  Example:
+
+    N = 5
+
+    1    0        0        0       0
+    1  sqrt(2)    0        0       0
+    1  sqrt(2)  sqrt(2)    0       0
+    1  sqrt(2)  sqrt(2)  sqrt(2)   0
+    1  sqrt(2)  sqrt(2)  sqrt(2) sqrt(2)
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double GIVENS_LLT[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  j = 0;
+  for ( i = 0; i < n; i++ )
+  {
+    a[i+j*n] = 1.0;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 1; j <= i; j++ )
+    {
+      a[i+j*n] = sqrt ( 2.0 );
+    }
+    for ( j = i + 1; j < n; j++ )
+    {
+      a[i+j*n] = 0.0;
     }
   }
   return a;
@@ -16876,6 +19915,8 @@ double *gk323 ( int m, int n )
     If N = 2 mod 4, then -1 is an eigenvalue, with an eigenvector
     of the form ( 1, -1, -1, 1, 1, -1, -1, 1, ... ).
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -17058,6 +20099,10 @@ double *gk324 ( int m, int n, double x[] )
     11 12  1  1  1
     11 12 13  1  1
     11 12 13 14  1
+
+  Properties:
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -17259,11 +20304,11 @@ double *grcar ( int m, int n, int k )
   Formula:
 
     if ( I == J+1 )
-      A(I,J) = -1.0D+00
+      A(I,J) = -1.0
     else if ( I <= J .and. J <= I + K ) then
-      A(I,J) = 1.0D+00
+      A(I,J) = 1.0
     else
-      A(I,J) = 0.0D+00
+      A(I,J) = 0.0
 
   Example:
 
@@ -17294,6 +20339,8 @@ double *grcar ( int m, int n, int k )
     The eigenvalues are sensitive.
 
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -17457,7 +20504,7 @@ double *hadamard ( int m, int n )
 
     Input, int M, N, the order of the matrix.
 
-    Output, double HAMMING[M*N], the matrix.
+    Output, double HADAMARD[M*N], the matrix.
 */
 {
   double *a;
@@ -17559,9 +20606,9 @@ double *hamming ( int m, int n )
   Discussion:
 
     For a given order M, the Hamming matrix is a rectangular array
-    of M rows and (2**M)-1 columns.  The entries of the matrix are
+    of M rows and (2^M)-1 columns.  The entries of the matrix are
     0 and 1.  The columns of A should be interpreted as the binary
-    representations of the integers between 1 and (2**M)-1.
+    representations of the integers between 1 and (2^M)-1.
 
     We can also think of the columns as representing nonempty subsets
     of an M set.  With this perspective, the columns of the matrix
@@ -17591,7 +20638,7 @@ double *hamming ( int m, int n )
 
   Modified:
 
-    25 July 2008
+    15 March 2015
 
   Author:
 
@@ -17600,18 +20647,15 @@ double *hamming ( int m, int n )
   Parameters:
 
     Input, int M, N, the order of the matrix.
-    N must be equal to (2**M)-1.
+    N must be equal to (2^M)-1.
 
     Output, double HAMMING[M*N], the matrix.
 */
 {
   double *a;
+  int *b;
   int i;
-  int *iarray;
   int j;
-  int k;
-  int more;
-  int size;
 
   if ( n != i4_power ( 2, m ) - 1 )
   {
@@ -17624,23 +20668,89 @@ double *hamming ( int m, int n )
   }
 
   a = r8mat_zero_new ( m, n );
-  iarray = ( int * ) malloc ( m * sizeof ( int ) );
+  b = ( int * ) malloc ( m * sizeof ( int ) );
 
-  more = 0;
-
-  for ( j = 0; j < n; j++ )
+  for ( i = 0; i < m; i++ )
   {
-    subset_by_size_next ( m, iarray, &size, &more );
+    b[i] = 0;
+  }
 
-    for ( k = 0; k < size; k++ )
+  for ( j = n - 1; 0 <= j; j-- )
+  {
+    bvec_next_grlex ( m, b );
+    for ( i = 0; i < m; i++ )
     {
-      i = iarray[k] - 1;
-      a[i+j*m] = 1.0;
+      a[i+j*m] = ( double ) ( b[i] );
     }
   }
-  free ( iarray );
+
+  free ( b );
 
   return a;
+}
+/******************************************************************************/
+
+double *hamming_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    HAMMING_NULL_RIGHT returns a right null vector of the HAMMING matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Output, double HAMMING_NULL_RIGHT[N], a null vector
+*/
+{
+  int j;
+  double *x;
+ 
+  if ( n != ( i4_power ( 2, m ) - 1 ) )
+  {
+    printf ( "\n" );
+    printf ( "HAMMING_NULL_RIGHT - Fatal error!\n" );
+    printf ( "  M = %d\n", m );
+    printf ( "  N = %d\n", n );
+    printf ( "  but N = 2^M-1 is required.\n" );
+    exit ( 1 );
+  }
+
+  if ( m < 2 )
+  {
+    printf ( "\n" );
+    printf ( "HAMMING_NULL_RIGHT - Fatal error!\n" );
+    printf ( "  M must be at least 2.\n" );
+    exit ( 1 );
+  }
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  x[0] =  1.0;
+  for ( j = 1; j < n - m; j++ )
+  {
+    x[j] = 0.0;
+  }
+  for ( j = n - m; j < n; j++ )
+  {
+    x[j] = -1.0;
+  }
+
+  return x;
 }
 /******************************************************************************/
 
@@ -17675,6 +20785,8 @@ double *hankel ( int n, double x[] )
     Because A is normal, it is diagonalizable.
 
     A is a Hankel matrix: constant along anti-diagonals.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -17711,6 +20823,245 @@ double *hankel ( int n, double x[] )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double *hankel_n ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    HANKEL_N returns the HANKEL_N matrix.
+
+  Formula:
+
+    A(I,J) = I+J-1 for I+J-1 <= N
+           = 0     otherwise 
+
+  Example:
+
+    N = 5
+
+    1  2  3  4  5
+    2  3  4  5  0
+    3  4  5  0  0
+    4  5  0  0  0
+    5  0  0  0  0
+
+  Properties:
+
+    A is symmetric: A' = A.
+
+    Because A is symmetric, it is normal.
+
+    Because A is normal, it is diagonalizable.
+
+    A is a Hankel matrix: constant along anti-diagonals.
+
+    determinant ( A ) = (-1)^(N/2) * N^N
+
+    The family of matrices is nested as a function of N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double HANKEL_N[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n - j; i++ )
+    {
+      a[i+j*n] = ( double ) ( i + j + 1 );
+    }
+    for ( i = n - j; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double hankel_n_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    HANKEL_N_CONDITION returns the L1 condition of the HANKEL_N matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double VALUE, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  int i;
+  int j;
+  double *v;
+  double value;
+
+  v = ( double * ) malloc ( n * sizeof ( double ) );
+
+  v[0] = 1.0 / ( double ) ( n );
+  for ( i = 1; i < n; i++ )
+  {
+    v[i] = 0.0;
+    for ( j = 0; j < i; j++ )
+    {
+      v[i] = v[i] - ( double ) ( n + j - i ) * v[j];
+    }
+    v[i] = v[i] / ( double ) ( n ); 
+  }
+
+  a_norm = ( double ) ( ( n * ( n + 1 ) ) / 2 );
+  b_norm = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    b_norm = b_norm + fabs ( v[i] );
+  }
+  value = a_norm * b_norm;
+
+  free ( v );
+
+  return value;
+}
+/******************************************************************************/
+
+double hankel_n_determinant ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    HANKEL_N_DETERMINANT returns the determinant of the HANKEL_N matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double DETERM, the determinant.
+*/
+{
+  double determ;
+
+  determ = r8_mop ( n / 2 ) * ( double ) ( i4_power ( n, n ) );
+
+  return determ;
+}
+/******************************************************************************/
+
+double *hankel_n_inverse ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    HANKEL_N_INVERSE returns the inverse of the HANKEL_N matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double HANKEL_N_INVERSE[N*N], the matrix.
+*/
+{
+  double *b;
+  int i;
+  int j;
+  double *v;
+
+  v = ( double * ) malloc ( n * sizeof ( double ) );
+
+  v[0] = 1.0 / ( double ) ( n );
+  for ( i = 1; i < n; i++ )
+  {
+    v[i] = 0.0;
+    for ( j = 0; j < i; j++ )
+    {
+      v[i] = v[i] - ( double ) ( n + j - i ) * v[j];
+    }
+    v[i] = v[i] / ( double ) ( n ); 
+  }
+
+  b = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n - 1 - j; i++ )
+    {
+      b[i+j*n] = 0.0;
+    }
+    for ( i = n - 1 - j; i < n; i++ )
+    {
+      b[i+j*n] = v[i+j-n+1];
+    }
+  }
+
+  free ( v );
+
+  return b;
 }
 /******************************************************************************/
 
@@ -18083,6 +21434,9 @@ double *harman ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[8*8] = {
     1.00, 0.85, 0.81, 0.86, 0.47, 0.40, 0.30, 0.38, 
     0.85, 1.00, 0.88, 0.83, 0.38, 0.33, 0.28, 0.41, 
@@ -18096,6 +21450,45 @@ double *harman ( )
   a = r8mat_copy_new ( 8, 8, a_save );
 
   return a;
+}
+/******************************************************************************/
+
+double harman_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    HARMAN_CONDITION returns the L1 condition of the HARMAN matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double HARMAN_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 5.07;
+  b_norm = 15.200976381839961;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -18202,6 +21595,9 @@ double *harman_inverse ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[8*8] = {
    5.505750442924552,  -2.024827472733320, 
   -0.525564377998213,  -2.414725599885703, 
@@ -18254,6 +21650,16 @@ double *hartley ( int n )
 
     A(I,J) = SIN ( 2*PI*(i-1)*(j-1)/N ) + COS( 2*PI*(i-1)*(j-1)/N )
 
+  Example:
+
+    N = 5
+
+    1.0000    1.0000    1.0000    1.0000    1.0000
+    1.0000    1.2601   -0.2212   -1.3968   -0.6420
+    1.0000   -0.2212   -0.6420    1.2601   -1.3968
+    1.0000   -1.3968    1.2601   -0.6420   -0.2212
+    1.0000   -0.6420   -1.3968   -0.2212    1.2601
+
   Properties:
 
     A is symmetric: A' = A.
@@ -18297,7 +21703,7 @@ double *hartley ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -18305,11 +21711,50 @@ double *hartley ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = 2.0 * pi * ( double) ( i * j ) / ( double ) ( n );
+      angle = 2.0 * r8_pi * ( double) ( i * j ) / ( double ) ( n );
       a[i+j*n] = sin ( angle ) + cos ( angle );
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double hartley_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    HARTLEY_CONDITION returns the L1 condition of the HARTLEY matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double HARTLEY_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = ( double ) ( n );
+  b_norm = 1.0;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -18403,7 +21848,7 @@ double *hartley_inverse ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -18411,7 +21856,7 @@ double *hartley_inverse ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = 2.0 * pi * ( double ) ( i * j ) / ( double ) ( n );
+      angle = 2.0 * r8_pi * ( double ) ( i * j ) / ( double ) ( n );
       a[i+j*n] = ( sin ( angle ) + cos ( angle ) ) / ( double ) ( n );
     }
   }
@@ -18829,6 +22274,8 @@ double *hermite ( int n )
 
     A is generally not normal: A' * A /= A * A'.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -19091,7 +22538,7 @@ double *hermite_roots ( int order )
   double p0;
   double p1;
   double p2;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double s;
   int step;
   int step_max = 10;
@@ -19149,7 +22596,7 @@ double *hermite_roots ( int order )
       dx = p2 / dp2;
       x = x - dx;
 
-      if ( r8_abs ( dx ) <= eps * ( r8_abs ( x ) + 1.0 ) )
+      if ( fabs ( dx ) <= eps * ( fabs ( x ) + 1.0 ) )
       {
         break;
       }
@@ -19493,6 +22940,8 @@ double *hilbert ( int m, int n )
     from 1 to 24/25, the matrix is exactly singular.  And there
     is a similar rule for larger Hilbert matrices.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -19800,13 +23249,13 @@ double *hoffman ( double omega )
   double c2;
   int m = 4;
   int n = 11;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double s;
   double s2;
   double t;
   double theta;
 
-  theta = 2.0 * pi / 5.0;
+  theta = 2.0 * r8_pi / 5.0;
 
   c = cos ( theta );
 
@@ -20047,7 +23496,7 @@ double *householder ( int n, double x[] )
   int j;
   double xdot;
 
-  a = r8mat_identity ( n );
+  a = r8mat_identity_new ( n );
 
   xdot = r8vec_dot_product ( n, x, x );
 
@@ -20185,41 +23634,6 @@ double *householder_inverse ( int n, double x[] )
 }
 /******************************************************************************/
 
-int i4_even ( int i )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_EVEN returns TRUE if an I4 is even.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    23 October 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I, the integer to be tested.
-
-    Output, int I4_EVEN, is TRUE if I is even.
-*/
-{
-  int value;
-
-  value = ( ( i % 2 ) == 0 );
-
-  return value;
-}
-/******************************************************************************/
-
 void i4_factor ( int n, int maxfactor, int *nfactor, int factor[], 
   int exponent[], int *nleft )
 
@@ -20337,7 +23751,7 @@ void i4_factor ( int n, int maxfactor, int *nfactor, int factor[],
 }
 /******************************************************************************/
 
-int i4_huge ( void )
+int i4_huge ( )
 
 /******************************************************************************/
 /*
@@ -20363,6 +23777,76 @@ int i4_huge ( void )
 */
 {
   static int value = 2147483647;
+
+  return value;
+}
+/******************************************************************************/
+
+int i4_is_even ( int i )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_IS_EVEN returns TRUE if an I4 is even.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    23 October 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, the integer to be tested.
+
+    Output, int I4_IS_EVEN, is TRUE if I is even.
+*/
+{
+  int value;
+
+  value = ( ( i % 2 ) == 0 );
+
+  return value;
+}
+/******************************************************************************/
+
+int i4_is_odd ( int i )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_IS_ODD returns TRUE if an I4 is odd.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    23 October 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int I, the integer to be tested.
+
+    Output, int I4_IS_ODD, is TRUE if I is odd.
+*/
+{
+  int value;
+
+  value = ( ( i % 2 ) != 0 );
 
   return value;
 }
@@ -20400,7 +23884,7 @@ int i4_is_prime ( int n )
 
     Input, int N, the integer to be tested.
 
-    Output, bool I4_IS_PRIME, is TRUE if N is prime, and FALSE
+    Output, int I4_IS_PRIME, is TRUE if N is prime, and FALSE
     otherwise.  
 */
 {
@@ -20656,9 +24140,9 @@ int i4_modp ( int i, int j )
 
   if ( j == 0 )
   {
-    printf ( "\n" );
-    printf ( "I4_MODP - Fatal error!\n" );
-    printf ( "  I4_MODP ( I, J ) called with J = %d\n", j );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "I4_MODP - Fatal error!\n" );
+    fprintf ( stderr, "  I4_MODP ( I, J ) called with J = %d\n", j );
     exit ( 1 );
   }
 
@@ -20667,88 +24151,6 @@ int i4_modp ( int i, int j )
   if ( value < 0 )
   {
     value = value + abs ( j );
-  }
-
-  return value;
-}
-/******************************************************************************/
-
-int i4_odd ( int i )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_ODD returns TRUE if an I4 is odd.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    23 October 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I, the integer to be tested.
-
-    Output, int I4_ODD, is TRUE if I is odd.
-*/
-{
-  return ( ( i % 2 ) != 0 );
-}
-/******************************************************************************/
-
-int i4_pochhammer ( int i, int j )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_POCHHAMMER returns the value of ( I * (I+1) * ... * (J-1) * J ).
-
-  Discussion:
-
-    Pochhammer's symbol (A)_N is the value
-
-      (A)_N = Gamma ( A + N ) / Gamma ( A )
-
-    or, for integer arguments,
-
-      (I)_N = I * ( I + 1 ) * ... * ( I + N - 1 )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 May 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I, J, values that define the product.
-
-    Output, int I4_POCHHAMMER, the value of the product.
-*/
-{
-  int k;
-  int value;
-
-  value = 1;
-
-  for ( k = i; k <= j; k++ )
-  {
-    value = value * k;
   }
 
   return value;
@@ -20793,9 +24195,9 @@ int i4_power ( int i, int j )
     }
     else if ( i == 0 )
     {
-      printf ( "\n" );
-      printf ( "I4_POWER - Fatal error!\n" );
-      printf ( "  I^J requested, with I = 0 and J negative.\n" );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "I4_POWER - Fatal error!\n" );
+      fprintf ( stderr, "  I^J requested, with I = 0 and J negative.\n" );
       exit ( 1 );
     }
     else
@@ -20807,9 +24209,9 @@ int i4_power ( int i, int j )
   {
     if ( i == 0 )
     {
-      printf ( "\n" );
-      printf ( "I4_POWER - Fatal error!\n" );
-      printf ( "  I^J requested, with I = 0 and J = 0.\n" );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "I4_POWER - Fatal error!\n" );
+      fprintf ( stderr, "  I^J requested, with I = 0 and J = 0.\n" );
       exit ( 1 );
     }
     else
@@ -20829,6 +24231,80 @@ int i4_power ( int i, int j )
       value = value * i;
     }
   }
+  return value;
+}
+/******************************************************************************/
+
+int i4_rise ( int x, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_RISE computes the rising factorial function [X]^N.
+
+  Discussion:
+
+    [X}^N = X * ( X + 1 ) * ( X + 2 ) * ... * ( X + N - 1 ).
+
+    Note that the number of ways of arranging N objects in M ordered
+    boxes is [M}^N.  (Here, the ordering in each box matters).  Thus,
+    2 objects in 2 boxes have the following 6 possible arrangements:
+
+      -/12, 1/2, 12/-, -/21, 2/1, 21/-.
+
+    Moreover, the number of non-decreasing maps from a set of
+    N to a set of M ordered elements is [M]^N / N!.  Thus the set of
+    nondecreasing maps from (1,2,3) to (a,b,c,d) is the 20 elements:
+
+      aaa, abb, acc, add, aab, abc, acd, aac, abd, aad
+      bbb, bcc, bdd, bbc, bcd, bbd, ccc, cdd, ccd, ddd.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int X, the argument of the rising factorial function.
+
+    Input, int N, the order of the rising factorial function.
+    If N = 0, RISE = 1, if N = 1, RISE = X.  Note that if N is
+    negative, a "falling" factorial will be computed.
+
+    Output, int I4_RISE, the value of the rising factorial function.
+*/
+{
+  int i;
+  int value;
+
+  value = 1;
+
+  if ( 0 < n )
+  {
+    for ( i = 1; i <= n; i++ )
+    {
+      value = value * x;
+      x = x + 1;
+    }
+  }
+  else if ( n < 0 )
+  {
+    for ( i = -1; n <= i; i-- )
+    {
+      value = value * x;
+      x = x - 1;
+    }
+  }
+
   return value;
 }
 /******************************************************************************/
@@ -20874,13 +24350,13 @@ int i4_sign ( int i )
 }
 /******************************************************************************/
 
-int i4_uniform ( int a, int b, int *seed )
+int i4_uniform_ab ( int a, int b, int *seed )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4_UNIFORM returns a scaled pseudorandom I4.
+    I4_UNIFORM_AB returns a scaled pseudorandom I4.
 
   Discussion:
 
@@ -20930,7 +24406,7 @@ int i4_uniform ( int a, int b, int *seed )
     Input/output, int *SEED, the "seed" value, which should NOT be 0.
     On output, SEED has been updated.
 
-    Output, int I4_UNIFORM, a number between A and B.
+    Output, int I4_UNIFORM_AB, a number between A and B.
 */
 {
   int k;
@@ -20939,9 +24415,9 @@ int i4_uniform ( int a, int b, int *seed )
 
   if ( *seed == 0 )
   {
-    printf ( "\n" );
-    printf ( "I4_UNIFORM - Fatal error!\n" );
-    printf ( "  Input value of SEED = 0.\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "I4_UNIFORM_AB - Fatal error!\n" );
+    fprintf ( stderr, "  Input value of SEED = 0.\n" );
     exit ( 1 );
   }
 
@@ -21327,7 +24803,7 @@ void i4vec_print ( int n, int a[], char *title )
 }
 /******************************************************************************/
 
-double *idem_random ( int n, int rank, int *seed )
+double *idem_random ( int n, int rank, int key )
 
 /******************************************************************************/
 /*
@@ -21382,8 +24858,7 @@ double *idem_random ( int n, int rank, int *seed )
     Input, int RANK, the rank of A.
     0 <= RANK <= N.
 
-    Input/output, int *SEED, a seed for the random number
-    generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double IDEM_RANDOM[N*N], the matrix.
 */
@@ -21406,7 +24881,7 @@ double *idem_random ( int n, int rank, int *seed )
 /*
   Get a random orthogonal matrix Q.
 */
-  q = orth_random ( n, seed );
+  q = orth_random ( n, key );
 /*
   Compute Q' * D * Q, where D is the diagonal eigenvalue matrix
   of RANK 1's followed by N-RANK 0's.
@@ -21431,7 +24906,7 @@ double *idem_random ( int n, int rank, int *seed )
 }
 /******************************************************************************/
 
-double idem_random_determinant ( int n, int rank )
+double idem_random_determinant ( int n, int rank, int key )
 
 /******************************************************************************/
 /*
@@ -21457,6 +24932,8 @@ double idem_random_determinant ( int n, int rank )
 
     Input, int RANK, the rank of A.
 
+    Input, int KEY, a positive value that selects the data.
+
     Output, double IDEM_RANDOM_DETERMINANT, the determinant.
 */
 {
@@ -21474,7 +24951,7 @@ double idem_random_determinant ( int n, int rank )
 }
 /******************************************************************************/
 
-double *idem_random_eigenvalues ( int n, int rank )
+double *idem_random_eigenvalues ( int n, int rank, int key )
 
 /******************************************************************************/
 /*
@@ -21500,6 +24977,8 @@ double *idem_random_eigenvalues ( int n, int rank )
 
     Input, int RANK, the rank of A.
 
+    Input, int KEY, a positive value that selects the data.
+
     Output, double IDEM_RANDOM_EIGENVALUES[N] the eigenvalues.
 */
 {
@@ -21520,13 +24999,13 @@ double *idem_random_eigenvalues ( int n, int rank )
 }
 /******************************************************************************/
 
-double *idem_random_right ( int n, int rank, int *seed )
+double *idem_random_eigen_right ( int n, int rank, int key )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    IDEM_RANDOM_RIGHT returns the right eigenvectors of the IDEM_RANDOM matrix.
+    IDEM_RANDOM_EIGEN_RIGHT returns right eigenvectors of the IDEM_RANDOM matrix.
 
   Licensing:
 
@@ -21554,16 +25033,15 @@ double *idem_random_right ( int n, int rank, int *seed )
     Input, int RANK, the rank of A.
     0 <= RANK <= N.
 
-    Input/output, int *SEED, a seed for the random number
-    generator.
+    Input, int KEY, a positive value that selects the data.
 
-    Output, double IDEM_RANDOM_RIGHT[N*N], the matrix.
+    Output, double IDEM_RANDOM_EIGEN_RIGHT[N*N], the matrix.
 */
 {
   double *x;
   double *y;
 
-  y = orth_random ( n, seed );
+  y = orth_random ( n, key );
 
   x = r8mat_transpose_new ( n, n, y );
   
@@ -21636,6 +25114,8 @@ double *identity ( int m, int n )
 
     A is centrosymmetric: A[i+j*n] = A(N+1-I,N+1-J).
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -21679,6 +25159,45 @@ double *identity ( int m, int n )
 }
 /******************************************************************************/
 
+double identity_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    IDENTITY_CONDITION returns the L1 condition of the IDENTITY matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double IDENTITY_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 1.0;
+  b_norm = 1.0;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double identity_determinant ( int n )
 
 /******************************************************************************/
@@ -21711,6 +25230,108 @@ double identity_determinant ( int n )
   determ = 1.0;
 
   return determ;
+}
+/******************************************************************************/
+
+double *identity_eigen_left ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    IDENTITY_EIGEN_LEFT returns the left eigenvectors of the IDENTITY matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 July 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double IDENTITY_EIGEN_LEFT[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      if ( i == j )
+      {
+        a[i+j*n] = 1.0;
+      }
+      else
+      {
+        a[i+j*n] = 0.0;
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+double *identity_eigen_right ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    IDENTITY_EIGEN_RIGHT returns the right eigenvectors of the IDENTITY matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 July 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double IDENTITY_EIGEN_RIGHT[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      if ( i == j )
+      {
+        a[i+j*n] = 1.0;
+      }
+      else
+      {
+        a[i+j*n] = 0.0;
+      }
+    }
+  }
+  return a;
 }
 /******************************************************************************/
 
@@ -21805,108 +25426,6 @@ double *identity_inverse ( int n )
 }
 /******************************************************************************/
 
-double *identity_left ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    IDENTITY_LEFT returns the left eigenvectors of the IDENTITY matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    23 July 2008
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double IDENTITY_LEFT[N*N], the matrix.
-*/
-{
-  double *a;
-  int i;
-  int j;
-
-  a = ( double * ) malloc ( n * n * sizeof ( double ) );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      if ( i == j )
-      {
-        a[i+j*n] = 1.0;
-      }
-      else
-      {
-        a[i+j*n] = 0.0;
-      }
-    }
-  }
-  return a;
-}
-/******************************************************************************/
-
-double *identity_right ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    IDENTITY_RIGHT returns the right eigenvectors of the IDENTITY matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    23 July 2008
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double IDENTITY_RIGHT[N*N], the matrix.
-*/
-{
-  double *a;
-  int i;
-  int j;
-
-  a = ( double * ) malloc ( n * n * sizeof ( double ) );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      if ( i == j )
-      {
-        a[i+j*n] = 1.0;
-      }
-      else
-      {
-        a[i+j*n] = 0.0;
-      }
-    }
-  }
-  return a;
-}
-/******************************************************************************/
-
 double *ijfact1 ( int n )
 
 /******************************************************************************/
@@ -21944,6 +25463,8 @@ double *ijfact1 ( int n )
 
     A is integral, therefore det ( A ) is integral, and 
     det ( A ) * inverse ( A ) is integral.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -22075,6 +25596,8 @@ double *ijfact2 ( int n )
     Because A is normal, it is diagonalizable.
 
     A is a Hankel matrix: constant along anti-diagonals.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -22226,6 +25749,9 @@ double *ill3 ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   double a_save[3*3] = {
   -149.0,  537.0, -27.0, 
    -50.0,  180.0,  -9.0, 
@@ -22234,6 +25760,48 @@ double *ill3 ( )
   a = r8mat_copy_new ( 3, 3, a_save );
 
   return a;
+}
+/******************************************************************************/
+
+double ill3_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ILL3_CONDITION returns the L1 condition of the ILL3 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Joan Westlake,
+    A Handbook of Numerical Matrix Inversion and Solution of 
+    Linear Equations,
+    John Wiley, 1968,
+    ISBN13: 978-0471936756,
+    LC: QA263.W47.
+
+  Parameters:
+
+    Output, double ILL3_CONDITION, the L1 condition.
+*/
+{
+  double value;
+
+  value = 725.0 * 299.0;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -22375,13 +25943,13 @@ double *ill3_inverse ( )
 }
 /******************************************************************************/
 
-double *ill3_right ( )
+double *ill3_eigen_right ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ILL3_RIGHT returns the right eigenvectors of the ILL3 matrix.
+    ILL3_EIGEN_RIGHT returns the right eigenvectors of the ILL3 matrix.
 
   Licensing:
 
@@ -22406,10 +25974,13 @@ double *ill3_right ( )
 
   Parameters:
 
-    Output, double ILL3_RIGHT[3*3], the right eigenvector matrix.
+    Output, double ILL3_EIGEN_RIGHT[3*3], the right eigenvector matrix.
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   double a_save[3*3] = {
   -0.139139989879567, 
    0.973979929161820, 
@@ -22544,6 +26115,8 @@ double *integration ( double alpha, int n )
     A is unimodular.
 
     LAMBDA(1:N) = 1.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -22756,7 +26329,7 @@ double *integration_inverse ( double alpha, int n )
       else if ( i < j )
       {
         a[i+j*n] = pow ( - alpha, j - i ) 
-          / ( double ) ( i4_pochhammer ( i + 1, j ) );
+          / ( double ) ( i4_rise ( i + 1, j - i ) );
       }
       else
       {
@@ -23004,7 +26577,7 @@ double *invol_inverse ( int n )
 }
 /******************************************************************************/
 
-double *invol_random ( int n, int rank, int *seed )
+double *invol_random ( int n, int rank, int key )
 
 /******************************************************************************/
 /*
@@ -23054,8 +26627,7 @@ double *invol_random ( int n, int rank, int *seed )
     a multiple of the identity.  Intermediate values will give
     more interesting results.
 
-    Input/output, int *SEED, a seed for the random number
-    generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double INVOL_RANDOM[N*N], the matrix.
 */
@@ -23064,7 +26636,7 @@ double *invol_random ( int n, int rank, int *seed )
   int i;
   int j;
 
-  a = idem_random ( n, rank, seed );
+  a = idem_random ( n, rank, key );
 
   for ( j = 0; j < n; j++ )
   {
@@ -23141,6 +26713,8 @@ double *jacobi ( int m, int n )
     and the corresponding weights are
 
       [ 0.347854845, 0.652145155, 0.652145155, 0.347854845 ]
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -23278,6 +26852,106 @@ double *jacobi_eigenvalues ( int n )
 }
 /******************************************************************************/
 
+double *jacobi_inverse ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    JACOBI_INVERSE returns the inverse of the JACOBI matrix.
+
+  Discussion:
+
+    This inverse is related to that of the CLEMENT2 matrix.
+
+  Example:
+
+    N = 6
+
+         0    1.7321         0   -1.7638         0    1.7689
+    1.7321         0         0         0         0         0
+         0         0         0    1.9720         0   -1.9777
+   -1.7638         0    1.9720         0         0         0
+         0         0         0         0         0    1.9900
+    1.7689         0   -1.9777         0    1.9900         0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be even.
+
+    Output, double JACOBI_INVERSE[N*N], the matrix.
+*/
+{
+  double *a;
+  double a1;
+  double a2;
+  int i;
+  int j;
+  double p;
+
+  if ( ( n % 2 ) == 1 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "JACOBI_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The Jacobi matrix is singular for odd N.\n" );
+    exit ( 1 );
+  }
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    if ( ( i % 2 ) == 0 )
+    {
+      p = 1.0;
+      for ( j = i; j < n - 1; j = j + 2 )
+      {
+ 
+        a1 = 0.5 * sqrt ( ( double ) ( 4 * ( j + 1 ) * ( j + 1 ) )
+                        / ( double ) ( 4 * ( j + 1 ) * ( j + 1 ) - 1 ) );
+        a2 = 0.5 * sqrt ( ( double ) ( 4 * j * j )
+                        / ( double ) ( 4 * j * j - 1 ) );
+
+        if ( j == i )
+        {
+          p = p / a1;
+        }
+        else
+        {
+          p = - p * a2 / a1;
+        }
+
+        a[i+(j+1)*n] = p;
+        a[j+1+i*n] = p;
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
 void jacobi_iterate ( int n, double a[], double lambda[], double x[] )
 
 /******************************************************************************/
@@ -23369,11 +27043,11 @@ void jacobi_iterate ( int n, double a[], double lambda[], double x[] )
     {
       for ( j = 0; j < i; j++ )
       {
-        if ( eps * norm_fro < r8_abs ( b[i+j*n] ) + r8_abs ( b[j+i*n] ) )
+        if ( eps * norm_fro < fabs ( b[i+j*n] ) + fabs ( b[j+i*n] ) )
         {
           u = ( b[j+j*n] - b[i+i*n] ) / ( b[i+j*n] + b[j+i*n] );
 
-          t = r8_sign ( u ) / ( r8_abs ( u ) + sqrt ( u * u + 1.0 ) );
+          t = r8_sign ( u ) / ( fabs ( u ) + sqrt ( u * u + 1.0 ) );
           c = 1.0 / sqrt ( t * t + 1.0 );
           s = t * c;
 /*
@@ -23417,7 +27091,7 @@ void jacobi_iterate ( int n, double a[], double lambda[], double x[] )
     {
       for ( j = 0; j < i; j++ )
       {
-        sum2 = sum2 + r8_abs ( b[i+j*n] );
+        sum2 = sum2 + fabs ( b[i+j*n] );
       }
     }
 
@@ -23557,7 +27231,7 @@ int jacobi_symbol ( int q, int p )
 }
 /******************************************************************************/
 
-double *jordan ( double alpha, int m, int n )
+double *jordan ( int m, int n, double alpha )
 
 /******************************************************************************/
 /*
@@ -23602,11 +27276,13 @@ double *jordan ( double alpha, int m, int n )
 
     A is nonsingular if and only if ALPHA is nonzero.
 
-    det ( A ) = ALPHA**N.
+    det ( A ) = ALPHA^N.
 
     LAMBDA(I) = ALPHA.
 
     A is defective, having only one eigenvector, namely (1,0,0,...,0).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -23622,9 +27298,9 @@ double *jordan ( double alpha, int m, int n )
 
   Parameters:
 
-    Input, double ALPHA, the eigenvalue of A.
-
     Input, int M, N, the order of the matrix.
+
+    Input, double ALPHA, the eigenvalue of the Jordan matrix.
 
     Output, double JORDAN[M*N], the matrix.
 */
@@ -23658,7 +27334,67 @@ double *jordan ( double alpha, int m, int n )
 }
 /******************************************************************************/
 
-double jordan_determinant ( double alpha, int n )
+double jordan_condition ( int n, double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    JORDAN_CONDITION returns the L1 condition of the JORDAN matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double ALPHA, the eigenvalue of the Jordan matrix.
+
+    Output, double JORDAN_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double a2;
+  double b_norm;
+  double value;
+
+  a2 = fabs ( alpha );
+
+  if ( n == 1 )
+  {
+    a_norm = a2;
+  }
+  else
+  {
+    a_norm = a2 + 1.0;
+  }
+
+  if ( a2 == 1 )
+  {
+    b_norm = ( double ) ( n ) * a2;
+  }
+  else
+  {
+    b_norm = ( pow ( a2, n ) - 1.0 ) / ( a2 - 1.0 ) / pow ( a2, n );
+  }
+
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double jordan_determinant ( int n, double alpha )
 
 /******************************************************************************/
 /*
@@ -23680,22 +27416,65 @@ double jordan_determinant ( double alpha, int n )
 
   Parameters:
 
-    Input, double ALPHA, the eigenvalue of A.
-
     Input, int N, the order of the matrix.
+
+    Input, double ALPHA, the eigenvalue of the Jordan matrix.
 
     Output, double JORDAN_DETERMINANT, the determinant.
 */
 {
-  double determ;
+  double value;
 
-  determ = pow ( alpha, n );
+  value = pow ( alpha, n );
 
-  return determ;
+  return value;
 }
 /******************************************************************************/
 
-double *jordan_inverse ( double alpha, int n )
+double *jordan_eigenvalues ( int n, double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    JORDAN_EIGENVALUES returns the eigenvalues of the JORDAN matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 June 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double ALPHA, the eigenvalue of the Jordan matrix.
+
+    Output, double JORDAN_EIGENVALUES[N], the eigenvalues of the matrix.
+*/
+{
+  int i;
+  double *lambda;
+
+  lambda = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    lambda[i] = alpha;
+  }
+
+  return lambda;
+}
+/******************************************************************************/
+
+double *jordan_inverse ( int n, double alpha )
 
 /******************************************************************************/
 /*
@@ -23733,7 +27512,7 @@ double *jordan_inverse ( double alpha, int n )
     entries are ALPHA, whose first superdiagonal entries are 1,
     with all other entries zero.
 
-    det ( A ) = (1/ALPHA)**N.
+    det ( A ) = (1/ALPHA)^N.
 
     LAMBDA(1:N) = 1 / ALPHA.
 
@@ -23751,9 +27530,9 @@ double *jordan_inverse ( double alpha, int n )
 
   Parameters:
 
-    Input, double ALPHA, the eigenvalue of A.
-
     Input, int N, the order of the matrix.
+
+    Input, double ALPHA, the eigenvalue of the Jordan matrix.
 
     Output, double JORDAN_INVERSE[N*N], the matrix.
 */
@@ -23841,6 +27620,8 @@ double *kahan ( double alpha, int m, int n )
     LAMBDA(I) = sin ( ALPHA )^I
 
     A is nonsingular if and only if sin ( ALPHA ) =/= 0.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -24089,6 +27870,9 @@ double *kershaw ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   double a_save[4*4] = {
      3.0, -2.0,  0.0,  2.0, 
     -2.0,  3.0, -2.0,  0.0, 
@@ -24108,6 +27892,43 @@ double *kershaw ( )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double kershaw_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    KERSHAW_CONDITION returns the L1 condition of the KERSHAW matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double KERSHAW_CONDITION, the L1 condition of the matrix.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 7.0;
+  b_norm = 7.0;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -24131,14 +27952,6 @@ double kershaw_determinant ( )
 
     John Burkardt
 
-  Reference:
-
-    David Kershaw,
-    The Incomplete Cholesky-Conjugate Gradient Method for the Iterative
-    Solution of Systems of Linear Equations,
-    Journal of Computational Physics,
-    Volume 26, Number 1, January 1978, pages 43-65.
-
   Parameters:
 
     Output, double KERSHAW_DETERMINANT, the determinant of the matrix.
@@ -24149,6 +27962,51 @@ double kershaw_determinant ( )
   determ = 1.0;
 
   return determ;
+}
+/******************************************************************************/
+
+double *kershaw_eigen_right ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    KERSHAW_EIGEN_RIGHT returns right eigenvectors of the KERSHAW matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double KERSHAW_EIGEN_RIGHT[4,4], the eigenvectors.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  double a_save[4*4] = {
+    0.500000000000000,  -0.707106781186548, 
+    0.500000000000000,  -0.000000000000000, 
+    0.500000000000000,  -0.000000000000000, 
+   -0.500000000000000,   0.707106781186548,
+   -0.548490135760211,  -0.703402951241362,
+   -0.446271857698584,   0.072279237578588, 
+    0.446271857698584,  -0.072279237578588, 
+   -0.548490135760211,  -0.703402951241362 };
+    
+  a = r8mat_copy_new ( 4, 4, a_save );
+
+  return a;
 }
 /******************************************************************************/
 
@@ -24171,14 +28029,6 @@ double *kershaw_eigenvalues ( )
   Author:
 
     John Burkardt
-
-  Reference:
-
-    David Kershaw,
-    The Incomplete Cholesky-Conjugate Gradient Method for the Iterative
-    Solution of Systems of Linear Equations,
-    Journal of Computational Physics,
-    Volume 26, Number 1, January 1978, pages 43-65.
 
   Parameters:
 
@@ -24230,7 +28080,10 @@ double *kershaw_inverse ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
      3.0,  2.0,  0.0, -2.0, 
      2.0,  3.0,  2.0,  0.0, 
      0.0,  2.0,  3.0,  2.0, 
@@ -24248,6 +28101,51 @@ double *kershaw_inverse ( )
       a[i+j*n] = a_save[i+j*n];
     }
   }
+  return a;
+}
+/******************************************************************************/
+
+double *kershaw_llt ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    KERSHAW_LLT returns the Cholesky factor of the KERSHAW matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double KERSHAW_LLT[4*4], the matrix.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
+    1.732050807568877,  -1.154700538379252, 
+                  0.0,   1.154700538379252, 
+                  0.0,   1.290994448735805, 
+   -1.549193338482967,   1.032795558988645, 
+                  0.0,                 0.0, 
+    0.774596669241483,  -0.516397779494321, 
+                  0.0,                 0.0, 
+                  0.0,   0.577350269189626 };
+
+  a = r8mat_copy_new ( 4, 4, a_save );
+
   return a;
 }
 /******************************************************************************/
@@ -24530,7 +28428,7 @@ double *kms ( double alpha, int m, int n )
 
   Formula:
 
-    A(I,J) = ALPHA**abs ( I - J )
+    A(I,J) = ALPHA ^ abs ( I - J )
 
   Example:
 
@@ -24574,6 +28472,8 @@ double *kms ( double alpha, int m, int n )
     The inverse of A is tridiagonal.
 
     A is positive definite if and only if 0 < abs ( ALPHA ) < 1.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -24702,7 +28602,7 @@ double *kms_eigenvalues ( double alpha, int n )
   Parameters:
 
     Input, double ALPHA, the scalar that defines A.  
-    A typical value is 0.5.
+    Eigenvalue computations require 0 <= ALPHA <= 1.
 
     Input, int N, the order of the matrix.
 
@@ -24758,7 +28658,7 @@ double *kms_eigenvalues_theta ( double alpha, int n )
   Parameters:
 
     Input, double ALPHA, the scalar that defines A.  
-    A typical value is 0.5.
+    Eigenvalue computations require 0 <= ALPHA <= 1.
 
     Input, int N, the order of the matrix.
 
@@ -24770,7 +28670,7 @@ double *kms_eigenvalues_theta ( double alpha, int n )
   double fxb;
   double fxc;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   int step;
   int step_max = 100;
   double *t;
@@ -24792,10 +28692,10 @@ double *kms_eigenvalues_theta ( double alpha, int n )
     }
     else
     {
-      xa = ( double ) ( i ) * pi / ( double ) ( n + 1 );
+      xa = ( double ) ( i ) * r8_pi / ( double ) ( n + 1 );
     }
     fxa = kms_eigenvalues_theta_f ( alpha, n, xa );
-    xb = ( double ) ( i + 1 ) * pi / ( double ) ( n + 1 );
+    xb = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 1 );
     fxb = kms_eigenvalues_theta_f ( alpha, n, xb );
 
     if ( 0.0 < fxa )
@@ -24815,14 +28715,14 @@ double *kms_eigenvalues_theta ( double alpha, int n )
 /*
   Return if residual is small.
 */
-      if ( r8_abs ( fxc ) <= 0.0000001 )
+      if ( fabs ( fxc ) <= 0.0000001 )
       {
         break;
       }
 /*
   Return if interval is small.
 */
-      if ( r8_abs ( xb - xa ) <= 0.0000001 )
+      if ( fabs ( xb - xa ) <= 0.0000001 )
       {
         break;
       }
@@ -24875,7 +28775,7 @@ double kms_eigenvalues_theta_f ( double alpha, int n, double t )
   Parameters:
 
     Input, double ALPHA, the scalar that defines A.  
-    A typical value is 0.5.
+    Eigenvalue computations require 0 <= ALPHA <= 1.
 
     Input, int N, the order of the matrix.
 
@@ -25209,13 +29109,13 @@ void kms_plu ( double alpha, int n, double p[], double l[], double u[] )
 }
 /******************************************************************************/
 
-double *kms_right ( double alpha, int n )
+double *kms_eigen_right ( double alpha, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    KMS_RIGHT returns the right eigenvectors of the KMS matrix.
+    KMS_EIGEN_RIGHT returns the right eigenvectors of the KMS matrix.
 
   Licensing:
 
@@ -25231,17 +29131,18 @@ double *kms_right ( double alpha, int n )
 
   Reference:
 
-    Wiliam Trench,
+    William Trench,
     Spectral decomposition of Kac-Murdock-Szego matrices,
     Unpublished technical report.
 
   Parameters:
 
     Input, double ALPHA, the parameter.
+    Eigenvalue computations require 0 <= ALPHA <= 1.
 
     Input, int N, the order of A.
 
-    Output, double KMS_RIGHT[N*N], the right eigenvector matrix.
+    Output, double KMS_EIGEN_RIGHT[N*N], the right eigenvector matrix.
 */
 {
   double *a;
@@ -25308,6 +29209,8 @@ double *krylov ( int n, double b[], double x[] )
 
     A is generally not symmetric: A' /= A.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -25364,95 +29267,6 @@ double *krylov ( int n, double b[], double x[] )
 }
 /******************************************************************************/
 
-void ksub_next ( int n, int k, int a[], int *more )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    KSUB_NEXT generates the subsets of size K from a set of size N.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    05 October 2010
-
-  Author:
-
-    Original FORTRAN77 version by Albert Nijenhuis, Herbert Wilf.
-    C version by John Burkardt.
-
-  Reference:
-
-    Albert Nijenhuis, Herbert Wilf,
-    Combinatorial Algorithms for Computers and Calculators,
-    Second Edition,
-    Academic Press, 1978,
-    ISBN: 0-12-519260-6,
-    LC: QA164.N54.
-
-  Parameters:
-
-    Input, int N, the size of the set from which subsets are drawn.
-
-    Input, int K, the desired size of the subsets.  K must
-    be between 0 and N.
-
-    Output, int A[K].  A[I] is the I-th element of the
-    subset.  Thus A[I] will be an integer between 1 and N.
-    Note that the routine will return the values in A
-    in sorted order: 1 <= A[0] < A[1] < ... < A[K-1] <= N
-
-    Input/output, int *MORE.  Set MORE = FALSE before first call
-    for a new sequence of subsets.  It then is set and remains
-    TRUE as long as the subset computed on this call is not the
-    final one.  When the final subset is computed, MORE is set to
-    FALSE as a signal that the computation is done.
-*/
-{
-  int j;
-  static int m = 0;
-  static int m2 = 0;
-
-  if ( k < 0 || n < k )
-  {
-    fprintf ( stderr, "\n" );
-    fprintf ( stderr, "KSUB_NEXT - Fatal error!\n" );
-    fprintf ( stderr, "N = %d\n", n );
-    fprintf ( stderr, "K = %d\n", k );
-    fprintf ( stderr, "but 0 <= K <= N is required!\n" );
-    exit ( 1 );
-  }
-
-  if ( !( *more ) )
-  {
-    m2 = 0;
-    m = k;
-  }
-  else
-  {
-    if ( m2 < n - m )
-    {
-      m = 0;
-    }
-    m = m + 1;
-    m2 = a[k-m];
-  }
-
-  for ( j = 1; j <= m; j++ )
-  {
-    a[k+j-m-1] = m2 + j;
-  }
-
-  *more = ( a[0] != (n-k+1) );
-
-  return;
-}
-/******************************************************************************/
-
 double *laguerre ( int n )
 
 /******************************************************************************/
@@ -25491,6 +29305,8 @@ double *laguerre ( int n )
 
     The I-th row contains the coefficients of the Laguerre
     polynomial of degree I-1.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -25737,6 +29553,8 @@ double *lauchli ( double alpha, int m, int n )
     else if ( ALPHA == 0 ) then
       rank ( A ) = 1
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -25879,6 +29697,8 @@ double *legendre ( int n )
 
     The diagonals form a pattern of zero, positive, zero, negative.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -25934,6 +29754,50 @@ double *legendre ( int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double legendre_determinant ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEGENDRE_DETERMINANT returns the determinant of the LEGENDRE matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double LEGENDRE_DETERMINANT, the determinant.
+*/
+{
+  int i;
+  double t;
+  double value;
+
+  value = 1.0;
+  t = 1.0;
+
+  for ( i = 3; i <= n; i++ )
+  {
+    t = t * ( double ) ( 2 * i - 3 ) / ( double ) ( i - 1 );
+    value = value * t;
+  }
+
+  return value;
 }
 /******************************************************************************/
 
@@ -26292,6 +30156,88 @@ int legendre_symbol ( int q, int p )
 }
 /******************************************************************************/
 
+double *legendre_van ( int m, double a, double b, int n, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEGENDRE_VAN returns the LEGENDRE_VAN matrix.
+
+  Discussion:
+
+    Normally, the Legendre polynomials are defined on -1 <= XI <= +1.
+    Here, we assume the Legendre polynomials have been defined on the
+    interval A <= X <= B, using the mapping
+      XI = ( - ( B - X ) + ( X - A ) ) / ( B - A )
+    so that
+      Lab(A,B;X) = L(XI).
+
+    if ( I = 1 ) then
+      V(1,1:N) = 1
+    else if ( I = 2 ) then
+      V(2,1:N) = XI(1:N)
+    else
+      V(I,1:N) = ( (2*I-1) * XI(1:N) * V(I-1,1:N) - (I-1)*V(I-2,1:N) ) / I
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 April 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+
+    Input, double A, B, the limits of the interval.
+
+    Input, int N, the number of columns of the matrix.
+
+    Input, double X[N], the vector that defines A.
+
+    Output, double LEGENDRE_VAN[M*N], the matrix.
+*/
+{
+  int i;
+  int j;
+  double *v;
+  double xi;
+
+  v = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    xi = ( - ( b - x[j] ) + ( x[j] - a ) ) / ( b - a );
+    for ( i = 0; i < m; i++ )
+    {
+      if ( i == 0 )
+      {
+        v[i+j*m] = 1.0;
+      }
+      else if ( i == 1 )
+      {
+        v[i+j*m] = xi;
+      }
+      else
+      {
+        v[i+j*m] = ( ( double ) ( 2 * i - 1 ) * xi * v[i-1+j*m] +
+                     ( double ) (   - i + 1 ) *      v[i-2+j*m] )
+                   / ( double ) (     i );
+      }
+    }
+  }
+
+  return v;
+}
+/******************************************************************************/
+
 double *legendre_zeros ( int n )
 
 /******************************************************************************/
@@ -26346,7 +30292,7 @@ double *legendre_zeros ( int n )
   int ncopy;
   int nmove;
   double p;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double pk;
   double pkm1;
   double pkp1;
@@ -26367,7 +30313,7 @@ double *legendre_zeros ( int n )
   {
     mp1mi = m + 1 - i;
 
-    t = ( double ) ( 4 * i - 1 ) * pi / ( double ) ( 4 * n + 2 );
+    t = ( double ) ( 4 * i - 1 ) * r8_pi / ( double ) ( 4 * n + 2 );
 
     x0 = cos ( t ) * ( 1.0 - ( 1.0 - 1.0 / ( double ) ( n ) ) 
       / ( double ) ( 8 * n * n ) );
@@ -26487,6 +30433,8 @@ double *lehmer ( int m, int n )
 
     The condition number of A lies between N and 4*N*N.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -26543,6 +30491,57 @@ double *lehmer ( int m, int n )
 }
 /******************************************************************************/
 
+double lehmer_determinant ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEHMER_DETERMINANT returns the determinant of the LEHMER matrix.
+
+  Formula:
+
+    determinant = (2n)! / 2^n / (n!)^3
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Emrah Kilic, Pantelimon Stanica,
+    The Lehmer matrix and its recursive analogue,
+    Journal of Combinatorial Mathematics and Combinatorial Computing,
+    Volume 74, August 2010, pages 193-205.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double LEHMER_DETERMINANT, the determinant.
+*/
+{
+  int i;
+  double value;
+
+  value = 1.0;
+  for ( i = 1; i <= n; i++ )
+  {
+    value = value * ( double ) ( n + i ) / ( double ) ( 2 * i * i );
+  }
+
+  return value;
+}
+/******************************************************************************/
+
 double *lehmer_inverse ( int n )
 
 /******************************************************************************/
@@ -26590,6 +30589,143 @@ double *lehmer_inverse ( int n )
                    / ( double ) ( 2 * i + 3 );
   }
   return a;
+}
+/******************************************************************************/
+
+double *lehmer_llt ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEHMER_LLT returns the Cholesky factor of the LEHMER matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Emrah Kilic, Pantelimon Stanica,
+    The Lehmer matrix and its recursive analogue,
+    Journal of Combinatorial Mathematics and Combinatorial Computing,
+    Volume 74, August 2010, pages 193-205.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double LEHMER_LLT[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < j; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+    for ( i = j; i < n; i++ )
+    {
+      a[i+j*n] = sqrt ( ( double ) ( 2 * j + 1 ) ) / ( double ) ( i + 1 );
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void lehmer_plu ( int n, double p[], double l[], double u[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LEHMER_PLU returns the PLU factors of the LEHMER matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Emrah Kilic, Pantelimon Stanica,
+    The Lehmer matrix and its recursive analogue,
+    Journal of Combinatorial Mathematics and Combinatorial Computing,
+    Volume 74, August 2010, pages 193-205.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double P[N*N], L[N*N], U[N*N], the PLU factors.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      if ( i == j )
+      {
+        p[i+j*n] = 1.0;
+      }
+      else
+      {
+        p[i+j*n] = 0.0;
+      }
+    }
+  }
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < j; i++ )
+    {
+      l[i+j*n] = 0.0;
+    }
+    l[j+j*n] = 1.0;
+    for ( i = j + 1; i < n; i++ )
+    {
+      l[i+j*n] = ( double ) ( j + 1 ) / ( double ) ( i + 1 );
+    }
+  }
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i <= j; i++ )
+    {
+      u[i+j*n] = ( double ) ( 2 * i + 1 ) / ( double ) ( ( i + 1 ) * ( j + 1 ) );
+    }
+    for ( i = j + 1; i < n; i++ )
+    {
+      u[i+j*n] = 0.0;
+    }
+  }
+
+  return;
 }
 /******************************************************************************/
 
@@ -26783,7 +30919,7 @@ double *lesp ( int m, int n )
     else if ( I - J == 1 ) then
       A(I,J) = J
     else
-      A(I,J) = 0.0D+00
+      A(I,J) = 0.0
 
   Example:
 
@@ -26812,6 +30948,8 @@ double *lesp ( int m, int n )
     the same diagonal entries and with off-diagonal entries 1,
     via a similarity transformation using the diagonal matrix
     D = diagonal ( 1, 2, ..., N ).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -26941,6 +31079,87 @@ double lesp_determinant ( int n )
 }
 /******************************************************************************/
 
+double *lesp_inverse ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LESP_INVERSE returns the inverse of the LESP matrix.
+
+  Discussion:
+
+    This computation is an application of the TRIV_INVERSE function.
+
+  Example:
+
+    N = 5
+   -0.2060   -0.0598   -0.0201   -0.0074   -0.0028
+   -0.0150   -0.1495   -0.0504   -0.0184   -0.0071
+   -0.0006   -0.0056   -0.1141   -0.0418   -0.0161
+   -0.0000   -0.0001   -0.0026   -0.0925   -0.0356
+   -0.0000   -0.0000   -0.0000   -0.0014   -0.0775
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    CM daFonseca, J Petronilho,
+    Explicit Inverses of Some Tridiagonal Matrices,
+    Linear Algebra and Its Applications,
+    Volume 325, 2001, pages 7-21.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double LESP_INVERSE[N*N], the inverse of the matrix.
+*/
+{
+  double *a;
+  int i;
+  double *x;
+  double *y;
+  double *z;
+
+  x = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+  for ( i = 0; i < n - 1; i++ )
+  {
+    x[i] = 1.0 / ( double ) ( i + 2 );
+  }
+
+  y = ( double * ) malloc ( n * sizeof ( double ) );
+  for ( i = 0; i < n; i++ )
+  {
+    y[i] = ( double ) ( - 2 * i - 5 );
+  }
+
+  z = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+  for ( i = 0; i < n - 1; i++ )
+  {
+    z[i] = ( double ) ( i + 2 );
+  }
+
+  a = triv_inverse ( n, x, y, z );
+
+  free ( x );
+  free ( y );
+  free ( z );
+
+  return a;
+}
+/******************************************************************************/
+
 double *lietzke ( int n )
 
 /******************************************************************************/
@@ -27020,6 +31239,69 @@ double *lietzke ( int n )
 }
 /******************************************************************************/
 
+double lietzke_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LIETZKE_CONDITION returns the L1 condition of the LIETZKE matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double LIETZKE_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  int i;
+  int k;
+  int s;
+  double value;
+
+  s = 0;
+  k = n;
+  for ( i = 1; i <= n; i++ )
+  {
+    s = s + k;
+    if ( ( i % 2 ) == 1 )
+    {
+      k = k - 1;
+    }
+  }
+  a_norm = ( double ) ( s );
+  if ( n == 1 )
+  {
+    b_norm = 0.25;
+  }
+  else if ( n == 2 )
+  {
+    b_norm = 5.0 / 6.0;
+  }
+  else
+  {
+    b_norm = 2.0;
+  }
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double lietzke_determinant ( int n )
 
 /******************************************************************************/
@@ -27062,6 +31344,16 @@ double *lietzke_inverse ( int n )
   Purpose:
 
     LIETZKE_INVERSE returns the inverse of the LIETZKE matrix.
+
+na  Example:
+
+    N = 5
+
+   0.5833   -0.5000         0         0    0.0833
+  -0.5000    1.0000   -0.5000         0         0
+        0   -0.5000    1.0000   -0.5000         0
+        0         0   -0.5000    1.0000   -0.5000
+   0.0833         0         0   -0.5000    0.5833
 
   Licensing:
 
@@ -27184,6 +31476,8 @@ double *line_adj ( int n )
 
     det ( A ) = 0, -1, 0, +1, as mod ( N, 4 ) = 1, 2, 3 or 0.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -27280,6 +31574,53 @@ double line_adj_determinant ( int n )
 }
 /******************************************************************************/
 
+double *line_adj_eigen_right ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LINE_ADJ_EIGEN_RIGHT returns the right eigenvectors of the LINE_ADJ matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double LINE_ADJ_EIGEN_RIGHT[N*N], the right eigenvector matrix.
+*/
+{
+  double *a;
+  double angle;
+  int i;
+  int j;
+  const double r8_pi = 3.141592653589793;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      angle = ( double ) ( ( i + 1 ) * ( j + 1 ) ) * r8_pi / ( double ) ( n + 1 );
+      a[i+j*n] = sqrt ( 2.0 / ( double ) ( n + 1 ) ) * sin ( angle );
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
 double *line_adj_eigenvalues ( int n )
 
 /******************************************************************************/
@@ -27310,26 +31651,171 @@ double *line_adj_eigenvalues ( int n )
   double angle;
   int i;
   double *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 1 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 1 );
     lambda[i] = 2.0 * cos ( angle );
   }
   return lambda;
 }
 /******************************************************************************/
 
-double *line_adj_null ( int n )
+double *line_adj_inverse ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    LINE_ADJ_NULL returns a null vector of the LINE_ADJ matrix.
+    LINE_ADJ_INVERSE returns the inverse of the LINE_ADJ matrix.
+
+  Example:
+
+    N = 6:
+
+      0     1     0   -1    0    1
+      1     0     0    0    0    0
+      0     0     0    1    0   -1
+     -1     0     1    0    0    0
+      0     0     0    0    0    1
+      1     0    -1    0    1    0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double LINE_ADJ_INVERSE[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  double p;
+
+  if ( ( n % 2 ) == 1 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "LINE_ADJ_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The matrix is singular for odd N.\n" );
+    exit ( 1 );
+  }
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 1; i <= n; i++ )
+  {
+    if ( ( i % 2 ) == 1 )
+    {
+      for ( j = i; j <= n - 1; j = j + 2 )
+      {
+        if ( j == i )
+        {
+          p = 1.0;
+        }
+        else
+        {
+          p = - p;
+        }
+
+        a[i-1+(j  )*n] = p;
+        a[j  +(i-1)*n] = p;
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+double *line_adj_null_left ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LINE_ADJ_NULL_LEFT returns a left null vector of the LINE_ADJ matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Output, double LINE_ADJ_NULL_LEFT[M], a null vector
+*/
+{
+  int i;
+  double *x;
+
+  if ( ( m % 2 ) == 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "LINE_ADJ_NULL_LEFT - Fatal error!\n" );
+    fprintf ( stderr, "  For M even, there is no null vector.\n" );
+    exit ( 1 );
+  }
+
+  x = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 0; i < m; i = i + 4 )
+  {
+    x[i]   = 1.0;
+  }
+  for ( i = 1; i < m; i = i + 4 )
+  {
+    x[i] = 0.0;
+  }
+  for ( i = 2; i < m; i = i + 4 )
+  {
+    x[i] = -1.0;
+  }
+  for ( i = 3; i < m; i = i + 4 )
+  {
+    x[i] =  0.0;
+  }
+  return x;
+}
+/******************************************************************************/
+
+double *line_adj_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LINE_ADJ_NULL_RIGHT returns a right null vector of the LINE_ADJ matrix.
 
   Licensing:
 
@@ -27345,9 +31831,9 @@ double *line_adj_null ( int n )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
-    Output, double LINE_ADJ_NULL[N], a null vector
+    Output, double LINE_ADJ_NULL_RIGHT[N], a null vector
 */
 {
   int i;
@@ -27356,7 +31842,7 @@ double *line_adj_null ( int n )
   if ( ( n % 2 ) == 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "LINE_ADJ_NULL - Fatal error!\n" );
+    fprintf ( stderr, "LINE_ADJ_NULL_RIGHT - Fatal error!\n" );
     fprintf ( stderr, "  For N even, there is no null vector.\n" );
     exit ( 1 );
   }
@@ -27427,6 +31913,8 @@ double *line_loop_adj ( int n )
 
     The row and column sums are all 3, except for the first and last
     rows and columns which have a sum of 2.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -27509,7 +31997,7 @@ double line_loop_adj_determinant ( int n )
   double angle;
   double determ;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   if ( ( n % 2 ) == 1 )
   {
@@ -27520,11 +32008,58 @@ double line_loop_adj_determinant ( int n )
     determ = 1.0;
     for ( i = 0; i < n; i++ )
     {
-      angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 1 );
+      angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 1 );
       determ = determ * ( 1.0 + 2.0 * cos ( angle ) );
     }
   }
   return determ;
+}
+/******************************************************************************/
+
+double *line_loop_adj_eigen_right ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LINE_LOOP_ADJ_EIGEN_RIGHT returns the right eigenvectors of the LINE_LOOP_ADJ matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double LINE_LOOP_ADJ_EIGEN_RIGHT[N*N], the right eigenvector matrix.
+*/
+{
+  double *a;
+  double angle;
+  int i;
+  int j;
+  const double r8_pi = 3.141592653589793;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      angle = ( double ) ( ( i + 1 ) * ( j + 1 ) ) * r8_pi / ( double ) ( n + 1 );
+      a[i+j*n] = sqrt ( 2.0 / ( double ) ( n + 1 ) ) * sin ( angle );
+    }
+  }
+  return a;
 }
 /******************************************************************************/
 
@@ -27558,13 +32093,13 @@ double *line_loop_adj_eigenvalues ( int n )
   double angle;
   int i;
   double *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 1 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 1 );
     lambda[i] = 1.0 + 2.0 * cos ( angle );
   }
 
@@ -27617,6 +32152,8 @@ double *loewner ( double w[], double x[], double y[], double z[], int n )
   Properties:
 
     A is generally not symmetric: A' /= A.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -27716,6 +32253,8 @@ double *lotkin ( int m, int n )
       DELTA(N) = CHOOSE ( 2*N-2, N-2 ) * CHOOSE ( 2*N-2, N-1 )
         * ( 2*N-1) * DELTA(N-1),
       DELTA(1) = 1.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -27880,7 +32419,7 @@ double *lotkin_inverse ( int n )
 }
 /******************************************************************************/
 
-double *markov_random ( int n, int *seed )
+double *markov_random ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -27912,7 +32451,7 @@ double *markov_random ( int n, int *seed )
 
     A is generally not symmetric: A' /= A.
 
-    0 <= A(I,J) <= 1.0D+00 for every I and J.
+    0 <= A(I,J) <= 1.0 for every I and J.
 
     The sum of the entries in each row of A is 1.
 
@@ -27940,8 +32479,7 @@ double *markov_random ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double MARKOV_RANDOM[N*N], the matrix.
 */
@@ -27950,8 +32488,10 @@ double *markov_random ( int n, int *seed )
   int i;
   int j;
   double row_sum;
+  int seed;
 
-  a = r8mat_uniform_01_new ( n, n, seed );
+  seed = key;
+  a = r8mat_uniform_01_new ( n, n, &seed );
 
   for ( i = 0; i < n; i++ )
   {
@@ -28008,6 +32548,8 @@ double *maxij ( int m, int n )
 
     The inverse of A is tridiagonal.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -28049,6 +32591,58 @@ double *maxij ( int m, int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double maxij_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MAXIJ_CONDITION returns the L1 conditioni of the MAXIJ matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double MAXIJ_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = ( double ) ( n * n );
+
+  if ( n == 1 )
+  {
+    b_norm = 1.0;
+  }
+  else if ( n == 2 )
+  {
+    b_norm = 2.0;
+  }
+  else
+  {
+    b_norm = 4.0;
+  }
+
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -28278,7 +32872,6 @@ void maxij_plu ( int n, double p[], double l[], double u[] )
 
   return;
 }
-
 /******************************************************************************/
 
 int mertens ( int n )
@@ -28364,6 +32957,90 @@ int mertens ( int n )
 }
 /******************************************************************************/
 
+void mertens_values ( int *n_data, int *n, int *c )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MERTENS_VALUES returns some values of the Mertens function.
+
+  Discussion:
+
+    The Mertens function M(N) is the sum from 1 to N of the Moebius
+    function MU.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    17 October 2007
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    M Deleglise, J Rivat,
+    Computing the Summation of the Moebius Function,
+    Experimental Mathematics,
+    Volume 5, 1996, pages 291-295.
+
+    Eric Weisstein,
+    CRC Concise Encyclopedia of Mathematics,
+    CRC Press, 2002,
+    Second edition,
+    ISBN: 1584883472,
+    LC: QA5.W45.
+
+  Parameters:
+
+    Input/output, int *N_DATA.
+    On input, if N_DATA is 0, the first test data is returned, and N_DATA
+    is set to 1.  On each subsequent call, the input value of N_DATA is
+    incremented and that test data item is returned, if available.  When
+    there is no more test data, N_DATA is set to 0.
+
+    Output, int *N, the argument of the Mertens function.
+
+    Output, int *C, the value of the Mertens function.
+*/
+{
+# define N_MAX 15
+
+  static int c_vec[N_MAX] = {
+      1,   0,  -1,   -1,  -2,  -1,  -2,  -2,   -2,  -1,
+     -2,  -2,   1,    2, -23 };
+  static int n_vec[N_MAX] = {
+      1,   2,   3,   4,   5,   6,   7,   8,   9,  10,
+     11,  12,  100, 1000, 10000 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  if ( N_MAX <= *n_data )
+  {
+    *n_data = 0;
+    *n = 0;
+    *c = 0;
+  }
+  else
+  {
+    *n = n_vec[*n_data];
+    *c = c_vec[*n_data];
+    *n_data = *n_data + 1;
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
 double *milnes ( int m, int n, double x[] )
 
 /******************************************************************************/
@@ -28410,6 +33087,8 @@ double *milnes ( int m, int n, double x[] )
     det ( A ) = ( 1 - X(1) ) * ( 1 - X(2) ) * ... * ( 1 - X(N-1) ).
 
     A is singular if and only if X(I) = 1 for any I.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -28647,6 +33326,8 @@ double *minij ( int m, int n )
     which is equal to the MINIJ matrix, but with the rows and
     columns reversed.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -28710,13 +33391,13 @@ double *minij ( int m, int n )
 }
 /******************************************************************************/
 
-double *minij_cholesky ( int n )
+double *minij_llt ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    MINIJ_CHOLESKY returns the Cholesky factor of the MINIJ matrix.
+    MINIJ_LLT returns the Cholesky factor of the MINIJ matrix.
 
   Example:
 
@@ -28744,7 +33425,7 @@ double *minij_cholesky ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double MINIJ_CHOLESKY[N*N], the matrix.
+    Output, double MINIJ_LLT[N*N], the matrix.
 */
 {
   double *a;
@@ -28765,6 +33446,57 @@ double *minij_cholesky ( int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double minij_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MINIJ_CONDITION returns the L1 condition of the MINIJ matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double MINIJ_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = ( double ) ( n * ( n + 1 ) ) / 2.0;
+  if ( n == 1 )
+  {
+    b_norm = 1.0;
+  }
+  else if ( n == 2 )
+  {
+    b_norm = 3.0;
+  }
+  else
+  {
+    b_norm = 4.0;
+  }
+
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -28798,13 +33530,13 @@ double minij_determinant ( int n )
   double angle;
   double determ;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   determ = 1.0;
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( 2 * i + 1 ) * pi / ( double ) ( 2 * n + 1 );
+    angle = ( double ) ( 2 * i + 1 ) * r8_pi / ( double ) ( 2 * n + 1 );
     determ = determ * 0.5 / ( 1.0 - cos ( angle ) );
   }
   return determ;
@@ -28841,13 +33573,13 @@ double *minij_eigenvalues ( int n )
   double angle;
   int i;
   double *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( 2 * i + 1 ) * pi / ( double ) ( 2 * n + 1 );
+    angle = ( double ) ( 2 * i + 1 ) * r8_pi / ( double ) ( 2 * n + 1 );
     lambda[i] = 0.5 / ( 1.0 - cos ( angle ) );
   }
   return lambda;
@@ -29147,6 +33879,135 @@ int moebius ( int n )
 }
 /******************************************************************************/
 
+void moebius_values ( int *n_data, int *n, int *c )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MOEBIUS_VALUES returns some values of the Moebius function.
+
+  Discussion:
+
+    MU(N) is defined as follows:
+
+      MU(N) = 1 if N = 1;
+              0 if N is divisible by the square of a prime;
+              (-1)**K, if N is the product of K distinct primes.
+
+    In Mathematica, the function can be evaluated by:
+
+      MoebiusMu[n]
+
+  First values:
+
+     N  MU(N)
+
+     1    1
+     2   -1
+     3   -1
+     4    0
+     5   -1
+     6    1
+     7   -1
+     8    0
+     9    0
+    10    1
+    11   -1
+    12    0
+    13   -1
+    14    1
+    15    1
+    16    0
+    17   -1
+    18    0
+    19   -1
+    20    0
+
+  Note:
+
+    As special cases, MU(N) is -1 if N is a prime, and MU(N) is 0
+    if N is a square, cube, etc.
+
+  Formula:
+
+    The Moebius function is related to Euler's totient function:
+
+      PHI(N) = Sum ( D divides N ) MU(D) * ( N / D ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 February 2003
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, int *N, the argument of the Moebius function.
+
+    Output, int *C, the value of the Moebius function.
+*/
+{
+# define N_MAX 20
+
+  static int c_vec[N_MAX] = {
+      1,  -1,  -1,   0,  -1,   1,  -1,   0,   0,   1,
+     -1,   0,  -1,   1,   1,   0,  -1,   0,  -1,   0 };
+
+  static int n_vec[N_MAX] = {
+      1,   2,   3,   4,   5,   6,   7,   8,   9,  10,
+     11,  12,  13,  14,  15,  16,  17,  18,  19,  20 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *n = 0;
+    *c = 0;
+  }
+  else
+  {
+    *n = n_vec[*n_data-1];
+    *c = c_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
 double *moler1 ( double alpha, int m, int n )
 
 /******************************************************************************/
@@ -29195,6 +34056,8 @@ double *moler1 ( double alpha, int m, int n )
     If ALPHA is integral, then A is integral.
     If A is integral, then det ( A ) is integral, and 
     det ( A ) * inverse ( A ) is integral.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -29365,6 +34228,58 @@ double *moler1_inverse ( double alpha, int n )
 }
 /******************************************************************************/
 
+double *moler1_llt ( double alpha, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MOLER1_LLT returns the lower triangular Cholesky factor of the MOLER1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double ALPHA, the parameter.
+
+    Input, int N, the order of the matrix.
+
+    Output, double MOLER_LLT[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < j; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+    a[j+j*n] = 1.0;
+    for ( i = j + 1; i < n; i++ )
+    {
+      a[i+j*n] = alpha;
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
 void moler1_plu ( double alpha, int n, double p[], double l[], double u[] )
 
 /******************************************************************************/
@@ -29384,16 +34299,6 @@ void moler1_plu ( double alpha, int n, double p[], double l[], double u[] )
   Author:
 
     John Burkardt
-
-  Reference:
-
-    John Nash,
-    Compact Numerical Methods for Computers: Linear Algebra and
-    Function Minimisation,
-    Second Edition,
-    Taylor & Francis, 1990,
-    ISBN: 085274319X,
-    LC: QA184.N37.
 
   Parameters:
 
@@ -29490,7 +34395,7 @@ double *moler2 ( )
     A is defective.
 
     The Jordan normal form of A has just one block, with eigenvalue
-    zero, because A**k is nonzero for K = 0, 1, 2, 3, 4, but A**5=0.
+    zero, because A^k is nonzero for K = 0, 1, 2, 3, 4, but A**5=0.
 
     det ( A ) = 0.
 
@@ -29514,6 +34419,9 @@ double *moler2 ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[5*5] = {
      -9.0,     70.0,   -575.0,   3891.0,   1024.0,
      11.0,    -69.0,    575.0,  -3891.0,  -1024.0,
@@ -29595,13 +34503,49 @@ double *moler2_eigenvalues ( )
 }
 /******************************************************************************/
 
-double *moler2_null ( )
+double *moler2_null_left ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    MOLER2_NULL returns a null vector for the MOLER2 matrix.
+    MOLER2_NULL_LEFT returns a left null vector for the MOLER2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    08 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double MOLER2_NULL_LEFT[5], the vector.
+*/
+{
+  int n = 5;
+  double *x;
+  static double x_save[5] = {
+    4.0, -8.0, 20.0, -64.0, 255.0 };
+
+  x = r8vec_copy_new ( n, x_save );
+
+  return x;
+}
+/******************************************************************************/
+
+double *moler2_null_right ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MOLER2_NULL_RIGHT returns a right null vector for the MOLER2 matrix.
 
   Licensing:
 
@@ -29617,7 +34561,7 @@ double *moler2_null ( )
 
   Parameters:
 
-    Output, double MOLER2_NULL[5], the null vector.
+    Output, double MOLER2_NULL_RIGHT[5], the vector.
 */
 {
   int n = 5;
@@ -29673,6 +34617,8 @@ double *moler3 ( int m, int n )
 
     A has one small eigenvalue.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -29716,13 +34662,13 @@ double *moler3 ( int m, int n )
 }
 /******************************************************************************/
 
-double *moler3_cholesky ( int n )
+double *moler3_llt ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    MOLER3_CHOLESKY returns the Cholesky factor of the MOLER3 matrix.
+    MOLER3_LLT returns the Cholesky factor of the MOLER3 matrix.
 
   Example:
 
@@ -29750,7 +34696,7 @@ double *moler3_cholesky ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double MOLER3_CHOLESKY[N*N], the matrix.
+    Output, double MOLER3_LLT[N*N], the matrix.
 */
 {
   double *a;
@@ -29951,6 +34897,222 @@ void moler3_plu ( int n, double p[], double l[], double u[] )
 }
 /******************************************************************************/
 
+double *moler4 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MOLER4 returns the MOLER4 matrix.
+
+  Example:
+
+    0  2  0 -1
+    1  0  0  0
+    0  1  0  0
+    0  0  1  0
+
+  Properties:
+
+    A is integral, therefore det ( A ) is integral, and 
+    det ( A ) * inverse ( A ) is integral.
+
+    A is the companion matrix of the polynomial X^4-2X^2+1=0.
+
+    A has eigenvalues -1, -1, +1, +1.
+
+    A can cause problems to a standard QR algorithm, which
+    can fail to converge.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double A(4,4), the matrix.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
+   0.0,  1.0,  0.0,  0.0, 
+   2.0,  0.0,  1.0,  0.0, 
+   0.0,  0.0,  0.0,  1.0, 
+  -1.0,  0.0,  0.0,  0.0 };
+
+  a = r8mat_copy_new ( 4, 4, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
+double moler4_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MOLER4_CONDITION returns the L1 condition of the MOLER4 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double VALUE, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 3.0;
+  b_norm = 3.0;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double moler4_determinant ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MOLER4_DETERMINANT returns the determinant of the MOLER4 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double VALUE, the determinant.
+*/
+{
+  double value;
+
+  value = 1.0;
+
+  return value;
+}
+/******************************************************************************/
+
+double *moler4_eigenvalues ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MOLER4_EIGENVALUES returns the eigenvalues of the MOLER4 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double LAMBDA(4), the eigenvalues.
+*/
+{
+  double *lambda;
+
+  lambda = ( double * ) malloc ( 4 * sizeof ( double ) );
+
+  lambda[0] = -1.0;
+  lambda[1] = -1.0;
+  lambda[2] = +1.0;
+  lambda[3] = +1.0;
+
+  return lambda;
+}
+/******************************************************************************/
+
+double *moler4_inverse ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MOLER4_INVERSE returns the inverse of the MOLER4 matrix.
+
+  Example:
+
+    0  1  0  0
+    0  0  1  0
+    0  0  0  1
+   -1  0  2  0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double A(4,4), the matrix.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
+   0.0,  0.0,  0.0, -1.0, 
+   1.0,  0.0,  0.0,  0.0, 
+   0.0,  1.0,  0.0,  2.0, 
+   0.0,  0.0,  1.0,  0.0 };
+
+  a = r8mat_copy_new ( 4, 4, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
 double *neumann ( int nrow, int ncol )
 
 /******************************************************************************/
@@ -29988,7 +35150,7 @@ double *neumann ( int nrow, int ncol )
       else
         A(I,J) = -1
     else
-      A(I,J) = 0.0D+00
+      A(I,J) = 0.0
 
   Example:
 
@@ -30151,13 +35313,13 @@ double neumann_determinant ( int n )
 }
 /******************************************************************************/
 
-double *neumann_null ( int nrow, int ncol )
+double *neumann_null_right ( int nrow, int ncol )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    NEUMANN_NULL returns a null vector of the NEUMANN matrix.
+    NEUMANN_NULL_RIGHT returns a right null vector of the NEUMANN matrix.
 
   Licensing:
 
@@ -30176,7 +35338,7 @@ double *neumann_null ( int nrow, int ncol )
     Input, int NROW, NCOL, the number of rows and columns 
     in the grid.
 
-    Output, double NEUMANN_NULL[NROW*NCOL], the null vector.
+    Output, double NEUMANN_NULL_RIGHT[NROW*NCOL], the null vector.
 */
 {
   int i;
@@ -30245,6 +35407,8 @@ double *one ( int m, int n )
     The eigenvector associated with LAMBDA = N is ( 1, 1, ..., 1 ).
 
     A * A = N * A
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -30360,13 +35524,59 @@ double *one_eigenvalues ( int n )
 }
 /******************************************************************************/
 
-double *one_null ( int n )
+double *one_null_left ( int m, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ONE_NULL returns a null vector of the ONE matrix.
+    ONE_NULL_LEFT returns a left null vector of the ONE matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Output, double ONE_NULL_LEFT[M], the null vector.
+*/
+{
+  double *x;
+
+  if ( m == 1 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "ONE_NULL_LEFT - Fatal error!\n" );
+    fprintf ( stderr, "  Matrix is nonsingular for M = 1.\n" );
+    exit ( 1 );
+  }
+
+  x = r8vec_zero_new ( m );
+
+  x[0]   = 1.0;
+  x[m-1] = - 1.0;
+
+  return x;
+}
+/******************************************************************************/
+
+double *one_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ONE_NULL_RIGHT returns a right null vector of the ONE matrix.
 
   Licensing:
 
@@ -30382,9 +35592,9 @@ double *one_null ( int n )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
-    Output, double ONE_NULL[N], the null vector.
+    Output, double ONE_NULL_RIGHT[N], the null vector.
 */
 {
   double *x;
@@ -30392,7 +35602,7 @@ double *one_null ( int n )
   if ( n == 1 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "ONE_NULL - Fatal error!\n" );
+    fprintf ( stderr, "ONE_NULL_RIGHT - Fatal error!\n" );
     fprintf ( stderr, "  Matrix is nonsingular for N = 1.\n" );
     exit ( 1 );
   }
@@ -30406,13 +35616,13 @@ double *one_null ( int n )
 }
 /******************************************************************************/
 
-double *one_right ( int n )
+double *one_eigen_right ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ONE_RIGHT returns the right eigenvectors of the ONE matrix.
+    ONE_EIGEN_RIGHT returns the right eigenvectors of the ONE matrix.
 
   Licensing:
 
@@ -30430,7 +35640,7 @@ double *one_right ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double ONE_RIGHT[N*N], the right eigenvectors.
+    Output, double ONE_EIGEN_RIGHT[N*N], the right eigenvectors.
 */
 {
   int i;
@@ -30702,9 +35912,9 @@ double *ortega_inverse ( int n, double u[], double v[], double d[] )
   {
     if ( d[i] == 0.0 )
     {
-      printf ( "\n" );
-      printf ( "ORTEGA_INVERSE - Fatal error!\n" );
-      printf ( "  D[%d] = 0.\n", i );
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "ORTEGA_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  D[%d] = 0.\n", i );
       exit ( 1 );
     }
   }
@@ -30743,13 +35953,13 @@ double *ortega_inverse ( int n, double u[], double v[], double d[] )
 }
 /******************************************************************************/
 
-double *ortega_right ( int n, double u[], double v[], double d[] )
+double *ortega_eigen_right ( int n, double u[], double v[], double d[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ORTEGA_RIGHT returns the (right) eigenvectors of the ORTEGA matrix.
+    ORTEGA_EIGEN_RIGHT returns the (right) eigenvectors of the ORTEGA matrix.
 
   Licensing:
 
@@ -30782,7 +35992,7 @@ double *ortega_right ( int n, double u[], double v[], double d[] )
 
     Input, double D[N], the desired eigenvalues.
 
-    Output, double ORTEGRA_RIGHT[N*N], the determinant.
+    Output, double ORTEGA_EIGEN_RIGHT[N*N], the determinant.
 */
 {
   int i;
@@ -30809,7 +36019,7 @@ double *ortega_right ( int n, double u[], double v[], double d[] )
 }
 /******************************************************************************/
 
-double *orth_random ( int n, int *seed )
+double *orth_random ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -30893,8 +36103,7 @@ double *orth_random ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random number
-    generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double ORTH_RANDOM[N*N] the matrix.
 */
@@ -30902,12 +36111,13 @@ double *orth_random ( int n, int *seed )
   double *a;
   int i;
   int j;
+  int seed;
   double *v;
   double *x;
 /*
   Start with A = the identity matrix.
 */
-  a = r8mat_identity ( n );
+  a = r8mat_identity_new ( n );
 /*
   Now behave as though we were computing the QR factorization of
   some other random matrix.  Generate the N elements of the first column,
@@ -30924,6 +36134,7 @@ double *orth_random ( int n, int *seed )
   This is our random orthogonal matrix.
 */
   x = ( double * ) malloc ( n * sizeof ( double ) );
+  seed = key;
 
   for ( j = 0; j < n - 1; j++ )
   {
@@ -30936,7 +36147,7 @@ double *orth_random ( int n, int *seed )
     }
     for ( i = j; i < n; i++ )
     {
-      x[i] = r8_normal_01 ( seed );
+      x[i] = r8_normal_01 ( &seed );
     }
 /*
   Compute the vector V that defines a Householder transformation matrix
@@ -30958,7 +36169,7 @@ double *orth_random ( int n, int *seed )
 }
 /******************************************************************************/
 
-double orth_random_determinant ( int n, int *seed )
+double orth_random_determinant ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -30982,8 +36193,7 @@ double orth_random_determinant ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input, int *SEED, a seed for the random number
-    generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double ORTH_RANDOM_DETERMINANT, the determinant.
 */
@@ -30996,7 +36206,7 @@ double orth_random_determinant ( int n, int *seed )
 }
 /******************************************************************************/
 
-double *orth_random_inverse ( int n, int *seed )
+double *orth_random_inverse ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -31025,15 +36235,14 @@ double *orth_random_inverse ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random number
-    generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double ORTH_RANDOM_INVERSE[N*N], the matrix.
 */
 {
   double *a;
 
-  a = orth_random ( n, seed );
+  a = orth_random ( n, key );
 
   return a;
 }
@@ -31118,7 +36327,7 @@ double *orth_symm ( int n )
   double angle;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -31126,12 +36335,62 @@ double *orth_symm ( int n )
   {
     for ( i = 0; i < n; i++ )
     {
-      angle = 2.0 * ( double ) ( ( i + 1 ) * ( j + 1 ) ) * pi 
+      angle = 2.0 * ( double ) ( ( i + 1 ) * ( j + 1 ) ) * r8_pi 
                   / ( double ) ( 2 * n + 1 );
       a[i+j*n] = 2.0 * sin ( angle ) / sqrt ( ( double ) ( 2 * n + 1 ) );
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double orth_symm_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ORTH_SYMM_CONDITION returns the L1 condition of the ORTH_SYMM matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double ORTH_SYMM_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double angle;
+  double b_norm;
+  int i;
+  int j;
+  const double r8_pi = 3.141592653589793;
+  double value;
+
+  a_norm = 0.0;
+  j = 1;
+  for ( i = 1; i <= n; i++ )
+  {
+    angle = 2.0 * ( double ) ( i * j ) * r8_pi / ( double ) ( 2 * n + 1 );
+    a_norm = a_norm + 2.0 * fabs ( sin ( angle ) ) 
+      / sqrt ( ( double ) ( 2 * n + 1 ) );
+  }
+  b_norm = a_norm;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -31293,6 +36552,8 @@ double *oto ( int m, int n )
 
     A is weakly diagonally dominant, but not strictly diagonally dominant.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -31344,6 +36605,82 @@ double *oto ( int m, int n )
 }
 /******************************************************************************/
 
+double oto_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    OTO_CONDITION returns the L1 condition of the OTO matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double OTO_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  int i1;
+  int i2;
+  int n1;
+  int n2;
+  int s;
+  double value;
+
+  if ( n == 1 )
+  {
+    a_norm = 2.0;
+  }
+  else if ( n == 2 )
+  {
+    a_norm = 3.0;
+  }
+  else
+  {
+    a_norm = 4.0;
+  }
+
+  n1 = ( n + 1 ) / 2;
+  n2 = ( n + 2 ) / 2;
+
+  s = 0;
+  i1 = n1;
+  i2 = 0;
+
+  while ( i2 < n2 )
+  {
+    i2 = i2 + 1;
+    s = s + i1 * i2;
+  }
+
+  while ( 1 < i1 )
+  {
+    i1 = i1 - 1;
+    s = s + i1 * i2;
+  }
+
+  b_norm = ( double ) ( s ) / ( double ) ( n + 1 );
+
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double oto_determinant ( int n )
 
 /******************************************************************************/
@@ -31379,6 +36716,54 @@ double oto_determinant ( int n )
 }
 /******************************************************************************/
 
+double *oto_eigen_right ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    OTO_EIGEN_RIGHT returns the right eigenvectors of the OTO matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 June 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double OTO_EIGEN_RIGHT[N*N], the right eigenvector matrix.
+*/
+{
+  double *a;
+  double angle;
+  int i;
+  int j;
+  const double r8_pi = 3.141592653589793;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      angle = ( double ) ( ( i + 1 ) * ( j + 1 ) ) * r8_pi / ( double ) ( n + 1 );
+      a[i+j*n] = r8_mop ( i + j ) 
+        * sqrt ( 2.0 / ( double ) ( n + 1 ) ) * sin ( angle );
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
 double *oto_eigenvalues ( int n )
 
 /******************************************************************************/
@@ -31409,13 +36794,13 @@ double *oto_eigenvalues ( int n )
   double angle;
   int i;
   double *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( 2 * ( n + 1 ) );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( 2 * ( n + 1 ) );
     lambda[i] = 4.0 * pow ( sin ( angle ), 2 );
   }
 
@@ -31488,6 +36873,71 @@ double *oto_inverse ( int n )
       }
     }
   }
+  return a;
+}
+/******************************************************************************/
+
+double *oto_llt ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    OTO_LLT returns the Cholesky factor of the OTO matrix.
+
+  Example:
+
+    N = 5
+
+   1.4142         0         0         0         0
+   0.7071    1.2247         0         0         0
+        0    0.8165    1.1547         0         0
+        0         0    0.8660    1.1180         0
+        0         0         0    0.8944    1.0954
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double OTO_LLT[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i+i*n] = sqrt ( ( double ) ( i + 2 ) / ( double ) ( i + 1 ) );
+  }
+
+  for ( i = 1; i < n; i++ )
+  {
+    a[i+(i-1)*n] = sqrt ( ( double ) ( i ) / ( double ) ( i + 1 ) );
+  }
+
   return a;
 }
 /******************************************************************************/
@@ -31576,54 +37026,6 @@ void oto_plu ( int n, double p[], double l[], double u[] )
   }
 
   return;
-}
-/******************************************************************************/
-
-double *oto_right ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    OTO_RIGHT returns the right eigenvectors of the OTO matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    29 June 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double OTO_RIGHT[N*N], the right eigenvector matrix.
-*/
-{
-  double *a;
-  double angle;
-  int i;
-  int j;
-  double pi = 3.141592653589793;
-
-  a = ( double * ) malloc ( n * n * sizeof ( double ) );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      angle = ( double ) ( ( i + 1 ) * ( j + 1 ) ) * pi / ( double ) ( n + 1 );
-      a[i+j*n] = r8_mop ( i + j ) 
-        * sqrt ( 2.0 / ( double ) ( n + 1 ) ) * sin ( angle );
-    }
-  }
-  return a;
 }
 /******************************************************************************/
 
@@ -31817,6 +37219,8 @@ double *parter ( int m, int n )
     A is a special case of the Cauchy matrix.
 
     Most of the singular values are very close to Pi.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -32041,11 +37445,13 @@ double *pascal1 ( int n )
       B(I,J) = (-1)^(I+J) * a[i+j*n]
 
     The product A*A' is a Pascal matrix
-    of the sort created by subroutine PASCAL2.
+    of the sort created by PASCAL2.
 
     Let the matrix C have the same entries as A, except that
     the even columns are negated.  Then Inverse(C) = C, and
     C' * C = the Pascal matrix created by PASCAL2.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -32099,6 +37505,47 @@ double *pascal1 ( int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double pascal1_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PASCAL1_CONDITION returns the L1 condition of the PASCAL1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double PASCAL1_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  int nhalf;
+  double value;
+
+  nhalf = ( n + 1 ) / 2;
+  a_norm = r8_choose ( n, nhalf );
+  b_norm = r8_choose ( n, nhalf );
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -32343,6 +37790,8 @@ double *pascal2 ( int n )
     nonzero constant K.  They point out that if K is the reciprocal of
     an integer, then the inverse matrix has all integer entries.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -32435,13 +37884,13 @@ double *pascal2 ( int n )
 }
 /******************************************************************************/
 
-double *pascal2_cholesky ( int n )
+double *pascal2_llt ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    PASCAL2_CHOLESKY returns the Cholesky factor of the PASCAL2 matrix.
+    PASCAL2_LLT returns the Cholesky factor of the PASCAL2 matrix.
 
   Licensing:
 
@@ -32459,7 +37908,7 @@ double *pascal2_cholesky ( int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double PASCAL2_CHOLESKY[N*N], the matrix.
+    Output, double PASCAL2_LLT[N*N], the matrix.
 */
 {
   double *a;
@@ -32668,11 +38117,11 @@ double *pascal3 ( int n, double alpha )
   Formula:
 
     if ( J = 1 )
-      a[i+j*n] = 1
-    else if ( I = 0 )
-      A(1,J) = 0
+      A[i+j*n] = 1
+    else if ( I = 1 )
+      A(I,J) = 0
     else
-      a[i+j*n] =  ALPHA * A(I-1,J) + A(I-1,J-1) )
+      A[i+j*n] =  ALPHA * A(I-1,J) + A(I-1,J-1) )
 
   Example:
 
@@ -32713,6 +38162,8 @@ double *pascal3 ( int n, double alpha )
     A[ALPHA] * A[BETA] = A[ALPHA*BETA].
 
     A[1/2] is the "square root" of A[1], and so on.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -32777,6 +38228,51 @@ double *pascal3 ( int n, double alpha )
 }
 /******************************************************************************/
 
+double pascal3_condition ( int n, double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PASCAL3_CONDITION returns the L1 condition of the PASCAL3 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double ALPHA, the parameter.
+
+    Output, double PASCAL3_CONDITION, the L1 condition.
+*/
+{
+  double *a;
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a = pascal3 ( n, alpha );
+  a_norm = r8mat_norm_l1 ( n, n, a );
+  b_norm = a_norm;
+  value = a_norm * b_norm;
+
+  free ( a );
+
+  return value;
+}
+/******************************************************************************/
+
 double pascal3_determinant ( int n, double alpha )
 
 /******************************************************************************/
@@ -32806,11 +38302,11 @@ double pascal3_determinant ( int n, double alpha )
     Output, double PASCAL3_DETERMINANT, the determinant.
 */
 {
-  double determ;
+  double value;
 
-  determ = 1.0;
+  value = 1.0;
 
-  return determ;
+  return value;
 }
 /******************************************************************************/
 
@@ -32878,7 +38374,7 @@ double *pascal3_inverse ( int n, double alpha )
 }
 /******************************************************************************/
 
-double *pds_random ( int n, int *seed )
+double *pds_random ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -32916,8 +38412,7 @@ double *pds_random ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double PDS_RANDOM[N*N], the matrix.
 */
@@ -32928,14 +38423,16 @@ double *pds_random ( int n, int *seed )
   int k;
   double *lambda;
   double *q;
+  int seed;
 /*
   Get a random set of eigenvalues.
 */
-  lambda = r8vec_uniform_01_new ( n, seed );
+  seed = key;
+  lambda = r8vec_uniform_01_new ( n, &seed );
 /*
   Get a random orthogonal matrix Q.
 */
-  q = orth_random ( n, seed );
+  q = orth_random ( n, key );
 /*
   Set A = Q * Lambda * Q'.
 */
@@ -32959,7 +38456,7 @@ double *pds_random ( int n, int *seed )
 }
 /******************************************************************************/
 
-double pds_random_determinant ( int n, int *seed )
+double pds_random_determinant ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -32988,8 +38485,7 @@ double pds_random_determinant ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double PDS_RANDOM_DETERMINANT, the determinant.
 */
@@ -32997,8 +38493,10 @@ double pds_random_determinant ( int n, int *seed )
   double determ;
   int i;
   double *lambda;
+  int seed;
 
-  lambda = r8vec_uniform_01_new ( n, seed );
+  seed = key;
+  lambda = r8vec_uniform_01_new ( n, &seed );
 
   determ = 1.0;
   for ( i = 0; i < n; i++ )
@@ -33011,7 +38509,7 @@ double pds_random_determinant ( int n, int *seed )
 }
 /******************************************************************************/
 
-double *pds_random_eigenvalues ( int n, int *seed )
+double *pds_random_eigenvalues ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -33040,21 +38538,23 @@ double *pds_random_eigenvalues ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double PDS_RANDOM_EIGENVALUES[N], the eigenvalues.
 */
 {
   double *lambda;
+  int seed;
 
-  lambda = r8vec_uniform_01_new ( n, seed );
+  seed = key;
+
+  lambda = r8vec_uniform_01_new ( n, &seed );
 
   return lambda;
 }
 /******************************************************************************/
 
-double *pds_random_inverse ( int n, int *seed )
+double *pds_random_inverse ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -33092,8 +38592,7 @@ double *pds_random_inverse ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double PDS_RANDOM_INVERSE[N*N], the matrix.
 */
@@ -33104,14 +38603,16 @@ double *pds_random_inverse ( int n, int *seed )
   int k;
   double *lambda;
   double *q;
+  int seed;
 /*
   Get a random set of eigenvalues.
 */
-  lambda = r8vec_uniform_01_new ( n, seed );
+  seed = key;
+  lambda = r8vec_uniform_01_new ( n, &seed );
 /*
   Get a random orthogonal matrix Q.
 */
-  q = orth_random ( n, seed );
+  q = orth_random ( n, key );
 /*
   Set A = Q * Lambda * Q'.
 */
@@ -33135,13 +38636,13 @@ double *pds_random_inverse ( int n, int *seed )
 }
 /******************************************************************************/
 
-double *pds_random_right ( int n, int *seed )
+double *pds_random_eigen_right ( int n, int key )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    PDS_RANDOM_RIGHT returns the right eigenvectors of the PDS_RANDOM matrix.
+    PDS_RANDOM_EIGEN_RIGHT returns the right eigenvectors of the PDS_RANDOM matrix.
 
   Licensing:
 
@@ -33159,22 +38660,23 @@ double *pds_random_right ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
-    Output, double PDS_RANDOM_RIGHT[N*N], the matrix.
+    Output, double PDS_RANDOM_EIGEN_RIGHT[N*N], the matrix.
 */
 {
   double *lambda;
   double *q;
+  int seed;
 /*
   Get a random set of eigenvalues.
 */
-  lambda = r8vec_uniform_01_new ( n, seed );
+  seed = key;
+  lambda = r8vec_uniform_01_new ( n, &seed );
 /*
   Get a random orthogonal matrix Q.
 */
-  q = orth_random ( n, seed );
+  q = orth_random ( n, key );
 
   free ( lambda );
 
@@ -33193,9 +38695,9 @@ double *pei ( double alpha, int n )
   Formula:
 
     if ( I = J ) then
-      A(I,J) = 1.0D+00 + ALPHA
+      A(I,J) = 1.0 + ALPHA
     else
-      A(I,J) = 1.0D+00
+      A(I,J) = 1.0
 
   Example:
 
@@ -33255,6 +38757,8 @@ double *pei ( double alpha, int n )
     where the "-R+1" occurs at index R.
 
     det ( A ) = ALPHA^(N-1) * ( N + ALPHA ).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -33319,6 +38823,51 @@ double *pei ( double alpha, int n )
     }
   }
   return a;
+}
+/******************************************************************************/
+
+double pei_condition ( double alpha, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PEI_CONDITION returns the L1 condition of the PEI matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double ALPHA, the scalar that defines the Pei matrix.  A
+    typical value of ALPHA is 1.0.
+
+    Input, int N, the order of the matrix.
+
+    Output, double PEI_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double n_r8;
+  double value;
+
+  n_r8 = ( double ) ( n );
+  a_norm = fabs ( alpha + 1.0 ) + n_r8 - 1.0;
+  b_norm = ( fabs ( alpha + n_r8 - 1.0 ) + n_r8 - 1.0 ) 
+    / fabs ( alpha * ( alpha + n_r8 ) );
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -33533,13 +39082,13 @@ double *pei_inverse ( double alpha, int n )
 }
 /******************************************************************************/
 
-double *pei_right ( double alpha, int n )
+double *pei_eigen_right ( double alpha, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    PEI_RIGHT returns the right eigenvectors of the PEI matrix.
+    PEI_EIGEN_RIGHT returns the right eigenvectors of the PEI matrix.
 
   Licensing:
 
@@ -33559,7 +39108,7 @@ double *pei_right ( double alpha, int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double PEI_RIGHT[N*N], the right eigenvectors.
+    Output, double PEI_EIGEN_RIGHT[N*N], the right eigenvectors.
 */
 {
   int i;
@@ -34093,51 +39642,7 @@ double permutation_determinant ( int n, double a[] )
 }
 /******************************************************************************/
 
-double *permutation_inverse ( int n, double a[] )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    PERMUTATION_INVERSE returns the inverse of a PERMUTATION matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    07 October 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Input, double A[N*N], the matrix.
-
-    Output, double PERMUTATION_INVERSE[N*N], the inverse matrix.
-*/
-{
-  double *b;
-  int *p;
-
-  p = perm_mat_to_vec ( n, a );
-
-  perm_inverse ( n, p );
-
-  b = perm_vec_to_mat ( n, p );
-
-  free ( p );
-
-  return b;
-}
-/******************************************************************************/
-
-double *permutation_random ( int n, int *seed )
+double *permutation_random ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -34168,8 +39673,7 @@ double *permutation_random ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double PERMUTATION_RANDOM[N*N], the matrix.
 */
@@ -34179,12 +39683,15 @@ double *permutation_random ( int n, int *seed )
   int j;
   int k;
   int *p;
+  int seed;
 
   p = i4vec_indicator_new ( n );
 
+  seed = key;
+
   for ( i = 0; i < n; i++ )
   {
-    j = i4_uniform ( i, n - 1, seed );
+    j = i4_uniform_ab ( i, n - 1, &seed );
     k    = p[j];
     p[j] = p[i];
     p[i] = k;
@@ -34198,7 +39705,7 @@ double *permutation_random ( int n, int *seed )
 }
 /******************************************************************************/
 
-double permutation_random_determinant ( int n, int *seed )
+double permutation_random_determinant ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -34227,7 +39734,7 @@ double permutation_random_determinant ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double PERMUTATION_RANDOM_DETERMINANT, the determinant.
 */
@@ -34238,12 +39745,15 @@ double permutation_random_determinant ( int n, int *seed )
   int k;
   int *p;
   int p_sign;
+  int seed;
 
   p = i4vec_indicator_new ( n );
 
+  seed = key;
+
   for ( i = 0; i < n; i++ )
   {
-    j = i4_uniform ( i, n - 1, seed );
+    j = i4_uniform_ab ( i, n - 1, &seed );
     k    = p[j];
     p[j] = p[i];
     p[i] = k;
@@ -34259,7 +39769,7 @@ double permutation_random_determinant ( int n, int *seed )
 }
 /******************************************************************************/
 
-double *permutation_random_inverse ( int n, int *seed )
+double *permutation_random_inverse ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -34288,8 +39798,7 @@ double *permutation_random_inverse ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double PERMUTATION_RANDOM_INVERSE[N*N], the inverse matrix.
 */
@@ -34300,12 +39809,15 @@ double *permutation_random_inverse ( int n, int *seed )
   int k;
   int *p;
   int p_sign;
+  int seed;
 
   p = i4vec_indicator_new ( n );
 
+  seed = key;
+
   for ( i = 0; i < n; i++ )
   {
-    j = i4_uniform ( i, n - 1, seed );
+    j = i4_uniform_ab ( i, n - 1, &seed );
     k    = p[j];
     p[j] = p[i];
     p[i] = k;
@@ -34401,7 +39913,7 @@ double complex *pick ( int n, double complex w[], double complex z[] )
 }
 /******************************************************************************/
 
-double *plu ( int n, int pivot[], double p[], double l[], double u[] )
+double *plu ( int n, int pivot[] )
 
 /******************************************************************************/
 /*
@@ -34495,7 +40007,7 @@ double *plu ( int n, int pivot[], double p[], double l[], double u[] )
 
   Modified:
 
-    01 July 2011
+    26 March 2015
 
   Author:
 
@@ -34506,18 +40018,274 @@ double *plu ( int n, int pivot[], double p[], double l[], double u[] )
     Input, int N, the order of the matrix.
 
     Input, int PIVOT[N], the list of pivot rows.  PIVOT[I]
-    must be a value between I+1 and N, reflecting the choice of
-    pivot row on the I-th step.  For no pivoting, set PIVOT[I] = I + 1.
-
-    Output, double P[N*N], L[N*N], U[N*N], the P, L and U factors
-    of A, as defined by Gaussian elimination with partial pivoting.
-    P is a permutation matrix, L is unit lower triangular, and U
-    is upper triangular.
+    must be a value between I and N-1, reflecting the choice of
+    pivot row on the I-th step.  For no pivoting, set PIVOT[I] = I.
 
     Output, double PLU[N*N], the matrix.
 */
 {
   double *a;
+  double *l;
+  double *p;
+  double *pl;
+  double *u;
+
+  p = ( double * ) malloc ( n * n * sizeof ( double ) );
+  l = ( double * ) malloc ( n * n * sizeof ( double ) );
+  u = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  plu_plu ( n, pivot, p, l, u );
+
+  pl = r8mat_mm_new ( n, n, n, p, l );
+
+  a = r8mat_mm_new ( n, n, n, pl, u );
+
+  free ( l );
+  free ( p );
+  free ( pl );
+  free ( u );
+
+  return a;
+}
+/******************************************************************************/
+
+double plu_determinant ( int n, int pivot[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PLU_DETERMINANT returns the determinant of the PLU matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int PIVOT[N], the list of pivot rows.  PIVOT[I]
+    must be a value between I and N-1, reflecting the choice of
+    pivot row on the I-th step.  For no pivoting, set PIVOT[I] = I.
+
+    Output, double PLU_DETERMINANT, the determinant.
+*/
+{
+  int found;
+  int i;
+  int i2;
+  int j;
+  double *l;
+  double *p;
+  double t;
+  double *u;
+  double value;
+
+  p = ( double * ) malloc ( n * n * sizeof ( double ) );
+  l = ( double * ) malloc ( n * n * sizeof ( double ) );
+  u = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  plu_plu ( n, pivot, p, l, u );
+
+  value = 1.0;
+
+  for ( i = 0; i < n; i++ )
+  {
+    value = value * u[i+i*n];
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    found = 0;
+    for ( i2 = i; i2 < n; i2++ )
+    {
+      if ( p[i2+i*n] == 1.0 )
+      {
+        found = 1;
+        if ( i2 != i )
+        {
+          for ( j = 0; j < n; j++ )
+          {
+            t         = p[i2+j*n];
+            p[i2+j*n] = p[i+j*n];
+            p[i+j*n]  = t;
+          }
+          value = - value;
+        }
+      }
+    }
+
+    if ( ! found )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "PLU_DETERMINANT - Fatal error!\n" );
+      fprintf ( stderr, "  Permutation matrix is illegal.\n" );
+      exit ( 1 );
+    }
+
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+double *plu_inverse ( int n, int pivot[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PLU_INVERSE returns the inverse of a PLU matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int PIVOT[N], the list of pivot rows.  PIVOT[I]
+    must be a value between I and N-1, reflecting the choice of
+    pivot row on the I-th step.  For no pivoting, set PIVOT[I] = I.
+
+    Output, double PLU_INVERSE[N*N], the inverse matrix.
+*/
+{
+  double *a;
+  double *l;
+  double *l_inverse;
+  double *lp_inverse;
+  double *p;
+  double *p_inverse;
+  double *u;
+  double *u_inverse;
+
+  p = ( double * ) malloc ( n * n * sizeof ( double ) );
+  l = ( double * ) malloc ( n * n * sizeof ( double ) );
+  u = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  plu_plu ( n, pivot, p, l, u );
+
+  p_inverse = r8mat_transpose_new ( n, n, p );
+
+  l_inverse = tri_l1_inverse ( n, l );
+
+  lp_inverse = r8mat_mm_new ( n, n, n, l_inverse, p_inverse );
+
+  u_inverse = tri_u_inverse ( n, u );
+
+  a = r8mat_mm_new ( n, n, n, u_inverse, lp_inverse );
+
+  free ( l );
+  free ( l_inverse );
+  free ( lp_inverse );
+  free ( p );
+  free ( p_inverse );
+  free ( u );
+  free ( u_inverse );
+
+  return a;
+}
+/******************************************************************************/
+
+void plu_plu ( int n, int pivot[], double p[], double l[], double u[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PLU_PLU returns the PLU factors of the PLU matrix.
+
+  Example:
+
+    Input:
+
+      N = 5
+      PIVOT = ( 1, 3, 3, 5, 5 )
+
+    Output:
+
+      P:
+
+          1             0            0             0            0
+          0             0            1             0            0
+          0             1            0             0            0
+          0             0            0             0            1
+          0             0            0             1            0
+
+      L:
+
+         1              0            0             0            0
+         0.25           1            0             0            0
+         0.125          0.375        1             0            0
+         0.0625         0.1875       0.3125        1            0
+         0.03125        0.09375      0.15625       0.21875      1
+
+      U:
+
+        11             12           13            14           15
+         0             22           23            24           25
+         0              0           33            34           35
+         0              0            0            44           45
+         0              0            0             0           55
+
+  Method:
+
+    The L factor will have unit diagonal, and subdiagonal entries
+    L(I,J) = ( 2 * J - 1 ) / 2^I, which should result in a unique
+    value for every entry.
+
+    The U factor of A will have entries
+    U(I,J) = 10 * I + J, which should result in "nice" entries as long
+    as N < 10.
+
+    The P factor can be deduced by applying the pivoting operations
+    specified by PIVOT in reverse order to the rows of the identity.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int PIVOT[N], the list of pivot rows.  PIVOT[I]
+    must be a value between I and N-1, reflecting the choice of
+    pivot row on the I-th step.  For no pivoting, set PIVOT[I] = I.
+
+    Output, double P[N*N], L[N*N], U[N*N], the P, L and U factors
+    of A, as defined by Gaussian elimination with partial pivoting.
+    P is a permutation matrix, L is unit lower triangular, and U
+    is upper triangular.
+*/
+{
   int i;
   int j;
   int k;
@@ -34525,24 +40293,22 @@ double *plu ( int n, int pivot[], double p[], double l[], double u[] )
 /*
   Check that the pivot vector is legal.
 */
-  a = ( double * ) malloc ( n * n * sizeof ( double ) );
-
   for ( i = 0; i < n; i++ )
   {
-    if ( pivot[i] <= i )
+    if ( pivot[i] < i )
     {
       fprintf ( stderr, "\n" );
-      fprintf ( stderr, "PLU - Fatal error!\n" );
+      fprintf ( stderr, "PLU_PLU - Fatal error!\n" );
       fprintf ( stderr, "  PIVOT[%d] = %d\n", i, pivot[i] );
-      fprintf ( stderr, "  but PIVOT[I] must be no less than I + 1.\n" );
+      fprintf ( stderr, "  but PIVOT[I] must be no less than I.\n" );
       exit ( 1 );
     }
-    else if ( n < pivot[i] )
+    else if ( n - 1 < pivot[i] )
     {
       fprintf ( stderr, "\n" );
-      fprintf ( stderr, "PLU - Fatal error!\n" );
+      fprintf ( stderr, "PLU_PLU - Fatal error!\n" );
       fprintf ( stderr, "  PIVOT[%d] = %d\n", i, pivot[i] );
-      fprintf ( stderr, "  but PIVOT[I] must be no greater than N = %d\n", n );
+      fprintf ( stderr, "  but PIVOT[I] must be no greater than N - 1 = %d\n", n - 1 );
       exit ( 1 );
     }
   }
@@ -34606,175 +40372,23 @@ double *plu ( int n, int pivot[], double p[], double l[], double u[] )
 */
   for ( i = n - 1; 0 <= i; i-- )
   {
-    if ( pivot[i] != i + 1 )
+    if ( pivot[i] != i )
     {
       for ( j = 0; j < n; j++ )
       {
-        k        = pivot[i] - 1;
+        k        = pivot[i];
         t        = p[i+j*n];
         p[i+j*n] = p[k+j*n];
         p[k+j*n] = t;
       }
     }
   }
-/*
-  Compute L * U.
-*/
-  for ( i = 0; i < n; i++ )
-  {
-    for ( j = 0; j < n; j++ )
-    {
-      a[i+j*n] = u[i+j*n];
-      for ( k = 0; k < i; k++ )
-      {
-        a[i+j*n] = a[i+j*n] + l[i+k*n] * u[k+j*n];
-      }
-    }
-  }
-/*
-  Compute P * ( L * U )
-*/
-  for ( i = n - 1; 0 <= i; i-- )
-  {
-    if ( pivot[i] != i + 1 )
-    {
-      for ( j = 0; j < n; j++ )
-      {
-        k        = pivot[i] - 1;
-        t        = a[i+j*n];
-        a[i+j*n] = a[k+j*n];
-        a[k+j*n] = t;
-      }
-    }
-  }
-  return a;
+
+  return;
 }
 /******************************************************************************/
 
-double plu_determinant ( int n, double p[], double l[], double u[] )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    PLU_DETERMINANT returns the determinant of the PLU matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    07 October 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double P[N*N], L[N*N], U[N*N], the P, L and U factors
-    of A, as defined by Gaussian elimination with partial pivoting.
-    P is a permutation matrix, L is unit lower triangular, and U
-    is upper triangular.
-
-    Output, double PLU_DETERMINANT, the determinant.
-*/
-{
-  double determ;
-  int i;
-  int j;
-
-  determ = 1.0;
-
-  for ( i = 0; i < n; i++ )
-  {
-    determ = determ * u[i+i*n];
-  }
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      if ( p[i+j*n] == 1.0 )
-      {
-        if ( i != j )
-        {
-          determ = - determ;
-        }
-      }
-    }
-  }
-  return determ;
-}
-/******************************************************************************/
-
-double *plu_inverse ( int n, double p[], double l[], double u[] )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    PLU_INVERSE returns the inverse of a PLU matrix.
-
-  Discussion:
-
-    The inverse matrix is represented by its PLU factors.  The output matrix
-    is given as a single matrix, the product
-
-      inverse(A) = inverse(U) * inverse(L) * inverse(P)
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    07 October 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double P[N*N], L[N*N], U[N*N], the P, L and U factors
-    of the matrix.
-
-    Output, double PLU_INVERSE[N*N], the inverse matrix.
-*/
-{
-  double *a;
-  double *l_inverse;
-  double *lp_inverse;
-  double *p_inverse;
-  double *u_inverse;
-
-  p_inverse = permutation_inverse ( n, p );
-
-  l_inverse = tri_l1_inverse ( n, l );
-
-  lp_inverse = r8mat_mm_new ( n, n, n, l_inverse, p_inverse );
-
-  free ( l_inverse );
-  free ( p_inverse );
-
-  u_inverse = tri_u_inverse ( n, u );
-
-  a = r8mat_mm_new ( n, n, n, u_inverse, lp_inverse );
-
-  free ( u_inverse );
-  free ( lp_inverse );
-
-  return a;
-}
-/******************************************************************************/
-
-double *poisson ( int nrow, int ncol, int n )
+double *poisson ( int nrow, int ncol )
 
 /******************************************************************************/
 /*
@@ -34785,11 +40399,11 @@ double *poisson ( int nrow, int ncol, int n )
   Formula:
 
     if ( I = J )
-      A(I,J) = 4.0D+00
+      A(I,J) = 4.0
     else if ( I = J+1 or I = J-1 or I = J+NROW or I = J-NROW )
-      A(I,J) = -1.0D+00
+      A(I,J) = -1.0
     else
-      A(I,J) = 0.0D+00
+      A(I,J) = 0.0
 
   Example:
 
@@ -34834,7 +40448,7 @@ double *poisson ( int nrow, int ncol, int n )
 
   Modified:
 
-    26 September 2008
+    05 March 2015
 
   Author:
 
@@ -34852,10 +40466,7 @@ double *poisson ( int nrow, int ncol, int n )
     Input, int NROW, NCOL, the number of rows and columns 
     in the grid.
 
-    Input, int N, the order of the matrix.  It must be the case
-    that N = NROW * NCOL.
-
-    Output, double A[N*N], the matrix.
+    Output, double A[(NROW*NCOL)*(NROW*NCOL)], the matrix.
 */
 {
   double *a;
@@ -34863,6 +40474,9 @@ double *poisson ( int nrow, int ncol, int n )
   int i1;
   int j;
   int j1;
+  int n;
+
+  n = nrow * ncol;
 
   a = r8mat_zero_new ( n, n );
 
@@ -34906,7 +40520,7 @@ double *poisson ( int nrow, int ncol, int n )
 }
 /******************************************************************************/
 
-double poisson_determinant ( int nrow, int ncol, int n )
+double poisson_determinant ( int nrow, int ncol )
 
 /******************************************************************************/
 /*
@@ -34920,7 +40534,7 @@ double poisson_determinant ( int nrow, int ncol, int n )
 
   Modified:
 
-    08 July 2011
+    05 March 2015
 
   Author:
 
@@ -34930,9 +40544,6 @@ double poisson_determinant ( int nrow, int ncol, int n )
 
     Input, int NROW, NCOL, the number of rows and columns 
     in the grid.
-
-    Input, int N, the order of the matrix.  It must be the case
-    that N = NROW * NCOL.
 
     Output, double POISSON_DETERMINANT, the determinant.
 */
@@ -34944,13 +40555,13 @@ double poisson_determinant ( int nrow, int ncol, int n )
   int i;
   int j;
   int k;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   cr = ( double * ) malloc ( nrow * sizeof ( double ) );
 
   for ( i = 0; i < nrow; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( nrow + 1 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( nrow + 1 );
     cr[i] = cos ( angle );
   }
 
@@ -34958,7 +40569,7 @@ double poisson_determinant ( int nrow, int ncol, int n )
 
   for ( j = 0; j < ncol; j++ )
   {
-    angle = ( double ) ( j + 1 ) * pi / ( double ) ( ncol + 1 );
+    angle = ( double ) ( j + 1 ) * r8_pi / ( double ) ( ncol + 1 );
     cc[j] = cos ( angle );
   }
 
@@ -34977,7 +40588,7 @@ double poisson_determinant ( int nrow, int ncol, int n )
 }
 /******************************************************************************/
 
-double *poisson_eigenvalues ( int nrow, int ncol, int n )
+double *poisson_eigenvalues ( int nrow, int ncol )
 
 /******************************************************************************/
 /*
@@ -34991,7 +40602,7 @@ double *poisson_eigenvalues ( int nrow, int ncol, int n )
 
   Modified:
 
-    26 September 2008
+    05 March 2015
 
   Author:
 
@@ -35001,9 +40612,6 @@ double *poisson_eigenvalues ( int nrow, int ncol, int n )
 
     Input, int NROW, NCOL, the number of rows and columns 
     in the grid.
-
-    Input, int N, the order of the matrix.  It must be the case
-    that N = NROW * NCOL.
 
     Output, double POISSON_EIGENVALUES[NROW*NCOL], the eigenvalues.
 */
@@ -35015,13 +40623,13 @@ double *poisson_eigenvalues ( int nrow, int ncol, int n )
   int i;
   int j;
   int k;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   cr = ( double * ) malloc ( nrow * sizeof ( double ) );
 
   for ( i = 0; i < nrow; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( nrow + 1 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( nrow + 1 );
     cr[i] = cos ( angle );
   }
 
@@ -35029,11 +40637,11 @@ double *poisson_eigenvalues ( int nrow, int ncol, int n )
 
   for ( j = 0; j < ncol; j++ )
   {
-    angle = ( double ) ( j + 1 ) * pi / ( double ) ( ncol + 1 );
+    angle = ( double ) ( j + 1 ) * r8_pi / ( double ) ( ncol + 1 );
     cc[j] = cos ( angle );
   }
 
-  lambda = ( double * ) malloc ( n * sizeof ( double ) );
+  lambda = ( double * ) malloc ( nrow * ncol * sizeof ( double ) );
 
   k = 0;
   for ( i = 0; i < nrow; i++ )
@@ -35044,6 +40652,9 @@ double *poisson_eigenvalues ( int nrow, int ncol, int n )
       k = k + 1;
     }
   }
+/*
+  Free memory.
+*/
   free ( cc );
   free ( cr );
 
@@ -35051,7 +40662,7 @@ double *poisson_eigenvalues ( int nrow, int ncol, int n )
 }
 /******************************************************************************/
 
-double *poisson_rhs ( int nrow, int ncol, int n )
+double *poisson_rhs ( int nrow, int ncol )
 
 /******************************************************************************/
 /*
@@ -35094,7 +40705,7 @@ double *poisson_rhs ( int nrow, int ncol, int n )
 
   Modified:
 
-    26 September 2008
+    05 March 2015
 
   Author:
 
@@ -35112,9 +40723,7 @@ double *poisson_rhs ( int nrow, int ncol, int n )
     Input, int NROW, NCOL, the number of rows and columns 
     in the grid.
 
-    Input, int N, the order of the matrix.
-
-    Output, double B[N], the right hand side.
+    Output, double B[NROW*NCOL], the right hand side.
 */
 {
   double *b;
@@ -35122,7 +40731,7 @@ double *poisson_rhs ( int nrow, int ncol, int n )
   int j;
   int k;
 
-  b = ( double * ) malloc ( n * sizeof ( double ) );
+  b = ( double * ) malloc ( nrow * ncol * sizeof ( double ) );
 
   k = 0;
   for ( j = 1; j <= nrow; j++ )
@@ -35153,7 +40762,7 @@ double *poisson_rhs ( int nrow, int ncol, int n )
 }
 /******************************************************************************/
 
-double *poisson_solution ( int nrow, int ncol, int n )
+double *poisson_solution ( int nrow, int ncol )
 
 /******************************************************************************/
 /*
@@ -35191,7 +40800,7 @@ double *poisson_solution ( int nrow, int ncol, int n )
 
   Modified:
 
-    26 September 2008
+    05 March 2015
 
   Author:
 
@@ -35209,9 +40818,7 @@ double *poisson_solution ( int nrow, int ncol, int n )
     Input, int NROW, NCOL, the number of rows and columns 
     in the grid.
 
-    Input, int N, the order of the matrix.
-
-    Output, double X[N], the solution.
+    Output, double X[NROW*NCOL], the solution.
 */
 {
   int i;
@@ -35219,7 +40826,7 @@ double *poisson_solution ( int nrow, int ncol, int n )
   int k;
   double *x;
 
-  x = ( double * ) malloc ( n * sizeof ( double ) );
+  x = ( double * ) malloc ( nrow * ncol * sizeof ( double ) );
 
   k = 0;
   for ( j = 1; j <= nrow; j++ )
@@ -35493,11 +41100,11 @@ double *prolate ( double alpha, int n )
 
     N = 5, ALPHA = 0.25
 
-     0.5        0.0D+00       -0.106103   0.0        0.0636620
-     0.0D+00        0.5        0.0       -0.106103   0.0D+00
-    -0.106103   0.0D+00        0.5        0.0       -0.106103
-     0.0D+00       -0.106103   0.0        0.5        0.0D+00
-     0.0636620  0.0D+00       -0.106103   0.0        0.5
+     0.5        0.0       -0.106103   0.0        0.0636620
+     0.0        0.5        0.0       -0.106103   0.0
+    -0.106103   0.0        0.5        0.0       -0.106103
+     0.0       -0.106103   0.0        0.5        0.0
+     0.0636620  0.0       -0.106103   0.0        0.5
 
   Properties:
 
@@ -35517,6 +41124,8 @@ double *prolate ( double alpha, int n )
       A is positive definite,
       the eigenvalues of A are distinct,
       the eigenvalues lie in (0,1) and cluster around 0 and 1.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -35551,7 +41160,7 @@ double *prolate ( double alpha, int n )
   int i;
   int j;
   int k;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -35566,8 +41175,8 @@ double *prolate ( double alpha, int n )
       else
       {
         k = abs ( i - j ) + 1;
-        angle = 2.0 * pi * alpha * ( double ) ( k );
-        a[i+j*n] = sin (  angle ) / ( pi * ( double ) ( k ) );
+        angle = 2.0 * r8_pi * alpha * ( double ) ( k );
+        a[i+j*n] = sin (  angle ) / ( r8_pi * ( double ) ( k ) );
       }
     }
   }
@@ -35615,11 +41224,14 @@ double *quaternion_i ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
-  0.0, -1.0,  0.0,  0.0,
-  1.0,  0.0,  0.0,  0.0,
-  0.0,  0.0,  0.0,  1.0,
-  0.0,  0.0, -1.0,  0.0 };
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
+    0.0, -1.0,  0.0,  0.0,
+    1.0,  0.0,  0.0,  0.0,
+    0.0,  0.0,  0.0,  1.0,
+    0.0,  0.0, -1.0,  0.0 };
 
   a = r8mat_copy_new ( 4, 4, a_save );
 
@@ -35667,11 +41279,14 @@ double *quaternion_j ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
-  0.0,  0.0, -1.0,  0.0,
-  0.0,  0.0,  0.0, -1.0,
-  1.0,  0.0,  0.0,  0.0,
-  0.0,  1.0,  0.0,  0.0 };
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
+    0.0,  0.0, -1.0,  0.0,
+    0.0,  0.0,  0.0, -1.0,
+    1.0,  0.0,  0.0,  0.0,
+    0.0,  1.0,  0.0,  0.0 };
 
   a = r8mat_copy_new ( 4, 4, a_save );
 
@@ -35719,53 +41334,18 @@ double *quaternion_k ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
-  0.0,  0.0,  0.0, -1.0,
-  0.0,  0.0,  1.0,  0.0,
-  0.0, -1.0,  0.0,  0.0,
-  1.0,  0.0,  0.0,  0.0 };
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
+    0.0,  0.0,  0.0, -1.0,
+    0.0,  0.0,  1.0,  0.0,
+    0.0, -1.0,  0.0,  0.0,
+    1.0,  0.0,  0.0,  0.0 };
 
   a = r8mat_copy_new ( 4, 4, a_save );
 
   return a;
-}
-/******************************************************************************/
-
-float r4_abs ( float x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R4_ABS returns the absolute value of an R4.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    12 January 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, float X, the quantity whose absolute value is desired.
-
-    Output, float R4_ABS, the absolute value of X.
-*/
-{
-  if ( 0.0 <= x )
-  {
-    return x;
-  } 
-  else
-  {
-    return ( -x );
-  }
 }
 /******************************************************************************/
 
@@ -35822,47 +41402,6 @@ int r4_nint ( float x )
   }
   value = s * ( int ) ( fabs ( x ) + 0.5 );
 
-  return value;
-}
-/******************************************************************************/
-
-double r8_abs ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_ABS returns the absolute value of an R8.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    07 May 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, the quantity whose absolute value is desired.
-
-    Output, double R8_ABS, the absolute value of X.
-*/
-{
-  double value;
-
-  if ( 0.0 <= x )
-  {
-    value = x;
-  } 
-  else
-  {
-    value = - x;
-  }
   return value;
 }
 /******************************************************************************/
@@ -35941,7 +41480,7 @@ double r8_choose ( int n, int k )
 }
 /******************************************************************************/
 
-double r8_epsilon ( void )
+double r8_epsilon ( )
 
 /******************************************************************************/
 /*
@@ -35954,16 +41493,16 @@ double r8_epsilon ( void )
     R8_EPSILON is a number R which is a power of 2 with the property that,
     to the precision of the computer's arithmetic,
       1 < 1 + R
-    but 
+    but
       1 = ( 1 + R / 2 )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    08 May 2006
+    01 September 2012
 
   Author:
 
@@ -35971,20 +41510,12 @@ double r8_epsilon ( void )
 
   Parameters:
 
-    Output, double R8_EPSILON, the double precision round-off unit.
+    Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  double r;
+  const double value = 2.220446049250313E-016;
 
-  r = 1.0;
-
-  while ( 1.0 < ( double ) ( 1.0 + r )  )
-  {
-    r = r / 2.0;
-  }
-  r = 2.0 * r;
-
-  return r;
+  return value;
 }
 /******************************************************************************/
 
@@ -36034,7 +41565,7 @@ double r8_factorial ( int n )
 }
 /******************************************************************************/
 
-double r8_huge ( void )
+double r8_huge ( )
 
 /******************************************************************************/
 /*
@@ -36044,8 +41575,8 @@ double r8_huge ( void )
 
   Discussion:
 
-    HUGE_VAL is the largest representable legal double precision number, and is usually
-    defined in math.h, or sometimes in stdlib.h.
+    HUGE_VAL is the largest representable legal double precision number, 
+    and is usually defined in math.h, or sometimes in stdlib.h.
 
   Licensing:
 
@@ -36064,7 +41595,9 @@ double r8_huge ( void )
     Output, double R8_HUGE, a "huge" R8.
 */
 {
-  return HUGE_VAL;
+  const double value = 1.79769313486231571E+308;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -36247,9 +41780,9 @@ double r8_normal_01 ( int *seed )
     Output, double R8_NORMAL_01, a normally distributed random value.
 */
 {
-  double pi = 3.141592653589793;
   double r1;
   double r2;
+  const double r8_pi = 3.141592653589793;
   static int used = -1;
   double x;
   static double y = 0.0;
@@ -36275,8 +41808,8 @@ double r8_normal_01 ( int *seed )
 
     r2 = r8_uniform_01 ( seed );
 
-    x = sqrt ( -2.0 * log ( r1 ) ) * cos ( 2.0 * pi * r2 );
-    y = sqrt ( -2.0 * log ( r1 ) ) * sin ( 2.0 * pi * r2 );
+    x = sqrt ( -2.0 * log ( r1 ) ) * cos ( 2.0 * r8_pi * r2 );
+    y = sqrt ( -2.0 * log ( r1 ) ) * sin ( 2.0 * r8_pi * r2 );
   }
   else
   {
@@ -36329,13 +41862,13 @@ double r8_sign ( double x )
 }
 /******************************************************************************/
 
-double r8_uniform ( double b, double c, int *seed )
+double r8_uniform_ab ( double b, double c, int *seed )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8_UNIFORM returns a scaled pseudorandom R8.
+    R8_UNIFORM_AB returns a scaled pseudorandom R8.
 
   Discussion:
 
@@ -36361,7 +41894,7 @@ double r8_uniform ( double b, double c, int *seed )
     Input/output, int *SEED, the "seed" value, which should NOT be 0.
     On output, SEED has been updated.
 
-    Output, double R8_UNIFORM, a number strictly between A and B.
+    Output, double R8_UNIFORM_AB, a number strictly between A and B.
 */
 {
   double value;
@@ -36455,10 +41988,7 @@ double r8_uniform_01 ( int *seed )
   {
     *seed = *seed + 2147483647;
   }
-/*
-  Although SEED can be represented exactly as a 32 bit integer,
-  it generally cannot be represented exactly as a 32 bit real number!
-*/
+
   r = ( ( double ) ( *seed ) ) * 4.656612875E-10;
 
   return r;
@@ -36952,7 +42482,7 @@ int r8mat_gefa ( double a[], int n, int pivot[] )
     l = k;
     for ( i = k + 1; i <= n; i++ )
     {
-      if ( r8_abs ( a[l-1+(k-1)*n] ) < r8_abs ( a[i-1+(k-1)*n] ) )
+      if ( fabs ( a[l-1+(k-1)*n] ) < fabs ( a[i-1+(k-1)*n] ) )
       {
         l = i;
       }
@@ -37321,7 +42851,7 @@ double *r8mat_house_form ( int n, double v[] )
 /*
   Form the matrix H.
 */
-  h = r8mat_identity ( n );
+  h = r8mat_identity_new ( n );
 
   for ( i = 0; i < n; i++ )
   {
@@ -37334,13 +42864,13 @@ double *r8mat_house_form ( int n, double v[] )
 }
 /******************************************************************************/
 
-double *r8mat_identity ( int n )
+double *r8mat_identity_new ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8MAT_IDENTITY sets the square matrix A to the identity.
+    R8MAT_IDENTITY_NEW sets the square matrix A to the identity.
 
   Discussion: 							    
 
@@ -37363,7 +42893,7 @@ double *r8mat_identity ( int n )
 
     Input, int N, the order of A.
 
-    Output, double A[N*N], the N by N identity matrix.
+    Output, double R8MAT_IDENTITY_NEW[N*N], the N by N identity matrix.
 */
 {
   double *a;
@@ -37517,6 +43047,145 @@ int r8mat_is_adjacency ( int m, int n, double a[] )
 }
 /******************************************************************************/
 
+int r8mat_is_anticirculant ( int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_IS_ANTICIRCULANT checks whether an R8MAT is an anticirculant matrix.
+
+  Discussion:
+
+    An R8MAT is a matrix of double values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 July 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the row and column dimensions of 
+    the matrix.  M and N must be positive.
+
+    Input, double A[M*N], the matrix.
+
+    Output, int R8MAT_IS_ANTICIRCULANT:
+    -1, the matrix is not anticirculant.
+    +1, the matrix is anticirculant.
+*/
+{
+  int i;
+  int ival;
+  int j;
+  int k;
+
+  ival = 1;
+
+  for ( i = 1; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      k = ( j + i ) % n;
+
+      if ( a[i+j*m] != a[0+k*m] )
+      {
+        ival = -1;
+        return ival;
+      }
+    }
+  }
+
+  return ival;
+}
+/******************************************************************************/
+
+double r8mat_is_eigen_left ( int n, int k, double a[], double x[],
+  double lambda[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_IS_EIGEN_LEFT determines the error in a left eigensystem.
+
+  Discussion:
+
+    An R8MAT is a matrix of doubles.
+
+    This routine computes the Frobenius norm of
+
+      X * A - LAMBDA * X
+
+    where
+
+      A is an N by N matrix,
+      X is an K by N matrix (each of K columns is an eigenvector)
+      LAMBDA is a K by K diagonal matrix of eigenvalues.
+
+    This routine assumes that A, X and LAMBDA are all real.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, int K, the number of eigenvectors.
+    K is usually 1 or N.
+
+    Input, double A[N*N], the matrix.
+
+    Input, double X[K*N], the K eigenvectors.
+
+    Input, double LAMBDA[K], the K eigenvalues.
+
+    Output, double R8MAT_IS_EIGEN_RIGHT, the Frobenius norm
+    of X * A - LAMBDA * X.
+*/
+{
+  double *c;
+  double error_frobenius;
+  int i;
+  int j;
+  int l;
+
+  c = r8mat_mm_new ( k, n, n, x, a );
+
+  for ( i = 0; i < k; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      c[i+j*n] = c[i+j*n] - lambda[i] * x[i+j*n];
+    }
+  }
+
+  error_frobenius = r8mat_norm_fro ( k, n, c );
+
+  free ( c );
+
+  return error_frobenius;
+}
+/******************************************************************************/
+
 double r8mat_is_eigen_right ( int n, int k, double a[], double x[],
   double lambda[] )
 
@@ -37524,7 +43193,7 @@ double r8mat_is_eigen_right ( int n, int k, double a[], double x[],
 /*
   Purpose:
 
-    R8MAT_IS_EIGEN_RIGHT determines the error in a (right) eigensystem.
+    R8MAT_IS_EIGEN_RIGHT determines the error in a right eigensystem.
 
   Discussion:
 
@@ -37578,6 +43247,8 @@ double r8mat_is_eigen_right ( int n, int k, double a[], double x[],
   int j;
   int l;
 
+  c = r8mat_mm_new ( n, n, k, a, x );
+/*
   c = ( double * ) malloc ( n * k * sizeof ( double ) );
 
   for ( j = 0; j < k; j++ )
@@ -37591,6 +43262,7 @@ double r8mat_is_eigen_right ( int n, int k, double a[], double x[],
       }
     }
   }
+*/
 
   for ( j = 0; j < k; j++ )
   {
@@ -37805,19 +43477,175 @@ double r8mat_is_inverse_right ( int m, int n, double a[], double b[] )
 }
 /******************************************************************************/
 
-double r8mat_is_null_vector ( int m, int n, double a[], double x[] )
+double r8mat_is_llt ( int m, int n, double a[], double l[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8MAT_IS_NULL_VECTOR determines if vector x is a null vector of an R8MAT.
+    R8MAT_IS_LLT measures the error in a lower triangular Cholesky factorization.
+
+  Discussion:
+
+    An R8MAT is a matrix of R8 values.
+
+    This routine simply returns the Frobenius norm of the M x M matrix:
+    A - L * L'.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Input, double A[M*M], the matrix.
+
+    Input, double L[M*N], the Cholesky factor.
+
+    Output, double R8MAT_IS_LLT, the Frobenius norm of A - L * L'.
+*/
+{
+  double *d;
+  int i;
+  int j;
+  double error_frobenius;
+
+  d = r8mat_mmt_new ( m, n, m, l, l );
+
+  for ( j = 0; j < m; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      d[i+j*m] = a[i+j*m] - d[i+j*m];
+    }
+  }
+
+  error_frobenius = r8mat_norm_fro ( m, n, d );
+
+  free ( d );
+
+  return error_frobenius;
+}
+/******************************************************************************/
+
+double r8mat_is_null_left ( int m, int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_IS_NULL_LEFT determines if x is a left null vector of an R8MAT.
 
   Discussion:
 
     An R8MAT is a matrix of doubles.
 
-    The nonzero N vector x is a null vector of the MxN matrix A if
+    The nonzero M vector x is a left null vector of the MxN matrix A if
+
+      x' * A = A' * x = 0
+
+    If A is a square matrix, then this implies that A is singular.
+
+    If A is a square matrix, this implies that 0 is an eigenvalue of A,
+    and that x is an associated eigenvector.
+
+    This routine returns 0 if x is exactly a null vector of A.
+
+    It returns a "huge" value if x is the zero vector.
+
+    Otherwise, it returns the L2 norm of A' * x divided by the L2 norm of x:
+
+      ERROR_L2 = NORM_L2 ( A' * x ) / NORM_L2 ( x )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the row and column dimensions of 
+    the matrix.  M and N must be positive.
+
+    Input, double A[M*N], the matrix.
+
+    Input, double X[M], the vector.
+
+    Output, double R8MAT_IS_NULL_LEFT, the result.
+    0.0 indicates that X is exactly a null vector.
+    A "huge" value indicates that ||x|| = 0;
+    Otherwise, the value returned is a relative error ||A*x||/||x||.
+*/
+{
+  double atx;
+  double atx_norm;
+  double error_l2;
+  int i;
+  int j;
+  const double r8_huge = 1.79769313486231571E+308;
+  double x_norm;
+
+  x_norm = 0.0;
+  for ( i = 0; i < m; i++ )
+  {
+    x_norm = x_norm + x[i] * x[i];
+  }
+  x_norm = sqrt ( x_norm );
+
+  if ( x_norm == 0.0 )
+  {
+    error_l2 = r8_huge;
+    return error_l2;
+  }
+
+  atx_norm = 0.0;
+  for ( j = 0; j < n; j++ )
+  {
+    atx = 0.0;
+    for ( i = 0; i < m; i++ )
+    {
+      atx = atx + x[i] * a[i+j*m];
+    }
+    atx_norm = atx_norm + atx * atx;
+  }
+  atx_norm = sqrt ( atx_norm );
+
+  error_l2 = atx_norm / x_norm;
+
+  return error_l2;
+}
+/******************************************************************************/
+
+double r8mat_is_null_right ( int m, int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_IS_NULL_RIGHT determines if x is a right null vector of an R8MAT.
+
+  Discussion:
+
+    An R8MAT is a matrix of doubles.
+
+    The nonzero N vector x is a right null vector of the MxN matrix A if
 
       A * x = 0
 
@@ -37855,7 +43683,7 @@ double r8mat_is_null_vector ( int m, int n, double a[], double x[] )
 
     Input, double X[N], the vector.
 
-    Output, double R8MAT_IS_NULL_VECTOR, the result.
+    Output, double R8MAT_IS_NULL_RIGHT, the result.
     0.0 indicates that X is exactly a null vector.
     A "huge" value indicates that ||x|| = 0;
     Otherwise, the value returned is a relative error ||A*x||/||x||.
@@ -37866,18 +43694,19 @@ double r8mat_is_null_vector ( int m, int n, double a[], double x[] )
   double error_l2;
   int i;
   int j;
+  const double r8_huge = 1.79769313486231571E+308;
   double x_norm;
 
   x_norm = 0.0;
-  for ( i = 0; i < n; i++ )
+  for ( j = 0; j < n; j++ )
   {
-    x_norm = x_norm + x[i] * x[i];
+    x_norm = x_norm + x[j] * x[j];
   }
   x_norm = sqrt ( x_norm );
 
   if ( x_norm == 0.0 )
   {
-    error_l2 = r8_huge ( );
+    error_l2 = r8_huge;
     return error_l2;
   }
 
@@ -38164,11 +43993,12 @@ double r8mat_is_symmetric ( int m, int n, double a[] )
 {
   int i;
   int j;
+  const double r8_huge = 1.79769313486231571E+308;
   double value;
 
   if ( m != n )
   {
-    value = r8_huge ( );
+    value = r8_huge;
     return value;
   }
 
@@ -38183,6 +44013,183 @@ double r8mat_is_symmetric ( int m, int n, double a[] )
   value = sqrt ( value );
 
   return value;
+}
+/******************************************************************************/
+
+double r8mat_is_transition ( int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_IS_TRANSITION checks whether an R8MAT is a transition matrix.
+
+  Discussion:
+
+    A transition matrix:
+    * is a square matrix;
+    * with real, nonnegative entries;
+    * whose columns each sum to 1.
+
+    An R8MAT is a matrix of double values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 July 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of A.
+
+    Input, double A[M*N], the matrix.
+
+    Output, double R8MAT_IS_TRANSITION.
+    This value is R8_HUGE, if M /= N.
+    This value is R8_HUGE, if any entry is negative.
+    Otherwise, it is the square root of the sum of the squares of the
+    deviations of the column sums from 1.
+*/
+{
+  double error_frobenius;
+  int i;
+  int j;
+  const double r8_huge = 1.79769313486231571E+308;
+  double t;
+
+  if ( m != n )
+  {
+    error_frobenius = r8_huge;
+    return error_frobenius;
+  }
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      if ( a[i+j*m] < 0.0 )
+      {
+        error_frobenius = r8_huge;
+        return error_frobenius;
+      }
+    }
+  }
+/*
+  Take column sums.
+*/
+  error_frobenius = 0.0;
+  for ( j = 0; j < n; j++ )
+  {
+    t = 0.0;
+    for ( i = 0; i < m; i++ )
+    {
+      t = t + a[i+j*m];
+    }
+    t = t - 1.0;
+    error_frobenius = error_frobenius + t * t;
+  }
+  error_frobenius = sqrt ( error_frobenius );
+ 
+  return error_frobenius;
+}
+/******************************************************************************/
+
+void r8mat_is_triangular ( int m, int n, double a[], int *ival, int *jval )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_IS_TRIANGULAR determines whether an R8MAT is triangular.
+
+  Discussion:
+
+    An R8MAT is a matrix of double values.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 July 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the row and column dimensions of 
+    the matrix.  M and N must be positive.
+
+    Input, double A[M*N], the matrix.
+
+    Output, int *IVAL:
+    -1, the matrix is not upper triangular
+    1, the matrix is upper triangular.
+    2, the matrix is unit upper triangular.
+
+    Output, int *JVAL:
+    -1, the matrix is not lower triangular.
+    1, the matrix is lower triangular.
+    2, the matrix is unit lower triangular.
+*/
+{
+  int i;
+  int j;
+
+  *ival = 2;
+  *jval = 2;
+
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      if ( i == j )
+      {
+        if ( a[i+j*m] != 1.0 )
+        {
+          if ( *ival == 2 )
+          {
+            *ival = 1;
+          }
+          if ( *jval == 2 )
+          {
+            *jval = 1;
+          }
+        }
+      }
+      else if ( i < j )
+      {
+        if ( a[i+j*m] != 0.0 )
+        {
+          *jval = -1;
+        }
+      }
+      else if ( j < i )
+      {
+        if ( a[i+j*m] != 0.0 )
+        {
+          *ival = -1;
+        }
+      }
+
+      if ( *ival == -1 && *jval == -1 )
+      {
+        return;
+      }
+    }
+  }
+
+  return;
 }
 /******************************************************************************/
 
@@ -38302,6 +44309,124 @@ double *r8mat_mm_new ( int n1, int n2, int n3, double a[], double b[] )
 }
 /******************************************************************************/
 
+double *r8mat_mmt_new ( int n1, int n2, int n3, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_MMT_NEW computes C = A * B'.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+    For this routine, the result is returned as the function value.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 November 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, N3, the order of the matrices.
+
+    Input, double A[N1*N2], double B[N3*N2], the matrices to multiply.
+
+    Output, double R8MAT_MMT_NEW[N1*N3], the product matrix C = A * B'.
+*/
+{
+  double *c;
+  int i;
+  int j;
+  int k;
+
+  c = ( double * ) malloc ( n1 * n3 * sizeof ( double ) );
+
+  for ( i = 0; i < n1; i++ )
+  {
+    for ( j = 0; j < n3; j++ )
+    {
+      c[i+j*n1] = 0.0;
+      for ( k = 0; k < n2; k++ )
+      {
+        c[i+j*n1] = c[i+j*n1] + a[i+k*n1] * b[j+k*n3];
+      }
+    }
+  }
+
+  return c;
+}
+/******************************************************************************/
+
+double *r8mat_mtm_new ( int n1, int n2, int n3, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_MTM_NEW computes C = A' * B.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+    For this routine, the result is returned as the function value.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 September 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, N2, N3, the order of the matrices.
+
+    Input, double A[N2*N1], double B[N2*N3], the matrices to multiply.
+
+    Output, double R8MAT_MTM_NEW[N1*N3], the product matrix C = A' * B.
+*/
+{
+  double *c;
+  int i;
+  int j;
+  int k;
+
+  c = ( double * ) malloc ( n1 * n3 * sizeof ( double ) );
+
+  for ( i = 0; i < n1; i++ )
+  {
+    for ( j = 0; j < n3; j++ )
+    {
+      c[i+j*n1] = 0.0;
+      for ( k = 0; k < n2; k++ )
+      {
+        c[i+j*n1] = c[i+j*n1] + a[k+i*n2] * b[k+j*n2];
+      }
+    }
+  }
+
+  return c;
+}
+/******************************************************************************/
+
 double r8mat_norm_eis ( int m, int n, double a[] )
 
 /******************************************************************************/
@@ -38352,7 +44477,7 @@ double r8mat_norm_eis ( int m, int n, double a[] )
   {
     for ( i = 0; i < m; i++ )
     {
-      value = value + r8_abs ( a[i+j*m] );
+      value = value + fabs ( a[i+j*m] );
     }
   }
 
@@ -38481,7 +44606,7 @@ double r8mat_norm_l1 ( int m, int n, double a[] )
     col_sum = 0.0;
     for ( i = 0; i < m; i++ )
     {
-      col_sum = col_sum + r8_abs ( a[i+j*m] );
+      col_sum = col_sum + fabs ( a[i+j*m] );
     }
     value = r8_max ( value, col_sum );
   }
@@ -38621,7 +44746,7 @@ double r8mat_norm_li ( int m, int n, double a[] )
     row_sum = 0.0;
     for ( j = 0; j < n; j++ )
     {
-      row_sum = row_sum + r8_abs ( a[i+j*m] );
+      row_sum = row_sum + fabs ( a[i+j*m] );
     }
     value = r8_max ( value, row_sum );
   }
@@ -38802,7 +44927,7 @@ double *r8mat_poly_char ( int n, double a[] )
 /*
   Initialize WORK1 to the identity matrix.
 */
-  work1 = r8mat_identity ( n );
+  work1 = r8mat_identity_new ( n );
 
   p[n] = 1.0;
 
@@ -39050,11 +45175,11 @@ void r8mat_symm_jacobi ( int n, double a[] )
     {
       for ( j = 0; j < i; j++ )
       {
-        if ( eps * norm_fro < r8_abs ( a[i+j*n] ) + r8_abs ( a[j+i*n] ) )
+        if ( eps * norm_fro < fabs ( a[i+j*n] ) + fabs ( a[j+i*n] ) )
         {
           u = ( a[j+j*n] - a[i+i*n] ) / ( a[i+j*n] + a[j+i*n] );
 
-          t = r8_sign ( u ) / ( r8_abs ( u ) + sqrt ( u * u + 1.0 ) );
+          t = r8_sign ( u ) / ( fabs ( u ) + sqrt ( u * u + 1.0 ) );
           c = 1.0 / sqrt ( t * t + 1.0 );
           s = t * c;
 /*
@@ -39088,7 +45213,7 @@ void r8mat_symm_jacobi ( int n, double a[] )
     {
       for ( j = 0; j < i; j++ )
       {
-        sum2 = sum2 + r8_abs ( a[i+j*n] );
+        sum2 = sum2 + fabs ( a[i+j*n] );
       }
     }
 
@@ -39157,6 +45282,55 @@ double r8mat_trace ( int n, double a[] )
 }
 /******************************************************************************/
 
+void r8mat_transpose_in_place ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_TRANSPOSE_IN_PLACE transposes a square matrix in place.
+
+  Discussion: 							    
+
+    An R8MAT is a doubly dimensioned array of R8's, which
+    may be stored as a vector in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 June 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix A.
+
+    Input/output, double A[N*N], the matrix to be transposed.  
+*/
+{
+  int i;
+  int j;
+  double t;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < j; i++ )
+    {
+      t        = a[i+j*n];
+      a[i+j*n] = a[j+i*n];
+      a[j+i*n] = t;
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
 double *r8mat_transpose_new ( int m, int n, double a[] )
 
 /******************************************************************************/
@@ -39208,167 +45382,6 @@ double *r8mat_transpose_new ( int m, int n, double a[] )
 }
 /******************************************************************************/
 
-void r8mat_transpose_in_place ( int n, double a[] )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8MAT_TRANSPOSE_IN_PLACE transposes a square matrix in place.
-
-  Discussion: 							    
-
-    An R8MAT is a doubly dimensioned array of R8's, which
-    may be stored as a vector in column-major order.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    26 June 2008
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the number of rows and columns of the matrix A.
-
-    Input/output, double A[N*N], the matrix to be transposed.  
-*/
-{
-  int i;
-  int j;
-  double t;
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < j; i++ )
-    {
-      t        = a[i+j*n];
-      a[i+j*n] = a[j+i*n];
-      a[j+i*n] = t;
-    }
-  }
-  return;
-}
-/******************************************************************************/
-
-double *r8mat_uniform_new ( int m, int n, double b, double c, int *seed )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8MAT_UNIFORM_NEW returns a scaled pseudorandom R8MAT.
-
-  Discussion:
-
-    This routine implements the recursion
-
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      unif = seed / ( 2**31 - 1 )
-
-    The integer arithmetic never requires more than 32 bits,
-    including a sign bit.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    03 October 2005
-
-  Author:
-
-    John Burkardt
-
-  Reference:
-
-    Paul Bratley, Bennett Fox, Linus Schrage,
-    A Guide to Simulation,
-    Second Edition,
-    Springer, 1987,
-    ISBN: 0387964673,
-    LC: QA76.9.C65.B73.
-
-    Bennett Fox,
-    Algorithm 647:
-    Implementation and Relative Efficiency of Quasirandom
-    Sequence Generators,
-    ACM Transactions on Mathematical Software,
-    Volume 12, Number 4, December 1986, pages 362-376.
-
-    Pierre L'Ecuyer,
-    Random Number Generation,
-    in Handbook of Simulation,
-    edited by Jerry Banks,
-    Wiley, 1998,
-    ISBN: 0471134031,
-    LC: T57.62.H37.
-
-    Peter Lewis, Allen Goodman, James Miller,
-    A Pseudo-Random Number Generator for the System/360,
-    IBM Systems Journal,
-    Volume 8, Number 2, 1969, pages 136-143.
-
-  Parameters:
-
-    Input, int M, N, the number of rows and columns.
-
-    Input, double B, C, the limits of the pseudorandom values.
-
-    Input/output, int *SEED, the "seed" value.  Normally, this
-    value should not be 0.  On output, SEED has 
-    been updated.
-
-    Output, double R8MAT_UNIFORM_NEW[M*N], a matrix of pseudorandom values.
-*/
-{
-  int i;
-  int i4_huge = 2147483647;
-  int j;
-  int k;
-  double *r;
-
-  if ( *seed == 0 )
-  {
-    fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R8MAT_UNIFORM_NEW - Fatal error!\n" );
-    fprintf ( stderr, "  Input value of SEED = 0.\n" );
-    exit ( 1 );
-  }
-
-  r = malloc ( m * n * sizeof ( double ) );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < m; i++ )
-    {
-      k = *seed / 127773;
-
-      *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
-
-      if ( *seed < 0 )
-      {
-        *seed = *seed + i4_huge;
-      }
-/*
-  Although SEED can be represented exactly as a 32 bit integer,
-  it generally cannot be represented exactly as a 32 bit real number!
-*/
-      r[i+j*m] = b + ( c - b ) * ( double ) ( *seed ) * 4.656612875E-10;
-    }
-  }
-
-  return r;
-}
-/******************************************************************************/
-
 double *r8mat_uniform_01_new ( int m, int n, int *seed )
 
 /******************************************************************************/
@@ -39381,8 +45394,8 @@ double *r8mat_uniform_01_new ( int m, int n, int *seed )
 
     This routine implements the recursion
 
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      unif = seed / ( 2**31 - 1 )
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
 
     The integer arithmetic never requires more than 32 bits,
     including a sign bit.
@@ -39453,7 +45466,7 @@ double *r8mat_uniform_01_new ( int m, int n, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( m * n * sizeof ( double ) );
+  r = ( double * ) malloc ( m * n * sizeof ( double ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -39472,6 +45485,118 @@ double *r8mat_uniform_01_new ( int m, int n, int *seed )
   it generally cannot be represented exactly as a 32 bit real number!
 */
       r[i+j*m] = ( double ) ( *seed ) * 4.656612875E-10;
+    }
+  }
+
+  return r;
+}
+/******************************************************************************/
+
+double *r8mat_uniform_ab_new ( int m, int n, double b, double c, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_UNIFORM_AB_NEW returns a scaled pseudorandom R8MAT.
+
+  Discussion:
+
+    This routine implements the recursion
+
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
+
+    The integer arithmetic never requires more than 32 bits,
+    including a sign bit.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    03 October 2005
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Paul Bratley, Bennett Fox, Linus Schrage,
+    A Guide to Simulation,
+    Second Edition,
+    Springer, 1987,
+    ISBN: 0387964673,
+    LC: QA76.9.C65.B73.
+
+    Bennett Fox,
+    Algorithm 647:
+    Implementation and Relative Efficiency of Quasirandom
+    Sequence Generators,
+    ACM Transactions on Mathematical Software,
+    Volume 12, Number 4, December 1986, pages 362-376.
+
+    Pierre L'Ecuyer,
+    Random Number Generation,
+    in Handbook of Simulation,
+    edited by Jerry Banks,
+    Wiley, 1998,
+    ISBN: 0471134031,
+    LC: T57.62.H37.
+
+    Peter Lewis, Allen Goodman, James Miller,
+    A Pseudo-Random Number Generator for the System/360,
+    IBM Systems Journal,
+    Volume 8, Number 2, 1969, pages 136-143.
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double B, C, the limits of the pseudorandom values.
+
+    Input/output, int *SEED, the "seed" value.  Normally, this
+    value should not be 0.  On output, SEED has 
+    been updated.
+
+    Output, double R8MAT_UNIFORM_AB_NEW[M*N], a matrix of pseudorandom values.
+*/
+{
+  int i;
+  int i4_huge = 2147483647;
+  int j;
+  int k;
+  double *r;
+
+  if ( *seed == 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8MAT_UNIFORM_AB_NEW - Fatal error!\n" );
+    fprintf ( stderr, "  Input value of SEED = 0.\n" );
+    exit ( 1 );
+  }
+
+  r = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      k = *seed / 127773;
+
+      *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
+
+      if ( *seed < 0 )
+      {
+        *seed = *seed + i4_huge;
+      }
+/*
+  Although SEED can be represented exactly as a 32 bit integer,
+  it generally cannot be represented exactly as a 32 bit real number!
+*/
+      r[i+j*m] = b + ( c - b ) * ( double ) ( *seed ) * 4.656612875E-10;
     }
   }
 
@@ -39503,7 +45628,7 @@ double *r8mat_zero_new ( int m, int n )
 
     Input, int M, N, the number of rows and columns.
 
-    Output, double R8MAT_ZERO[M*N], the new zeroed matrix.
+    Output, double R8MAT_ZERO_NEW[M*N], the new zeroed matrix.
 */
 {
   double *a;
@@ -39635,7 +45760,7 @@ void r8poly_print ( int n, double a[], char *title )
     plus_minus = ' ';
   }
 
-  mag = r8_abs ( a[n2] );
+  mag = fabs ( a[n2] );
 
   if ( 2 <= n2 )
   {
@@ -39661,7 +45786,7 @@ void r8poly_print ( int n, double a[], char *title )
       plus_minus = '+';
     }
 
-    mag = r8_abs ( a[i] );
+    mag = fabs ( a[i] );
 
     if ( mag != 0.0 )
     {
@@ -39820,6 +45945,152 @@ double *r8row_to_r8vec ( int m, int n, double a[] )
   }
 
   return x;
+}
+/******************************************************************************/
+
+double r8vec_amax ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_AMAX returns the maximum absolute value in an R8VEC.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 May 2009
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the array.
+
+    Input, double A[N], the array.
+
+    Output, double AMAX, the value of the entry
+    of largest magnitude.
+*/
+{
+  double amax;
+  int i;
+
+  amax = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    if ( amax < fabs ( a[i] ) )
+    {
+      amax = fabs ( a[i] );
+    }
+  }
+  return amax;
+}
+/******************************************************************************/
+
+double r8vec_amin ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_AMIN returns the minimum absolute value in an R8VEC.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 May 2009
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the array.
+
+    Input, double A[N], the array.
+
+    Output, double R8VEC_AMIN, the value of the entry
+    of smallest magnitude.
+*/
+{
+  double amin;
+  int i;
+  const double r8_huge = 1.79769313486231571E+308;
+
+  amin = r8_huge;
+  for ( i = 0; i < n; i++ )
+  {
+    if ( fabs ( a[i] ) < amin )
+    {
+      amin = fabs ( a[i] );
+    }
+  }
+
+  return amin;
+}
+/******************************************************************************/
+
+double r8vec_asum ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_ASUM sums the absolute values of the entries of an R8VEC.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input, double A[N], the vector.
+
+    Output, double R8VEC_ASUM, the sum of the absolute values of the entries.
+*/
+{
+  int i;
+  double value;
+
+  value = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    value = value + fabs ( a[i] );
+  }
+
+  return value;
 }
 /******************************************************************************/
 
@@ -40010,7 +46281,7 @@ double *r8vec_house_column ( int n, double a[], int k )
     return v;
   }
 
-  v[k-1] = a[k-1] + r8_abs ( s ) * r8_sign ( a[k-1] );
+  v[k-1] = a[k-1] + fabs ( s ) * r8_sign ( a[k-1] );
 
   r8vec_copy ( n-k, a+k, v+k );
 
@@ -40063,6 +46334,66 @@ double *r8vec_indicator_new ( int n )
   }
 
   return a;
+}
+/******************************************************************************/
+
+double *r8vec_linspace_new ( int n, double a, double b )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_LINSPACE_NEW creates a vector of linearly spaced values.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+    4 points evenly spaced between 0 and 12 will yield 0, 4, 8, 12.
+ 
+    In other words, the interval is divided into N-1 even subintervals,
+    and the endpoints of intervals are used as the points.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 March 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input, double A, B, the first and last entries.
+
+    Output, double R8VEC_LINSPACE_NEW[N], a vector of linearly spaced data.
+*/
+{
+  int i;
+  double *x;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  if ( n == 1 )
+  {
+    x[0] = ( a + b ) / 2.0;
+  }
+  else
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      x[i] = ( ( double ) ( n - 1 - i ) * a 
+             + ( double ) (         i ) * b ) 
+             / ( double ) ( n - 1     );
+    }
+  }
+  return x;
 }
 /******************************************************************************/
 
@@ -40357,20 +46688,20 @@ double r8vec_sum ( int n, double a[] )
 }
 /******************************************************************************/
 
-double *r8vec_uniform_new ( int n, double b, double c, int *seed )
+double *r8vec_uniform_ab_new ( int n, double b, double c, int *seed )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8VEC_UNIFORM_NEW returns a scaled pseudorandom R8VEC.
+    R8VEC_UNIFORM_AB_NEW returns a scaled pseudorandom R8VEC.
 
   Discussion:
 
     This routine implements the recursion
 
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      unif = seed / ( 2**31 - 1 )
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
 
     The integer arithmetic never requires more than 32 bits,
     including a sign bit.
@@ -40424,7 +46755,7 @@ double *r8vec_uniform_new ( int n, double b, double c, int *seed )
 
     Input/output, int *SEED, a seed for the random number generator.
 
-    Output, double R8VEC_UNIFORM_NEW[N], the vector of pseudorandom values.
+    Output, double R8VEC_UNIFORM_AB_NEW[N], the vector of pseudorandom values.
 */
 {
   int i;
@@ -40435,12 +46766,12 @@ double *r8vec_uniform_new ( int n, double b, double c, int *seed )
   if ( *seed == 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R8VEC_UNIFORM_NEW - Fatal error!\n" );
+    fprintf ( stderr, "R8VEC_UNIFORM_AB_NEW - Fatal error!\n" );
     fprintf ( stderr, "  Input value of SEED = 0.\n" );
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -40472,8 +46803,8 @@ double *r8vec_uniform_01_new ( int n, int *seed )
 
     This routine implements the recursion
 
-      seed = 16807 * seed mod ( 2**31 - 1 )
-      unif = seed / ( 2**31 - 1 )
+      seed = 16807 * seed mod ( 2^31 - 1 )
+      unif = seed / ( 2^31 - 1 )
 
     The integer arithmetic never requires more than 32 bits,
     including a sign bit.
@@ -40541,7 +46872,7 @@ double *r8vec_uniform_01_new ( int n, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -40870,6 +47201,8 @@ double *redheffer ( int n )
 
     The determinant is equal to the Mertens function M(N).
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -40955,7 +47288,7 @@ double redheffer_determinant ( int n )
 }
 /******************************************************************************/
 
-double *ref_random ( int m, int n, double prob, int *seed )
+double *ref_random ( int m, int n, double prob, int key )
 
 /******************************************************************************/
 /*
@@ -41014,8 +47347,7 @@ double *ref_random ( int m, int n, double prob, int *seed )
     PROB = 0 forces the entire matrix to be zero.  A more reasonable
     value might be PROB = 0.8 or 0.9.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double REF_RANDOM[M*N], the matrix.
 */
@@ -41025,10 +47357,12 @@ double *ref_random ( int m, int n, double prob, int *seed )
   int j;
   int jnew;
   int jprev;
+  int seed;
   double temp;
 
   a = ( double * ) malloc ( m * n * sizeof ( double ) );
 
+  seed = key;
   jprev = - 1;
 
   for ( i = 0; i < m; i++ )
@@ -41043,7 +47377,7 @@ double *ref_random ( int m, int n, double prob, int *seed )
       }
       else if ( jnew == -1 )
       {
-        temp = r8_uniform_01 ( seed );
+        temp = r8_uniform_01 ( &seed );
         if ( temp <= prob )
         {
           jnew = j;
@@ -41056,7 +47390,7 @@ double *ref_random ( int m, int n, double prob, int *seed )
       }
       else
       {
-        a[i+j*m] = r8_uniform_01 ( seed );
+        a[i+j*m] = r8_uniform_01 ( &seed );
       }
     }
     if ( jnew == - 1 )
@@ -41069,7 +47403,7 @@ double *ref_random ( int m, int n, double prob, int *seed )
 }
 /******************************************************************************/
 
-double ref_random_determinant ( int n, double prob, int *seed )
+double ref_random_determinant ( int n, double prob, int key )
 
 /******************************************************************************/
 /*
@@ -41099,8 +47433,7 @@ double ref_random_determinant ( int n, double prob, int *seed )
     PROB = 0 forces the entire matrix to be zero.  A more reasonable
     value might be PROB = 0.8 or 0.9.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double REF_RANDOM_DETERMINANT, the determinant.
 */
@@ -41110,11 +47443,13 @@ double ref_random_determinant ( int n, double prob, int *seed )
   int j;
   int jnew;
   int jprev;
+  int seed;
   double temp;
 
   determ = 1.0;
 
   jprev = - 1;
+  seed = key;
 
   for ( i = 0; i < n; i++ )
   {
@@ -41127,7 +47462,7 @@ double ref_random_determinant ( int n, double prob, int *seed )
       }
       else if ( jnew == - 1 )
       {
-        temp = r8_uniform_01 ( seed );
+        temp = r8_uniform_01 ( &seed );
         if ( temp <= prob )
         {
           jnew = j;
@@ -41138,7 +47473,7 @@ double ref_random_determinant ( int n, double prob, int *seed )
       }
       else
       {
-        temp = r8_uniform_01 ( seed );
+        temp = r8_uniform_01 ( &seed );
       }
     }
     if ( jnew != i )
@@ -41200,6 +47535,8 @@ double *riemann ( int m, int n )
       1 <= LAMBDA(I) <= I + 1
     except for at most (N+1) - sqrt ( N + 1 ) values, and
     all integers in the interval ( (N+1)/3, (N+1)/2 ] are eigenvalues.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -41416,13 +47753,64 @@ double ring_adj_determinant ( int n )
 }
 /******************************************************************************/
 
-double *ring_adj_null ( int n )
+double *ring_adj_null_left ( int m, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    RING_ADJ_NULL returns a null vector of the RING_ADJ matrix.
+    RING_ADJ_NULL_LEFT returns a left null vector of the RING_ADJ matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, integer M, N, the order of the matrix.
+
+    Output, double RING_ADJ_NULL_LEFT[M], the null vector.
+*/
+{
+  int i;
+  double *x;
+
+  x = ( double * ) malloc ( m * sizeof ( double ) );
+
+  if ( ( m % 4 ) != 0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "RING_ADJ_NULL_RIGHT - Fatal error!\n" );
+    fprintf ( stderr, "  M must be a multiple of 4.\n" );
+    exit ( 1 );
+  }
+
+  for ( i = 0; i < m; i = i + 4 )
+  {
+    x[i]   = + 1.0;
+    x[i+1] = + 1.0;
+    x[i+2] = - 1.0;
+    x[i+3] = - 1.0;
+  }
+  return x;
+}
+/******************************************************************************/
+
+double *ring_adj_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    RING_ADJ_NULL_RIGHT returns a right null vector of the RING_ADJ matrix.
 
   Licensing:
 
@@ -41438,9 +47826,9 @@ double *ring_adj_null ( int n )
 
   Parameters:
 
-    Input, integer N, the order of the matrix.
+    Input, integer M, N, the order of the matrix.
 
-    Output, double RING_ADJ_NULL[N], the null vector.
+    Output, double RING_ADJ_NULL_RIGHT[N], the null vector.
 */
 {
   int i;
@@ -41451,7 +47839,7 @@ double *ring_adj_null ( int n )
   if ( ( n % 4 ) != 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "RING_ADJ_NULL - Fatal error!\n" );
+    fprintf ( stderr, "RING_ADJ_NULL_RIGHT - Fatal error!\n" );
     fprintf ( stderr, "  N must be a multiple of 4.\n" );
     exit ( 1 );
   }
@@ -41677,7 +48065,7 @@ double *ris_inverse ( int n )
 }
 /******************************************************************************/
 
-double *rodman ( double alpha, int m, int n )
+double *rodman ( int m, int n, double alpha )
 
 /******************************************************************************/
 /*
@@ -41753,6 +48141,8 @@ double *rodman ( double alpha, int m, int n )
 
     The inverse of A is known.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -41776,9 +48166,9 @@ double *rodman ( double alpha, int m, int n )
 
   Parameters:
 
-    Input, double ALPHA, the scalar that defines A.
-
     Input, int M, N, the order of the matrix.
+
+    Input, double ALPHA, the parameter.
 
     Output, double RODMAN[M*N], the matrix.
 */
@@ -41807,7 +48197,55 @@ double *rodman ( double alpha, int m, int n )
 }
 /******************************************************************************/
 
-double rodman_determinant ( double alpha, int n )
+double rodman_condition ( int n, double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    RODMAN_CONDITION returns the L1 condition of the RODMAN matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double ALPHA, the parameter.
+
+    Output, double RODMAN_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double bot;
+  double top;
+  double value;
+
+  a_norm = 1.0 + ( double ) ( n - 1 ) * fabs ( alpha );
+  top = fabs ( 1.0 + alpha * ( double ) ( n - 2 ) ) 
+    + ( double ) ( n - 1 ) * fabs ( alpha );
+  bot = fabs ( 1.0 + alpha * ( double ) ( n - 2 ) 
+    - alpha * alpha * ( double ) ( n - 1 ) );
+  b_norm = top / bot;
+
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double rodman_determinant ( int n, double alpha )
 
 /******************************************************************************/
 /*
@@ -41829,9 +48267,9 @@ double rodman_determinant ( double alpha, int n )
 
   Parameters:
 
-    Input, double ALPHA, the scalar that defines A.
-
     Input, int N, the order of the matrix.
+
+    Input, double ALPHA, the parameter.
 
     Output, double RODMAN_DETERMINANT, the determinant.
 */
@@ -41845,17 +48283,13 @@ double rodman_determinant ( double alpha, int n )
 }
 /******************************************************************************/
 
-double *rodman_eigenvalues ( double alpha, int n )
+double *rodman_eigen_right ( int n, double alpha )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    RODMAN_EIGENVALUES returns the eigenvalues of the RODMAN matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
+    RODMAN_EIGEN_RIGHT returns the right eigenvectors of the RODMAN matrix.
 
   Licensing:
 
@@ -41871,129 +48305,9 @@ double *rodman_eigenvalues ( double alpha, int n )
 
   Parameters:
 
-    Input, double ALPHA, the scalar that defines A.
-
     Input, int N, the order of the matrix.
 
-    Output, double RODMAN_EIGENVALUES[N], the eigenvalues.
-*/
-{
-  int i;
-  double *lambda;
-
-  lambda = ( double * ) malloc ( n * sizeof ( double ) );
-
-  for ( i = 0; i < n - 1; i++ )
-  {
-    lambda[i] = 1.0 - alpha;
-  }
-  lambda[n-1] = 1.0 + alpha * ( double ) ( n - 1 );
-
-  return lambda;
-}
-/******************************************************************************/
-
-double *rodman_inverse ( double alpha, int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    RODMAN_INVERSE returns the inverse of the RODMAN matrix.
-
-  Formula:
-
-    If ( I = J ) then
-      A(I,J) = ( 1 + ALPHA * ( N - 2 ) ) /
-        ( 1 + ALPHA * ( N - 2 ) - ALPHA^2 * ( N - 1 ) )
-    else
-      A(I,J) = - ALPHA /
-        ( 1 + ALPHA * ( N - 2 ) - ALPHA^2 * ( N - 1 ) )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    07 October 2010
-
-  Author:
-
-    John Burkardt
-
-  Reference:
-
-    Joan Westlake,
-    A Handbook of Numerical Matrix Inversion and Solution of 
-    Linear Equations,
-    John Wiley, 1968,
-    ISBN13: 978-0471936756,
-    LC: QA263.W47.
-
-  Parameters:
-
-    Input, double ALPHA, the scalar that defines A.
-
-    Input, int N, the order of the matrix.
-
-    Output, double RODMAN_INVERSE[N*N}, the matrix.
-*/
-{
-  double *a;
-  double bot;
-  int i;
-  int j;
-
-  a = ( double * ) malloc ( n * n * sizeof ( double ) );
-
-  bot = 1.0 + alpha * ( double ) ( n - 2 ) 
-    - alpha * alpha * ( double ) ( n - 1 );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      if ( i == j )
-      {
-        a[i+j*n] = ( 1.0 + alpha * ( double ) ( n - 2 ) ) / bot;
-      }
-      else
-      {
-        a[i+j*n] = - alpha / bot;
-      }
-    }
-  }
-
-  return a;
-}
-/******************************************************************************/
-
-double *rodman_right ( double alpha, int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    RODMAN_RIGHT returns the right eigenvectors of the RODMAN matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    07 October 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double ALPHA, the scalar that defines A.
-
-    Input, int N, the order of the matrix.
+    Input, double ALPHA, the parameter.
 
     Output, double X[N*N], the right eigenvectors.
 */
@@ -42025,6 +48339,140 @@ double *rodman_right ( double alpha, int n )
   }
 
   return x;
+}
+/******************************************************************************/
+
+double *rodman_eigenvalues ( int n, double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    RODMAN_EIGENVALUES returns the eigenvalues of the RODMAN matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 October 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double ALPHA, the parameter.
+
+    Output, double RODMAN_EIGENVALUES[N], the eigenvalues.
+*/
+{
+  int i;
+  double *lambda;
+
+  lambda = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n - 1; i++ )
+  {
+    lambda[i] = 1.0 - alpha;
+  }
+  lambda[n-1] = 1.0 + alpha * ( double ) ( n - 1 );
+
+  return lambda;
+}
+/******************************************************************************/
+
+double *rodman_inverse ( int n, double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    RODMAN_INVERSE returns the inverse of the RODMAN matrix.
+
+  Formula:
+
+    If ( I = J ) then
+      A(I,J) = ( 1 + ALPHA * ( N - 2 ) ) /
+        ( 1 + ALPHA * ( N - 2 ) - ALPHA^2 * ( N - 1 ) )
+    else
+      A(I,J) = - ALPHA /
+        ( 1 + ALPHA * ( N - 2 ) - ALPHA^2 * ( N - 1 ) )
+
+  Example:
+
+    N = 5, ALPHA = 2.0
+
+   -0.7778    0.2222    0.2222    0.2222    0.2222
+    0.2222   -0.7778    0.2222    0.2222    0.2222
+    0.2222    0.2222   -0.7778    0.2222    0.2222
+    0.2222    0.2222    0.2222   -0.7778    0.2222
+    0.2222    0.2222    0.2222    0.2222   -0.7778
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 October 2010
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Joan Westlake,
+    A Handbook of Numerical Matrix Inversion and Solution of 
+    Linear Equations,
+    John Wiley, 1968,
+    ISBN13: 978-0471936756,
+    LC: QA263.W47.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double ALPHA, the parameter.
+
+    Output, double RODMAN_INVERSE[N*N}, the matrix.
+*/
+{
+  double *a;
+  double bot;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  bot = 1.0 + alpha * ( double ) ( n - 2 ) 
+    - alpha * alpha * ( double ) ( n - 1 );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      if ( i == j )
+      {
+        a[i+j*n] = ( 1.0 + alpha * ( double ) ( n - 2 ) ) / bot;
+      }
+      else
+      {
+        a[i+j*n] = - alpha / bot;
+      }
+    }
+  }
+
+  return a;
 }
 /******************************************************************************/
 
@@ -42116,6 +48564,9 @@ double *rosser1 ( )
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[8*8] = {
     611.0,  196.0, -192.0,  407.0, 
      -8.0,  -52.0,  -49.0,   29.0, 
@@ -42173,13 +48624,13 @@ double rosser1_determinant ( )
 }
 /******************************************************************************/
 
-double *rosser1_eigenvalues ( )
+double *rosser1_eigen_left ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ROSSER1_EIGENVALUES returns the eigenvalues of the ROSSER1 matrix.
+    ROSSER1_EIGEN_LEFT returns the left eigenvectors of the ROSSER1 matrix.
 
   Licensing:
 
@@ -42187,7 +48638,7 @@ double *rosser1_eigenvalues ( )
 
   Modified:
 
-    29 June 2011
+    13 March 2015
 
   Author:
 
@@ -42195,75 +48646,97 @@ double *rosser1_eigenvalues ( )
 
   Parameters:
 
-    Output, double ROSSER1_EIGENVALUES[8], the eigenvalues.
+    Output, double ROSSER1_EIGEN_LEFT[8*8], the eigenvector matrix.
 */
 {
-  double *lambda;
-  static double lambda_save[8] = {
-    -1020.0490184299969, 
-        0.0000000000000000, 
-        0.0980486407215721556, 
-     1000.0000000000000, 
-     1000.0000000000000, 
-     1019.9019513592784, 
-     1020.0000000000000, 
-     1020.0490184299969 };
-
-  lambda = r8vec_copy_new ( 8, lambda_save );
-
-  return lambda;
-}
-/******************************************************************************/
-
-double *rosser1_null ( )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ROSSER1_NULL returns a null vector of the ROSSER1 matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    07 October 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Output, double ROSSER1_NULL[8], the null vector.
-*/
-{
+  double a;
+  double b;
+  int n = 8;
   double *x;
-  double x_save[8] = {
-    1.0,  
-    2.0,  
-   -2.0,  
-   -1.0,  
-   14.0,  
-   14.0,  
-    7.0,  
-    7.0 };
 
-  x = r8vec_copy_new ( 8, x_save );
+  a = sqrt ( 10405.0 );
+  b = sqrt ( 26.0 );
+
+  x = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  x[0+0*n] =     2.0;
+  x[1+0*n] =     1.0;
+  x[2+0*n] =     1.0;
+  x[3+0*n] =     2.0;
+  x[4+0*n] =   102.0 + a;
+  x[5+0*n] =   102.0 + a;
+  x[6+0*n] = - 204.0 - 2.0 * a;
+  x[7+0*n] = - 204.0 - 2.0 * a;
+  x[0+1*n] =     1.0;
+  x[1+1*n] =     2.0;
+  x[2+1*n] =   - 2.0;
+  x[3+1*n] =   - 1.0;
+  x[4+1*n] =    14.0;
+  x[5+1*n] =    14.0;
+  x[6+1*n] =     7.0;
+  x[7+1*n] =     7.0;
+  x[0+2*n] =     2.0;
+  x[1+2*n] =   - 1.0;
+  x[2+2*n] =     1.0;
+  x[3+2*n] =   - 2.0;
+  x[4+2*n] =     5.0 - b;
+  x[5+2*n] =   - 5.0 + b;
+  x[6+2*n] =  - 10.0 + 2.0 * b;
+  x[7+2*n] =    10.0 - 2.0 * b;
+  x[0+3*n] =     7.0;
+  x[1+3*n] =    14.0;
+  x[2+3*n] =  - 14.0;
+  x[3+3*n] =   - 7.0;
+  x[4+3*n] =   - 2.0;
+  x[5+3*n] =   - 2.0;
+  x[6+3*n] =   - 1.0;
+  x[7+3*n] =   - 1.0;
+  x[0+4*n] =     1.0;
+  x[1+4*n] =   - 2.0;
+  x[2+4*n] =   - 2.0;
+  x[3+4*n] =     1.0;
+  x[4+4*n] =   - 2.0;
+  x[5+4*n] =     2.0;
+  x[6+4*n] =   - 1.0;
+  x[7+4*n] =     1.0;
+  x[0+5*n] =     2.0;
+  x[1+5*n] =   - 1.0;
+  x[2+5*n] =     1.0;
+  x[3+5*n] =   - 2.0;
+  x[4+5*n] =     5.0 + b;
+  x[5+5*n] =   - 5.0 - b;
+  x[6+5*n] =  - 10.0 - 2.0 * b;
+  x[7+5*n] =    10.0 + 2.0 * b;
+  x[0+6*n] =     1.0;
+  x[1+6*n] =   - 2.0;
+  x[2+6*n] =   - 2.0;
+  x[3+6*n] =     1.0;
+  x[4+6*n] =     2.0;
+  x[5+6*n] =   - 2.0;
+  x[6+6*n] =     1.0;
+  x[7+6*n] =   - 1.0;
+  x[0+7*n] =     2.0;  
+  x[1+7*n] =     1.0;   
+  x[2+7*n] =     1.0;  
+  x[3+7*n] =     2.0;
+  x[4+7*n] =   102.0 - a;
+  x[5+7*n] =   102.0 - a;
+  x[6+7*n] = - 204.0 + 2.0 * a;
+  x[7+7*n] = - 204.0 + 2.0 * a;
+
+  r8mat_transpose_in_place ( 8, x );
 
   return x;
 }
 /******************************************************************************/
 
-double *rosser1_right ( )
+double *rosser1_eigen_right ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ROSSER1_RIGHT returns the right eigenvectors of the ROSSER1 matrix.
+    ROSSER1_EIGEN_RIGHT returns the right eigenvectors of the ROSSER1 matrix.
 
   Licensing:
 
@@ -42279,7 +48752,7 @@ double *rosser1_right ( )
 
   Parameters:
 
-    Output, double ROSSER1_RIGHT[8*8], the right eigenvector matrix.
+    Output, double ROSSER1_EIGEN_RIGHT[8*8], the eigenvector matrix.
 */
 {
   double a;
@@ -42361,6 +48834,132 @@ double *rosser1_right ( )
 }
 /******************************************************************************/
 
+double *rosser1_eigenvalues ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ROSSER1_EIGENVALUES returns the eigenvalues of the ROSSER1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 June 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double ROSSER1_EIGENVALUES[8], the eigenvalues.
+*/
+{
+  double *lambda;
+  static double lambda_save[8] = {
+    -1020.0490184299969, 
+        0.0000000000000000, 
+        0.0980486407215721556, 
+     1000.0000000000000, 
+     1000.0000000000000, 
+     1019.9019513592784, 
+     1020.0000000000000, 
+     1020.0490184299969 };
+
+  lambda = r8vec_copy_new ( 8, lambda_save );
+
+  return lambda;
+}
+/******************************************************************************/
+
+double *rosser1_null_left ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ROSSER1_NULL_LEFT returns a left null vector of the ROSSER1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double ROSSER1_NULL_LEFT[8], the null vector.
+*/
+{
+  double *x;
+  static double x_save[8] = {
+    1.0,  
+    2.0,  
+   -2.0,  
+   -1.0,  
+   14.0,  
+   14.0,  
+    7.0,  
+    7.0 };
+
+  x = r8vec_copy_new ( 8, x_save );
+
+  return x;
+}
+/******************************************************************************/
+
+double *rosser1_null_right ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ROSSER1_NULL_RIGHT returns a right null vector of the ROSSER1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 October 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double ROSSER1_NULL_RIGHT[8], the null vector.
+*/
+{
+  double *x;
+  static double x_save[8] = {
+    1.0,  
+    2.0,  
+   -2.0,  
+   -1.0,  
+   14.0,  
+   14.0,  
+    7.0,  
+    7.0 };
+
+  x = r8vec_copy_new ( 8, x_save );
+
+  return x;
+}
+/******************************************************************************/
+
 double *routh ( int n, double x[] )
 
 /******************************************************************************/
@@ -42401,13 +49000,15 @@ double *routh ( int n, double x[] )
 
     det ( A ) = product ( X(N) * X(N-2) * X(N-4) * ... * X(N+1-2*(N/2)) )
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    01 July 2011
+    24 February 2015
 
   Author:
 
@@ -42426,17 +49027,6 @@ double *routh ( int n, double x[] )
   int i;
   int j;
 
-  for ( i = 1; i < n; i++ )
-  {
-    if ( x[i] < 0.0 )
-    {
-      fprintf ( stderr, "\n" );
-      fprintf ( stderr, "ROUTH - Fatal error!\n" );
-      fprintf ( stderr, "  X[%d] = %f is less than 0.0\n", i, x[i] );
-      exit ( 1 );
-    }
-  }
-
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
   for ( j = 0; j < n; j++ )
@@ -42445,15 +49035,15 @@ double *routh ( int n, double x[] )
     {
       if ( i == 0 && j == 0 )
       {
-        a[i+j*n] = x[0];
+        a[i+j*n] = fabs ( x[0] );
       }
       else if ( i == j + 1 )
       {
-        a[i+j*n] = sqrt ( x[i] );
+        a[i+j*n] = sqrt ( fabs ( x[i] ) );
       }
       else if ( i == j - 1 )
       {
-        a[i+j*n] = - sqrt ( x[i+1] );
+        a[i+j*n] = - sqrt ( fabs ( x[i+1] ) );
       }
       else
       {
@@ -42745,7 +49335,10 @@ double *rutis1 ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
     6.0,  4.0,  4.0,  1.0, 
     4.0,  6.0,  1.0,  4.0, 
     4.0,  1.0,  6.0,  4.0, 
@@ -42754,6 +49347,43 @@ double *rutis1 ( )
   a = r8mat_copy_new ( 4, 4, a_save );
 
   return a;
+}
+/******************************************************************************/
+
+double rutis1_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    RUTIS1_CONDITION returns the L1 condition of the RUTIS1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double RUTIS_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 15.0;
+  b_norm = 1.0;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -42816,7 +49446,7 @@ double *rutis1_eigenvalues ( )
 */
 {
   double *lambda;
-  double lambda_save[4] = { 15.0, 5.0, 5.0, -1.0 };
+  static double lambda_save[4] = { 15.0, 5.0, 5.0, -1.0 };
 
   lambda = r8vec_copy_new ( 4, lambda_save );
 
@@ -42859,7 +49489,10 @@ double *rutis1_inverse ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
     -2.0,  4.0,  4.0, -5.0, 
      4.0, -2.0, -5.0,  4.0,
      4.0, -5.0, -2.0,  4.0, 
@@ -42880,13 +49513,13 @@ double *rutis1_inverse ( )
 }
 /******************************************************************************/
 
-double *rutis1_right ( )
+double *rutis1_eigen_right ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    RUTIS1_RIGHT returns the right eigenvectors of the RUTIS1 matrix.
+    RUTIS1_EIGEN_RIGHT returns the right eigenvectors of the RUTIS1 matrix.
 
   Licensing:
 
@@ -42902,11 +49535,14 @@ double *rutis1_right ( )
 
   Parameters:
 
-    Output, double RUTIS1_RIGHT[4*4], the right eigenvector matrix.
+    Output, double RUTIS1_EIGEN_RIGHT[4*4], the right eigenvector matrix.
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
      1.0,  1.0,  1.0,  1.0, 
      1.0,  0.0,  0.0, -1.0, 
      0.0,  1.0, -1.0,  0.0, 
@@ -42969,7 +49605,10 @@ double *rutis2 ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
     5.0,  4.0,  1.0,  1.0, 
     4.0,  5.0,  1.0,  1.0, 
     1.0,  1.0,  4.0,  2.0, 
@@ -42978,6 +49617,43 @@ double *rutis2 ( )
   a = r8mat_copy_new ( 4, 4, a_save );
 
   return a;
+}
+/******************************************************************************/
+
+double rutis2_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    RUTIS2_CONDITION returns the L1 condition of the RUTIS2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double RUTIS2_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 11.0;
+  b_norm = 1.04;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -43040,7 +49716,7 @@ double *rutis2_eigenvalues ( )
 */
 {
   double *lambda;
-  double lambda_save[4] = {
+  static double lambda_save[4] = {
     10.0, 
      5.0, 
      2.0, 
@@ -43087,7 +49763,10 @@ double *rutis2_inverse ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
      0.56,  -0.44,  -0.02, -0.02, 
     -0.44,   0.56,  -0.02, -0.02, 
     -0.02,  -0.02,   0.34, -0.16, 
@@ -43099,13 +49778,13 @@ double *rutis2_inverse ( )
 }
 /******************************************************************************/
 
-double *rutis2_right ( )
+double *rutis2_eigen_right ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    RUTIS2_RIGHT returns the right eigenvectors of the RUTIS2 matrix.
+    RUTIS2_EIGEN_RIGHT returns the right eigenvectors of the RUTIS2 matrix.
 
   Licensing:
 
@@ -43121,11 +49800,14 @@ double *rutis2_right ( )
 
   Parameters:
 
-    Output, double RUTIS2_RIGHT[4*4], the right eigenvector matrix.
+    Output, double RUTIS2_EIGEN_RIGHT[4*4], the right eigenvector matrix.
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
      2.0,  2.0,  1.0,  1.0, 
     -1.0, -1.0,  2.0,  2.0, 
      0.0,  0.0, -1.0,  1.0, 
@@ -43190,7 +49872,10 @@ double *rutis3 ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
     4.0,  0.0,  5.0,  3.0, 
    -5.0,  4.0, -3.0,  0.0, 
     0.0, -3.0,  4.0,  5.0, 
@@ -43199,6 +49884,43 @@ double *rutis3 ( )
   a = r8mat_copy_new ( 4, 4, a_save );
 
   return a;
+}
+/******************************************************************************/
+
+double rutis3_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    RUTIS3_CONDITION returns the L1 condition of the RUTIS3 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double RUTIS3_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 12.0;
+  b_norm = 0.5;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -43261,7 +49983,7 @@ double complex *rutis3_eigenvalues ( )
 */
 {
   double complex *lambda;
-  double complex lambda_save[4] = {
+  static double complex lambda_save[4] = {
     12.0, 
      1.0 + 5.0 * I, 
      1.0 - 5.0 * I, 
@@ -43308,7 +50030,10 @@ double *rutis3_inverse ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
      103.0,    5.0, -125.0,   79.0,
      125.0,  103.0,  -79.0,    5.0,
       -5.0,  -79.0,  103.0, -125.0,
@@ -43329,13 +50054,13 @@ double *rutis3_inverse ( )
 }
 /******************************************************************************/
 
-double complex *rutis3_left ( )
+double complex *rutis3_eigen_left ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    RUTIS3_LEFT returns the left eigenvectors of the RUTIS3 matrix.
+    RUTIS3_EIGEN_LEFT returns the left eigenvectors of the RUTIS3 matrix.
 
   Licensing:
 
@@ -43351,11 +50076,14 @@ double complex *rutis3_left ( )
 
   Parameters:
 
-    Output, double complex RUTIS3_LEFT[4*4], the left eigenvector matrix.
+    Output, double complex RUTIS3_EIGEN_LEFT[4*4], the left eigenvector matrix.
 */
 {
   double complex *a;
-  double complex a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double complex a_save[4*4] = {
       1.0, 
       1.0, 
       1.0, 
@@ -43379,13 +50107,13 @@ double complex *rutis3_left ( )
 }
 /******************************************************************************/
 
-double complex *rutis3_right ( )
+double complex *rutis3_eigen_right ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    RUTIS3_RIGHT returns the right eigenvectors of the RUTIS3 matrix.
+    RUTIS3_EIGEN_RIGHT returns the right eigenvectors of the RUTIS3 matrix.
 
   Licensing:
 
@@ -43401,11 +50129,14 @@ double complex *rutis3_right ( )
 
   Parameters:
 
-    Output, double complex RUTIS3_RIGHT[4*4], the right eigenvector matrix.
+    Output, double complex RUTIS3_EIGEN_RIGHT[4*4], the right eigenvector matrix.
 */
 {
   double complex *a;
-  double complex a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double complex a_save[4*4] = {
        1.0, 
       -1.0, 
        1.0, 
@@ -43462,7 +50193,7 @@ double *rutis4 ( int n )
     A is the cube of the scalar tridiagonal matrix whose diagonals
     are ( 1, 2, 1 ).
 
-    LAMBDa[I) = 64 * ( cos ( i * pi / ( 2 * ( n + 1 ) ) ) )**6
+    LAMBDA[I) = 64 * ( cos ( i * pi / ( 2 * ( n + 1 ) ) ) )**6
 
   Licensing:
 
@@ -43572,13 +50303,13 @@ double rutis4_determinant ( int n )
   double angle;
   double determ;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   determ = 1.0;
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( 2 * ( n + 1 ) );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( 2 * ( n + 1 ) );
     determ = determ * 64.0 * pow ( cos ( angle ), 6 );
   }
 
@@ -43616,13 +50347,13 @@ double *rutis4_eigenvalues ( int n )
   double angle;
   int i;
   double *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( 2 * ( n + 1 ) );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( 2 * ( n + 1 ) );
     lambda[i] = 64.0 * pow ( cos ( angle ), 6 );
   }
   return lambda;
@@ -43748,7 +50479,10 @@ double *rutis5 ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
    10.0,  1.0,  4.0,  0.0, 
     1.0, 10.0,  5.0, -1.0, 
     4.0,  5.0, 10.0,  7.0, 
@@ -43852,7 +50586,7 @@ double *rutis5_eigenvalues ( )
 */
 {
   double *lambda;
-  double lambda_save[4] = {
+  static double lambda_save[4] = {
     19.122479087555860, 
     10.882816916492464, 
      8.994169735037230, 
@@ -43906,7 +50640,10 @@ double *rutis5_inverse ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
     105.0,  167.0, -304.0,  255.0, 
     167.0,  266.0, -484.0,  406.0, 
    -304.0, -484.0,  881.0, -739.0, 
@@ -43918,13 +50655,13 @@ double *rutis5_inverse ( )
 }
 /******************************************************************************/
 
-double *rutis5_right ( )
+double *rutis5_eigen_right ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    RUTIS5_RIGHT returns the right eigenvectors of the RUTIS5 matrix.
+    RUTIS5_EIGEN_RIGHT returns the right eigenvectors of the RUTIS5 matrix.
 
   Licensing:
 
@@ -43940,10 +50677,13 @@ double *rutis5_right ( )
 
   Parameters:
 
-    Output, double RUTIS5_RIGHT[4*4], the right eigenvector matrix.
+    Output, double RUTIS5_EIGEN_RIGHT[4*4], the right eigenvector matrix.
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[4*4] = {
    0.356841883715928,
    0.382460905084129,
@@ -43976,13 +50716,17 @@ int s_len_trim ( char *s )
 
     S_LEN_TRIM returns the length of a string to the last nonblank.
 
+  Discussion:
+
+    It turns out that I also want to ignore the '\n' character!
+
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    26 April 2003
+    05 October 2014
 
   Author:
 
@@ -44002,9 +50746,9 @@ int s_len_trim ( char *s )
   n = strlen ( s );
   t = s + strlen ( s ) - 1;
 
-  while ( 0 < n ) 
+  while ( 0 < n )
   {
-    if ( *t != ' ' )
+    if ( *t != ' ' && *t != '\n' )
     {
       return n;
     }
@@ -44033,7 +50777,7 @@ double *schur_block ( int n, double x[], double y[] )
     else if ( mod ( i, 2 ) == 0 .and. j == i - 1 )
       a(i,j) = -y( (i+1)/2 )
     else
-      a(i,j) = 0.0D+00
+      a(i,j) = 0.0
 
   Example:
 
@@ -44438,7 +51182,7 @@ double skew_circulant_determinant ( int n, double x[] )
   int j_hi;
   int  k;
   double complex lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   determ = 1.0;
 
@@ -44449,7 +51193,7 @@ double skew_circulant_determinant ( int n, double x[] )
     lambda = 0.0;
     for ( k = 0; k < n; k++ )
     {
-      angle = ( double ) ( ( 2 * j + 1 ) * k ) * pi / ( double ) ( n );
+      angle = ( double ) ( ( 2 * j + 1 ) * k ) * r8_pi / ( double ) ( n );
       lambda = lambda + x[k] * ( cos ( angle ) + sin ( angle ) * I );
     }
 
@@ -44499,14 +51243,14 @@ double complex *skew_circulant_eigenvalues ( int n, double x[] )
   int j;
   int k;
   double complex *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   for ( j = 0; j < n; j++ )
   {
     lambda[j] = 0.0;
     for ( k = 0; k < n; k++ )
     {
-      angle = ( double ) ( ( 2 * j + 1 ) * k ) * pi / ( double ) ( n );
+      angle = ( double ) ( ( 2 * j + 1 ) * k ) * r8_pi / ( double ) ( n );
       lambda[j] = lambda[j] + x[k] * ( cos ( angle ) + sin ( angle ) * I );
     }
   }
@@ -44581,12 +51325,12 @@ double complex *smoke1 ( int n )
   double complex *a;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double complex w;
 
   a = ( double complex * ) malloc ( n * n * sizeof ( double complex ) );
 
-  w = cexp ( 2.0 * pi * I / ( double ) ( n ) );
+  w = cexp ( 2.0 * r8_pi * I / ( double ) ( n ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -44685,13 +51429,13 @@ double complex *smoke1_eigenvalues ( int n )
   double angle;
   int i;
   double complex *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double complex * ) malloc ( n * sizeof ( double complex ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = 2.0 * pi * ( double ) ( i + 1 ) / ( double ) ( n );
+    angle = 2.0 * r8_pi * ( double ) ( i + 1 ) / ( double ) ( n );
     lambda[i] = cexp ( angle * I );
   }
 
@@ -44767,12 +51511,12 @@ double complex *smoke2 ( int n )
   double complex *a;
   int i;
   int j;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double complex w;
 
   a = ( double complex * ) malloc ( n * n * sizeof ( double complex ) );
 
-  w = cexp ( 2.0 * pi * I / ( double ) ( n ) );
+  w = cexp ( 2.0 * r8_pi * I / ( double ) ( n ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -44868,16 +51612,199 @@ double complex *smoke2_eigenvalues ( int n )
   double angle;
   int i;
   double complex *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double complex * ) malloc ( n * sizeof ( double complex ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = 2.0 * pi * ( double ) ( i + 1 ) / ( double ) ( n );
+    angle = 2.0 * r8_pi * ( double ) ( i + 1 ) / ( double ) ( n );
     lambda[i] = cexp ( angle * I );
   }
   return lambda;
+}
+/******************************************************************************/
+
+double *snakes ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SNAKES returns the Snakes and Ladders transition matrix.
+
+  Discussion:
+
+    The game of Snakes and Ladders, or Chutes and Ladders, is played on a
+    10x10 board of squares, numbered in boustrophedonic order, with the 
+    lower left corner numbered 1, and the upper left corner 100.  
+
+    Certain pairs of squares are joined by a ladder, and others by a snake.
+
+    A player starts off the board, occupying fictitious square 0.
+    A single die is rolled to determine the player's moves.  Each roll of
+    the die advances the player along the board.  However, if the player
+    lands on a square that is the bottom of a ladder, the player moves
+    immediately to the top of the ladder, which is always a higher-numbered
+    square.  Similarly, landing on the "mouth" of a snake means that the 
+    player immediately drops back to the square that is the tail of the 
+    snake, a lower-numbered square.
+
+    A player's game is over when the square 100 is reached.  While the board
+    game version stipulates that the 100 square must be reached by an exact
+    roll, it is common for players to ignore this stipulation, so that a 
+    player's game is over when the next location is 100, or greater.
+
+    The snakes and ladders matrix contains the transition probabilities,
+    that is, A(I,J) is the probability that a player currently located
+    at square J will end up at square I after a single roll of the dice.
+
+    If we could ignore the snakes and ladders and the final squares, then 
+    the matrix would be all zero, except that entries A(I+1:I+6,J) would 
+    be 1/6.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 July 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SNAKES[101*101], the matrix.
+*/
+{
+# define LADDER_NUM 9
+# define SNAKE_NUM 10
+
+  double *a;
+  int i;
+  int ihi;
+  int j;
+  int k;
+  int l;
+  int ladder_num = LADDER_NUM;
+  int ladder[2*LADDER_NUM] = {
+     1, 38, 
+     4, 14, 
+     9, 31, 
+    21, 42, 
+    28, 84, 
+    36, 44, 
+    51, 67, 
+    71, 91, 
+    80, 100 };
+  int m;
+  int n = 101;
+  int s;
+  int snake[2*SNAKE_NUM] = {
+    98, 78, 
+    95, 75, 
+    93, 73, 
+    87, 24, 
+    64, 60, 
+    62, 19, 
+    56, 53, 
+    49, 11, 
+    48, 26, 
+    16,  6 };
+  int snake_num = SNAKE_NUM;
+  int t;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+/*
+  Start by ignoring snakes and ladders.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    ihi = j + 6;
+    if ( n <= ihi )
+    {
+      ihi = n - 1;
+    }
+    for ( i = j + 1; i <= ihi; i++ )
+    {
+      a[i+j*n] = 1.0;
+    }
+  }
+/*
+  Deal with the fact that squares 96 through 101 have extra chances
+  of ending up at 101.  In particular, 101 will amount to a fixed point.
+*/
+  for ( j = 95; j < n; j++ )
+  {
+    a[n-1+j*n] = a[n-1+j*n] + ( double ) ( j - 94 );
+  }
+/*
+  For each snake, from S to T.
+    All entries in row S are transferred to row T.
+    Logically, column S is irrelevant, because we can never end on square S.
+    For linear algebra's sake, set column S to zero, but A(T,S) to 1.
+*/
+  for ( k = 0; k < snake_num; k++ )
+  {
+    s = snake[0+k*2];
+    t = snake[1+k*2];
+    for ( j = 0; j < n; j++ )
+    {
+      a[t+j*n] = a[t+j*n] + a[s+j*n];
+      a[s+j*n] = 0.0;
+    }
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+s*n] = 0.0;
+    }
+    a[t+s*n] = 6.0;
+  }
+/*
+  For each ladder, from L to M:
+    All entries in row L are transferred to row M.
+    Logically, column L is irrelevant, because we can never end on square L.
+    For linear algebra's sake, set column L to zero, but A(M,L) to 1.
+*/
+  for ( k = 0; k < ladder_num; k++ )
+  {
+    l = ladder[0+k*2];
+    m = ladder[1+k*2];
+    for ( j = 0; j < n; j++ )
+    {
+      a[m+j*n] = a[m+j*n] + a[l+j*n];
+      a[l+j*n] = 0.0;
+    }
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+l*n] = 0.0;
+    }
+    a[m+l*n] = 6.0;
+  }
+/*
+  Normalize.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = a[i+j*n] / 6.0;
+    }
+  }
+
+  return a;
+# undef LADDER_NUM
+# undef SNAKE_NUM
 }
 /******************************************************************************/
 
@@ -45436,6 +52363,8 @@ double *stirling ( int m, int n )
     X_N = sum ( 0 <= K <= N ) S1(N,K) X**K
     where X_N is the falling factorial function.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license. 
@@ -45785,93 +52714,6 @@ double *stripe ( int n )
 }
 /******************************************************************************/
 
-void subset_by_size_next ( int n, int a[], int *size, int *more )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    SUBSET_BY_SIZE_NEXT returns all subsets of an N set, in order of size.
-
-  Example:
-
-    N = 4:
-
-    1 2 3 4
-    1 2 3
-    1 2 4
-    1 3 4
-    1 3
-    1 4
-    2 3
-    1
-    2
-    3
-    (the empty set)
-
-  Discussion:
-
-    The subsets are returned in decreasing order of size, with the
-    empty set last.
-
-    For a given size K, the K subsets are returned in lexicographic order.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    08 October 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the size of the set.
-
-    Input/output, int A[N].  The entries A(1:SIZE) contain
-    the elements of the subset.  The elements are given in ascending
-    order.
-
-    Output, int *SIZE, the number of elements in the subset.
-
-    Input/output, int *MORE.  Set MORE = FALSE before first call
-    for a new sequence of subsets.  It then is set and remains
-    TRUE as long as the subset computed on this call is not the
-    final one.  When the final subset is computed, MORE is set to
-    FALSE as a signal that the computation is done.
-*/
-{
-  static int more2 = 0;
-
-  if ( !( *more ) )
-  {
-    *more = 1;
-    more2 = 0;
-    *size = n;
-  }
-  else if ( !more2 )
-  {
-    *size = *size - 1;
-  }
-/*
-  Compute the next subset of size SIZE.
-*/
-  if ( 0 < *size )
-  {
-    ksub_next ( n, *size, a, &more2 );
-  }
-  else if ( *size == 0 )
-  {
-    *more = 0;
-  }
-  return;
-}
-/******************************************************************************/
-
 void subset_random ( int n, int *seed, int a[] )
 
 /******************************************************************************/
@@ -45918,7 +52760,7 @@ void subset_random ( int n, int *seed, int a[] )
 
   for ( i = 0; i < n; i++ )
   {
-    a[i] = i4_uniform ( 0, 1, seed );
+    a[i] = i4_uniform_ab ( 0, 1, seed );
   }
   return;
 }
@@ -45965,6 +52807,8 @@ double *summation ( int m, int n )
     The only eigenvector is (0,0,0,...,0,1).
 
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -46213,7 +53057,7 @@ double *summation_inverse ( int n )
 }
 /******************************************************************************/
 
-double *sweet1 ( double perturb )
+double *sweet1 ( )
 
 /******************************************************************************/
 /*
@@ -46229,10 +53073,6 @@ double *sweet1 ( double perturb )
      6.0   2.5  15.0  20.0  15.0   2.5
      1.0   6.0   2.5  15.0  20.0  15.0
     -2.0   1.0   6.0   2.5  15.0  20.0
-
-    However, all the entries with value 2.5 are to be perturbed by
-    the same value PERTURB, which should be a small multiple of the
-    machine precision.
 
   Properties:
 
@@ -46274,9 +53114,6 @@ double *sweet1 ( double perturb )
 
   Parameters:
 
-    Input, double PERTURB, the perturbation value to be added to the
-    second super and subdiagonal entries.
-
     Output, double SWEET1[6*6], the matrix.
 */
 {
@@ -46293,13 +53130,128 @@ double *sweet1 ( double perturb )
     for ( i = 0; i < n; i++ )
     {
       a[i+j*n] = value [ abs ( j - i ) ];
-
-      if ( abs ( j - i ) == 2 )
-      {
-        a[i+j*n] = a[i+j*n] + perturb;
-      }
     }
   }
+  return a;
+}
+/******************************************************************************/
+
+double sweet1_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWEET1_CONDITION returns the L1 condition of the SWEET1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET1_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 61.0;
+  b_norm = 0.278145899201815;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double sweet1_determinant ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWWEET1_DETERMINANT returns the determinant of the SWEET1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET1_DETERMINANT, the determinant.
+*/
+{
+  double value;
+
+  value = - 2.0468186E+07;
+
+  return value;
+}
+/******************************************************************************/
+
+double *sweet1_inverse ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWEET1_INVERSE returns the inverse of the SWEET1 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET1_INVERSE[6*6], the matrix.
+*/
+{
+  double *a;
+  int n = 6;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[6*6] = { 
+   0.073125159943338,  -0.029629732454063,  -0.020045010339460, 
+   0.032364910109767,  -0.056244145182187,   0.052945000841794, 
+  -0.029629732454063,   0.046796984109877,   0.019214941666057, 
+  -0.056592264698005,   0.069667831091627,  -0.056244145182187, 
+  -0.020045010339460,   0.019214941666057,   0.009031577102143, 
+   0.035236537326757,  -0.056592264698005,   0.032364910109767, 
+   0.032364910109767,  -0.056592264698005,   0.035236537326757, 
+   0.009031577102143,   0.019214941666057,  -0.020045010339460, 
+  -0.056244145182187,   0.069667831091627,  -0.056592264698005, 
+   0.019214941666057,   0.046796984109877,  -0.029629732454063, 
+   0.052945000841794,  -0.056244145182187,   0.032364910109767, 
+  -0.020045010339460,  -0.029629732454063,   0.073125159943338 };
+
+  a = r8mat_copy_new ( n, n, a_save );
+
   return a;
 }
 /******************************************************************************/
@@ -46321,10 +53273,6 @@ double *sweet2 ( double perturb )
      3.0  5.0   A   6.0  4.0  8.0
      1.0  3.0  5.0   A   6.0  4.0
 
-    The entries labled "A" have the value 71/15, but are also to
-    be uniformly perturbed by a value PERTURB, which should be a
-    small multiple of the machine precision.
-
   Properties:
 
     A is Toeplitz: constant along diagonals.
@@ -46358,9 +53306,6 @@ double *sweet2 ( double perturb )
     Proceedings SPIE 696, 1986, pages 8-18.
 
   Parameters:
-
-    Input, double PERTURB, the perturbation value to be added to the
-    second subdiagonal entries.
 
     Output, double SWEET2[6*6], the matrix.
 */
@@ -46380,18 +53325,133 @@ double *sweet2 ( double perturb )
     for ( i = 0; i < n; i++ )
     {
       a[i+j*n] = value[j-i+5];
-
-      if ( j - i == -2 )
-      {
-        a[i+j*n]  = a[i+j*n]  + perturb;
-      }
     }
   }
   return a;
 }
 /******************************************************************************/
 
-double *sweet3 ( double perturb )
+double sweet2_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWEET2_CONDITION returns the L1 condition of the SWEET2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET2_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 30.733333333333334;
+  b_norm = 1.601605164968818;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double sweet2_determinant ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWWEET2_DETERMINANT returns the determinant of the SWEET2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET2_DETERMINANT, the determinant.
+*/
+{
+  double value;
+
+  value = 9.562518834567902E+03;
+
+  return value;
+}
+/******************************************************************************/
+
+double *sweet2_inverse ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWEET2_INVERSE returns the inverse of the SWEET2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET2_INVERSE[6*6], the matrix.
+*/
+{
+  double *a;
+  int n = 6;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[6*6] = { 
+    -0.188192659589482,   0.324411348442568,   0.038585525550130, 
+    -0.105091418281329,  -0.043938024069266,  -0.054227038968746, 
+    -0.145188896312202,   0.213721529181228,   0.275974273184732, 
+    -0.159756451255461,  -0.157319070822594,  -0.043938024069265, 
+     0.063613055049687,  -0.131983821377206,   0.137312031652403, 
+     0.216482246086901,  -0.159756451255461,  -0.105091418281329, 
+     0.406962974759668,  -0.344055452089408,  -0.366985595257679, 
+     0.137312031652403,   0.275974273184732,   0.038585525550129, 
+     0.271408731947181,  -0.168794206390780,  -0.344055452089408, 
+    -0.131983821377206,   0.213721529181228,   0.324411348442568, 
+    -0.526238847310597,   0.271408731947181,   0.406962974759669, 
+     0.063613055049687,  -0.145188896312202,  -0.188192659589482 };
+
+  a = r8mat_copy_new ( n, n, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
+double *sweet3 ( )
 
 /******************************************************************************/
 /*
@@ -46407,10 +53467,6 @@ double *sweet3 ( double perturb )
       5  -34    4    8    4    1
       3    5  -34    4    8    4
       1    3    5  -34    4    8
-
-    The entries with the value -34.0 are also to
-    be uniformly perturbed by a value PERTURB, which should be a
-    small multiple of the machine precision.
 
   Properties:
 
@@ -46446,9 +53502,6 @@ double *sweet3 ( double perturb )
 
   Parameters:
 
-    Input, double PERTURB, the perturbation value to be added to the
-    second subdiagonal entries.
-
     Output, double SWEET3[6*6], the matrix.
 */
 {
@@ -46466,18 +53519,133 @@ double *sweet3 ( double perturb )
     for ( i = 0; i < n; i++ )
     {
       a[i+j*n] = value[j-i+5];
-
-      if ( j - i == -2 )
-      {
-        a[i+j*n] = a[i+j*n] + perturb;
-      }
     }
   }
   return a;
 }
 /******************************************************************************/
 
-double *sweet4 ( double perturb )
+double sweet3_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWEET3_CONDITION returns the L1 condition of the SWEET3 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET3_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 58.0;
+  b_norm = 0.427215561206108;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double sweet3_determinant ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWWEET3_DETERMINANT returns the determinant of the SWEET3 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET3_DETERMINANT, the determinant.
+*/
+{
+  double value;
+
+  value = -5.4056067E+07;
+
+  return value;
+}
+/******************************************************************************/
+
+double *sweet3_inverse ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWEET3_INVERSE returns the inverse of the SWEET3 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET3_INVERSE[6*6], the matrix.
+*/
+{
+  double *a;
+  int n = 6;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[6*6] = { 
+   0.041073816931594,   0.008091247186000,   0.006256245020564, 
+   0.038877153234252,  -0.119845197024785,   0.213071901808913, 
+  -0.007888550234334,   0.017910145035154,   0.027534337635034, 
+  -0.002789344626201,   0.170102571465290,  -0.119845197024785, 
+  -0.020859268211281,   0.000156985153951,   0.003121055773444, 
+   0.008678729808441,  -0.002789344626201,   0.038877153234252, 
+   0.000304369165444,  -0.024742218112169,   0.003970174152700, 
+   0.003121055773444,   0.027534337635034,   0.006256245020564, 
+  -0.003979664299291,  -0.001114102511380,  -0.024742218112169, 
+   0.000156985153951,   0.017910145035154,   0.008091247186000, 
+   0.004165693371662,  -0.003979664299291,   0.000304369165444, 
+  -0.020859268211281,  -0.007888550234334,   0.041073816931594 };
+
+  a = r8mat_copy_new ( n, n, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
+double *sweet4 ( )
 
 /******************************************************************************/
 /*
@@ -46533,9 +53701,6 @@ double *sweet4 ( double perturb )
 
   Parameters:
 
-    Input, double PERTURB, the perturbation value to be added to the
-    second subdiagonal entries.
-
     Output, double SWEET4[13*13], the matrix.
 */
 {
@@ -46557,13 +53722,207 @@ double *sweet4 ( double perturb )
     for ( i = 0; i < n; i++ )
     {
       a[i+j*n] = value[j-i+12];
-
-      if ( j - i == -2 )
-      {
-        a[i+j*n] = a[i+j*n] + perturb;
-      }
     }
   }
+  return a;
+}
+/******************************************************************************/
+
+double sweet4_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWEET4_CONDITION returns the L1 condition of the SWEET4 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET4_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 100.3190000000000;
+  b_norm = 0.510081684645161;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
+double sweet4_determinant ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWWEET4_DETERMINANT returns the determinant of the SWEET4 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET4_DETERMINANT, the determinant.
+*/
+{
+  double value;
+
+  value = -6.463481763930611E+16;
+
+  return value;
+}
+/******************************************************************************/
+
+double *sweet4_inverse ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SWEET4_INVERSE returns the inverse of the SWEET4 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double SWEET4_INVERSE[13*13], the matrix.
+*/
+{
+  double *a;
+  int n = 13;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[13*13] = { 
+  -0.006395453515049,   0.004338135763774, 
+   0.011852844358462,   0.013846756886370, 
+   0.009447720973799,   0.009432787993907, 
+   0.006050784346575,  -0.001688517566864, 
+  -0.024098383394697,  -0.014571843537603, 
+   0.006620954487991,   0.017905883190490, 
+  -0.031068329896258, 
+   0.030690839549686,   0.039852868508471, 
+   0.033292080046396,   0.028058421670586, 
+   0.021796805754657,   0.039704365747118, 
+   0.020779138484695,  -0.071337491505107, 
+  -0.082853404494777,   0.050761162107706, 
+  -0.004862149070269,  -0.068187074515203, 
+   0.017905883190490, 
+  -0.002288997065175,  -0.006409462970417, 
+  -0.005374341111703,  -0.009388803334490, 
+   0.000727759422194,  -0.018354056201609, 
+   0.018595613535238,   0.069446707802933, 
+   0.033466389466084,  -0.090910979018549, 
+   0.029222791279654,  -0.004862149070269, 
+   0.006620954487991, 
+  -0.008539260151857,  -0.010789166315387, 
+  -0.008875487063420,  -0.004500416153857, 
+  -0.008130365160809,  -0.002772215599655, 
+  -0.018881036665831,   0.034560078451674, 
+   0.079212314240954,   0.012959017667649, 
+  -0.090910979018549,   0.050761162107706, 
+  -0.014571843537603, 
+  -0.001015137652004,   0.023605183638394, 
+   0.031350558988152,   0.032089285374445, 
+   0.021992767390463,   0.028789202755591, 
+   0.017128957468121,  -0.059246627902032, 
+  -0.061573703805162,   0.079212314240954, 
+   0.033466389466084,  -0.082853404494777, 
+  -0.024098383394697, 
+   0.040513470913244,   0.023524498024753,
+   0.015098401236510,   0.007746385727172, 
+   0.013573971521042,   0.020818744033636, 
+   0.021782629702447,  -0.038486648845696, 
+  -0.059246627902032,   0.034560078451674, 
+   0.069446707802933,  -0.071337491505107, 
+  -0.001688517566864, 
+   0.017598472282428,   0.032221111978773, 
+  -0.004426214105193,  -0.018511813509106, 
+  -0.015354921685074,  -0.008277808905384, 
+   0.006363468918819,   0.021782629702447, 
+   0.017128957468121,  -0.018881036665831, 
+   0.018595613535238,   0.020779138484695, 
+   0.006050784346575, 
+  -0.008312925397734,   0.010175588114759, 
+   0.030910853378811,  -0.002525445590655, 
+  -0.016609776210723,  -0.017802710611741, 
+  -0.008277808905384,   0.020818744033636, 
+   0.028789202755591,  -0.002772215599655, 
+  -0.018354056201609,   0.039704365747118, 
+   0.009432787993907, 
+  -0.015546543686421,  -0.018129776994110, 
+   0.012927937004693,   0.039475608232317, 
+   0.004261697864111,  -0.016609776210723, 
+  -0.015354921685074,   0.013573971521042, 
+   0.021992767390463,  -0.008130365160809, 
+   0.000727759422194,   0.021796805754657, 
+   0.009447720973799, 
+  -0.010969455314610,  -0.028500341074603, 
+  -0.023901509668313,   0.011543138436698, 
+   0.039475608232316,  -0.002525445590655, 
+  -0.018511813509106,   0.007746385727172, 
+   0.032089285374445,  -0.004500416153857, 
+  -0.009388803334490,   0.028058421670586, 
+   0.013846756886370, 
+  -0.017014452081345,  -0.029318921760199, 
+  -0.035222171390576,  -0.023901509668313, 
+   0.012927937004693,   0.030910853378811, 
+  -0.004426214105193,   0.015098401236510, 
+   0.031350558988152,  -0.008875487063420, 
+  -0.005374341111703,   0.033292080046396, 
+   0.011852844358462, 
+  -0.017669033095207,  -0.030615698849391, 
+  -0.029318921760199,  -0.028500341074603, 
+  -0.018129776994110,   0.010175588114759, 
+   0.032221111978773,   0.023524498024753, 
+   0.023605183638394,  -0.010789166315387, 
+  -0.006409462970417,   0.039852868508471, 
+   0.004338135763774, 
+  -0.013805699365025,  -0.017669033095207, 
+  -0.017014452081345,  -0.010969455314610, 
+  -0.015546543686421,  -0.008312925397734, 
+   0.017598472282428,   0.040513470913244, 
+  -0.001015137652004,  -0.008539260151857, 
+  -0.002288997065175,   0.030690839549686, 
+  -0.006395453515049 };
+
+  a = r8mat_copy_new ( n, n, a_save );
+
   return a;
 }
 /******************************************************************************/
@@ -46702,7 +54061,353 @@ double *sylvester ( int n, int nx, double x[], int ny, double y[] )
 }
 /******************************************************************************/
 
-double *symm_random ( int n, double x[], int *seed )
+double *sylvester_kac ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SYLVESTER_KAC returns the SYLVESTER_KAC matrix.
+
+  Formula:
+
+    If J = I - 1
+      A(I,J) = N + 1 - I
+    If J = I + 1
+      A(I,J) = I
+
+  Example:
+
+    N = 5,
+
+    0 1 0 0 0
+    4 0 2 0 0
+    0 3 0 3 0
+    0 0 2 0 4
+    0 0 0 1 0
+
+  Properties:
+
+    A is generally not symmetric: A' /= A.
+
+    A is tridiagonal.
+
+    If N is odd, the eigenvalues are:
+      -(N-1), -(N-3), ..., -2, 0, 2, ... (N-3), (N-1).
+
+    If N is even, the eigenvalues are:
+      -(N-1), -(N-3), ..., -1, +1, ..., (N-3), (N-1).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Paul Clement,
+    A class of triple-diagonal matrices for test purposes,
+    SIAM Review,
+    Volume 1, 1959, pages 50-52.
+
+    Olga Taussky, John Todd,
+    Another Look at a Matrix of Mark Kac,
+    Linear Algebra and its Applications,
+    Volume 150, 1991, pages 341-360.!
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double SYLVESTER_KAC[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n - 1; i++ )
+  {
+    a[i+(i+1)*n] = ( double ) (     i + 1 );
+    a[i+1+i*n]   = ( double ) ( n - i - 1 );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double sylvester_kac_determinant ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SYLVESTER_KAC_DETERMINANT: determinant of the SYLVESTER_KAC matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 Apri 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double SYLVESTER_KAC_DETERMINANT, the determinant.
+*/
+{
+  int i;
+  double value;
+
+  if ( ( n % 2 ) == 1 )
+  {
+    value = 0.0;
+  }
+  else
+  {
+    value = 1.0;
+    for ( i = - n + 1; i <= n - 1; i = i + 2 )
+    {
+      value = value * ( double ) ( i );
+    }
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+double *sylvester_kac_eigen_right ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SYLVESTER_KAC_EIGEN_RIGHT: right eigenvectors of the SYLVESTER_KAC matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double SYLVESTER_KAC_EIGEN_RIGHT[N*N], the matrix.
+*/
+{
+  double *a;
+  double *b;
+  double bot;
+  double *c;
+  int i;
+  int j;
+  double lam;
+  double *v;
+
+  a = ( double * ) malloc ( n * sizeof ( double ) );
+  b = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+  c = ( double * ) malloc ( ( n - 1 ) * sizeof ( double ) );
+  v = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( i = 0; i < n - 1; i++ )
+  {
+    b[i] = ( double ) ( i + 1 );
+    c[i] = ( double ) ( n - 1 - i );
+  }
+
+  for ( j = 0; j < n; j++ )
+  {
+    lam = ( double ) ( - n + 1 + 2 * j );
+
+    a[0] = 1.0;
+    a[1] = - lam;
+    for ( i = 2; i < n; i++ )
+    {
+      a[i] = - lam * a[i-1] - b[i-2] * c[i-2] * a[i-2];
+    }
+
+    bot = 1.0;
+    v[0+j*n] = 1.0;
+
+    for ( i = 1; i < n; i++ )
+    {
+      bot = bot * b[i-1];
+      v[i+j*n] = r8_mop ( i ) * a[i] / bot;
+    }
+  }
+
+  free ( a );
+  free ( b );
+  free ( c );
+
+  return v;
+}
+/******************************************************************************/
+
+double *sylvester_kac_eigenvalues ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SYLVESTER_KAC_EIGENVALUES: eigenvalues of the SYLVESTER_KAC matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double SYLVESTER_KAC_EIGENVALUES[N], the eigenvalues.
+*/
+{
+  int i;
+  int j;
+  double *lam;
+
+  lam = ( double * ) malloc ( n * sizeof ( double ) );
+
+  i = 0;
+  for ( i = 0; i < n; i++ )
+  {
+    lam[i] = ( double ) ( - n + 1 + 2 * i );
+  }
+
+  return lam;
+}
+/******************************************************************************/
+
+double *sylvester_kac_inverse ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SYLVESTER_KAC_INVERSE returns the inverse of the SYLVESTER_KAC matrix.
+
+  Example:
+
+    N = 6:
+
+      0     1/5    0  -2/15  0   8/15
+      1      0     0    0    0    0
+      0      0     0   1/3   0  -4/3
+    -4/3     0    1/3   0    0    0
+      0      0     0    0    0    1
+     8/15    0   -2/15  0   1/5   0
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    30 May 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double SYLVESTER_KAC_INVERSE[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  double prod1;
+  double prod2;
+
+  if ( ( n % 2 ) == 1 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "SYLVESTER_KAC_INVERSE - Fatal error!\n" );
+    fprintf ( stderr, "  The matrix is singular for odd N.\n" );
+    exit ( 1 );
+  }
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 1; i <= n; i++ )
+  {
+    if ( ( i % 2 ) == 1 )
+    {
+      for ( j = i; j <= n - 1; j = j + 2 )
+      {
+        if ( j == i )
+        {
+          prod1 = 1.0 / ( double ) ( n - j );
+          prod2 = 1.0 / ( double ) (     j );
+        }
+        else
+        {
+          prod1 = - prod1 * ( double ) (     j - 1 ) / ( double ) ( n - j );
+          prod2 = - prod2 * ( double ) ( n - j + 1 ) / ( double ) (     j );
+        }
+
+        a[i-1+(j  )*n] = prod1;
+        a[j  +(i-1)*n] = prod2;
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+double *symm_random ( int n, double d[], int key )
 
 /******************************************************************************/
 /*
@@ -46716,7 +54421,7 @@ double *symm_random ( int n, double x[], int *seed )
 
   Modified:
 
-    07 July 2011
+    11 March 2015
 
   Author:
 
@@ -46726,10 +54431,9 @@ double *symm_random ( int n, double x[], int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input, double X[N], the desired eigenvalues for the matrix.
+    Input, double D[N], the desired eigenvalues for the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive integer that selects the data.
 
     Output, double SYMM_RANDOM[N*N], the matrix.
 */
@@ -46742,7 +54446,7 @@ double *symm_random ( int n, double x[], int *seed )
 /*
   Get a random orthogonal matrix Q.
 */
-  q = orth_random ( n, seed );
+  q = orth_random ( n, key );
 /*
   Set A = Q * Lambda * Q'.
 */
@@ -46755,7 +54459,7 @@ double *symm_random ( int n, double x[], int *seed )
       a[i+j*n] = 0.0;
       for ( k = 0; k < n; k++ )
       {
-        a[i+j*n] = a[i+j*n] + q[i+k*n] * x[k] * q[j+k*n];
+        a[i+j*n] = a[i+j*n] + q[i+k*n] * d[k] * q[j+k*n];
       }
     }
   }
@@ -46765,7 +54469,7 @@ double *symm_random ( int n, double x[], int *seed )
 }
 /******************************************************************************/
 
-double symm_random_determinant ( int n, double x[] )
+double symm_random_determinant ( int n, double d[], int key )
 
 /******************************************************************************/
 /*
@@ -46779,7 +54483,7 @@ double symm_random_determinant ( int n, double x[] )
 
   Modified:
 
-    08 October 2010
+    11 March 2015
 
   Author:
 
@@ -46789,20 +54493,123 @@ double symm_random_determinant ( int n, double x[] )
 
     Input, int N, the order of the matrix.
 
-    Input, double X[N], the desired eigenvalues for the matrix.
+    Input, double D[N], the desired eigenvalues for the matrix.
+
+    Input, int KEY, a positive integer that selects the data.
 
     Output, double SYMM_RANDOM_DETERMINANT, the determinant.
 */
 {
   double determ;
 
-  determ = r8vec_product ( n, x );
+  determ = r8vec_product ( n, d );
 
   return determ;
 }
 /******************************************************************************/
 
-double *symm_random_eigenvalues ( int n, double x[] )
+double *symm_random_eigen_left ( int n, double d[], int key )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SYMM_RANDOM_EIGEN_LEFT returns left eigenvectors for the SYMM_RANDOM matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double D[N], the desired eigenvalues for the matrix.
+
+    Input, int KEY, a positive integer that selects the data.
+
+    Output, double SYMM_RANDOM_EIGEN_LEFT[N*N], the matrix.
+*/
+{
+  int i;
+  int j;
+  int k;
+  double *q;
+  double t;
+/*
+  Get a random orthogonal matrix Q.
+*/
+  q = orth_random ( n, key );
+/*
+  Transpose it.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < i; j++ )
+    {
+      t        = q[i+j*n];
+      q[i+j*n] = q[j+i*n];
+      q[j+i*n] = t;
+    }
+  }
+
+  return q;
+}
+/******************************************************************************/
+
+double *symm_random_eigen_right ( int n, double d[], int key )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SYMM_RANDOM_EIGEN_RIGHT returns right eigenvectors for the SYMM_RANDOM matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    11 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double D[N], the desired eigenvalues for the matrix.
+
+    Input, int KEY, a positive integer that selects the data.
+
+    Output, double SYMM_RANDOM_EIGEN_RIGHT[N*N], the matrix.
+*/
+{
+  int i;
+  int j;
+  int k;
+  double *q;
+/*
+  Get a random orthogonal matrix Q.
+*/
+  q = orth_random ( n, key );
+
+  return q;
+}
+/******************************************************************************/
+
+double *symm_random_eigenvalues ( int n, double d[], int key )
 
 /******************************************************************************/
 /*
@@ -46816,7 +54623,7 @@ double *symm_random_eigenvalues ( int n, double x[] )
 
   Modified:
 
-    08 October 2010
+    11 March 2015
 
   Author:
 
@@ -46826,20 +54633,22 @@ double *symm_random_eigenvalues ( int n, double x[] )
 
     Input, int N, the order of the matrix.
 
-    Input, double X[N], the desired eigenvalues for the matrix.
+    Input, double D[N], the desired eigenvalues for the matrix.
+
+    Input, int KEY, a positive integer that selects the data.
 
     Output, double SYMM_RANDOM_EIGENVALUES[N], the eigenvalues.
 */
 {
   double *lambda;
   
-  lambda = r8vec_copy_new ( n, x );
+  lambda = r8vec_copy_new ( n, d );
 
   return lambda;
 }
 /******************************************************************************/
 
-double *symm_random_inverse ( int n, double x[], int *seed )
+double *symm_random_inverse ( int n, double d[], int key )
 
 /******************************************************************************/
 /*
@@ -46860,7 +54669,7 @@ double *symm_random_inverse ( int n, double x[], int *seed )
 
   Modified:
 
-    08 October 2010
+    11 March 2015
 
   Author:
 
@@ -46870,10 +54679,9 @@ double *symm_random_inverse ( int n, double x[], int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input, double X[N], the desired eigenvalues for the matrix.
+    Input, double D[N], the desired eigenvalues for the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive integer that selects the data.
 
     Output, double SYMM_RANDOM_INVERSE[N*N], the matrix.
 */
@@ -46886,7 +54694,7 @@ double *symm_random_inverse ( int n, double x[], int *seed )
 /*
   Get a random orthogonal matrix Q.
 */
-  q = orth_random ( n, seed );
+  q = orth_random ( n, key );
 /*
   Set A = Q * Lambda * Q'.
 */
@@ -46899,7 +54707,7 @@ double *symm_random_inverse ( int n, double x[], int *seed )
       a[i+j*n] = 0.0;
       for ( k = 0; k < n; k++ )
       {
-        a[i+j*n] = a[i+j*n] + q[i+k*n] * ( 1.0 / x[k] ) * q[j+k*n];
+        a[i+j*n] = a[i+j*n] + q[i+k*n] * ( 1.0 / d[k] ) * q[j+k*n];
       }
     }
   }
@@ -46909,7 +54717,7 @@ double *symm_random_inverse ( int n, double x[], int *seed )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*
@@ -47053,7 +54861,7 @@ double *toeplitz_5diag ( int n, double d1, double d2, double d3, double d4,
     else if ( I - J == -2 ) then
       A(I,J) = D5
     else
-      A(I,J) = 0.0D+00
+      A(I,J) = 0.0
 
   Example:
 
@@ -47080,6 +54888,8 @@ double *toeplitz_5diag ( int n, double d1, double d2, double d3, double d4,
 
     The matrix has eigenvalues lying approximately on the complex line
     segment 2 * cos ( 2 * t ) + 20 * I * sin ( t ).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -47286,6 +55096,51 @@ double *toeplitz_5s ( int row_num, int col_num, double alpha, double beta,
 }
 /******************************************************************************/
 
+double toeplitz_5s_determinant ( int row_num, int col_num, double alpha, 
+  double beta, double gamma )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TOEPLITZ_5S_DETERMINANT returns the determinant of the TOEPLITZ_5S matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int ROW_NUM, the block order of A.
+
+    Input, int COL_NUM, the order of the subblocks of A.
+
+    Input, double ALPHA, BETA, GAMMA, the scalars that define A.
+
+    Output, double TOEPLITZ_5S_DETERMINANT, the determinant.
+*/
+{
+  double *lambda;
+  double value;
+
+  lambda = ( double * ) malloc ( row_num * col_num * sizeof ( double ) );
+
+  value = r8vec_product ( row_num * col_num, lambda );
+
+  free ( lambda );
+
+  return value;
+}
+/******************************************************************************/
+
 double *toeplitz_5s_eigenvalues ( int row_num, int col_num, double alpha, 
   double beta, double gamma )
 
@@ -47332,7 +55187,7 @@ double *toeplitz_5s_eigenvalues ( int row_num, int col_num, double alpha,
   int j;
   int k;
   double *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double * ) malloc ( row_num * col_num * sizeof ( double ) );
 
@@ -47340,11 +55195,11 @@ double *toeplitz_5s_eigenvalues ( int row_num, int col_num, double alpha,
 
   for ( i = 1; i <= col_num; i++ )
   {
-    angle_i = pi * ( double ) ( i ) / ( double ) ( col_num + 1 );
+    angle_i = r8_pi * ( double ) ( i ) / ( double ) ( col_num + 1 );
 
     for ( j = 1; j <= row_num; j++ )
     {
-      angle_j = pi * ( double ) ( j ) / ( double ) ( row_num + 1 );
+      angle_j = r8_pi * ( double ) ( j ) / ( double ) ( row_num + 1 );
 
       lambda[k] = alpha 
                 + 2.0 * beta  * cos ( angle_i ) 
@@ -47438,7 +55293,7 @@ double *toeplitz_pds ( int m, int n, double x[], double y[] )
   int i;
   int j;
   int k;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -47449,7 +55304,7 @@ double *toeplitz_pds ( int m, int n, double x[], double y[] )
       a[i+j*n] = 0.0;
       for ( k = 0; k < m; k++ )
       {
-        angle = 2.0 * pi * x[k] * ( double ) ( i - j );
+        angle = 2.0 * r8_pi * x[k] * ( double ) ( i - j );
         a[i+j*n] = a[i+j*n] + y[k] * cos ( angle );
       }
     }
@@ -47458,7 +55313,7 @@ double *toeplitz_pds ( int m, int n, double x[], double y[] )
 }
 /******************************************************************************/
 
-double *tournament_random ( int n, int *seed )
+double *tournament_random ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -47510,7 +55365,7 @@ double *tournament_random ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double TOURNAMENT_RANDOM[N*N] the matrix.
 */
@@ -47518,8 +55373,11 @@ double *tournament_random ( int n, int *seed )
   double *a;
   int i;
   int j;
+  int seed;
 
-  a = r8mat_uniform_01_new ( n, n, seed );
+  seed = key;
+
+  a = r8mat_uniform_01_new ( n, n, &seed );
 
   for ( i = 0; i < n; i++ )
   {
@@ -47541,7 +55399,7 @@ double *tournament_random ( int n, int *seed )
 }
 /******************************************************************************/
 
-double tournament_random_determinant ( int n, int *seed )
+double tournament_random_determinant ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -47565,7 +55423,7 @@ double tournament_random_determinant ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double TOURNAMENT_RANDOM_DETERMINANT, the determinant.
 */
@@ -47578,7 +55436,7 @@ double tournament_random_determinant ( int n, int *seed )
 }
 /******************************************************************************/
 
-double *transition_random ( int n, int *seed )
+double *transition_random ( int n, int key )
 
 /******************************************************************************/
 /*
@@ -47608,7 +55466,7 @@ double *transition_random ( int n, int *seed )
 
     A is nonnegative.
 
-    0 <= A(I,J) <= 1.0D+00 for every I and J.
+    0 <= A(I,J) <= 1.0 for every I and J.
 
     The sum of the entries in each column of A is 1.
 
@@ -47634,8 +55492,7 @@ double *transition_random ( int n, int *seed )
 
     Input, int N, the order of the matrix.
 
-    Input/output, int *SEED, a seed for the random 
-    number generator.
+    Input, int KEY, a positive value that selects the data.
 
     Output, double TRANSITION_RANDOM[N*N], the matrix.
 */
@@ -47644,8 +55501,11 @@ double *transition_random ( int n, int *seed )
   double col_sum;
   int i;
   int j;
+  int seed;
 
-  a = r8mat_uniform_01_new ( n, n, seed );
+  seed = key;
+
+  a = r8mat_uniform_01_new ( n, n, &seed );
 
   for ( j = 0; j < n; j++ )
   {
@@ -47714,6 +55574,8 @@ double *trench ( double alpha, int m, int n )
 
     If ALPHA = 0, then every third leading principal submatrix
     is exactly singular.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -47993,6 +55855,8 @@ double *tri_upper ( double alpha, int n )
 
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -48056,7 +55920,7 @@ double tri_upper_condition ( double alpha, int n )
 
   Modified:
 
-    11 April 2012
+    18 January 2015
 
   Author:
 
@@ -48075,8 +55939,10 @@ double tri_upper_condition ( double alpha, int n )
   double b_norm;
   double cond;
 
-  a_norm = ( double ) ( n - 1 ) * r8_abs ( alpha ) + 1.0;
-  b_norm = 1.0 + r8_abs ( alpha ) * ( pow ( 2.0, n - 1 ) - 1.0 );
+  a_norm = ( double ) ( n - 1 ) * fabs ( alpha ) + 1.0;
+  b_norm = 1.0 + fabs ( alpha ) 
+    * ( pow ( fabs ( alpha - 1.0 ), n - 1 ) - 1.0 ) 
+    / ( fabs ( alpha - 1.0 ) - 1.0 );
   cond = a_norm * b_norm;
 
   return cond;
@@ -48396,6 +56262,8 @@ double *tris ( int m, int n, double x, double y, double z )
     If X = Z = -1, and Y = 2, the matrix is a symmetric, positive
     definite M matrix, the negative of the second difference matrix.
 
+    The family of matrices is nested as a function of N.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -48491,7 +56359,7 @@ double tris_determinant ( int n, double x, double y, double z )
   double determ;
   int i;
   int i_hi;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   determ = 1.0;
 
@@ -48499,7 +56367,7 @@ double tris_determinant ( int n, double x, double y, double z )
   {
     for ( i = 1; i <= n; i++ )
     {
-      angle = ( double ) ( i ) * pi / ( double ) ( n + 1 );
+      angle = ( double ) ( i ) * r8_pi / ( double ) ( n + 1 );
       determ = determ * ( y + 2.0 * sqrt ( x * z ) * cos ( angle ) );
     }
   }
@@ -48509,7 +56377,7 @@ double tris_determinant ( int n, double x, double y, double z )
 
     for ( i = 1; i <= i_hi; i++ )
     {
-      angle = ( double ) ( i ) * pi / ( double ) ( n + 1 );
+      angle = ( double ) ( i ) * r8_pi / ( double ) ( n + 1 );
       determ = determ * ( y * y - 4.0 * x * z * pow ( cos ( angle ), 2 ) );
     }
 
@@ -48559,13 +56427,13 @@ double complex *tris_eigenvalues ( int n, double x, double y, double z )
   double complex arg;
   int i;
   double complex *lambda;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   lambda = ( double complex * ) malloc ( n * sizeof ( double complex ) );
 
   for ( i = 0; i < n; i++ )
   {
-    angle = ( double ) ( i + 1 ) * pi / ( double ) ( n + 1 );
+    angle = ( double ) ( i + 1 ) * r8_pi / ( double ) ( n + 1 );
     arg = x * z;
     lambda[i] = y + 2.0 * sqrt ( arg ) * cos ( angle );
   }
@@ -48685,6 +56553,8 @@ double *triv ( int n, double x[], double y[], double z[]  )
     A is banded, with bandwidth 3.
 
     A is generally not symmetric: A' /= A.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -48835,6 +56705,7 @@ double *triv_inverse ( int n, double x[], double y[], double z[] )
 
     Input, double X[N-1], Y[N], Z[N-1], the vectors that define
     the subdiagonal, diagonal, and superdiagonal of A.
+    No entry of Y may be zero.
 
     Output, double TRIV_INVERSE[N*N], the inverse of the matrix.
 */
@@ -48844,6 +56715,17 @@ double *triv_inverse ( int n, double x[], double y[], double z[] )
   double *e;
   int i;
   int j;
+
+  for ( i = 0; i < n; i++ )
+  {
+    if ( y[i] == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "TRIV_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  No entry of Y can be zero!\n" );
+      exit ( 1 );
+    }
+  }
 
   a = ( double * ) malloc ( n * n * sizeof ( double ) );
 
@@ -48940,6 +56822,8 @@ double *triw ( double alpha, int k, int n )
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
 
     Adding -2^(2-N) to the (N,1) element makes the matrix singular.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -49296,6 +57180,45 @@ double *upshift ( int n )
 }
 /******************************************************************************/
 
+double upshift_condition ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    UPSHIFT_CONDITION returns the L1 condition of the UPSHIFT matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double UPSHIFT_CONDITION, the L1 condition.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 1.0;
+  b_norm = 1.0;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double upshift_determinant ( int n )
 
 /******************************************************************************/
@@ -49441,6 +57364,8 @@ double *vand1 ( int n, double x[] )
              * product ( 1 <= I < J ) ( X(J) - X(I) ).
 
     A is generally ill-conditioned.
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -49645,6 +57570,95 @@ double *vand1_inverse ( int n, double x[] )
 }
 /******************************************************************************/
 
+void vand1_inverse_ul ( int n, double x[], double u[], double l[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    VAND1_INVERSE_UL returns the UL factors of the VAND1 inverse.
+
+  Discussion:
+
+    inverse ( A ) = U * L.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 November 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Richard Turner,
+    Inverse of the Vandermonde Matrix with Applications,
+    NASA Technical Note TN D-3547, 1966.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double X[N], the values that define A.
+
+    Output, double U[N*N], L[N*N], the UL factors of inverse(A).
+*/
+{
+  int i;
+  int j;
+  int k;
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j <= i; j++ )
+    {
+      u[j+i*n] = 1.0;
+    }
+    u[i+1+i*n] = 0.0;   
+    for ( j = 0; j <= i; j++ )
+    {
+      for ( k = 0; k <= i; k++ )
+      {
+        if ( j != k )
+        {
+          u[j+i*n] = u[j+i*n] / ( x[j] - x[k] );
+        }
+      }
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < i; j++ )
+    {
+      l[j+i*n] = 0.0;
+    }
+    l[i+i*n] = 1.0;
+    if ( i == 0 )
+    {
+      for ( j = i + 1; j < n; j++ )
+      {
+        l[j+i*n] = - l[j-1+i*n] * x[j-1];
+      }
+    }
+    else
+    {
+      for ( j = i + 1; j < n; j++ )
+      {
+        l[j+i*n] = l[j-1+(i-1)*n] - l[j-1+i*n] * x[j-1];
+      }
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
 double *vand2 ( int n, double x[] )
 
 /******************************************************************************/
@@ -49690,6 +57704,8 @@ double *vand2 ( int n, double x[] )
     The sum of the entries of A is
 
       1 - product ( 1 <= I <= N ) ( 1 - 1 / X(I) ).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -49880,6 +57896,470 @@ double *vand2_inverse ( int n, double x[] )
 }
 /******************************************************************************/
 
+void vand2_inverse_ul ( int n, double x[], double u[], double l[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    VAND2_INVERSE_UL returns the UL factors of the VAND2 inverse.
+
+  Discussion:
+
+    inverse ( A ) = U * L.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 November 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Richard Turner,
+    Inverse of the Vandermonde Matrix with Applications,
+    NASA Technical Note TN D-3547, 1966.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double X[N], the values that define A.
+
+    Output, double U[N*N], L[N*N], the UL factors of inverse(A).
+*/
+{
+  int i;
+  int j;
+  int k;
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < i; j++ )
+    {
+      u[i*j*n] = 0.0;
+    }
+    u[i+i*n] = 1.0;
+    if ( i == 0 )
+    {
+      for ( j = i + 1; j < n; j++ )
+      {
+        u[i+j*n] = - u[i+(j-1)*n] * x[j-1];
+      }
+    }
+    else
+    {
+      for ( j = i + 1; j < n; j++ )
+      {
+        u[i+j*n] = u[i-1+(j-1)*n] - u[i+(j-1)*n] * x[j-1];
+      }
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      l[i+j*n] = 1.0;
+    }
+    for ( j = 0; j <= i; j++ )
+    {
+      for ( k = 0; k <= i; k++ )
+      {
+        if ( j != k )
+        {
+          l[i+j*n] = l[i+j*n] / ( x[j] - x[k] );
+        }
+      }
+    }
+    for ( j = i + 1; j < n; j++ )
+    {
+      l[i+j*n] = 0.0;
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void vand2_lu ( int n, double x[], double l[], double u[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    VAND2_LU returns the LU factors of the VAND2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 November 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Halil Oruc, George Phillips,
+    Explicit factorization of the Vandermonde matrix,
+    Linear Algebra and its Applications,
+    Volume 315, Number 1-3, 15 August 2000, pages 113-123.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double X[N], the values that define the matrix.
+
+    Output, double L[N*N], U[N*N], the LU factors of the matrix.
+*/
+{
+  int i;
+  int j;
+  int k;
+  double value;
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j <= i; j++ )
+     {
+      l[i+j*n] = 1.0;
+      for ( k = 0; k < j; k++ )
+      {
+        l[i+j*n] = l[i+j*n] * ( x[i] - x[k] ) / ( x[j] - x[k] );
+      }
+    }
+    for ( j = i + 1; j < n; j++ )
+    {
+      l[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < i; j++ )
+    {
+      u[i+j*n] = 0.0;
+    }
+    for ( j = i; j < n; j++ )
+    {
+      value = complete_symmetric_poly ( i + 1, j - i, x );
+      u[i+j*n] = value;
+      for ( k = 0; k < i; k++ )
+      {
+        u[i+j*n] = u[i+j*n] * ( x[i] - x[k] );
+      }
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+void vand2_plu ( int n, double x[], double p[], double l[], double u[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    VAND2_PLU returns the PLU factors of the VAND2 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 November 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Halil Oruc, George Phillips,
+    Explicit factorization of the Vandermonde matrix,
+    Linear Algebra and its Applications,
+    Volume 315, Number 1-3, 15 August 2000, pages 113-123.
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Input, double X[N], the values that define the matrix.
+
+    Output, double P[N*N], L[N*N], U[N*N], the PLU factors.
+*/
+{
+  int i;
+  int j;
+  int k;
+  double value;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      p[i+j*n] = 0.0;
+    }
+    p[j+j*n] = 1.0;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j <= i; j++ )
+     {
+      l[i+j*n] = 1.0;
+      for ( k = 0; k < j; k++ )
+      {
+        l[i+j*n] = l[i+j*n] * ( x[i] - x[k] ) / ( x[j] - x[k] );
+      }
+    }
+    for ( j = i + 1; j < n; j++ )
+    {
+      l[i+j*n] = 0.0;
+    }
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < i; j++ )
+    {
+      u[i+j*n] = 0.0;
+    }
+    for ( j = i; j < n; j++ )
+    {
+      value = complete_symmetric_poly ( i + 1, j - i, x );
+      u[i+j*n] = value;
+      for ( k = 0; k < i; k++ )
+      {
+        u[i+j*n] = u[i+j*n] * ( x[i] - x[k] );
+      }
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+double *wathen ( int nx, int ny, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    WATHEN returns the WATHEN matrix.
+
+  Discussion:
+
+    The Wathen matrix is a finite element matrix which is sparse.
+
+    The entries of the matrix depend in part on a physical quantity
+    related to density.  That density is here assigned random values between
+    0 and 100.
+
+    The matrix order N is determined by the input quantities NX and NY,
+    which would usually be the number of elements in the X and Y directions.
+
+    The value of N is
+      N = 3*NX*NY + 2*NX + 2*NY + 1,
+
+    and sufficient storage in A must have been set aside to hold
+    the matrix.
+
+    A is the consistent mass matrix for a regular NX by NY grid
+    of 8 node serendipity elements.  
+
+    The local element numbering is
+
+      3--2--1
+      |     |
+      4     8
+      |     |
+      5--6--7
+
+    Here is an illustration for NX = 3, NY = 2:
+
+     23-24-25-26-27-28-29
+      |     |     |     |
+     19    20    21    22
+      |     |     |     |
+     12-13-14-15-16-17-18
+      |     |     |     |
+      8     9    10    11
+      |     |     |     |
+      1--2--3--4--5--6--7
+
+    For this example, the total number of nodes is, as expected,
+
+      N = 3 * 3 * 2 + 2 * 2 + 2 * 3 + 1 = 29
+
+  Properties:
+
+    A is symmetric positive definite for any positive values of the
+    density RHO(NX,NY), which is here given the value 1.
+
+    The problem could be reprogrammed so that RHO is nonconstant,
+    but positive.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Nicholas Higham,
+    Algorithm 694: A Collection of Test Matrices in MATLAB,
+    ACM Transactions on Mathematical Software,
+    Volume 17, Number 3, September 1991, pages 289-305.
+
+    Andrew Wathen,
+    Realistic eigenvalue bounds for the Galerkin mass matrix,
+    IMA Journal of Numerical Analysis,
+    Volume 7, Number 4, October 1987, pages 449-457.
+
+  Parameters:
+
+    Input, int NX, NY, values which determine the size of A.
+
+    Input, int N, the order of the matrix.
+
+    Output, double WATHEN[N*N], the matrix.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double em[8*8] = {
+     6.0, -6.0,  2.0, -8.0,  3.0, -8.0,  2.0, -6.0, 
+    -6.0, 32.0, -6.0, 20.0, -8.0, 16.0, -8.0, 20.0, 
+     2.0, -6.0,  6.0, -6.0,  2.0, -8.0,  3.0, -8.0, 
+    -8.0, 20.0, -6.0, 32.0, -6.0, 20.0, -8.0, 16.0, 
+     3.0, -8.0,  2.0, -6.0,  6.0, -6.0,  2.0, -8.0, 
+    -8.0, 16.0, -8.0, 20.0, -6.0, 32.0, -6.0, 20.0, 
+     2.0, -8.0,  3.0, -8.0,  2.0, -6.0,  6.0, -6.0, 
+    -6.0, 20.0, -8.0, 16.0, -8.0, 20.0, -6.0, 32.0 };
+  int i;
+  int j;
+  int kcol;
+  int krow;
+  int node[8];
+  double rho;
+  int seed;
+  
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+
+  seed = 123456789;
+
+  for ( j = 1; j <= ny; j++ )
+  {
+    for ( i = 1; i <= nx; i++ )
+    {
+/*
+  For the element (I,J), determine the indices of the 8 nodes.
+*/
+      node[0] = 3 * j * nx + 2 * j + 2 * i;
+      node[1] = node[0] - 1;
+      node[2] = node[0] - 2;
+      node[3] = ( 3 * j - 1 ) * nx + 2 * j + i - 2;
+      node[4] = ( 3 * j - 3 ) * nx + 2 * j + 2 * i - 4;
+      node[5] = node[4] + 1;
+      node[6] = node[4] + 2;
+      node[7] = node[3] + 1;
+
+      rho = 100.0 * r8_uniform_01 ( &seed );
+
+      for ( krow = 0; krow < 8; krow++ )
+      {
+        for ( kcol = 0; kcol < 8; kcol++ )
+        {
+          a[node[krow]+node[kcol]*n] = a[node[krow]+node[kcol]*n]
+            + rho * em[krow+kcol*8];
+        }
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+int wathen_order ( int nx, int ny )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    WATHEN_ORDER returns the order of the WATHEN matrix.
+
+  Discussion:
+
+    N = 3*NX*NY + 2*NX + 2*NY + 1,
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Nicholas Higham,
+    Algorithm 694: A Collection of Test Matrices in MATLAB,
+    ACM Transactions on Mathematical Software,
+    Volume 17, Number 3, September 1991, pages 289-305.
+
+    Andrew Wathen,
+    Realistic eigenvalue bounds for the Galerkin mass matrix,
+    IMA Journal of Numerical Analysis,
+    Volume 7, 1987, pages 449-457.
+
+  Parameters:
+
+    Input, int NX, NY, values which determine the size of A.
+
+    Output, int WATHEN_ORDER, the order of the matrix.
+*/
+{
+  int n;
+
+  n = 3 * nx * ny + 2 * nx + 2 * ny + 1;
+
+  return n;
+}
+/******************************************************************************/
+
 double *wilk03 ( )
 
 /******************************************************************************/
@@ -49901,7 +58381,7 @@ double *wilk03 ( )
     where A is the 3 by 3 Wilkinson matrix, and
       B = ( 0, 0, 1 )'
     and the correct solution is
-      X = ( 0, 4.0D+10 / 9.0D+00, 1.0D+10 )
+      X = ( 0, 4.0D+10 / 9.0, 1.0D+10 )
 
     Since the matrix is already in upper triangular form, errors can
     occur only in the backsubstitution.
@@ -49941,7 +58421,10 @@ double *wilk03 ( )
 */
 {
   double *a;
-  double a_save[3*3] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[3*3] = {
     1.0E-10,  0.0E+00,  0.0E+00, 
     0.9E+00,  0.9E+00,  0.0E+00, 
    -0.4E+00, -0.4E+00,  1.0E-10 };
@@ -49966,7 +58449,7 @@ double wilk03_condition ( )
 
   Modified:
 
-    11 April 2012
+    18 January 2015
 
   Author:
 
@@ -49979,7 +58462,7 @@ double wilk03_condition ( )
 {
   double cond;
 
-  cond = 1.8 * ( 13.0 * 10.0E+10 / 9.0 );
+  cond = 1.8 * ( 13.0 * 1.0E+10 / 9.0 );
 
   return cond;
 }
@@ -50044,7 +58527,7 @@ double *wilk03_eigenvalues ( )
 */
 {
   double *lambda;
-  double lambda_save[3] = {
+  static double lambda_save[3] = {
     1.0E-10, 1.0E-10, 0.9 };
 
   lambda = r8vec_copy_new ( 3, lambda_save );
@@ -50130,7 +58613,7 @@ double *wilk03_rhs ( )
 */
 {
   double *b;
-  double b_save[3] = { 0.0, 0.0, 1.0 };
+  static double b_save[3] = { 0.0, 0.0, 1.0 };
 
   b = r8vec_copy_new ( 3, b_save );
 
@@ -50185,16 +58668,16 @@ double *wilk04 ( )
 
   Formula:
 
-    0.9143D-04  0.0D+00     0.0D+00     0.0D+00
-    0.8762      0.7156D-04  0.0D+00     0.0D+00
-    0.7943      0.8143      0.9504D-04  0.0D+00
+    0.9143D-04  0.0     0.0     0.0
+    0.8762      0.7156D-04  0.0     0.0
+    0.7943      0.8143      0.9504D-04  0.0
     0.8017      0.6123      0.7165      0.7123D-04
 
   Properties:
 
     A is lower triangular.
 
-    LAMBDA = ( 0.9143D-04, 0.7156D-04, 0.9504D-04, 0.7123D-04 ).
+    LAMBDA = ( 0.9143E-04, 0.7156E-04, 0.9504E-04, 0.7123E-04 ).
 
   Discussion:
 
@@ -50228,7 +58711,10 @@ double *wilk04 ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
     0.9143E-04, 0.8762E+00, 0.7943E+00, 0.8017E+00,
     0.0000E+00, 0.7156E-04, 0.8143E+00, 0.6123E+00,
     0.0000E+00, 0.0000E+00, 0.9504E-04, 0.7165E+00,
@@ -50237,6 +58723,43 @@ double *wilk04 ( )
   a = r8mat_copy_new ( 4, 4, a_save );
 
   return a;
+}
+/******************************************************************************/
+
+double wilk04_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    WILK04_CONDITION returns the L1 condition of the WILK04 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double WILK04_CONDITION, the L1 condition of the matrix.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 2.1306;
+  b_norm = 1.154098458240528E+16;
+  value = a_norm * b_norm;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -50299,7 +58822,8 @@ double *wilk04_eigenvalues ( )
 */
 {
   double *lambda;
-  double lambda_save[4] = { 0.9143E-04, 0.7156E-04, 0.9504E-04, 0.7123E-04 };
+  static double lambda_save[4] = { 
+    0.9143E-04, 0.7156E-04, 0.9504E-04, 0.7123E-04 };
 
   lambda = r8vec_copy_new ( 4, lambda_save );
 
@@ -50333,7 +58857,10 @@ double *wilk04_inverse ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
    0.000000000001094E+16, 
   -0.000000013391962E+16, 
    0.000114732803288E+16, 
@@ -50390,7 +58917,7 @@ double *wilk04_rhs ( )
 */
 {
   double *b;
-  double b_save[4] = { 0.6524E+00, 0.3127E+00, 0.4186E+00, 0.7853E+00 };
+  static double b_save[4] = { 0.6524E+00, 0.3127E+00, 0.4186E+00, 0.7853E+00 };
 
   b = r8vec_copy_new ( 4, b_save );
 
@@ -50424,7 +58951,7 @@ double *wilk04_solution ( )
 */
 {
   double *x;
-  double x_save[4] = {
+  static double x_save[4] = {
    -9.061709180193406E+15, 
     9.456494826647572E+11, 
    -8.311117178175363E+07,
@@ -50508,13 +59035,50 @@ double *wilk05 ( )
 }
 /******************************************************************************/
 
+double wilk05_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    WILK05_CONDITION returns the L1 condition of the WILK05 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double WILK05_CONDITION, the L1 condition of the matrix.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 1.98288E+00;
+  b_norm = 4.002777777857721E+06;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double wilk05_determinant ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    WILKO5 returns the determinant of the WILK05 matrix.
+    WILK05_DETERMINANT returns the determinant of the WILK05 matrix.
 
   Licensing:
 
@@ -50567,7 +59131,10 @@ double *wilk05_inverse ( )
 */
 {
   double *a;
-  double a_save[5*5] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[5*5] = {
    0.002025462963002E+06,  
   -0.016203703704040E+06,  
    0.043750000000952E+06,  
@@ -50686,6 +59253,43 @@ double *wilk12 ( )
 }
 /******************************************************************************/
 
+double wilk12_condition ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    WILK12_CONDITION returns the L1 condition of the WILK12 matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double WILK12_CONDITION, the L1 condition of the matrix.
+*/
+{
+  double a_norm;
+  double b_norm;
+  double value;
+
+  a_norm = 78.0E+00;
+  b_norm = 87909427.13689443E+00;
+  value = a_norm * b_norm;
+
+  return value;
+}
+/******************************************************************************/
+
 double wilk12_determinant ( )
 
 /******************************************************************************/
@@ -50719,66 +59323,13 @@ double wilk12_determinant ( )
 }
 /******************************************************************************/
 
-double *wilk12_eigenvalues ( )
+double *wilk12_eigen_right ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    WILK12_EIGENVALUES returns the eigenvalues of the WILK12 matrix.
-
-  Formula:
-
-    32.2288915
-    20.1989886
-    12.3110774
-     6.96153309
-     3.51185595
-     1.55398871
-     0.643505319
-     0.284749721
-     0.143646520
-     0.081227659240405
-     0.049507429185278
-     0.031028060644010
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    09 October 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Output, double WILK12_EIGENVALUES[12], the eigenvalues.
-*/
-{
-  double *lambda;
-  double lambda_save[12] = {
-    32.2288915, 20.1989886, 12.3110774, 6.96153309, 
-    3.51185595, 1.55398871, 0.643505319, 0.284749721, 
-    0.143646520, 0.081227659240405, 0.049507429185278, 
-    0.031028060644010 };
-
-  lambda = r8vec_copy_new ( 12, lambda_save );
-
-  return lambda;
-}
-/******************************************************************************/
-
-double *wilk12_right ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    WILK12_RIGHT returns the right eigenvectors of the WILK12 matrix.
+    WILK12_EIGEN_RIGHT returns the right eigenvectors of the WILK12 matrix.
 
   Licensing:
 
@@ -50794,10 +59345,13 @@ double *wilk12_right ( void )
 
   Parameters:
 
-    Output, double *WILK12_RIGHT[12*12], the right eigenvector matrix.
+    Output, double *WILK12_EIGEN_RIGHT[12*12], the right eigenvector matrix.
 */
 {
   double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double a_save[12*12] = {
    0.075953934362606,  0.139678536121698, 
    0.212972721043730,  0.286424756003626, 
@@ -50875,6 +59429,59 @@ double *wilk12_right ( void )
   a = r8mat_copy_new ( 12, 12, a_save );
 
   return a;
+}
+/******************************************************************************/
+
+double *wilk12_eigenvalues ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    WILK12_EIGENVALUES returns the eigenvalues of the WILK12 matrix.
+
+  Formula:
+
+    32.2288915
+    20.1989886
+    12.3110774
+     6.96153309
+     3.51185595
+     1.55398871
+     0.643505319
+     0.284749721
+     0.143646520
+     0.081227659240405
+     0.049507429185278
+     0.031028060644010
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 October 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double WILK12_EIGENVALUES[12], the eigenvalues.
+*/
+{
+  double *lambda;
+  static double lambda_save[12] = {
+    32.2288915, 20.1989886, 12.3110774, 6.96153309, 
+    3.51185595, 1.55398871, 0.643505319, 0.284749721, 
+    0.143646520, 0.081227659240405, 0.049507429185278, 
+    0.031028060644010 };
+
+  lambda = r8vec_copy_new ( 12, lambda_save );
+
+  return lambda;
 }
 /******************************************************************************/
 
@@ -51116,7 +59723,7 @@ double *wilk21 ( int n )
     {
       if ( i == j )
       {
-        a[i+j*n] = r8_nint ( r8_abs ( ( double ) ( i + 1 ) 
+        a[i+j*n] = r8_nint ( fabs ( ( double ) ( i + 1 ) 
           - ( double ) ( n + 1 ) / 2.0 ) );
       }
       else if ( j == i + 1 )
@@ -51174,7 +59781,7 @@ double wilk21_determinant ( int n )
 
   for ( i = 0; i < n; i++ )
   {
-    d[i] = r8_nint ( r8_abs ( ( double ) ( i + 1 ) 
+    d[i] = r8_nint ( fabs ( ( double ) ( i + 1 ) 
       - ( double ) ( n + 1 ) / 2.0 ) );
   }
 
@@ -51257,7 +59864,7 @@ double *wilk21_inverse ( int n )
 
   for ( i = 0; i < n; i++ )
   {
-    y[i] = r8_nint ( r8_abs ( ( double ) ( i + 1 ) 
+    y[i] = r8_nint ( fabs ( ( double ) ( i + 1 ) 
       - ( double ) ( n + 1 ) / 2.0 ) );
   }
 
@@ -51360,7 +59967,10 @@ double *wilson ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
     5.0,  7.0,  6.0,  5.0, 
     7.0, 10.0,  8.0,  7.0, 
     6.0,  8.0, 10.0,  9.0, 
@@ -51372,7 +59982,7 @@ double *wilson ( )
 }
 /******************************************************************************/
 
-double wilson_condition ( void )
+double wilson_condition ( )
 
 /******************************************************************************/
 /*
@@ -51405,7 +60015,7 @@ double wilson_condition ( void )
 }
 /******************************************************************************/
 
-double wilson_determinant ( void )
+double wilson_determinant ( )
 
 /******************************************************************************/
 /*
@@ -51438,7 +60048,52 @@ double wilson_determinant ( void )
 }
 /******************************************************************************/
 
-double *wilson_eigenvalues ( void )
+double *wilson_eigen_right ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    WILSON_EIGEN_RIGHT returns the right eigenvectors of the WILSON matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 June 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double WILSON_EIGEN_RIGHT[4*4], the right eigenvector matrix.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
+   0.380262074390714,   0.528567849528642, 
+   0.551954849631663,   0.520924780743657, 
+   0.396305561186082,   0.614861280394151, 
+  -0.271601039711768,  -0.625396181050490, 
+   0.093305039089285,  -0.301652326903523, 
+   0.760318430013036,  -0.567640668325261, 
+   0.830443752841578,  -0.501565058582058, 
+  -0.208553600252039,   0.123697458332363 };
+
+  a = r8mat_copy_new ( 4, 4, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
+double *wilson_eigenvalues ( )
 
 /******************************************************************************/
 /*
@@ -51464,7 +60119,7 @@ double *wilson_eigenvalues ( void )
 */
 {
   double *lambda;
-  double lambda_save[4] = {
+  static double lambda_save[4] = {
     30.288685345802129, 
      3.858057455944950, 
      0.843107149855033, 
@@ -51529,7 +60184,10 @@ double *wilson_inverse ( )
 */
 {
   double *a;
-  double a_save[4*4] = {
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
     68.0, -41.0, -17.0,  10.0, 
    -41.0,  25.0,  10.0,  -6.0, 
    -17.0,  10.0,   5.0,  -3.0, 
@@ -51537,6 +60195,51 @@ double *wilson_inverse ( )
   int n = 4;
 
   a = r8mat_copy_new ( n, n, a_save );
+
+  return a;
+}
+/******************************************************************************/
+
+double *wilson_llt ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    WILSON_LLT returns the lower triangular Cholesky factor of the WILSON matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double WILSON_LLT[4*4], the matrix.
+*/
+{
+  double *a;
+/*
+  Note that the matrix entries are listed by column.
+*/
+  static double a_save[4*4] = {
+   2.236067977499790,   3.130495168499706, 
+   2.683281572999748,   2.236067977499790, 
+                 0.0,   0.447213595499957, 
+  -0.894427190999918,                 0.0, 
+                 0.0,                 0.0, 
+   1.414213562373093,   2.121320343559645, 
+                 0.0,                 0.0, 
+                 0.0,   0.707106781186539 };
+
+  a = r8mat_copy_new ( 4, 4, a_save );
 
   return a;
 }
@@ -51567,6 +60270,9 @@ void wilson_plu ( double p[], double l[], double u[] )
     Output, double P[4*4], L[4*4], U[4*4], the PLU factors.
 */
 {
+/*
+  Note that the matrix entries are listed by column.
+*/
   static double l_save[4*4] = {
    1.0, 0.857142857142857, 0.714285714285714, 0.714285714285714, 
    0.0, 1.00,              0.25,              0.25, 
@@ -51617,55 +60323,13 @@ double *wilson_rhs ( )
 */
 {
   double *b;
-  double b_save[4] = {
+  static double b_save[4] = {
     23.0, 32.0, 33.0, 31.0 };
   int n = 4;
 
   b = r8vec_copy_new ( n, b_save );
 
   return b;
-}
-/******************************************************************************/
-
-double *wilson_right ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    WILSON_RIGHT returns the right eigenvectors of the WILSON matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    29 June 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Output, double WILSON_RIGHT[4*4], the right eigenvector matrix.
-*/
-{
-  double *a;
-  static double a_save[4*4] = {
-   0.380262074390714,   0.528567849528642, 
-   0.551954849631663,   0.520924780743657, 
-   0.396305561186082,   0.614861280394151, 
-  -0.271601039711768,  -0.625396181050490, 
-   0.093305039089285,  -0.301652326903523, 
-   0.760318430013036,  -0.567640668325261, 
-   0.830443752841578,  -0.501565058582058, 
-  -0.208553600252039,   0.123697458332363 };
-
-  a = r8mat_copy_new ( 4, 4, a_save );
-
-  return a;
 }
 /******************************************************************************/
 
@@ -51696,7 +60360,7 @@ double *wilson_solution ( )
 {
   int n = 4;
   double *x;
-  double x_save[4] = {
+  static double x_save[4] = {
     1.0, 1.0, 1.0, 1.0 };
 
   x = r8vec_copy_new ( n, x_save );
@@ -51757,6 +60421,8 @@ double *zero ( int m, int n )
     For any matrix B, A*B = B*A = 0.
 
     A is persymmetric: A(I,J) = A(N+1-J,N+1-I).
+
+    The family of matrices is nested as a function of N.
 
   Licensing:
 
@@ -51820,6 +60486,57 @@ double zero_determinant ( int n )
 }
 /******************************************************************************/
 
+double *zero_eigen_right ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ZERO_EIGEN_RIGHT returns the right eigenvectors of the ZERO matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 October 2010
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+
+    Output, double ZERO_EIGEN_RIGHT[N*N], the matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      if ( i == j )
+      {
+        a[i+j*n] = 1.0;
+      }
+      else
+      {
+        a[i+j*n] = 0.0;
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
 double *zero_eigenvalues ( int n )
 
 /******************************************************************************/
@@ -51855,13 +60572,54 @@ double *zero_eigenvalues ( int n )
 }
 /******************************************************************************/
 
-double *zero_null ( int n )
+double *zero_null_left ( int m, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ZERO_NULL returns a null vector of the ZERO matrix.
+    ZERO_NULL_LEFT returns a left null vector of the ZERO matrix.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 March 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Output, double ZERO_NULL_LEFT[M], a null vector.
+*/
+{
+  int i;
+  double *x;
+
+  x = ( double * ) malloc ( m * sizeof ( double ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    x[i] = 1.0;
+  }
+
+  return x;
+}
+/******************************************************************************/
+
+double *zero_null_right ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ZERO_NULL_RIGHT returns a right null vector of the ZERO matrix.
 
   Licensing:
 
@@ -51877,9 +60635,9 @@ double *zero_null ( int n )
 
   Parameters:
 
-    Input, int N, the order of the matrix.
+    Input, int M, N, the order of the matrix.
 
-    Output, double ZERO_NULL[N], a null vector.
+    Output, double ZERO_NULL_RIGHT[N], a null vector.
 */
 {
   int i;
@@ -51893,57 +60651,6 @@ double *zero_null ( int n )
   }
 
   return x;
-}
-/******************************************************************************/
-
-double *zero_right ( int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ZERO_RIGHT returns the right eigenvectors of the ZERO matrix.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    09 October 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the matrix.
-
-    Output, double ZERO_RIGHT[N*N], the matrix.
-*/
-{
-  double *a;
-  int i;
-  int j;
-
-  a = ( double * ) malloc ( n * n * sizeof ( double ) );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < n; i++ )
-    {
-      if ( i == j )
-      {
-        a[i+j*n] = 1.0;
-      }
-      else
-      {
-        a[i+j*n] = 0.0;
-      }
-    }
-  }
-  return a;
 }
 /******************************************************************************/
 

@@ -7,19 +7,54 @@ int main ( void );
 void test01 ( void );
 void test02 ( void );
 
-int main ( void )
+/******************************************************************************/
+
+int main ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    MAIN is the main program for TOMS722_PRB.
+
+  Discussion:
+
+    TOMS722_PRB_PRB tests the TOMS722 library.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 November 2013
+
+  Author:
+
+    John Burkardt
+*/
 {
+  printf ( "\n" );
+  printf ( "TOMS722_PRB:\n" );
+  printf ( "  C version\n" );
+  printf ( "  Test the TOMS722 library.\n" );
 
   test01 ( );
   test02 ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "TOMS722_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
 
   return 0;
 }
+/******************************************************************************/
+
 void test01 ( void ) 
+
+/******************************************************************************/
 {
   float eps;
   float epsneg;
@@ -336,8 +371,11 @@ void test01 ( void )
 
   return;
 }
-void test02 ( void ) {
+/******************************************************************************/
 
+void test02 ( void ) 
+
+/******************************************************************************/
  /*
      Test driver for logb, scalb_d and nextafter functions.
 
@@ -365,6 +403,7 @@ void test02 ( void ) {
      that F systems support neither.
 
  */
+{
   double eps;
   double epsneg;
   long int i;

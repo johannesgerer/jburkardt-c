@@ -315,7 +315,7 @@ void normp ( double z, double *p, double *q, double *pdf )
   double root2pi = 2.506628274631001;
   double zabs;
 
-  zabs = r8_abs ( z );
+  zabs = fabs ( z );
 /*
   37 < |Z|.
 */
@@ -395,12 +395,12 @@ void nprob ( double z, double *p, double *q, double *pdf )
 
   Modified:
 
-    01 November 2010
+    05 June 2013
 
   Author:
 
     Original FORTRAN77 version by AG Adams.
-    C++ version by John Burkardt.
+    C version by John Burkardt.
 
   Reference:
 
@@ -447,11 +447,11 @@ void nprob ( double z, double *p, double *q, double *pdf )
   double y;
   double zabs;
 
-  zabs = r8_abs ( z );
+  zabs = fabs ( z );
 /*
   |Z| between 0 and 1.28
 */
-  if ( abs ( z ) <= 1.28 )
+  if ( zabs <= 1.28 )
   {
     y = a0 * z * z;
     *pdf = exp ( - y ) * b0;
@@ -464,7 +464,7 @@ void nprob ( double z, double *p, double *q, double *pdf )
 /*
   |Z| between 1.28 and 12.7
 */
-  else if ( abs ( z ) <= 12.7 )
+  else if ( zabs <= 12.7 )
   {
     y = a0 * z * z;
     *pdf = exp ( - y ) * b0;
@@ -500,48 +500,7 @@ void nprob ( double z, double *p, double *q, double *pdf )
 }
 /******************************************************************************/
 
-double r8_abs ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_ABS returns the absolute value of an R8.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    07 May 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, the quantity whose absolute value is desired.
-
-    Output, double R8_ABS, the absolute value of X.
-*/
-{
-  double value;
-
-  if ( 0.0 <= x )
-  {
-    value = + x;
-  } 
-  else
-  {
-    value = - x;
-  }
-  return value;
-}
-/******************************************************************************/
-
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*

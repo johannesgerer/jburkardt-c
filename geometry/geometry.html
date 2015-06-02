@@ -432,7 +432,7 @@
 
     <p>
       <ul>
-        <li>
+       <li>
           <b>ANGLE_BOX_2D</b> "boxes" an angle defined by three points in 2D.
         </li>
         <li>
@@ -470,15 +470,6 @@
         </li>
         <li>
           <b>ANNULUS_SECTOR_CENTROID_2D</b> computes the centroid of an annular sector in 2D.
-        </li>
-        <li>
-          <b>ARC_COSINE</b> computes the arc cosine function, with argument truncation.
-        </li>
-        <li>
-          <b>ARC_SINE</b> computes the arc sine function, with argument truncation.
-        </li>
-        <li>
-          <b>ATAN4</b> computes the inverse tangent of the ratio Y / X.
         </li>
         <li>
           <b>BALL_UNIT_SAMPLE_2D</b> picks a random point in the unit ball in 2D.
@@ -919,7 +910,16 @@
           <b>LINE_PAR_POINT_DIST_3D:</b> distance ( parametric line, point ) in 3D.
         </li>
         <li>
+          <b>LINE_PAR_POINT_NEAR_2D:</b> nearest point on parametric line to given point, 2D.
+        </li>
+        <li>
+          <b>LINE_PAR_POINT_DIST_3D:</b> nearest point on parametric line to given point, 3D.
+        </li>
+        <li>
           <b>LINE_PAR2EXP_2D</b> converts a parametric line to explicit form in 2D.
+        </li>
+        <li>
+          <b>LINE_PAR2EXP_3D</b> converts a parametric line to explicit form in 3D.
         </li>
         <li>
           <b>LINE_PAR2IMP_2D</b> converts a parametric line to implicit form in 2D.
@@ -1322,6 +1322,15 @@
         </li>
         <li>
           <b>R8_ABS</b> returns the absolute value of an R8.
+        </li>
+        <li>
+          <b>R8_ACOS</b> computes the arc cosine function, with argument truncation.
+        </li>
+        <li>
+          <b>R8_ASIN</b> computes the arc sine function, with argument truncation.
+        </li>
+        <li>
+          <b>R8_ATAN</b> computes the inverse tangent of the ratio Y / X.
         </li>
         <li>
           <b>R8_EPSILON</b> returns the R8 round off unit.
@@ -2183,7 +2192,7 @@
     <hr>
 
     <i>
-      Last revised on 27 July 2011.
+      Last revised on 14 April 2013.
     </i>
 
     <!-- John Burkardt -->

@@ -49,11 +49,12 @@ int main ( void )
   printf ( "  Test the SGMGA_SIZE and SGMGA_SIZE_TOTAL functions.\n" );
 
   sgmga_size_tests ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "SGMGA__SIZE_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
   

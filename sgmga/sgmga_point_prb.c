@@ -50,11 +50,12 @@ int main ( void )
   printf ( "  Test the SGMGA_POINT function.\n" );
 
   sgmga_point_tests ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "SGMGA_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
   

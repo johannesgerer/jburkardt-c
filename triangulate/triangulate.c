@@ -18,12 +18,14 @@ not removed.
 */
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <math.h>
 
 # define  X 0
 # define  Y 1
-typedef  enum { FALSE, TRUE } bool;
-
+/*
+  typedef  enum { FALSE, TRUE } bool;
+*/
 #define  DIM 2               /* Dimension of points */
 typedef  int tPointi[DIM];   /* Type integer point */
 
@@ -32,7 +34,7 @@ typedef  tsVertex *tVertex;
 struct  tVertexStructure {
    int    vnum;    /* Index */
    tPointi  v;    /* Coordinates */
-   bool   ear;    /* TRUE iff an ear */
+   bool   ear;    /* true iff an ear */
    tVertex   next,prev;
 };
 
@@ -40,32 +42,36 @@ struct  tVertexStructure {
   Global variable definitions
 */
 tVertex  vertices  = NULL;  /* "Head" of circular list. */
-int  nvertices = 0;    /* Total number of polygon vertices. */
-
-int area_poly2 ( void );
+/*
+  Functions:
+*/
+int main ( );
+int area_poly2 ( );
 int area_sign ( tPointi a, tPointi b, tPointi c );
 int area2 ( tPointi a, tPointi b, tPointi c );
 bool between ( tPointi a, tPointi b, tPointi c );
 bool collinear ( tPointi a, tPointi b, tPointi c );
 bool diagonal ( tVertex a, tVertex b );
 bool diagonalie ( tVertex a, tVertex b );
-void ear_init ( void );
+void ear_init ( );
 bool in_cone ( tVertex a, tVertex b );
 bool intersect ( tPointi a, tPointi b, tPointi c, tPointi d );
 bool intersect_prop ( tPointi a, tPointi b, tPointi c, tPointi d );
 bool left ( tPointi a, tPointi b, tPointi c );
 bool left_on ( tPointi a, tPointi b, tPointi c );
-tVertex make_null_vertex ( void );
-void print_poly ( void );
-void print_vertices ( int xmin, int xmax, int ymin, int ymax, int scale );
-void read_vertices ( void );
+tVertex make_null_vertex ( );
+void print_poly ( );
+void print_vertices ( int nvertices, int xmin, int xmax, int ymin, int ymax, 
+  int scale );
+void read_vertices ( int *nvertices );
 void scale_data ( int *xmin, int *xmax, int *ymin, int *ymax, int *scale );
-void triangulate ( int xmin, int xmax, int ymin, int ymax, int scale );
+void triangulate ( int nvertices, int xmin, int xmax, int ymin, int ymax, 
+  int scale );
 bool xor ( bool x, bool y );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -75,7 +81,7 @@ int main ( void )
 
   Modified:
 
-    02 May 2007
+    02 January 2013
 
   Author:
 
@@ -92,6 +98,8 @@ int main ( void )
 */
 {
   tVertex a;
+  double area;
+  int nvertices;
   tVertex p;
   int scale;
   int xmax;
@@ -99,13 +107,33 @@ int main ( void )
   int ymax;
   int ymin;
 
-  read_vertices ( );
+  read_vertices ( &nvertices );
 
   scale_data ( &xmin, &xmax, &ymin, &ymax, &scale );
 
-  print_vertices ( xmin, xmax, ymin, ymax, scale );
+  print_vertices ( nvertices, xmin, xmax, ymin, ymax, scale );
 
-  printf ( "%%Area of polygon = %g\n", 0.5 * area_poly2 ( ) );
+  area = 0.5 * ( double ) area_poly2 ( );
+
+  printf ( "%%Area of polygon = %g\n", area );
+
+  if ( area == 0.0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "TRIANGULATE - Fatal error!\n" );
+    fprintf ( stderr, "  Computed area of polygon is zero.\n" );
+    exit ( 1 );
+  }
+
+  if ( area < 0.0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "TRIANGULATE - Fatal error!\n" );
+    fprintf ( stderr, "  Computed area of polygon is negative.\n" );
+    fprintf ( stderr, "  The vertices are probably listed in clockwise order.\n" );
+    fprintf ( stderr, "  Revise the input file by reversing the vertex order.\n" );
+    exit ( 1 );
+  }
 /*
   Refuse to accept input if two consecutive vertices are equal.
 */
@@ -126,7 +154,7 @@ int main ( void )
 /*
   Compute the triangulation.
 */
-  triangulate ( xmin, xmax, ymin, ymax, scale );
+  triangulate ( nvertices, xmin, xmax, ymin, ymax, scale );
 
   printf ( "showpage\n%%%%EOF\n" );
 /*
@@ -136,7 +164,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-int area_poly2 ( void )
+int area_poly2 ( )
 
 /******************************************************************************/
 /*
@@ -160,9 +188,11 @@ int area_poly2 ( void )
   tVertex a;
   tVertex p;
   int sum = 0;
-
-  p = vertices;   /* Fixed. */
-  a = p->next;    /* Moving. */
+/*
+  Keep P fixed, but allow A to move.
+*/
+  p = vertices;
+  a = p->next;
 
   do
   {
@@ -262,11 +292,11 @@ bool between ( tPointi a, tPointi b, tPointi c )
 /*
   Purpose:
 
-    BETWEEN returns TRUE iff point C lies on the closed segement AB.
+    BETWEEN returns TRUE if and only if point C lies on the closed segement AB.
 
   Discussion:
 
-    The function first checks that C is collinear with A and B.
+    The function first checks whether C is collinear with A and B.
 
   Modified:
 
@@ -288,7 +318,7 @@ bool between ( tPointi a, tPointi b, tPointi c )
 
   if ( ! collinear ( a, b, c ) )
   {
-    value = FALSE;
+    value = false;
     return value;
   }
 /*
@@ -418,16 +448,16 @@ bool diagonalie ( tVertex a, tVertex b )
     if ( ( c != a ) && ( c1 != a ) && ( c != b ) && ( c1 != b ) &&
            intersect( a->v, b->v, c->v, c1->v ) )
     {
-      return FALSE;
+      return false;
     }
     c = c->next;
   } while ( c != vertices );
 
-  return TRUE;
+  return true;
 }
 /******************************************************************************/
 
-void ear_init ( void )
+void ear_init ( )
 
 /******************************************************************************/
 /*
@@ -555,18 +585,18 @@ bool intersect ( tPointi a, tPointi b, tPointi c, tPointi d )
 {
   if ( intersect_prop ( a, b, c, d ) )
   {
-    return  TRUE;
+    return true;
   }
   else if ( between ( a, b, c )
          || between ( a, b, d )
          || between ( c, d, a )
          || between ( c, d, b ) )
   {
-    return TRUE;
+    return true;
   }
   else
   {
-    return FALSE;
+    return false;
   }
 }
 /******************************************************************************/
@@ -608,7 +638,7 @@ bool intersect_prop ( tPointi a, tPointi b, tPointi c, tPointi d )
        collinear ( c, d, a ) ||
        collinear ( c, d, b ) )
   {
-    value = FALSE;
+    value = false;
   }
   else
   {
@@ -688,7 +718,7 @@ bool left_on ( tPointi a, tPointi b, tPointi c )
 }
 /******************************************************************************/
 
-tVertex make_null_vertex ( void )
+tVertex make_null_vertex ( )
 
 /******************************************************************************/
 /*
@@ -715,7 +745,9 @@ tVertex make_null_vertex ( void )
 
   if ( v == NULL )
   {
-    printf ( "Out of Memory!\n" );
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "MAKE_NULL_VERTEX - Fatal error!\n" );
+    fprintf ( stderr, "  Out of memory!\n" );
     exit ( 1 );
   }
 
@@ -737,7 +769,7 @@ tVertex make_null_vertex ( void )
 }
 /******************************************************************************/
 
-void print_poly ( void )
+void print_poly ( )
 
 /******************************************************************************/
 /*
@@ -773,7 +805,8 @@ void print_poly ( void )
 }
 /******************************************************************************/
 
-void print_vertices ( int xmin, int xmax, int ymin, int ymax, int scale )
+void print_vertices ( int nvertices, int xmin, int xmax, int ymin, int ymax, 
+  int scale )
 
 /******************************************************************************/
 /*
@@ -795,6 +828,8 @@ void print_vertices ( int xmin, int xmax, int ymin, int ymax, int scale )
     Joseph O'Rourke
 
   Parameters:
+
+    Input, int NVERTICES, the number of vertices.
 
     Input, int XMIN, XMAX, YMIN, YMAX, the minimum and maximum
     X and Y values of the coordinates of the vertices of the polygon.
@@ -853,7 +888,7 @@ void print_vertices ( int xmin, int xmax, int ymin, int ymax, int scale )
 }
 /******************************************************************************/
 
-void read_vertices ( void )
+void read_vertices ( int *nvertices )
 
 /******************************************************************************/
 /*
@@ -874,6 +909,10 @@ void read_vertices ( void )
   Author:
 
     Joseph O'Rourke
+
+  Parameters:
+
+    Output, int *NVERTICES, the number of vertices.
 */
 {
   tVertex v;
@@ -889,15 +928,16 @@ void read_vertices ( void )
     v->vnum = vnum++;
   }
 
-  nvertices = vnum;
-
-  if ( nvertices < 3 )
+  if ( vnum < 3 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "ReadVertices - Fatal error!\n" ),
-    fprintf ( stderr, "  nvertices = %d < 3\n", nvertices ),
+    fprintf ( stderr, "READ_VERTICES - Fatal error!\n" ),
+    fprintf ( stderr, "  Number of vertices = %d < 3\n", vnum ),
     exit ( 1 );
   }
+
+  *nvertices = vnum;
+
   return;
 }
 /******************************************************************************/
@@ -984,7 +1024,8 @@ void scale_data ( int *xmin, int *xmax, int *ymin, int *ymax, int *scale )
 }
 /******************************************************************************/
 
-void triangulate ( int xmin, int xmax, int ymin, int ymax, int scale )
+void triangulate ( int nvertices, int xmin, int xmax, int ymin, int ymax, 
+  int scale )
 
 /******************************************************************************/
 /*
@@ -1001,6 +1042,8 @@ void triangulate ( int xmin, int xmax, int ymin, int ymax, int scale )
     Joseph O'Rourke
 
   Parameters:
+
+    Input, int NVERTICES, the number of vertices.
 
     Input, int XMIN, XMAX, YMIN, YMAX, the minimum and maximum
     X and Y values of the coordinates of the vertices of the polygon.

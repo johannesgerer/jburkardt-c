@@ -4,13 +4,13 @@
 
 # include "asa007.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -20,7 +20,7 @@ int main ( void )
 
   Discussion:
 
-    ASA007_PRB calls the ASA007 routines.
+    ASA007_PRB tests the ASA007 library.
 
   Licensing:
 
@@ -36,7 +36,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA007_PRB:\n" );
   printf ( "  C version\n" );
@@ -50,7 +49,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA007_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

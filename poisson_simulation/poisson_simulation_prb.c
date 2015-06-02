@@ -17,7 +17,11 @@ int main ( )
 /*
   Purpose:
 
-    POISSON_SIMULATION_TEST tests POISSON_SIMULATION.
+    MAIN is the main program for POISSON_SIMULATION_PRB.
+
+  Discussion:
+
+    POISSON_SIMULATION_PRB tests the POISSON_SIMULATION library.
 
   Licensing:
 
@@ -34,7 +38,7 @@ int main ( )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "POISSON_SIMULATION_TEST\n" );
+  printf ( "POISSON_SIMULATION_PRB\n" );
   printf ( "  C version.\n" );
   printf ( "  Test the POISSON_SIMULATION library.\n" );
 
@@ -44,9 +48,8 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "POISSON_SIMULATION_TEST\n" );
+  printf ( "POISSON_SIMULATION_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

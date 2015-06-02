@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c sizes.c >& compiler.txt
+gcc -c sizes.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling sizes.c"
   exit
 fi
-rm compiler.txt
 #
 gcc sizes.o
 if [ $? -ne 0 ]; then

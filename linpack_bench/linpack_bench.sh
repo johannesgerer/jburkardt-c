@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c linpack_bench.c >& compiler.txt
+gcc -c linpack_bench.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling linpack_bench.c."
   exit
 fi
-rm compiler.txt
 #
 gcc linpack_bench.o -lm
 if [ $? -ne 0 ]; then

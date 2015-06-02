@@ -18,7 +18,11 @@ int main ( void )
 /*
   Purpose:
 
-    I8LIB_PRB calls the I8LIB tests.
+    MAIN is the main program for I8LIB_PRB.
+
+  Discussion:
+
+    I8LIB_PRB tests the I8LIB library.
 
   Licensing:
 
@@ -41,11 +45,12 @@ int main ( void )
 
   test015 ( );
   test190 ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "I8LIB_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

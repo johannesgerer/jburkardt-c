@@ -2,7 +2,7 @@
 #
 #  Compile with GCC.
 #
-gcc -fopenmp multitask_openmp.c
+gcc -fopenmp multitask_openmp.c -lm
 if [ $? -ne 0 ]; then
   echo "Errors compiling multitask_openmp.c"
   exit

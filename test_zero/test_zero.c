@@ -13,45 +13,45 @@ void bisection ( double fatol, int step_max, int prob, double xatol,
   double *xa, double *xb, double *fxa, double *fxb )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    BISECTION carries out the bisection method to seek a root of F(X) = 0.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 May 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FATOL, an absolute error tolerance for
-//    the function value of the root.  If an approximate root X satisfies
-//      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
-//    root and the iteration will be terminated.
-//
-//    Input, int STEP_MAX, the maximum number of steps
-//    allowed for an iteration.
-//
-//    Input, int PROB, the index of the function whose root is
-//    to be sought.
-//
-//    Input, double XATOL, an absolute error tolerance for the root.
-//
-//    Input/output, double *XA, *XB, two points at which the
-//    function differs in sign.  On output, these values have been adjusted
-//    to a smaller interval.
-//
-//    Input/output, double *FXA, *FXB, the value of the function
-//    at XA and XB.
-//
+/*
+  Purpose:
+
+    BISECTION carries out the bisection method to seek a root of F(X) = 0.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 May 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FATOL, an absolute error tolerance for
+    the function value of the root.  If an approximate root X satisfies
+      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
+    root and the iteration will be terminated.
+
+    Input, int STEP_MAX, the maximum number of steps
+    allowed for an iteration.
+
+    Input, int PROB, the index of the function whose root is
+    to be sought.
+
+    Input, double XATOL, an absolute error tolerance for the root.
+
+    Input/output, double *XA, *XB, two points at which the
+    function differs in sign.  On output, these values have been adjusted
+    to a smaller interval.
+
+    Input/output, double *FXA, *FXB, the value of the function
+    at XA and XB.
+*/
 {
   double fxc;
   int step_num;
@@ -63,9 +63,9 @@ void bisection ( double fatol, int step_max, int prob, double xatol,
   printf ( "\n" );
   printf ( "  Step      XA            XB             F(XA)         F(XB)\n" );
   printf ( "\n" );
-//
-//  Make A the root with negative F, B the root with positive F.
-//
+/*
+  Make A the root with negative F, B the root with positive F.
+*/
   if ( 0.0 < *fxa )
   {
     t = *xa;
@@ -77,9 +77,9 @@ void bisection ( double fatol, int step_max, int prob, double xatol,
   }
 
   step_num = 0;
-//
-//  Loop
-//
+/*
+  Loop
+*/
   for ( ; ; )
   {
     printf ( "  %4d  %14g  %14g  %14g  %14g\n", step_num, *xa, *xb, *fxa, *fxb );
@@ -106,14 +106,14 @@ void bisection ( double fatol, int step_max, int prob, double xatol,
       printf ( "  Function small enough for convergence.\n" );
       break;
     }
-//
-//  Compute the next iterate.
-//
+/*
+  Compute the next iterate.
+*/
     xc = 0.5 * ( *xa + *xb );
     fxc = p00_fx ( prob, xc );
-//
-//  Replace one of the old points.
-//
+/*
+  Replace one of the old points.
+*/
     if ( fxc < 0.0 )
     {
       *xa = xc;
@@ -134,52 +134,52 @@ void brent ( double fatol, int step_max, int prob, double xatol, double xrtol,
   double *xa, double *xb, double *fxa, double *fxb )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    BRENT implements the Brent bisection-based zero finder.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 May 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Reference:
-//
-//    Richard Brent,
-//    Algorithms for Minimization without Derivatives,
-//    Prentice Hall, 1973.
-//
-//  Parameters:
-//
-//    Input, double FATOL, an absolute error tolerance for the
-//    function value of the root.  If an approximate root X satisfies
-//      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
-//    root and the iteration will be terminated.
-//
-//    Input, int STEP_MAX, the maximum number of steps allowed
-//    for an iteration.
-//
-//    Input, int PROB, the index of the function whose root is
-//    to be sought.
-//
-//    Input, double XATOL, XRTOL, absolute and relative error
-//    tolerances for the root.
-//
-//    Input/output, double *XA, *XB, two points at which the
-//    function differs in sign.  On output, these values have been adjusted
-//    to a smaller interval.
-//
-//    Input/output, double *FXA, *FXB, the value of the function
-//    at XA and XB.
-//
+/*
+  Purpose:
+
+    BRENT implements the Brent bisection-based zero finder.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 May 2011
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Richard Brent,
+    Algorithms for Minimization without Derivatives,
+    Prentice Hall, 1973.
+
+  Parameters:
+
+    Input, double FATOL, an absolute error tolerance for the
+    function value of the root.  If an approximate root X satisfies
+      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
+    root and the iteration will be terminated.
+
+    Input, int STEP_MAX, the maximum number of steps allowed
+    for an iteration.
+
+    Input, int PROB, the index of the function whose root is
+    to be sought.
+
+    Input, double XATOL, XRTOL, absolute and relative error
+    tolerances for the root.
+
+    Input/output, double *XA, *XB, two points at which the
+    function differs in sign.  On output, these values have been adjusted
+    to a smaller interval.
+
+    Input/output, double *FXA, *FXB, the value of the function
+    at XA and XB.
+*/
 {
   double d;
   double e;
@@ -192,9 +192,9 @@ void brent ( double fatol, int step_max, int prob, double xatol, double xrtol,
   double xc;
   double xm;
   double xtol;
-//
-//  Initialization.
-//
+/*
+  Initialization.
+*/
   printf ( "\n" );
   printf ( "BRENT\n" );
   printf ( "\n" );
@@ -205,9 +205,9 @@ void brent ( double fatol, int step_max, int prob, double xatol, double xrtol,
 
   *fxa = p00_fx ( prob, *xa );
   *fxb = p00_fx ( prob, *xb );
-//
-//  Check that f(ax) and f(bx) have different signs.
-//
+/*
+  Check that f(ax) and f(bx) have different signs.
+*/
   if ( ( *fxa < 0.0 && *fxb < 0.0 ) || ( 0.0 < *fxa && 0.0 < *fxb ) )
   {
     fprintf ( stderr, "\n" );
@@ -245,9 +245,9 @@ void brent ( double fatol, int step_max, int prob, double xatol, double xrtol,
     }
 
     xtol = 2.0 * xrtol * r8_abs ( *xb ) + 0.5 * xatol;
-//
-//  XM is the halfwidth of the current change-of-sign interval.
-//
+/*
+  XM is the halfwidth of the current change-of-sign interval.
+*/
     xm = 0.5 * ( xc - *xb );
 
     if ( r8_abs ( xm ) <= xtol )
@@ -263,9 +263,9 @@ void brent ( double fatol, int step_max, int prob, double xatol, double xrtol,
       printf ( "  Function small enough for convergence.\n" );
       break;
     }
-//
-//  See if a bisection is forced.
-//
+/*
+  See if a bisection is forced.
+*/
     if ( r8_abs ( e ) < xtol || r8_abs ( *fxa ) <= r8_abs ( *fxb ) )
     {
       d = xm;
@@ -274,17 +274,17 @@ void brent ( double fatol, int step_max, int prob, double xatol, double xrtol,
     else
     {
       s = *fxb / *fxa;
-//
-//  Linear interpolation.
-//
+/*
+  Linear interpolation.
+*/
       if ( *xa == xc )
       {
         p = 2.0 * xm * s;
         q = 1.0 - s;
       }
-//
-//  Inverse quadratic interpolation.
-//
+/*
+  Inverse quadratic interpolation.
+*/
       else
       {
         q = *fxa / fxc;
@@ -317,14 +317,14 @@ void brent ( double fatol, int step_max, int prob, double xatol, double xrtol,
         d = p / q;
       }
     }
-//
-//  Save in XA, FXA the previous values of XB, FXB.
-//
+/*
+  Save in XA, FXA the previous values of XB, FXB.
+*/
     *xa = *xb;
     *fxa = *fxb;
-//
-//  Compute the new value of XB, and evaluate the function there.
-//
+/*
+  Compute the new value of XB, and evaluate the function there.
+*/
     if ( xtol < r8_abs ( d ) )
     {
       *xb = *xb + d;
@@ -339,9 +339,9 @@ void brent ( double fatol, int step_max, int prob, double xatol, double xrtol,
     }
 
     *fxb = p00_fx ( prob, *xb );
-//
-//  If the new FXB has the same sign as FXC, then replace XC by XA.
-//
+/*
+  If the new FXB has the same sign as FXC, then replace XC by XA.
+*/
     if ( ( 0.0 < *fxb && 0.0 < fxc ) || ( *fxb < 0.0 && fxc < 0.0 ) )
     {
       xc = *xa;
@@ -358,44 +358,44 @@ void muller ( double fatol, int step_max, int prob, double xatol, double xrtol,
   double *xa, double *xb, double *xc, double *fxa, double *fxb, double *fxc )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    MULLER carries out Muller's method for seeking a real root of a nonlinear function.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 May 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FATOL, an absolute error tolerance for the
-//    function value of the root.  If an approximate root X satisfies7
-//      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
-//    root and the iteration will be terminated.
-//
-//    Input, int STEP_MAX, the maximum number of steps allowed
-//    for an iteration.
-//
-//    Input, int PROB, the index of the function whose root is
-//    to be sought.
-//
-//    Input, double XATOL, XRTOL, absolute and relative error
-//    tolerances  for the root.
-//
-//    Input/output, double *XA, *XB, *XC, three points.
-//
-//    Input/output, double *FXA, *FXB, *FXC, the value of the
-//    function at XA, XB, and XC.
-//
+/*
+  Purpose:
+
+    MULLER carries out Muller's method for seeking a real root of a nonlinear function.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 May 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FATOL, an absolute error tolerance for the
+    function value of the root.  If an approximate root X satisfies7
+      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
+    root and the iteration will be terminated.
+
+    Input, int STEP_MAX, the maximum number of steps allowed
+    for an iteration.
+
+    Input, int PROB, the index of the function whose root is
+    to be sought.
+
+    Input, double XATOL, XRTOL, absolute and relative error
+    tolerances  for the root.
+
+    Input/output, double *XA, *XB, *XC, three points.
+
+    Input/output, double *FXA, *FXB, *FXC, the value of the
+    function at XA, XB, and XC.
+*/
 {
   double a;
   double b;
@@ -405,9 +405,9 @@ void muller ( double fatol, int step_max, int prob, double xatol, double xrtol,
   double xd;
   double z1;
   double z2;
-//
-//  Initialization.
-//
+/*
+  Initialization.
+*/
   printf ( "\n" );
   printf ( "MULLER\n" );
   printf ( "\n" );
@@ -422,14 +422,14 @@ void muller ( double fatol, int step_max, int prob, double xatol, double xrtol,
 
   for ( i = 1; i <= step_max; i++ )
   {
-//
-//  Determine the coefficients
-//    A, B, C
-//  of the polynomial
-//    Y(X) = A * (X-X2)**2 + B * (X-X2) + C
-//  which goes through the data:
-//    (X1,Y1), (X2,Y2), (X3,Y3).
-//
+/*
+  Determine the coefficients
+    A, B, C
+  of the polynomial
+    Y(X) = A * (X-X2)**2 + B * (X-X2) + C
+  which goes through the data:
+    (X1,Y1), (X2,Y2), (X3,Y3).
+*/
     a = ( ( *fxa - *fxc ) * ( *xb - *xc ) 
         - ( *fxb - *fxc ) * ( *xa - *xc ) ) / 
           ( ( *xa - *xc ) * ( *xb - *xc ) * ( *xa - *xb ) );
@@ -439,10 +439,10 @@ void muller ( double fatol, int step_max, int prob, double xatol, double xrtol,
         ( ( *xa - *xc ) * ( *xb - *xc ) * ( *xa - *xb ) );
 
     c = *fxc;
-//
-//  Get the real roots of the polynomial,
-//  unless A = 0, in which case the algorithm is breaking down.
-//
+/*
+  Get the real roots of the polynomial,
+  unless A = 0, in which case the algorithm is breaking down.
+*/
     if ( a != 0.0 )
     {
       r8poly2_rroot ( a, b, c, &z1, &z2 );
@@ -460,9 +460,9 @@ void muller ( double fatol, int step_max, int prob, double xatol, double xrtol,
     }
 
     xd = *xc + z2;
-//
-//  Set XA, YA, based on which of XA and XB is closer to XD.
-//
+/*
+  Set XA, YA, based on which of XA and XB is closer to XD.
+*/
     if ( r8_abs ( xd - *xb ) < r8_abs ( xd - *xa ) )
     {
       t = *xa;
@@ -472,9 +472,9 @@ void muller ( double fatol, int step_max, int prob, double xatol, double xrtol,
       *fxa = *fxb;
       *fxb = t;
     }
-//
-//  Set XB, YB, based on which of XB and XC is closer to XD.
-//
+/*
+  Set XB, YB, based on which of XB and XC is closer to XD.
+*/
     if ( r8_abs ( xd - *xc ) < r8_abs ( xd - *xb ) )
     {
       t = *xb;
@@ -484,17 +484,17 @@ void muller ( double fatol, int step_max, int prob, double xatol, double xrtol,
       *fxb = *fxc;
       *fxc = t;
     }
-//
-//  Set XC, YC.
-//
+/*
+  Set XC, YC.
+*/
     *xc = xd;
     *fxc = p00_fx ( prob, *xc );
 
     printf ( "  %4d  %12g  %12g  %12g\n", i, *xa, *xb, *xc );
     printf ( "        %12g  %12g  %12g\n", *fxa, *fxb, *fxc );
-//
-//  Estimate the relative significance of the most recent correction.
-//
+/*
+  Estimate the relative significance of the most recent correction.
+*/
     if ( r8_abs ( z2 ) <= xrtol * r8_abs ( *xc ) + xatol )
     {
       printf ( "\n" );
@@ -521,46 +521,46 @@ void newton ( double fatol, int step_max, int prob, double xatol, double xmin,
   double xmax, double *xa, double *fxa )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    NEWTON carries out Newton's method to seek a root of F(X) = 0.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    14 May 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FATOL, an absolute error tolerance for the
-//    function value of the root.  If an approximate root X satisfies
-//      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
-//    root and the iteration will be terminated.
-//
-//    Input, int STEP_MAX, the maximum number of steps allowed
-//    for an iteration.
-//
-//    Input, int PROB, the index of the function whose root is
-//    to be sought.
-//
-//    Input, double XATOL, an absolute error tolerance for the root.
-//
-//    Input, double XMIN, XMAX, the interval in which the root should
-//    be sought.
-//
-//    Input/output, double *XA, on input, the starting point.  On output,
-//    the estimated root.
-//
-//    Input/output, double *FXA,  the value of the function at XA.
-//
+/*
+  Purpose:
+
+    NEWTON carries out Newton's method to seek a root of F(X) = 0.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 May 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FATOL, an absolute error tolerance for the
+    function value of the root.  If an approximate root X satisfies
+      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
+    root and the iteration will be terminated.
+
+    Input, int STEP_MAX, the maximum number of steps allowed
+    for an iteration.
+
+    Input, int PROB, the index of the function whose root is
+    to be sought.
+
+    Input, double XATOL, an absolute error tolerance for the root.
+
+    Input, double XMIN, XMAX, the interval in which the root should
+    be sought.
+
+    Input/output, double *XA, on input, the starting point.  On output,
+    the estimated root.
+
+    Input/output, double *FXA,  the value of the function at XA.
+*/
 {
   double fp;
   int step_num;
@@ -629,31 +629,31 @@ void newton ( double fatol, int step_max, int prob, double xatol, double xmin,
 double p00_fx ( int prob, double x )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_FX evaluates a function specified by problem number.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int PROB, the problem index.
-//
-//    Input, double X, the point at which F is to be evaluated.
-//
-//    Output, double P00_FX, the value of the function at X.
-//
+/*
+  Purpose:
+
+    P00_FX evaluates a function specified by problem number.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int PROB, the problem index.
+
+    Input, double X, the point at which F is to be evaluated.
+
+    Output, double P00_FX, the value of the function at X.
+*/
 {
   double fx;
 
@@ -729,6 +729,10 @@ double p00_fx ( int prob, double x )
   {
     fx = p18_fx ( x );
   }
+  else if ( prob == 19 )
+  {
+    fx = p19_fx ( x );
+  }
   else
   {
     printf ( "\n" );
@@ -743,31 +747,31 @@ double p00_fx ( int prob, double x )
 double p00_fx1 ( int prob, double x )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_FX1 evaluates the first derivative of a function specified by problem number.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int PROB, the problem index.
-//
-//    Input, double X, the abscissa.
-//
-//    Output, double P00_FX1, the first derivative of the function at X.
-//
+/*
+  Purpose:
+
+    P00_FX1 evaluates the first derivative of a function specified by problem number.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int PROB, the problem index.
+
+    Input, double X, the abscissa.
+
+    Output, double P00_FX1, the first derivative of the function at X.
+*/
 {
   double fx1;
 
@@ -843,6 +847,10 @@ double p00_fx1 ( int prob, double x )
   {
     fx1 = p18_fx1 ( x );
   }
+  else if ( prob == 19 )
+  {
+    fx1 = p19_fx1 ( x );
+  }
   else
   {
     printf ( "\n" );
@@ -857,31 +865,31 @@ double p00_fx1 ( int prob, double x )
 double p00_fx2 ( int prob, double x )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_FX2 evaluates the second derivative of a function specified by problem number.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int PROB, the problem index.
-//
-//    Input, double X, the abscissa.
-//
-//    Output, double P00_FX2, the second derivative of the function at X.
-//
+/*
+  Purpose:
+
+    P00_FX2 evaluates the second derivative of a function specified by problem number.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int PROB, the problem index.
+
+    Input, double X, the abscissa.
+
+    Output, double P00_FX2, the second derivative of the function at X.
+*/
 {
   double fx2;
 
@@ -957,6 +965,10 @@ double p00_fx2 ( int prob, double x )
   {
     fx2 = p18_fx2 ( x );
   }
+  else if ( prob == 19 )
+  {
+    fx2 = p19_fx2 ( x );
+  }
   else
   {
     printf ( "\n" );
@@ -971,31 +983,31 @@ double p00_fx2 ( int prob, double x )
 int p00_prob_num ( )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_PROB_NUM returns the number of problems available.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, int P00_PROB_NUM, the number of problems available.
-//
+/*
+  Purpose:
+
+    P00_PROB_NUM returns the number of problems available.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, int P00_PROB_NUM, the number of problems available.
+*/
 {
   int prob_num;
 
-  prob_num = 18;
+  prob_num = 19;
 
   return prob_num;
 }
@@ -1004,30 +1016,30 @@ int p00_prob_num ( )
 double *p00_range ( int prob )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_RANGE returns an interval bounding the root for any problem.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int PROB, the problem index.
-//
-//    Output, double RANGE[2], the minimum and maximum values of
-//    an interval containing the root.
-//
+/*
+  Purpose:
+
+    P00_RANGE returns an interval bounding the root for any problem.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int PROB, the problem index.
+
+    Output, double RANGE[2], the minimum and maximum values of
+    an interval containing the root.
+*/
 {
   double *range;
 
@@ -1103,6 +1115,10 @@ double *p00_range ( int prob )
   {
     range = p18_range ( );
   }
+  else if ( prob == 19 )
+  {
+    range = p19_range ( );
+  }
   else
   {
     printf ( "\n" );
@@ -1117,31 +1133,31 @@ double *p00_range ( int prob )
 double p00_root ( int prob, int i )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_ROOT returns a known root for any problem.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int PROB, the problem index.
-//
-//    Input, int I, the index of the requested root.
-//
-//    Output, double P00_ROOT, the value of the I-th root.
-//
+/*
+  Purpose:
+
+    P00_ROOT returns a known root for any problem.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int PROB, the problem index.
+
+    Input, int I, the index of the requested root.
+
+    Output, double P00_ROOT, the value of the I-th root.
+*/
 {
   double root;
 
@@ -1217,6 +1233,10 @@ double p00_root ( int prob, int i )
   {
     root = p18_root ( i );
   }
+  else if ( prob == 19 )
+  {
+    root = p19_root ( i );
+  }
   else
   {
     printf ( "\n" );
@@ -1231,30 +1251,30 @@ double p00_root ( int prob, int i )
 int p00_root_num ( int prob )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_ROOT_NUM returns the number of known roots for a problem.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int PROB, the problem index.
-//
-//    Output, int P00_ROOT_NUM, the number of known roots.
-//    This value may be zero.
-//
+/*
+  Purpose:
+
+    P00_ROOT_NUM returns the number of known roots for a problem.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int PROB, the problem index.
+
+    Output, int P00_ROOT_NUM, the number of known roots.
+    This value may be zero.
+*/
 {
   int root_num;
 
@@ -1330,6 +1350,10 @@ int p00_root_num ( int prob )
   {
     root_num = p18_root_num ( );
   }
+  else if ( prob == 19 )
+  {
+    root_num = p19_root_num ( );
+  }
   else
   {
     printf ( "\n" );
@@ -1344,31 +1368,31 @@ int p00_root_num ( int prob )
 double p00_start ( int prob, int i )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_START returns starting point for any problem.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int PROB, the problem index.
-//
-//    Input, int I, the index of the requested starting point.
-//
-//    Output, double P00_ROOT, the value of the I-th starting point.
-//
+/*
+  Purpose:
+
+    P00_START returns starting point for any problem.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int PROB, the problem index.
+
+    Input, int I, the index of the requested starting point.
+
+    Output, double P00_ROOT, the value of the I-th starting point.
+*/
 {
   double start;
 
@@ -1444,6 +1468,10 @@ double p00_start ( int prob, int i )
   {
     start = p18_start ( i );
   }
+  else if ( prob == 19 )
+  {
+    start = p19_start ( i );
+  }
   else
   {
     printf ( "\n" );
@@ -1458,29 +1486,29 @@ double p00_start ( int prob, int i )
 int p00_start_num ( int prob )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_START_NUM returns the number of starting points for a problem.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int PROB, the problem index.
-//
-//    Output, int P00_START_NUM, the number of starting points.
-//
+/*
+  Purpose:
+
+    P00_START_NUM returns the number of starting points for a problem.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int PROB, the problem index.
+
+    Output, int P00_START_NUM, the number of starting points.
+*/
 {
   int start_num;
 
@@ -1556,6 +1584,10 @@ int p00_start_num ( int prob )
   {
     start_num = p18_start_num ( );
   }
+  else if ( prob == 19 )
+  {
+    start_num = p19_start_num ( );
+  }
   else
   {
     printf ( "\n" );
@@ -1570,29 +1602,29 @@ int p00_start_num ( int prob )
 char *p00_title ( int prob )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    P00_TITLE returns the title for a given problem.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int PROB, the problem index.
-//
-//    Output, char *P00_TITLE, the title of the given problem.
-//
+/*
+  Purpose:
+
+    P00_TITLE returns the title for a given problem.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int PROB, the problem index.
+
+    Output, char *P00_TITLE, the title of the given problem.
+*/
 {
   char *title;
 
@@ -1667,6 +1699,10 @@ char *p00_title ( int prob )
   else if ( prob == 18 )
   {
     title = p18_title ( );
+  }
+  else if ( prob == 19 )
+  {
+    title = p19_title ( );
   }
   else
   {
@@ -7632,7 +7668,7 @@ double p18_fx ( double x )
 //
 //  Purpose:
 //
-//    P18_FX evaluates the function for problem 18.
+//    P18_FX evaluates the function for problem P18.
 //
 //  Discussion:
 //
@@ -7682,7 +7718,7 @@ double p18_fx1 ( double x )
 //
 //  Purpose:
 //
-//    P18_FX1 evaluates the derivative of the function for problem 18.
+//    P18_FX1 evaluates the derivative of the function for problem P18.
 //
 //  Licensing:
 //
@@ -7724,7 +7760,7 @@ double p18_fx2 ( double x )
 //
 //  Purpose:
 //
-//    P18_FX2 evaluates the second derivative of the function for problem 18.
+//    P18_FX2 evaluates the second derivative of the function for problem P18.
 //
 //  Licensing:
 //
@@ -7765,7 +7801,7 @@ double *p18_range ( )
 //
 //  Purpose:
 //
-//    P18_RANGE returns an interval bounding the root for problem 18.
+//    P18_RANGE returns an interval bounding the root for problem P18.
 //
 //  Licensing:
 //
@@ -7802,7 +7838,7 @@ double p18_root ( int i )
 //
 //  Purpose:
 //
-//    P18_ROOT returns a root for problem 18.
+//    P18_ROOT returns a root for problem P18.
 //
 //  Licensing:
 //
@@ -7846,7 +7882,7 @@ int p18_root_num ( )
 //
 //  Purpose:
 //
-//    P18_ROOT_NUM returns the number of known roots for problem 18.
+//    P18_ROOT_NUM returns the number of known roots for problem P18.
 //
 //  Licensing:
 //
@@ -7879,7 +7915,7 @@ double p18_start ( int i )
 //
 //  Purpose:
 //
-//    P18_START returns a starting point for problem 18.
+//    P18_START returns a starting point for problem P18.
 //
 //  Licensing:
 //
@@ -7927,7 +7963,7 @@ int p18_start_num ( )
 //
 //  Purpose:
 //
-//    P18_START_NUM returns the number of starting point for problem 18.
+//    P18_START_NUM returns the number of starting point for problem P18.
 //
 //  Licensing:
 //
@@ -7960,7 +7996,7 @@ char *p18_title ( )
 //
 //  Purpose:
 //
-//    P18_TITLE returns the title of problem 18.
+//    P18_TITLE returns the title of problem P18.
 //
 //  Licensing:
 //
@@ -7989,13 +8025,18 @@ char *p18_title ( )
 }
 /******************************************************************************/
 
-double r8_abs ( double x )
+double p19_fx ( double x )
 
 /******************************************************************************/
 //
 //  Purpose:
 //
-//    R8_ABS returns the absolute value of an R8.
+//    P19_FX evaluates the function for problem P19.
+//
+//  Discussion:
+//
+//    This function looks like an elevated cosine curve, connected by a 
+//    sudden drop to a submerged cosine curve.
 //
 //  Licensing:
 //
@@ -8003,7 +8044,7 @@ double r8_abs ( double x )
 //
 //  Modified:
 //
-//    14 November 2006
+//    16 January 2013
 //
 //  Author:
 //
@@ -8011,10 +8052,356 @@ double r8_abs ( double x )
 //
 //  Parameters:
 //
-//    Input, double X, the quantity whose absolute value is desired.
+//    Input, double X, the point at which F is to be evaluated.
 //
-//    Output, double R8_ABS, the absolute value of X.
+//    Output, double P19_FX, the value of the function at X.
 //
+{
+  double fx;
+
+  fx = cos ( 100.0 * x ) - 4.0 * erf ( 30.0 * x - 10.0 );
+
+  return fx;
+}
+/******************************************************************************/
+
+double p19_fx1 ( double x )
+
+/******************************************************************************/
+//
+//  Purpose:
+//
+//    P19_FX1 evaluates the derivative of the function for problem P19.
+//
+//  Licensing:
+//
+//    This code is distributed under the GNU LGPL license.
+//
+//  Modified:
+//
+//    16 January 2013
+//
+//  Author:
+//
+//    John Burkardt
+//
+//  Parameters:
+//
+//    Input, double X, the abscissa.
+//
+//    Output, double P19_FX1, the first derivative of the function at X.
+//
+{
+  double arg;
+  double pi = 3.141592653589793;
+  double fx1;
+
+  arg = - pow ( 10.0 - 30.0 * x, 2 );
+  fx1 = - 100.0 * sin ( 100.0 * x ) + 240.0 * exp ( arg ) / sqrt ( pi );
+
+  return fx1;
+}
+/******************************************************************************/
+
+double p19_fx2 ( double x )
+
+/******************************************************************************/
+//
+//  Purpose:
+//
+//    P19_FX2 evaluates the second derivative of the function for problem P19.
+//
+//  Licensing:
+//
+//    This code is distributed under the GNU LGPL license.
+//
+//  Modified:
+//
+//    16 January 2013
+//
+//  Author:
+//
+//    John Burkardt
+//
+//  Parameters:
+//
+//    Input, double X, the abscissa.
+//
+//    Output, double P19_FX2, the second derivative of the function at X.
+//
+{
+  double arg;
+  double pi = 3.141592653589793;
+  double fx2;
+
+  arg = - pow ( 10.0 - 30.0 * x, 2 );
+  fx2 = - 10000.0 * cos ( 100.0 * x ) 
+    + 14400.0 * exp ( arg ) * ( 10.0 - 30.0 * x ) / sqrt ( pi );
+
+  return fx2;
+}
+/******************************************************************************/
+
+double *p19_range ( )
+
+/******************************************************************************/
+//
+//  Purpose:
+//
+//    P19_RANGE returns an interval bounding the root for problem P19.
+//
+//  Licensing:
+//
+//    This code is distributed under the GNU LGPL license.
+//
+//  Modified:
+//
+//    16 January 2013
+//
+//  Author:
+//
+//    John Burkardt
+//
+//  Parameters:
+//
+//    Output, double P19_RANGE[2], the minimum and maximum values of
+//    an interval containing the root.
+//
+{
+  double *range;
+
+  range = ( double * ) malloc ( 2 * sizeof ( double ) );
+
+  range[0] = 0.0;
+  range[1] = 1.0;
+
+  return range;
+}
+/******************************************************************************/
+
+double p19_root ( int i )
+
+/******************************************************************************/
+//
+//  Purpose:
+//
+//    P19_ROOT returns a root for problem P19.
+//
+//  Licensing:
+//
+//    This code is distributed under the GNU LGPL license.
+//
+//  Modified:
+//
+//    16 January 2013
+//
+//  Author:
+//
+//    John Burkardt
+//
+//  Parameters:
+//
+//    Input, int I, the index of the requested root.
+//
+//    Output, double P19_ROOT, the value of the root.
+//
+{
+  double root;
+
+  if ( i == 1 )
+  {
+    root = 0.33186603357456253747;
+  }
+  else
+  {
+    printf ( "\n" );
+    printf ( "P19_ROOT - Fatal error!\n" );
+    printf ( "  Illegal root index = %d\n", i );
+    exit ( 1 );
+  }
+  return root;
+}
+/******************************************************************************/
+
+int p19_root_num ( )
+
+/******************************************************************************/
+//
+//  Purpose:
+//
+//    P19_ROOT_NUM returns the number of known roots for problem P19.
+//
+//  Licensing:
+//
+//    This code is distributed under the GNU LGPL license.
+//
+//  Modified:
+//
+//    16 January 2013
+//
+//  Author:
+//
+//    John Burkardt
+//
+//  Parameters:
+//
+//    Output, int P19_ROOT_NUM, the number of known roots.
+//
+{
+  int root_num;
+
+  root_num = 1;
+
+  return root_num;
+}
+/******************************************************************************/
+
+double p19_start ( int i )
+
+/******************************************************************************/
+//
+//  Purpose:
+//
+//    P19_START returns a starting point for problem P19.
+//
+//  Licensing:
+//
+//    This code is distributed under the GNU LGPL license.
+//
+//  Modified:
+//
+//    16 January 2013
+//
+//  Author:
+//
+//    John Burkardt
+//
+//  Parameters:
+//
+//    Input, int I, the index of the requested starting point.
+//
+//    Output, double P19_START, the starting point.
+//
+{
+  double start;
+
+  if ( i == 1 )
+  {
+    start = 0.0;
+  }
+  else if ( i == 2 )
+  {
+    start = 1.0;
+  }
+  else if ( i == 3 )
+  {
+    start = 0.5;
+  }
+  else
+  {
+    printf ( "\n" );
+    printf ( "P19_START - Fatal error!\n" );
+    printf ( "  Illegal root index = %d\n", i );
+    exit ( 1 );
+  }
+  return start;
+}
+/******************************************************************************/
+
+int p19_start_num ( )
+
+/******************************************************************************/
+//
+//  Purpose:
+//
+//    P19_START_NUM returns the number of starting point for problem P19.
+//
+//  Licensing:
+//
+//    This code is distributed under the GNU LGPL license.
+//
+//  Modified:
+//
+//    16 January 2013
+//
+//  Author:
+//
+//    John Burkardt
+//
+//  Parameters:
+//
+//    Output, int P19_START_NUM, the number of starting points.
+//
+{
+  int start_num;
+
+  start_num = 3;
+
+  return start_num;
+}
+/******************************************************************************/
+
+char *p19_title ( )
+
+/******************************************************************************/
+//
+//  Purpose:
+//
+//    P19_TITLE returns the title of problem P19.
+//
+//  Licensing:
+//
+//    This code is distributed under the GNU LGPL license.
+//
+//  Modified:
+//
+//    16 January 2013
+//
+//  Author:
+//
+//    John Burkardt
+//
+//  Parameters:
+//
+//    Output, char *P19_TITLE, the title of the problem.
+//
+{
+  char *title;
+
+  title = ( char * ) malloc ( 80 * sizeof ( char ) );
+
+  strcpy ( title, "The jumping cosine." );
+
+  return title;
+}
+/******************************************************************************/
+
+double r8_abs ( double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ABS returns the absolute value of an R8.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 November 2006
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the quantity whose absolute value is desired.
+
+    Output, double R8_ABS, the absolute value of X.
+*/
 {
   double value;
 
@@ -8033,29 +8420,29 @@ double r8_abs ( double x )
 double complex r8_csqrt ( double x )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    R8_CSQRT returns the complex square root of an R8.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    24 October 2005
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, the number whose square root is desired.
-//
-//    Output, double complex R8_CSQRT, the square root of X:
-//
+/*
+  Purpose:
+
+    R8_CSQRT returns the complex square root of an R8.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 October 2005
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the number whose square root is desired.
+
+    Output, double complex R8_CSQRT, the square root of X:
+*/
 {
   double argument;
   double magnitude;
@@ -8090,34 +8477,34 @@ double complex r8_csqrt ( double x )
 double r8_cube_root ( double x )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    R8_CUBE_ROOT returns the cube root of an R8.
-//
-//  Discussion:
-//
-//    This routine is designed to avoid the possible problems that can occur
-//    when formulas like 0.0**(1/3) or (-1.0)**(1/3) are to be evaluated.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    01 April 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, the number whose cube root is desired.
-//
-//    Output, double R8_CUBE_ROOT, the cube root of X.
-//
+/*
+  Purpose:
+
+    R8_CUBE_ROOT returns the cube root of an R8.
+
+  Discussion:
+
+    This routine is designed to avoid the possible problems that can occur
+    when formulas like 0.0^(1/3) or (-1.0)^(1/3) are to be evaluated.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 April 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the number whose cube root is desired.
+
+    Output, double R8_CUBE_ROOT, the cube root of X.
+*/
 {
   double e;
   double value;
@@ -8144,37 +8531,37 @@ double r8_cube_root ( double x )
 double r8_epsilon ( )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    R8_EPSILON returns the R8 roundoff unit.
-//
-//  Discussion:
-//
-//    The roundoff unit is a number R which is a power of 2 with the
-//    property that, to the precision of the computer's arithmetic,
-//      1 < 1 + R
-//    but
-//      1 = ( 1 + R / 2 )
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    01 September 2012
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double R8_EPSILON, the R8 round-off unit.
-//
+/*
+  Purpose:
+
+    R8_EPSILON returns the R8 round off unit.
+
+  Discussion:
+
+    R8_EPSILON is a number R which is a power of 2 with the property that,
+    to the precision of the computer's arithmetic,
+      1 < 1 + R
+    but
+      1 = ( 1 + R / 2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 September 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double R8_EPSILON, the R8 round-off unit.
+*/
 {
-  static double value = 2.220446049250313E-016;
+  const double value = 2.220446049250313E-016;
 
   return value;
 }
@@ -8183,34 +8570,34 @@ double r8_epsilon ( )
 double r8_huge ( )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    R8_HUGE returns a "huge" R8.
-//
-//  Discussion:
-//
-//    The value returned by this function is NOT required to be the
-//    maximum representable R8.  This value varies from machine to machine,
-//    from compiler to compiler, and may cause problems when being printed.
-//    We simply want a "very large" but non-infinite number.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 October 2007
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Output, double R8_HUGE, a "huge" R8 value.
-//
+/*
+  Purpose:
+
+    R8_HUGE returns a "huge" R8.
+
+  Discussion:
+
+    The value returned by this function is NOT required to be the
+    maximum representable R8.  This value varies from machine to machine,
+    from compiler to compiler, and may cause problems when being printed.
+    We simply want a "very large" but non-infinite number.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 October 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double R8_HUGE, a "huge" R8 value.
+*/
 {
   double value;
 
@@ -8223,29 +8610,29 @@ double r8_huge ( )
 double r8_max ( double x, double y )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    R8_MAX returns the maximum of two R8's.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    18 August 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, Y, the quantities to compare.
-//
-//    Output, double R8_MAX, the maximum of X and Y.
-//
+/*
+  Purpose:
+
+    R8_MAX returns the maximum of two R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, Y, the quantities to compare.
+
+    Output, double R8_MAX, the maximum of X and Y.
+*/
 {
   double value;
 
@@ -8264,29 +8651,29 @@ double r8_max ( double x, double y )
 double r8_sign ( double x )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    R8_SIGN returns the sign of an R8.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    18 October 2004
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double X, the number whose sign is desired.
-//
-//    Output, double R8_SIGN, the sign of X.
-//
+/*
+  Purpose:
+
+    R8_SIGN returns the sign of an R8.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 October 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the number whose sign is desired.
+
+    Output, double R8_SIGN, the sign of X.
+*/
 {
   double value;
 
@@ -8305,40 +8692,40 @@ double r8_sign ( double x )
 void r8poly2_rroot ( double a, double b, double c, double *r1, double *r2 )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    R8POLY2_RROOT returns the real parts of the roots of a quadratic polynomial.
-//
-//  Example:
-//
-//    A    B    C       roots              R1   R2
-//   --   --   --     ------------------   --   --
-//    1   -4    3     1          3          1    3
-//    1    0    4     2*i      - 2*i        0    0
-//    2   -6    5     3 +   i    3 -   i    3    3
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 October 2005
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double A, B, C, the coefficients of the quadratic
-//    polynomial A * X**2 + B * X + C = 0 whose roots are desired.
-//    A must not be zero.
-//
-//    Output, double *R1, *R2, the real parts of the roots
-//    of the polynomial.
-//
+/*
+  Purpose:
+
+    R8POLY2_RROOT returns the real parts of the roots of a quadratic polynomial.
+
+  Example:
+
+    A    B    C       roots              R1   R2
+   --   --   --     ------------------   --   --
+    1   -4    3     1          3          1    3
+    1    0    4     2*i      - 2*i        0    0
+    2   -6    5     3 +   i    3 -   i    3    3
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 October 2005
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double A, B, C, the coefficients of the quadratic
+    polynomial A * X^2 + B * X + C = 0 whose roots are desired.
+    A must not be zero.
+
+    Output, double *R1, *R2, the real parts of the roots
+    of the polynomial.
+*/
 {
   double disc;
   double q;
@@ -8366,53 +8753,53 @@ void regula_falsi ( double fatol, int step_max, int prob, double xatol,
   double *xa, double *xb, double *fxa, double *fxb )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    REGULA_FALSI carries out the Regula Falsi method to seek a root of F(X) = 0.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 May 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FATOL, an absolute error tolerance for the
-//    function value of the root.  If an approximate root X satisfies
-//      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
-//    root and the iteration will be terminated.
-//
-//    Input, int STEP_MAX, the maximum number of steps allowed
-//    for an iteration.
-//
-//    Input, int PROB, the index of the function whose root is
-//    to be sought.
-//
-//    Input, double XATOL, absolute error tolerance for the root.
-//
-//    Input/output, double *XA, *XB, two points at which the
-//    function differs in sign.  On output, these values have been adjusted
-//    to a smaller interval.
-//
-//    Input/output, double *FXA, *FXB, the value of the function
-//    at XA and XB.
-//
+/*
+  Purpose:
+
+    REGULA_FALSI carries out the Regula Falsi method to seek a root of F(X) = 0.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 May 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FATOL, an absolute error tolerance for the
+    function value of the root.  If an approximate root X satisfies
+      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
+    root and the iteration will be terminated.
+
+    Input, int STEP_MAX, the maximum number of steps allowed
+    for an iteration.
+
+    Input, int PROB, the index of the function whose root is
+    to be sought.
+
+    Input, double XATOL, absolute error tolerance for the root.
+
+    Input/output, double *XA, *XB, two points at which the
+    function differs in sign.  On output, these values have been adjusted
+    to a smaller interval.
+
+    Input/output, double *FXA, *FXB, the value of the function
+    at XA and XB.
+*/
 {
   double fxc;
   int step_num;
   double t;
   double xc;
-//
-//  The method requires a change-of-sign interval.
-//
+/*
+  The method requires a change-of-sign interval.
+*/
   if ( r8_sign ( *fxa ) == r8_sign ( *fxb ) )
   {
     printf ( "\n" );
@@ -8420,9 +8807,9 @@ void regula_falsi ( double fatol, int step_max, int prob, double xatol,
     printf ( "  Function does not change sign at endpoints.\n" );
     exit ( 1 );
   }
-//
-//  Make A the root with negative F, B the root with positive F.
-//
+/*
+  Make A the root with negative F, B the root with positive F.
+*/
   t = *xa;
   *xa = *xb;
   *xb = t;
@@ -8485,48 +8872,48 @@ void secant ( double fatol, int step_max, int prob, double xatol, double xmin,
   double xmax, double *xa, double *xb, double *fxa, double *fxb )
 
 /******************************************************************************/
-//
-//  Purpose:
-//
-//    SECANT carries out the secant method to seek a root of F(X) = 0.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    06 May 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, double FATOL, an absolute error tolerance for the
-//    function value of the root.  If an approximate root X satisfies
-//      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
-//    root and the iteration will be terminated.
-//
-//    Input, int STEP_MAX, the maximum number of steps allowed
-//    for an iteration.
-//
-//    Input, int PROB, the index of the function whose root is
-//    to be sought.
-//
-//    Input, double XATOL, an absolute error tolerance for the root.
-//
-//    Input, double XMIN, XMAX, the interval in which the root should
-//    be sought.
-//
-//    Input/output, double *XA, *XB, two points at which the
-//    function differs in sign.  On output, these values have been adjusted
-//    to a smaller interval.
-//
-//    Input/output, double *FXA, *FXB, the value of the function
-//    at XA and XB.
-//
+/*
+  Purpose:
+
+    SECANT carries out the secant method to seek a root of F(X) = 0.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 May 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double FATOL, an absolute error tolerance for the
+    function value of the root.  If an approximate root X satisfies
+      ABS ( F ( X ) ) <= FATOL, then X will be accepted as the
+    root and the iteration will be terminated.
+
+    Input, int STEP_MAX, the maximum number of steps allowed
+    for an iteration.
+
+    Input, int PROB, the index of the function whose root is
+    to be sought.
+
+    Input, double XATOL, an absolute error tolerance for the root.
+
+    Input, double XMIN, XMAX, the interval in which the root should
+    be sought.
+
+    Input/output, double *XA, *XB, two points at which the
+    function differs in sign.  On output, these values have been adjusted
+    to a smaller interval.
+
+    Input/output, double *FXA, *FXB, the value of the function
+    at XA and XB.
+*/
 {
   double fxc;
   int step_num;

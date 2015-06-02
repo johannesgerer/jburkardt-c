@@ -5,246 +5,283 @@
 
 # include "test_values.h"
 
-int main ( void );
+int main ( );
 
-void test001 ( void );
-void test002 ( void );
-void test003 ( void );
-void test0035 ( void );
-void test004 ( void );
-void test005 ( void );
-void test006 ( void );
-void test007 ( void );
-void test008 ( void );
-void test009 ( void );
-void test0093 ( void );
-void test0095 ( void );
+void abram0_values_test ( );
+void abram1_values_test ( );
+void abram2_values_test ( );
+void agm_values_test ( );
+void airy_ai_values_test ( );
+void airy_ai_int_values_test ( );
+void airy_ai_prime_values_test ( );
+void airy_bi_values_test ( );
+void airy_bi_int_values_test ( );
+void airy_bi_prime_values_test ( );
+void airy_cai_values_test ( );
+void airy_cbi_values_test ( );
+void airy_gi_values_test ( );
+void airy_hi_values_test ( );
+void arccos_values_test ( );
+void arccosh_values_test ( );
+void arcsin_values_test ( );
+void arcsinh_values_test ( );
+void arctan_values_test ( );
+void arctan_int_values_test ( );
+void arctan2_values_test ( );
+void arctanh_values_test ( );
 
-void test010 ( void );
-void test011 ( void );
-void test0114 ( void );
-void test01145 ( void );
-void test0115 ( void );
-void test01155 ( void );
-void test0116 ( void );
-void test012 ( void );
-void test0123 ( void );
-void test0127 ( void );
-void test0128 ( void );
-void test013 ( void );
-void test0134 ( void );
-void test0135 ( void );
-void test014 ( void );
-void test015 ( void );
-void test016 ( void );
-void test017 ( void );
-void test018 ( void );
-void test0185 ( void );
-void test019 ( void );
-void test0195 ( void );
+void bei0_values_test ( );
+void bei1_values_test ( );
+void bell_values_test ( );
+void ber0_values_test ( );
+void ber1_values_test ( );
+void bernoulli_number_values_test ( );
+void bernoulli_poly_values_test ( );
+void bernstein_poly_01_values_test ( );
+void bessel_i0_values_test ( );
+void bessel_i0_int_values_test ( );
+void bessel_i0_spherical_values_test ( );
+void bessel_i1_values_test ( );
+void bessel_i1_spherical_values_test ( );
+void bessel_in_values_test ( );
+void bessel_ix_values_test ( );
+void bessel_j0_values_test ( );
+void bessel_j0_int_values_test ( );
+void bessel_j0_spherical_values_test ( );
+void bessel_j1_values_test ( );
+void bessel_j1_spherical_values_test ( );
+void bessel_jn_values_test ( );
+void bessel_jx_values_test ( );
+void bessel_k0_values_test ( );
+void bessel_k0_int_values_test ( );
+void bessel_k1_values_test ( );
+void bessel_kn_values_test ( );
+void bessel_kx_values_test ( );
+void bessel_y0_values_test ( );
+void bessel_y0_int_values_test ( );
+void bessel_y0_spherical_values_test ( );
+void bessel_y1_values_test ( );
+void bessel_y1_spherical_values_test ( );
+void bessel_yn_values_test ( );
+void bessel_yx_values_test ( );
+void beta_cdf_values_test ( );
+void beta_inc_values_test ( );
+void beta_log_values_test ( );
+void beta_noncentral_cdf_values_test ( );
+void beta_values_test ( );
+void binomial_values_test ( );
+void binomial_cdf_values_test ( );
+void bivariate_normal_cdf_values_test ( );
 
-void test020 ( void );
-void test0205 ( void );
-void test021 ( void );
-void test022 ( void );
-void test023 ( void );
-void test024 ( void );
-void test025 ( void );
-void test026 ( void );
-void test0265 ( void );
-void test027 ( void );
-void test028 ( void );
-void test029 ( void );
+void catalan_values_test ( );
+void cauchy_cdf_values_test ( );
+void cbrt_values_test ( );
+void cheby_t_poly_values_test ( );
+void cheby_u_poly_values_test ( );
+void cheby_v_poly_values_test ( );
+void cheby_w_poly_values_test ( );
+void chi_values_test ( );
+void chi_square_cdf_values_test ( );
+void chi_square_noncentral_cdf_values_test ( );
+void ci_values_test ( );
+void cin_values_test ( );
+void cinh_values_test ( );
+void clausen_values_test ( );
+void clebsch_gordan_values_test ( );
+void collatz_count_values_test ( );
+void cos_values_test ( );
+void cos_degree_values_test ( );
+void cos_power_int_values_test ( );
+void cosh_values_test ( );
+void cot_values_test ( );
+void cp_values_test ( );
 
-void test030 ( void );
-void test0305 ( void );
-void test031 ( void );
-void test032 ( void );
-void test033 ( void );
-void test034 ( void );
-void test035 ( void );
-void test036 ( void );
-void test0365 ( void );
-void test037 ( void );
-void test038 ( void );
-void test039 ( void );
-void test0395 ( void );
+void dawson_values_test ( );
+void debye1_values_test ( );
+void debye2_values_test ( );
+void debye3_values_test ( );
+void debye4_values_test ( );
+void dielectric_values_test ( );
+void dilogarithm_values_test ( );
 
-void test040 ( void );
-void test041 ( void );
-void test042 ( void );
-void test0425 ( void );
-void test043 ( void );
-void test044 ( void );
-void test0445 ( void );
-void test045 ( void );
-void test046 ( void );
-void test0465 ( void );
-void test047 ( void );
-void test048 ( void );
-void test049 ( void );
+void e1_values_test ( );
+void ei_values_test ( );
+void elliptic_ea_values_test ( );
+void elliptic_em_values_test ( );
+void elliptic_ka_values_test ( );
+void elliptic_km_values_test ( );
+void erf_values_test ( );
+void erfc_values_test ( );
+void euler_number_values_test ( );
+void euler_poly_values_test ( );
+void exp_values_test ( );
+void exp3_int_values_test ( );
+void exponential_cdf_values_test ( );
+void extreme_values_cdf_values_test ( );
 
-void test050 ( void );
-void test051 ( void );
-void test05125 ( void );
-void test0515 ( void );
-void test0517 ( void );
-void test0519 ( void );
-void test052 ( void );
-void test053 ( void );
-void test054 ( void );
-void test055 ( void );
-void test056 ( void );
-void test057 ( void );
-void test058 ( void );
-void test059 ( void );
+void f_cdf_values_test ( );
+void f_noncentral_cdf_values_test ( );
+void fresnel_cos_values_test ( );
+void fresnel_sin_values_test ( );
+void frobenius_number_data_values_test ( );
+void frobenius_number_order_values_test ( );
+void frobenius_number_order2_values_test ( );
 
-void test060 ( void );
-void test061 ( void );
-void test062 ( void );
-void test063 ( void );
-void test064 ( void );
-void test065 ( void );
-void test066 ( void );
-void test0665 ( void );
-void test067 ( void );
-void test068 ( void );
-void test0685 ( void );
-void test069 ( void );
+void gamma_values_test ( );
+void gamma_cdf_values_test ( );
+void gamma_inc_values_test ( );
+void gamma_inc_p_values_test ( );
+void gamma_inc_q_values_test ( );
+void gamma_inc_tricomi_values_test ( );
+void gamma_log_values_test ( );
+void gegenbauer_poly_values_test ( );
+void geometric_cdf_values_test ( );
+void goodwin_values_test ( );
+void gud_values_test ( );
 
-void test070 ( void );
-void test071 ( void );
-void test072 ( void );
-void test073 ( void );
-void test074 ( void );
-void test075 ( void );
-void test0755 ( void );
-void test0756 ( void );
-void test076 ( void );
-void test077 ( void );
-void test078 ( void );
-void test079 ( void );
+void hermite_function_values_test ( );
+void hermite_poly_phys_values_test ( );
+void hermite_poly_prob_values_test ( );
+void hyper_1f1_values_test ( );
+void hyper_2f1_values_test ( );
+void hypergeometric_cdf_values_test ( );
+void hypergeometric_pdf_values_test ( );
+void hypergeometric_u_values_test ( );
 
-void test080 ( void );
-void test081 ( void );
-void test082 ( void );
-void test083 ( void );
-void test0835 ( void );
-void test084 ( void );
-void test0843 ( void );
-void test0845 ( void );
-void test085 ( void );
-void test0855 ( void );
-void test086 ( void );
-void test087 ( void );
-void test088 ( void );
-void test089 ( void );
+void i0ml0_values_test ( );
+void i1ml1_values_test ( );
+void i4_factorial_values_test ( );
+void i4_factorial2_values_test ( );
+void i4_fall_values_test ( );
+void i4_rise_values_test ( );
+void int_values_test ( );
 
-void test090 ( void );
-void test091 ( void );
-void test092 ( void );
-void test093 ( void );
-void test094 ( void );
-void test0945 ( void );
-void test095 ( void );
-void test096 ( void );
-void test097 ( void );
-void test0972 ( void );
-void test0973 ( void );
-void test0974 ( void );
-void test0975 ( void );
-void test098 ( void );
-void test099 ( void );
-void test0995 ( void );
+void jacobi_cn_values_test ( );
+void jacobi_dn_values_test ( );
+void jacobi_poly_values_test ( );
+void jacobi_sn_values_test ( );
+void jed_ce_values_test ( );
+void jed_mjd_values_test ( );
+void jed_rd_values_test ( );
+void jed_weekday_values_test ( );
 
-void test100 ( void );
-void test101 ( void );
-void test1015 ( void );
-void test1016 ( void );
-void test102 ( void );
-void test103 ( void );
-void test1035 ( void );
-void test1037 ( void );
-void test104 ( void );
-void test105 ( void );
-void test106 ( void );
-void test107 ( void );
-void test108 ( void );
-void test10875 ( void );
-void test109 ( void );
+void kei0_values_test ( );
+void kei1_values_test ( );
+void ker0_values_test ( );
+void ker1_values_test ( );
 
-void test110 ( void );
-void test1105 ( void );
-void test111 ( void );
-void test112 ( void );
-void test113 ( void );
-void test1135 ( void );
-void test114 ( void );
-void test115 ( void );
-void test116 ( void );
-void test117 ( void );
-void test118 ( void );
-void test1185 ( void );
-void test119 ( void );
+void laguerre_associated_values_test ( );
+void laguerre_general_values_test ( );
+void laguerre_polynomial_values_test ( );
+void lambert_w_values_test ( );
+void laplace_cdf_values_test ( );
+void legendre_associated_values_test ( );
+void legendre_associated_normalized_values_test ( );
+void legendre_associated_normalized_sphere_values_test ( );
+void legendre_poly_values_test ( );
+void legendre_function_q_values_test ( );
+void lerch_values_test ( );
+void lobachevsky_values_test ( );
+void lobatto_polynomial_values_test ( );
+void lobatto_polynomial_derivatives_test ( );
+void log_values_test ( );
+void log_normal_cdf_values_test ( );
+void log_series_cdf_values_test ( );
+void log10_values_test ( );
+void logarithmic_integral_values_test ( );
+void logistic_cdf_values_test ( );
 
-void test120 ( void );
-void test121 ( void );
-void test122 ( void );
-void test123 ( void );
-void test124 ( void );
-void test125 ( void );
-void test1255 ( void );
-void test126 ( void );
-void test127 ( void );
-void test1275 ( void );
-void test128 ( void );
-void test1283 ( void );
-void test1285 ( void );
-void test129 ( void );
+void mertens_values_test ( );
+void moebius_values_test ( );
 
-void test131 ( void );
-void test132 ( void );
-void test1325 ( void );
-void test130 ( void );
-void test133 ( void );
-void test134 ( void );
-void test135 ( void );
-void test136 ( void );
-void test137 ( void );
-void test138 ( void );
-void test139 ( void );
+void negative_binomial_cdf_values_test ( );
+void nine_j_values_test ( );
+void normal_cdf_values_test ( );
+void normal_01_cdf_values_test ( );
 
-void test140 ( void );
-void test141 ( void );
-void test1415 ( void );
-void test142 ( void );
-void test143 ( void );
-void test144 ( void );
-void test1445 ( void );
-void test1447 ( void );
-void test145 ( void );
-void test146 ( void );
-void test1465 ( void );
-void test147 ( void );
-void test148 ( void );
-void test149 ( void );
+void omega_values_test ( );
+void owen_values_test ( );
 
-void test150 ( void );
-void test151 ( void );
-void test152 ( void );
-void test153 ( void );
-void test154 ( void );
-void test1545 ( void );
-void test155 ( void );
-void test156 ( void );
-void test157 ( void );
-void test1575 ( void );
-void test158 ( void );
-void test159 ( void );
+void partition_count_values_test ( );
+void partition_distinct_count_values_test ( );
+void phi_values_test ( );
+void pi_values_test ( );
+void poisson_cdf_values_test ( );
+void polylogarithm_values_test ( );
+void prandtl_values_test ( );
+void prime_values_test ( );
+void psat_values_test ( );
+void psi_values_test ( );
+
+void r8_factorial_values_test ( );
+void r8_factorial_log_values_test ( );
+void r8_factorial2_values_test ( );
+void r8_fall_values_test ( );
+void r8_rise_values_test ( );
+void rayleigh_cdf_values_test ( );
+
+void secvir_values_test ( );
+void shi_values_test ( );
+void si_values_test ( );
+void sigma_values_test ( );
+void sin_values_test ( );
+void sin_degree_values_test ( );
+void sin_power_int_values_test ( );
+void sinh_values_test ( );
+void six_j_values_test ( );
+void sound_values_test ( );
+void sphere_unit_area_values_test ( );
+void sphere_unit_volume_values_test ( );
+void spherical_harmonic_values_test ( );
+void sqrt_values_test ( );
+void stirling1_values_test ( );
+void stirling2_values_test ( );
+void stromgen_values_test ( );
+void struve_h0_values_test ( );
+void struve_h1_values_test ( );
+void struve_l0_values_test ( );
+void struve_l1_values_test ( );
+void student_cdf_values_test ( );
+void student_noncentral_cdf_values_test ( );
+void subfactorial_values_test ( );
+void surten_values_test ( );
+void synch1_values_test ( );
+void synch2_values_test ( );
+
+void tan_values_test ( );
+void tanh_values_test ( );
+void tau_values_test ( );
+void thercon_values_test ( );
+void three_j_values_test ( );
+void tran02_values_test ( );
+void tran03_values_test ( );
+void tran04_values_test ( );
+void tran05_values_test ( );
+void tran06_values_test ( );
+void tran07_values_test ( );
+void tran08_values_test ( );
+void tran09_values_test ( );
+void trigamma_values_test ( );
+void truncated_normal_ab_cdf_values_test ( );
+void truncated_normal_ab_pdf_values_test ( );
+void truncated_normal_a_cdf_values_test ( );
+void truncated_normal_a_pdf_values_test ( );
+void truncated_normal_b_cdf_values_test ( );
+void truncated_normal_b_pdf_values_test ( );
+void tsat_values_test ( );
+
+void van_der_corput_values_test ( );
+void viscosity_values_test ( );
+void von_mises_cdf_values_test ( );
+
+void weekday_values_test ( );
+void weibull_cdf_values_test ( );
+
+void zeta_values_test ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -254,7 +291,7 @@ int main ( void )
 
   Discussion:
 
-    TEST_VALUES_PRB calls the TEST_VALUE routines.
+    TEST_VALUES_PRB tests the TEST_VALUE library.
 
   Licensing:
 
@@ -262,7 +299,7 @@ int main ( void )
 
   Modified:
 
-    13 February 2012
+    05 February 2015
 
   Author:
 
@@ -270,253 +307,288 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "TEST_VALUES_PRB:\n" );
   printf ( "  C version,\n" );
   printf ( "  Test the TEST_VALUES library.\n" );
 
-  test001 ( );
-  test002 ( );
-  test003 ( );
-  test0035 ( );
-  test004 ( );
-  test005 ( );
-  test006 ( );
-  test007 ( );
-  test008 ( );
-  test009 ( );
-  test0093 ( );
-  test0095 ( );
+  abram0_values_test ( );
+  abram1_values_test ( );
+  abram2_values_test ( );
+  agm_values_test ( );
+  airy_ai_values_test ( );
+  airy_ai_int_values_test ( );
+  airy_ai_prime_values_test ( );
+  airy_bi_values_test ( );
+  airy_bi_int_values_test ( );
+  airy_bi_prime_values_test ( );
+  airy_cai_values_test ( );
+  airy_cbi_values_test ( );
+  airy_gi_values_test ( );
+  airy_hi_values_test ( );
+  arccos_values_test ( );
+  arccosh_values_test ( );
+  arcsin_values_test ( );
+  arcsinh_values_test ( );
+  arctan_values_test ( );
+  arctan_int_values_test ( );
+  arctan2_values_test ( );
+  arctanh_values_test ( );
 
-  test010 ( );
-  test011 ( );
-  test0114 ( );
-  test01145 ( );
-  test0115 ( );
-  test01155 ( );
-  test0116 ( );
-  test012 ( );
-  test0123 ( );
-  test0127 ( );
-  test0128 ( );
-  test013 ( );
-  test0134 ( );
-  test0135 ( );
-  test014 ( );
-  test015 ( );
-  test016 ( );
-  test017 ( );
-  test018 ( );
-  test0185 ( );
-  test019 ( );
-  test0195 ( );
+  bei0_values_test ( );
+  bei1_values_test ( );
+  bell_values_test ( );
+  ber0_values_test ( );
+  ber1_values_test ( );
+  bernoulli_number_values_test ( );
+  bernoulli_poly_values_test ( );
+  bernstein_poly_01_values_test ( );
+  bessel_i0_values_test ( );
+  bessel_i0_int_values_test ( );
+  bessel_i0_spherical_values_test ( );
+  bessel_i1_values_test ( );
+  bessel_i1_spherical_values_test ( );
+  bessel_in_values_test ( );
+  bessel_ix_values_test ( );
+  bessel_j0_values_test ( );
+  bessel_j0_int_values_test ( );
+  bessel_j0_spherical_values_test ( );
+  bessel_j1_values_test ( );
+  bessel_j1_spherical_values_test ( );
+  bessel_jn_values_test ( );
+  bessel_jx_values_test ( );
+  bessel_k0_values_test ( );
+  bessel_k0_int_values_test ( );
+  bessel_k1_values_test ( );
+  bessel_kn_values_test ( );
+  bessel_kx_values_test ( );
+  bessel_y0_values_test ( );
+  bessel_y0_int_values_test ( );
+  bessel_y0_spherical_values_test ( );
+  bessel_y1_values_test ( );
+  bessel_y1_spherical_values_test ( );
+  bessel_yn_values_test ( );
+  bessel_yx_values_test ( );
+  beta_cdf_values_test ( );
+  beta_inc_values_test ( );
+  beta_log_values_test ( );
+  beta_noncentral_cdf_values_test ( );
+  beta_values_test ( );
+  binomial_values_test ( );
+  binomial_cdf_values_test ( );
+  bivariate_normal_cdf_values_test ( );
 
-  test020 ( );
-  test0205 ( );
-  test021 ( );
-  test022 ( );
-  test023 ( );
-  test024 ( );
-  test025 ( );
-  test026 ( );
-  test0265 ( );
-  test027 ( );
-  test028 ( );
-  test029 ( );
+  catalan_values_test ( );
+  cauchy_cdf_values_test ( );
+  cbrt_values_test ( );
+  cheby_t_poly_values_test ( );
+  cheby_u_poly_values_test ( );
+  cheby_v_poly_values_test ( );
+  cheby_w_poly_values_test ( );
+  chi_values_test ( );
+  chi_square_cdf_values_test ( );
+  chi_square_noncentral_cdf_values_test ( );
+  ci_values_test ( );
+  cin_values_test ( );
+  cinh_values_test ( );
+  clausen_values_test ( );
+  clebsch_gordan_values_test ( );
+  collatz_count_values_test ( );
+  cos_values_test ( );
+  cos_degree_values_test ( );
+  cos_power_int_values_test ( );
+  cosh_values_test ( );
+  cot_values_test ( );
+  cp_values_test ( );
 
-  test030 ( );
-  test0305 ( );
-  test031 ( );
-  test032 ( );
-  test033 ( );
-  test034 ( );
-  test035 ( );
-  test036 ( );
-  test0365 ( );
-  test037 ( );
-  test038 ( );
-  test039 ( );
-  test0395 ( );
+  dawson_values_test ( );
+  debye1_values_test ( );
+  debye2_values_test ( );
+  debye3_values_test ( );
+  debye4_values_test ( );
+  dielectric_values_test ( );
+  dilogarithm_values_test ( );
 
-  test040 ( );
-  test041 ( );
-  test042 ( );
-  test0425 ( );
-  test043 ( );
-  test044 ( );
-  test0445 ( );
-  test045 ( );
-  test046 ( );
-  test0465 ( );
-  test047 ( );
-  test048 ( );
-  test049 ( );
+  e1_values_test ( );
+  ei_values_test ( );
+  elliptic_ea_values_test ( );
+  elliptic_em_values_test ( );
+  elliptic_ka_values_test ( );
+  elliptic_km_values_test ( );
+  erf_values_test ( );
+  erfc_values_test ( );
+  euler_number_values_test ( );
+  euler_poly_values_test ( );
+  exp_values_test ( );
+  exp3_int_values_test ( );
+  exponential_cdf_values_test ( );
+  extreme_values_cdf_values_test ( );
 
-  test050 ( );
-  test051 ( );
-  test05125 ( );
-  test0515 ( );
-  test0517 ( );
-  test0519 ( );
-  test052 ( );
-  test053 ( );
-  test054 ( );
-  test055 ( );
-  test056 ( );
-  test057 ( );
-  test058 ( );
-  test059 ( );
+  f_cdf_values_test ( );
+  f_noncentral_cdf_values_test ( );
+  fresnel_cos_values_test ( );
+  fresnel_sin_values_test ( );
+  frobenius_number_data_values_test ( );
+  frobenius_number_order_values_test ( );
+  frobenius_number_order2_values_test ( );
 
-  test060 ( );
-  test061 ( );
-  test062 ( );
-  test063 ( );
-  test064 ( );
-  test065 ( );
-  test066 ( );
-  test0665 ( );
-  test067 ( );
-  test068 ( );
-  test0685 ( );
-  test069 ( );
+  gamma_values_test ( );
+  gamma_cdf_values_test ( );
+  gamma_inc_values_test ( );
+  gamma_inc_p_values_test ( );
+  gamma_inc_q_values_test ( );
+  gamma_inc_tricomi_values_test ( );
+  gamma_log_values_test ( );
+  gegenbauer_poly_values_test ( );
+  geometric_cdf_values_test ( );
+  goodwin_values_test ( );
+  gud_values_test ( );
 
-  test070 ( );
-  test071 ( );
-  test072 ( );
-  test073 ( );
-  test074 ( );
-  test075 ( );
-  test0755 ( );
-  test0756 ( );
-  test076 ( );
-  test077 ( );
-  test078 ( );
-  test079 ( );
+  hermite_function_values_test ( );
+  hermite_poly_phys_values_test ( );
+  hermite_poly_prob_values_test ( );
+  hyper_1f1_values_test ( );
+  hyper_2f1_values_test ( );
+  hypergeometric_cdf_values_test ( );
+  hypergeometric_pdf_values_test ( );
+  hypergeometric_u_values_test ( );
 
-  test080 ( );
-  test081 ( );
-  test082 ( );
-  test083 ( );
-  test0835 ( );
-  test084 ( );
-  test0843 ( );
-  test0845 ( );
-  test085 ( );
-  test0855 ( );
-  test086 ( );
-  test087 ( );
-  test088 ( );
-  test089 ( );
+  i0ml0_values_test ( );
+  i1ml1_values_test ( );
+  i4_factorial_values_test ( );
+  i4_factorial2_values_test ( );
+  i4_fall_values_test ( );
+  i4_rise_values_test ( );
+  int_values_test ( );
 
-  test090 ( );
-  test091 ( );
-  test092 ( );
-  test093 ( );
-  test094 ( );
-  test0945 ( );
-  test095 ( );
-  test096 ( );
-  test097 ( );
-  test0972 ( );
-  test0973 ( );
-  test0974 ( );
-  test0975 ( );
-  test098 ( );
-  test099 ( );
-  test0995 ( );
+  jacobi_cn_values_test ( );
+  jacobi_dn_values_test ( );
+  jacobi_poly_values_test ( );
+  jacobi_sn_values_test ( );
+  jed_ce_values_test ( );
+  jed_mjd_values_test ( );
+  jed_rd_values_test ( );
+  jed_weekday_values_test ( );
 
-  test100 ( );
-  test101 ( );
-  test1015 ( );
-  test1016 ( );
-  test102 ( );
-  test103 ( );
-  test1035 ( );
-  test104 ( );
-  test1037 ( );
-  test105 ( );
-  test106 ( );
-  test107 ( );
-  test108 ( );
-  test10875 ( );
-  test109 ( );
+  kei0_values_test ( );
+  kei1_values_test ( );
+  ker0_values_test ( );
+  ker1_values_test ( );
 
-  test110 ( );
-  test1105 ( );
-  test111 ( );
-  test112 ( );
-  test113 ( );
-  test1135 ( );
-  test114 ( );
-  test115 ( );
-  test116 ( );
-  test117 ( );
-  test118 ( );
-  test1185 ( );
-  test119 ( );
+  laguerre_associated_values_test ( );
+  laguerre_general_values_test ( );
+  laguerre_polynomial_values_test ( );
+  lambert_w_values_test ( );
+  laplace_cdf_values_test ( );
+  legendre_associated_values_test ( );
+  legendre_associated_normalized_values_test ( );
+  legendre_associated_normalized_sphere_values_test ( );
+  legendre_poly_values_test ( );
+  legendre_function_q_values_test ( );
+  lerch_values_test ( );
+  lobachevsky_values_test ( );
+  lobatto_polynomial_values_test ( );
+  lobatto_polynomial_derivatives_test ( );
+  log_values_test ( );
+  log_normal_cdf_values_test ( );
+  log_series_cdf_values_test ( );
+  log10_values_test ( );
+  logarithmic_integral_values_test ( );
+  logistic_cdf_values_test ( );
 
-  test120 ( );
-  test121 ( );
-  test122 ( );
-  test123 ( );
-  test124 ( );
-  test125 ( );
-  test1255 ( );
-  test126 ( );
-  test127 ( );
-  test1275 ( );
-  test128 ( );
-  test1283 ( );
-  test1285 ( );
-  test129 ( );
+  mertens_values_test ( );
+  moebius_values_test ( );
 
-  test131 ( );
-  test132 ( );
-  test1325 ( );
-  test130 ( );
-  test133 ( );
-  test134 ( );
-  test135 ( );
-  test136 ( );
-  test137 ( );
-  test138 ( );
-  test139 ( );
+  negative_binomial_cdf_values_test ( );
+  nine_j_values_test ( );
+  normal_cdf_values_test ( );
+  normal_01_cdf_values_test ( );
 
-  test140 ( );
-  test141 ( );
-  test1415 ( );
-  test142 ( );
-  test143 ( );
-  test144 ( );
-  test1445 ( );
-  test1447 ( );
-  test145 ( );
-  test146 ( );
-  test1465 ( );
-  test147 ( );
-  test148 ( );
-  test149 ( );
+  omega_values_test ( );
+  owen_values_test ( );
 
-  test150 ( );
-  test151 ( );
-  test152 ( );
-  test153 ( );
-  test154 ( );
-  test1545 ( );
-  test155 ( );
-  test156 ( );
-  test157 ( );
-  test1575 ( );
-  test158 ( );
-  test159 ( );
+  partition_count_values_test ( );
+  partition_distinct_count_values_test ( );
+  phi_values_test ( );
+  pi_values_test ( );
+  poisson_cdf_values_test ( );
+  polylogarithm_values_test ( );
+  prandtl_values_test ( );
+  prime_values_test ( );
+  psat_values_test ( );
+  psi_values_test ( );
+
+  r8_factorial_values_test ( );
+  r8_factorial_log_values_test ( );
+  r8_factorial2_values_test ( );
+  r8_fall_values_test ( );
+  r8_rise_values_test ( );
+  rayleigh_cdf_values_test ( );
+
+  secvir_values_test ( );
+  shi_values_test ( );
+  si_values_test ( );
+  sigma_values_test ( );
+  sin_values_test ( );
+  sin_degree_values_test ( );
+  sin_power_int_values_test ( );
+  sinh_values_test ( );
+  six_j_values_test ( );
+  sound_values_test ( );
+  sphere_unit_area_values_test ( );
+  sphere_unit_volume_values_test ( );
+  spherical_harmonic_values_test ( );
+  sqrt_values_test ( );
+  stirling1_values_test ( );
+  stirling2_values_test ( );
+  stromgen_values_test ( );
+  struve_h0_values_test ( );
+  struve_h1_values_test ( );
+  struve_l0_values_test ( );
+  struve_l1_values_test ( );
+  student_cdf_values_test ( );
+  student_noncentral_cdf_values_test ( );
+  subfactorial_values_test ( );
+  surten_values_test ( );
+  synch1_values_test ( );
+  synch2_values_test ( );
+
+  tan_values_test ( );
+  tanh_values_test ( );
+  tau_values_test ( );
+  thercon_values_test ( );
+  three_j_values_test ( );
+  tran02_values_test ( );
+  tran03_values_test ( );
+  tran04_values_test( );
+  tran05_values_test ( );
+  tran06_values_test ( );
+  tran07_values_test ( );
+  tran08_values_test ( );
+  tran09_values_test ( );
+  trigamma_values_test ( );
+  truncated_normal_ab_cdf_values_test ( );
+  truncated_normal_ab_pdf_values_test ( );
+  truncated_normal_a_cdf_values_test ( );
+  truncated_normal_a_pdf_values_test ( );
+  truncated_normal_b_cdf_values_test ( );
+  truncated_normal_b_pdf_values_test ( );
+  tsat_values_test ( );
+
+  van_der_corput_values_test ( );
+  viscosity_values_test ( );
+  von_mises_cdf_values_test ( );
+
+  weekday_values_test ( );
+  weibull_cdf_values_test ( );
+
+  zeta_values_test ( );
 /*
   Terminate.
 */
   printf ( "\n" );
   printf ( "TEST_VALUES_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -524,13 +596,13 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test001 ( void )
+void abram0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST001 tests ABRAM0_VALUES.
+    ABRAM0_VALUES_TEST tests ABRAM0_VALUES.
 
   Licensing:
 
@@ -550,7 +622,7 @@ void test001 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST001:\n" );
+  printf ( "ABRAM0_VALUES_TEST:\n" );
   printf ( "  ABRAM0_VALUES stores values of \n" );
   printf ( "  the Abramowitz function of order 0.\n" );
   printf ( "\n" );
@@ -573,13 +645,13 @@ void test001 ( void )
 }
 /******************************************************************************/
 
-void test002 ( void )
+void abram1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST002 tests ABRAM1_VALUES.
+    ABRAM1_VALUES_TEST tests ABRAM1_VALUES.
 
   Licensing:
 
@@ -599,7 +671,7 @@ void test002 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST002:\n" );
+  printf ( "ABRAM1_VALUES_TEST:\n" );
   printf ( "  ABRAM1_VALUES stores values of \n" );
   printf ( "  the Abramowitz function of order 1.\n" );
   printf ( "\n" );
@@ -622,13 +694,13 @@ void test002 ( void )
 }
 /******************************************************************************/
 
-void test003 ( void )
+void abram2_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST003 tests ABRAM2_VALUES.
+    ABRAM2_VALUES_TEST tests ABRAM2_VALUES.
 
   Licensing:
 
@@ -648,7 +720,7 @@ void test003 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST003:\n" );
+  printf ( "ABRAM2_VALUES_TEST:\n" );
   printf ( "  ABRAM2_VALUES stores values of \n" );
   printf ( "  the Abramowitz function of order 2.\n" );
   printf ( "\n" );
@@ -671,13 +743,13 @@ void test003 ( void )
 }
 /******************************************************************************/
 
-void test0035 ( void )
+void agm_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0035 tests AGM_VALUES.
+    AGM_VALUES_TEST tests AGM_VALUES.
 
   Licensing:
 
@@ -698,7 +770,7 @@ void test0035 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST0035:\n" );
+  printf ( "AGM_VALUES_TEST:\n" );
   printf ( "  AGM_VALUES stores values of \n" );
   printf ( "  the arithmetic geometric mean function.\n" );
   printf ( "\n" );
@@ -721,13 +793,13 @@ void test0035 ( void )
 }
 /******************************************************************************/
 
-void test004 ( void )
+void airy_ai_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST004 tests AIRY_AI_VALUES.
+    AIRY_AI_VALUES_TEST tests AIRY_AI_VALUES.
 
   Licensing:
 
@@ -747,7 +819,7 @@ void test004 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST004:\n" );
+  printf ( "AIRY_AI_VALUES_TEST:\n" );
   printf ( "  AIRY_AI_VALUES stores values of \n" );
   printf ( "  the Airy functions Ai(X).\n" );
   printf ( "\n" );
@@ -770,13 +842,13 @@ void test004 ( void )
 }
 /******************************************************************************/
 
-void test005 ( void )
+void airy_ai_int_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST005 tests AIRY_AI_INT_VALUES.
+    AIRY_AI_INT_VALUES_TEST tests AIRY_AI_INT_VALUES.
 
   Licensing:
 
@@ -796,7 +868,7 @@ void test005 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST005:\n" );
+  printf ( "AIRY_AI_INT_VALUES_TEST:\n" );
   printf ( "  AIRY_AI_INT_VALUES stores values of \n" );
   printf ( "  the integral of the Airy Ai function.\n" );
   printf ( "\n" );
@@ -819,13 +891,13 @@ void test005 ( void )
 }
 /******************************************************************************/
 
-void test006 ( void )
+void airy_ai_prime_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST006 tests AIRY_AI_PRIME_VALUES.
+    AIRY_AI_PRIME_VALUES_TEST tests AIRY_AI_PRIME_VALUES.
 
   Licensing:
 
@@ -845,7 +917,7 @@ void test006 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST006:\n" );
+  printf ( "AIRY_AI_PRIME_VALUES_TEST:\n" );
   printf ( "  AIRY_AI_PRIME_VALUES stores values of \n" );
   printf ( "  the derivative of the Airy function Ai'(X).\n" );
   printf ( "\n" );
@@ -868,13 +940,13 @@ void test006 ( void )
 }
 /******************************************************************************/
 
-void test007 ( void )
+void airy_bi_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST007 tests AIRY_BI_VALUES.
+    AIRY_BI_VALUES_TEST tests AIRY_BI_VALUES.
 
   Licensing:
 
@@ -894,7 +966,7 @@ void test007 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST007:\n" );
+  printf ( "AIRY_BI_VALUES_TEST:\n" );
   printf ( "  AIRY_BI_VALUES stores values of \n" );
   printf ( "  the Airy function Bi.\n" );
   printf ( "\n" );
@@ -917,13 +989,13 @@ void test007 ( void )
 }
 /******************************************************************************/
 
-void test008 ( void )
+void airy_bi_int_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST008 tests AIRY_BI_INT_VALUES.
+    AIRY_BI_INT_VALUES_TEST tests AIRY_BI_INT_VALUES.
 
   Licensing:
 
@@ -943,7 +1015,7 @@ void test008 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST008:\n" );
+  printf ( "AIRY_BI_INT_VALUES_TEST:\n" );
   printf ( "  AIRY_BI_INT_VALUES stores values of \n" );
   printf ( "  the integral of the Airy Bi function.\n" );
   printf ( "\n" );
@@ -966,13 +1038,13 @@ void test008 ( void )
 }
 /******************************************************************************/
 
-void test009 ( void )
+void airy_bi_prime_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST009 tests AIRY_BI_PRIME_VALUES.
+    AIRY_BI_PRIME_VALUES_TEST tests AIRY_BI_PRIME_VALUES.
 
   Licensing:
 
@@ -992,7 +1064,7 @@ void test009 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST009:\n" );
+  printf ( "AIRY_BI_PRIME_VALUES_TEST:\n" );
   printf ( "  AIRY_BI_PRIME_VALUES stores values of \n" );
   printf ( "  the derivative of Airy function Bi'(X).\n" );
   printf ( "\n" );
@@ -1015,13 +1087,13 @@ void test009 ( void )
 }
 /******************************************************************************/
 
-void test0093 ( void )
+void airy_cai_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0093 tests AIRY_CAI_VALUES.
+    AIRY_CAI_VALUES_TEST tests AIRY_CAI_VALUES.
 
   Licensing:
 
@@ -1041,7 +1113,7 @@ void test0093 ( void )
   double complex x;
 
   printf ( "\n" );
-  printf ( "TEST0093:\n" );
+  printf ( "AIRY_CAI_VALUES_TEST:\n" );
   printf ( "  AIRY_CAI_VALUES stores values of \n" );
   printf ( "  the Airy functions Ai(X) for complex argument.\n" );
   printf ( "\n" );
@@ -1064,13 +1136,13 @@ void test0093 ( void )
 }
 /******************************************************************************/
 
-void test0095 ( void )
+void airy_cbi_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0095 tests AIRY_CBI_VALUES.
+    AIRY_CBI_VALUES_TEST tests AIRY_CBI_VALUES.
 
   Licensing:
 
@@ -1090,7 +1162,7 @@ void test0095 ( void )
   double complex x;
 
   printf ( "\n" );
-  printf ( "TEST0095:\n" );
+  printf ( "AIRY_CBI_VALUES_TEST:\n" );
   printf ( "  AIRY_CBI_VALUES stores values of \n" );
   printf ( "  the Airy functions Bi(X) for complex argument.\n" );
   printf ( "\n" );
@@ -1113,13 +1185,13 @@ void test0095 ( void )
 }
 /******************************************************************************/
 
-void test010 ( void )
+void airy_gi_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST010 tests AIRY_GI_VALUES.
+    AIRY_GI_VALUES_TEST tests AIRY_GI_VALUES.
 
   Licensing:
 
@@ -1139,7 +1211,7 @@ void test010 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST010:\n" );
+  printf ( "AIRY_GI_VALUES_TEST:\n" );
   printf ( "  AIRY_GI_VALUES stores values of \n" );
   printf ( "  the modified Airy function Gi(X).\n" );
   printf ( "\n" );
@@ -1162,13 +1234,13 @@ void test010 ( void )
 }
 /******************************************************************************/
 
-void test011 ( void )
+void airy_hi_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST011 tests AIRY_HI_VALUES.
+    AIRY_HI_VALUES_TEST tests AIRY_HI_VALUES.
 
   Licensing:
 
@@ -1188,7 +1260,7 @@ void test011 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST011:\n" );
+  printf ( "AIRY_HI_VALUES_TEST:\n" );
   printf ( "  AIRY_HI_VALUES stores values of \n" );
   printf ( "  the modified Airy function Hi(X).\n" );
   printf ( "\n" );
@@ -1211,13 +1283,13 @@ void test011 ( void )
 }
 /******************************************************************************/
 
-void test0114 ( void )
+void arccos_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0114 tests ARCCOS_VALUES.
+    ARCCOS_VALUES_TEST tests ARCCOS_VALUES.
 
   Licensing:
 
@@ -1237,7 +1309,7 @@ void test0114 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0114:\n" );
+  printf ( "ARCCOS_VALUES_TEST:\n" );
   printf ( "  ARCCOS_VALUES stores values of the arc cosine function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -1259,13 +1331,13 @@ void test0114 ( void )
 }
 /******************************************************************************/
 
-void test01145 ( void )
+void arccosh_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST01145 tests ARCCOSH_VALUES.
+    ARCCOSH_VALUES_TEST tests ARCCOSH_VALUES.
 
   Licensing:
 
@@ -1285,7 +1357,7 @@ void test01145 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST01145:\n" );
+  printf ( "ARCCOSH_VALUES_TEST:\n" );
   printf ( "  ARCCOSH_VALUES stores values of the hyperbolic arc cosine function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -1307,13 +1379,13 @@ void test01145 ( void )
 }
 /******************************************************************************/
 
-void test0115 ( void )
+void arcsin_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0115 tests ARCSIN_VALUES.
+    ARCSIN_VALUES_TEST tests ARCSIN_VALUES.
 
   Licensing:
 
@@ -1333,7 +1405,7 @@ void test0115 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0115:\n" );
+  printf ( "ARCSIN_VALUES_TEST:\n" );
   printf ( "  ARCSIN_VALUES stores values of the arc sine function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -1355,13 +1427,13 @@ void test0115 ( void )
 }
 /******************************************************************************/
 
-void test01155 ( void )
+void arcsinh_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST01155 tests ARCSINH_VALUES.
+    ARCSINH_VALUES_TEST tests ARCSINH_VALUES.
 
   Licensing:
 
@@ -1381,7 +1453,7 @@ void test01155 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST01155:\n" );
+  printf ( "ARCSINH_VALUES_TEST:\n" );
   printf ( "  ARCSINH_VALUES stores values of the hyperbolic arc sine function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -1403,13 +1475,13 @@ void test01155 ( void )
 }
 /******************************************************************************/
 
-void test0116 ( void )
+void arctan_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0116 tests ARCTAN_VALUES.
+    ARCTAN_VALUES_TEST tests ARCTAN_VALUES.
 
   Licensing:
 
@@ -1429,7 +1501,7 @@ void test0116 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0116:\n" );
+  printf ( "ARCTAN_VALUES_TEST:\n" );
   printf ( "  ARCTAN_VALUES stores values of the arc tangent function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -1451,13 +1523,13 @@ void test0116 ( void )
 }
 /******************************************************************************/
 
-void test012 ( void )
+void arctan_int_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST012 tests ARCTAN_INT_VALUES.
+    ARCTAN_INT_VALUES_TEST tests ARCTAN_INT_VALUES.
 
   Licensing:
 
@@ -1477,7 +1549,7 @@ void test012 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST012:\n" );
+  printf ( "ARCTAN_INT_VALUES_TEST:\n" );
   printf ( "  ARCTAN_INT_VALUES stores values of \n" );
   printf ( "  the arctangent integral.\n" );
   printf ( "\n" );
@@ -1500,13 +1572,62 @@ void test012 ( void )
 }
 /******************************************************************************/
 
-void test0123 ( void )
+void arctan2_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST01235 tests ARCTANH_VALUES.
+    ARCTAN2_VALUES_TEST tests ARCTAN2_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    05 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double f;
+  int n_data;
+  double x;
+  double y;
+
+  printf ( "\n" );
+  printf ( "ARCTAN2_VALUES_TEST:\n" );
+  printf ( "  ARCTAN2_VALUES stores values of the arc tangent function.\n" );
+  printf ( "\n" );
+  printf ( "        X             Y           F(X,Y)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    arctan2_values ( &n_data, &x, &y, &f );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %12.6f  %12.6f  %24.16e\n", x, y, f );
+  }
+  return;
+}
+/******************************************************************************/
+
+void arctanh_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    ARCTANH_VALUES_TEST tests ARCTANH_VALUES.
 
   Licensing:
 
@@ -1526,7 +1647,7 @@ void test0123 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0123:\n" );
+  printf ( "ARCTANH_VALUES_TEST:\n" );
   printf ( "  ARCTANH_VALUES stores values of the hyperbolic arc tangent function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -1548,13 +1669,13 @@ void test0123 ( void )
 }
 /******************************************************************************/
 
-void test0127 ( void )
+void bei0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0127 tests BEI0_VALUES.
+    BEI0_VALUES_TEST tests BEI0_VALUES.
 
   Licensing:
 
@@ -1574,7 +1695,7 @@ void test0127 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0127:\n" );
+  printf ( "BEI0_VALUES_TEST:\n" );
   printf ( "  BEI0_VALUES stores values of \n" );
   printf ( "  the Kelvin function BEI of order 0.\n" );
   printf ( "\n" );
@@ -1597,13 +1718,13 @@ void test0127 ( void )
 }
 /******************************************************************************/
 
-void test0128 ( void )
+void bei1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0128 tests BEI1_VALUES.
+    BEI1_VALUES_TEST tests BEI1_VALUES.
 
   Licensing:
 
@@ -1623,7 +1744,7 @@ void test0128 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0128:\n" );
+  printf ( "BEI1_VALUES_TEST:\n" );
   printf ( "  BEI1_VALUES stores values of \n" );
   printf ( "  the Kelvin function BEI of order 1.\n" );
   printf ( "\n" );
@@ -1646,13 +1767,13 @@ void test0128 ( void )
 }
 /******************************************************************************/
 
-void test013 ( void )
+void bell_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST013 tests BELL_VALUES.
+    BELL_VALUES_TEST tests BELL_VALUES.
 
   Licensing:
 
@@ -1672,7 +1793,7 @@ void test013 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST013:\n" );
+  printf ( "BELL_VALUES_TEST:\n" );
   printf ( "  BELL_VALUES returns values of \n" );
   printf ( "  the Bell numbers.\n" );
   printf ( "\n" );
@@ -1695,13 +1816,13 @@ void test013 ( void )
 }
 /******************************************************************************/
 
-void test0134 ( void )
+void ber0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0134 tests BER0_VALUES.
+    BER0_VALUES_TEST tests BER0_VALUES.
 
   Licensing:
 
@@ -1721,7 +1842,7 @@ void test0134 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0134:\n" );
+  printf ( "BER0_VALUES_TEST:\n" );
   printf ( "  BER0_VALUES stores values of \n" );
   printf ( "  the Kelvin function BER of order 0.\n" );
   printf ( "\n" );
@@ -1744,13 +1865,13 @@ void test0134 ( void )
 }
 /******************************************************************************/
 
-void test0135 ( void )
+void ber1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0135 tests BER1_VALUES.
+    BER1_VALUES_TEST tests BER1_VALUES.
 
   Licensing:
 
@@ -1770,7 +1891,7 @@ void test0135 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0135:\n" );
+  printf ( "BER1_VALUES_TEST:\n" );
   printf ( "  BER1_VALUES stores values of \n" );
   printf ( "  the Kelvin function BER of order 1.\n" );
   printf ( "\n" );
@@ -1793,13 +1914,13 @@ void test0135 ( void )
 }
 /******************************************************************************/
 
-void test014 ( void )
+void bernoulli_number_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST014 tests BERNOULLI_NUMBER_VALUES.
+    BERNOULLI_NUMBER_VALUES_TEST tests BERNOULLI_NUMBER_VALUES.
 
   Licensing:
 
@@ -1819,7 +1940,7 @@ void test014 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST014:\n" );
+  printf ( "BERNOULLI_NUMBER_VALUES_TEST:\n" );
   printf ( "  BERNOULLI_NUMBER_VALUES returns values of \n" );
   printf ( "  the Bernoulli numbers.\n" );
   printf ( "\n" );
@@ -1842,13 +1963,13 @@ void test014 ( void )
 }
 /******************************************************************************/
 
-void test015 ( void )
+void bernoulli_poly_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST015 tests BERNOULLI_POLY_VALUES.
+    BERNOULLI_POLY_VALUES_TEST tests BERNOULLI_POLY_VALUES.
 
   Licensing:
 
@@ -1869,7 +1990,7 @@ void test015 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST015:\n" );
+  printf ( "BERNOULLI_POLY_VALUES_TEST:\n" );
   printf ( "  BERNOULLI_POLY_VALUES returns values of \n" );
   printf ( "  the Bernoulli Polynomials.\n" );
   printf ( "\n" );
@@ -1892,13 +2013,13 @@ void test015 ( void )
 }
 /******************************************************************************/
 
-void test016 ( void )
+void bernstein_poly_01_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST016 tests BERNSTEIN_POLY_VALUES.
+    BERNSTEIN_POLY_01_VALUES_TEST tests BERNSTEIN_POLY_01_VALUES.
 
   Licensing:
 
@@ -1920,8 +2041,8 @@ void test016 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST016:\n" );
-  printf ( "  BERNSTEIN_POLY_VALUES returns values of \n" );
+  printf ( "BERNSTEIN_POLY_01_VALUES_TEST:\n" );
+  printf ( "  BERNSTEIN_POLY_01_VALUES returns values of \n" );
   printf ( "  the Bernstein Polynomials.\n" );
   printf ( "\n" );
   printf ( "     N     K       X      BERNSTEIN(N,K)(X)\n" );
@@ -1931,7 +2052,7 @@ void test016 ( void )
 
   for ( ; ; )
   {
-    bernstein_poly_values ( &n_data, &n, &k, &x, &b );
+    bernstein_poly_01_values ( &n_data, &n, &k, &x, &b );
 
     if ( n_data == 0 )
     {
@@ -1943,13 +2064,13 @@ void test016 ( void )
 }
 /******************************************************************************/
 
-void test017 ( void )
+void bessel_i0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST017 tests BESSEL_I0_VALUES.
+    BESSEL_I0_VALUES_TEST tests BESSEL_I0_VALUES.
 
   Licensing:
 
@@ -1969,7 +2090,7 @@ void test017 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST017:\n" );
+  printf ( "BESSEL_I0_VALUES_TEST:\n" );
   printf ( "  BESSEL_I0_VALUES stores values of \n" );
   printf ( "  the Bessel I0 function.\n" );
   printf ( "\n" );
@@ -1992,13 +2113,13 @@ void test017 ( void )
 }
 /******************************************************************************/
 
-void test018 ( void )
+void bessel_i0_int_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST018 tests BESSEL_I0_INT_VALUES.
+    BESSEL_I0_INT_VALUES_TEST tests BESSEL_I0_INT_VALUES.
 
   Licensing:
 
@@ -2018,7 +2139,7 @@ void test018 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST018:\n" );
+  printf ( "BESSEL_I0_INT_VALUES_TEST:\n" );
   printf ( "  BESSEL_I0_INT_VALUES stores values of \n" );
   printf ( "  the integral of the Bessel I0 function.\n" );
   printf ( "\n" );
@@ -2041,13 +2162,13 @@ void test018 ( void )
 }
 /******************************************************************************/
 
-void test0185 ( void )
+void bessel_i0_spherical_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0185 tests BESSEL_I0_SPHERICAL_VALUES.
+    BESSEL_I0_SPHERICAL_VALUES_TEST tests BESSEL_I0_SPHERICAL_VALUES.
 
   Licensing:
 
@@ -2067,7 +2188,7 @@ void test0185 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0185:\n" );
+  printf ( "BESSEL_I0_SPHERICAL_VALUES_TEST:\n" );
   printf ( "  BESSEL_I0_SPHERICAL_VALUES stores values of\n" );
   printf ( "  the spherical Bessel i0 function.\n" );
   printf ( "\n" );
@@ -2090,13 +2211,13 @@ void test0185 ( void )
 }
 /******************************************************************************/
 
-void test019 ( void )
+void bessel_i1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST019 tests BESSEL_I1_VALUES.
+    BESSEL_I1_VALUES_TEST tests BESSEL_I1_VALUES.
 
   Licensing:
 
@@ -2116,7 +2237,7 @@ void test019 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST019:\n" );
+  printf ( "BESSEL_I1_VALUES_TEST:\n" );
   printf ( "  BESSEL_I1_VALUES stores values of \n" );
   printf ( "  the Bessel I1 function.\n" );
   printf ( "\n" );
@@ -2139,13 +2260,13 @@ void test019 ( void )
 }
 /******************************************************************************/
 
-void test0195 ( void )
+void bessel_i1_spherical_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0195 tests BESSEL_I1_SPHERICAL_VALUES.
+    BESSEL_I1_SPHERICAL_VALUES_TEST tests BESSEL_I1_SPHERICAL_VALUES.
 
   Licensing:
 
@@ -2165,7 +2286,7 @@ void test0195 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0195:\n" );
+  printf ( "BESSEL_I1_SPHERICAL_VALUES_TEST:\n" );
   printf ( "  BESSEL_I1_SPHERICAL_VALUES stores values of\n" );
   printf ( "  the spherical Bessel i1 function.\n" );
   printf ( "\n" );
@@ -2188,13 +2309,13 @@ void test0195 ( void )
 }
 /******************************************************************************/
 
-void test020 ( void )
+void bessel_in_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST020 tests BESSEL_IN_VALUES.
+    BESSEL_IN_VALUES_TEST tests BESSEL_IN_VALUES.
 
   Licensing:
 
@@ -2215,7 +2336,7 @@ void test020 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST020:\n" );
+  printf ( "BESSEL_IN_VALUES_TEST:\n" );
   printf ( "  BESSEL_IN_VALUES stores values of \n" );
   printf ( "  the Bessel In function.\n" );
   printf ( "\n" );
@@ -2238,13 +2359,13 @@ void test020 ( void )
 }
 /******************************************************************************/
 
-void test0205 ( void )
+void bessel_ix_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0205 tests BESSEL_IX_VALUES.
+    BESSEL_IX_VALUES_TEST tests BESSEL_IX_VALUES.
 
   Licensing:
 
@@ -2265,7 +2386,7 @@ void test0205 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0205:\n" );
+  printf ( "BESSEL_IX_VALUES_TEST:\n" );
   printf ( "  BESSEL_IX_VALUES stores values of \n" );
   printf ( "  the Bessel In function for NONINTEGER order.\n" );
   printf ( "\n" );
@@ -2288,13 +2409,13 @@ void test0205 ( void )
 }
 /******************************************************************************/
 
-void test021 ( void )
+void bessel_j0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST021 tests BESSEL_J0_VALUES.
+    BESSEL_J0_VALUES_TEST tests BESSEL_J0_VALUES.
 
   Licensing:
 
@@ -2314,7 +2435,7 @@ void test021 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST021:\n" );
+  printf ( "BESSEL_J0_VALUES_TEST:\n" );
   printf ( "  BESSEL_J0_VALUES stores values of \n" );
   printf ( "  the Bessel J0 function.\n" );
   printf ( "\n" );
@@ -2337,13 +2458,13 @@ void test021 ( void )
 }
 /******************************************************************************/
 
-void test022 ( void )
+void bessel_j0_int_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST022 tests BESSEL_J0_INT_VALUES.
+    BESSEL_J0_INT_VALUES_TEST tests BESSEL_J0_INT_VALUES.
 
   Licensing:
 
@@ -2363,7 +2484,7 @@ void test022 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST022:\n" );
+  printf ( "BESSEL_J0_INT_VALUES_TEST:\n" );
   printf ( "  BESSEL_J0_INT_VALUES stores values of \n" );
   printf ( "  the integral of the Bessel J0 function.\n" );
   printf ( "\n" );
@@ -2386,13 +2507,13 @@ void test022 ( void )
 }
 /******************************************************************************/
 
-void test023 ( void )
+void bessel_j0_spherical_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST023 tests BESSEL_J0_SPHERICAL_VALUES.
+    BESSEL_J0_SPHERICAL_VALUES_TEST tests BESSEL_J0_SPHERICAL_VALUES.
 
   Licensing:
 
@@ -2412,7 +2533,7 @@ void test023 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST023:\n" );
+  printf ( "BESSEL_J0_SPHERICAL_VALUES_TEST:\n" );
   printf ( "  BESSEL_J0_SPHERICAL_VALUES stores values of\n" );
   printf ( "  the spherical Bessel j0 function.\n" );
   printf ( "\n" );
@@ -2435,13 +2556,13 @@ void test023 ( void )
 }
 /******************************************************************************/
 
-void test024 ( void )
+void bessel_j1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST024 tests BESSEL_J1_VALUES.
+    BESSEL_J1_VALUES_TEST tests BESSEL_J1_VALUES.
 
   Licensing:
 
@@ -2461,7 +2582,7 @@ void test024 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST024:\n" );
+  printf ( "BESSEL_J1_VALUES_TEST:\n" );
   printf ( "  BESSEL_J1_VALUES stores values of \n" );
   printf ( "  the Bessel J1 function.\n" );
   printf ( "\n" );
@@ -2484,13 +2605,13 @@ void test024 ( void )
 }
 /******************************************************************************/
 
-void test025 ( void )
+void bessel_j1_spherical_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST025 tests BESSEL_J1_SPHERICAL_VALUES.
+    BESSEL_J1_SPHERICAL_VALUES_TEST tests BESSEL_J1_SPHERICAL_VALUES.
 
   Licensing:
 
@@ -2510,7 +2631,7 @@ void test025 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST025:\n" );
+  printf ( "BESSEL_J1_SPHERICAL_VALUES_TEST:\n" );
   printf ( "  BESSEL_J1_SPHERICAL_VALUES stores values of\n" );
   printf ( "  the spherical Bessel j1 function.\n" );
   printf ( "\n" );
@@ -2533,13 +2654,13 @@ void test025 ( void )
 }
 /******************************************************************************/
 
-void test026 ( void )
+void bessel_jn_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST026 tests BESSEL_JN_VALUES.
+    BESSEL_JN_VALUES_TEST tests BESSEL_JN_VALUES.
 
   Licensing:
 
@@ -2560,7 +2681,7 @@ void test026 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST026:\n" );
+  printf ( "BESSEL_JN_VALUES_TEST:\n" );
   printf ( "  BESSEL_JN_VALUES stores values of \n" );
   printf ( "  the Bessel Jn function.\n" );
   printf ( "\n" );
@@ -2583,13 +2704,13 @@ void test026 ( void )
 }
 /******************************************************************************/
 
-void test0265 ( void )
+void bessel_jx_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0265 tests BESSEL_JX_VALUES.
+    BESSEL_JX_VALUES_TEST tests BESSEL_JX_VALUES.
 
   Licensing:
 
@@ -2610,7 +2731,7 @@ void test0265 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0265:\n" );
+  printf ( "BESSEL_JX_VALUES_TEST:\n" );
   printf ( "  BESSEL_JX_VALUES stores values of \n" );
   printf ( "  the Bessel Jn function for NONINTEGER order.\n" );
   printf ( "\n" );
@@ -2633,13 +2754,13 @@ void test0265 ( void )
 }
 /******************************************************************************/
 
-void test027 ( void )
+void bessel_k0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST027 tests BESSEL_K0_VALUES.
+    BESSEL_K0_VALUES_TEST tests BESSEL_K0_VALUES.
 
   Licensing:
 
@@ -2659,7 +2780,7 @@ void test027 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST027:\n" );
+  printf ( "BESSEL_K0_VALUES_TEST:\n" );
   printf ( "  BESSEL_K0_VALUES stores values of \n" );
   printf ( "  the Bessel K0 function.\n" );
   printf ( "\n" );
@@ -2682,13 +2803,13 @@ void test027 ( void )
 }
 /******************************************************************************/
 
-void test028 ( void )
+void bessel_k0_int_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST028 tests BESSEL_K0_INT_VALUES.
+    BESSEL_K0_INT_VALUES_TEST tests BESSEL_K0_INT_VALUES.
 
   Licensing:
 
@@ -2708,7 +2829,7 @@ void test028 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST028:\n" );
+  printf ( "BESSEL_K0_INT_VALUES_TEST:\n" );
   printf ( "  BESSEL_K0_INT_VALUES stores values of \n" );
   printf ( "  the integral of the Bessel K0 function.\n" );
   printf ( "\n" );
@@ -2731,13 +2852,13 @@ void test028 ( void )
 }
 /******************************************************************************/
 
-void test029 ( void )
+void bessel_k1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST029 tests BESSEL_K1_VALUES.
+    BESSEL_K1_VALUES_TEST tests BESSEL_K1_VALUES.
 
   Licensing:
 
@@ -2757,7 +2878,7 @@ void test029 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST029:\n" );
+  printf ( "BESSEL_K1_VALUES_TEST:\n" );
   printf ( "  BESSEL_K1_VALUES stores values of \n" );
   printf ( "  the Bessel K1 function.\n" );
   printf ( "\n" );
@@ -2780,13 +2901,13 @@ void test029 ( void )
 }
 /******************************************************************************/
 
-void test030 ( void )
+void bessel_kn_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST030 tests BESSEL_KN_VALUES.
+    BESSEL_KN_VALUES_TEST tests BESSEL_KN_VALUES.
 
   Licensing:
 
@@ -2807,7 +2928,7 @@ void test030 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST030:\n" );
+  printf ( "BESSEL_KN_VALUES_TEST:\n" );
   printf ( "  BESSEL_KN_VALUES stores values of \n" );
   printf ( "  the Bessel Kn function.\n" );
   printf ( "\n" );
@@ -2830,13 +2951,13 @@ void test030 ( void )
 }
 /******************************************************************************/
 
-void test0305 ( void )
+void bessel_kx_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0305 tests BESSEL_KX_VALUES.
+    BESSEL_KX_VALUES_TEST tests BESSEL_KX_VALUES.
 
   Licensing:
 
@@ -2857,7 +2978,7 @@ void test0305 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0305:\n" );
+  printf ( "BESSEL_KX_VALUES_TEST:\n" );
   printf ( "  BESSEL_KX_VALUES stores values of \n" );
   printf ( "  the Bessel Kn function for NONINTEGER order.\n" );
   printf ( "\n" );
@@ -2880,13 +3001,13 @@ void test0305 ( void )
 }
 /******************************************************************************/
 
-void test031 ( void )
+void bessel_y0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST031 tests BESSEL_Y0_VALUES.
+    BESSEL_Y0_VALUES_TEST tests BESSEL_Y0_VALUES.
 
   Licensing:
 
@@ -2906,7 +3027,7 @@ void test031 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST031:\n" );
+  printf ( "BESSEL_Y0_VALUES_TEST:\n" );
   printf ( "  BESSEL_Y0_VALUES stores values of \n" );
   printf ( "  the Bessel Y0 function.\n" );
   printf ( "\n" );
@@ -2929,13 +3050,13 @@ void test031 ( void )
 }
 /******************************************************************************/
 
-void test032 ( void )
+void bessel_y0_int_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST032 tests BESSEL_Y0_INT_VALUES.
+    BESSEL_Y0_INT_VALUES_TEST tests BESSEL_Y0_INT_VALUES.
 
   Licensing:
 
@@ -2955,7 +3076,7 @@ void test032 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST032:\n" );
+  printf ( "BESSEL_Y0_INT_VALUES_TEST:\n" );
   printf ( "  BESSEL_Y0_INT_VALUES stores values of \n" );
   printf ( "  the integral of the Bessel Y0 function.\n" );
   printf ( "\n" );
@@ -2978,13 +3099,13 @@ void test032 ( void )
 }
 /******************************************************************************/
 
-void test033 ( void )
+void bessel_y0_spherical_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST033 tests BESSEL_Y0_SPHERICAL_VALUES.
+    BESSEL_Y0_SPHERICAL_VALUES_TEST tests BESSEL_Y0_SPHERICAL_VALUES.
 
   Licensing:
 
@@ -3004,7 +3125,7 @@ void test033 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST033:\n" );
+  printf ( "BESSEL_Y0_SPHERICAL_VALUES_TEST:\n" );
   printf ( "  BESSEL_Y0_SPHERICAL_VALUES stores values of\n" );
   printf ( "  the spherical Bessel y0 function.\n" );
   printf ( "\n" );
@@ -3027,13 +3148,13 @@ void test033 ( void )
 }
 /******************************************************************************/
 
-void test034 ( void )
+void bessel_y1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST034 tests BESSEL_Y1_VALUES.
+    BESSEL_Y1_VALUES_TEST tests BESSEL_Y1_VALUES.
 
   Licensing:
 
@@ -3053,7 +3174,7 @@ void test034 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST034:\n" );
+  printf ( "BESSEL_Y1_VALUES_TEST:\n" );
   printf ( "  BESSEL_Y1_VALUES stores values of \n" );
   printf ( "  the Bessel Y1 function.\n" );
   printf ( "\n" );
@@ -3076,13 +3197,13 @@ void test034 ( void )
 }
 /******************************************************************************/
 
-void test035 ( void )
+void bessel_y1_spherical_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST035 tests BESSEL_Y1_SPHERICAL_VALUES.
+    BESSEL_Y1_SPHERICAL_VALUES_TEST tests BESSEL_Y1_SPHERICAL_VALUES.
 
   Licensing:
 
@@ -3102,7 +3223,7 @@ void test035 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST035:\n" );
+  printf ( "BESSEL_Y1_SPHERICAL_VALUES_TEST:\n" );
   printf ( "  BESSEL_Y1_SPHERICAL_VALUES stores values of\n" );
   printf ( "  the spherical Bessel y1 function.\n" );
   printf ( "\n" );
@@ -3125,13 +3246,13 @@ void test035 ( void )
 }
 /******************************************************************************/
 
-void test036 ( void )
+void bessel_yn_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST036 tests BESSEL_YN_VALUES.
+    BESSEL_YN_VALUES_TEST tests BESSEL_YN_VALUES.
 
   Licensing:
 
@@ -3152,7 +3273,7 @@ void test036 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST036:\n" );
+  printf ( "BESSEL_YN_VALUES_TEST:\n" );
   printf ( "  BESSEL_YN_VALUES stores values of \n" );
   printf ( "  the Bessel Yn function.\n" );
   printf ( "\n" );
@@ -3175,13 +3296,13 @@ void test036 ( void )
 }
 /******************************************************************************/
 
-void test0365 ( void )
+void bessel_yx_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0365 tests BESSEL_YX_VALUES.
+    BESSEL_YX_VALUES_TEST tests BESSEL_YX_VALUES.
 
   Licensing:
 
@@ -3202,7 +3323,7 @@ void test0365 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0365:\n" );
+  printf ( "BESSEL_YX_VALUES_TEST:\n" );
   printf ( "  BESSEL_YX_VALUES stores values of \n" );
   printf ( "  the Bessel Yn function for NONINTEGER order.\n" );
   printf ( "\n" );
@@ -3225,13 +3346,13 @@ void test0365 ( void )
 }
 /******************************************************************************/
 
-void test037 ( void )
+void beta_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST037 tests BETA_CDF_VALUES.
+    BETA_CDF_VALUES_TEST tests BETA_CDF_VALUES.
 
   Licensing:
 
@@ -3253,7 +3374,7 @@ void test037 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST037:\n" );
+  printf ( "BETA_CDF_VALUES_TEST:\n" );
   printf ( "  BETA_CDF_VALUES stores values of\n" );
   printf ( "  the Beta CDF.\n" );
   printf ( "\n" );
@@ -3276,13 +3397,13 @@ void test037 ( void )
 }
 /******************************************************************************/
 
-void test038 ( void )
+void beta_inc_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST038 tests BETA_INC_VALUES.
+    BETA_INC_VALUES_TEST tests BETA_INC_VALUES.
 
   Licensing:
 
@@ -3304,7 +3425,7 @@ void test038 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST038:\n" );
+  printf ( "BETA_INC_VALUES_TEST:\n" );
   printf ( "  BETA_INC_VALUES stores values of\n" );
   printf ( "  the incomplete Beta function.\n" );
   printf ( "\n" );
@@ -3327,13 +3448,13 @@ void test038 ( void )
 }
 /******************************************************************************/
 
-void test039 ( void )
+void beta_log_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST039 tests BETA_LOG_VALUES.
+    BETA_LOG_VALUES_TEST tests BETA_LOG_VALUES.
 
   Licensing:
 
@@ -3354,7 +3475,7 @@ void test039 ( void )
   double y;
 
   printf ( "\n" );
-  printf ( "TEST039:\n" );
+  printf ( "BETA_LOG_VALUES_TEST:\n" );
   printf ( "  BETA_LOG_VALUES stores values of\n" );
   printf ( "  the logarithm of the Beta function.\n" );
   printf ( "\n" );
@@ -3377,13 +3498,13 @@ void test039 ( void )
 }
 /******************************************************************************/
 
-void test0395 ( void )
+void beta_noncentral_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0395 tests BETA_NONCENTRAL_CDF_VALUES.
+    BETA_NONCENTRAL_CDF_VALUES_TEST tests BETA_NONCENTRAL_CDF_VALUES.
 
   Licensing:
 
@@ -3406,7 +3527,7 @@ void test0395 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0395:\n" );
+  printf ( "BETA_NONCENTRAL_CDF_VALUES_TEST:\n" );
   printf ( "  BETA_NONCENTRAL_CDF_VALUES stores values of\n" );
   printf ( "  the noncentral Beta CDF.\n" );
   printf ( "\n" );
@@ -3429,13 +3550,13 @@ void test0395 ( void )
 }
 /******************************************************************************/
 
-void test040 ( void )
+void beta_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST040 tests BETA_VALUES.
+    BETA_VALUES_TEST tests BETA_VALUES.
 
   Licensing:
 
@@ -3456,7 +3577,7 @@ void test040 ( void )
   double y;
 
   printf ( "\n" );
-  printf ( "TEST040:\n" );
+  printf ( "BETA_VALUES_TEST:\n" );
   printf ( "  BETA_VALUES stores values of\n" );
   printf ( "  the Beta function.\n" );
   printf ( "\n" );
@@ -3479,13 +3600,13 @@ void test040 ( void )
 }
 /******************************************************************************/
 
-void test041 ( void )
+void binomial_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST041 tests BINOMIAL_VALUES.
+    BINOMIAL_VALUES_TEST tests BINOMIAL_VALUES.
 
   Licensing:
 
@@ -3506,7 +3627,7 @@ void test041 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST041:\n" );
+  printf ( "BINOMIAL_VALUES_TEST:\n" );
   printf ( "  BINOMIAL_VALUES returns values of\n" );
   printf ( "  the binomial numbers.\n" );
   printf ( "\n" );
@@ -3529,13 +3650,13 @@ void test041 ( void )
 }
 /******************************************************************************/
 
-void test042 ( void )
+void binomial_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST042 tests BINOMIAL_CDF_VALUES.
+    BINOMIAL_CDF_VALUES_TEST tests BINOMIAL_CDF_VALUES.
 
   Licensing:
 
@@ -3557,7 +3678,7 @@ void test042 ( void )
   int x;
 
   printf ( "\n" );
-  printf ( "TEST042:\n" );
+  printf ( "BINOMIAL_CDF_VALUES_TEST:\n" );
   printf ( "  BINOMIAL_CDF_VALUES returns values of \n" );
   printf ( "  the Binomial Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -3580,13 +3701,13 @@ void test042 ( void )
 }
 /******************************************************************************/
 
-void test0425 ( void )
+void bivariate_normal_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0425 tests BETA_INC_VALUES.
+    BIVARIATE_NORMAL_CDF_VALUES_TEST tests BIVARIATE_NORMAL_CDF_VALUES.
 
   Licensing:
 
@@ -3608,7 +3729,7 @@ void test0425 ( void )
   double y;
 
   printf ( "\n" );
-  printf ( "TEST0425:\n" );
+  printf ( "BIVARIATE_NORMAL_CDF_VALUES_TEST:\n" );
   printf ( "  BIVARIATE_NORMAL_CDF_VALUES stores values of\n" );
   printf ( "  the bivariate normal CDF.\n" );
   printf ( "\n" );
@@ -3631,13 +3752,13 @@ void test0425 ( void )
 }
 /******************************************************************************/
 
-void test043 ( void )
+void catalan_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST043 tests CATALAN_VALUES.
+    CATALAN_VALUES_TEST tests CATALAN_VALUES.
 
   Licensing:
 
@@ -3657,7 +3778,7 @@ void test043 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST043:\n" );
+  printf ( "CATALAN_VALUES_TEST:\n" );
   printf ( "  CATALAN_VALUES returns values of \n" );
   printf ( "  the Catalan numbers.\n" );
   printf ( "\n" );
@@ -3680,13 +3801,13 @@ void test043 ( void )
 }
 /******************************************************************************/
 
-void test044 ( void )
+void cauchy_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST044 tests CAUCHY_CDF_VALUES.
+    CAUCHY_CDF_VALUES_TEST tests CAUCHY_CDF_VALUES.
 
   Licensing:
 
@@ -3708,7 +3829,7 @@ void test044 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST044:\n" );
+  printf ( "CAUCHY_CDF_VALUES_TEST:\n" );
   printf ( "  CAUCHY_CDF_VALUES returns values of \n" );
   printf ( "  the Cauchy Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -3731,13 +3852,13 @@ void test044 ( void )
 }
 /******************************************************************************/
 
-void test0445 ( void )
+void cbrt_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0445 tests CBRT_VALUES.
+    CBRT_VALUES_TEST tests CBRT_VALUES.
 
   Licensing:
 
@@ -3757,7 +3878,7 @@ void test0445 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0445:\n" );
+  printf ( "CBRT_VALUES_TEST:\n" );
   printf ( "  CBRT_VALUES stores values of the cube root function.\n" );
   printf ( "\n" );
   printf ( "      X            CBRT(X)\n" );
@@ -3779,13 +3900,13 @@ void test0445 ( void )
 }
 /******************************************************************************/
 
-void test045 ( void )
+void cheby_t_poly_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST045 tests CHEBY_T_POLY_VALUES.
+    CHEBY_T_POLY_VALUES_TEST tests CHEBY_T_POLY_VALUES.
 
   Licensing:
 
@@ -3806,7 +3927,7 @@ void test045 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST045:\n" );
+  printf ( "CHEBY_T_POLY_VALUES_TEST:\n" );
   printf ( "  CHEBY_T_POLY_VALUES returns values of\n" );
   printf ( "  the Chebyshev T polynomials.\n" );
   printf ( "\n" );
@@ -3829,13 +3950,13 @@ void test045 ( void )
 }
 /******************************************************************************/
 
-void test046 ( void )
+void cheby_u_poly_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST046 tests CHEBY_U_POLY_VALUES.
+    CHEBY_U_POLY_VALUES_TEST tests CHEBY_U_POLY_VALUES.
 
   Licensing:
 
@@ -3856,7 +3977,7 @@ void test046 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST046:\n" );
+  printf ( "CHEBY_U_POLY_VALUES_TEST:\n" );
   printf ( "  CHEBY_U_POLY_VALUES returns values of\n" );
   printf ( "  the Chebyshev U polynomials.\n" );
   printf ( "\n" );
@@ -3879,13 +4000,113 @@ void test046 ( void )
 }
 /******************************************************************************/
 
-void test0465 ( void )
+void cheby_v_poly_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0465 tests CHI_VALUES.
+    CHEBY_V_POLY_VALUES_TEST tests CHEBY_V_POLY_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "CHEBY_V_POLY_VALUES_TEST:\n" );
+  printf ( "  CHEBY_V_POLY_VALUES returns values of\n" );
+  printf ( "  the Chebyshev V polynomials.\n" );
+  printf ( "\n" );
+  printf ( "     N       X      V(N)(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    cheby_v_poly_values ( &n_data, &n, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %6d  %8e  %12e\n", n, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void cheby_w_poly_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CHEBY_W_POLY_VALUES_TEST tests CHEBY_W_POLY_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "CHEBY_W_POLY_VALUES_TEST:\n" );
+  printf ( "  CHEBY_W_POLY_VALUES returns values of\n" );
+  printf ( "  the Chebyshev W polynomials.\n" );
+  printf ( "\n" );
+  printf ( "     N       X      W(N)(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    cheby_w_poly_values ( &n_data, &n, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %6d  %8e  %12e\n", n, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void chi_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CHI_VALUES_TEST tests CHI_VALUES.
 
   Licensing:
 
@@ -3905,7 +4126,7 @@ void test0465 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0465:\n" );
+  printf ( "CHI_VALUES_TEST:\n" );
   printf ( "  CHI_VALUES stores values of\n" );
   printf ( "  the Hyperbolic Cosine Integral function CHI(X).\n" );
   printf ( "\n" );
@@ -3928,13 +4149,13 @@ void test0465 ( void )
 }
 /******************************************************************************/
 
-void test047 ( void )
+void chi_square_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST047 tests CHI_SQUARE_CDF_VALUES.
+    CHI_SQUARE_CDF_VALUES_TEST tests CHI_SQUARE_CDF_VALUES.
 
   Licensing:
 
@@ -3955,7 +4176,7 @@ void test047 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST047:\n" );
+  printf ( "CHI_SQUARE_CDF_VALUES_TEST:\n" );
   printf ( "  CHI_SQUARE_CDF_VALUES returns values of \n" );
   printf ( "  the Chi-Squared Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -3978,13 +4199,13 @@ void test047 ( void )
 }
 /******************************************************************************/
 
-void test048 ( void )
+void chi_square_noncentral_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST048 tests CHI_SQUARE_NONCENTRAL_CDF_VALUES.
+    CHI_SQUARE_NONCENTRAL_CDF_VALUES_TEST tests CHI_SQUARE_NONCENTRAL_CDF_VALUES.
 
   Licensing:
 
@@ -4006,7 +4227,7 @@ void test048 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST048:\n" );
+  printf ( "CHI_SQUARE_NONCENTRAL_CDF_VALUES_TEST:\n" );
   printf ( "  CHI_SQUARE_NONCENTRAL_CDF_VALUES returns values of\n" );
   printf ( "  the noncentral Chi-Squared Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -4029,13 +4250,13 @@ void test048 ( void )
 }
 /******************************************************************************/
 
-void test049 ( void )
+void ci_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST049 tests CI_VALUES.
+    CI_VALUES_TEST tests CI_VALUES.
 
   Licensing:
 
@@ -4055,7 +4276,7 @@ void test049 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST049:\n" );
+  printf ( "CI_VALUES_TEST:\n" );
   printf ( "  CI_VALUES stores values of\n" );
   printf ( "  the Cosine Integral function CI(X).\n" );
   printf ( "\n" );
@@ -4078,13 +4299,13 @@ void test049 ( void )
 }
 /******************************************************************************/
 
-void test050 ( void )
+void cin_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST050 tests CIN_VALUES.
+    CIN_VALUES_TEST tests CIN_VALUES.
 
   Licensing:
 
@@ -4104,7 +4325,7 @@ void test050 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST050:\n" );
+  printf ( "CIN_VALUES_TEST:\n" );
   printf ( "  CIN_VALUES stores values of\n" );
   printf ( "  the Cosine Integral function CIN(X).\n" );
   printf ( "\n" );
@@ -4127,13 +4348,62 @@ void test050 ( void )
 }
 /******************************************************************************/
 
-void test051 ( void )
+void cinh_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST051 tests BESSEL_Y0_INT_VALUES.
+    CINH_VALUES_TEST tests CINH_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    21 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "CINH_VALUES_TEST:\n" );
+  printf ( "  CINH_VALUES stores values of\n" );
+  printf ( "  the Hyperbolic Cosine Integral function CINH(X).\n" );
+  printf ( "\n" );
+  printf ( "      X            CINH(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    cinh_values ( &n_data, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %12e  %12e\n", x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void clausen_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CLAUSEN_VALUES_TEST tests CLAUSEN_VALUES.
 
   Licensing:
 
@@ -4153,7 +4423,7 @@ void test051 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST051:\n" );
+  printf ( "CLAUSEN_VALUES_TEST:\n" );
   printf ( "  CLAUSEN_VALUES stores values of \n" );
   printf ( "  Clausen's integral function.\n" );
   printf ( "\n" );
@@ -4176,13 +4446,13 @@ void test051 ( void )
 }
 /******************************************************************************/
 
-void test05125 ( void )
+void clebsch_gordan_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST05125 tests CLEBSCH_GORDAN_VALUES.
+    CLEBSCH_GORDAN_VALUES_TEST tests CLEBSCH_GORDAN_VALUES.
 
   Licensing:
 
@@ -4207,7 +4477,7 @@ void test05125 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST05125:\n" );
+  printf ( "CLEBSCH_GORDAN_VALUES_TEST:\n" );
   printf ( "  CLEBSCH_GORDAN_VALUES returns values of\n" );
   printf ( "  the Clebsch Gordan coefficient.\n" );
   printf ( "\n" );
@@ -4231,13 +4501,13 @@ void test05125 ( void )
 }
 /******************************************************************************/
 
-void test0515 ( void )
+void collatz_count_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0515 tests COLLATZ_COUNT_VALUES.
+    COLLATZ_COUNT_VALUES_TEST tests COLLATZ_COUNT_VALUES.
 
   Licensing:
 
@@ -4257,7 +4527,7 @@ void test0515 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST0515:\n" );
+  printf ( "COLLATZ_COUNT_VALUES_TEST:\n" );
   printf ( "  COLLATZ_COUNT_VALUES returns values of\n" );
   printf ( "  the length of the Collatz sequence that\n" );
   printf ( "  starts at N.\n" );
@@ -4282,13 +4552,13 @@ void test0515 ( void )
 }
 /******************************************************************************/
 
-void test0517 ( void )
+void cos_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0517 tests COS_VALUES.
+    COS_VALUES_TEST tests COS_VALUES.
 
   Licensing:
 
@@ -4308,7 +4578,7 @@ void test0517 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0517:\n" );
+  printf ( "COS_VALUES_TEST:\n" );
   printf ( "   COS_VALUES stores values of the cosine function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -4330,13 +4600,112 @@ void test0517 ( void )
 }
 /******************************************************************************/
 
-void test0519 ( void )
+void cos_degree_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0519 tests COSH_VALUES.
+    COS_DEGREE_VALUES_TEST tests COS_DEGREE_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    21 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "COS_DEGREE_VALUES_TEST:\n" );
+  printf ( "   COS_DEGREE_VALUES stores values of the cosine function.\n" );
+  printf ( "\n" );
+  printf ( "                X                     FX\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    cos_degree_values ( &n_data, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %24.16e  %24.16e\n", x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void cos_power_int_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    COS_POWER_INT_VALUES_TEST tests COS_POWER_INT_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    21 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  double fx;
+  int n;
+  int n_data;
+
+  printf ( "\n" );
+  printf ( "COS_POWER_INT_VALUES_TEST:\n" );
+  printf ( "  COS_POWER_INT_VALUES returns values of\n" );
+  printf ( "  the integral of the N-th power of the cosine function.\n" );
+  printf ( "\n" );
+  printf ( "         A         B       N        FX\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+   cos_power_int_values ( &n_data, &a, &b, &n, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8f  %8f  %6d  %24.16e\n", a, b, n, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void cosh_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    COSH_VALUES_TEST tests COSH_VALUES.
 
   Licensing:
 
@@ -4356,7 +4725,7 @@ void test0519 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0519:\n" );
+  printf ( "COSH_VALUES_TEST:\n" );
   printf ( "   COSH_VALUES stores values of the hyperbolic cosine function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -4378,13 +4747,61 @@ void test0519 ( void )
 }
 /******************************************************************************/
 
-void test052 ( void )
+void cot_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST052 tests CP_VALUES.
+    COT_VALUES_TEST tests COT_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "COT_VALUES_TEST:\n" );
+  printf ( "   COT_VALUES stores values of the cotangent function.\n" );
+  printf ( "\n" );
+  printf ( "                X                     FX\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    cot_values ( &n_data, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %24.16e  %24.16e\n", x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void cp_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CP_VALUES_TEST tests CP_VALUES.
 
   Licensing:
 
@@ -4405,7 +4822,7 @@ void test052 ( void )
   double tc;
 
   printf ( "\n" );
-  printf ( "TEST052:\n" );
+  printf ( "CP_VALUES_TEST:\n" );
   printf ( "  CP_VALUES stores values of\n" );
   printf ( "  the specific heat CP\n" );
   printf ( "  as a function of temperature and pressure.\n" );
@@ -4429,13 +4846,13 @@ void test052 ( void )
 }
 /******************************************************************************/
 
-void test053 ( void )
+void dawson_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST053 tests DAWSON_VALUES.
+    DAWSON_VALUES_TEST tests DAWSON_VALUES.
 
   Licensing:
 
@@ -4455,7 +4872,7 @@ void test053 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST053:\n" );
+  printf ( "DAWSON_VALUES_TEST:\n" );
   printf ( "  DAWSON_VALUES stores values of\n" );
   printf ( "  Dawson's integral function.\n" );
   printf ( "\n" );
@@ -4478,13 +4895,13 @@ void test053 ( void )
 }
 /******************************************************************************/
 
-void test054 ( void )
+void debye1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST054 tests DEBYE1_VALUES.
+    DEBYE1_VALUES_TEST tests DEBYE1_VALUES.
 
   Licensing:
 
@@ -4504,7 +4921,7 @@ void test054 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST054:\n" );
+  printf ( "DEBYE1_VALUES_TEST:\n" );
   printf ( "  DEBYE1_VALUES stores values of \n" );
   printf ( "  the Debye function of order 1.\n" );
   printf ( "\n" );
@@ -4527,13 +4944,13 @@ void test054 ( void )
 }
 /******************************************************************************/
 
-void test055 ( void )
+void debye2_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST055 tests DEBYE2_VALUES.
+    DEBYE2_VALUES_TEST tests DEBYE2_VALUES.
 
   Licensing:
 
@@ -4553,7 +4970,7 @@ void test055 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST055:\n" );
+  printf ( "DEBYE2_VALUES_TEST:\n" );
   printf ( "  DEBYE2_VALUES stores values of \n" );
   printf ( "  the Debye function of order 2.\n" );
   printf ( "\n" );
@@ -4576,13 +4993,13 @@ void test055 ( void )
 }
 /******************************************************************************/
 
-void test056 ( void )
+void debye3_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST056 tests DEBYE3_VALUES.
+    DEBYE3_VALUES_TEST tests DEBYE3_VALUES.
 
   Licensing:
 
@@ -4602,7 +5019,7 @@ void test056 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST056:\n" );
+  printf ( "DEBYE3_VALUES_TEST:\n" );
   printf ( "  DEBYE3_VALUES stores values of \n" );
   printf ( "  the Debye function of order 3.\n" );
   printf ( "\n" );
@@ -4625,13 +5042,13 @@ void test056 ( void )
 }
 /******************************************************************************/
 
-void test057 ( void )
+void debye4_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST057 tests DEBYE4_VALUES.
+    DEBYE4_VALUES_TEST tests DEBYE4_VALUES.
 
   Licensing:
 
@@ -4651,7 +5068,7 @@ void test057 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST057:\n" );
+  printf ( "DEBYE4_VALUES_TEST:\n" );
   printf ( "  DEBYE4_VALUES stores values of \n" );
   printf ( "  the Debye function of order 4.\n" );
   printf ( "\n" );
@@ -4674,13 +5091,13 @@ void test057 ( void )
 }
 /******************************************************************************/
 
-void test058 ( void )
+void dielectric_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST058 tests DIELECTRIC_VALUES.
+    DIELECTRIC_VALUES_TEST tests DIELECTRIC_VALUES.
 
   Licensing:
 
@@ -4701,7 +5118,7 @@ void test058 ( void )
   double tc;
 
   printf ( "\n" );
-  printf ( "TEST058:\n" );
+  printf ( "DIELECTRIC_VALUES_TEST:\n" );
   printf ( "  DIELECTRIC_VALUES stores values of\n" );
   printf ( "  the dielectric function.\n" );
   printf ( "\n" );
@@ -4724,13 +5141,13 @@ void test058 ( void )
 }
 /******************************************************************************/
 
-void test059 ( void )
+void dilogarithm_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST059 tests DILOGARITHM_VALUES.
+    DILOGARITHM_VALUES_TEST tests DILOGARITHM_VALUES.
 
   Licensing:
 
@@ -4750,7 +5167,7 @@ void test059 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST059:\n" );
+  printf ( "DILOGARITHM_VALUES_TEST:\n" );
   printf ( "  DILOGARITHM_VALUES stores values of\n" );
   printf ( "  the dilogarithm function.\n" );
   printf ( "\n" );
@@ -4773,13 +5190,13 @@ void test059 ( void )
 }
 /******************************************************************************/
 
-void test060 ( void )
+void e1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST060 tests E1_VALUES.
+    E1_VALUES_TEST tests E1_VALUES.
 
   Licensing:
 
@@ -4799,7 +5216,7 @@ void test060 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST060:\n" );
+  printf ( "E1_VALUES_TEST:\n" );
   printf ( "  E1_VALUES stores values of\n" );
   printf ( "  the exponential integral function E1(X).\n" );
   printf ( "\n" );
@@ -4822,13 +5239,13 @@ void test060 ( void )
 }
 /******************************************************************************/
 
-void test061 ( void )
+void ei_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST061 tests EI_VALUES.
+    EI_VALUES_TEST tests EI_VALUES.
 
   Licensing:
 
@@ -4848,7 +5265,7 @@ void test061 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST061:\n" );
+  printf ( "EI_VALUES_TEST:\n" );
   printf ( "  EI_VALUES stores values of\n" );
   printf ( "  the exponential integral function EI(X).\n" );
   printf ( "\n" );
@@ -4871,13 +5288,13 @@ void test061 ( void )
 }
 /******************************************************************************/
 
-void test062 ( void )
+void elliptic_ea_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST062 tests ELLIPTIC_EA_VALUES.
+    ELLIPTIC_EA_VALUES_TEST tests ELLIPTIC_EA_VALUES.
 
   Licensing:
 
@@ -4897,7 +5314,7 @@ void test062 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST062:\n" );
+  printf ( "ELLIPTIC_EA_VALUES_TEST:\n" );
   printf ( "  ELLIPTIC_EA_VALUES stores values of\n" );
   printf ( "  the complete elliptic integral of the second\n" );
   printf ( "  kind, with parameter angle ALPHA in degrees.\n" );
@@ -4921,13 +5338,13 @@ void test062 ( void )
 }
 /******************************************************************************/
 
-void test063 ( void )
+void elliptic_em_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST063 tests ELLIPTIC_EM_VALUES.
+    ELLIPTIC_EM_VALUES_TEST tests ELLIPTIC_EM_VALUES.
 
   Licensing:
 
@@ -4947,7 +5364,7 @@ void test063 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST063:\n" );
+  printf ( "ELLIPTIC_EM_VALUES_TEST:\n" );
   printf ( "  ELLIPTIC_EM_VALUES stores values of\n" );
   printf ( "  the complete elliptic integral of the second\n" );
   printf ( "  kind, with parameter modulus M.\n" );
@@ -4971,13 +5388,13 @@ void test063 ( void )
 }
 /******************************************************************************/
 
-void test064 ( void )
+void elliptic_ka_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST064 tests ELLIPTIC_KA_VALUES.
+    ELLIPTIC_KA_VALUES_TEST tests ELLIPTIC_KA_VALUES.
 
   Licensing:
 
@@ -4997,7 +5414,7 @@ void test064 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST064:\n" );
+  printf ( "ELLIIPTIC_KA_VALUES_TEST:\n" );
   printf ( "  ELLIPTIC_KA_VALUES stores values of\n" );
   printf ( "  the complete elliptic integral of the first\n" );
   printf ( "  kind, with parameter angle ALPHA in degrees.\n" );
@@ -5021,13 +5438,13 @@ void test064 ( void )
 }
 /******************************************************************************/
 
-void test065 ( void )
+void elliptic_km_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST065 tests ELLIPTIC_KM_VALUES.
+    ELLIPTIC_KM_VALUES_TEST tests ELLIPTIC_KM_VALUES.
 
   Licensing:
 
@@ -5047,7 +5464,7 @@ void test065 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST065:\n" );
+  printf ( "ELLIPTIC_KM_VALUES_TEST:\n" );
   printf ( "  ELLIPTIC_KM_VALUES stores values of\n" );
   printf ( "  the complete elliptic integral of the first\n" );
   printf ( "  kind, with parameter modulus M.\n" );
@@ -5071,13 +5488,13 @@ void test065 ( void )
 }
 /******************************************************************************/
 
-void test066 ( void )
+void erf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST066 tests ERF_VALUES.
+    ERF_VALUES_TEST tests ERF_VALUES.
 
   Licensing:
 
@@ -5097,7 +5514,7 @@ void test066 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST066:\n" );
+  printf ( "ERF_VALUES_TEST:\n" );
   printf ( "  ERF_VALUES stores values of\n" );
   printf ( "  the error function ERF(X).\n" );
   printf ( "\n" );
@@ -5120,13 +5537,13 @@ void test066 ( void )
 }
 /******************************************************************************/
 
-void test0665 ( void )
+void erfc_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0665 tests ERFC_VALUES.
+    ERFC_VALUES_TEST tests ERFC_VALUES.
 
   Licensing:
 
@@ -5146,7 +5563,7 @@ void test0665 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0665:\n" );
+  printf ( "ERFC_VALUES_TEST:\n" );
   printf ( "  ERFC_VALUES stores values of\n" );
   printf ( "  the complementary error function ERFC(X).\n" );
   printf ( "\n" );
@@ -5169,13 +5586,13 @@ void test0665 ( void )
 }
 /******************************************************************************/
 
-void test067 ( void )
+void euler_number_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST067 tests EULER_NUMBER_VALUES.
+    EULER_NUMBER_VALUES_TEST tests EULER_NUMBER_VALUES.
 
   Licensing:
 
@@ -5195,7 +5612,7 @@ void test067 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST067:\n" );
+  printf ( "EULER_NUMBER_VALUES_TEST:\n" );
   printf ( "  EULER_NUMBER_VALUES returns values of\n" );
   printf ( "  the Euler numbers.\n" );
   printf ( "\n" );
@@ -5218,13 +5635,13 @@ void test067 ( void )
 }
 /******************************************************************************/
 
-void test068 ( void )
+void euler_poly_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST068 tests EULER_POLY_VALUES.
+    EULER_POLY_VALUES_TEST tests EULER_POLY_VALUES.
 
   Licensing:
 
@@ -5245,7 +5662,7 @@ void test068 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST068:\n" );
+  printf ( "EULER_POLY_VALUES_TEST:\n" );
   printf ( "  EULER_POLY_VALUES returns values of\n" );
   printf ( "  the Euler numbers.\n" );
   printf ( "\n" );
@@ -5268,13 +5685,13 @@ void test068 ( void )
 }
 /******************************************************************************/
 
-void test0685 ( void )
+void exp_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0685 tests EXP_VALUES.
+    EXP_VALUES_TEST tests EXP_VALUES.
 
   Licensing:
 
@@ -5294,7 +5711,7 @@ void test0685 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0685:\n" );
+  printf ( "EXP_VALUES_TEST:\n" );
   printf ( "   EXP_VALUES stores values of the exponential function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -5316,13 +5733,13 @@ void test0685 ( void )
 }
 /******************************************************************************/
 
-void test069 ( void )
+void exp3_int_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST069 tests EXP3_INT_VALUES.
+    EXP3_INT_VALUES_TEST tests EXP3_INT_VALUES.
 
   Licensing:
 
@@ -5342,7 +5759,7 @@ void test069 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST069:\n" );
+  printf ( "EXP3_INT_VALUES_TEST:\n" );
   printf ( "  EXP3_INT_VALUES stores values of \n" );
   printf ( "  the exponential integral function.\n" );
   printf ( "\n" );
@@ -5365,13 +5782,13 @@ void test069 ( void )
 }
 /******************************************************************************/
 
-void test070 ( void )
+void exponential_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST070 tests EXPONENTIAL_CDF_VALUES.
+    EXPONENTIAL_CDF_VALUES_TEST tests EXPONENTIAL_CDF_VALUES.
 
   Licensing:
 
@@ -5392,7 +5809,7 @@ void test070 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST070:\n" );
+  printf ( "EXPONENTIAL_CDF_VALUES_TEST:\n" );
   printf ( "  EXPONENTIAL_CDF_VALUES stores values of \n" );
   printf ( "  the exponential CDF.\n" );
   printf ( "\n" );
@@ -5415,13 +5832,13 @@ void test070 ( void )
 }
 /******************************************************************************/
 
-void test071 ( void )
+void extreme_values_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST071 tests EXTREME_VALUES_CDF_VALUES.
+    EXTREME_VALUES_CDF_VALUES_TEST tests EXTREME_VALUES_CDF_VALUES.
 
   Licensing:
 
@@ -5443,7 +5860,7 @@ void test071 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST071:\n" );
+  printf ( "EXTREME_VALUES_CDF_VALUES_TEST:\n" );
   printf ( "  EXTREME_VALUES_CDF_VALUES stores values of \n" );
   printf ( "  the extreme values CDF.\n" );
   printf ( "\n" );
@@ -5466,13 +5883,13 @@ void test071 ( void )
 }
 /******************************************************************************/
 
-void test072 ( void )
+void f_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST072 tests F_CDF_VALUES.
+    F_CDF_VALUES_TEST tests F_CDF_VALUES.
 
   Licensing:
 
@@ -5494,7 +5911,7 @@ void test072 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST072:\n" );
+  printf ( " F_CDF_VALUES_TEST:\n" );
   printf ( "   F_CDF_VALUES stores values of\n" );
   printf ( "   the F cumulative density function.\n" );
   printf ( "\n" );
@@ -5517,13 +5934,13 @@ void test072 ( void )
 }
 /******************************************************************************/
 
-void test073 ( void )
+void f_noncentral_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST073 tests F_NONCENTRAL_CDF_VALUES.
+    F_NONCENTRAL_CDF_VALUES_TEST tests F_NONCENTRAL_CDF_VALUES.
 
   Licensing:
 
@@ -5546,9 +5963,9 @@ void test073 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST073:\n" );
-  printf ( "   F_NONCENTRAL_CDF_VALUES stores values of\n" );
-  printf ( "   the F cumulative density function.\n" );
+  printf ( "F_NONCENTRAL_CDF_VALUES_TEST:\n" );
+  printf ( "  F_NONCENTRAL_CDF_VALUES stores values of\n" );
+  printf ( "  the F cumulative density function.\n" );
   printf ( "\n" );
   printf ( "     A       B            LAMBDA    X            CDF\n" );
   printf ( "\n" );
@@ -5569,13 +5986,13 @@ void test073 ( void )
 }
 /******************************************************************************/
 
-void test074 ( void )
+void fresnel_cos_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST074 tests FRESNEL_COS_VALUES.
+    FRESNEL_COS_VALUES_TEST tests FRESNEL_COS_VALUES.
 
   Licensing:
 
@@ -5595,9 +6012,9 @@ void test074 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST074:\n" );
-  printf ( "   FRESNEL_COS_VALUES stores values of\n" );
-  printf ( "   the Fresnel cosine integral C(X).\n" );
+  printf ( "FRESNEL_COS_VALUES_TEST:\n" );
+  printf ( "  FRESNEL_COS_VALUES stores values of\n" );
+  printf ( "  the Fresnel cosine integral C(X).\n" );
   printf ( "\n" );
   printf ( "      X           C(X)\n" );
   printf ( "\n" );
@@ -5618,13 +6035,13 @@ void test074 ( void )
 }
 /******************************************************************************/
 
-void test075 ( void )
+void fresnel_sin_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST075 tests FRESNEL_SIN_VALUES.
+    FRESNEL_SIN_VALUES_TEST tests FRESNEL_SIN_VALUES.
 
   Licensing:
 
@@ -5644,9 +6061,9 @@ void test075 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST075:\n" );
-  printf ( "   FRESNEL_SIN_VALUES stores values of\n" );
-  printf ( "   the Fresnel sine integral S(X).\n" );
+  printf ( "FRESNEL_SIN_VALUES_TEST:\n" );
+  printf ( "  FRESNEL_SIN_VALUES stores values of\n" );
+  printf ( "  the Fresnel sine integral S(X).\n" );
   printf ( "\n" );
   printf ( "      X           S(X)\n" );
   printf ( "\n" );
@@ -5667,13 +6084,13 @@ void test075 ( void )
 }
 /******************************************************************************/
 
-void test0755 ( void )
+void frobenius_number_order2_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0755 tests FROBENIUS_NUMBER_ORDER2_VALUES.
+    FROBENIUS_NUMBER_ORDER2_VALUES_TEST tests FROBENIUS_NUMBER_ORDER2_VALUES.
 
   Licensing:
 
@@ -5694,7 +6111,7 @@ void test0755 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST0755:\n" );
+  printf ( "FROBENIUS_NUMBER_ORDER2_VALUES_TEST:\n" );
   printf ( "  FROBENIUS_NUMBER_ORDER2_VALUES returns values of \n" );
   printf ( "  the Frobenius number of order 2.\n" );
   printf ( "\n" );
@@ -5719,13 +6136,13 @@ void test0755 ( void )
 }
 /******************************************************************************/
 
-void test0756 ( void )
+void frobenius_number_order_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0756 tests FROBENIUS_NUMBER_ORDER_VALUES, FROBENIUS_NUMBER_DATA_VALUES.
+    FROBENIUS_NUMBER_ORDER_VALUES_TEST tests FROBENIUS_NUMBER_ORDER_VALUES.
 
   Licensing:
 
@@ -5747,9 +6164,59 @@ void test0756 ( void )
   int order;
 
   printf ( "\n" );
-  printf ( "TEST0756:\n" );
+  printf ( "FROBENIUS_NUMBER_ORDER_VALUES_TEST:\n" );
   printf ( "  FROBENIUS_NUMBER_ORDER_VALUES returns the order for\n" );
   printf ( "  a Frobenius problem;\n" );
+
+  n_data = 0;
+  printf ( "\n" );
+  printf ( "       #      Order\n" );
+  printf ( "\n" );
+
+  for ( ; ; )
+  {
+    frobenius_number_order_values ( &n_data, &order );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+
+    printf ( "  %4d  %4d\n", n_data, order );
+  }
+  return;
+}
+/******************************************************************************/
+
+void frobenius_number_data_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    FROBENIUS_NUMBER_DATA_VALUES_TEST tests FROBENIUS_NUMBER_DATA_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 November 2007
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int *c;
+  int f;
+  int i;
+  int n_data;
+  int order;
+
+  printf ( "\n" );
+  printf ( "FROBENIUS_NUMBER_DATA_VALUES_TEST:\n" );
   printf ( "  FROBENIUS_NUMBER_DATA_VALUES returns the corresponding\n" );
   printf ( "  coin denominations.\n" );
 
@@ -5764,7 +6231,7 @@ void test0756 ( void )
       break;
     }
 
-    c = malloc ( order * sizeof ( int ) );
+    c = ( int * ) malloc ( order * sizeof ( int ) );
 
     frobenius_number_data_values ( &n_data, order, c, &f );
 
@@ -5783,13 +6250,13 @@ void test0756 ( void )
 }
 /******************************************************************************/
 
-void test076 ( void )
+void gamma_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST076 tests GAMMA_VALUES.
+    GAMMA_VALUES_TEST tests GAMMA_VALUES.
 
   Licensing:
 
@@ -5809,8 +6276,8 @@ void test076 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST076:\n" );
-  printf ( "   GAMMA_VALUES stores values of the Gamma function.\n" );
+  printf ( "GAMMA_VALUES_TEST:\n" );
+  printf ( "  GAMMA_VALUES stores values of the Gamma function.\n" );
   printf ( "\n" );
   printf ( "      X            GAMMA(X)\n" );
   printf ( "\n" );
@@ -5831,13 +6298,13 @@ void test076 ( void )
 }
 /******************************************************************************/
 
-void test077 ( void )
+void gamma_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST077 tests GAMMA_CDF_VALUES.
+    GAMMA_CDF_VALUES_TEST tests GAMMA_CDF_VALUES.
 
   Licensing:
 
@@ -5859,9 +6326,9 @@ void test077 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST077:\n" );
-  printf ( "   GAMMA_CDF_VALUES stores values of\n" );
-  printf ( "   the Gamma CDF.\n" );
+  printf ( "GAMMA_CDF_VALUES_TEST:\n" );
+  printf ( "  GAMMA_CDF_VALUES stores values of\n" );
+  printf ( "  the Gamma CDF.\n" );
   printf ( "\n" );
   printf ( "      M    Sigma      X            CDF((X)\n" );
   printf ( "\n" );
@@ -5882,13 +6349,13 @@ void test077 ( void )
 }
 /******************************************************************************/
 
-void test078 ( void )
+void gamma_inc_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST078 tests GAMMA_INC_VALUES.
+    GAMMA_INC_VALUES_TEST tests GAMMA_INC_VALUES.
 
   Licensing:
 
@@ -5909,7 +6376,7 @@ void test078 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST078:\n" );
+  printf ( "GAMMA_INC_VALUES_TEST:\n" );
   printf ( "   GAMMA_INC_VALUES stores values of\n" );
   printf ( "   the incomplete Gamma function.\n" );
   printf ( "\n" );
@@ -5930,16 +6397,165 @@ void test078 ( void )
   }
   return;
 }
-
 /******************************************************************************/
 
-void test079 ( void )
+void gamma_inc_p_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST079 tests GAMMA_LOG_VALUES.
+    GAMMA_INC_P_VALUES_TEST tests GAMMA_INC_P_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "GAMMA_INC_P_VALUES_TEST:\n" );
+  printf ( "   GAMMA_INC_P_VALUES stores values of\n" );
+  printf ( "   the incomplete Gamma P function.\n" );
+  printf ( "\n" );
+  printf ( "      A            X            F(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    gamma_inc_p_values ( &n_data, &a, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %12f  %12f  %24.16e\n", a, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void gamma_inc_q_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GAMMA_INC_Q_VALUES_TEST tests GAMMA_INC_Q_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "GAMMA_INC_Q_VALUES_TEST:\n" );
+  printf ( "   GAMMA_INC_Q_VALUES stores values of\n" );
+  printf ( "   the incomplete Gamma Q function.\n" );
+  printf ( "\n" );
+  printf ( "      A            X            F(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    gamma_inc_q_values ( &n_data, &a, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %12f  %12f  %24.16e\n", a, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void gamma_inc_tricomi_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GAMMA_INC_TRICOMI_VALUES_TEST tests GAMMA_INC_TRICOMI_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "GAMMA_INC_TRICOMI_VALUES_TEST:\n" );
+  printf ( "   GAMMA_INC_TRICOMI_VALUES stores values of\n" );
+  printf ( "   the incomplete Tricomi Gamma function.\n" );
+  printf ( "\n" );
+  printf ( "      A            X            F(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    gamma_inc_tricomi_values ( &n_data, &a, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %12f  %12f  %24.16e\n", a, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void gamma_log_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GAMMA_LOG_VALUES_TEST tests GAMMA_LOG_VALUES.
 
   Licensing:
 
@@ -5959,9 +6575,9 @@ void test079 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST079:\n" );
-  printf ( "   GAMMA_LOG_VALUES stores values of\n" );
-  printf ( "   the logarithm of the Gamma function.\n" );
+  printf ( "GAMMA_LOG_VALUES_TEST:\n" );
+  printf ( "  GAMMA_LOG_VALUES stores values of\n" );
+  printf ( "  the logarithm of the Gamma function.\n" );
   printf ( "\n" );
   printf ( "      X            GAMMA_LOG(X)\n" );
   printf ( "\n" );
@@ -5982,13 +6598,13 @@ void test079 ( void )
 }
 /******************************************************************************/
 
-void test080 ( void )
+void gegenbauer_poly_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST080 tests GEGENBAUER_POLY_VALUES.
+    GEGENBAUER_POLY_VALUES_TEST tests GEGENBAUER_POLY_VALUES.
 
   Licensing:
 
@@ -6010,7 +6626,7 @@ void test080 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST080:\n" );
+  printf ( "GEGENBAUER_POLY_VALUES_TEST:\n" );
   printf ( "  GEGENBAUER_POLY_VALUES returns values of\n" );
   printf ( "  the Gegenbauer polynomials.\n" );
   printf ( "\n" );
@@ -6034,13 +6650,13 @@ void test080 ( void )
 }
 /******************************************************************************/
 
-void test081 ( void )
+void geometric_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST081 tests GEOMETRIC_CDF_VALUES.
+    GEOMETRIC_CDF_VALUES_TEST tests GEOMETRIC_CDF_VALUES.
 
   Licensing:
 
@@ -6061,9 +6677,9 @@ void test081 ( void )
   int x;
 
   printf ( "\n" );
-  printf ( " TEST081:\n" );
-  printf ( "   GEOMETRIC_CDF_VALUES stores values of\n" );
-  printf ( "   the Geometric Probability Cumulative Density Function.\n" );
+  printf ( "GEOMETRIC_CDF_VALUES_TEST:\n" );
+  printf ( "  GEOMETRIC_CDF_VALUES stores values of\n" );
+  printf ( "  the Geometric Probability Cumulative Density Function.\n" );
   printf ( "\n" );
   printf ( "      X      P       CDF\n" );
   printf ( "\n" );
@@ -6084,13 +6700,13 @@ void test081 ( void )
 }
 /******************************************************************************/
 
-void test082 ( void )
+void goodwin_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST082 tests GOODWIN_VALUES.
+    GOODWIN_VALUES_TEST tests GOODWIN_VALUES.
 
   Licensing:
 
@@ -6110,7 +6726,7 @@ void test082 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST082:\n" );
+  printf ( "GOODWIN_VALUES_TEST:\n" );
   printf ( "  GOODWIN_VALUES stores values of \n" );
   printf ( "  the Goodwin function.\n" );
   printf ( "\n" );
@@ -6133,13 +6749,13 @@ void test082 ( void )
 }
 /******************************************************************************/
 
-void test083 ( void )
+void gud_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST083 tests GUD_VALUES.
+    GUD_VALUES_TEST tests GUD_VALUES.
 
   Licensing:
 
@@ -6159,9 +6775,9 @@ void test083 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST083:\n" );
-  printf ( "   GUD_VALUES stores values of\n" );
-  printf ( "   the Gudermannian function.\n" );
+  printf ( "GUD_VALUES_TEST:\n" );
+  printf ( "  GUD_VALUES stores values of\n" );
+  printf ( "  the Gudermannian function.\n" );
   printf ( "\n" );
   printf ( "      X            GUD(X)\n" );
   printf ( "\n" );
@@ -6182,13 +6798,13 @@ void test083 ( void )
 }
 /******************************************************************************/
 
-void test0835 ( void )
+void hermite_function_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0835 tests HERMITE_FUNCTION_VALUES.
+    HERMITE_FUNCTION_VALUES_TEST tests HERMITE_FUNCTION_VALUES.
 
   Licensing:
 
@@ -6209,9 +6825,9 @@ void test0835 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST0835\n" );
-  printf ( "   HERMITE_FUNCTION_VALUES stores values of\n" );
-  printf ( "   the Hermite function.\n" );
+  printf ( "HERMITE_FUNCTION_VALUES_TEST\n" );
+  printf ( "  HERMITE_FUNCTION_VALUES stores values of\n" );
+  printf ( "  the Hermite function.\n" );
   printf ( "\n" );
   printf ( "     N      X            Hf(N,X)\n" );
   printf ( "\n" );
@@ -6232,13 +6848,13 @@ void test0835 ( void )
 }
 /******************************************************************************/
 
-void test084 ( void )
+void hermite_poly_phys_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST084 tests HERMITE_POLY_PHYS_VALUES.
+    HERMITE_POLY_PHYS_VALUES_TEST tests HERMITE_POLY_PHYS_VALUES.
 
   Licensing:
 
@@ -6259,9 +6875,9 @@ void test084 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST084\n" );
-  printf ( "   HERMITE_POLY_PHYS_VALUES stores values of\n" );
-  printf ( "   the physicist's Hermite polynomials.\n" );
+  printf ( "HERMITE_POLY_PHYS_VALUES_TEST\n" );
+  printf ( "  HERMITE_POLY_PHYS_VALUES stores values of\n" );
+  printf ( "  the physicist's Hermite polynomials.\n" );
   printf ( "\n" );
   printf ( "     N      X            H(N,X)\n" );
   printf ( "\n" );
@@ -6282,13 +6898,13 @@ void test084 ( void )
 }
 /******************************************************************************/
 
-void test0843 ( void )
+void hermite_poly_prob_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0843 tests HERMITE_POLY_PROB_VALUES.
+    HERMITE_POLY_PROB_VALUES_TEST tests HERMITE_POLY_PROB_VALUES.
 
   Licensing:
 
@@ -6309,9 +6925,9 @@ void test0843 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST0843\n" );
-  printf ( "   HERMITE_POLY_PROB_VALUES stores values of\n" );
-  printf ( "   the probabilist's Hermite polynomials.\n" );
+  printf ( "HERMITE_POLY_PROB_VALUES_TEST\n" );
+  printf ( "  HERMITE_POLY_PROB_VALUES stores values of\n" );
+  printf ( "  the probabilist's Hermite polynomials.\n" );
   printf ( "\n" );
   printf ( "     N      X            He(N,X)\n" );
   printf ( "\n" );
@@ -6332,13 +6948,64 @@ void test0843 ( void )
 }
 /******************************************************************************/
 
-void test0845 ( void )
+void hyper_1f1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0845 tests HYPER_2F1_VALUES.
+    HYPER_1F1_VALUES_TEST tests HYPER_1F1_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "HYPER_1F1_VALUES_TEST:\n" );
+  printf ( "  HYPER_1F1_VALUES stores values of\n" );
+  printf ( "  the hypergeometric function 1F1.\n" );
+  printf ( "\n" );
+  printf ( "      A      B      X   Hyper_1F1(A,B,C,X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    hyper_1f1_values ( &n_data, &a, &b, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8f  %8f  %8f  %24.16e\n", a, b,x, fx ); 
+  }
+  return;
+}
+/******************************************************************************/
+
+void hyper_2f1_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    HYPER_2F1_VALUES_TEST tests HYPER_2F1_VALUES.
 
   Licensing:
 
@@ -6361,9 +7028,9 @@ void test0845 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( " TEST0845:\n" );
-  printf ( "   HYPER_2F1_VALUES stores values of\n" );
-  printf ( "   the hypergeometric function 2F1.\n" );
+  printf ( "HYPER_2F1_VALUES_TEST:\n" );
+  printf ( "  HYPER_2F1_VALUES stores values of\n" );
+  printf ( "  the hypergeometric function 2F1.\n" );
   printf ( "\n" );
   printf ( "      A      B     C      X   Hyper_2F1(A,B,C,X)\n" );
   printf ( "\n" );
@@ -6384,13 +7051,13 @@ void test0845 ( void )
 }
 /******************************************************************************/
 
-void test085 ( void )
+void hypergeometric_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST085 tests HYPERGEOMETRIC_CDF_VALUES.
+    HYPERGEOMETRIC_CDF_VALUES_TEST tests HYPERGEOMETRIC_CDF_VALUES.
 
   Licensing:
 
@@ -6413,9 +7080,9 @@ void test085 ( void )
   int x;
 
   printf ( "\n" );
-  printf ( " TEST085:\n" );
-  printf ( "   HYPERGEOMETRIC_CDF_VALUES stores values of\n" );
-  printf ( "   the Hypergeometric CDF.\n" );
+  printf ( "HYPERGEOMETRIC_CDF_VALUES_TEST:\n" );
+  printf ( "  HYPERGEOMETRIC_CDF_VALUES stores values of\n" );
+  printf ( "  the Hypergeometric CDF.\n" );
   printf ( "\n" );
   printf ( "     SAM    SUC   POP     X   HyperCDF(S,S,P)(X)\n" );
   printf ( "\n" );
@@ -6436,13 +7103,13 @@ void test085 ( void )
 }
 /******************************************************************************/
 
-void test0855 ( void )
+void hypergeometric_pdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0855 tests HYPERGEOMETRIC_PDF_VALUES.
+    HYPERGEOMETRIC_PDF_VALUES_TEST tests HYPERGEOMETRIC_PDF_VALUES.
 
   Licensing:
 
@@ -6465,9 +7132,9 @@ void test0855 ( void )
   int x;
 
   printf ( "\n" );
-  printf ( " TEST0855:\n" );
-  printf ( "   HYPERGEOMETRIC_PDF_VALUES stores values of\n" );
-  printf ( "   the Hypergeometric PDF.\n" );
+  printf ( "HYPERGEOMETRIC_PDF_VALUES_TEST:\n" );
+  printf ( "  HYPERGEOMETRIC_PDF_VALUES stores values of\n" );
+  printf ( "  the Hypergeometric PDF.\n" );
   printf ( "\n" );
   printf ( "     SAM    SUC   POP     X   HyperPDF(S,S,P)(X)\n" );
   printf ( "\n" );
@@ -6488,13 +7155,13 @@ void test0855 ( void )
 }
 /******************************************************************************/
 
-void test086 ( void )
+void hypergeometric_u_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST086 tests FACTORIAL_VALUES.
+    HYPERGEOMETRIC_U_VALUES_TEST tests HYPERGEOMETRIC_U_VALUES.
 
   Licensing:
 
@@ -6502,147 +7169,50 @@ void test086 ( void )
 
   Modified:
 
-    21 March 2007
+    29 January 2015
 
   Author:
 
     John Burkardt
 */
 {
-  int fn;
-  int n;
+  double a;
+  double b;
+  double fx;
   int n_data;
+  double x;
 
   printf ( "\n" );
-  printf ( " TEST086:\n" );
-  printf ( "   FACTORIAL_VALUES return;s values of\n" );
-  printf ( "   the factorial function.\n" );
+  printf ( "HYPERGEOMETRIC_U_VALUES_TEST:\n" );
+  printf ( "  HYPERGEOMETRIC_U_VALUES stores values of\n" );
+  printf ( "  the hypergeometric function 1U.\n" );
   printf ( "\n" );
-  printf ( "      N         Factorial(N)\n" );
+  printf ( "      A      B      X   HyperU(A,B,C,X)\n" );
   printf ( "\n" );
 
   n_data = 0;
 
   for ( ; ; )
   {
-    factorial_values ( &n_data, &n, &fn );
+    hypergeometric_u_values ( &n_data, &a, &b, &x, &fx );
 
     if ( n_data == 0 )
     {
       break;
     }
-    printf ( "  %6d  %12d\n", n, fn );
+    printf ( "  %8f  %8f  %8f  %24.16e\n", a, b,x, fx ); 
   }
   return;
 }
 /******************************************************************************/
 
-void test087 ( void )
+void i0ml0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST087 tests FACTORIAL2_VALUES.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    12 June 2007
-
-  Author:
-
-    John Burkardt
-*/
-{
-  int fn;
-  int n;
-  int n_data;
-
-  printf ( "\n" );
-  printf ( " TEST087:\n" );
-  printf ( "   FACTORIAL2_VALUES return;s values of\n" );
-  printf ( "   the double factorial function.\n" );
-  printf ( "\n" );
-  printf ( "      N         DoubleFactorial(N)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    factorial2_values ( &n_data, &n, &fn );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-    printf ( "  %6d  %12d\n", n, fn );
-  }
-  return;
-}
-/******************************************************************************/
-
-void test088 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST088 tests FACTORIAL_RISING_VALUES.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    17 January 2012
-
-  Author:
-
-    John Burkardt
-*/
-{
-  int fmn;
-  int m;
-  int n;
-  int n_data;
-
-  printf ( "\n" );
-  printf ( "TEST088:\n" );
-  printf ( "  FACTORIAL_RISING_VALUES returns some exact values\n" );
-  printf ( "  of the Pochhammer symbol:\n" );
-  printf ( "\n" );
-  printf ( "     M     N      Factorial_rising(M,N)\n" );
-  printf ( "\n" );
-
-  n_data = 0;
-
-  for ( ; ; )
-  {
-    factorial_rising_values ( &n_data, &m, &n, &fmn );
-
-    if ( n_data == 0 )
-    {
-      break;
-    }
-    printf ( "  %6d  %6d  %12d\n", m, n, fmn );
-  }
-  return;
-}
-/******************************************************************************/
-
-void test089 ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TEST089 tests I0ML0_VALUES.
+    I0ML0_VALUES_TEST tests I0ML0_VALUES.
 
   Licensing:
 
@@ -6662,7 +7232,7 @@ void test089 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST089:\n" );
+  printf ( "I0ML0_VALUES_TEST:\n" );
   printf ( "  I0ML0_VALUES stores values of \n" );
   printf ( "  the I0-L0 function.\n" );
   printf ( "\n" );
@@ -6685,13 +7255,13 @@ void test089 ( void )
 }
 /******************************************************************************/
 
-void test090 ( void )
+void i1ml1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST090 tests I1ML1_VALUES.
+    I1ML1_VALUES_TEST tests I1ML1_VALUES.
 
   Licensing:
 
@@ -6711,7 +7281,7 @@ void test090 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST090:\n" );
+  printf ( "I1ML1_VALUES_TEST:\n" );
   printf ( "  I1ML1_VALUES stores values of \n" );
   printf ( "  the I1-L1 function.\n" );
   printf ( "\n" );
@@ -6734,13 +7304,259 @@ void test090 ( void )
 }
 /******************************************************************************/
 
-void test091 ( void )
+void i4_factorial_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST091 tests JACOBI_CN_VALUES.
+    I4_FACTORIAL_VALUES_TEST tests I4_FACTORIAL_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    21 March 2007
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int fn;
+  int n;
+  int n_data;
+
+  printf ( "\n" );
+  printf ( " I4_FACTORIAL_VALUES_TEST:\n" );
+  printf ( "   I4_FACTORIAL_VALUES return;s values of\n" );
+  printf ( "   the factorial function.\n" );
+  printf ( "\n" );
+  printf ( "      N         Factorial(N)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    i4_factorial_values ( &n_data, &n, &fn );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %6d  %12d\n", n, fn );
+  }
+  return;
+}
+/******************************************************************************/
+
+void i4_factorial2_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_FACTORIAL2_VALUES_TEST tests I4_FACTORIAL2_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 June 2007
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int fn;
+  int n;
+  int n_data;
+
+  printf ( "\n" );
+  printf ( " I4_FACTORIAL2_VALUES_TEST:\n" );
+  printf ( "   I4_FACTORIAL2_VALUES return;s values of\n" );
+  printf ( "   the double factorial function.\n" );
+  printf ( "\n" );
+  printf ( "      N         DoubleFactorial(N)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    i4_factorial2_values ( &n_data, &n, &fn );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %6d  %12d\n", n, fn );
+  }
+  return;
+}
+/******************************************************************************/
+
+void i4_fall_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_FALL_VALUES_TEST tests I4_FALL_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int fmn;
+  int m;
+  int n;
+  int n_data;
+
+  printf ( "\n" );
+  printf ( "I4_FALL_VALUES_TEST:\n" );
+  printf ( "  I4_FALL_VALUES returns some exact values\n" );
+  printf ( "  of the falling factorial function:\n" );
+  printf ( "\n" );
+  printf ( "     M     N      I4_FALL(M,N)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    i4_fall_values ( &n_data, &m, &n, &fmn );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %6d  %6d  %12d\n", m, n, fmn );
+  }
+  return;
+}
+/******************************************************************************/
+
+void i4_rise_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4_RISE_VALUES_TEST tests I4_RISE_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int fmn;
+  int m;
+  int n;
+  int n_data;
+
+  printf ( "\n" );
+  printf ( "I4_RISE_VALUES_TEST:\n" );
+  printf ( "  I4_RISE_VALUES returns some exact values\n" );
+  printf ( "  of the rising factorial function:\n" );
+  printf ( "\n" );
+  printf ( "     M     N      I4_RISE(M,N)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    i4_rise_values ( &n_data, &m, &n, &fmn );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %6d  %6d  %12d\n", m, n, fmn );
+  }
+  return;
+}
+/******************************************************************************/
+
+void int_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    INT_VALUES_TEST tests INT_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "INT_VALUES_TEST:\n" );
+  printf ( "  INT_VALUES stores values of the integer part of a real number.\n" );
+  printf ( "\n" );
+  printf ( "      X            INT(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    int_values ( &n_data, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %12e  %12e\n", x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void jacobi_cn_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    JACOBI_CN_VALUES_TEST tests JACOBI_CN_VALUES.
 
   Licensing:
 
@@ -6761,7 +7577,7 @@ void test091 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST091:\n" );
+  printf ( "JACOBI_CN_VALUES_TEST:\n" );
   printf ( "  JACOBI_CN_VALUES returns values of \n" );
   printf ( "  the Jacobi elliptic CN function.\n" );
   printf ( "\n" );
@@ -6784,13 +7600,13 @@ void test091 ( void )
 }
 /******************************************************************************/
 
-void test092 ( void )
+void jacobi_dn_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST092 tests JACOBI_DN_VALUES.
+    JACOBI_DN_VALUES_TEST tests JACOBI_DN_VALUES.
 
   Licensing:
 
@@ -6811,7 +7627,7 @@ void test092 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST092:\n" );
+  printf ( "JACOBI_DN_VALUES_TEST:\n" );
   printf ( "  JACOBI_DN_VALUES returns values of \n" );
   printf ( "  the Jacobi elliptic DN function.\n" );
   printf ( "\n" );
@@ -6834,13 +7650,13 @@ void test092 ( void )
 }
 /******************************************************************************/
 
-void test093 ( void )
+void jacobi_poly_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST093 tests JACOBI_POLY_VALUES.
+    JACOBI_POLY_VALUES_TEST tests JACOBI_POLY_VALUES.
 
   Licensing:
 
@@ -6863,7 +7679,7 @@ void test093 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST093:\n" );
+  printf ( "JACOBI_POLY_VALUES_TEST:\n" );
   printf ( "  JACOBI_POLY_VALUES returns values of\n" );
   printf ( "  the Jacobi polynomial.\n" );
   printf ( "\n" );
@@ -6887,13 +7703,13 @@ void test093 ( void )
 }
 /******************************************************************************/
 
-void test094 ( void )
+void jacobi_sn_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST094 tests JACOBI_SN_VALUES.
+    JACOBI_SN_VALUES_TEST tests JACOBI_SN_VALUES.
 
   Licensing:
 
@@ -6914,7 +7730,7 @@ void test094 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST094:\n" );
+  printf ( "JACOBI_SN_VALUES_TEST:\n" );
   printf ( "  JACOBI_SN_VALUES returns values of \n" );
   printf ( "  the Jacobi elliptic SN function.\n" );
   printf ( "\n" );
@@ -6937,13 +7753,13 @@ void test094 ( void )
 }
 /******************************************************************************/
 
-void test0945 ( void )
+void jed_ce_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0945 tests JED_CE_VALUES.
+    JED_CE_VALUES_TEST tests JED_CE_VALUES.
 
   Licensing:
 
@@ -6966,7 +7782,7 @@ void test0945 ( void )
   int y;
 
   printf ( "\n" );
-  printf ( "TEST0945:\n" );
+  printf ( "JED_CE_VALUES_TEST:\n" );
   printf ( "  JED_CE_VALUES returns:\n" );
   printf ( "  JED, a Julian Ephemeris Date, and\n" );
   printf ( "  YMDF, the corresponding year, month, day, fraction.\n" );
@@ -6990,13 +7806,13 @@ void test0945 ( void )
 }
 /******************************************************************************/
 
-void test095 ( void )
+void jed_mjd_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST095 tests JED_MJD_VALUES.
+    JED_MJD_VALUES_TEST tests JED_MJD_VALUES.
 
   Licensing:
 
@@ -7016,7 +7832,7 @@ void test095 ( void )
   double mjd;
 
   printf ( "\n" );
-  printf ( "TEST095:\n" );
+  printf ( "JED_MJD_VALUES_TEST:\n" );
   printf ( "  JED_MJD_VALUES returns:\n" );
   printf ( "  JED, a Julian Ephemeris Date, and\n" );
   printf ( "  MJD, the corresponding Modified Julian Day count.\n" );
@@ -7040,13 +7856,13 @@ void test095 ( void )
 }
 /******************************************************************************/
 
-void test096 ( void )
+void jed_rd_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST096 tests JED_RD_VALUES.
+    JED_RD_VALUES_TEST tests JED_RD_VALUES.
 
   Licensing:
 
@@ -7066,7 +7882,7 @@ void test096 ( void )
   double rd;
 
   printf ( "\n" );
-  printf ( "TEST096:\n" );
+  printf ( "JED_RD_VALUES_TEST:\n" );
   printf ( "  JED_RD_VALUES returns:\n" );
   printf ( "  JED, a Julian Ephemeris Date, and\n" );
   printf ( "  RD, the corresponding Reingold Dershowitz Day count.\n" );
@@ -7090,13 +7906,13 @@ void test096 ( void )
 }
 /******************************************************************************/
 
-void test097 ( void )
+void jed_weekday_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST097 tests JED_WEEKDAY_VALUES.
+    JED_WEEKDAY_VALUE_TEST tests JED_WEEKDAY_VALUES.
 
   Licensing:
 
@@ -7116,7 +7932,7 @@ void test097 ( void )
   int weekday;
 
   printf ( "\n" );
-  printf ( "TEST097:\n" );
+  printf ( "JED_WEEKDAY_VALUES_TEST:\n" );
   printf ( "  JED_WEEKDAY_VALUES returns Julian Ephemeris Dates \n" );
   printf ( "  (JED) and the corresponding weekday\n" );
   printf ( "\n" );
@@ -7139,13 +7955,13 @@ void test097 ( void )
 }
 /******************************************************************************/
 
-void test0972 ( void )
+void kei0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0972 tests KEI0_VALUES.
+    KEI0_VALUES_TEST tests KEI0_VALUES.
 
   Licensing:
 
@@ -7165,7 +7981,7 @@ void test0972 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0972:\n" );
+  printf ( "KEI0_VALUES_TEST:\n" );
   printf ( "  KEI0_VALUES stores values of \n" );
   printf ( "  the Kelvin function KEI of order 0.\n" );
   printf ( "\n" );
@@ -7188,13 +8004,13 @@ void test0972 ( void )
 }
 /******************************************************************************/
 
-void test0973 ( void )
+void kei1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0973 tests KEI1_VALUES.
+    KEI1_VALUES_TEST tests KEI1_VALUES.
 
   Licensing:
 
@@ -7214,7 +8030,7 @@ void test0973 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0973:\n" );
+  printf ( "KEI1_VALUES_TEST:\n" );
   printf ( "  KEI1_VALUES stores values of \n" );
   printf ( "  the Kelvin function KEI of order 1.\n" );
   printf ( "\n" );
@@ -7237,13 +8053,13 @@ void test0973 ( void )
 }
 /******************************************************************************/
 
-void test0974 ( void )
+void ker0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0974 tests KER0_VALUES.
+    KER0_VALUES_TEST tests KER0_VALUES.
 
   Licensing:
 
@@ -7263,7 +8079,7 @@ void test0974 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0974:\n" );
+  printf ( "KER0_VALUES_TEST:\n" );
   printf ( "  KER0_VALUES stores values of \n" );
   printf ( "  the Kelvin function KER of order 0.\n" );
   printf ( "\n" );
@@ -7286,13 +8102,13 @@ void test0974 ( void )
 }
 /******************************************************************************/
 
-void test0975 ( void )
+void ker1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0975 tests KER1_VALUES.
+    KER1_VALUES_TEST tests KER1_VALUES.
 
   Licensing:
 
@@ -7312,7 +8128,7 @@ void test0975 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0975:\n" );
+  printf ( "KER1_VALUES_TEST:\n" );
   printf ( "  KER1_VALUES stores values of \n" );
   printf ( "  the Kelvin function KER of order 1.\n" );
   printf ( "\n" );
@@ -7335,13 +8151,13 @@ void test0975 ( void )
 }
 /******************************************************************************/
 
-void test098 ( void )
+void laguerre_associated_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST098 tests LAGUERRE_ASSOCIATED_VALUES.
+    LAGUERRE_ASSOCIATED_VALUES_TEST tests LAGUERRE_ASSOCIATED_VALUES.
 
   Licensing:
 
@@ -7363,7 +8179,7 @@ void test098 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST098:\n" );
+  printf ( "LAGUERRE_ASSOCIATED_VALUES_TEST:\n" );
   printf ( "  LAGUERRE_ASSOCIATED_VALUES stores values of\n" );
   printf ( "  the associated Laguerre polynomials.\n" );
   printf ( "\n" );
@@ -7386,13 +8202,64 @@ void test098 ( void )
 }
 /******************************************************************************/
 
-void test099 ( void )
+void laguerre_general_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST099 tests LAGUERRE_POLYNOMIAL_VALUES.
+    LAGUERRE_GENERAL_VALUES_TEST tests LAGUERRE_GENERAL_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double fx;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "LAGUERRE_GENERAL_VALUES_TEST:\n" );
+  printf ( "  LAGUERRE_GENERAL_VALUES stores values of\n" );
+  printf ( "  the generalized Laguerre function.\n" );
+  printf ( "\n" );
+  printf ( "     N     A    X             L(N,A)(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    laguerre_general_values ( &n_data, &n, &a, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %6d  %%12.4f  %12f  %24.16e\n", n, a, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void laguerre_polynomial_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LAGUERRE_POLYNOMIAL_VALUES_TEST tests LAGUERRE_POLYNOMIAL_VALUES.
 
   Licensing:
 
@@ -7413,7 +8280,7 @@ void test099 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST099:\n" );
+  printf ( "LAGUERRE_POLYNOMIAL_VALUES_TEST:\n" );
   printf ( "  LAGUERRE_POLYNOMIAL_VALUES stores values of \n" );
   printf ( "  the Laguerre polynomials.\n" );
   printf ( "\n" );
@@ -7436,13 +8303,13 @@ void test099 ( void )
 }
 /******************************************************************************/
 
-void test0995 ( void )
+void lambert_w_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0995 tests LAMBERT_W_VALUES.
+    LAMBERT_W_VALUES_TEST tests LAMBERT_W_VALUES.
 
   Licensing:
 
@@ -7462,7 +8329,7 @@ void test0995 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST0995:\n" );
+  printf ( "LAMBERT_W_VALUES_TEST:\n" );
   printf ( "  LAMBERT_W_VALUES stores values of \n" );
   printf ( "  the Lambert W function.\n" );
   printf ( "\n" );
@@ -7485,13 +8352,13 @@ void test0995 ( void )
 }
 /******************************************************************************/
 
-void test100 ( void )
+void laplace_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST100 tests LAPLACE_CDF_VALUES.
+    LAPLACE_CDF_VALUES_TEST tests LAPLACE_CDF_VALUES.
 
   Licensing:
 
@@ -7513,7 +8380,7 @@ void test100 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST100:\n" );
+  printf ( "LAPLACE_CDF_VALUES_TEST:\n" );
   printf ( "  LAPLACE_CDF_VALUES returns values of \n" );
   printf ( "  the Laplace Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -7536,13 +8403,17 @@ void test100 ( void )
 }
 /******************************************************************************/
 
-void test101 ( void )
+void legendre_associated_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST101 tests LEGENDRE_ASSOCIATED_VALUES.
+    LEGENDRE_ASSOCIATED_VALUES_TEST tests LEGENDRE_ASSOCIATED_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7560,7 +8431,7 @@ void test101 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST101:\n" );
+  printf ( "LEGENDRE_ASSOCIATED_VALUES_TEST:\n" );
   printf ( "  LEGENDRE_ASSOCIATED_VALUES stores values of\n" );
   printf ( "  the associated Legendre polynomials.\n" );
   printf ( "\n" );
@@ -7583,13 +8454,17 @@ void test101 ( void )
 }
 /******************************************************************************/
 
-void test1015 ( void )
+void legendre_associated_normalized_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1015 tests LEGENDRE_ASSOCIATED_NORMALIZED_VALUES.
+    LEGENDRE_ASSOCIATED_NORMALIZED_VALUES_TEST tests LEGENDRE_ASSOCIATED_NORMALIZED_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7607,7 +8482,7 @@ void test1015 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1015:\n" );
+  printf ( "LEGENDRE_ASSOCIATED_NORMALIZED_VALUES_TEST:\n" );
   printf ( "  LEGENDRE_ASSOCIATED_NORMALIZED_VALUES stores values of\n" );
   printf ( "  the normalized associated Legendre polynomials.\n" );
   printf ( "\n" );
@@ -7630,13 +8505,17 @@ void test1015 ( void )
 }
 /******************************************************************************/
 
-void test1016 ( void )
+void legendre_associated_normalized_sphere_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1016 tests LEGENDRE_ASSOCIATED_NORMALIZED_SPHERE_VALUES.
+    LEGENDRE_ASSOCIATED_NORMALIZED_SPHERE_VALUES_TEST tests LEGENDRE_ASSOCIATED_NORMALIZED_SPHERE_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7654,7 +8533,7 @@ void test1016 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1016:\n" );
+  printf ( "LEGENDRE_ASSOCIATED_NORMALIZED_SPHERE_VALUES_TEST:\n" );
   printf ( "  LEGENDRE_ASSOCIATED_NORMALIZED_SPHERE_VALUES stores values of\n" );
   printf ( "  the associated Legendre polynomials normalized for the unit sphere.\n" );
   printf ( "\n" );
@@ -7677,13 +8556,17 @@ void test1016 ( void )
 }
 /******************************************************************************/
 
-void test102 ( void )
+void legendre_poly_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST102 tests LEGENDRE_POLY_VALUES.
+    LEGENDRE_POLY_VALUES_TEST tests LEGENDRE_POLY_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7700,7 +8583,7 @@ void test102 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST102:\n" );
+  printf ( "LEGENDRE_POLY_VALUES_TEST:\n" );
   printf ( "  LEGENDRE_POLY_VALUES stores values of \n" );
   printf ( "  the Legendre polynomials.\n" );
   printf ( "\n" );
@@ -7723,13 +8606,17 @@ void test102 ( void )
 }
 /******************************************************************************/
 
-void test103 ( void )
+void legendre_function_q_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST103 tests LEGENDRE_FUNCTION_Q_VALUES.
+    LEGENDRE_FUNCTION_Q_VALUES_TEST tests LEGENDRE_FUNCTION_Q_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7746,7 +8633,7 @@ void test103 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST103:\n" );
+  printf ( "LEGENDRE_FUNCTION_Q_VALUES_TEST:\n" );
   printf ( "  LEGENDRE_FUNCTION_Q_VALUES stores values of\n" );
   printf ( "  the Legendre Q function.\n" );
   printf ( "\n" );
@@ -7769,13 +8656,17 @@ void test103 ( void )
 }
 /******************************************************************************/
 
-void test1035 ( void )
+void lerch_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1035 tests LERCH_VALUES.
+    LERCH_VALUES_TEST tests LERCH_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7793,7 +8684,7 @@ void test1035 ( void )
   double z;
 
   printf ( "\n" );
-  printf ( "TEST1035:\n" );
+  printf ( "LERCH_VALUES_TEST:\n" );
   printf ( "  LERCH_VALUES returns values of\n" );
   printf ( "  the Lerch transcendent function.\n" );
   printf ( "\n" );
@@ -7816,13 +8707,17 @@ void test1035 ( void )
 }
 /******************************************************************************/
 
-void test104 ( void )
+void lobachevsky_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST104 tests LOBACHEVSKY_VALUES.
+    LOBACHEVSKY_VALUES_TEST tests LOBACHEVSKY_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7838,7 +8733,7 @@ void test104 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST104:\n" );
+  printf ( "LOBACHEVSKY_VALUES_TEST:\n" );
   printf ( "  LOBACHEVSKY_VALUES stores values of \n" );
   printf ( "  the Lobachevsky function.\n" );
   printf ( "\n" );
@@ -7861,13 +8756,117 @@ void test104 ( void )
 }
 /******************************************************************************/
 
-void test1037 ( void )
+void lobatto_polynomial_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1037 tests LOG_VALUES.
+    LOBATTO_POLYNOMIAL_VALUES_TEST tests LOBATTO_POLYNOMIAL_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 May 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "LOBATTO_POLYNOMIAL_VALUES_TEST:\n" );
+  printf ( "  LOBATTO_POLYNOMIAL_VALUES stores values of \n" );
+  printf ( "  the completed Lobatto polynomials.\n" );
+  printf ( "\n" );
+  printf ( "     N    X            Lo(N)(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    lobatto_polynomial_values ( &n_data, &n, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %6d  %12e  %24.16e\n", n, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void lobatto_polynomial_derivatives_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LOBATTO_POLYNOMIAL_DERIVATIVES_TEST tests LOBATTO_POLYNOMIAL_DERIVATIVES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    18 November 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "LOBATTO_POLYNOMIAL_DERIVATIVES_TEST:\n" );
+  printf ( "  LOBATTO_POLYNOMIAL_DERIVATIVES stores derivatives of \n" );
+  printf ( "  the completed Lobatto polynomials.\n" );
+  printf ( "\n" );
+  printf ( "     N    X            Lo'(N)(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    lobatto_polynomial_derivatives ( &n_data, &n, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %6d  %12e  %24.16e\n", n, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void log_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LOG_VALUES_TEST tests LOG_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7883,7 +8882,7 @@ void test1037 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1037:\n" );
+  printf ( "LOG_VALUES_TEST:\n" );
   printf ( "   LOG_VALUES stores values of the natural logarithm function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -7905,13 +8904,17 @@ void test1037 ( void )
 }
 /******************************************************************************/
 
-void test105 ( void )
+void log_normal_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST105 tests LOG_NORMAL_CDF_VALUES.
+    LOG_NORMAL_CDF_VALUES_TEST tests LOG_NORMAL_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7929,7 +8932,7 @@ void test105 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST105:\n" );
+  printf ( "LOG_NORMAL_CDF_VALUES_TEST:\n" );
   printf ( "  LOG_NORMAL_CDF_VALUES returns values of \n" );
   printf ( "  the Log Normal Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -7952,13 +8955,17 @@ void test105 ( void )
 }
 /******************************************************************************/
 
-void test106 ( void )
+void log_series_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST106 tests LOG_SERIES_CDF_VALUES.
+    LOG_SERIES_CDF_VALUES_TEST tests LOG_SERIES_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -7975,7 +8982,7 @@ void test106 ( void )
   double t;
 
   printf ( "\n" );
-  printf ( "TEST106:\n" );
+  printf ( "LOG_SERIES_CDF_VALUES_TEST:\n" );
   printf ( "  LOG_SERIES_CDF_VALUES returns values of \n" );
   printf ( "  the Log Series Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -7998,13 +9005,65 @@ void test106 ( void )
 }
 /******************************************************************************/
 
-void test107 ( void )
+void log10_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST107 tests LOGARITHMIC_INTEGRAL_VALUES.
+    LOG10_VALUES_TEST tests LOG10_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    22 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "LOG10_VALUES_TEST:\n" );
+  printf ( "   LOG10_VALUES stores values of the natural logarithm function.\n" );
+  printf ( "\n" );
+  printf ( "                X                     FX\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    log10_values ( &n_data, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %24.16e  %24.16e\n", x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void logarithmic_integral_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    LOGARITHMIC_INTEGRAL_VALUES_TEST tests LOGARITHMIC_INTEGRAL_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8020,7 +9079,7 @@ void test107 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST107:\n" );
+  printf ( "LOGARITHMIC_INTEGRAL_VALUES_TEST:\n" );
   printf ( "  LOGARITHMIC_INTEGAL_VALUES stores values of\n" );
   printf ( "  the logarithmic integral function.\n" );
   printf ( "\n" );
@@ -8043,13 +9102,17 @@ void test107 ( void )
 }
 /******************************************************************************/
 
-void test108 ( void )
+void logistic_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST108 tests LOGISTIC_CDF_VALUES.
+    LOGISTIC_CDF_VALUES_TEST tests LOGISTIC_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8067,7 +9130,7 @@ void test108 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST108:\n" );
+  printf ( "LOGISTIC_CDF_VALUES_TEST:\n" );
   printf ( "  LOGISTIC_CDF_VALUES returns values of \n" );
   printf ( "  the Logistic Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -8090,13 +9153,17 @@ void test108 ( void )
 }
 /******************************************************************************/
 
-void test10875 ( void )
+void mertens_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST10875 tests MERTENS_VALUES.
+    MERTENS_VALUES_TEST tests MERTENS_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8112,7 +9179,7 @@ void test10875 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST10875:\n" );
+  printf ( "MERTENS_VALUES_TEST:\n" );
   printf ( "  MERTENS_VALUES returns values of\n" );
   printf ( "  the Mertens function.\n" );
   printf ( "\n" );
@@ -8135,13 +9202,17 @@ void test10875 ( void )
 }
 /******************************************************************************/
 
-void test109 ( void )
+void moebius_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST109 tests MOEBIUS_VALUES.
+    MOEBIUS_VALUES_TEST tests MOEBIUS_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8157,7 +9228,7 @@ void test109 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST109:\n" );
+  printf ( "MOEBIUS_VALUES_TEST:\n" );
   printf ( "  MOEBIUS_VALUES returns values of\n" );
   printf ( "  the Moebius function.\n" );
   printf ( "\n" );
@@ -8180,13 +9251,17 @@ void test109 ( void )
 }
 /******************************************************************************/
 
-void test110 ( void )
+void negative_binomial_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST110 tests NEGATIVE_BINOMIAL_CDF_VALUES.
+    NEGATIVE_BINOMIAL_CDF_VALUES_TEST tests NEGATIVE_BINOMIAL_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8204,7 +9279,7 @@ void test110 ( void )
   int s;
 
   printf ( "\n" );
-  printf ( "TEST110:\n" );
+  printf ( "NEGATIVE_BINOMIAL_CDF_VALUES_TEST:\n" );
   printf ( "  NEGATIVE_BINOMIAL_CDF_VALUES stores values of\n" );
   printf ( "  the Negative Binomial Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -8227,13 +9302,17 @@ void test110 ( void )
 }
 /******************************************************************************/
 
-void test1105 ( void )
+void nine_j_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1105 demonstrates NINE_J_VALUES.
+    NINE_J_VALUES_TEST demonstrates NINE_J_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8257,8 +9336,8 @@ void test1105 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST1105:\n" );
-  printf ( "  GSL_SF_COUPLING_9J returns values of\n" );
+  printf ( "NINE_J_VALUES_TEST:\n" );
+  printf ( "  NINE_J_VALUES returns values of\n" );
   printf ( "  the Wigner 9J coefficient.\n" );
   printf ( "\n" );
   printf ( "      J1      J2      J3      J4      J5      J6" );
@@ -8283,13 +9362,17 @@ void test1105 ( void )
 }
 /******************************************************************************/
 
-void test111 ( void )
+void normal_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST111 tests NORMAL_CDF_VALUES.
+    NORMAL_CDF_VALUES_TEST tests NORMAL_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8307,7 +9390,7 @@ void test111 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST111:\n" );
+  printf ( "NORMAL_CDF_VALUES_TEST:\n" );
   printf ( "  NORMAL_CDF_VALUES stores values of\n" );
   printf ( "  the Normal Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -8330,13 +9413,17 @@ void test111 ( void )
 }
 /******************************************************************************/
 
-void test112 ( void )
+void normal_01_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST112 tests NORMAL_01_CDF_VALUES.
+    NORMAL_01_CDF_VALUES_TEST tests NORMAL_01_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8352,7 +9439,7 @@ void test112 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST112:\n" );
+  printf ( "NORMAL_01_CDF_VALUES_TEST:\n" );
   printf ( "  NORMAL_01_CDF_VALUES stores values of\n" );
   printf ( "  the Normal 01 Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -8375,13 +9462,17 @@ void test112 ( void )
 }
 /******************************************************************************/
 
-void test113 ( void )
+void omega_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST113 tests OMEGA_VALUES.
+    OMEGA_VALUES_TEST tests OMEGA_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8397,7 +9488,7 @@ void test113 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST113:\n" );
+  printf ( "OMEGA_VALUES_TEST:\n" );
   printf ( "  OMEGA_VALUES returns values of\n" );
   printf ( "  the Omega function.\n" );
   printf ( "\n" );
@@ -8420,13 +9511,17 @@ void test113 ( void )
 }
 /******************************************************************************/
 
-void test1135 ( void )
+void owen_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST1135 tests OWEN_VALUES.
+    OWEN_VALUES_TEST tests OWEN_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8443,7 +9538,7 @@ void test1135 ( void )
   double t;
 
   printf ( "\n" );
-  printf ( "TEST1135\n" );
+  printf ( "OWEN_VALUES_TEST\n" );
   printf ( "  OWEN_VALUES stores values of\n" );
   printf ( "  Owen's T function.\n" );
   printf ( "\n" );
@@ -8466,13 +9561,17 @@ void test1135 ( void )
 }
 /******************************************************************************/
 
-void test114 ( void )
+void partition_count_values_test ( )
  
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST114 tests PARTITION_COUNT_VALUES.
+    PARTITION_COUNT_VALUES_TEST tests PARTITION_COUNT_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8488,7 +9587,7 @@ void test114 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST114:\n" );
+  printf ( "PARTITION_COUNT_VALUES_TEST:\n" );
   printf ( "  PARTITION_COUNT_VALUES returns values of \n" );
   printf ( "  the integer partition count function.\n" );
   printf ( "\n" );
@@ -8511,13 +9610,17 @@ void test114 ( void )
 }
 /******************************************************************************/
 
-void test115 ( void )
+void partition_distinct_count_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST115 tests PARTITION_DISTINCT_COUNT_VALUES.
+    PARTITION_DISTINCT_COUNT_VALUES_TEST tests PARTITION_DISTINCT_COUNT_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8533,7 +9636,7 @@ void test115 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST115:\n" );
+  printf ( "PARTITION_DISTINCT_COUNT_VALUES_TEST:\n" );
   printf ( "  PARTITION_DISTINCT_COUNT_VALUES returns values of \n" );
   printf ( "  the integer distinct partition count function.\n" );
   printf ( "\n" );
@@ -8556,13 +9659,17 @@ void test115 ( void )
 }
 /******************************************************************************/
 
-void test116 ( void )
+void phi_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST116 tests PHI_VALUES.
+    PHI_VALUES_TEST tests PHI_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8578,7 +9685,7 @@ void test116 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST116:\n" );
+  printf ( "PHI_VALUES_TEST:\n" );
   printf ( "  PHI_VALUES returns values of\n" );
   printf ( "  the PHI function.\n" );
   printf ( "\n" );
@@ -8601,13 +9708,17 @@ void test116 ( void )
 }
 /******************************************************************************/
 
-void test117 ( void )
+void pi_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST117 tests PI_VALUES.
+    PI_VALUES_TEST tests PI_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8623,7 +9734,7 @@ void test117 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST117:\n" );
+  printf ( "PI_VALUES_TEST:\n" );
   printf ( "  PI_VALUES returns values of\n" );
   printf ( "  the PI function.\n" );
   printf ( "\n" );
@@ -8646,13 +9757,17 @@ void test117 ( void )
 }
 /******************************************************************************/
 
-void test118 ( void )
+void poisson_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST118 tests POISSON_CDF_VALUES.
+    POISSON_CDF_VALUES_TEST tests POISSON_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8669,7 +9784,7 @@ void test118 ( void )
   int x;
 
   printf ( "\n" );
-  printf ( "TEST118:\n" );
+  printf ( "POISSON_CDF_VALUES_TEST:\n" );
   printf ( "  POISSON_CDF_VALUES returns values of\n" );
   printf ( "  the Poisson Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -8692,13 +9807,17 @@ void test118 ( void )
 }
 /******************************************************************************/
 
-void test1185 ( void )
+void polylogarithm_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1185 tests POLYLOGARITHM_VALUES.
+    POLYLOGARITHM_VALUES_TEST tests POLYLOGARITHM_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8715,7 +9834,7 @@ void test1185 ( void )
   double z;
 
   printf ( "\n" );
-  printf ( "TEST1185:\n" );
+  printf ( "POLYLOGARITHM_VALUES_TEST:\n" );
   printf ( "  POLYLOGARITHM_VALUES returns values of \n" );
   printf ( "  the polylogarithm function.\n" );
   printf ( "\n" );
@@ -8738,13 +9857,17 @@ void test1185 ( void )
 }
 /******************************************************************************/
 
-void test119 ( void )
+void prandtl_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST119 tests PRANDTL_VALUES.
+    PRANDTL_VALUES_TEST tests PRANDTL_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8761,7 +9884,7 @@ void test119 ( void )
   double tc;
 
   printf ( "\n" );
-  printf ( "TEST119:\n" );
+  printf ( "PRANDTL_VALUES_TEST:\n" );
   printf ( "  PRANDTL_VALUES stores values of\n" );
   printf ( "  the Prandtl number of water\n" );
   printf ( "  as a function of temperature and pressure.\n" );
@@ -8785,13 +9908,17 @@ void test119 ( void )
 }
 /******************************************************************************/
 
-void test120 ( void )
+void prime_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST120 tests PRIME_VALUES.
+    PRIME_VALUES_TEST tests PRIME_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8807,7 +9934,7 @@ void test120 ( void )
   int p;
 
   printf ( "\n" );
-  printf ( "TEST120:\n" );
+  printf ( "PRIME_VALUES_TEST:\n" );
   printf ( "  PRIME_VALUES returns values of\n" );
   printf ( "  the prime function.\n" );
   printf ( "\n" );
@@ -8831,13 +9958,17 @@ void test120 ( void )
 }
 /******************************************************************************/
 
-void test121 ( void )
+void psat_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST121 tests PSAT_VALUES.
+    PSAT_VALUES_TEST tests PSAT_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8853,7 +9984,7 @@ void test121 ( void )
   double tc;
 
   printf ( "\n" );
-  printf ( "TEST121:\n" );
+  printf ( "PSAT_VALUES_TEST:\n" );
   printf ( "  PSAT_VALUES stores values of\n" );
   printf ( "  the saturation pressure of water\n" );
   printf ( "  as a function of temperature.\n" );
@@ -8877,13 +10008,17 @@ void test121 ( void )
 }
 /******************************************************************************/
 
-void test122 ( void )
+void psi_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST122 tests PSI_VALUES.
+    PSI_VALUES_TEST tests PSI_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8899,7 +10034,7 @@ void test122 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST122\n" );
+  printf ( "PSI_VALUES_TEST\n" );
   printf ( "  PSI_VALUES stores values of\n" );
   printf ( "  the PSI function.\n" );
   printf ( "\n" );
@@ -8922,13 +10057,17 @@ void test122 ( void )
 }
 /******************************************************************************/
 
-void test123 ( void )
+void r8_factorial_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST123 tests R8_FACTORIAL_VALUES.
+    R8_FACTORIAL_VALUES_TEST tests R8_FACTORIAL_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8944,7 +10083,7 @@ void test123 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST123:\n" );
+  printf ( "R8_FACTORIAL_VALUES_TEST:\n" );
   printf ( "  R8_FACTORIAL_VALUES stores values of\n" );
   printf ( "  the factorial function (using double arithmetic).\n" );
   printf ( "\n" );
@@ -8967,13 +10106,17 @@ void test123 ( void )
 }
 /******************************************************************************/
 
-void test124 ( void )
+void r8_factorial_log_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST124 tests R8_FACTORIAL_LOG_VALUES.
+    R8_FACTORIAL_LOG_VALUES_TEST tests R8_FACTORIAL_LOG_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -8989,7 +10132,7 @@ void test124 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST124:\n" );
+  printf ( "R8_FACTORIAL_LOG_VALUES_TEST:\n" );
   printf ( "  R8_FACTORIAL_LOG_VALUES stores values of\n" );
   printf ( "  the logarithm of the factorial function\n" );
   printf ( "  (using real arithmetic).\n" );
@@ -9013,13 +10156,216 @@ void test124 ( void )
 }
 /******************************************************************************/
 
-void test125 ( void )
+void r8_factorial2_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose: 
+
+    R8_FACTORIAL2_VALUES_TEST tests R8_FACTORIAL2_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double f;
+  int n;
+  int n_data;
+
+  printf ( "\n" );
+  printf ( "R8_FACTORIAL2_VALUES_TEST:\n" );
+  printf ( "  R8_FACTORIAL2_VALUES stores values of\n" );
+  printf ( "  the double factorial function (using double arithmetic).\n" );
+  printf ( "\n" );
+  printf ( "      N               F\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    r8_factorial2_values ( &n_data, &n, &f );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %12d  %24.16e\n", n, f );
+  }
+  return;
+}
+/******************************************************************************/
+
+void r8_fall_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST125 tests SECVIR_VALUES.
+    R8_FALL_VALUES_TEST tests R8_FALL_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double f;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "R8_FALL_VALUES_TEST:\n" );
+  printf ( "  R8_FALL_VALUES returns some exact values\n" );
+  printf ( "  of the falling factorial function:\n" );
+  printf ( "\n" );
+  printf ( "     X     N      R8_FALL(X,N)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    r8_fall_values ( &n_data, &x, &n, &f );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8g  %6d  %12g\n", x, n, f );
+  }
+  return;
+}
+/******************************************************************************/
+
+void r8_rise_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_RISE_VALUES_TEST tests R8_RISE_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 December 2014
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double f;
+  int n;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "R8_RISE_VALUES_TEST:\n" );
+  printf ( "  R8_RISE_VALUES returns some exact values\n" );
+  printf ( "  of the rising factorial function:\n" );
+  printf ( "\n" );
+  printf ( "     X     N      R8_RISE(X,N)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    r8_rise_values ( &n_data, &x, &n, &f );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8g  %6d  %12g\n", x, n, f );
+  }
+  return;
+}
+/******************************************************************************/
+
+void rayleigh_cdf_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    RAYLEIGH_CDF_VALUES_TEST tests RAYLEIGH_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n_data;
+  double sigma;
+  double x;
+
+  printf ( "\n" );
+  printf ( "RAYLEIGH_CDF_VALUES_TEST:\n" );
+  printf ( "  RAYLEIGH_CDF_VALUES stores values of\n" );
+  printf ( "  the Rayleigh CDF.\n" );
+  printf ( "\n" );
+  printf ( "      SIGMA        X            CDF(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    rayleigh_cdf_values ( &n_data, &sigma, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %12f  %12f  %24.16e\n", sigma, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void secvir_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SECVIR_VALUES_TEST tests SECVIR_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9035,7 +10381,7 @@ void test125 ( void )
   double vir;
 
   printf ( "\n" );
-  printf ( "TEST125:\n" );
+  printf ( "SECVIR_VALUES_TEST:\n" );
   printf ( "  SECVIR_VALUES stores values of\n" );
   printf ( "  the second virial coefficient of water\n" );
   printf ( "  as a function of temperature.\n" );
@@ -9059,13 +10405,17 @@ void test125 ( void )
 }
 /******************************************************************************/
 
-void test1255 ( void )
+void shi_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1255 tests SHI_VALUES.
+    SHI_VALUES_TEST tests SHI_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9081,7 +10431,7 @@ void test1255 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1255:\n" );
+  printf ( "SHI_VALUES_TEST:\n" );
   printf ( "  SHI_VALUES stores values of\n" );
   printf ( "  the hyperbolic sine integral function.\n" );
   printf ( "\n" );
@@ -9104,13 +10454,17 @@ void test1255 ( void )
 }
 /******************************************************************************/
 
-void test126 ( void )
+void si_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST126 tests SI_VALUES.
+    SI_VALUES_TEST tests SI_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9126,7 +10480,7 @@ void test126 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST126:\n" );
+  printf ( "SI_VALUES_TEST:\n" );
   printf ( "  SI_VALUES stores values of\n" );
   printf ( "  the sine integral function.\n" );
   printf ( "\n" );
@@ -9149,13 +10503,17 @@ void test126 ( void )
 }
 /******************************************************************************/
 
-void test127 ( void )
+void sigma_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST127 tests SIGMA_VALUES.
+    SIGMA_VALUES_TEST tests SIGMA_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9171,7 +10529,7 @@ void test127 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST127:\n" );
+  printf ( "SIGMA_VALUES_TEST:\n" );
   printf ( "  SIGMA_VALUES returns values of\n" );
   printf ( "  the SIGMA function.\n" );
   printf ( "\n" );
@@ -9194,13 +10552,17 @@ void test127 ( void )
 }
 /******************************************************************************/
 
-void test1275 ( void )
+void sin_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1275 tests SIN_VALUES.
+    SIN_VALUES_TEST tests SIN_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9216,7 +10578,7 @@ void test1275 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1275:\n" );
+  printf ( "SIN_VALUES_TEST:\n" );
   printf ( "   SIN_VALUES stores values of the sine function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -9238,13 +10600,65 @@ void test1275 ( void )
 }
 /******************************************************************************/
 
-void test128 ( void )
+void sin_degree_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST128 tests SIN_POWER_INT_VALUES.
+    SIN_DEGREE_VALUES_TEST tests SIN_DEGREE_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    22 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double fx;
+  int n_data;
+  double x;
+
+  printf ( "\n" );
+  printf ( "SIN_DEGREE_VALUES_TEST:\n" );
+  printf ( "   SIN_DEGREE_VALUES stores values of the sine function.\n" );
+  printf ( "\n" );
+  printf ( "                X                     FX\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    sin_degree_values ( &n_data, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %24.16e  %24.16e\n", x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void sin_power_int_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    SIN_POWER_INT_VALUES_TEST tests SIN_POWER_INT_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9262,7 +10676,7 @@ void test128 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST128:\n" );
+  printf ( "SIN_POWER_INT_VALUES_TEST:\n" );
   printf ( "  SIN_POWER_INT_VALUES returns values of\n" );
   printf ( "  the integral of the N-th power of the sine function.\n" );
   printf ( "\n" );
@@ -9285,13 +10699,17 @@ void test128 ( void )
 }
 /******************************************************************************/
 
-void test1283 ( void )
+void sinh_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1283 tests SINH_VALUES.
+    SINH_VALUES_TEST tests SINH_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9307,7 +10725,7 @@ void test1283 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1283:\n" );
+  printf ( "SINH_VALUES_TEST:\n" );
   printf ( "   SINH_VALUES stores values of the hyperbolic sine function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -9329,13 +10747,17 @@ void test1283 ( void )
 }
 /******************************************************************************/
 
-void test1285 ( void )
+void six_j_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1285 tests SIX_J_VALUES.
+    SIX_J_VALUES_TEST tests SIX_J_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9356,7 +10778,7 @@ void test1285 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST1285:\n" );
+  printf ( "SIX_J_VALUES_TEST:\n" );
   printf ( "  SIX_J_VALUES returns values of \n" );
   printf ( "  the Wigner 6J coefficient.\n" );
   printf ( "\n" );
@@ -9381,13 +10803,17 @@ void test1285 ( void )
 }
 /******************************************************************************/
 
-void test129 ( void )
+void sound_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST129 tests SOUND_VALUES.
+    SOUND_VALUES_TEST tests SOUND_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9404,7 +10830,7 @@ void test129 ( void )
   double tc;
 
   printf ( "\n" );
-  printf ( "TEST129:\n" );
+  printf ( "SOUND_VALUES_TEST:\n" );
   printf ( "  SOUND_VALUES stores values of\n" );
   printf ( "  the spead of sound in water\n" );
   printf ( "  as a function of temperature and pressure.\n" );
@@ -9428,13 +10854,17 @@ void test129 ( void )
 }
 /******************************************************************************/
 
-void test131 ( void )
+void sphere_unit_area_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST131 tests SPHERE_UNIT_AREA_VALUES.
+    SPHERE_UNIT_AREA_VALUES_TEST tests SPHERE_UNIT_AREA_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9450,7 +10880,7 @@ void test131 ( void )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST131:\n" );
+  printf ( "SPHERE_UNIT_AREA_VALUES_TEST:\n" );
   printf ( "  SPHERE_UNIT_AREA_VALUES stores values of\n" );
   printf ( "  the area of the unit sphere in various dimensions.\n" );
   printf ( "\n" );
@@ -9473,13 +10903,17 @@ void test131 ( void )
 }
 /******************************************************************************/
 
-void test132 ( void )
+void sphere_unit_volume_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST132 tests SPHERE_UNIT_VOLUME_VALUES.
+    SPHERE_UNIT_VOLUME_VALUES_TEST tests SPHERE_UNIT_VOLUME_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9495,7 +10929,7 @@ void test132 ( void )
   int n;
 
   printf ( "\n" );
-  printf ( "TEST132:\n" );
+  printf ( "SPHERE_UNIT_VOLUME_VALUES_TEST:\n" );
   printf ( "  SPHERE_UNIT_VOLUME_VALUES stores values of\n" );
   printf ( "  the volume of the unit sphere in various dimensions.\n" );
   printf ( "\n" );
@@ -9518,13 +10952,17 @@ void test132 ( void )
 }
 /******************************************************************************/
 
-void test1325 ( void )
+void spherical_harmonic_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1325 tests SPHERICAL_HARMONIC_VALUES.
+    SPHERICAL_HARMONIC_VALUES_TEST tests SPHERICAL_HARMONIC_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9545,7 +10983,7 @@ void test1325 ( void )
   double yr;
 
   printf ( "\n" );
-  printf ( "TEST1325:\n" );
+  printf ( "SPHERICAL_HARMONIC_VALUES_TEST:\n" );
   printf ( "  SPHERICAL_HARMONIC_VALUES stores values of\n" );
   printf ( "  the spherical harmonic function.\n" );
   printf ( "\n" );
@@ -9569,13 +11007,17 @@ void test1325 ( void )
 }
 /******************************************************************************/
 
-void test130 ( void )
+void sqrt_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST130 tests SQRT_VALUES.
+    SQRT_VALUES_TEST tests SQRT_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9591,7 +11033,7 @@ void test130 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST130:\n" );
+  printf ( "SQRT_VALUES_TEST:\n" );
   printf ( "  SQRT_VALUES returns some exact values.\n" );
   printf ( "\n" );
   printf ( "     X       Fx\n" );
@@ -9614,13 +11056,17 @@ void test130 ( void )
 }
 /******************************************************************************/
 
-void test133 ( void )
+void stirling1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST133 tests STIRLING1_VALUES.
+    STIRLING1_VALUES_TEST tests STIRLING1_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9637,7 +11083,7 @@ void test133 ( void )
   int s1;
 
   printf ( "\n" );
-  printf ( "TEST133:\n" );
+  printf ( "STIRLING1_VALUES_TEST:\n" );
   printf ( "  STIRLING1_VALUES returns values of\n" );
   printf ( "  the Stirling numbers of the first kind.\n" );
   printf ( "\n" );
@@ -9660,13 +11106,17 @@ void test133 ( void )
 }
 /******************************************************************************/
 
-void test134 ( void )
+void stirling2_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST134 tests STIRLING2_VALUES.
+    STIRLING2_VALUES_TEST tests STIRLING2_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9683,7 +11133,7 @@ void test134 ( void )
   int s2;
 
   printf ( "\n" );
-  printf ( "TEST134:\n" );
+  printf ( "STIRLING2_VALUES_TEST:\n" );
   printf ( "  STIRLING2_VALUES returns values of\n" );
   printf ( "  the Stirling numbers of the second kind.\n" );
   printf ( "\n" );
@@ -9706,13 +11156,17 @@ void test134 ( void )
 }
 /******************************************************************************/
 
-void test135 ( void )
+void stromgen_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST135 tests STROMGEN_VALUES.
+    STROMGEN_VALUES_TEST tests STROMGEN_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9728,7 +11182,7 @@ void test135 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST135:\n" );
+  printf ( "STROMGEN_VALUES_TEST:\n" );
   printf ( "  STROMGEN_VALUES stores values of \n" );
   printf ( "  the Stromgen function.\n" );
   printf ( "\n" );
@@ -9751,13 +11205,17 @@ void test135 ( void )
 }
 /******************************************************************************/
 
-void test136 ( void )
+void struve_h0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST136 tests STRUVE_H0_VALUES.
+    STRUVE_H0_VALUES_TEST tests STRUVE_H0_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9773,7 +11231,7 @@ void test136 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST136:\n" );
+  printf ( "STRUVE_H0_VALUES_TEST:\n" );
   printf ( "  STRUVE_H0_VALUES stores values of\n" );
   printf ( "  the Struve H0 function.\n" );
   printf ( "\n" );
@@ -9796,13 +11254,17 @@ void test136 ( void )
 }
 /******************************************************************************/
 
-void test137 ( void )
+void struve_h1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST137 tests STRUVE_H1_VALUES.
+    STRUVE_H1_VALUES_TEST tests STRUVE_H1_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9818,7 +11280,7 @@ void test137 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST137:\n" );
+  printf ( "STRUVE_H1_VALUES_TEST:\n" );
   printf ( "  STRUVE_H1_VALUES stores values of\n" );
   printf ( "  the Struve H1 function.\n" );
   printf ( "\n" );
@@ -9841,13 +11303,17 @@ void test137 ( void )
 }
 /******************************************************************************/
 
-void test138 ( void )
+void struve_l0_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST138 tests STRUVE_L0_VALUES.
+    STRUVE_L0_VALUES_TEST tests STRUVE_L0_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9863,7 +11329,7 @@ void test138 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST138:\n" );
+  printf ( "STRUVE_L0_VALUES_TEST:\n" );
   printf ( "  STRUVE_L0_VALUES stores values of\n" );
   printf ( "  the Struve L0 function.\n" );
   printf ( "\n" );
@@ -9886,13 +11352,17 @@ void test138 ( void )
 }
 /******************************************************************************/
 
-void test139 ( void )
+void struve_l1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST139 tests STRUVE_L1_VALUES.
+    STRUVE_L1_VALUES_TEST tests STRUVE_L1_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
@@ -9908,7 +11378,7 @@ void test139 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST139:\n" );
+  printf ( "STRUVE_L1_VALUES_TEST:\n" );
   printf ( "  STRUVE_L1_VALUES stores values of\n" );
   printf ( "  the Struve L1 function.\n" );
   printf ( "\n" );
@@ -9931,13 +11401,13 @@ void test139 ( void )
 }
 /******************************************************************************/
 
-void test140 ( void )
+void student_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST140 tests STUDENT_CDF_VALUES.
+    STUDENT_CDF_VALUES_TEST tests STUDENT_CDF_VALUES.
 
   Licensing:
 
@@ -9958,7 +11428,7 @@ void test140 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST140:\n" );
+  printf ( "STUDENT_CDF_VALUES_TEST:\n" );
   printf ( "  STUDENT_CDF_VALUES returns values of\n" );
   printf ( "  the Student T Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -9981,13 +11451,13 @@ void test140 ( void )
 }
 /******************************************************************************/
 
-void test141 ( void )
+void student_noncentral_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST141 tests STUDENT_NONCENTRAL_CDF_VALUES.
+    STUDENT_NONCENTRAL_CDF_VALUES_TEST tests STUDENT_NONCENTRAL_CDF_VALUES.
 
   Licensing:
 
@@ -10009,7 +11479,7 @@ void test141 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST141:\n" );
+  printf ( "STUDENT_NONCENTRAL_CDF_VALUES_TEST:\n" );
   printf ( "  STUDENT_NONCENTRAL_CDF_VALUES returns values of\n" );
   printf ( "  the noncentral Student T Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -10032,13 +11502,13 @@ void test141 ( void )
 }
 /******************************************************************************/
 
-void test1415 ( void )
+void subfactorial_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1415 tests SUBFACTORIAL_VALUES.
+    SUBFACTORIAL_VALUES_TEST tests SUBFACTORIAL_VALUES.
 
   Licensing:
 
@@ -10058,9 +11528,9 @@ void test1415 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( " TEST1415:\n" );
-  printf ( "   SUBFACTORIAL_VALUES returns values of\n" );
-  printf ( "   the subfactorial function.\n" );
+  printf ( "SUBFACTORIAL_VALUES_TEST:\n" );
+  printf ( "  SUBFACTORIAL_VALUES returns values of\n" );
+  printf ( "  the subfactorial function.\n" );
   printf ( "\n" );
   printf ( "      N       Subfactorial[N]\n" );
   printf ( "\n" );
@@ -10081,13 +11551,13 @@ void test1415 ( void )
 }
 /******************************************************************************/
 
-void test142 ( void )
+void surten_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST142 tests SURTEN_VALUES.
+    SURTEN_VALUES_TEST tests SURTEN_VALUES.
 
   Licensing:
 
@@ -10107,7 +11577,7 @@ void test142 ( void )
   double tc;
 
   printf ( "\n" );
-  printf ( "TEST142:\n" );
+  printf ( "SURTEN_VALUES_TEST:\n" );
   printf ( "  SURTEN_VALUES stores values of\n" );
   printf ( "  the surface tension of water\n" );
   printf ( "  as a function of temperature.\n" );
@@ -10131,13 +11601,13 @@ void test142 ( void )
 }
 /******************************************************************************/
 
-void test143 ( void )
+void synch1_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST143 tests SYNCH1_VALUES.
+    SYNCH1_VALUES_TEST tests SYNCH1_VALUES.
 
   Licensing:
 
@@ -10157,7 +11627,7 @@ void test143 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST143:\n" );
+  printf ( "SYNCH1_VALUES_TEST:\n" );
   printf ( "  SYNCH1_VALUES stores values of \n" );
   printf ( "  the Synchrotron function of order 1.\n" );
   printf ( "\n" );
@@ -10180,13 +11650,13 @@ void test143 ( void )
 }
 /******************************************************************************/
 
-void test144 ( void )
+void synch2_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST144 tests SYNCH2_VALUES.
+    SYNCH2_VALUES_TEST tests SYNCH2_VALUES.
 
   Licensing:
 
@@ -10206,7 +11676,7 @@ void test144 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST144:\n" );
+  printf ( "SYNCH2_VALUES_TEST:\n" );
   printf ( "  SYNCH2_VALUES stores values of \n" );
   printf ( "  the Synchrotron function of order 2.\n" );
   printf ( "\n" );
@@ -10229,13 +11699,13 @@ void test144 ( void )
 }
 /******************************************************************************/
 
-void test1445 ( void )
+void tan_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1445 tests TAN_VALUES.
+    TAN_VALUES_TEST tests TAN_VALUES.
 
   Licensing:
 
@@ -10255,7 +11725,7 @@ void test1445 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1445:\n" );
+  printf ( "TAN_VALUES_TEST:\n" );
   printf ( "   TAN_VALUES stores values of the tangent function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -10277,13 +11747,13 @@ void test1445 ( void )
 }
 /******************************************************************************/
 
-void test1447 ( void )
+void tanh_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1447 tests TANH_VALUES.
+    TANH_VALUES_TEST tests TANH_VALUES.
 
   Licensing:
 
@@ -10303,7 +11773,7 @@ void test1447 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1447:\n" );
+  printf ( "TANH_VALUES_TEST:\n" );
   printf ( "   TANH_VALUES stores values of the hyperbolic tangent function.\n" );
   printf ( "\n" );
   printf ( "                X                     FX\n" );
@@ -10325,13 +11795,13 @@ void test1447 ( void )
 }
 /******************************************************************************/
 
-void test145 ( void )
+void tau_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST145 tests TAU_VALUES.
+    TAU_VALUES_TEST tests TAU_VALUES.
 
   Licensing:
 
@@ -10351,7 +11821,7 @@ void test145 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST145:\n" );
+  printf ( "TAU_VALUES_TEST:\n" );
   printf ( "  TAU_VALUES returns values of\n" );
   printf ( "  the TAU function.\n" );
   printf ( "\n" );
@@ -10374,13 +11844,13 @@ void test145 ( void )
 }
 /******************************************************************************/
 
-void test146 ( void )
+void thercon_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST146 tests THERCON_VALUES.
+    THERCON_VALUES_TEST tests THERCON_VALUES.
 
   Licensing:
 
@@ -10401,7 +11871,7 @@ void test146 ( void )
   double tc;
 
   printf ( "\n" );
-  printf ( "TEST146:\n" );
+  printf ( "THERCON_VALUES_TEST:\n" );
   printf ( "  THERCON_VALUES stores values of\n" );
   printf ( "  the thermal conductivity of water\n" );
   printf ( "  as a function of temperature and pressure.\n" );
@@ -10425,13 +11895,13 @@ void test146 ( void )
 }
 /******************************************************************************/
 
-void test1465 ( void )
+void three_j_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1465 tests THREE_J_VALUES.
+    THREE_J_VALUES_TEST tests THREE_J_VALUES.
 
   Licensing:
 
@@ -10456,7 +11926,7 @@ void test1465 ( void )
   int n_data;
 
   printf ( "\n" );
-  printf ( "TEST1465:\n" );
+  printf ( "THREE_J_VALUES_TEST:\n" );
   printf ( "  THREE_J_VALUES returns values of\n" );
   printf ( "  the Wigner 3J coefficient.\n" );
   printf ( "\n" );
@@ -10480,13 +11950,13 @@ void test1465 ( void )
 }
 /******************************************************************************/
 
-void test147 ( void )
+void tran02_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST147 tests TRAN02_VALUES.
+    TRAN02_VALUES_TEST tests TRAN02_VALUES.
 
   Licensing:
 
@@ -10506,7 +11976,7 @@ void test147 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST147:\n" );
+  printf ( "TRAN02_VALUES_TEST:\n" );
   printf ( "  TRAN02_VALUES stores values of \n" );
   printf ( "  the Transport function of order 2.\n" );
   printf ( "\n" );
@@ -10529,13 +11999,13 @@ void test147 ( void )
 }
 /******************************************************************************/
 
-void test148 ( void )
+void tran03_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST148 tests TRAN03_VALUES.
+    TRAN03_VALUES_TEST tests TRAN03_VALUES.
 
   Licensing:
 
@@ -10555,7 +12025,7 @@ void test148 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST148:\n" );
+  printf ( "TRAN03_VALUES_TEST:\n" );
   printf ( "  TRAN03_VALUES stores values of \n" );
   printf ( "  the Transport function of order 3.\n" );
   printf ( "\n" );
@@ -10578,13 +12048,13 @@ void test148 ( void )
 }
 /******************************************************************************/
 
-void test149 ( void )
+void tran04_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST149 tests TRAN04_VALUES.
+    TRAN04_VALUES_TEST tests TRAN04_VALUES.
 
   Licensing:
 
@@ -10604,7 +12074,7 @@ void test149 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST149:\n" );
+  printf ( "TRAN04_VALUES_TEST:\n" );
   printf ( "  TRAN04_VALUES stores values of \n" );
   printf ( "  the Transport function of order 4.\n" );
   printf ( "\n" );
@@ -10627,13 +12097,13 @@ void test149 ( void )
 }
 /******************************************************************************/
 
-void test150 ( void )
+void tran05_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST150 tests TRAN05_VALUES.
+    TRAN05_VALUES_TEST tests TRAN05_VALUES.
 
   Licensing:
 
@@ -10653,7 +12123,7 @@ void test150 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST150:\n" );
+  printf ( "TRAN05_VALUES_TEST:\n" );
   printf ( "  TRAN05_VALUES stores values of \n" );
   printf ( "  the Transport function of order 5.\n" );
   printf ( "\n" );
@@ -10676,13 +12146,13 @@ void test150 ( void )
 }
 /******************************************************************************/
 
-void test151 ( void )
+void tran06_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST151 tests TRAN06_VALUES.
+    TRAN06_VALUES_TEST tests TRAN06_VALUES.
 
   Licensing:
 
@@ -10702,7 +12172,7 @@ void test151 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST151:\n" );
+  printf ( "TRAN06_VALUES_TEST:\n" );
   printf ( "  TRAN06_VALUES stores values of \n" );
   printf ( "  the Transport function of order 6.\n" );
   printf ( "\n" );
@@ -10725,13 +12195,13 @@ void test151 ( void )
 }
 /******************************************************************************/
 
-void test152 ( void )
+void tran07_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST152 tests TRAN07_VALUES.
+    TRAN07_VALUES_TEST tests TRAN07_VALUES.
 
   Licensing:
 
@@ -10751,7 +12221,7 @@ void test152 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST152:\n" );
+  printf ( "TRAN07_VALUES_TEST:\n" );
   printf ( "  TRAN07_VALUES stores values of \n" );
   printf ( "  the Transport function of order 7.\n" );
   printf ( "\n" );
@@ -10774,13 +12244,13 @@ void test152 ( void )
 }
 /******************************************************************************/
 
-void test153 ( void )
+void tran08_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST153 tests TRAN08_VALUES.
+    TRAN08_VALUES_TEST tests TRAN08_VALUES.
 
   Licensing:
 
@@ -10800,7 +12270,7 @@ void test153 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST153:\n" );
+  printf ( "TRAN08_VALUES_TEST:\n" );
   printf ( "  TRAN08_VALUES stores values of \n" );
   printf ( "  the Transport function of order 8.\n" );
   printf ( "\n" );
@@ -10823,13 +12293,13 @@ void test153 ( void )
 }
 /******************************************************************************/
 
-void test154 ( void )
+void tran09_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST154 tests TRAN09_VALUES.
+    TRAN09_VALUES_TEST tests TRAN09_VALUES.
 
   Licensing:
 
@@ -10849,7 +12319,7 @@ void test154 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST154:\n" );
+  printf ( "TRAN09_VALUES_TEST:\n" );
   printf ( "  TRAN09_VALUES stores values of \n" );
   printf ( "  the Transport function of order 9.\n" );
   printf ( "\n" );
@@ -10872,13 +12342,13 @@ void test154 ( void )
 }
 /******************************************************************************/
 
-void test1545 ( void )
+void trigamma_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST1545 tests TRIGAMMA_VALUES.
+    TRIGAMMA_VALUES_TEST tests TRIGAMMA_VALUES.
 
   Licensing:
 
@@ -10898,7 +12368,7 @@ void test1545 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1545\n" );
+  printf ( "TRIGAMMA_VALUES_TEST\n" );
   printf ( "  TRIGAMMA_VALUES stores values of\n" );
   printf ( "  the TriGamma function.\n" );
   printf ( "\n" );
@@ -10919,16 +12389,329 @@ void test1545 ( void )
   }
   return;
 }
-
 /******************************************************************************/
 
-void test155 ( void )
+void truncated_normal_ab_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST155 tests TSAT_VALUES.
+    TRUNCATED_NORMAL_AB_CDF_VALUES_TEST tests TRUNCATED_NORMAL_AB_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 September 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  double fx;
+  double mu;
+  int n_data;
+  double sigma;
+  double x;
+
+  printf ( "\n" );
+  printf ( "TRUNCATED_NORMAL_AB_CDF_VALUES_TEST:\n" );
+  printf ( "  TRUNCATED_NORMAL_AB_CDF_VALUES stores values of\n" );
+  printf ( "  the Truncated Normal Cumulative Density Function.\n" );
+  printf ( "\n" );
+  printf ( "        MU     SIGMA       A         B         X        CDF(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    truncated_normal_ab_cdf_values ( &n_data, &mu, &sigma, &a, &b, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8.1f  %8.1f  %8.1f  %8.1f  %8.1f  %24.16e\n", mu, sigma, a, b, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void truncated_normal_ab_pdf_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose: 
+
+    TRUNCATED_NORMAL_AB_PDF_VALUES_TEST tests TRUNCATED_NORMAL_AB_PDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    13 September 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double b;
+  double fx;
+  double mu;
+  int n_data;
+  double sigma;
+  double x;
+
+  printf ( "\n" );
+  printf ( "TRUNCATED_NORMAL_AB_PDF_VALUES_TEST:\n" );
+  printf ( "  TRUNCATED_NORMAL_AB_PDF_VALUES stores values of\n" );
+  printf ( "  the Truncated Normal Probability Density Function.\n" );
+  printf ( "\n" );
+  printf ( "        MU     SIGMA       A         B         X        PDF(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    truncated_normal_ab_pdf_values ( &n_data, &mu, &sigma, &a, &b, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8.1f  %8.1f  %8.1f  %8.1f  %8.1f  %24.16e\n", mu, sigma, a, b, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void truncated_normal_a_cdf_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose: 
+
+    TRUNCATED_NORMAL_A_CDF_VALUES_TEST tests TRUNCATED_NORMAL_A_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 September 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double fx;
+  double mu;
+  int n_data;
+  double sigma;
+  double x;
+
+  printf ( "\n" );
+  printf ( "TRUNCATED_NORMAL_A_CDF_VALUES_TEST:\n" );
+  printf ( "  TRUNCATED_NORMAL_A_CDF_VALUES stores values of\n" );
+  printf ( "  the Lower Truncated Normal Cumulative Density Function.\n" );
+  printf ( "\n" );
+  printf ( "        MU     SIGMA       A         X        CDF(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    truncated_normal_a_cdf_values ( &n_data, &mu, &sigma, &a, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8.1f  %8.1f  %8.1f  %8.1f  %24.16e\n", mu, sigma, a, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void truncated_normal_a_pdf_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose: 
+
+    TRUNCATED_NORMAL_A_PDF_VALUES_TEST tests TRUNCATED_NORMAL_A_PDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 September 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double a;
+  double fx;
+  double mu;
+  int n_data;
+  double sigma;
+  double x;
+
+  printf ( "\n" );
+  printf ( "TRUNCATED_NORMAL_A_PDF_VALUES_TEST:\n" );
+  printf ( "  TRUNCATED_NORMAL_A_PDF_VALUES stores values of\n" );
+  printf ( "  the Lower Truncated Normal Probability Density Function.\n" );
+  printf ( "\n" );
+  printf ( "        MU     SIGMA       A         X        PDF(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    truncated_normal_a_pdf_values ( &n_data, &mu, &sigma, &a, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8.1f  %8.1f  %8.1f  %8.1f  %24.16e\n", mu, sigma, a, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void truncated_normal_b_cdf_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose: 
+
+    TRUNCATED_NORMAL_B_CDF_VALUES_TEST tests TRUNCATED_NORMAL_B_CDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 September 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double b;
+  double fx;
+  double mu;
+  int n_data;
+  double sigma;
+  double x;
+
+  printf ( "\n" );
+  printf ( "TRUNCATED_NORMAL_B_CDF_VALUES_TEST:\n" );
+  printf ( "  TRUNCATED_NORMAL_B_CDF_VALUES stores values of\n" );
+  printf ( "  the Upper Truncated Normal Cumulative Density Function.\n" );
+  printf ( "\n" );
+  printf ( "        MU     SIGMA       B         X        CDF(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    truncated_normal_b_cdf_values ( &n_data, &mu, &sigma, &b, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8.1f  %8.1f  %8.1f  %8.1f  %24.16e\n", mu, sigma, b, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void truncated_normal_b_pdf_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose: 
+
+    TRUNCATED_NORMAL_B_PDF_VALUES_TEST tests TRUNCATED_NORMAL_B_PDF_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    14 September 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  double b;
+  double fx;
+  double mu;
+  int n_data;
+  double sigma;
+  double x;
+
+  printf ( "\n" );
+  printf ( "TRUNCATED_NORMAL_B_PDF_VALUES_TEST:\n" );
+  printf ( "  TRUNCATED_NORMAL_B_PDF_VALUES stores values of\n" );
+  printf ( "  the Upper Truncated Normal Probability Density Function.\n" );
+  printf ( "\n" );
+  printf ( "        MU     SIGMA       B         X        PDF(X)\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    truncated_normal_b_pdf_values ( &n_data, &mu, &sigma, &b, &x, &fx );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %8.1f  %8.1f  %8.1f  %8.1f  %24.16e\n", mu, sigma, b, x, fx );
+  }
+  return;
+}
+/******************************************************************************/
+
+void tsat_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose: 
+
+    TSAT_VALUES_TEST tests TSAT_VALUES.
 
   Licensing:
 
@@ -10948,7 +12731,7 @@ void test155 ( void )
   double tc;
 
   printf ( "\n" );
-  printf ( "TEST155:\n" );
+  printf ( "TSAT_VALUES_TEST:\n" );
   printf ( "  TSAT_VALUES stores values of\n" );
   printf ( "  the saturation temperature\n" );
   printf ( "  as a function of pressure.\n" );
@@ -10972,13 +12755,13 @@ void test155 ( void )
 }
 /******************************************************************************/
 
-void test156 ( void )
+void van_der_corput_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST156 tests VAN_DER_CORPUT_VALUES.
+    VAN_DER_CORPUT_VALUES_TEST tests VAN_DER_CORPUT_VALUES.
 
   Licensing:
 
@@ -10999,7 +12782,7 @@ void test156 ( void )
   double value;
 
   printf ( "\n" );
-  printf ( "TEST156:\n" );
+  printf ( "VAN_DER_CORPUT_VALUES_TEST:\n" );
   printf ( "  VAN_DER_CORPUT_VALUES stores values of\n" );
   printf ( "  the van der Corput sequence in a given base.\n" );
   printf ( "\n" );
@@ -11023,13 +12806,13 @@ void test156 ( void )
 }
 /******************************************************************************/
 
-void test157 ( void )
+void viscosity_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose: 
 
-    TEST157 tests VISCOSITY_VALUES.
+    VISCOSITY_VALUES_TEST tests VISCOSITY_VALUES.
 
   Licensing:
 
@@ -11050,7 +12833,7 @@ void test157 ( void )
   double tc;
 
   printf ( "\n" );
-  printf ( "TEST157:\n" );
+  printf ( "VISCOSITY_VALUES_TEST:\n" );
   printf ( "  VISCOSITY_VALUES stores values of\n" );
   printf ( "  the viscosity of water\n" );
   printf ( "  as a function of temperature and pressure.\n" );
@@ -11074,13 +12857,13 @@ void test157 ( void )
 }
 /******************************************************************************/
 
-void test1575 ( void )
+void von_mises_cdf_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST1575 tests VON_MISES_CDF_VALUES.
+    VON_MISES_CDF_VALUES_TEST tests VON_MISES_CDF_VALUES.
 
   Licensing:
 
@@ -11102,7 +12885,7 @@ void test1575 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST1575:\n" );
+  printf ( "VON_MISES_CDF_VALUES_TEST:\n" );
   printf ( "  VON_MISES_CDF_VALUES stores values of\n" );
   printf ( "  the von Mises CDF.\n" );
   printf ( "\n" );
@@ -11125,13 +12908,64 @@ void test1575 ( void )
 }
 /******************************************************************************/
 
-void test158 ( void )
+void weekday_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST158 tests WEIBULL_CDF_VALUES.
+    WEEKDAY_VALUES_TEST tests WEEKDAY_VALUES.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    23 January 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int d;
+  int m;
+  int n_data;
+  int w;
+  int y;
+
+  printf ( "\n" );
+  printf ( "WEEKDAY_VALUES_TEST:\n" );
+  printf ( "  WEEKDAY_VALUES returns values of \n" );
+  printf ( "  the weekday for a given Y/M/D date\n" );
+  printf ( "\n" );
+  printf ( "     Y     M     D     W\n" );
+  printf ( "\n" );
+
+  n_data = 0;
+
+  for ( ; ; )
+  {
+    weekday_values ( &n_data, &y, &m, &d, &w );
+
+    if ( n_data == 0 )
+    {
+      break;
+    }
+    printf ( "  %4d  %4d  %4d  %4d\n", y, m, d, w );
+  }
+  return;
+}
+/******************************************************************************/
+
+void weibull_cdf_values_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    WEIBULL_CDF_VALUES_TEST tests WEIBULL_CDF_VALUES.
 
   Licensing:
 
@@ -11153,7 +12987,7 @@ void test158 ( void )
   double x;
 
   printf ( "\n" );
-  printf ( "TEST158:\n" );
+  printf ( "WEIBULL_CDF_VALUES_TEST:\n" );
   printf ( "  WEIBULL_CDF_VALUES returns values of \n" );
   printf ( "  the Weibull Cumulative Density Function.\n" );
   printf ( "\n" );
@@ -11176,13 +13010,13 @@ void test158 ( void )
 }
 /******************************************************************************/
 
-void test159 ( void )
+void zeta_values_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST159 tests ZETA_VALUES.
+    ZETA_VALUES_TEST tests ZETA_VALUES.
 
   Licensing:
 
@@ -11202,7 +13036,7 @@ void test159 ( void )
   double zeta;
 
   printf ( "\n" );
-  printf ( "TEST159:\n" );
+  printf ( "ZETA_VALUES_TEST:\n" );
   printf ( "  ZETA_VALUES returns values of \n" );
   printf ( "  the Riemann Zeta function.\n" );
   printf ( "\n" );

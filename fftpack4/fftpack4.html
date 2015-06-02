@@ -1,0 +1,377 @@
+<html>
+
+  <head>
+    <title>
+      FFTPACK4 - Fast Fourier Transforms
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      FFTPACK4 <br> Fast Fourier Transform
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>FFTPACK4</b>
+      is a C library which
+      computes Fast Fourier Transforms,
+      by Paul Swarztrauber;
+    </p>
+
+    <p>
+      Special features include:
+      <ul>
+        <li>
+          real or complex data can be handled;
+        </li>
+        <li>
+          separate routines for forward analysis (data => Fourier coefficients)
+          and backward analysis (Fourier coefficients => data);
+        </li>
+        <li>
+          sine and cosine transform routines;
+        </li>
+        <li>
+          quarter wave sine and cosine transform routines;
+        </li>
+        <li>
+          the amount of data is NOT required to be a power of 2.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      Routines in the library come in groups of three:
+      <ul>
+        <li>
+          an initialization routine;
+        </li>
+        <li>
+          the forward computational routine (data to FFT coefficients);
+        </li>
+        <li>
+          the backward computational routine (FFT coefficients to data).
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      The following table groups the routines:
+      <table border = 1>
+        <tr><th>Initialization</th><th>Forward</th><th>Backward</th><th>Purpose</th></tr>
+        <tr><td>CFFTI</td><td>CFFTF</td><td>CFFTB</td><td>FFT for complex data</td></tr>
+        <tr><td>COSQI</td><td>COSQF</td><td>COSQB</td><td>Even function 1D quarter-cosine FFT for real data</td></tr>
+        <tr><td>COSTI</td><td>COST</td><td>COST</td><td>Even function 1D cosine FFT for real data</td></tr>
+        <tr><td>EZFFTI</td><td>EZFFTF</td><td>EZFFTB</td><td>FFT for real data</td></tr>
+        <tr><td>RFFTI</td><td>RFFTF</td><td>RFFTB</td><td>FFT for real data</td></tr>
+        <tr><td>SINQI</td><td>SINQF</td><td>SINQB</td><td>Even function 1D quarter-sine FFT for real data</td></tr>
+        <tr><td>SINTI</td><td>SINT</td><td>SINT</td><td>Even function 1D sine FFT for real data</td></tr>
+      </table>
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+     All the changes made by Andrew Fernandes from the original FFTPACK
+     fall under the following BSD-style open-source license:
+     <pre>
+  Copyright (c) 2005, Andrew Fernandes (andrew@fernandes.org);
+  All rights reserved.
+   
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+   
+  - Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer.
+  
+  - Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer in the
+  documentation and/or other materials provided with the distribution.
+  
+  - Neither the name of the North Carolina State University nor the
+  names of its contributors may be used to endorse or promote products
+  derived from this software without specific prior written permission.
+   
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+  FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  POSSIBILITY OF SUCH DAMAGE.
+      </pre> 
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>FFTPACK4</b> is available in
+      <a href = "../../c_src/fftpack4/fftpack4.html">a C version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/fft_openmp/fft_openmp.html">
+      FFT_OPENMP</a>,
+      a C program which
+      demonstrates the computation of a Fast Fourier Transform (FFT)
+      in parallel, using OpenMP.
+    </p>
+
+    <p>
+      <a href = "../../c_src/fft_serial/fft_serial.html">
+      FFT_SERIAL</a>,
+      a C program which
+      demonstrates the computation of a Fast Fourier Transform (FFT),
+      and is intended as a starting point for implementing a parallel version.
+    </p>
+
+    <p>
+      <a href = "../../f_src/fftpack5/fftpack5.html">
+      FFTPACK5</a>,
+      a FORTRAN90 library which
+      implements the Fast Fourier Transform (FFT)
+      by Paul Swarztrauber and Dick Valent;
+    </p>
+
+    <p>
+      <a href = "../../c_src/fftw3/fftw3.html">
+      FFTW3</a>,
+      C programs which
+      illustrate the use of the FFTW3 library for Fast Fourier Transforms (FFT),
+      by Matteo Frigo and Steven Johnson.
+    </p>
+
+    <p>
+      <a href = "../../c_src/sftpack/sftpack.html">
+      SFTPACK</a>,
+      a C library which
+      implements the slow Fourier transform, intended as a teaching
+      tool and comparison with the Fast Fourier Transform (FFT).
+    </p>
+
+    <h3 align = "center">
+      Author:
+    </h3>
+
+    <p>
+      The original Fortran77 version of this code was written by Dick Valent and
+      Paul Swarztrauber, of the National Center for Atmospheric Research (NCAR).
+    </p>
+
+    <p>
+      The translation to C was done by Andrew Fernandes. 
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          William Briggs, Van Emden Henson,<br>
+          The DFT: An Owner's Manual for the Discrete Fourier Transform,<br>
+          SIAM, 1995,<br>
+          ISBN13: 978-0-898713-42-8,<br>
+          LC: QA403.5.B75.
+        </li>
+        <li>
+          Elbert Brigham,<br>
+          The Fast Fourier Transform and Its Applications,<br>
+          Prentice-Hall, 1988,<br>
+          ISBN: 0133075052,<br>
+          LC: QA403.B74.
+        </li>
+        <li>
+          Bill Buzbee,<br>
+          The SLATEC Common Math Library,<br>
+          in Sources and Development of Mathematical Software,<br>
+          edited by Wayne Cowell,<br>
+          Prentice-Hall, 1984,<br>
+          ISBN: 0-13-823501-5,<br>
+          LC: QA76.95.S68.
+        </li>
+        <li>
+          Eleanor Chu, Alan George,<br>
+          Inside the FFT Black Box,<br>
+          CRC Press,<br>
+          ISBN: 0849302706,<br>
+          LC: QA403.5C5.
+        </li>
+        <li>
+          David Kahaner, Cleve Moler, Steven Nash,<br>
+          Numerical Methods and Software,<br>
+          Prentice Hall, 1989,<br>
+          ISBN: 0-13-627258-4,<br>
+          LC: TA345.K34.
+        </li>
+        <li>
+          Paul Swarztrauber,<br>
+          Symmetric FFT's,<br>
+          Mathematics of Computation,<br>
+          Volume 47, Number 175, July 1986, pages 323-346.
+        </li>
+        <li>
+          Paul Swarztrauber,<br>
+          Vectorizing the Fast Fourier Transforms,<br>
+          in Parallel Computations,<br>
+          edited by Garry Rodrigue,<br>
+          Academic Press, 1982,<br>
+          ISBN: 0125921012,<br>
+          LC: QA76.6.P348.
+        </li>
+        <li>
+          Paul Swarztrauber,<br>
+          Fast Fourier Transform Algorithms for Vector Computers,<br>
+          Parallel Computing,<br>
+          Volume 1, Number 1, August 1984, pages 45-63.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "fftpack4.c">fftpack4.c</a>, the source code.
+        </li>
+        <li>
+          <a href = "fftpack4.h">fftpack4.h</a>, the include file.
+        </li>
+        <li>
+          <a href = "fftpack4_precision.h">fftpack4_precision.h</a>, 
+          an include file which can be used to specify the precision
+          of the library at compile time.
+        </li>
+        <li>
+          <a href = "fftpack4.sh">fftpack4.sh</a>,
+          commands to compile the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Tests:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "fftpack4_prb.c">fftpack4_prb.c</a>,
+          a sample calling program.
+        </li>
+        <li>
+          <a href = "fftpack4_prb.sh">fftpack4_prb.sh</a>,
+          commands to compile and run the sample program.
+        </li>
+        <li>
+          <a href = "fftpack4_prb_output.txt">fftpack4_prb_output.txt</a>,
+          the output from a run of the sample program.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>CFFTB:</b> complex backward fast Fourier transform.
+        </li>
+        <li>
+          <b>CFFTF:</b> complex forward fast Fourier transform.
+        </li>
+        <li>
+          <b>CFFTI:</b> initialization for CFFTB and CFFTF.
+        </li>
+        <li>
+          <b>COSQB:</b> real backward cosine quarter wave transform.
+        </li>
+        <li>
+          <b>COSQF:</b> real forward cosine quarter wave transform.
+        </li>
+        <li>
+          <b>COSQI:</b> initialization for COSQB and COSQF.
+        </li>
+        <li>
+          <b>COST:</b> real forward/backward cosine transform.
+        </li>
+        <li>
+          <b>COSTI:</b> initialization for COST.
+        </li>
+        <li>
+          <b>EZFFTB:</b> real backward fast Fourier transform.
+        </li>
+        <li>
+          <b>EZFFTF:</b> real forward fast Fourier transform.
+        </li>
+        <li>
+          <b>EZFFTI:</b> initialization for EZFFTB and EZFFTF.
+        </li>
+        <li>
+          <b>RFFTB:</b> real backward fast Fourier transform.
+        </li>
+        <li>
+          <b>RFFTF:</b> real forward fast Fourier transform.
+        </li>
+        <li>
+          <b>RFFTI:</b> initialization for RFFTB and RFFTF.
+        </li>
+        <li>
+          <b>SINQB:</b> real backward sine quarter wave transform.
+        </li>
+        <li>
+          <b>SINQF:</b> real forward sine quarter wave transform.
+        </li>
+        <li>
+          <b>SINQI:</b> initialization for SINQB and SINQF.
+        </li>
+        <li>
+          <b>SINB:</b> real forward/backward sine transform.
+        </li>
+        <li>
+          <b>SINTI:</b> initialization for SINT.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 12 September 2013.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

@@ -5,18 +5,22 @@
 
 # include "asa111.h"
 
-int main ( void );
-void test01 ( void );
+int main ( );
+void test01 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ASA111_PRB tests ASA111.
+    MAIN is the main program for ASA111_PRB.
+
+  Discussion:
+
+    ASA111_PRB tests the ASA111 library.
 
   Licensing:
 
@@ -31,9 +35,7 @@ int main ( void )
     John Burkardt
 */
 {
-  printf ( "\n" );
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA111_PRB:\n" );
   printf ( "  C version\n" );
@@ -46,7 +48,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA111_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -105,7 +106,7 @@ void test01 ( void )
     x2 = ppnd ( fx, &ifault );
 
     printf ( "  %10.4g  %24.16g  %24.16g  %10.4g\n",
-      fx, x, x2, r8_abs ( x - x2 ) );
+      fx, x, x2, fabs ( x - x2 ) );
   }
 
   return;

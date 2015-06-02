@@ -16,6 +16,10 @@ int main ( void )
 
     MAIN is the main program for PRIME_SERIAL_PRB.
 
+  Discussion:
+
+    PRIME_SERIAL_PRB tests the PRIME_SERIAL library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -34,11 +38,11 @@ int main ( void )
   int n_lo;
 
   timestamp ( );
-
   printf ( "\n" );
   printf ( "PRIME_SERIAL_PRB\n" );
   printf ( "  C version\n" );
- 
+  printf ( "  Test the PRIME_SERIAL library.\n" );
+
   n_lo = 1;
   n_hi = 131072;
   n_factor = 2;
@@ -56,7 +60,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "PRIME_SERIAL_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-   
   printf ( "\n" );
   timestamp ( );
 

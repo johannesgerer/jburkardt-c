@@ -4,7 +4,7 @@
 # include <time.h>
 # include <string.h>
 
-int main ( void );
+int main ( );
 void adapt ( int ndim, double a[], double b[], int *minpts, int maxpts, 
   double functn ( int indx, int ndim, double z[], double alpha[], 
   double beta[] ), double rel_tol, int itest, double alpha[], double beta[],
@@ -30,19 +30,19 @@ void multst ( int nsamp, int tstlim, int tstfns[], int tstmax, double difclt[],
   double rel_tol, int maxpts );
 double r8_abs ( double x );
 double r8_add ( double x, double y );
-double r8_epsilon ( void );
+double r8_epsilon ( );
 double r8_max ( double x, double y );
 double r8_min ( double x, double y );
 double r8vec_dot_product ( int n, double a1[], double a2[] );
 void r8vec_median_estimate ( int n, double r[], double rmed[3] );
 double r8vec_product ( int n, double a[] );
 double r8vec_sum ( int n, double a[] );
-void timestamp ( void );
+void timestamp ( );
 void tuple_next ( int m1, int m2, int n, int *rank, int x[] );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -2223,7 +2223,7 @@ double r8_add ( double x, double y )
 }
 /******************************************************************************/
 
-double r8_epsilon ( void )
+double r8_epsilon ( )
 
 /******************************************************************************/
 /*
@@ -2245,7 +2245,7 @@ double r8_epsilon ( void )
 
   Modified:
 
-    11 August 2010
+    01 September 2012
 
   Author:
 
@@ -2256,23 +2256,7 @@ double r8_epsilon ( void )
     Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  double one;
-  double temp;
-  double test;
-  double value;
-
-  one = ( double ) ( 1 );
-
-  value = one;
-  temp = value / 2.0;
-  test = r8_add ( one, temp );
-
-  while ( one < test )
-  {
-    value = temp;
-    temp = value / 2.0;
-    test = r8_add ( one, temp );
-  }
+  const double value = 2.220446049250313E-016;
 
   return value;
 }

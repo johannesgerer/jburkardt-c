@@ -16,7 +16,11 @@ int main ( void )
 /*
   Purpose:
 
-    MM_IO_PRB calls the MM_IO tests.
+    MAIN is the main program for MM_IO_PRB.
+
+  Discussion:
+
+    MM_IO_PRB tests the MM_IO library.
 
   Modified:
 
@@ -42,7 +46,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "MM_IO_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

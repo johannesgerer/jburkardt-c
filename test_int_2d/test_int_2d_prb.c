@@ -21,7 +21,7 @@ int main ( void )
 
   Discussion:
 
-    TEST_INT_2D_PRB demonstrates the TEST_INT_2D integration test functions.
+    TEST_INT_2D_PRB tests the TEST_INT_2D library.
 
   Licensing:
 
@@ -37,7 +37,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "TEST_INT_2D_PRB\n" );
   printf ( "  C version\n" );
@@ -52,7 +51,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "TEST_INT_2D_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

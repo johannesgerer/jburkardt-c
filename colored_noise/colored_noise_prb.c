@@ -15,7 +15,11 @@ int main ( void )
 /*
   Purpose:
 
-    MAIN generates colored noise data for a sequence of values of ALPHA.
+    MAIN is the main program for COLORED_NOISE_PRB.
+
+  Discussion:
+
+    COLORED_NOISE_PRB tests the COLORED_NOISE library.
 
   Licensing:
 
@@ -58,7 +62,6 @@ int main ( void )
   fprintf ( stdout, "\n" );
   fprintf ( stdout, "COLORED_NOISE_PRB:\n" );
   fprintf ( stdout, "  Normal end of execution.\n" );
-
   fprintf ( stdout, "\n" );
   timestamp ( );
 

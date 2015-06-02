@@ -47,7 +47,7 @@ int main ( int argc, char *argv[] )
 
   Modified:
 
-    22 October 2009
+    28 September 2013
 
   Author:
 
@@ -57,7 +57,6 @@ int main ( int argc, char *argv[] )
   double a;
   double b;
   int n;
-  float t;
 
   timestamp ( );
   printf ( "\n" );
@@ -105,8 +104,7 @@ int main ( int argc, char *argv[] )
   {
     printf ( "\n" );
     printf ( "  Enter A.\n" );
-    scanf ( "%f", &t );
-    a = ( double ) t;
+    scanf ( "%lf", &a );
   }
   printf ( "\n" );
   printf ( "  A = %g\n", a );
@@ -121,8 +119,7 @@ int main ( int argc, char *argv[] )
   {
     printf ( "\n" );
     printf ( "  Enter B.\n" );
-    scanf ( "%f", &t );
-    b = ( double ) t;
+    scanf ( "%lf", &b );
   }
   printf ( "\n" );
   printf ( "  B = %g\n", b );
@@ -130,7 +127,9 @@ int main ( int argc, char *argv[] )
   Construct the rule and output it.
 */
   legendre_handle ( n, a, b );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "LEGENDRE_RULE_FAST:\n" );
   printf ( "  Normal end of execution.\n" );
@@ -344,7 +343,7 @@ void legendre_compute_glr1 ( int n, double *x, double *ders )
   int l;
   int m = 30;
   int n2;
-  static double pi = 3.141592653589793;
+  const double pi = 3.141592653589793;
   int s;
   double *u;
   double *up;
@@ -425,13 +424,16 @@ void legendre_compute_glr2 ( double pn0, int n, double *x1,  double *d1 )
 
     This routine is only called if N is even.
 
+    Thanks to Morten Welinder, for pointing out a typographical error
+    in indexing, 17 May 2013.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license. 
 
   Modified:
 
-    19 October 2009
+    17 May 2013
 
   Author:
 
@@ -465,7 +467,7 @@ void legendre_compute_glr2 ( double pn0, int n, double *x1,  double *d1 )
   int k;
   int l;
   int m = 30;
-  static double pi = 3.141592653589793;
+  const double pi = 3.141592653589793;
   double t;
   double *u;
   double *up;
@@ -491,7 +493,7 @@ void legendre_compute_glr2 ( double pn0, int n, double *x1,  double *d1 )
   {
     dk = ( double ) k;
 
-    u[k+1] = 0.0;
+    u[k+2] = 0.0;
     u[k+3] = ( dk * ( dk + 1.0 ) - dn * ( dn + 1.0 ) ) * u[k+1]
       / ( dk + 1.0 ) / ( dk + 2.0 );
  
@@ -540,9 +542,9 @@ void legendre_handle ( int n, double a, double b )
 */ 
 {
   int i;
-  char output_r[80];
-  char output_w[80];
-  char output_x[80];
+  char output_r[255];
+  char output_w[255];
+  char output_x[255];
   double *r;
   double t;
   double *w;
@@ -820,7 +822,6 @@ void timestamp ( void )
   return;
 # undef TIME_SIZE
 }
-
 /******************************************************************************/
 
 double ts_mult ( double *u, double h, int n )
@@ -829,7 +830,11 @@ double ts_mult ( double *u, double h, int n )
 /*
   Purpose:
 
-    TS_MULT...
+    TS_MULT evaluates a polynomial.
+
+  Discussion:
+
+    TS_MULT = U[1] + U[2] * H + ... + U[N] * H^(N-1).
 
   Licensing:
 
@@ -837,7 +842,7 @@ double ts_mult ( double *u, double h, int n )
 
   Modified:
 
-    21 October 2009
+    17 May 2013
 
   Author:
 
@@ -846,13 +851,14 @@ double ts_mult ( double *u, double h, int n )
 
   Parameters:
 
-    Input, double U[], ...
+    Input, double U[N+1], the polynomial coefficients.
+    U[0] is ignored.
 
-    Input, double H, ...
+    Input, double H, the polynomial argument.
 
-    Input, int N, ...
+    Input, int N, the number of terms to compute.
 
-    Output, double WTIME, the current elapsed wall clock time.
+    Output, double TS_MULT, the value of the polynomial.
 */
 {
   double hk;

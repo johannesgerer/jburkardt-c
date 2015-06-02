@@ -4,13 +4,13 @@
 
 # include "haar.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -36,7 +36,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "HAAR_PRB\n" );
   printf ( "  C version\n" );
@@ -50,7 +49,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "HAAR_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -58,7 +56,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -72,13 +70,14 @@ void test01 ( void )
 
   Modified:
 
-    14 March 2011
+    06 March 2014
 
   Author:
 
     John Burkardt
 */
 {
+  double err;
   int i;
   int n;
   int seed;
@@ -189,6 +188,27 @@ void test01 ( void )
   free ( u );
   free ( v );
   free ( w );
+/*
+  N not a power of 2.
+*/
+  n = 99;
+  seed = 123456789;
+  u = r8vec_uniform_01_new ( n, &seed );
+
+  v = r8vec_copy_new ( n, u );
+  haar_1d ( n, v );
+
+  w = r8vec_copy_new ( n, v );
+  haar_1d_inverse ( n, w );
+
+  err = r8vec_diff_norm ( n, u, w );
+
+  printf ( "\n" );
+  printf ( "  For N = %d, ||u-haar_1d_inverse(haar_1d(u))|| = %g\n", n, err );
+
+  free ( u );
+  free ( v );
+  free ( w );
 
   return;
 }
@@ -208,13 +228,14 @@ void test02 ( )
 
   Modified:
 
-    18 March 2011
+    06 March 2014
 
   Author:
 
     John Burkardt
 */
 {
+  double err;
   int i;
   int j;
   int m = 16;
@@ -247,6 +268,28 @@ void test02 ( )
   haar_2d_inverse ( m, n, w );
 
   r8mat_print ( m, n, w, "  Recovered array W:" );
+
+  free ( u );
+  free ( v );
+  free ( w );
+/*
+  M, N not powers of 2.
+*/
+  m = 37;
+  n = 53;
+  seed = 123456789;
+  u = r8mat_uniform_01_new ( m, n, &seed );
+
+  v = r8mat_copy_new ( m, n, u );
+  haar_2d ( m, n, v );
+
+  w = r8mat_copy_new ( m, n, v );
+  haar_2d_inverse ( m, n, w );
+
+  err = r8mat_dif_fro ( m, n, u, w );
+
+  printf ( "\n" );
+  printf ( "  M = %d, N = %d, ||haar_2d_inverse(haar_2d(u))-u|| = %g\n", m, n, err );
 
   free ( u );
   free ( v );

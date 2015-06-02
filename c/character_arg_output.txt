@@ -1,0 +1,22 @@
+
+CHARACTER_ARG:
+  Demonstrate how a C function can return character data
+  through the argument list.
+
+  Our main program declares a character point:
+    char *name;
+  and then calls function fred() with the ADDRESS of the pointer:
+    fred ( &name );
+  Function fred receives its argument as
+    void fred ( char **name )
+  It allocates memory for *name:
+    *name = ( char * ) malloc ( 12 * sizeof ( char ) );
+  It sets a value to *name:
+    strcpy ( *name, "ob_data.txt" );
+  The main program now has a string stored in name:
+    printf ( "String returned from fred: \n", name )
+
+  The value of name is now = "ob_data.txt"
+
+CHARACTER_ARG:
+  Normal end of execution.

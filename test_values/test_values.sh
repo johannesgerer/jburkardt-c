@@ -2,12 +2,11 @@
 #
 cp test_values.h /$HOME/include
 #
-gcc -c -g test_values.c >& compiler.txt
+gcc -c test_values.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling test_values.c."
   exit
 fi
-rm compiler.txt
 #
 mv test_values.o ~/libc/$ARCH/test_values.o
 #

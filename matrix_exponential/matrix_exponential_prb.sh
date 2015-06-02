@@ -9,6 +9,7 @@ rm compiler.txt
 #
 gcc matrix_exponential_prb.o /$HOME/libc/$ARCH/matrix_exponential.o \
                              /$HOME/libc/$ARCH/test_matrix_exponential.o \
+                             /$HOME/libc/$ARCH/c8lib.o \
                              /$HOME/libc/$ARCH/r8lib.o -lm
 if [ $? -ne 0 ]; then
   echo "Errors linking and loading matrix_exponential_prb.o."

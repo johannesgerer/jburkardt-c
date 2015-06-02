@@ -2,12 +2,11 @@
 #
 cp filum.h /$HOME/include
 #
-gcc -c -g filum.c >& compiler.txt
+gcc -c filum.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling filum.c."
   exit
 fi
-rm compiler.txt
 #
 mv filum.o ~/libc/$ARCH/filum.o
 #

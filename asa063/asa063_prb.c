@@ -4,12 +4,12 @@
 
 # include "asa063.h"
 
-int main ( void );
-void test01 ( void );
+int main ( );
+void test01 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    ASA063_PRB calls the ASA063 routines.
+    ASA063_PRB tests the ASA063 library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA063_PRB:\n" );
   printf ( "  C version\n" );
@@ -48,7 +47,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA063_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -56,7 +54,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -108,14 +106,14 @@ void test01 ( void )
       break;
     }
 
-    beta_log = alogam ( a, &ifault )
-             + alogam ( b, &ifault )
-             - alogam ( a + b, &ifault );
+    beta_log = lgamma ( a )
+             + lgamma ( b )
+             - lgamma ( a + b );
 
     fx2 = betain ( x, a, b, beta_log, &ifault );
 
     printf ( "  %10.4g  %10.4g  %10.4g  %24.16g  %24.16g  %10.4e\n",
-      a, b, x, fx, fx2, r8_abs ( fx - fx2 ) );
+      a, b, x, fx, fx2, fabs ( fx - fx2 ) );
   }
 
   return;

@@ -18,7 +18,11 @@ int main ( void )
 /*
   Purpose:
 
-    BLACK_SCHOLES_PRB tests BLACK_SCHOLES.
+    MAIN is the main program for BLACK_SCHOLES_PRB.
+
+  Discussion:
+
+    BLACK_SCHOLES_PRB tests the BLACK_SCHOLES library.
 
   Licensing:
 
@@ -50,7 +54,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "BLACK_SCHOLES_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

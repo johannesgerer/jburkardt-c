@@ -1,0 +1,76 @@
+11 January 2014 09:41:53 AM
+
+HYPERBALL_INTEGRALS_PRB
+  C version
+  Test the HYPERBALL_INTEGRALS library.
+
+TEST01
+  Use the Monte Carlo method to estimate integrals over
+  the interior of the unit hyperball in M dimensions.
+
+  Spatial dimension M = 3
+  Number of sample points used is 4192
+
+  If any exponent is odd, the integral is zero.
+  We will restrict this test to randomly chosen even exponents.
+
+  Ex  Ey  Ez     MC-Estimate           Exact      Error
+
+   8   0   2      0.00944719      0.00976408    3.17e-04
+   4   2   8     0.000106546     0.000114872    8.33e-06
+   8   2   4     0.000113351     0.000114872    1.52e-06
+   0   8   4       0.0017592      0.00195282    1.94e-04
+   0   0   6        0.201203        0.199466    1.74e-03
+   2   6   8     2.91293e-05     3.02293e-05    1.10e-06
+   0   2   0        0.817859        0.837758    1.99e-02
+   4   6   4     4.88858e-05     4.92307e-05    3.45e-07
+   6   2   0       0.0194586       0.0181333    1.33e-03
+   8   8   2     1.00818e-05     1.00764e-05    5.40e-09
+   8   4   8     1.28466e-06     1.31432e-06    2.97e-08
+   2   2   8     0.000617766     0.000650939    3.32e-05
+   6   0   4      0.00401111      0.00418461    1.73e-04
+   8   4   0      0.00211512      0.00195282    1.62e-04
+   6   0   0        0.206377        0.199466    6.91e-03
+   8   2   0       0.0106769      0.00976408    9.13e-04
+   8   4   2     0.000116982     0.000114872    2.11e-06
+   2   6   0       0.0174516       0.0181333    6.82e-04
+   2   8   8      9.7552e-06     1.00764e-05    3.21e-07
+   0   2   2        0.116416         0.11968    3.26e-03
+
+TEST02
+  Use the Monte Carlo method to estimate integrals over
+  the interior of the unit hyperball in M dimensions.
+
+  Spatial dimension M = 6
+  Number of sample points used is 4192
+
+  If any exponent is odd, the integral is zero.
+  We will restrict this test to randomly chosen even exponents.
+
+  E1  E2  E3  E4  E5  E6     MC-Estimate           Exact      Error
+
+   0   2   4   4   0   6     3.50057e-07     4.09626e-07    5.96e-08
+   6   0   2   2   6   6     4.57443e-10     5.86118e-10    1.29e-10
+   0   0   4   6   6   6     1.32607e-09     1.75835e-09    4.32e-10
+   2   4   6   2   6   6     1.40123e-12     1.83162e-12    4.30e-13
+   6   2   0   0   6   0     1.47968e-05     1.50196e-05    2.23e-07
+   2   0   2   6   4   4      1.6326e-08     1.70678e-08    7.42e-10
+   2   6   4   0   0   0     5.78593e-05     6.00785e-05    2.22e-06
+   4   6   4   0   4   2     1.97856e-09     1.96936e-09    9.20e-12
+   6   0   4   0   6   4     9.10346e-09     9.84678e-09    7.43e-10
+   4   2   4   4   0   0     2.08824e-06     1.80236e-06    2.86e-07
+   2   0   2   6   0   6     6.96057e-07      6.8271e-07    1.33e-08
+   0   4   4   2   2   6     1.41946e-08     1.70678e-08    2.87e-09
+   6   2   0   2   6   4     3.36529e-09     3.28226e-09    8.30e-11
+   0   6   2   4   2   2     1.15718e-07     1.36542e-07    2.08e-08
+   0   6   4   0   6   0     2.04727e-06     2.04813e-06    8.61e-10
+   2   0   6   0   4   0     5.66048e-05     6.00785e-05    3.47e-06
+   6   0   2   4   0   4     4.25947e-07     4.09626e-07    1.63e-08
+   0   2   2   4   2   4     5.07457e-07     6.00785e-07    9.33e-08
+   2   4   6   6   2   0     3.30373e-09     3.28226e-09    2.15e-11
+   4   6   0   2   4   2     1.61164e-08     1.70678e-08    9.51e-10
+
+HYPERBALL_INTEGRALS_PRB
+  Normal end of execution.
+
+11 January 2014 09:41:54 AM

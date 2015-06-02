@@ -1,4 +1,4 @@
-03 January 2011 04:33:17 PM
+03 April 2014 11:26:12 AM
 
 BLAS1_D_PRB:
   C version
@@ -387,4 +387,4 @@ TEST12
 BLAS1_D_PRB:
   Normal end of execution.
 
-03 January 2011 04:33:17 PM
+03 April 2014 11:26:12 AM

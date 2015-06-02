@@ -8,6 +8,274 @@
 
 /******************************************************************************/
 
+void gamma_values ( int *n_data, double *x, double *fx )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GAMMA_VALUES returns some values of the Gamma function.
+
+  Discussion:
+
+    The Gamma function is defined as:
+
+      Gamma(Z) = Integral ( 0 <= T < +oo ) T^(Z-1) exp(-T) dT
+
+    It satisfies the recursion:
+
+      Gamma(X+1) = X * Gamma(X)
+
+    Gamma is undefined for nonpositive integral X.
+    Gamma(0.5) = sqrt(PI)
+    For N a positive integer, Gamma(N+1) = N!, the standard factorial.
+
+    In Mathematica, the function can be evaluated by:
+
+      Gamma[x]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 May 2007
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, double *X, the argument of the function.
+
+    Output, double *FX, the value of the function.
+*/
+{
+# define N_MAX 25
+
+  const double fx_vec[N_MAX] = {
+     -0.3544907701811032E+01,
+     -0.1005871979644108E+03,
+      0.9943258511915060E+02,
+      0.9513507698668732E+01,
+      0.4590843711998803E+01,
+      0.2218159543757688E+01,
+      0.1772453850905516E+01,
+      0.1489192248812817E+01,
+      0.1164229713725303E+01,
+      0.1000000000000000E+01,
+      0.9513507698668732E+00,
+      0.9181687423997606E+00,
+      0.8974706963062772E+00,
+      0.8872638175030753E+00,
+      0.8862269254527580E+00,
+      0.8935153492876903E+00,
+      0.9086387328532904E+00,
+      0.9313837709802427E+00,
+      0.9617658319073874E+00,
+      0.1000000000000000E+01,
+      0.2000000000000000E+01,
+      0.6000000000000000E+01,
+      0.3628800000000000E+06,
+      0.1216451004088320E+18,
+      0.8841761993739702E+31 };
+
+  const double x_vec[N_MAX] = {
+     -0.50E+00,
+     -0.01E+00,
+      0.01E+00,
+      0.10E+00,
+      0.20E+00,
+      0.40E+00,
+      0.50E+00,
+      0.60E+00,
+      0.80E+00,
+      1.00E+00,
+      1.10E+00,
+      1.20E+00,
+      1.30E+00,
+      1.40E+00,
+      1.50E+00,
+      1.60E+00,
+      1.70E+00,
+      1.80E+00,
+      1.90E+00,
+      2.00E+00,
+      3.00E+00,
+      4.00E+00,
+     10.00E+00,
+     20.00E+00,
+     30.00E+00 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *x = 0.0;
+    *fx = 0.0;
+  }
+  else
+  {
+    *x = x_vec[*n_data-1];
+    *fx = fx_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+void gamma_log_values ( int *n_data, double *x, double *fx )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GAMMA_LOG_VALUES returns some values of the Log Gamma function.
+
+  Discussion:
+
+    In Mathematica, the function can be evaluated by:
+
+      Log[Gamma[x]]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, double *X, the argument of the function.
+
+    Output, double *FX, the value of the function.
+*/
+{
+# define N_MAX 20
+
+  const double fx_vec[N_MAX] = {
+      0.1524063822430784E+01,
+      0.7966778177017837E+00,
+      0.3982338580692348E+00,
+      0.1520596783998375E+00,
+      0.0000000000000000E+00,
+     -0.4987244125983972E-01,
+     -0.8537409000331584E-01,
+     -0.1081748095078604E+00,
+     -0.1196129141723712E+00,
+     -0.1207822376352452E+00,
+     -0.1125917656967557E+00,
+     -0.9580769740706586E-01,
+     -0.7108387291437216E-01,
+     -0.3898427592308333E-01,
+     0.00000000000000000E+00,
+     0.69314718055994530E+00,
+     0.17917594692280550E+01,
+     0.12801827480081469E+02,
+     0.39339884187199494E+02,
+     0.71257038967168009E+02 };
+
+  const double x_vec[N_MAX] = {
+      0.20E+00,
+      0.40E+00,
+      0.60E+00,
+      0.80E+00,
+      1.00E+00,
+      1.10E+00,
+      1.20E+00,
+      1.30E+00,
+      1.40E+00,
+      1.50E+00,
+      1.60E+00,
+      1.70E+00,
+      1.80E+00,
+      1.90E+00,
+      2.00E+00,
+      3.00E+00,
+      4.00E+00,
+     10.00E+00,
+     20.00E+00,
+     30.00E+00 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *x = 0.0;
+    *fx = 0.0;
+  }
+  else
+  {
+    *x = x_vec[*n_data-1];
+    *fx = fx_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
 int i4_log_10 ( int i )
 
 /******************************************************************************/
@@ -368,7 +636,7 @@ int i4_uniform_ab ( int a, int b, int *seed )
 /*
   Purpose:
 
-    I4_UNIFORM_AB returns a pseudorandom I4 scaled to [A,B].
+    I4_UNIFORM_AB returns a scaled pseudorandom I4 between A and B.
 
   Discussion:
 
@@ -377,11 +645,11 @@ int i4_uniform_ab ( int a, int b, int *seed )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license.
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
-    12 November 2006
+    24 May 2012
 
   Author:
 
@@ -391,25 +659,30 @@ int i4_uniform_ab ( int a, int b, int *seed )
 
     Paul Bratley, Bennett Fox, Linus Schrage,
     A Guide to Simulation,
-    Springer Verlag, pages 201-202, 1983.
-
-    Pierre L'Ecuyer,
-    Random Number Generation,
-    in Handbook of Simulation,
-    edited by Jerry Banks,
-    Wiley Interscience, page 95, 1998.
+    Second Edition,
+    Springer, 1987,
+    ISBN: 0387964673,
+    LC: QA76.9.C65.B73.
 
     Bennett Fox,
     Algorithm 647:
     Implementation and Relative Efficiency of Quasirandom
     Sequence Generators,
     ACM Transactions on Mathematical Software,
-    Volume 12, Number 4, pages 362-376, 1986.
+    Volume 12, Number 4, December 1986, pages 362-376.
 
-    Peter Lewis, Allen Goodman, James Miller
+    Pierre L'Ecuyer,
+    Random Number Generation,
+    in Handbook of Simulation,
+    edited by Jerry Banks,
+    Wiley, 1998,
+    ISBN: 0471134031,
+    LC: T57.62.H37.
+
+    Peter Lewis, Allen Goodman, James Miller,
     A Pseudo-Random Number Generator for the System/360,
     IBM Systems Journal,
-    Volume 8, pages 136-143, 1969.
+    Volume 8, Number 2, 1969, pages 136-143.
 
   Parameters:
 
@@ -421,6 +694,8 @@ int i4_uniform_ab ( int a, int b, int *seed )
     Output, int I4_UNIFORM_AB, a number between A and B.
 */
 {
+  int c;
+  const int i4_huge = 2147483647;
   int k;
   float r;
   int value;
@@ -432,6 +707,15 @@ int i4_uniform_ab ( int a, int b, int *seed )
     fprintf ( stderr, "  Input value of SEED = 0.\n" );
     exit ( 1 );
   }
+/*
+  Guaranteee A <= B.
+*/
+  if ( b < a )
+  {
+    c = a;
+    a = b;
+    b = c;
+  }
 
   k = *seed / 127773;
 
@@ -439,22 +723,30 @@ int i4_uniform_ab ( int a, int b, int *seed )
 
   if ( *seed < 0 )
   {
-    *seed = *seed + 2147483647;
+    *seed = *seed + i4_huge;
   }
 
   r = ( float ) ( *seed ) * 4.656612875E-10;
 /*
   Scale R to lie between A-0.5 and B+0.5.
 */
-  r = ( 1.0 - r ) * ( ( float ) ( i4_min ( a, b ) ) - 0.5 )
-    +         r   * ( ( float ) ( i4_max ( a, b ) ) + 0.5 );
+  r = ( 1.0 - r ) * ( ( float ) ( a ) - 0.5 ) 
+    +         r   * ( ( float ) ( b ) + 0.5 );
 /*
-  Use rounding to convert R to an integer between A and B.
+  Round R to the nearest integer.
 */
-  value = r4_nint ( r );
-
-  value = i4_max ( value, i4_min ( a, b ) );
-  value = i4_min ( value, i4_max ( a, b ) );
+  value = round ( r );
+/*
+  Guarantee that A <= VALUE <= B.
+*/
+  if ( value < a )
+  {
+    value = a;
+  }
+  if ( b < value )
+  {
+    value = b;
+  }
 
   return value;
 }
@@ -633,13 +925,13 @@ void i4vec_copy ( int n, int a1[], int a2[] )
 }
 /******************************************************************************/
 
-int *i4vec_indicator_new ( int n )
+int *i4vec_indicator0_new ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    I4VEC_INDICATOR_NEW sets an I4VEC to the indicator vector.
+    I4VEC_INDICATOR0_NEW sets an I4VEC to the indicator vector (0,1,2,...).
 
   Discussion:
 
@@ -651,7 +943,7 @@ int *i4vec_indicator_new ( int n )
 
   Modified:
 
-    26 August 2008
+    27 September 2014
 
   Author:
 
@@ -661,7 +953,51 @@ int *i4vec_indicator_new ( int n )
 
     Input, int N, the number of elements of A.
 
-    Output, int I4VEC_INDICATOR_NEW[N], the array.
+    Output, int I4VEC_INDICATOR0_NEW[N], the array.
+*/
+{
+  int *a;
+  int i;
+
+  a = ( int * ) malloc ( n * sizeof ( int ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = i;
+  }
+  return a;
+}
+/******************************************************************************/
+
+int *i4vec_indicator1_new ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_INDICATOR1_NEW sets an I4VEC to the indicator vector (1,2,3,...).
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 September 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of elements of A.
+
+    Output, int I4VEC_INDICATOR1_NEW[N], the array.
 */
 {
   int *a;
@@ -677,7 +1013,7 @@ int *i4vec_indicator_new ( int n )
 }
 /******************************************************************************/
 
-void i4vec_permute ( int n, int p[], int base, int a[] )
+void i4vec_permute ( int n, int p[], int a[] )
 
 /******************************************************************************/
 /*
@@ -728,33 +1064,33 @@ void i4vec_permute ( int n, int p[], int base, int a[] )
     that the I-th element of the output array should be the J-th
     element of the input array.
 
-    Input, int BASE, is 0 for a 0-based permutation and 1 for
-    a 1-based permutation.
-
     Input/output, int A[N], the array to be permuted.
 */
 {
   int a_temp;
   int i;
+  int ierror;
   int iget;
   int iput;
   int istart;
 
-  if ( !perm_check ( n, p, base ) )
+  ierror = perm0_check ( n, p );
+
+  if ( ierror != 0 )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "I4VEC_PERMUTE - Fatal error!\n" );
-    fprintf ( stderr, "  PERM_CHECK rejects this permutation.\n" );
+    fprintf ( stderr, "  PERM0_CHECK rejects permutation.\n" );
     exit ( 1 );
   }
 /*
   In order for the sign negation trick to work, we need to assume that the
-  entries of P are strictly positive.  Presumably, the lowest number is BASE.
-  So temporarily add 1-BASE to each entry to force positivity.
+  entries of P are strictly positive.  Presumably, the lowest number is 0.
+  So temporarily add 1 to each entry to force positivity.
 */
   for ( i = 0; i < n; i++ )
   {
-    p[i] = p[i] + 1 - base;
+    p[i] = p[i] + 1;
   }
 /*
   Search for the next element of the permutation that has not been used.
@@ -814,7 +1150,7 @@ void i4vec_permute ( int n, int p[], int base, int a[] )
 */
   for ( i = 0; i < n; i++ )
   {
-    p[i] = p[i] - 1 + base;
+    p[i] = p[i] - 1;
   }
 
   return;
@@ -864,6 +1200,80 @@ void i4vec_print ( int n, int a[], char *title )
   {
     fprintf ( stdout, "  %6d: %8d\n", i, a[i] );
   }
+  return;
+}
+/******************************************************************************/
+
+void i4vec_transpose_print ( int n, int a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    I4VEC_TRANSPOSE_PRINT prints an I4VEC "transposed".
+
+  Discussion:
+
+    An I4VEC is a vector of I4's.
+
+  Example:
+
+    A = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }
+    TITLE = "My vector:  "
+
+    My vector:      1    2    3    4    5
+                    6    7    8    9   10
+                   11
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 December 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of components of the vector.
+
+    Input, int A[N], the vector to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+  int ihi;
+  int ilo;
+  int title_len;
+
+  title_len = strlen ( title );
+
+  for ( ilo = 1; ilo <= n; ilo = ilo + 5 )
+  {
+    ihi = i4_min ( ilo + 5 - 1, n );
+    if ( ilo == 1 )
+    {
+      printf ( "%s", title );
+    }
+    else
+    {
+      for ( i = 1; i <= title_len; i++ )
+      {
+        printf ( " " );
+      }
+    }
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      printf ( "%12d", a[i-1] );
+    }
+    printf ( "\n" );
+  }
+
   return;
 }
 /******************************************************************************/
@@ -1008,10 +1418,10 @@ double *legendre_zeros ( int order )
   int ncopy;
   int nmove;
   double p;
-  double pi = 3.141592653589793;
   double pk;
   double pkm1;
   double pkp1;
+  const double r8_pi = 3.141592653589793;
   double t;
   double u;
   double v;
@@ -1029,7 +1439,7 @@ double *legendre_zeros ( int order )
   {
     mp1mi = m + 1 - i;
 
-    t = ( double ) ( 4 * i - 1 ) * pi / ( double ) ( 4 * order + 2 );
+    t = ( double ) ( 4 * i - 1 ) * r8_pi / ( double ) ( 4 * order + 2 );
 
     x0 = cos ( t ) * ( 1.0 - ( 1.0 - 1.0 / ( double ) ( order ) ) 
       / ( double ) ( 8 * order * order ) );
@@ -1105,21 +1515,18 @@ double *legendre_zeros ( int order )
 }
 /******************************************************************************/
 
-int perm_check ( int n, int p[], int base )
+int perm0_check ( int n, int p[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    PERM_CHECK checks that a vector represents a permutation.
+    PERM0_CHECK checks a permutation of (0,...,N-1)
 
   Discussion:
 
-    The routine verifies that each of the integers from BASE to
-    to BASE+N-1 occurs among the N entries of the permutation.
-
-    Set the input quantity BASE to 0, if P is a 0-based permutation,
-    or to 1 if P is a 1-based permutation.
+    The routine verifies that each of the integers from 0 to
+    to N-1 occurs among the N entries of the permutation.
 
   Licensing:
 
@@ -1127,7 +1534,7 @@ int perm_check ( int n, int p[], int base )
 
   Modified:
 
-    03 June 2009
+    24 May 2015
 
   Author:
 
@@ -1139,46 +1546,51 @@ int perm_check ( int n, int p[], int base )
 
     Input, int P[N], the array to check.
 
-    Input, int BASE, the index base.
-
-    Output, int PERM_CHECK, is TRUE if the permutation is OK.
+    Output, int PERM0_CHECK:
+    0, P is a legal permutation of (0,...,N-1).
+    1, P is not a legal permutation of (0,...,N-1);
 */
 {
-  int found;
-  int i;
-  int seek;
+  int ierror;
+  int location;
+  int value;
 
-  for ( seek = base; seek < base + n; seek++ )
+  ierror = 0;
+
+  for ( value = 0; value < n; value++ )
   {
-    found = 0;
+    ierror = 1;
 
-    for ( i = 0; i < n; i++ )
+    for ( location = 0; location < n; location++ )
     {
-      if ( p[i] == seek )
+      if ( p[location] == value )
       {
-        found = 1;
+        ierror = 0;
         break;
       }
     }
 
-    if ( found = 0 )
+    if ( ierror != 0 )
     {
-      return 0;
+      printf ( "\n" );
+      printf ( "PERM0_CHECK - Warning!\n" );
+      printf ( "  Permutation is missing value %d\n", value );
+      break;
     }
 
   }
 
-  return 1;
+  return ierror;
 }
 /******************************************************************************/
 
-int *perm_uniform_new ( int n, int base, int *seed )
+int *perm0_uniform_new ( int n, int *seed )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    PERM_UNIFORM_NEW selects a random permutation of N objects.
+    PERM0_UNIFORM_NEW selects a random permutation of 0, ..., N-1.
 
   Licensing:
 
@@ -1186,7 +1598,7 @@ int *perm_uniform_new ( int n, int base, int *seed )
 
   Modified:
 
-    05 June 2010
+    23 May 2015
 
   Author:
 
@@ -1203,13 +1615,10 @@ int *perm_uniform_new ( int n, int base, int *seed )
 
     Input, int N, the number of objects to be permuted.
 
-    Input, int BASE, is 0 for a 0-based permutation and 1 for
-    a 1-based permutation.
-
     Input/output, int *SEED, a seed for the random number generator.
 
-    Output, int PERM_UNIFORM_NEW[N], a permutation of
-    (BASE, BASE+1, ..., BASE+N-1).
+    Output, int PERM0_UNIFORM_NEW[N], a permutation of
+    (0, 1, ..., N-1).
 */
 {
   int i;
@@ -1221,7 +1630,7 @@ int *perm_uniform_new ( int n, int base, int *seed )
 
   for ( i = 0; i < n; i++ )
   {
-    p[i] = i + base;
+    p[i] = i;
   }
 
   for ( i = 0; i < n; i++ )
@@ -1236,26 +1645,18 @@ int *perm_uniform_new ( int n, int base, int *seed )
 }
 /******************************************************************************/
 
-int r4_nint ( float x )
+int perm1_check ( int n, int p[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R4_NINT returns the nearest integer to an R4.
+    PERM1_CHECK checks a permutation of (1,...,N).
 
-  Example:
+  Discussion:
 
-        X         R4_NINT
-
-      1.3         1
-      1.4         1
-      1.5         1 or 2
-      1.6         2
-      0.0         0
-     -0.7        -1
-     -1.1        -1
-     -1.6        -2
+    The routine verifies that each of the integers from 1 to
+    to N occurs among the N entries of the permutation.
 
   Licensing:
 
@@ -1263,7 +1664,7 @@ int r4_nint ( float x )
 
   Modified:
 
-    05 May 2006
+    24 May 2015
 
   Author:
 
@@ -1271,25 +1672,106 @@ int r4_nint ( float x )
 
   Parameters:
 
-    Input, float X, the value.
+    Input, int N, the number of entries.
 
-    Output, int R4_NINT, the nearest integer to X.
+    Input, int P[N], the array to check.
+
+    Output, int PERM1_CHECK:
+    0, P is a legal permutation of (1,...,N).
+    1, P is not a legal permutation of (1,...,N);
 */
 {
-  int s;
+  int ierror;
+  int location;
   int value;
 
-  if ( x < 0.0 )
-  {
-    s = - 1;
-  }
-  else
-  {
-    s = + 1;
-  }
-  value = s * ( int ) ( fabs ( x ) + 0.5 );
+  ierror = 0;
 
-  return value;
+  for ( value = 1; value <= n; value++ )
+  {
+    ierror = 1;
+
+    for ( location = 0; location < n; location++ )
+    {
+      if ( p[location] == value )
+      {
+        ierror = 0;
+        break;
+      }
+    }
+
+    if ( ierror != 0 )
+    {
+      printf ( "\n" );
+      printf ( "PERM1_CHECK - Fatal error!\n" );
+      printf ( "  Permutation is missing value %d\n", value );
+      break;
+    }
+
+  }
+
+  return ierror;
+}
+/******************************************************************************/
+
+int *perm1_uniform_new ( int n, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    PERM1_UNIFORM_NEW selects a random permutation of 1, ..., N.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 May 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Albert Nijenhuis, Herbert Wilf,
+    Combinatorial Algorithms,
+    Academic Press, 1978, second edition,
+    ISBN 0-12-519260-6.
+
+  Parameters:
+
+    Input, int N, the number of objects to be permuted.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, int PERM1_UNIFORM_NEW[N], a permutation of
+    (1, 2, ..., N).
+*/
+{
+  int i;
+  int j;
+  int k;
+  int *p;
+
+  p = ( int * ) malloc ( n * sizeof ( int ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    p[i] = i + 1;
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    j = i4_uniform_ab ( i, n - 1, seed );
+    k    = p[i];
+    p[i] = p[j];
+    p[j] = k;
+  }
+
+  return p;
 }
 /******************************************************************************/
 
@@ -1300,6 +1782,10 @@ double r8_abs ( double x )
   Purpose:
 
     R8_ABS returns the absolute value of an R8.
+
+  Discussion:
+
+    The C math library provides the function fabs() which should be preferred.
 
   Licensing:
 
@@ -1368,11 +1854,11 @@ double r8_acos ( double c )
 */
 {
   double angle;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
 
   if ( c <= -1.0 )
   {
-    angle = pi;
+    angle = r8_pi;
   } 
   else if ( 1.0 <= c )
   {
@@ -1383,6 +1869,73 @@ double r8_acos ( double c )
     angle = acos ( c );
   }
   return angle;
+}
+/******************************************************************************/
+
+double r8_acosh ( double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ACOSH evaluates the arc-hyperbolic cosine of an R8 argument.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 January 2012
+
+  Author:
+
+    Original FORTRAN77 version by Wayne Fullerton.
+    C version by John Burkardt.
+
+  Reference:
+
+    Wayne Fullerton,
+    Portable Special Function Routines,
+    in Portability of Numerical Software,
+    edited by Wayne Cowell,
+    Lecture Notes in Computer Science, Volume 57,
+    Springer 1977,
+    ISBN: 978-3-540-08446-4,
+    LC: QA297.W65.
+
+  Parameters:
+
+    Input, double X, the argument.
+
+    Output, double R8_ACOSH, the arc-hyperbolic cosine of X.
+*/
+{
+  const double dln2 = 0.69314718055994530941723212145818;
+  double value;
+  static double xmax = 0.0;
+
+  if ( xmax == 0.0 )
+  {
+    xmax = 1.0 / sqrt ( r8_tiny ( ) );
+  }
+
+  if ( x < 1.0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8_ACOSH - Fatal error!\n" );
+    fprintf ( stderr, "  X < 1.0\n" );
+    exit ( 1 );
+  }
+  else if ( x < xmax )
+  {
+    value = log ( x + sqrt ( x * x - 1.0 ) );
+  }
+  else
+  {
+    value = dln2 + log ( x );
+  }
+  return value;
 }
 /******************************************************************************/
 
@@ -1421,6 +1974,130 @@ double r8_add ( double x, double y )
 }
 /******************************************************************************/
 
+double r8_agm ( double a, double b )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_AGM computes the arithmetic-geometric mean of A and B.
+
+  Discussion:
+
+    The AGM is defined for nonnegative A and B.
+
+    The AGM of numbers A and B is defined by setting
+
+      A(0) = A,
+      B(0) = B
+
+      A(N+1) = ( A(N) + B(N) ) / 2
+      B(N+1) = sqrt ( A(N) * B(N) )
+
+    The two sequences both converge to AGM(A,B).
+
+    In Mathematica, the AGM can be evaluated by
+
+      ArithmeticGeometricMean [ a, b ]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input, double A, B, the arguments whose AGM is to be computed.
+    0 <= A, 0 <= B.
+
+    Output, double R8_AGM, the arithmetic-geometric mean of A and B.
+*/
+{
+  double a1;
+  double a2;
+  double b1;
+  double b2;
+  int it;
+  int it_max = 1000;
+  double tol;
+  double value;
+
+  if ( a < 0.0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8_AGM - Fatal error!\n" );
+    fprintf ( stderr, "  A < 0.\n" );
+    exit ( 1 );
+  }
+
+  if ( b < 0.0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8_AGM - Fatal error!\n" );
+    fprintf ( stderr, "  B < 0.\n" );
+    exit ( 1 );
+  }
+
+  if ( a == 0.0 || b == 0.0 )
+  {
+    value = 0.0;
+    return value;
+  }
+
+  if ( a == b )
+  {
+    value = a;
+    return value;
+  }
+
+  a1 = a;
+  b1 = b;
+
+  it = 0;
+  tol = 100.0 * r8_epsilon ( );
+
+  for ( ; ; )
+  {
+    it = it + 1;
+
+    a2 = ( a1 + b1 ) / 2.0;
+    b2 = sqrt ( a1 * b1 );
+
+    if ( fabs ( a2 - b2 ) <= tol * ( a2 + b2 ) )
+    {
+      break;
+    }
+
+    if ( it_max < it )
+    {
+      break;
+    }
+
+    a1 = a2;
+    b1 = b2;
+  }
+  value = a2;
+
+  return value;
+}
+/******************************************************************************/
+
 double r8_aint ( double x )
 
 /******************************************************************************/
@@ -1450,14 +2127,107 @@ double r8_aint ( double x )
 {
   double value;
 
-  if ( x < 0.0E+00 )
+  if ( x < 0.0 )
   {
-    value = - ( double ) ( ( int ) ( r8_abs ( x ) ) );
+    value = - ( double ) ( ( int ) ( fabs ( x ) ) );
   }
   else
   {
-    value =   ( double ) ( ( int ) ( r8_abs ( x ) ) );
+    value =   ( double ) ( ( int ) ( fabs ( x ) ) );
   }
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_asin ( double s )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ASIN computes the arc sine function, with argument truncation.
+
+  Discussion:
+
+    If you call your system ASIN routine with an input argument that is
+    outside the range [-1.0, 1.0 ], you may get an unpleasant surprise.
+
+    In particular, you may get the value NaN returned.
+
+    This routine truncates arguments outside the range, avoiding the problem.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    04 March 2008
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double S, the argument.
+
+    Output, double R8_ASIN, an angle whose sine is S.
+*/
+{
+  double value;
+
+  s = r8_max ( s, -1.0 );
+  s = r8_min ( s, +1.0 );
+
+  value = asin ( s );
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_asinh ( double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ASINH returns the inverse hyperbolic sine of a number.
+
+  Discussion:
+
+    The assertion that:
+
+      Y = R8_ASINH ( X )
+
+    implies that
+
+      X = SINH(Y) = 0.5 * ( EXP(Y) - EXP(-Y) ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    29 November 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the number whose inverse hyperbolic 
+    sine is desired.
+
+    Output, double R8_ASINH, the inverse hyperbolic sine of X.
+*/
+{
+  double value;
+
+  value = log ( x + sqrt ( x * x + 1.0 ) );
 
   return value;
 }
@@ -1510,7 +2280,7 @@ double r8_atan ( double y, double x )
 {
   double abs_x;
   double abs_y;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double theta;
   double theta_0;
 /*
@@ -1520,11 +2290,11 @@ double r8_atan ( double y, double x )
   {
     if ( 0.0 < y )
     {
-      theta = pi / 2.0;
+      theta = r8_pi / 2.0;
     }
     else if ( y < 0.0 )
     {
-      theta = 3.0 * pi / 2.0;
+      theta = 3.0 * r8_pi / 2.0;
     }
     else if ( y == 0.0 )
     {
@@ -1539,7 +2309,7 @@ double r8_atan ( double y, double x )
     }
     else if ( x < 0.0 )
     {
-      theta = pi;
+      theta = r8_pi;
     }
   }
 /*
@@ -1558,19 +2328,115 @@ double r8_atan ( double y, double x )
     }
     else if ( x < 0.0 && 0.0 < y )
     {
-      theta = pi - theta_0;
+      theta = r8_pi - theta_0;
     }
     else if ( x < 0.0 && y < 0.0 )
     {
-      theta = pi + theta_0;
+      theta = r8_pi + theta_0;
     }
     else if ( 0.0 < x && y < 0.0 )
     {
-      theta = 2.0 * pi - theta_0;
+      theta = 2.0 * r8_pi - theta_0;
     }
   }
 
   return theta;
+}
+/******************************************************************************/
+
+double r8_atanh ( double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ATANH returns the inverse hyperbolic tangent of a number.
+
+  Discussion:
+
+    Y = R8_ATANH ( X )
+
+    implies that
+
+    X = TANH(Y) = ( EXP(Y) - EXP(-Y) ) / ( EXP(Y) + EXP(-Y) )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    29 November 2007
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the number whose inverse hyperbolic 
+    tangent is desired.  The absolute value of X should be less than 
+    or equal to 1.
+
+    Output, double R8_ATANH, the inverse hyperbolic tangent of X.
+*/
+{
+  const double r8_huge = 1.79769313486231571E+308;
+  double value;
+
+  if ( x <= -1.0 )
+  {
+    value = - r8_huge;
+  }
+  else if ( 1.0 <= x )
+  {
+    value = r8_huge;
+  }
+  else
+  {
+    value = 0.5 * log ( ( 1.0 + x ) / ( 1.0 - x ) );
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_big ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_BIG returns a "big" R8.
+
+  Discussion:
+
+    The value returned by this function is NOT required to be the
+    maximum representable R8.  We simply want a "very large" but 
+    non-infinite number.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 September 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double R8_BIG, a "big" R8 value.
+*/
+{
+  double value;
+
+  value = 1.0E+30;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -1730,7 +2596,16 @@ double r8_choose ( int n, int k )
   int mx;
   double value;
 
-  mn = i4_min ( k, n - k );
+  if ( k < n - k )
+  {
+    mn = k;
+    mx = n - k;
+  }
+  else
+  {
+    mn = n - k;
+    mx = k;
+  }
 
   if ( mn < 0 )
   {
@@ -1742,7 +2617,6 @@ double r8_choose ( int n, int k )
   }
   else
   {
-    mx = i4_max ( k, n - k );
     value = ( double ) ( mx + 1 );
 
     for ( i = 2; i <= mn; i++ )
@@ -1805,12 +2679,129 @@ double r8_chop ( int place, double x )
 {
   double fac;
   int temp;
-  static double two = 2.0;
+  const double two = 2.0;
   double value;
 
   temp = ( int ) ( r8_log_2 ( x ) );
   fac = pow ( two, temp - place + 1 );
   value = ( double ) ( ( int ) ( x / fac ) ) * fac;
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_cosd ( double degrees )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_COSD returns the cosine of an angle given in degrees.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double DEGREES, the angle in degrees.
+
+    Output, double R8_COSD, the cosine of the angle.
+*/
+{
+  const double r8_pi = 3.141592653589793;
+  double radians;
+  double value;
+
+  radians = r8_pi * ( degrees / 180.0 );
+
+  value = cos ( radians );
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_cot ( double angle )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_COT returns the cotangent of an angle.
+
+  Discussion:
+
+    R8_COT ( THETA ) = COS ( THETA ) / SIN ( THETA )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double ANGLE, the angle, in radians.
+
+    Output, double R8_COT, the cotangent of the angle.
+*/
+{
+  double value;
+
+  value = cos ( angle ) / sin ( angle );
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_cotd ( double degrees )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_COTD returns the cotangent of an angle given in degrees.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double DEGREES, the angle in degrees.
+
+    Output, double R8_COTD, the cotangent of the angle.
+*/
+{
+  const double r8_pi = 3.141592653589793;
+  double radians;
+  double value;
+
+  radians = r8_pi * ( degrees / 180.0 );
+
+  value = cos ( radians ) / sin ( radians );
 
   return value;
 }
@@ -1866,6 +2857,45 @@ double r8_csc ( double theta )
 }
 /******************************************************************************/
 
+double r8_cscd ( double degrees )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_CSCD returns the cosecant of an angle given in degrees.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double DEGREES, the angle in degrees.
+
+    Output, double R8_CSCD, the cosecant of the angle.
+*/
+{
+  const double r8_pi = 3.141592653589793;
+  double radians;
+  double value;
+
+  radians = r8_pi * ( degrees / 180.0 );
+
+  value = 1.0 / sin ( radians );
+
+  return value;
+}
+/******************************************************************************/
+
 double r8_cube_root ( double x )
 
 /******************************************************************************/
@@ -1877,7 +2907,7 @@ double r8_cube_root ( double x )
   Discussion:
 
     This routine is designed to avoid the possible problems that can occur
-    when formulas like 0.0**(1/3) or (-1.0)**(1/3) are to be evaluated.
+    when formulas like 0.0^(1/3) or (-1.0)^(1/3) are to be evaluated.
 
   Licensing:
 
@@ -1915,6 +2945,42 @@ double r8_cube_root ( double x )
   {
     value = - pow ( - x , e );
   }
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_degrees ( double radians )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_DEGREES converts an angle from radian to degree measure.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 May 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double RADIANS, the angle measurement in radians.
+
+    Output, double R8_DEGREES, the angle measurement in degrees.
+*/
+{
+  const double r8_pi = 3.1415926535897932384626434;
+  double value;
+
+  value = radians * 180.0 / r8_pi;
 
   return value;
 }
@@ -1965,7 +3031,7 @@ double r8_diff ( double x, double y, int n )
   double cy;
   double pow2;
   double size;
-  static double two = 2.0;
+  const double two = 2.0;
   double value;
 
   if ( x == y )
@@ -1988,9 +3054,9 @@ double r8_diff ( double x, double y, int n )
   cy = y / size;
 /*
   Here's where rounding comes in.  We know that the larger of the
-  the two values equals 1.  We multiply both values by 2**N,
+  the two values equals 1.  We multiply both values by 2^N,
   where N+1 is the number of binary digits of accuracy we want
-  to use, truncate the values, and divide back by 2**N.
+  to use, truncate the values, and divide back by 2^N.
 */
   cx = ( double ) ( ( int ) ( cx * pow2 + 0.5 * r8_sign ( cx ) ) ) / pow2;
   cy = ( double ) ( ( int ) ( cy * pow2 + 0.5 * r8_sign ( cy ) ) ) / pow2;
@@ -2116,7 +3182,42 @@ double r8_divide_i4 ( int i, int j )
 }
 /******************************************************************************/
 
-double r8_epsilon ( void )
+double r8_e ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_E returns the value of the base of the natural logarithm system.
+
+  Definition:
+
+    E = Limit ( N -> +oo ) ( 1 + 1 / N )^N
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, double R8_E, the base of the natural logarithm system.
+*/
+{
+  const double value = 2.718281828459045235360287;
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_epsilon ( )
 
 /******************************************************************************/
 /*
@@ -2149,13 +3250,13 @@ double r8_epsilon ( void )
     Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  static double value = 2.220446049250313E-016;
+  const double value = 2.220446049250313E-016;
 
   return value;
 }
 /******************************************************************************/
 
-double r8_epsilon_compute ( void )
+double r8_epsilon_compute ( )
 
 /******************************************************************************/
 /*
@@ -2165,8 +3266,8 @@ double r8_epsilon_compute ( void )
 
   Discussion:
 
-    The round off unit is a number R which is a power of 2 with the property that,
-    to the precision of the computer's arithmetic,
+    The round off unit is a number R which is a power of 2 with the property
+    that, to the precision of the computer's arithmetic,
       1 < 1 + R
     but
       1 = ( 1 + R / 2 )
@@ -2223,20 +3324,15 @@ double r8_exp ( double x )
 
   Discussion:
 
-    My experience with the G95 compiler has included many unpleasant
-    floating point exceptions when very small arguments are given to
-    the exponential function.
-
-    This routine is designed to avoid such problems.
-
-    Ideally, the rule would be:
-
-                    X <= log ( TINY ) => R8_EXP ( X ) = 0
-    log ( HUGE ) <= X                 => R8_EXP ( X ) = HUGE
-
-    However, the G95 math library seems to produce infinity for
-    EXP ( LOG ( HUGE ( X ) ), rather than HUGE ( X ), so we've
-    included a fudge factor.
+    For arguments of very large magnitude, the evaluation of the
+    exponential function can cause computational problems.  Some languages
+    and compilers may return an infinite value or a "Not-a-Number".  
+    An alternative, when dealing with a wide range of inputs, is simply
+    to truncate the calculation for arguments whose magnitude is too large.
+    Whether this is the right or convenient approach depends on the problem
+    you are dealing with, and whether or not you really need accurate
+    results for large magnitude inputs, or you just want your code to
+    stop crashing.
 
   Licensing:
 
@@ -2244,7 +3340,7 @@ double r8_exp ( double x )
 
   Modified:
 
-    01 July 2008
+    19 September 2014
 
   Author:
 
@@ -2257,21 +3353,22 @@ double r8_exp ( double x )
     Output, double R8_EXP, the value of exp ( X ).
 */
 {
-  double log_max = 709.711;
-  double log_min = -708.467;
+  const double r8_big = 1.0E+30;
+  const double r8_log_max = +69.0776;
+  const double r8_log_min = -69.0776;
   double value;
 
-  if ( x <= log_min )
+  if ( x <= r8_log_min )
   {
     value = 0.0;
   }
-  else if ( x < log_max )
+  else if ( x < r8_log_max )
   {
     value = exp ( x );
   }
   else
   {
-    value = r8_huge ( );
+    value = r8_big;
   }
 
   return value;
@@ -2324,6 +3421,147 @@ double r8_factorial ( int n )
 }
 /******************************************************************************/
 
+void r8_factorial_values ( int *n_data, int *n, double *fn )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FACTORIAL_VALUES returns values of the real factorial function.
+
+  Discussion:
+
+    0! = 1
+    I! = Product ( 1 <= J <= I ) J
+
+    Although the factorial is an int *valued function, it quickly
+    becomes too large for an int *to hold.  This routine still accepts
+    an int *as the input argument, but returns the function value
+    as a real number.
+
+    In Mathematica, the function can be evaluated by:
+
+      n!
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 August 2004
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, int *N, the argument of the function.
+
+    Output, double *FN, the value of the function.
+*/
+{
+# define N_MAX 25
+
+  static double fn_vec[N_MAX] = {
+     0.1000000000000000E+01,
+     0.1000000000000000E+01,
+     0.2000000000000000E+01,
+     0.6000000000000000E+01,
+     0.2400000000000000E+02,
+     0.1200000000000000E+03,
+     0.7200000000000000E+03,
+     0.5040000000000000E+04,
+     0.4032000000000000E+05,
+     0.3628800000000000E+06,
+     0.3628800000000000E+07,
+     0.3991680000000000E+08,
+     0.4790016000000000E+09,
+     0.6227020800000000E+10,
+     0.8717829120000000E+11,
+     0.1307674368000000E+13,
+     0.2092278988800000E+14,
+     0.3556874280960000E+15,
+     0.6402373705728000E+16,
+     0.1216451004088320E+18,
+     0.2432902008176640E+19,
+     0.1551121004333099E+26,
+     0.3041409320171338E+65,
+     0.9332621544394415E+158,
+     0.5713383956445855E+263 };
+
+  static int n_vec[N_MAX] = {
+       0,
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+       7,
+       8,
+       9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      25,
+      50,
+     100,
+     150 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *n = 0;
+    *fn = 0.0;
+  }
+  else
+  {
+    *n = n_vec[*n_data-1];
+    *fn = fn_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
 double r8_factorial2 ( int n )
 
 /******************************************************************************/
@@ -2337,10 +3575,8 @@ double r8_factorial2 ( int n )
     FACTORIAL2( N ) = Product ( N * (N-2) * (N-4) * ... * 2 )  (N even)
                     = Product ( N * (N-2) * (N-4) * ... * 1 )  (N odd)
 
-  Example:
-
-     N    Factorial2(N)
-
+     N Value
+    -- -----
      0     1
      1     1
      2     2
@@ -2392,6 +3628,339 @@ double r8_factorial2 ( int n )
   }
 
   return value;
+}
+/******************************************************************************/
+
+void r8_factorial2_values ( int *n_data, int *n, double *f )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FACTORIAL2_VALUES returns values of the double factorial function.
+
+  Formula:
+
+    FACTORIAL2( N ) = Product ( N * (N-2) * (N-4) * ... * 2 )  (N even)
+                    = Product ( N * (N-2) * (N-4) * ... * 1 )  (N odd)
+
+    In Mathematica, the function can be evaluated by:
+
+      n!!
+
+  Example:
+
+     N    N!!
+
+     0     1
+     1     1
+     2     2
+     3     3
+     4     8
+     5    15
+     6    48
+     7   105
+     8   384
+     9   945
+    10  3840
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 February 2015
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+    Daniel Zwillinger,
+    CRC Standard Mathematical Tables and Formulae,
+    30th Edition,
+    CRC Press, 1996, page 16.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, int *N, the argument of the function.
+
+    Output, double *F, the value of the function.
+*/
+{
+# define N_MAX 16
+
+  static double f_vec[N_MAX] = {
+          1.0,
+          1.0,
+          2.0,
+          3.0,
+          8.0,
+         15.0,
+         48.0,
+        105.0,
+        384.0,
+        945.0,
+       3840.0,
+      10395.0,
+      46080.0,
+     135135.0,
+     645120.0,
+    2027025.0 };
+
+  static int n_vec[N_MAX] = {
+     0,
+     1,  2,  3,  4,  5,
+     6,  7,  8,  9, 10,
+    11, 12, 13, 14, 15 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *n = 0;
+    *f = 0.0;
+  }
+  else
+  {
+    *n = n_vec[*n_data-1];
+    *f = f_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
+double r8_fall ( double x, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FALL computes the falling factorial function [X]_N.
+
+  Discussion:
+
+    Note that the number of "injections" or 1-to-1 mappings from
+    a set of N elements to a set of M elements is [M]_N.
+
+    The number of permutations of N objects out of M is [M]_N.
+
+    Moreover, the Stirling numbers of the first kind can be used
+    to convert a falling factorial into a polynomial, as follows:
+
+      [X]_N = S^0_N + S^1_N * X + S^2_N * X^2 + ... + S^N_N X^N.
+
+  Formula:
+
+    [X]_N = X * ( X - 1 ) * ( X - 2 ) * ... * ( X - N + 1 ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the argument of the falling factorial function.
+
+    Input, int N, the order of the falling factorial function.
+    If N = 0, FALL = 1, if N = 1, FALL = X.  Note that if N is
+    negative, a "rising" factorial will be computed.
+
+    Output, double R8_FALL, the value of the falling factorial function.
+*/
+{
+  int i;
+  double value;
+
+  value = 1.0;
+
+  if ( 0 < n )
+  {
+    for ( i = 1; i <= n; i++ )
+    {
+      value = value * x;
+      x = x - 1.0;
+    }
+  }
+  else if ( n < 0 )
+  {
+    for ( i = -1; n <= i; i-- )
+    {
+      value = value * x;
+      x = x + 1.0;
+    }
+
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+void r8_fall_values ( int *n_data, double *x, int *n, double *f )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_FALL_VALUES returns some values of the falling factorial function.
+
+  Discussion:
+
+    In Mathematica, the function can be evaluated by:
+
+      FactorialPower[X,N]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 December 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, double *X, int *N, the arguments of the function.
+
+    Output, double *F, the value of the function.
+*/
+{
+# define N_MAX 15
+
+  static double f_vec[N_MAX] = {
+    120.0000000000000,
+    163.1601562500000,
+    216.5625000000000,
+    281.6601562500000,
+    360.0000000000000,
+    1.000000000000000,
+    7.500000000000000,
+    48.75000000000000,
+    268.1250000000000,
+    1206.562500000000,
+    4222.968750000000,
+    10557.42187500000,
+    15836.13281250000,
+    7918.066406250000,
+    -3959.03320312500 };
+
+  static int n_vec[N_MAX] = {
+    4,
+    4,
+    4,
+    4,
+    4,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9 };
+
+  static double x_vec[N_MAX] = {
+    5.00,
+    5.25,
+    5.50,
+    5.75,
+    6.00,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *x = 0.0;
+    *n = 0;
+    *f = 0.0;
+  }
+  else
+  {
+    *x = x_vec[*n_data-1];
+    *n = n_vec[*n_data-1];
+    *f = f_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
 }
 /******************************************************************************/
 
@@ -2533,7 +4102,7 @@ double r8_fractional ( double x )
 {
   double value;
 
-  value = r8_abs ( x ) - ( double ) ( ( int ) r8_abs ( x ) );
+  value = abs ( x ) - ( double ) ( ( int ) abs ( x ) );
 
   return value;
 }
@@ -2618,7 +4187,6 @@ double r8_gamma ( double x )
   -3.61444134186911729807069E+04,
    6.64561438202405440627855E+04 };
   int parity;
-  double pi = 3.1415926535897932384626434;
   double q[8] = {
   -3.08402300119738975254353E+01,
    3.15350626979604161529144E+02, 
@@ -2628,8 +4196,9 @@ double r8_gamma ( double x )
    4.75584627752788110767815E+03, 
   -1.34659959864969306392456E+05,
   -1.15132259675553483497211E+05 };
+  const double r8_pi = 3.1415926535897932384626434;
   double res;
-  double sqrtpi = 0.9189385332046727417803297;
+  const double sqrtpi = 0.9189385332046727417803297;
   double sum;
   double value;
   double xbig = 171.624;
@@ -2662,7 +4231,7 @@ double r8_gamma ( double x )
         parity = 1;
       }
 
-      fact = - pi / sin ( pi * res );
+      fact = - r8_pi / sin ( r8_pi * res );
       y = y + 1.0;
     }
     else
@@ -2785,7 +4354,258 @@ double r8_gamma ( double x )
 }
 /******************************************************************************/
 
-double r8_huge ( void )
+double r8_gamma_log ( double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_GAMMA_LOG evaluates the logarithm of the gamma function.
+
+  Discussion:
+
+    This routine calculates the LOG(GAMMA) function for a positive real
+    argument X.  Computation is based on an algorithm outlined in
+    references 1 and 2.  The program uses rational functions that
+    theoretically approximate LOG(GAMMA) to at least 18 significant
+    decimal digits.  The approximation for X > 12 is from reference
+    3, while approximations for X < 12.0 are similar to those in
+    reference 1, but are unpublished.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 April 2013
+
+  Author:
+
+    Original FORTRAN77 version by William Cody, Laura Stoltz.
+    C version by John Burkardt.
+
+  Reference:
+
+    William Cody, Kenneth Hillstrom,
+    Chebyshev Approximations for the Natural Logarithm of the
+    Gamma Function,
+    Mathematics of Computation,
+    Volume 21, Number 98, April 1967, pages 198-203.
+
+    Kenneth Hillstrom,
+    ANL/AMD Program ANLC366S, DGAMMA/DLGAMA,
+    May 1969.
+
+    John Hart, Ward Cheney, Charles Lawson, Hans Maehly,
+    Charles Mesztenyi, John Rice, Henry Thatcher,
+    Christoph Witzgall,
+    Computer Approximations,
+    Wiley, 1968,
+    LC: QA297.C64.
+
+  Parameters:
+
+    Input, double X, the argument of the function.
+
+    Output, double R8_GAMMA_LOG, the value of the function.
+*/
+{
+  double c[7] = {
+    -1.910444077728E-03, 
+     8.4171387781295E-04, 
+    -5.952379913043012E-04,
+     7.93650793500350248E-04, 
+    -2.777777777777681622553E-03, 
+     8.333333333333333331554247E-02, 
+     5.7083835261E-03 };
+  double corr;
+  const double d1 = -5.772156649015328605195174E-01;
+  const double d2 = 4.227843350984671393993777E-01;
+  const double d4 = 1.791759469228055000094023;
+  const double frtbig = 2.25E+76;
+  int i;
+  double p1[8] = {
+    4.945235359296727046734888, 
+    2.018112620856775083915565E+02, 
+    2.290838373831346393026739E+03, 
+    1.131967205903380828685045E+04, 
+    2.855724635671635335736389E+04, 
+    3.848496228443793359990269E+04, 
+    2.637748787624195437963534E+04, 
+    7.225813979700288197698961E+03 };
+  double p2[8] = { 
+    4.974607845568932035012064, 
+    5.424138599891070494101986E+02, 
+    1.550693864978364947665077E+04, 
+    1.847932904445632425417223E+05, 
+    1.088204769468828767498470E+06, 
+    3.338152967987029735917223E+06, 
+    5.106661678927352456275255E+06, 
+    3.074109054850539556250927E+06 };
+  double p4[8] = {
+    1.474502166059939948905062E+04, 
+    2.426813369486704502836312E+06, 
+    1.214755574045093227939592E+08, 
+    2.663432449630976949898078E+09, 
+    2.940378956634553899906876E+10, 
+    1.702665737765398868392998E+11, 
+    4.926125793377430887588120E+11, 
+    5.606251856223951465078242E+11 };
+  double q1[8] = { 
+    6.748212550303777196073036E+01, 
+    1.113332393857199323513008E+03, 
+    7.738757056935398733233834E+03, 
+    2.763987074403340708898585E+04, 
+    5.499310206226157329794414E+04, 
+    6.161122180066002127833352E+04, 
+    3.635127591501940507276287E+04, 
+    8.785536302431013170870835E+03 };
+  double q2[8] = { 
+    1.830328399370592604055942E+02, 
+    7.765049321445005871323047E+03, 
+    1.331903827966074194402448E+05, 
+    1.136705821321969608938755E+06, 
+    5.267964117437946917577538E+06, 
+    1.346701454311101692290052E+07, 
+    1.782736530353274213975932E+07, 
+    9.533095591844353613395747E+06 };
+  double q4[8] = { 
+    2.690530175870899333379843E+03, 
+    6.393885654300092398984238E+05, 
+    4.135599930241388052042842E+07, 
+    1.120872109616147941376570E+09, 
+    1.488613728678813811542398E+10, 
+    1.016803586272438228077304E+11, 
+    3.417476345507377132798597E+11, 
+    4.463158187419713286462081E+11 };
+  double res;
+  const double sqrtpi = 0.9189385332046727417803297;
+  const double xbig = 2.55E+305;
+  double xden;
+  const double xinf = 1.79E+308;
+  double xm1;
+  double xm2;
+  double xm4;
+  double xnum;
+  double y;
+  double ysq;
+
+  y = x;
+
+  if ( 0.0 < y && y <= xbig )
+  {
+    if ( y <= r8_epsilon ( ) )
+    {
+      res = - log ( y );
+    }
+/*
+  EPS < X <= 1.5.
+*/
+    else if ( y <= 1.5 )
+    {
+      if ( y < 0.6796875 )
+      {
+        corr = -log ( y );
+        xm1 = y;
+      }
+      else
+      {
+        corr = 0.0;
+        xm1 = ( y - 0.5 ) - 0.5;
+      }
+
+      if ( y <= 0.5 || 0.6796875 <= y )
+      {
+        xden = 1.0;
+        xnum = 0.0;
+        for ( i = 0; i < 8; i++ )
+        {
+          xnum = xnum * xm1 + p1[i];
+          xden = xden * xm1 + q1[i];
+        }
+        res = corr + ( xm1 * ( d1 + xm1 * ( xnum / xden ) ) );
+      }
+      else
+      {
+        xm2 = ( y - 0.5 ) - 0.5;
+        xden = 1.0;
+        xnum = 0.0;
+        for ( i = 0; i < 8; i++ )
+        {
+          xnum = xnum * xm2 + p2[i];
+          xden = xden * xm2 + q2[i];
+        }
+        res = corr + xm2 * ( d2 + xm2 * ( xnum / xden ) );
+      }
+    }
+/*
+  1.5 < X <= 4.0.
+*/
+    else if ( y <= 4.0 )
+    {
+      xm2 = y - 2.0;
+      xden = 1.0;
+      xnum = 0.0;
+      for ( i = 0; i < 8; i++ )
+      {
+        xnum = xnum * xm2 + p2[i];
+        xden = xden * xm2 + q2[i];
+      }
+      res = xm2 * ( d2 + xm2 * ( xnum / xden ) );
+    }
+/*
+  4.0 < X <= 12.0.
+*/
+    else if ( y <= 12.0 )
+    {
+      xm4 = y - 4.0;
+      xden = -1.0;
+      xnum = 0.0;
+      for ( i = 0; i < 8; i++ )
+      {
+        xnum = xnum * xm4 + p4[i];
+        xden = xden * xm4 + q4[i];
+      }
+      res = d4 + xm4 * ( xnum / xden );
+    }
+/*
+  Evaluate for 12 <= argument.
+*/
+    else
+    {
+      res = 0.0;
+
+      if ( y <= frtbig )
+      {
+        res = c[6];
+        ysq = y * y;
+        for ( i = 0; i < 6; i++ )
+        {
+          res = res / ysq + c[i];
+        }
+      }
+      res = res / y;
+      corr = log ( y );
+      res = res + sqrtpi - 0.5 * corr;
+      res = res + y * ( corr - 1.0 );
+    }
+  }
+/*
+  Return for bad arguments.
+*/
+  else
+  {
+    res = xinf;
+  }
+/*
+  Final adjustments and return.
+*/
+  return res;
+}
+/******************************************************************************/
+
+double r8_huge ( )
 
 /******************************************************************************/
 /*
@@ -2795,10 +4615,8 @@ double r8_huge ( void )
 
   Discussion:
 
-    The value returned by this function is NOT required to be the
-    maximum representable R8.  This value varies from machine to machine,
-    from compiler to compiler, and may cause problems when being printed.
-    We simply want a "very large" but non-infinite number.
+    The value returned by this function is intended to be the largest
+    representable real number.
 
   Licensing:
 
@@ -2806,7 +4624,7 @@ double r8_huge ( void )
 
   Modified:
 
-    06 October 2007
+    27 September 2014
 
   Author:
 
@@ -2819,7 +4637,7 @@ double r8_huge ( void )
 {
   double value;
 
-  value = 1.0E+30;
+  value = 1.79769313486231571E+308;
 
   return value;
 }
@@ -2856,15 +4674,15 @@ double r8_hypot ( double x, double y )
   double b;
   double value;
 
-  if ( r8_abs ( x ) < r8_abs ( y ) )
+  if ( fabs ( x ) < fabs ( y ) )
   {
-    a = r8_abs ( y );
-    b = r8_abs ( x );
+    a = fabs ( y );
+    b = fabs ( x );
   }
   else
   {
-    a = r8_abs ( x );
-    b = r8_abs ( y );
+    a = fabs ( x );
+    b = fabs ( y );
   }
 /*
   A contains the larger value.
@@ -2955,9 +4773,9 @@ int r8_insignificant ( double r, double s )
   value = 1;
 
   t = r + s;
-  tol = r8_epsilon ( ) * r8_abs ( r );
+  tol = r8_epsilon ( ) * fabs ( r );
 
-  if ( tol < r8_abs ( r - t ) )
+  if ( tol < fabs ( r - t ) )
   {
     value = 0;
   }
@@ -2993,7 +4811,7 @@ int r8_is_int ( double r )
     Output, int R8_IS_INT, is 1 if R is an integer value.
 */
 {
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int value;
 
   if ( ( double ) ( i4_huge ) < r )
@@ -3046,14 +4864,14 @@ double r8_log_10 ( double x )
     X should not be 0.
 
     Output, double R8_LOG_10, the logarithm base 10 of the absolute
-    value of X.  It should be true that |X| = 10**R_LOG_10.
+    value of X.  It should be true that |X| = 10^R_LOG_10.
 */
 {
   double value;
 
   if ( x == 0.0 )
   {
-    value = - r8_huge ( );
+    value = - r8_big ( );
   }
   else
   {
@@ -3094,14 +4912,14 @@ double r8_log_2 ( double x )
     X should not be 0.
 
     Output, double R8_LOG_2, the logarithm base 2 of the absolute
-    value of X.  It should be true that |X| = 2**R_LOG_2.
+    value of X.  It should be true that |X| = 2^R_LOG_2.
 */
 {
   double value;
 
   if ( x == 0.0 )
   {
-    value = - r8_huge ( );
+    value = - r8_big ( );
   }
   else
   {
@@ -3144,18 +4962,18 @@ double r8_log_b ( double x, double b )
     Input, double B, the base, which should not be 0, 1 or -1.
 
     Output, double R8_LOG_B, the logarithm base B of the absolute
-    value of X.  It should be true that |X| = |B|**R_LOG_B.
+    value of X.  It should be true that |X| = |B|^R_LOG_B.
 */
 {
   double value;
 
-  if ( b == 0.0 | b == 1.0 | b == -1.0 )
+  if ( b == 0.0 || b == 1.0 || b == -1.0 )
   {
-    value = - r8_huge ( );
+    value = - r8_big ( );
   }
   else if ( fabs ( x ) == 0.0 )
   {
-    value = - r8_huge ( );
+    value = - r8_big ( );
   }
   else
   {
@@ -3267,6 +5085,10 @@ double r8_max ( double x, double y )
 
     R8_MAX returns the maximum of two R8's.
 
+  Discussion:
+
+    The C math library provides the function fmax() which should be preferred.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
@@ -3307,6 +5129,10 @@ double r8_min ( double x, double y )
   Purpose:
 
     R8_MIN returns the minimum of two R8's.
+
+  Discussion:
+
+    The C math library provides the function fmin() which should be preferred.
 
   Licensing:
 
@@ -3402,11 +5228,11 @@ double r8_mod ( double x, double y )
 
   if ( x < 0.0 && 0.0 < value )
   {
-    value = value - r8_abs ( y );
+    value = value - fabs ( y );
   }
   else if ( 0.0 < x && value < 0.0 )
   {
-    value = value + r8_abs ( y );
+    value = value + fabs ( y );
   }
 
   return value;
@@ -3594,50 +5420,6 @@ int r8_nint ( double x )
 }
 /******************************************************************************/
 
-double r8_normal ( double a, double b, int *seed )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_NORMAL returns a scaled pseudonormal R8.
-
-  Discussion:
-
-    The normal probability distribution function (PDF) is sampled,
-    with mean A and standard deviation B.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    21 November 2004
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double A, the mean of the PDF.
-
-    Input, double B, the standard deviation of the PDF.
-
-    Input/output, int *SEED, a seed for the random number generator.
-
-    Output, double R8_NORMAL, a sample of the normal PDF.
-*/
-{
-  double value;
-
-  value = a + b * r8_normal_01 ( seed );
-
-  return value;
-}
-/******************************************************************************/
-
 double r8_normal_01 ( int *seed )
 
 /******************************************************************************/
@@ -3660,7 +5442,7 @@ double r8_normal_01 ( int *seed )
 
   Modified:
 
-    01 July 2008
+    06 August 2013
 
   Author:
 
@@ -3673,51 +5455,64 @@ double r8_normal_01 ( int *seed )
     Output, double R8_NORMAL_01, a normally distributed random value.
 */
 {
-  double pi = 3.141592653589793;
   double r1;
   double r2;
-  static int used = -1;
+  const double r8_pi = 3.141592653589793;
   double x;
-  static double y = 0.0;
 
-  if ( used == -1 )
-  {
-    used = 0;
-  }
-/*
-  If we've used an even number of values so far, generate two more, return one,
-  and save one.
-*/
-  if ( ( used % 2 )== 0 )
-  {
-    for ( ; ; )
-    {
-      r1 = r8_uniform_01 ( seed );
-      if ( r1 != 0.0 )
-      {
-        break;
-      }
-    }
-
-    r2 = r8_uniform_01 ( seed );
-
-    x = sqrt ( -2.0 * log ( r1 ) ) * cos ( 2.0 * pi * r2 );
-    y = sqrt ( -2.0 * log ( r1 ) ) * sin ( 2.0 * pi * r2 );
-  }
-  else
-  {
-
-    x = y;
-
-  }
-
-  used = used + 1;
+  r1 = r8_uniform_01 ( seed );
+  r2 = r8_uniform_01 ( seed );
+  x = sqrt ( -2.0 * log ( r1 ) ) * cos ( 2.0 * r8_pi * r2 );
 
   return x;
 }
 /******************************************************************************/
 
-double r8_pi ( void )
+double r8_normal_ab ( double a, double b, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_NORMAL_AB returns a scaled pseudonormal R8.
+
+  Discussion:
+
+    The normal probability distribution function (PDF) is sampled,
+    with mean A and standard deviation B.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 August 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double A, the mean of the PDF.
+
+    Input, double B, the standard deviation of the PDF.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8_NORMAL_AB, a sample of the normal PDF.
+*/
+{
+  double value;
+
+  value = a + b * r8_normal_01 ( seed );
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_pi ( )
 
 /******************************************************************************/
 /*
@@ -3742,13 +5537,13 @@ double r8_pi ( void )
     Output, double R8_PI, the value of PI.
 */
 {
-  double value = 3.141592653589793;
+  const double value = 3.141592653589793;
 
   return value;
 }
 /******************************************************************************/
 
-double r8_pi_sqrt ( void )
+double r8_pi_sqrt ( )
 
 /******************************************************************************/
 /*
@@ -3773,7 +5568,7 @@ double r8_pi_sqrt ( void )
     Output, double R8_PI_SQRT, the square root of PI.
 */
 {
-  double value = 1.7724538509055160273;
+  const double value = 1.7724538509055160273;
 
   return value;
 }
@@ -3981,6 +5776,39 @@ double r8_power_fast ( double r, int p, int *mults )
 }
 /******************************************************************************/
 
+void r8_print ( double r, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_PRINT prints an R8.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    14 August 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double R, the value to print.
+
+    Input, char *TITLE, a title.
+*/
+{
+  printf ( "%s  %g\n", title, r );
+
+  return;
+}
+/******************************************************************************/
+
 double r8_pythag ( double a, double b )
 
 /******************************************************************************/
@@ -4012,8 +5840,8 @@ double r8_pythag ( double a, double b )
   double b_abs;
   double value;
 
-  a_abs = r8_abs ( a );
-  b_abs = r8_abs ( b );
+  a_abs = fabs ( a );
+  b_abs = fabs ( b );
 
   if ( b_abs < a_abs )
   {
@@ -4027,6 +5855,42 @@ double r8_pythag ( double a, double b )
   {
     value = b_abs * sqrt ( 1.0 + pow ( a_abs / b_abs, 2 ) );
   }
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_radians ( double degrees )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_RADIANS converts an angle from degree to radian measure.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 May 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double DEGREES, the angle measurement in degrees.
+
+    Output, double R8_RADIANS, the angle measurement in radians.
+*/
+{
+  const double r8_pi = 3.1415926535897932384626434;
+  double value;
+
+  value = degrees * r8_pi / 180.0;
 
   return value;
 }
@@ -4088,6 +5952,217 @@ double r8_reverse_bytes ( double x )
 }
 /******************************************************************************/
 
+double r8_rise ( double x, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_RISE computes the rising factorial function [X]^N.
+
+  Discussion:
+
+    [X}^N = X * ( X + 1 ) * ( X + 2 ) * ... * ( X + N - 1 ).
+
+    Note that the number of ways of arranging N objects in M ordered
+    boxes is [M}^N.  (Here, the ordering in each box matters).  Thus,
+    2 objects in 2 boxes have the following 6 possible arrangements:
+
+      -/12, 1/2, 12/-, -/21, 2/1, 21/-.
+
+    Moreover, the number of non-decreasing maps from a set of
+    N to a set of M ordered elements is [M]^N / N!.  Thus the set of
+    nondecreasing maps from (1,2,3) to (a,b,c,d) is the 20 elements:
+
+      aaa, abb, acc, add, aab, abc, acd, aac, abd, aad
+      bbb, bcc, bdd, bbc, bcd, bbd, ccc, cdd, ccd, ddd.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 May 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the argument of the rising factorial function.
+
+    Input, int N, the order of the rising factorial function.
+    If N = 0, RISE = 1, if N = 1, RISE = X.  Note that if N is
+    negative, a "falling" factorial will be computed.
+
+    Output, double R8_RISE, the value of the rising factorial function.
+*/
+{
+  int i;
+  double value;
+
+  value = 1.0;
+
+  if ( 0 < n )
+  {
+    for ( i = 1; i <= n; i++ )
+    {
+      value = value * x;
+      x = x + 1.0;
+    }
+  }
+  else if ( n < 0 )
+  {
+    for ( i = -1; n <= i; i-- )
+    {
+      value = value * x;
+      x = x - 1.0;
+    }
+
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+void r8_rise_values ( int *n_data, double *x, int *n, double *f )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_RISE_VALUES returns some values of the rising factorial function.
+
+  Discussion:
+
+    Pochhammer(X,Y) = Gamma(X+Y) / Gamma(X)
+
+    For integer arguments, Pochhammer(M,N) = ( M + N - 1 )! / ( N - 1 )!
+
+    In Mathematica, the function can be evaluated by:
+
+      Pochhammer[X,N]
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    19 December 2014
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Milton Abramowitz, Irene Stegun,
+    Handbook of Mathematical Functions,
+    National Bureau of Standards, 1964,
+    ISBN: 0-486-61272-4,
+    LC: QA47.A34.
+
+    Stephen Wolfram,
+    The Mathematica Book,
+    Fourth Edition,
+    Cambridge University Press, 1999,
+    ISBN: 0-521-64314-7,
+    LC: QA76.95.W65.
+
+  Parameters:
+
+    Input/output, int *N_DATA.  The user sets N_DATA to 0 before the
+    first call.  On each call, the routine increments N_DATA by 1, and
+    returns the corresponding data; when there is no more data, the
+    output value of N_DATA will be 0 again.
+
+    Output, double *X, int *N, the arguments of the function.
+
+    Output, double *F, the value of the function.
+*/
+{
+# define N_MAX 15
+
+  static double f_vec[N_MAX] = {
+    1680.000000000000,
+    1962.597656250000,
+    2279.062500000000,
+    2631.972656250000,
+    3024.000000000000,
+    1.000000000000000,
+    7.500000000000000,
+    63.75000000000000,
+    605.6250000000000,
+    6359.062500000000,
+    73129.21875000000,
+    914115.2343750000,
+    1.234055566406250E+07,
+    1.789380571289063E+08,
+    2.773539885498047E+09 };
+
+  static int n_vec[N_MAX] = {
+    4,
+    4,
+    4,
+    4,
+    4,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9 };
+
+  static double x_vec[N_MAX] = {
+    5.00,
+    5.25,
+    5.50,
+    5.75,
+    6.00,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50,
+    7.50 };
+
+  if ( *n_data < 0 )
+  {
+    *n_data = 0;
+  }
+
+  *n_data = *n_data + 1;
+
+  if ( N_MAX < *n_data )
+  {
+    *n_data = 0;
+    *x = 0.0;
+    *n = 0;
+    *f = 0.0;
+  }
+  else
+  {
+    *x = x_vec[*n_data-1];
+    *n = n_vec[*n_data-1];
+    *f = f_vec[*n_data-1];
+  }
+
+  return;
+# undef N_MAX
+}
+/******************************************************************************/
+
 double r8_round ( double x )
 
 /******************************************************************************/
@@ -4115,7 +6190,7 @@ double r8_round ( double x )
 
   Modified:
 
-    15 October 2012
+    25 March 2013
 
   Author:
 
@@ -4128,7 +6203,7 @@ double r8_round ( double x )
     Output, double R8_ROUND, the rounded value.
 */
 {
-  int value;
+  double value;
 
   if ( x < 0.0 )
   {
@@ -4137,6 +6212,61 @@ double r8_round ( double x )
   else
   {
     value =   ( double ) floor (   x + 0.5 );
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+int r8_round_i4 ( double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_ROUND_I4 rounds an R8, returning an I4.
+
+  Example:
+
+        X         Value
+
+      1.3         1
+      1.4         1
+      1.5         1 or 2
+      1.6         2
+      0.0         0
+     -0.7        -1
+     -1.1        -1
+     -1.6        -2
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the value.
+
+    Output, int R8_ROUND_I4, the rounded value.
+*/
+{
+  int value;
+
+  if ( x < 0.0 )
+  {
+    value = - floor ( - x + 0.5 );
+  }
+  else
+  {
+    value =   floor (   x + 0.5 );
   }
 
   return value;
@@ -4201,7 +6331,7 @@ double r8_round2 ( int nplace, double x )
   int iplace;
   int l;
   int s;
-  static double two = 2.0;
+  const double two = 2.0;
   double xmant;
   double xtemp;
   double value;
@@ -4400,7 +6530,7 @@ double r8_roundb ( int base, int nplace, double x )
 */
   l = 0;
 
-  while ( r8_abs ( r8_base ) <= r8_abs ( xtemp ) )
+  while ( fabs ( r8_base ) <= fabs ( xtemp ) )
   {
     xtemp = xtemp / r8_base;
 
@@ -4412,7 +6542,7 @@ double r8_roundb ( int base, int nplace, double x )
     l = l + 1;
   }
 
-  while ( r8_abs ( xtemp ) < 1.0 )
+  while ( fabs ( xtemp ) < 1.0 )
   {
     xtemp = xtemp * r8_base;
 
@@ -4533,7 +6663,7 @@ double r8_roundx ( int nplace, double x )
   int iplace;
   int is;
   int l;
-  static double ten = 10.0;
+  const double ten = 10.0;
   double xmant;
   double xround;
   double xtemp;
@@ -4614,6 +6744,45 @@ double r8_roundx ( int nplace, double x )
 }
 /******************************************************************************/
 
+double r8_secd ( double degrees )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_SECD returns the secant of an angle given in degrees.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double DEGREES, the angle in degrees.
+
+    Output, double R8_SECD, the secant of the angle.
+*/
+{
+  const double r8_pi = 3.141592653589793;
+  double radians;
+  double value;
+
+  radians = r8_pi * ( degrees / 180.0 );
+
+  value = 1.0 / cos ( radians );
+
+  return value;
+}
+/******************************************************************************/
+
 double r8_sech ( double x )
 
 /******************************************************************************/
@@ -4641,10 +6810,10 @@ double r8_sech ( double x )
     Output, double R8_SECH, the value of the function.
 */
 {
-  double log_huge = 80.0;
+  const double log_huge = 80.0;
   double value;
 
-  if ( log_huge < r8_abs ( x ) )
+  if ( log_huge < fabs ( x ) )
   {
     value = 0.0;
   }
@@ -4688,6 +6857,51 @@ double r8_sign ( double x )
   if ( x < 0.0 )
   {
     value = - 1.0;
+  }
+  else
+  {
+    value = + 1.0;
+  }
+  return value;
+}
+/******************************************************************************/
+
+double r8_sign3 ( double x )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_SIGN3 returns the three-way sign of an R8.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    28 September 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X, the number whose sign is desired.
+
+    Output, double R8_SIGN3, the sign of X.
+*/
+{
+  double value;
+
+  if ( x < 0.0 )
+  {
+    value = - 1.0;
+  }
+  else if ( x == 0.0 )
+  {
+    value = 0.0;
   }
   else
   {
@@ -4938,12 +7152,51 @@ double r8_sign2 ( double x, double y )
 
   if ( 0.0 <= y )
   {
-    value = r8_abs ( x );
+    value = fabs ( x );
   } 
   else
   {
-    value = - r8_abs ( x );
+    value = - fabs ( x );
   }
+  return value;
+}
+/******************************************************************************/
+
+double r8_sind ( double degrees )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_SIND returns the sine of an angle given in degrees.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double DEGREES, the angle in degrees.
+
+    Output, double R8_SIND, the sine of the angle.
+*/
+{
+  const double r8_pi = 3.141592653589793;
+  double radians;
+  double value;
+
+  radians = r8_pi * ( degrees / 180.0 );
+
+  value = sin ( radians );
+
   return value;
 }
 /******************************************************************************/
@@ -5100,7 +7353,46 @@ void r8_swap3 ( double *x, double *y, double *z )
 }
 /******************************************************************************/
 
-double r8_tiny ( void )
+double r8_tand ( double degrees )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_TAND returns the tangent of an angle given in degrees.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 July 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double DEGREES, the angle in degrees.
+
+    Output, double R8_TAND, the tangent of the angle.
+*/
+{
+  const double r8_pi = 3.141592653589793;
+  double radians;
+  double value;
+
+  radians = r8_pi * ( degrees / 180.0 );
+
+  value = sin ( radians ) / cos ( radians );
+
+  return value;
+}
+/******************************************************************************/
+
+double r8_tiny ( )
 
 /******************************************************************************/
 /*
@@ -5199,7 +7491,7 @@ void r8_to_dhms ( double r, int *d, int *h, int *m, int *s )
 }
 /******************************************************************************/
 
-int r8_to_i4 ( double x, double xmin, double xmax, int ixmin, int ixmax )
+int r8_to_i4 ( double xmin, double xmax, double x, int ixmin, int ixmax )
 
 /******************************************************************************/
 /*
@@ -5219,7 +7511,7 @@ int r8_to_i4 ( double x, double xmin, double xmax, int ixmin, int ixmax )
 
   Modified:
 
-    25 March 2009
+    19 April 2014
 
   Author:
 
@@ -5227,10 +7519,10 @@ int r8_to_i4 ( double x, double xmin, double xmax, int ixmin, int ixmax )
 
   Parameters:
 
-    Input, double X, the real number to be converted.
-
     Input, double XMIN, XMAX, the real range.  XMAX and XMIN must not be
     equal.  It is not necessary that XMIN be less than XMAX.
+
+    Input, double X, the real number to be converted.
 
     Input, int IXMIN, IXMAX, the allowed range of the output
     variable.  IXMAX corresponds to XMAX, and IXMIN to XMIN.
@@ -5358,44 +7650,6 @@ double r8_to_r8_discrete ( double r, double rmin, double rmax, int nr )
 }
 /******************************************************************************/
 
-double r8_uniform_ab ( double a, double b, int *seed )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_UNIFORM returns a pseudorandom R8 scaled to [A,B].
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    21 November 2004
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double A, B, the limits of the interval.
-
-    Input/output, int *SEED, the "seed" value, which should NOT be 0.
-    On output, SEED has been updated.
-
-    Output, double R8_UNIFORM_AB, a number strictly between A and B.
-*/
-{
-  double value;
-
-  value = a + ( b - a ) * r8_uniform_01 ( seed );
-
-  return value;
-}
-/******************************************************************************/
-
 double r8_uniform_01 ( int *seed )
 
 /******************************************************************************/
@@ -5468,6 +7722,7 @@ double r8_uniform_01 ( int *seed )
     0 and 1.
 */
 {
+  const int i4_huge = 2147483647;
   int k;
   double r;
 
@@ -5477,12 +7732,64 @@ double r8_uniform_01 ( int *seed )
 
   if ( *seed < 0 )
   {
-    *seed = *seed + 2147483647;
+    *seed = *seed + i4_huge;
   }
 
   r = ( ( double ) ( *seed ) ) * 4.656612875E-10;
 
   return r;
+}
+/******************************************************************************/
+
+double r8_uniform_ab ( double a, double b, int *seed )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8_UNIFORM_AB returns a pseudorandom R8 scaled to [A,B].
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    21 November 2004
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double A, B, the limits of the interval.
+
+    Input/output, int *SEED, the "seed" value, which should NOT be 0.
+    On output, SEED has been updated.
+
+    Output, double R8_UNIFORM_AB, a number strictly between A and B.
+*/
+{
+  const int i4_huge = 2147483647;
+  int k;
+  double r;
+  double value;
+
+  k = *seed / 127773;
+
+  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
+
+  if ( *seed < 0 )
+  {
+    *seed = *seed + i4_huge;
+  }
+
+  r = ( ( double ) ( *seed ) ) * 4.656612875E-10;
+
+  value = a + ( b - a ) * r;
+
+  return value;
 }
 /******************************************************************************/
 
@@ -5570,12 +7877,12 @@ double r8_walsh_1d ( double x, int digit )
 */
 {
   int n;
-  static double two = 2.0;
+  const double two = 2.0;
   double value;
 /*
   Hide the effect of the sign of X.
 */
-  x = r8_abs ( x );
+  x = fabs ( x );
 /*
   If DIGIT is positive, divide by 2 DIGIT times.
   If DIGIT is negative, multiply by 2 (-DIGIT) times.
@@ -5829,6 +8136,99 @@ void r82_uniform_ab ( double a, double b, int *seed, double r[] )
   for ( i = 0; i < 2; i++ )
   {
     r[i] = r8_uniform_ab ( a, b, seed );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r82col_print_part ( int n, double a[], int max_print, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R82COL_PRINT_PART prints "part" of an R82COL.
+
+  Discussion:
+
+    An R82COL is an (N,2) array of R8's.
+
+    The user specifies MAX_PRINT, the maximum number of lines to print.
+
+    If N, the size of the vector, is no more than MAX_PRINT, then
+    the entire vector is printed, one entry per line.
+
+    Otherwise, if possible, the first MAX_PRINT-2 entries are printed,
+    followed by a line of periods suggesting an omission,
+    and the last entry.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    09 November 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries of the vector.
+
+    Input, double A[N*2], the vector to be printed.
+
+    Input, int MAX_PRINT, the maximum number of lines
+    to print.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  if ( max_print <= 0 )
+  {
+    return;
+  }
+
+  if ( n <= 0 )
+  {
+    return;
+  }
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+  fprintf ( stdout, "\n" );
+
+  if ( n <= max_print )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      fprintf ( stdout, "  %8d: %14g  %14g\n", i, a[i+0*n], a[i+1*n] );
+    }
+  }
+  else if ( 3 <= max_print )
+  {
+    for ( i = 0; i < max_print - 2; i++ )
+    {
+      fprintf ( stdout, "  %8d: %14g  %14g\n", i, a[i+0*n], a[i+1*n] );
+    }
+    fprintf ( stdout, "  ........  ..............  ..............\n" );
+    i = n - 1;
+    fprintf ( stdout, "  %8d: %14g  %14g\n", i, a[i+0*n], a[i+1*n] );
+  }
+  else
+  {
+    for ( i = 0; i < max_print - 1; i++ )
+    {
+      fprintf ( stdout, "  %8d: %14g  %14g\n", i, a[i+0*n], a[i+1*n] );
+    }
+    i = max_print - 1;
+    fprintf ( stdout, "  %8d: %14g  %14g  ...more entries...\n", 
+      i, a[i+0*n], a[i+i*n] );
   }
 
   return;
@@ -6108,17 +8508,17 @@ void r82poly2_type_print ( int type )
 }
 /******************************************************************************/
 
-double *r82vec_max ( int n, double a[] )
+double *r82row_max ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R82VEC_MAX returns the maximum value in an R82VEC.
+    R82ROW_MAX returns the maximum value in an R82ROW.
 
   Discussion:
 
-    An R82VEC is an array of pairs of double precision real values.
+    An R82ROW is a (2,N) array of R8's.
 
   Licensing:
 
@@ -6138,7 +8538,7 @@ double *r82vec_max ( int n, double a[] )
 
     Input, double A[2*N], the array.
 
-    Output, double R82VEC_MAX[2]; the largest entries in each row.
+    Output, double R82ROW_MAX[2]; the largest entries in each row.
 */
 {
 # define DIM_NUM 2
@@ -6170,17 +8570,17 @@ double *r82vec_max ( int n, double a[] )
 }
 /******************************************************************************/
 
-double *r82vec_min ( int n, double a[] )
+double *r82row_min ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R82VEC_MIN returns the minimum value in an R82VEC.
+    R82ROW_MIN returns the minimum value in an R82ROW.
 
   Discussion:
 
-    An R82VEC is an array of pairs of double precision real values.
+    An R82ROW is a (2,N) array of R8's.
 
   Licensing:
 
@@ -6200,7 +8600,7 @@ double *r82vec_min ( int n, double a[] )
 
     Input, double A[2*N], the array.
 
-    Output, double R82VEC_MIN[2]; the smallest entries in each row.
+    Output, double R82ROW_MIN[2]; the smallest entries in each row.
 */
 {
 # define DIM_NUM 2
@@ -6232,19 +8632,17 @@ double *r82vec_min ( int n, double a[] )
 }
 /******************************************************************************/
 
-int r82vec_order_type ( int n, double a[] )
+int r82row_order_type ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R82VEC_ORDER_TYPE finds if an R82VEC is (non)strictly ascending/descending.
+    R82ROW_ORDER_TYPE finds if an R82ROW is (non)strictly ascending/descending.
 
   Discussion:
 
-    An R82VEC is a vector whose entries are R82's.
-    An R82 is a vector of type double precision with two entries.
-    An R82VEC may be stored as a 2 by N array.
+    An R82ROW is a (2,N) array of R8's.
 
     The dictionary or lexicographic ordering is used.
 
@@ -6268,7 +8666,7 @@ int r82vec_order_type ( int n, double a[] )
 
     Input, double A[2*N], the array to be checked.
 
-    Output, int R82VEC_ORDER_TYPE, order indicator:
+    Output, int R82ROW_ORDER_TYPE, order indicator:
     -1, no discernable order;
     0, all entries are equal;
     1, ascending order;
@@ -6379,15 +8777,17 @@ int r82vec_order_type ( int n, double a[] )
 }
 /******************************************************************************/
 
-void r82vec_part_quick_a ( int n, double a[], int *l, int *r )
+void r82row_part_quick_a ( int n, double a[], int *l, int *r )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R82VEC_PART_QUICK_A reorders an R82VEC as part of a quick sort.
+    R82ROW_PART_QUICK_A reorders an R82ROW as part of a quick sort.
 
   Discussion:
+
+    An R82ROW is a (2,N) array of R8's.
 
     The routine reorders the entries of A.  Using A(1:2,1) as a
     key, all entries of A that are less than or equal to the key will
@@ -6445,7 +8845,7 @@ void r82vec_part_quick_a ( int n, double a[], int *l, int *r )
   if ( n < 1 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R82VEC_PART_QUICK_A - Fatal error!\n" );
+    fprintf ( stderr, "R82ROW_PART_QUICK_A - Fatal error!\n" );
     fprintf ( stderr, "  N < 1.\n" );
     exit ( 1 );
   }
@@ -6513,19 +8913,17 @@ void r82vec_part_quick_a ( int n, double a[], int *l, int *r )
 }
 /******************************************************************************/
 
-void r82vec_permute ( int n, int p[], int base, double a[] )
+void r82row_permute ( int n, int p[], double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R82VEC_PERMUTE permutes an R82VEC in place.
+    R82ROW_PERMUTE permutes an R82ROW in place.
 
   Discussion:
 
-    An R82VEC is a vector whose entries are R82's.
-    An R82 is a vector of R8's with two entries.
-    An R82VEC may be stored as a 2 by N array.
+    An R82ROW is a (2,N) array of R8's.
 
     This routine permutes an array of real "objects", but the same
     logic can be used to permute an array of objects of any arithmetic
@@ -6568,32 +8966,33 @@ void r82vec_permute ( int n, int p[], int base, double a[] )
     that the I-th element of the output array should be the J-th
     element of the input array.
 
-    Input, int BASE, is 0 for a 0-based permutation and 1 for a 1-based permutation.
-
     Input/output, double A[2*N], the array to be permuted.
 */
 {
   double a_temp[2];
   int i;
+  int ierror;
   int iget;
   int iput;
   int istart;
 
-  if ( !perm_check ( n, p, base ) )
+  ierror = perm0_check ( n, p );
+
+  if ( ierror != 0 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R82VEC_PERMUTE - Fatal error!\n" );
-    fprintf ( stderr, "  PERM_CHECK rejects this permutation.\n" );
+    fprintf ( stderr, "R82ROW_PERMUTE - Fatal error!\n" );
+    fprintf ( stderr, "  PERM0_CHECK rejects permutation.\n" );
     exit ( 1 );
   }
 /*
   In order for the sign negation trick to work, we need to assume that the
-  entries of P are strictly positive.  Presumably, the lowest number is BASE.
-  So temporarily add 1-BASE to each entry to force positivity.
+  entries of P are strictly positive.  Presumably, the lowest number is 0.
+  So temporarily add 1 to each entry to force positivity.
 */
   for ( i = 0; i < n; i++ )
   {
-    p[i] = p[i] + 1 - base;
+    p[i] = p[i] + 1;
   }
 /*
   Search for the next element of the permutation that has not been used.
@@ -6627,7 +9026,7 @@ void r82vec_permute ( int n, int p[], int base, double a[] )
         if ( iget < 1 || n < iget )
         {
           fprintf ( stderr, "\n" );
-          fprintf ( stderr, "R82VEC_PERMUTE - Fatal error!\n" );
+          fprintf ( stderr, "R82ROW_PERMUTE - Fatal error!\n" );
           fprintf ( stderr, "  Entry IPUT = %d of the permutation has\n", iput );
           fprintf ( stderr, "  an illegal value IGET = %d.\n", iget );
           exit ( 1 );
@@ -6656,25 +9055,23 @@ void r82vec_permute ( int n, int p[], int base, double a[] )
 */
   for ( i = 0; i < n; i++ )
   {
-    p[i] = p[i] - 1 + base;
+    p[i] = p[i] - 1;
   }
   return;
 }
 /******************************************************************************/
 
-void r82vec_print ( int n, double a[], char *title )
+void r82row_print ( int n, double a[], char *title )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R82VEC_PRINT prints an R82VEC.
+    R82ROW_PRINT prints an R82ROW.
 
   Discussion:
 
-    An R82VEC is a vector whose entries are R82's.
-    An R82 is a vector of R8's with two entries.
-    An R82VEC may be stored as a 2 by N array.
+    An R82ROW is a (2,N) array of R8's.
 
   Licensing:
 
@@ -6704,22 +9101,24 @@ void r82vec_print ( int n, double a[], char *title )
   fprintf ( stdout, "\n" );
   for ( j = 0; j < n; j++ )
   {
-    fprintf ( stdout, "  %8d: %14f  %14f\n", j, a[0+j*2], a[1+j*2] );
+    fprintf ( stdout, "  %8d: %14g  %14g\n", j, a[0+j*2], a[1+j*2] );
   }
 
   return;
 }
 /******************************************************************************/
 
-void r82vec_print_part ( int n, double a[], int max_print, char *title )
+void r82row_print_part ( int n, double a[], int max_print, char *title )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R82VEC_PRINT_PART prints "part" of an R82VEC.
+    R82ROW_PRINT_PART prints "part" of an R82ROW.
 
   Discussion:
+
+    An R82ROW is a (2,N) array of R8's.
 
     The user specifies MAX_PRINT, the maximum number of lines to print.
 
@@ -6802,19 +9201,17 @@ void r82vec_print_part ( int n, double a[], int max_print, char *title )
 }
 /******************************************************************************/
 
-int *r82vec_sort_heap_index_a ( int n, int base, double a[] )
+int *r82row_sort_heap_index_a ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R82VEC_SORT_HEAP_INDEX_A does an indexed heap ascending sort of an R82VEC.
+    R82ROW_SORT_HEAP_INDEX_A does an indexed heap ascending sort of an R82ROW.
 
   Discussion:
 
-    An R82VEC is a vector whose entries are R82's.
-    An R82 is a vector of R8's with two entries.
-    An R82VEC may be stored as a 2 by N array.
+    An R82ROW is a (2,N) array of R8's.
 
     The sorting is not actually carried out.  Rather an index array is
     created which defines the sorting.  This array may be used to sort
@@ -6828,7 +9225,7 @@ int *r82vec_sort_heap_index_a ( int n, int base, double a[] )
 
     or explicitly, by the call
 
-      r82vec_permute ( n, indx, base, a )
+      r82row_permute ( n, indx, a )
 
     after which a(*,*) is sorted.
 
@@ -6848,14 +9245,10 @@ int *r82vec_sort_heap_index_a ( int n, int base, double a[] )
 
     Input, int N, the number of entries in the array.
 
-    Input, int BASE, the desired indexing for the sort index:
-    0 for 0-based indexing,
-    1 for 1-based indexing.
-
     Input, double A[2*N], an array to be index-sorted.
 
-    Output, int R82VEC_SORT_HEAP_INDEX_A[N], the sort index.  The
-    I-th element of the sorted array is A(0:1,R82VEC_SORT_HEAP_INDEX_A(I)).
+    Output, int R82ROW_SORT_HEAP_INDEX_A[N], the sort index.  The
+    I-th element of the sorted array is A(0:1,R82ROW_SORT_HEAP_INDEX_A(I)).
 */
 {
   double aval[2];
@@ -6880,7 +9273,7 @@ int *r82vec_sort_heap_index_a ( int n, int base, double a[] )
 
   if ( n == 1 )
   {
-    indx[0] = indx[0] + base;
+    indx[0] = indx[0];
     return indx;
   }
 
@@ -6940,30 +9333,22 @@ int *r82vec_sort_heap_index_a ( int n, int base, double a[] )
     }
     indx[i-1] = indxt;
   }
-/*
-  Take care of the base.
-*/
-  for ( i = 0; i < n; i++ )
-  {
-    indx[i] = indx[i] + base;
-  }
 
   return indx;
 }
 /******************************************************************************/
 
-void r82vec_sort_quick_a ( int n, double a[] )
+void r82row_sort_quick_a ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R82VEC_SORT_QUICK_A ascending sorts an R82VEC using quick sort.
+    R82ROW_SORT_QUICK_A ascending sorts an R82ROW using quick sort.
 
   Discussion:
 
-    A is a two dimensional array of order N by 2, stored as a vector
-    of rows: A(0,0), A(0,1),  A(1,0), A(1,1)  ...
+    An R82ROW is a (2,N) array of R8's.
 
   Licensing:
 
@@ -6981,7 +9366,7 @@ void r82vec_sort_quick_a ( int n, double a[] )
 
     Input, int N, the number of entries in the array.
 
-    Input/output, double A[N*2].
+    Input/output, double A[2*N].
     On input, the array to be sorted.
     On output, the array has been sorted.
 */
@@ -6998,7 +9383,7 @@ void r82vec_sort_quick_a ( int n, double a[] )
   if ( n < 1 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R82VEC_SORT_QUICK_A - Fatal error!\n" );
+    fprintf ( stderr, "R82ROW_SORT_QUICK_A - Fatal error!\n" );
     fprintf ( stderr, "  N < 1.\n" );
     exit ( 1 );
   }
@@ -7018,7 +9403,7 @@ void r82vec_sort_quick_a ( int n, double a[] )
 /*
   Partition the segment.
 */
-    r82vec_part_quick_a ( n_segment, a+2*(base-1)+0, &l_segment, &r_segment );
+    r82row_part_quick_a ( n_segment, a+2*(base-1)+0, &l_segment, &r_segment );
 /*
   If the left segment has more than one element, we need to partition it.
 */
@@ -7027,7 +9412,7 @@ void r82vec_sort_quick_a ( int n, double a[] )
       if ( LEVEL_MAX < level )
       {
         fprintf ( stderr, "\n" );
-        fprintf ( stderr, "R82VEC_SORT_QUICK_A - Fatal error!\n" );
+        fprintf ( stderr, "R82ROW_SORT_QUICK_A - Fatal error!\n" );
         fprintf ( stderr, "  Exceeding recursion maximum of %d\n", LEVEL_MAX );
         exit ( 1 );
       }
@@ -7116,17 +9501,115 @@ double r83_norm ( double x, double y, double z )
 }
 /******************************************************************************/
 
-double *r83vec_max ( int n, double a[] )
+void r83col_print_part ( int n, double a[], int max_print, char *title )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R83VEC_MAX returns the maximum value in an R83VEC.
+    R83COL_PRINT_PART prints "part" of an R83COL.
 
   Discussion:
 
-    An R83VEC is an array of triples of double precision real values.
+    An R82COL is an (N,3) array of R8's.
+
+    The user specifies MAX_PRINT, the maximum number of lines to print.
+
+    If N, the size of the vector, is no more than MAX_PRINT, then
+    the entire vector is printed, one entry per line.
+
+    Otherwise, if possible, the first MAX_PRINT-2 entries are printed,
+    followed by a line of periods suggesting an omission,
+    and the last entry.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    12 April 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries of the vector.
+
+    Input, double A[N*3], the vector to be printed.
+
+    Input, int MAX_PRINT, the maximum number of lines
+    to print.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  if ( max_print <= 0 )
+  {
+    return;
+  }
+
+  if ( n <= 0 )
+  {
+    return;
+  }
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+  fprintf ( stdout, "\n" );
+
+  if ( n <= max_print )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", 
+        i, a[i+0*n], a[i+1*n], a[i+2*n] );
+    }
+  }
+  else if ( 3 <= max_print )
+  {
+    for ( i = 0; i < max_print - 2; i++ )
+    {
+      fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", 
+        i, a[i+0*n], a[i+1*n], a[i+1*n] );
+    }
+    fprintf ( stdout, 
+      "  ........  ..............  ..............  ..............\n" );
+    i = n - 1;
+    fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", 
+      i, a[i+0*n], a[i+1*n], a[i+1*n] );
+  }
+  else
+  {
+    for ( i = 0; i < max_print - 1; i++ )
+    {
+      fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", 
+        i, a[i+0*n], a[i+1*n], a[i+1*n] );
+    }
+    i = max_print - 1;
+    fprintf ( stdout, "  %8d: %14g  %14g  %14g  ...more entries...\n", 
+      i, a[i+0*n], a[i+i*n], a[i+1*n] );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r83row_max ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R83ROW_MAX returns the maximum value in an R83ROW.
+
+  Discussion:
+
+    An R83ROW is a (3,N) array of R8's.
 
   Licensing:
 
@@ -7146,7 +9629,7 @@ double *r83vec_max ( int n, double a[] )
 
     Input, double A[3*N], the array.
 
-    Output, double R83VEC_MAX[3]; the largest entries in each row.
+    Output, double R83ROW_MAX[3]; the largest entries in each row.
 */
 {
 # define DIM_NUM 3
@@ -7178,17 +9661,17 @@ double *r83vec_max ( int n, double a[] )
 }
 /******************************************************************************/
 
-double *r83vec_min ( int n, double a[] )
+double *r83row_min ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R83VEC_MIN returns the minimum value in an R83VEC.
+    R83ROW_MIN returns the minimum value in an R83ROW.
 
   Discussion:
 
-    An R83VEC is an array of triples of double precision real values.
+    An R83ROW is a (3,N) array of R8's.
 
   Licensing:
 
@@ -7208,7 +9691,7 @@ double *r83vec_min ( int n, double a[] )
 
     Input, double A[3*N], the array.
 
-    Output, double R83VEC_MIN[3]; the smallest entries in each row.
+    Output, double R83ROW_MIN[3]; the smallest entries in each row.
 */
 {
 # define DIM_NUM 3
@@ -7240,19 +9723,17 @@ double *r83vec_min ( int n, double a[] )
 }
 /******************************************************************************/
 
-void r83vec_part_quick_a ( int n, double a[], int *l, int *r )
+void r83row_part_quick_a ( int n, double a[], int *l, int *r )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R83VEC_PART_QUICK_A reorders an R83VEC as part of a quick sort.
+    R83ROW_PART_QUICK_A reorders an R83ROW as part of a quick sort.
 
   Discussion:
 
-    An R83VEC is a vector whose entries are R83's.
-    An R83 is a vector of type double precision with three entries.
-    An R83VEC may be stored as a 3 by N array.
+    An R83ROW is a (3,N) array of R8's.
 
     The routine reorders the entries of A.  Using A(1:3,1) as a
     key, all entries of A that are less than or equal to the key will
@@ -7294,7 +9775,7 @@ void r83vec_part_quick_a ( int n, double a[], int *l, int *r )
   if ( n < 1 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R83VEC_PART_QUICK_A - Fatal error!\n" );
+    fprintf ( stderr, "R83ROW_PART_QUICK_A - Fatal error!\n" );
     fprintf ( stderr, "  N < 1.\n" );
     exit ( 1 );
   }
@@ -7362,15 +9843,17 @@ void r83vec_part_quick_a ( int n, double a[], int *l, int *r )
 }
 /******************************************************************************/
 
-void r83vec_print_part ( int n, double a[], int max_print, char *title )
+void r83row_print_part ( int n, double a[], int max_print, char *title )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R83VEC_PRINT_PART prints "part" of an R83VEC.
+    R83ROW_PRINT_PART prints "part" of an R83ROW.
 
   Discussion:
+
+    An R83ROW is a (3,N) array of R8's.
 
     The user specifies MAX_PRINT, the maximum number of lines to print.
 
@@ -7425,24 +9908,29 @@ void r83vec_print_part ( int n, double a[], int max_print, char *title )
   {
     for ( i = 0; i < n; i++ )
     {
-      fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", i, a[0+i*3], a[1+i*3], a[2+i*3] );
+      fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", 
+        i, a[0+i*3], a[1+i*3], a[2+i*3] );
     }
   }
   else if ( 3 <= max_print )
   {
     for ( i = 0; i < max_print - 2; i++ )
     {
-      fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", i, a[0+i*3], a[1+i*3], a[2+i*3] );
+      fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", 
+        i, a[0+i*3], a[1+i*3], a[2+i*3] );
     }
-    fprintf ( stdout, "  ........  ..............  ..............  ..............\n" );
+    fprintf ( stdout, 
+      "  ........  ..............  ..............  ..............\n" );
     i = n - 1;
-    fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", i, a[0+i*3], a[1+i*3], a[2+i*3] );
+    fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", 
+      i, a[0+i*3], a[1+i*3], a[2+i*3] );
   }
   else
   {
     for ( i = 0; i < max_print - 1; i++ )
     {
-      fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", i, a[0+i*3], a[1+i*3], a[2+i*3] );
+      fprintf ( stdout, "  %8d: %14g  %14g  %14g\n", 
+        i, a[0+i*3], a[1+i*3], a[2+i*3] );
     }
     i = max_print - 1;
     fprintf ( stdout, "  %8d: %14g  %14g  %14g  ...more entries...\n", 
@@ -7453,19 +9941,17 @@ void r83vec_print_part ( int n, double a[], int max_print, char *title )
 }
 /******************************************************************************/
 
-void r83vec_sort_quick_a ( int n, double a[] )
+void r83row_sort_quick_a ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R83VEC_SORT_QUICK_A ascending sorts an R83VEC using quick sort.
+    R83ROW_SORT_QUICK_A ascending sorts an R83ROW using quick sort.
 
   Discussion:
 
-    An R83VEC is a vector whose entries are R83's.
-    An R83 is a vector of type double precision with three entries.
-    An R83VEC may be stored as a 3 by N array.
+    An R83ROW is a (3,N) array of R8's.
 
   Licensing:
 
@@ -7500,7 +9986,7 @@ void r83vec_sort_quick_a ( int n, double a[] )
   if ( n < 1 )
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "R83VEC_SORT_QUICK_A - Fatal error!\n" );
+    fprintf ( stderr, "R83ROW_SORT_QUICK_A - Fatal error!\n" );
     fprintf ( stderr, "  N < 1.\n" );
     exit ( 1 );
   }
@@ -7520,7 +10006,7 @@ void r83vec_sort_quick_a ( int n, double a[] )
 /*
   Partition the segment.
 */
-    r83vec_part_quick_a ( n_segment, a+3*(base-1)+0, &l_segment, &r_segment );
+    r83row_part_quick_a ( n_segment, a+3*(base-1)+0, &l_segment, &r_segment );
 /*
   If the left segment has more than one element, we need to partition it.
 */
@@ -7529,7 +10015,7 @@ void r83vec_sort_quick_a ( int n, double a[] )
       if ( LEVEL_MAX < level )
       {
         fprintf ( stderr, "\n" );
-        fprintf ( stderr, "R83VEC_SORT_QUICK_A - Fatal error!\n" );
+        fprintf ( stderr, "R83ROW_SORT_QUICK_A - Fatal error!\n" );
         fprintf ( stderr, "  Exceeding recursion maximum of %d\n", LEVEL_MAX );
         exit ( 1 );
       }
@@ -7575,7 +10061,7 @@ void r83vec_sort_quick_a ( int n, double a[] )
 }
 /******************************************************************************/
 
-void r8block_delete ( double ***a, int l, int m, int n )
+void r8block_delete ( int l, int m, int n, double ***a )
 
 /******************************************************************************/
 /*
@@ -7604,9 +10090,9 @@ void r8block_delete ( double ***a, int l, int m, int n )
 
   Parameters:
 
-    Input, double ***A, the pointer to the data.
-
     Input, int L, M, N, the number of rows, columns, and layers in the array.
+
+    Input, double ***A, the pointer to the data.
 */
 {
   int i;
@@ -7972,6 +10458,459 @@ void r8block_print ( int l, int m, int n, double a[], char *title )
 }
 /******************************************************************************/
 
+double *r8block_zero_new ( int l, int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8BLOCK_ZERO_NEW returns a new zeroed R8BLOCK.
+
+  Discussion:
+
+    An R8BLOCK is a triple dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    13 April 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int L, M, N, the number of rows, columns, and levels.
+
+    Output, double R8BLOCK_ZERO_NEW[L*M*N], the new zeroed matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+  int k;
+
+  a = ( double * ) malloc ( l * m * n * sizeof ( double ) );
+
+  for ( k = 0; k < n; k++ )
+  {
+    for ( j = 0; j < m; j++ )
+    {
+      for ( i = 0; i < l; i++ )
+      {
+        a[i+j*l+k*l*m] = 0.0;
+      }
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
+void r8cmat_delete ( int m, int n, double **a )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CMAT_DELETE frees the memory set aside by R8CMAT_NEW.
+
+  Discussion:
+
+    This function releases the memory associated with an R8CMAT.
+
+    An R8CMAT is a column-major array, storing element (I,J)
+    as A[J][I], and can be created by a command like:
+      double **a;
+      a = r8cmat_new ( m, n );
+
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 September 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double **A, the array.
+*/
+{
+  int j;
+/*
+  Delete the pointers to columns.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    free ( a[j] );
+  }
+/*
+  Delete the pointer to the pointers to rows.
+*/
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+double **r8cmat_new ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CMAT_NEW sets up an R8CMAT of the desired dimensions.
+
+  Discussion:
+
+    An R8CMAT is a matrix stored in column major form, using N pointers
+    to the beginnings of columns.
+
+    A declaration of the form
+      double **a;
+    is necesary.  Then an assignment of the form:
+      a = r8cmat_new ( m, n );
+    allows the user to assign entries to the matrix using typical
+    2D array notation, except that the column index is listed FIRST:
+      a[2][3] = 17.0;
+      y = a[1][0];
+    and so on.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 September 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Output, double **R8CMAT_NEW, the array.
+*/
+{
+  double **a;
+  int j;
+
+  a = ( double ** ) malloc ( n * sizeof ( double * ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    a[j] = ( double * ) malloc ( m * sizeof ( double ) );
+  }
+  return a;
+}
+/******************************************************************************/
+
+void r8cmat_print ( int m, int n, double **a, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CMAT_PRINT prints an R8CMAT.
+
+  Discussion:
+
+    An R8CMAT is a matrix stored in column major form, using N pointers
+    to the beginnings of columns.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows in A.
+
+    Input, int N, the number of columns in A.
+
+    Input, double **A = double A[M][N], the M by N matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8cmat_print_some ( m, n, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8cmat_print_some ( int m, int n, double **a, int ilo, int jlo, int ihi,
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CMAT_PRINT_SOME prints some of an R8CMAT.
+
+  Discussion:
+
+    An R8CMAT is a matrix stored in column major form, using N pointers
+    to the beginnings of columns.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, double **A = double A[M][N], the matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+
+  if ( m <= 0 || n <= 0 )
+  {
+    fprintf ( stdout, "\n" );
+    fprintf ( stdout, "  (None)\n" );
+    return;
+  }
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    if ( n < j2hi )
+    {
+      j2hi = n;
+    }
+    if ( jhi < j2hi )
+    {
+      j2hi = jhi;
+    }
+
+    fprintf ( stdout, "\n" );
+/*
+  For each column J in the current range...
+
+  Write the header.
+*/
+    fprintf ( stdout, "  Col:  ");
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      fprintf ( stdout, "  %7d     ", j - 1 );
+    }
+    fprintf ( stdout, "\n" );
+    fprintf ( stdout, "  Row\n" );
+    fprintf ( stdout, "\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    if ( 1 < ilo )
+    {
+      i2lo = ilo;
+    }
+    else
+    {
+      i2lo = 1;
+    }
+    if ( m < ihi )
+    {
+      i2hi = m;
+    }
+    else
+    {
+      i2hi = ihi;
+    }
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      fprintf ( stdout, "%5d:", i - 1 );
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        fprintf ( stdout, "  %14g", a[j-1][i-1] );
+      }
+      fprintf ( stdout, "\n" );
+    }
+  }
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8cmat_to_r8mat_new ( int m, int n, double **a )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CMAT_TO_R8MAT_NEW copies data from an R8CMAT to an R8MAT.
+
+  Discussion:
+
+    An R8CMAT is a column-major array, storing element (I,J)
+    as A[J][I], and can be created by a command like:
+      double **a;
+      a = r8cmat_new ( m, n );
+
+    An R8MAT is a column-major array stored as a vector, so
+    that element (I,J) of the M by N array is stored in location
+    I+J*M.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double **A = double A[M][N], the data, stored as an R8CMAT.
+
+    Output, double R8CMAT_TO_R8MAT_NEW[M*N], the data, stored as an R8MAT.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      b[i+j*m] = a[j][i];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double **r8cmat_zero_new ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8CMAT_ZERO_NEW sets up and zeros an R8CMAT of the desired dimensions.
+
+  Discussion:
+
+    An R8CMAT is a matrix stored in column major form, using N pointers
+    to the beginnings of columns.
+
+    A declaration of the form
+      double **a;
+    is necesary.  Then an assignment of the form:
+      a = r8cmat_new ( m, n );
+    allows the user to assign entries to the matrix using typical
+    2D array notation, except that the column index is listed FIRST:
+      a[2][3] = 17.0;
+      y = a[1][0];
+    and so on.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 May 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Output, double **R8CMAT_ZERO_NEW, the array.
+*/
+{
+  double **a;
+  int i;
+  int j;
+
+  a = ( double ** ) malloc ( n * sizeof ( double * ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    a[j] = ( double * ) malloc ( m * sizeof ( double ) );
+  }
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      a[j][i] = 0.0;
+    }
+  }
+  return a;
+}
+/******************************************************************************/
+
 int r8col_compare ( int m, int n, double a[], int i, int j )
 
 /******************************************************************************/
@@ -8220,7 +11159,7 @@ int r8col_find ( int m, int n, double a[], double x[] )
 
     Input, double X[M], a vector to be matched with a column of A.
 
-    Output, int R8COL_FIND, the (one-based) index of the first column of A
+    Output, int R8COL_FIND, the 1-based index of the first column of A
     which exactly matches every entry of X, or -1 if no match
     could be found.
 */
@@ -8315,7 +11254,7 @@ int *r8col_first_index ( int m, int n, double a[], double tol )
         diff = 0.0;
         for ( i = 0; i < m; i++ )
         {
-          diff = r8_max ( diff, r8_abs ( a[i+j1*m] - a[i+j2*m] ) );
+          diff = r8_max ( diff, fabs ( a[i+j1*m] - a[i+j2*m] ) );
         }
         if ( diff <= tol )
         {
@@ -8636,7 +11575,7 @@ void r8col_max_one ( int m, int n, double a[] )
     i_big = 0;
     for ( i = 1; i < m; i++ )
     {
-      if ( r8_abs ( a[i_big+j*m] ) < r8_abs ( a[i+j*m] ) )
+      if ( fabs ( a[i_big+j*m] ) < fabs ( a[i+j*m] ) )
       {
         i_big = i;
       }
@@ -8871,7 +11810,7 @@ void r8col_normalize_li ( int m, int n, double a[] )
     c = a[0+j*m];
     for ( i = 1; i < m; i++ )
     {
-      if ( r8_abs ( c ) < r8_abs ( a[i+j*m] ) )
+      if ( fabs ( c ) < fabs ( a[i+j*m] ) )
       {
         c = a[i+j*m];
       }
@@ -9034,7 +11973,7 @@ void r8col_part_quick_a ( int m, int n, double a[], int *l, int *r )
 }
 /******************************************************************************/
 
-void r8col_permute ( int m, int n, int p[], int base, double a[] )
+void r8col_permute ( int m, int n, int p[], double a[] )
 
 /******************************************************************************/
 /*
@@ -9060,10 +11999,9 @@ void r8col_permute ( int m, int n, int p[], int base, double a[] )
 
       M = 2
       N = 5
-      P = (   2,    4,    5,    1,    3 )
+      P = (   1,    3,    4,    0,    2 )
       A = ( 1.0,  2.0,  3.0,  4.0,  5.0 )
           (11.0, 22.0, 33.0, 44.0, 55.0 )
-      BASE = 1
 
     Output:
 
@@ -9092,34 +12030,34 @@ void r8col_permute ( int m, int n, int p[], int base, double a[] )
     that the I-th element of the output array should be the J-th
     element of the input array.
 
-    Input, int BASE, is 0 for a 0-based permutation and 1 for a
-    1-based permutation.
-
     Input/output, double A[M*N], the array to be permuted.
 */
 {
   double *a_temp;
   int i;
+  int ierror;
   int iget;
   int iput;
   int istart;
   int j;
 
-  if ( !perm_check ( n, p, base ) )
+  ierror = perm0_check ( n, p );
+
+  if ( ierror != 0 )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "R8COL_PERMUTE - Fatal error!\n" );
-    fprintf ( stderr, "  PERM_CHECK rejects this permutation.\n" );
+    fprintf ( stderr, "  PERM0_CHECK rejects permutation.\n" );
     exit ( 1 );
   }
 /*
   In order for the sign negation trick to work, we need to assume that the
-  entries of P are strictly positive.  Presumably, the lowest number is BASE.
-  So temporarily add 1-BASE to each entry to force positivity.
+  entries of P are strictly positive.  Presumably, the lowest number is 0.
+  So temporarily add 1 to each entry to force positivity.
 */
   for ( i = 0; i < n; i++ )
   {
-    p[i] = p[i] + 1 - base;
+    p[i] = p[i] + 1;
   }
 
   a_temp = ( double * ) malloc ( m * sizeof ( double ) );
@@ -9190,10 +12128,136 @@ void r8col_permute ( int m, int n, int p[], int base, double a[] )
 */
   for ( i = 0; i < n; i++ )
   {
-    p[i] = p[i] - 1 +  base;
+    p[i] = p[i] - 1;
   }
 
   free ( a_temp );
+
+  return;
+}
+/******************************************************************************/
+
+void r8col_reverse ( int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8COL_REVERSE reverses the order of columns in an R8COL.
+
+  Discussion:
+
+    To reverse the columns is to start with something like
+
+      11 12 13 14 15
+      21 22 23 24 25
+      31 32 33 34 35
+      41 42 43 44 45
+      51 52 53 54 55
+
+    and return
+
+      15 14 13 12 11
+      25 24 23 22 21
+      35 34 33 32 31
+      45 44 43 42 41
+      55 54 53 52 51
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 May 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input/output, double A[M*N], the matrix whose columns are to be flipped.
+*/
+{
+  int i;
+  int j;
+  double t;
+
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < ( n / 2 ); j++ )
+    {
+      t              = a[i+     j *m];
+      a[i+     j *m] = a[i+(n-1-j)*m];
+      a[i+(n-1-j)*m] = t;
+    }
+  }
+  return;
+}
+/******************************************************************************/
+
+void r8col_separation ( int m, int n, double a[], double *d_min, double *d_max )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8COL_SEPARATION returns the "separation" of an R8COL.
+
+  Discussion:
+
+    D_MIN is the minimum distance between two columns,
+    D_MAX is the maximum distance between two columns.
+
+    The distances are measured using the Loo norm.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 February 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns 
+    in the array.  If N < 2, it does not make sense to call this routine.
+
+    Input, double A[M*N], the array whose variances are desired.
+
+    Output, double *D_MIN, *D_MAX, the minimum and maximum distances.
+*/
+{
+  double d;
+  int i;
+  int j1;
+  int j2;
+  const double r8_huge = 1.79769313486231571E+308;
+
+  *d_min = r8_huge;
+  *d_max = 0.0;
+
+  for ( j1 = 0; j1 < n; j1++ )
+  {
+    for ( j2 = j1 + 1; j2 < n; j2++ )
+    {
+      d = 0.0;
+      for ( i = 0; i < m; i++ )
+      {
+        d = r8_max ( d, fabs ( a[i+j1*m] - a[i+j2*m] ) );
+      }
+      *d_min = r8_min ( *d_min, d );
+      *d_max = r8_max ( *d_max, d );
+    }
+  }
 
   return;
 }
@@ -9294,7 +12358,7 @@ void r8col_sort_heap_a ( int m, int n, double a[] )
 }
 /******************************************************************************/
 
-int *r8col_sort_heap_index_a ( int m, int n, int base, double a[] )
+int *r8col_sort_heap_index_a ( int m, int n, double a[] )
 
 /******************************************************************************/
 /*
@@ -9339,10 +12403,6 @@ int *r8col_sort_heap_index_a ( int m, int n, int base, double a[] )
 
     Input, int N, the number of columns in A.
 
-    Input, int BASE, the desired indexing for the sort index:
-    0 for 0-based indexing,
-    1 for 1-based indexing.
-
     Input, double A[M*N], the array.
 
     Output, int R8COL_SORT_HEAP_INDEX_A[N], contains the sort index.  The
@@ -9373,7 +12433,6 @@ int *r8col_sort_heap_index_a ( int m, int n, int base, double a[] )
 
   if ( n == 1 )
   {
-    indx[0] = indx[0] + base;
     return indx;
   }
 
@@ -9441,13 +12500,6 @@ int *r8col_sort_heap_index_a ( int m, int n, int base, double a[] )
     indx[i-1] = indxt;
   }
   free ( column );
-/*
-  Take care of the base.
-*/
-  for ( i = 0; i < n; i++ )
-  {
-    indx[i] = indx[i] + base;
-  }
 
   return indx;
 }
@@ -9706,7 +12758,7 @@ void r8col_sorted_tol_undex ( int m, int n, double a[], int unique_num,
       diff = 0.0;
       for ( i3 = 0; i3 < m; i3++ )
       {
-        diff = r8_max ( diff, r8_abs ( a[i3+i*m] - a[i3+i2*m] ) );
+        diff = r8_max ( diff, fabs ( a[i3+i*m] - a[i3+i2*m] ) );
       }
       if ( diff <= tol )
       {
@@ -9789,7 +12841,7 @@ int r8col_sorted_tol_unique ( int m, int n, double a[], double tol )
       diff = 0.0;
       for ( k = 0; k < m; k++ )
       {
-        diff = r8_max ( diff, r8_abs ( a[k+i*m] - a[k+j*m] ) );
+        diff = r8_max ( diff, fabs ( a[k+i*m] - a[k+j*m] ) );
       }
       if ( diff < tol )
       {
@@ -9899,7 +12951,7 @@ int r8col_sorted_tol_unique_count ( int m, int n, double a[], double tol )
       diff = 0.0;
       for ( i3 = 0; i3 < m; i3++ )
       {
-        diff = r8_max ( diff, r8_abs ( a[i3+i*m] - a[i3+i2*m] ) );
+        diff = r8_max ( diff, fabs ( a[i3+i*m] - a[i3+i2*m] ) );
       }
       if ( diff <= tol )
       {
@@ -10026,7 +13078,7 @@ void r8col_sorted_undex ( int m, int n, double a[], int unique_num,
     diff = 0.0;
     for ( k = 0; k < m; k++ )
     {
-      diff = r8_max ( diff, r8_abs ( a[k+i*m] - a[k+undx[j]*m] ) );
+      diff = r8_max ( diff, fabs ( a[k+i*m] - a[k+undx[j]*m] ) );
     }
     if ( 0.0 < diff )
     {
@@ -10078,7 +13130,6 @@ int r8col_sorted_unique ( int m, int n, double a[] )
     Output, int UNIQUE_NUM, the number of unique columns.
 */
 {
-  double diff;
   int equal;
   int i;
   int j1;
@@ -10157,7 +13208,6 @@ int r8col_sorted_unique_count ( int m, int n, double a[] )
     Output, int R8COL_SORTED_UNIQUE_COUNT, the number of unique columns.
 */
 {
-  double diff;
   int equal;
   int i;
   int j1;
@@ -10603,7 +13653,6 @@ void r8col_tol_undex ( int m, int n, double a[], int unique_num, double tol,
     Output, int XDNU[N], the XDNU vector.
 */
 {
-  int base = 0;
   double diff;
   int i;
   int i2;
@@ -10614,7 +13663,7 @@ void r8col_tol_undex ( int m, int n, double a[], int unique_num, double tol,
 /*
   Implicitly sort the array.
 */
-  indx = r8col_sort_heap_index_a ( m, n, base, a );
+  indx = r8col_sort_heap_index_a ( m, n, a );
 /*
   Consider entry I = 0.
   It is unique, so set the number of unique items to K.
@@ -10642,7 +13691,7 @@ void r8col_tol_undex ( int m, int n, double a[], int unique_num, double tol,
       diff = 0.0;
       for ( i2 = 0; i2 < m; i2++ )
       {
-        diff = r8_max ( diff, r8_abs ( a[i2+indx[i]*m] - a[i2+undx[j]*m] ) );
+        diff = r8_max ( diff, fabs ( a[i2+indx[i]*m] - a[i2+undx[j]*m] ) );
       }
       if ( diff <= tol )
       {
@@ -10721,6 +13770,7 @@ double *r8col_uniform_abvec_new ( int m, int n, double a[], double b[], int *see
 */
 {
   int i;
+  const int i4_huge = 2147483647;
   int j;
   int k;
   double *r;
@@ -10737,7 +13787,7 @@ double *r8col_uniform_abvec_new ( int m, int n, double a[], double b[], int *see
 
       if ( *seed < 0 )
       {
-        *seed = *seed + 2147483647;
+        *seed = *seed + i4_huge;
       }
       r[i+j*m] = a[i] 
         + ( b[i] - a[i] ) * ( double ) ( *seed ) * 4.656612875E-10;
@@ -10798,7 +13848,6 @@ int r8col_tol_unique_count ( int m, int n, double a[], double tol )
     Output, int R8COL_TOL_UNIQUE_COUNT, the number of unique columns.
 */
 {
-  int base = 0;
   double diff;
   int i;
   int i2;
@@ -10812,7 +13861,7 @@ int r8col_tol_unique_count ( int m, int n, double a[], double tol )
 /*
   Implicitly sort the array.
 */
-  indx = r8col_sort_heap_index_a ( m, n, base, a );
+  indx = r8col_sort_heap_index_a ( m, n, a );
 /*
   Consider entry I = 0.
   It is unique, so set the number of unique items to K.
@@ -10839,7 +13888,7 @@ int r8col_tol_unique_count ( int m, int n, double a[], double tol )
       diff = 0.0;
       for ( i2 = 0; i2 < m; i2++ )
       {
-        diff = r8_max ( diff, r8_abs ( a[i2+indx[i]*m] - a[i2+undx[j]*m] ) );
+        diff = r8_max ( diff, fabs ( a[i2+indx[i]*m] - a[i2+undx[j]*m] ) );
       }
       if ( diff <= tol )
       {
@@ -10931,7 +13980,7 @@ int *r8col_tol_unique_index ( int m, int n, double a[], double tol )
         diff = 0.0;
         for ( i = 0; i < m; i++ )
         {
-          diff = r8_max ( diff, r8_abs ( a[i+j1*m] - a[i+j2*m] ) );
+          diff = r8_max ( diff, fabs ( a[i+j1*m] - a[i+j2*m] ) );
         }
         if ( diff <= tol )
         {
@@ -11045,7 +14094,6 @@ void r8col_undex ( int m, int n, double a[], int unique_num, int undx[],
     Output, int XDNU[N], the XDNU vector.
 */
 {
-  int base = 0;
   double diff;
   int i;
   int *indx;
@@ -11054,7 +14102,7 @@ void r8col_undex ( int m, int n, double a[], int unique_num, int undx[],
 /*
   Implicitly sort the array.
 */
-  indx = r8col_sort_heap_index_a ( m, n, base, a );
+  indx = r8col_sort_heap_index_a ( m, n, a );
 /*
   Walk through the implicitly sorted array X.
 */
@@ -11070,7 +14118,7 @@ void r8col_undex ( int m, int n, double a[], int unique_num, int undx[],
     diff = 0.0;
     for ( k = 0; k < m; k++ )
     {
-      diff = r8_max ( diff, r8_abs ( a[k+indx[i]*m] - a[k+undx[j]*m] ) );
+      diff = r8_max ( diff, fabs ( a[k+indx[i]*m] - a[k+undx[j]*m] ) );
     }
     if ( 0.0 < diff )
     {
@@ -11142,7 +14190,7 @@ int r8col_unique_count ( int m, int n, double a[] )
       diff = 0.0;
       for ( i = 0; i < m; i++ )
       {
-        diff = r8_max ( diff, r8_abs ( a[i+j1*m] - a[i+j2*m] ) );
+        diff = r8_max ( diff, fabs ( a[i+j1*m] - a[i+j2*m] ) );
       }
       if ( diff == 0.0 )
       {
@@ -11225,7 +14273,7 @@ int *r8col_unique_index ( int m, int n, double a[] )
         diff = 0.0;
         for ( i = 0; i < m; i++ )
         {
-          diff = r8_max ( diff, r8_abs ( a[i+j1*m] - a[i+j2*m] ) );
+          diff = r8_max ( diff, fabs ( a[i+j1*m] - a[i+j2*m] ) );
         }
         if ( diff == 0.0 )
         {
@@ -11575,15 +14623,15 @@ double r8mat_amax ( int m, int n, double a[] )
   int j;
   double value;
 
-  value = r8_abs ( a[0+0*m] );
+  value = fabs ( a[0+0*m] );
 
   for ( j = 0; j < n; j++ )
   {
     for ( i = 0; i < m; i++ )
     {
-      if ( value < r8_abs ( a[i+j*m] ) )
+      if ( value < fabs ( a[i+j*m] ) )
       {
-        value = r8_abs ( a[i+j*m] );
+        value = fabs ( a[i+j*m] );
       }
     }
   }
@@ -11852,7 +14900,245 @@ double *r8mat_cholesky_factor ( int n, double a[], int *flag )
 }
 /******************************************************************************/
 
-double *r8mat_cholesky_solve ( int n, double a[], double b[] )
+double *r8mat_cholesky_factor_upper ( int n, double a[], int *flag )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_CHOLESKY_FACTOR_UPPER: upper Cholesky factor of a symmetric R8MAT.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+    The matrix must be symmetric and positive semidefinite.
+
+    For a positive semidefinite symmetric matrix A, the Cholesky factorization
+    is an upper triangular matrix R such that:
+
+      A = R' * R
+
+    Note that the usual Cholesky factor is a LOWER triangular matrix L
+    such that
+
+      A = L * L'
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 August 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix A.
+
+    Input, double A[N*N], the N by N matrix.
+
+    Output, int *FLAG, an error flag.
+    0, no error was detected.
+    1, the matrix was not positive definite.  A NULL factor was returned.
+
+    Output, double R8MAT_CHOLESKY_FACTOR_UPPER[N*N], the N by N upper triangular
+    "Choresky" factor.
+*/
+{
+  double *c;
+  int i;
+  int j;
+  int k;
+  double sum2;
+
+  *flag = 0;
+
+  c = r8mat_copy_new ( n, n, a );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < j; i++ )
+    {
+      c[j+i*n] = 0.0;
+    }
+    for ( i = j; i < n; i++ )
+    {
+      sum2 = c[i+j*n];
+      for ( k = 0; k < j; k++ )
+      {
+        sum2 = sum2 - c[k+j*n] * c[k+i*n];
+      }
+      if ( i == j )
+      {
+        if ( sum2 <= 0.0 )
+        {
+          *flag = 1;
+          return NULL;
+        }
+        c[j+i*n] = sqrt ( sum2 );
+      }
+      else
+      {
+        if ( c[j+j*n] != 0.0 )
+        {
+          c[j+i*n] = sum2 / c[j+j*n];
+        }
+        else
+        {
+          c[j+i*n] = 0.0;
+        }
+      }
+    }
+  }
+
+  return c;
+}
+/******************************************************************************/
+
+void r8mat_cholesky_inverse ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_CHOLESKY_INVERSE computes the inverse of a symmetric matrix.
+
+  Discussion:
+
+    The matrix must be symmetric and positive semidefinite.
+
+    The upper triangular Cholesky factorization R is computed, so that:
+
+      A = R' * R
+
+    Then the inverse B is computed by
+
+      B = inv ( A ) = inv ( R ) * inv ( R' )
+
+    An R8MAT is an MxN array of R8's, stored by (I,J) -> [I+J*M].
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 October 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of
+    the matrix A.
+
+    Input/output, double A[N*N].  On input, the matrix.
+    On output, the inverse of the matrix.
+*/
+{
+  int i;
+  int j;
+  int k;
+  double s;
+  double t;
+
+  for ( j = 0; j < n; j++ )
+  {
+    s = 0.0;
+
+    for ( k = 0; k < j; k++ )
+    {
+      t = a[k+j*n];
+      for ( i = 0; i < k; i++ )
+      {
+        t = t - a[i+k*n] * a[i+j*n];
+      }
+      t = t / a[k+k*n];
+      a[k+j*n] = t;
+      s = s + t * t;
+    }
+
+    s = a[j+j*n] - s;
+
+    if ( s <= 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8MAT_CHOLESKY_INVERSE - Fatal error!\n" );
+      fprintf ( stderr, "  The matrix is singular.\n" );
+      exit ( 1 );
+    }
+
+    a[j+j*n] = sqrt ( s );
+
+    for ( i = j + 1; i < n; i++ )
+    {
+      a[i+j*n] = 0.0;
+    }
+  }
+/*
+  Compute inverse(R).
+*/
+  for ( k = 0; k < n; k++ )
+  {
+    a[k+k*n] = 1.0 / a[k+k*n];
+    for ( i = 0; i < k; i++ )
+    {
+      a[i+k*n] = - a[i+k*n] * a[k+k*n];
+    }
+
+    for ( j = k + 1; j < n; j++ )
+    {
+      t = a[k+j*n];
+      a[k+j*n] = 0.0;
+      for ( i = 0; i <= k; i++ )
+      {
+        a[i+j*n] = a[i+j*n] + t * a[i+k*n];
+      }
+    }
+  }
+/*
+  Form inverse(R) * (inverse(R))'.
+*/
+  for ( j = 0; j < n; j++ )
+  {
+    for ( k = 0; k < j; k++ )
+    {
+      t = a[k+j*n];
+      for ( i = 0; i <= k; i++ )
+      {
+        a[i+k*n] = a[i+k*n] + t * a[i+j*n];
+      }
+    }
+    t = a[j+j*n];
+    for ( i = 0; i <= j; i++ )
+    {
+      a[i+j*n] = a[i+j*n] * t;
+    }
+  }
+/*
+  Use reflection.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    for ( j = 0; j < i; j++ )
+    {
+      a[i+j*n] = a[j+i*n];
+    }
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8mat_cholesky_solve ( int n, double l[], double b[] )
 
 /******************************************************************************/
 /*
@@ -11881,8 +15167,8 @@ double *r8mat_cholesky_solve ( int n, double a[], double b[] )
 
     Input, int N, the number of rows and columns of the matrix A.
 
-    Input, double A[N*N], the N by N Cholesky factor of the
-    system matrix.
+    Input, double L[N*N], the N by N Cholesky factor of the
+    system matrix A.
 
     Input, double B[N], the right hand side of the linear system.
 
@@ -11894,11 +15180,11 @@ double *r8mat_cholesky_solve ( int n, double a[], double b[] )
 /*
   Solve L * y = b.
 */
-  y = r8mat_l_solve ( n, a, b );
+  y = r8mat_l_solve ( n, l, b );
 /*
   Solve L' * x = y.
 */
-  x = r8mat_lt_solve ( n, a, y );
+  x = r8mat_lt_solve ( n, l, y );
 
   free ( y );
 
@@ -11906,30 +15192,18 @@ double *r8mat_cholesky_solve ( int n, double a[], double b[] )
 }
 /******************************************************************************/
 
-double *r8mat_choresky_factor ( int n, double a[], int *flag )
+double *r8mat_cholesky_solve_upper ( int n, double r[], double b[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8MAT_CHORESKY_FACTOR computes the "Choresky" factor of a symmetric R8MAT.
+    R8MAT_CHOLESKY_SOLVE_UPPER solves Cholesky factored linear system A * x = b.
 
   Discussion:
 
     An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
     in column-major order.
-
-    The matrix must be symmetric and positive semidefinite.
-
-    For a positive semidefinite symmetric matrix A, the Cholesky factorization
-    is an upper triangular matrix R such that:
-
-      A = R * R'
-
-    Note that the usual Cholesky factor is a LOWER triangular matrix L
-    such that
-
-      A = L * L'
 
   Licensing:
 
@@ -11937,7 +15211,7 @@ double *r8mat_choresky_factor ( int n, double a[], int *flag )
 
   Modified:
 
-    21 April 2012
+    21 October 2013
 
   Author:
 
@@ -11947,69 +15221,28 @@ double *r8mat_choresky_factor ( int n, double a[], int *flag )
 
     Input, int N, the number of rows and columns of the matrix A.
 
-    Input, double A[N*N], the N by N matrix.
+    Input, double R[N*N], the N by N Cholesky factor of the
+    system matrix A.
 
-    Output, int *FLAG, an error flag.
-    0, no error was detected.
-    1, the matrix was not positive definite.  A NULL factor was returned.
+    Input, double B[N], the right hand side of the linear system.
 
-    Output, double R8MAT_CHORESKY_FACTOR[N*N], the N by N upper triangular
-    "Choresky" factor.
+    Output, double R8MAT_CHOLESKY_SOLVE_UPPER[N], the solution of the linear system.
 */
 {
-  double *c;
-  int i;
-  int j;
-  int k;
-  double sum2;
+  double *x;
+  double *y;
+/*
+  Solve R' * y = b.
+*/
+  y = r8mat_ut_solve ( n, r, b );
+/*
+  Solve R * x = y.
+*/
+  x = r8mat_u_solve ( n, r, y );
 
-  *flag = 0;
+  free ( y );
 
-  c = r8mat_copy_new ( n, n, a );
-
-  r8mat_flip_rows ( n, n, c );
-  r8mat_flip_cols ( n, n, c );
-
-  for ( j = 0; j < n; j++ )
-  {
-    for ( i = 0; i < j; i++ )
-    {
-      c[i+j*n] = 0.0;
-    }
-    for ( i = j; i < n; i++ )
-    {
-      sum2 = c[j+i*n];
-      for ( k = 0; k < j; k++ )
-      {
-        sum2 = sum2 - c[j+k*n] * c[i+k*n];
-      }
-      if ( i == j )
-      {
-        if ( sum2 <= 0.0 )
-        {
-          *flag = 1;
-          return NULL;
-        }
-        c[i+j*n] = sqrt ( sum2 );
-      }
-      else
-      {
-        if ( c[j+j*n] != 0.0 )
-        {
-          c[i+j*n] = sum2 / c[j+j*n];
-        }
-        else
-        {
-          c[i+j*n] = 0.0;
-        }
-      }
-    }
-  }
-
-  r8mat_flip_cols ( n, n, c );
-  r8mat_flip_rows ( n, n, c );
-
-  return c;
+  return x;
 }
 /******************************************************************************/
 
@@ -12114,55 +15347,107 @@ double *r8mat_copy_new ( int m, int n, double a1[] )
 }
 /******************************************************************************/
 
-void r8mat_delete ( double **a, int m, int n )
+double *r8mat_covariance ( int m, int n, double x[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8MAT_DELETE frees the memory set aside by R8MAT_NEW.
+    R8MAT_COVARIANCE computes the sample covariance of a set of vector data.
 
   Discussion:
 
-    This function releases the memory associated with an array that was 
-    created by a command like:
-
-      double **a;
-      a = r8mat_new ( m, n );
+    An R8MAT is an MxN array of R8's, stored by (I,J) -> [I+J*M].
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    11 September 2011
+    26 June 2013
 
   Author:
 
-    John Burkardt
+    John Burkardt.
 
   Parameters:
 
-    Input, double **A, the array.
+    Input, int M, the size of a single data vectors.
 
-    Input, int M, N, the number of rows and columns.
+    Input, int N, the number of data vectors.
+    N should be greater than 1.
+
+    Input, double X[M*N], an array of N data vectors, each
+    of length M.
+
+    Output, double C[M*M], the covariance matrix for the data.
 */
 {
+  double *c;
   int i;
-/*
-  Delete the pointers to rows.
-*/
-  for ( i = 0; i < m; i++ )
+  int j;
+  int k;
+  double *x_mean;
+
+  c = ( double * ) malloc ( m * m * sizeof ( double ) );
+  for ( j = 0; j < m; j++ )
   {
-    free ( a[i] );
+    for ( i = 0; i < m; i++ )
+    {
+      c[i+j*m] = 0.0;
+    }
   }
 /*
-  Delete the pointer to the pointers to rows.
+  Special case of N = 1.
 */
-  free ( a );
+  if ( n == 1 )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      c[i+i*m] = 1.0;
+    }
+    return c;
+  }
+/*
+  Determine the sample means.
+*/
+  x_mean = ( double * ) malloc ( m * sizeof ( double ) );
+  for ( i = 0; i < m; i++ )
+  {
+    x_mean[i] = 0.0;
+    for ( j = 0; j < n; j++ )
+    {
+      x_mean[i] = x_mean[i] + x[i+j*m];
+    }
+    x_mean[i] = x_mean[i] / ( double ) ( n );
+  }
+/*
+  Determine the sample covariance.
+*/
+  for ( j = 0; j < m; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      for ( k = 0; k < n; k++ )
+      {
+        c[i+j*m] = c[i+j*m] 
+          + ( x[i+k*m] - x_mean[i] ) * ( x[j+k*m] - x_mean[j] );
+      }
+    }
+  }
 
-  return;
+  for ( j = 0; j < m; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      c[i+j*m] = c[i+j*m] / ( double ) ( n - 1 );
+    }
+  }
+
+  free ( x_mean );
+
+  return c;
 }
 /******************************************************************************/
 
@@ -12234,7 +15519,7 @@ double r8mat_det ( int n, double a[] )
     m = k;
     for ( kk = k+1; kk <= n; kk++ )
     {
-      if ( r8_abs ( b[m-1+(k-1)*n] ) < r8_abs ( b[kk-1+(k-1)*n] ) )
+      if ( fabs ( b[m-1+(k-1)*n] ) < fabs ( b[kk-1+(k-1)*n] ) )
       {
         m = kk;
       }
@@ -12595,13 +15880,59 @@ void r8mat_diag_add_vector ( int n, double a[], double v[] )
 }
 /******************************************************************************/
 
-double *r8mat_diag_get_vector ( int n, double a[] )
+void r8mat_diag_get_vector ( int n, double a[], double v[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
     R8MAT_DIAG_GET_VECTOR gets the value of the diagonal of an R8MAT.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    15 July 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix.
+
+    Input, double A[N*N], the N by N matrix.
+
+    Output, double V[N], the diagonal entries
+    of the matrix.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n; i++ )
+  {
+    v[i] = a[i+i*n];
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8mat_diag_get_vector_new ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_DIAG_GET_VECTOR_NEW gets the value of the diagonal of an R8MAT.
 
   Discussion:
 
@@ -12626,7 +15957,7 @@ double *r8mat_diag_get_vector ( int n, double a[] )
 
     Input, double A[N*N], the N by N matrix.
 
-    Output, double R8MAT_DIAG_GET_VECTOR[N], the diagonal entries
+    Output, double R8MAT_DIAG_GET_VECTOR_NEW[N], the diagonal entries
     of the matrix.
 */
 {
@@ -12694,35 +16025,35 @@ void r8mat_diag_set_vector ( int n, double a[], double v[] )
 
 /******************************************************************************/
 /*
-//  Purpose:
-//
-//    R8MAT_DIAG_SET_VECTOR sets the diagonal of an R8MAT to a vector.
-//
-//  Discussion:
-//
-//    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
-//    in column-major order.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    25 August 2011
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the number of rows and columns of the matrix.
-//
-//    Input/output, double A[N*N], the N by N matrix.
-//
-//    Input, double V[N], the vector to be assigned to the
-//    diagonal of A.
+  Purpose:
+
+    R8MAT_DIAG_SET_VECTOR sets the diagonal of an R8MAT to a vector.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    25 August 2011
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of the matrix.
+
+    Input/output, double A[N*N], the N by N matrix.
+
+    Input, double V[N], the vector to be assigned to the
+    diagonal of A.
 */
 {
   int i;
@@ -12736,13 +16067,72 @@ void r8mat_diag_set_vector ( int n, double a[], double v[] )
 }
 /******************************************************************************/
 
-double r8mat_dif_fro ( int m, int n, double a[], double b[] )
+double *r8mat_diagonal_new ( int n, double diag[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8MAT_DIF_FRO returns the Frobenius norm of the difference of R8MAT's.
+    R8MAT_DIAGONAL_NEW returns a diagonal matrix.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 July 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of A.
+
+    Input, double DIAG[N], the diagonal entries.
+
+    Output, double R8MAT_DIAGONAL_NEW[N*N], the N by N identity matrix.
+*/
+{
+  double *a;
+  int i;
+  int j;
+
+  a = ( double * ) malloc ( n * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      if ( i == j )
+      {
+        a[i+j*n] = diag[i];
+      }
+      else
+      {
+        a[i+j*n] = 0.0;
+      }
+    }
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+double r8mat_diff_frobenius ( int m, int n, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_DIFF_FROBENIUS returns the Frobenius norm of the difference of R8MAT's.
 
   Discussion: 							    
 
@@ -12780,7 +16170,7 @@ double r8mat_dif_fro ( int m, int n, double a[], double b[] )
     Input, double A[M*N], double B[M*N], the matrices for which we
     want the Frobenius norm of the difference.
 
-    Output, double R8MAT_DIF_FRO, the Frobenius norm of ( A - B ).
+    Output, double R8MAT_DIFF_FROBENIUS, the Frobenius norm of ( A - B ).
 */
 {
   int i;
@@ -13058,34 +16448,18 @@ double *r8mat_expand_linear2 ( int m, int n, double a[], int m2, int n2 )
 }
 /******************************************************************************/
 
-void r8mat_flip_cols ( int m, int n, double a[] )
+double *r8mat_flip_cols_new ( int m, int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8MAT_FLIP_COLS swaps the columns of an R8MAT.
+    R8MAT_FLIP_COLS_NEW makes a new copy of an R8MAT with reversed column order.
 
   Discussion:
 
     An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
     in column-major order.
-
-    To "flip" the columns of an R8MAT is to start with something like
-
-      11 12 13 14 15
-      21 22 23 24 25
-      31 32 33 34 35
-      41 42 43 44 45
-      51 52 53 54 55
-
-    and return
-
-      15 14 13 12 11
-      25 24 23 22 21
-      35 34 33 32 31
-      45 44 43 42 41
-      55 54 53 52 51
 
   Licensing:
 
@@ -13093,7 +16467,7 @@ void r8mat_flip_cols ( int m, int n, double a[] )
 
   Modified:
 
-    08 April 2009
+    01 November 2013
 
   Author:
 
@@ -13103,62 +16477,248 @@ void r8mat_flip_cols ( int m, int n, double a[] )
 
     Input, int M, N, the number of rows and columns.
 
-    Input/output, double A[M*N], the matrix whose columns are to be flipped.
+    Input, double A[M*N], the matrix to be copied.
+
+    Output, double R8MAT_FLIP_COLS_NEW[M*N], the reversed-column-order copy.
 */
 {
+  double *b;
   int i;
   int j;
-  double t;
 
-  for ( i = 0; i < m; i++ )
+  b = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
   {
-    for ( j = 0; j < ( n / 2 ); j++ )
+    for ( i = 0; i < m; i++ )
     {
-      t              = a[i+     j *m];
-      a[i+     j *m] = a[i+(n-1-j)*m];
-      a[i+(n-1-j)*m] = t;
+      b[i+(n-1-j)*m] = a[i+j*m];
     }
   }
+
+  return b;
+}
+/******************************************************************************/
+
+double *r8mat_flip_rows_new ( int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_FLIP_ROWS_NEW makes a new copy of an R8MAT with reversed row order.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 November 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double A[M*N], the matrix to be copied.
+
+    Output, double R8MAT_FLIP_ROWS_NEW[M*N], the reversed-rows-order copy.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      b[(m-1-i)+j*m] = a[i+j*m];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+void r8mat_fs ( int n, double a[], double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_FS factors and solves a system with one right hand side.
+
+  Discussion:
+
+    This routine uses partial pivoting, but no pivot vector is required.
+
+    This routine differs from R8MAT_FSS in two ways:
+    * only one right hand side is allowed;
+    * the input matrix A is not modified.
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    21 January 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double A[N*N], the coefficient matrix of the linear system.
+
+    Input/output, double X[N], on input, the right hand side of the
+    linear system.  On output, the solution of the linear system.
+*/
+{
+  double *a2;
+  int i;
+  int ipiv;
+  int j;
+  int jcol;
+  double piv;
+  double t;
+
+  a2 = ( double * ) malloc ( n * n * sizeof ( double ) );
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      a2[i+j*n] = a[i+j*n];
+    }
+  }
+
+  for ( jcol = 1; jcol <= n; jcol++ )
+  {
+/*
+  Find the maximum element in column I.
+*/
+    piv = fabs ( a2[jcol-1+(jcol-1)*n] );
+    ipiv = jcol;
+    for ( i = jcol+1; i <= n; i++ )
+    {
+      if ( piv < fabs ( a2[i-1+(jcol-1)*n] ) )
+      {
+        piv = fabs ( a2[i-1+(jcol-1)*n] );
+        ipiv = i;
+      }
+    }
+
+    if ( piv == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8MAT_FS - Fatal error!\n" );
+      fprintf ( stderr, "  Zero pivot on step %d\n", jcol );
+      exit ( 1 );
+    }
+/*
+  Switch rows JCOL and IPIV, and X.
+*/
+    if ( jcol != ipiv )
+    {
+      for ( j = 1; j <= n; j++ )
+      {
+        t                  = a2[jcol-1+(j-1)*n];
+        a2[jcol-1+(j-1)*n] = a2[ipiv-1+(j-1)*n];
+        a2[ipiv-1+(j-1)*n] = t;
+      }
+      t         = x[jcol-1];
+      x[jcol-1] = x[ipiv-1];
+      x[ipiv-1] = t;
+    }
+/*
+  Scale the pivot row.
+*/
+    t = a2[jcol-1+(jcol-1)*n];
+    a2[jcol-1+(jcol-1)*n] = 1.0;
+    for ( j = jcol+1; j <= n; j++ )
+    {
+      a2[jcol-1+(j-1)*n] = a2[jcol-1+(j-1)*n] / t;
+    }
+    x[jcol-1] = x[jcol-1] / t;
+/*
+  Use the pivot row to eliminate lower entries in that column.
+*/
+    for ( i = jcol+1; i <= n; i++ )
+    {
+      if ( a2[i-1+(jcol-1)*n] != 0.0 )
+      {
+        t = - a2[i-1+(jcol-1)*n];
+        a2[i-1+(jcol-1)*n] = 0.0;
+        for ( j = jcol+1; j <= n; j++ )
+        {
+          a2[i-1+(j-1)*n] = a2[i-1+(j-1)*n] + t * a2[jcol-1+(j-1)*n];
+        }
+        x[i-1] = x[i-1] + t * x[jcol-1];
+      }
+    }
+  }
+/*
+  Back solve.
+*/
+  for ( jcol = n; 2 <= jcol; jcol-- )
+  {
+    for ( i = 1; i < jcol; i++ )
+    {
+      x[i-1] = x[i-1] - a2[i-1+(jcol-1)*n] * x[jcol-1];
+    }
+  }
+
+  free ( a2 );
+
   return;
 }
 /******************************************************************************/
 
-void r8mat_flip_rows ( int m, int n, double a[] )
+double *r8mat_fs_new ( int n, double a[], double b[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8MAT_FLIP_ROWS swaps the rows of an R8MAT.
+    R8MAT_FS_NEW factors and solves a system with one right hand side.
 
   Discussion:
+
+    This routine uses partial pivoting, but no pivot vector is required.
+
+    This routine differs from R8MAT_FSS_NEW in two ways:
+    * only one right hand side is allowed;
+    * the input matrix A is not modified.
 
     An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
     in column-major order.
 
-    To "flip" the rows of an R8MAT is to start with something like
-
-      11 12 13 14 15
-      21 22 23 24 25
-      31 32 33 34 35
-      41 42 43 44 45
-      51 52 53 54 55
-
-    and return
-
-      51 52 53 54 55
-      41 42 43 44 45
-      31 32 33 34 35
-      21 22 23 24 25
-      11 12 13 14 15
-
   Licensing:
 
-    This code is distributed under the GNU LGPL license.
+    This code is distributed under the GNU LGPL license. 
 
   Modified:
 
-    08 April 2009
+    21 January 2013
 
   Author:
 
@@ -13166,25 +16726,120 @@ void r8mat_flip_rows ( int m, int n, double a[] )
 
   Parameters:
 
-    Input, int M, N, the number of rows and columns.
+    Input, int N, the order of the matrix.
+    N must be positive.
 
-    Input/output, double A[M*N], the matrix whose rows are to be flipped.
+    Input, double A[N*N], the coefficient matrix of the linear system.
+
+    Input, double B[N], on input, the right hand side of the
+    linear system.
+
+    Output, double R8MAT_FS[N], the solution of the linear system.
 */
 {
+  double *a2;
   int i;
+  int ipiv;
   int j;
+  int jcol;
+  double piv;
   double t;
+  double *x;
 
+  a2 = ( double * ) malloc ( n * n * sizeof ( double ) );
   for ( j = 0; j < n; j++ )
   {
-    for ( i = 0; i < ( m / 2 ); i++ )
+    for ( i = 0; i < n; i++ )
     {
-      t            = a[    i+j*m];
-      a[    i+j*m] = a[m-1-i+j*m];
-      a[m-1-i+j*m] = t;
+      a2[i+j*n] = a[i+j*n];
     }
   }
-  return;
+
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+  }
+
+  for ( jcol = 1; jcol <= n; jcol++ )
+  {
+/*
+  Find the maximum element in column I.
+*/
+    piv = fabs ( a2[jcol-1+(jcol-1)*n] );
+    ipiv = jcol;
+    for ( i = jcol+1; i <= n; i++ )
+    {
+      if ( piv < fabs ( a2[i-1+(jcol-1)*n] ) )
+      {
+        piv = fabs ( a2[i-1+(jcol-1)*n] );
+        ipiv = i;
+      }
+    }
+
+    if ( piv == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8MAT_FS_NEW - Fatal error!\n" );
+      fprintf ( stderr, "  Zero pivot on step %d\n", jcol );
+      exit ( 1 );
+    }
+/*
+  Switch rows JCOL and IPIV, and X.
+*/
+    if ( jcol != ipiv )
+    {
+      for ( j = 1; j <= n; j++ )
+      {
+        t                  = a2[jcol-1+(j-1)*n];
+        a2[jcol-1+(j-1)*n] = a2[ipiv-1+(j-1)*n];
+        a2[ipiv-1+(j-1)*n] = t;
+      }
+      t         = x[jcol-1];
+      x[jcol-1] = x[ipiv-1];
+      x[ipiv-1] = t;
+    }
+/*
+  Scale the pivot row.
+*/
+    t = a2[jcol-1+(jcol-1)*n];
+    a2[jcol-1+(jcol-1)*n] = 1.0;
+    for ( j = jcol+1; j <= n; j++ )
+    {
+      a2[jcol-1+(j-1)*n] = a2[jcol-1+(j-1)*n] / t;
+    }
+    x[jcol-1] = x[jcol-1] / t;
+/*
+  Use the pivot row to eliminate lower entries in that column.
+*/
+    for ( i = jcol+1; i <= n; i++ )
+    {
+      if ( a2[i-1+(jcol-1)*n] != 0.0 )
+      {
+        t = - a2[i-1+(jcol-1)*n];
+        a2[i-1+(jcol-1)*n] = 0.0;
+        for ( j = jcol+1; j <= n; j++ )
+        {
+          a2[i-1+(j-1)*n] = a2[i-1+(j-1)*n] + t * a2[jcol-1+(j-1)*n];
+        }
+        x[i-1] = x[i-1] + t * x[jcol-1];
+      }
+    }
+  }
+/*
+  Back solve.
+*/
+  for ( jcol = n; 2 <= jcol; jcol-- )
+  {
+    for ( i = 1; i < jcol; i++ )
+    {
+      x[i-1] = x[i-1] - a2[i-1+(jcol-1)*n] * x[jcol-1];
+    }
+  }
+
+  free ( a2 );
+
+  return x;
 }
 /******************************************************************************/
 
@@ -13225,6 +16880,7 @@ void r8mat_fss ( int n, double a[], int nb, double x[] )
     On output, A is in unit upper triangular form, and
     represents the U factor of an LU factorization of the
     original coefficient matrix.
+
     Input, int NB, the number of right hand sides.
 
     Input/output, double X[N*NB], on input, the right hand sides of the
@@ -13243,13 +16899,13 @@ void r8mat_fss ( int n, double a[], int nb, double x[] )
 /*
   Find the maximum element in column I.
 */
-    piv = r8_abs ( a[jcol-1+(jcol-1)*n] );
+    piv = fabs ( a[jcol-1+(jcol-1)*n] );
     ipiv = jcol;
     for ( i = jcol+1; i <= n; i++ )
     {
-      if ( piv < r8_abs ( a[i-1+(jcol-1)*n] ) )
+      if ( piv < fabs ( a[i-1+(jcol-1)*n] ) )
       {
-        piv = r8_abs ( a[i-1+(jcol-1)*n] );
+        piv = fabs ( a[i-1+(jcol-1)*n] );
         ipiv = i;
       }
     }
@@ -13397,13 +17053,13 @@ double *r8mat_fss_new ( int n, double a[], int nb, double b[] )
 /*
   Find the maximum element in column I.
 */
-    piv = r8_abs ( a[jcol-1+(jcol-1)*n] );
+    piv = fabs ( a[jcol-1+(jcol-1)*n] );
     ipiv = jcol;
     for ( i = jcol+1; i <= n; i++ )
     {
-      if ( piv < r8_abs ( a[i-1+(jcol-1)*n] ) )
+      if ( piv < fabs ( a[i-1+(jcol-1)*n] ) )
       {
-        piv = r8_abs ( a[i-1+(jcol-1)*n] );
+        piv = fabs ( a[i-1+(jcol-1)*n] );
         ipiv = i;
       }
     }
@@ -13667,7 +17323,7 @@ double *r8mat_hess ( double (*fx) ( int n, double x[] ), int n, double x[] )
 
   for ( i = 0; i < n; i++ )
   {
-    s[i] = eps * r8_max ( r8_abs ( x[i] ), 1.0 );
+    s[i] = eps * r8_max ( fabs ( x[i] ), 1.0 );
   }
 /*
   Calculate the diagonal elements.
@@ -13789,9 +17445,9 @@ void r8mat_house_axh ( int n, double a[], double v[] )
 */
   ah = ( double * ) malloc ( n * n * sizeof ( double ) );
 
-  for ( i = 0; i < n; i++ )
+  for ( j = 0; j < n; j++ )
   {
-    for ( j = 0; j < n; j++ )
+    for ( i = 0; i < n; i++ )
     {
       ah[i+j*n] = a[i+j*n];
       for ( k = 0; k < n; k++ )
@@ -13874,9 +17530,9 @@ double *r8mat_house_axh_new ( int n, double a[], double v[] )
 */
   ah = ( double * ) malloc ( n * n * sizeof ( double ) );
 
-  for ( i = 0; i < n; i++ )
+  for ( j = 0; j < n; j++ )
   {
-    for ( j = 0; j < n; j++ )
+    for ( i = 0; i < n; i++ )
     {
       ah[i+j*n] = a[i+j*n];
       for ( k = 0; k < n; k++ )
@@ -14073,32 +17729,34 @@ double *r8mat_house_post ( int n, double a[], int row, int col )
     Output, double R8MAT_HOUSE_POST[N*N], the Householder matrix.
 */
 {
+  double *a_row;
   double *h;
   int j;
   double *v;
-  double *w;
 /*
-  Set up the vector V.
+  Extract the ROW-th row of A.
 */
-  w = ( double * ) malloc ( n * sizeof ( double ) );
+  a_row = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( j = 0; j < col-1; j++ )
   {
-    w[j] = 0.0;
+    a_row[j] = 0.0;
   }
   for ( j = col-1; j < n; j++ )
   {
-    w[j] = a[row+j*n];
+    a_row[j] = a[row+j*n];
   }
-
-  v = r8vec_house_column ( n, w, col );
+/*
+  Set up the vector V.
+*/
+  v = r8vec_house_column ( n, a_row, col );
 /*
   Form the matrix H(V).
 */
   h = r8mat_house_form ( n, v );
 
+  free ( a_row );
   free ( v );
-  free ( w );
 
   return h;
 }
@@ -14150,32 +17808,36 @@ double *r8mat_house_pre ( int n, double a[], int row, int col )
     Output, double R8MAT_HOUSE_PRE[N*N], the Householder matrix.
 */
 {
+  double *a_col;
   double *h;
   int i;
   double *v;
-  double *w;
-
-  w = ( double * ) malloc ( n * sizeof ( double ) );
 /*
-  Set up the vector V.
+  Extract the COL-th column of A.
 */
+  a_col = ( double * ) malloc ( n * sizeof ( double ) );
+
   for ( i = 0; i < row-1; i++ )
   {
-    w[i] = 0.0;
+    a_col[i] = 0.0;
   }
   for ( i = row-1; i < n; i++ )
   {
-    w[i] = a[i+col*n];
+    a_col[i] = a[i+col*n];
   }
-
-  v = r8vec_house_column ( n, w, row );
+/*
+  Set up the vector V.
+*/
+  v = r8vec_house_column ( n, a_col, row );
 /*
   Form the matrix H(V).
 */
   h = r8mat_house_form ( n, v );
-
+/*
+  Free memory.
+*/
+  free ( a_col );
   free ( v );
-  free ( w );
 
   return h;
 }
@@ -14465,9 +18127,9 @@ int r8mat_insignificant ( int m, int n, double r[], double s[] )
     for ( i = 0; i < m; i++ )
     {
       t = r[i+j*m] + s[i+j*m];
-      tol = r8_epsilon ( ) * r8_abs ( r[i+j*m] );
+      tol = r8_epsilon ( ) * fabs ( r[i+j*m] );
 
-      if ( tol < r8_abs ( r[i+j*m] - t ) )
+      if ( tol < fabs ( r[i+j*m] - t ) )
       {
         value = 0;
         break;
@@ -14877,11 +18539,12 @@ double r8mat_is_symmetric ( int m, int n, double a[] )
 {
   int i;
   int j;
+  const double r8_huge = 1.79769313486231571E+308;
   double value;
 
   if ( m != n )
   {
-    value = r8_huge ( );
+    value = r8_huge;
     return value;
   }
 
@@ -14982,7 +18645,7 @@ double *r8mat_jac ( int m, int n, double eps,
   for ( j = 0; j < n; j++ )
   {
     xsave = x[j];
-    del = eps * ( 1.0 + r8_abs ( x[j] ) );
+    del = eps * ( 1.0 + fabs ( x[j] ) );
     x[j] = x[j] + del;
     work1 = fx ( m, n, x );
     x[j] = xsave;
@@ -14995,6 +18658,93 @@ double *r8mat_jac ( int m, int n, double eps,
   free ( work2 );
 
   return fprime;
+}
+/******************************************************************************/
+
+double *r8mat_kronecker ( int m1, int n1, double a[], int m2, int n2, 
+  double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_KRONECKER computes the Kronecker product of two R8MAT's.
+
+  Discussion:
+
+    An R8MAT is an MxN array of R8's, stored by (I,J) -> [I+J*M].
+
+    If A is an M1 by N1 array, and B is an M2 by N2 array, then
+    the Kronecker product of A and B is an M1*M2 by N1*N2 array
+      C(I,J) = A(I1,J1) * B(I2,J2)
+    where
+      I1 =       I   / M2  
+      I2 = mod ( I,    M2 )
+      J1 =       J   / N2  
+      J2 = mod ( J,    N2 )
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    01 December 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M1, N1, the order of the first matrix.
+
+    Input, double A[M1*N1], the first matrix.
+
+    Input, int M2, N2, the order of the second matrix.
+
+    Input, double B[M2*N2], the second matrix.
+
+    Output, double R8MAT_KRONECKER[(M1*M2)*(N1*N2)], the Kronecker product.
+*/
+{
+  double *c;
+  int i;
+  int i0;
+  int i1;
+  int i2;
+  int j;
+  int j0;
+  int j1;
+  int j2;
+  int m;
+  int n;
+
+  m = m1 * m2;
+  n = n1 * n2;
+  c = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j1 = 0; j1 < n1; j1++ )
+  {
+    for ( i1 = 0; i1 < m1; i1++ )
+    {
+      i0 = i1 * m2;
+      j0 = j1 * n2;
+      j = j0;
+      for ( j2 = 0; j2 < n2; j2++ )
+      {
+        i = i0;
+        for ( i2 = 0; i2 < m2; i2++ )
+        {
+          c[i+j*m] = a[i1+j1*m1] * b[i2+j2*m2];
+          i = i + 1;
+        }
+        j = j + 1;
+      }
+    }
+  }
+
+  return c;
 }
 /******************************************************************************/
 
@@ -15528,9 +19278,9 @@ void r8mat_lu ( int m, int n, double a[], double l[], double p[], double u[] )
 
     for ( i = j; i < m; i++ )
     {
-      if ( pivot < r8_abs ( u[i+j*m] ) )
+      if ( pivot < fabs ( u[i+j*m] ) )
       {
-        pivot = r8_abs ( u[i+j*m] );
+        pivot = fabs ( u[i+j*m] );
         ipiv = i;
       }
     }
@@ -15736,13 +19486,14 @@ double r8mat_maxcol_minrow ( int m, int n, double a[] )
   int i;
   int j;
   double minrow;
+  const double r8_huge = 1.79769313486231571E+308;
   double value;
 
-  value = - r8_huge ( );
+  value = - r8_huge;
 
   for ( i = 0; i < m; i++ )
   {
-    minrow = r8_huge ( );
+    minrow = r8_huge;
 
     for ( j = 0; j < n; j++ )
     {
@@ -15799,19 +19550,75 @@ double r8mat_maxrow_mincol ( int m, int n, double a[] )
   int i;
   int j;
   double mincol;
+  const double r8_huge = 1.79769313486231571E+308;
   double value;
 
-  value = - r8_huge ( );
+  value = - r8_huge;
 
   for ( j = 0; j < n; j++ )
   {
-    mincol = r8_huge ( );
+    mincol = r8_huge;
     for ( i = 0; i < m; i++ )
     {
       mincol = r8_min ( mincol, a[i+j*m] );
     }
     value = r8_max ( value, mincol );
   }
+  return value;
+}
+/******************************************************************************/
+
+double r8mat_mean ( int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_MEAN returns the mean of an R8MAT.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 September 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows in A.
+
+    Input, int N, the number of columns in A.
+
+    Input, double A[M*N], the M by N matrix.
+
+    Output, double R8MAT_MEAN, the mean of A.
+*/
+{
+  int i;
+  int j;
+  double value;
+
+  value = 0.0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      value = value + a[i+j*m];
+    }
+  }
+  value = value / ( double ) ( m * n );
+
   return value;
 }
 /******************************************************************************/
@@ -15984,13 +19791,14 @@ double r8mat_mincol_maxrow ( int m, int n, double a[] )
   int i;
   int j;
   double maxrow;
+  const double r8_huge = 1.79769313486231571E+308;
   double value;
 
-  value = r8_huge ( );
+  value = r8_huge;
 
   for ( i = 0; i < m; i++ )
   {
-    maxrow = - r8_huge ( );
+    maxrow = - r8_huge;
     for ( j = 0; j < n; j++ )
     {
       maxrow = r8_max ( maxrow, a[i+j*m] );
@@ -16046,13 +19854,14 @@ double r8mat_minrow_maxcol ( int m, int n, double a[] )
   int i;
   int j;
   double maxcol;
-  double value;;
+  const double r8_huge = 1.79769313486231571E+308;
+  double value;
 
-  value = r8_huge ( );
+  value = r8_huge;
 
   for ( j = 0; j < n; j++ )
   {
-    maxcol = - r8_huge ( );
+    maxcol = - r8_huge;
     for ( i = 0; i < m; i++ )
     {
       maxcol = r8_max ( maxcol, a[i+j*m] );
@@ -16064,7 +19873,7 @@ double r8mat_minrow_maxcol ( int m, int n, double a[] )
 }
 /******************************************************************************/
 
-double r8mat_minvm ( int n1, int n2, double a[], double b[], double c[] )
+void r8mat_minvm ( int n1, int n2, double a[], double b[], double c[] )
 
 /******************************************************************************/
 /*
@@ -16197,34 +20006,28 @@ void r8mat_mm ( int n1, int n2, int n3, double a[], double b[], double c[] )
     Output, double C[N1*N3], the product matrix C = A * B.
 */
 {
-  double *d;
+  double *c1;
   int i;
   int j;
   int k;
 
-  d = ( double * ) malloc ( n1 * n3 * sizeof ( double ) );
+  c1 = ( double * ) malloc ( n1 * n3 * sizeof ( double ) );
 
   for ( i = 0; i < n1; i++ )
   {
     for ( j = 0; j < n3; j++ )
     {
-      d[i+j*n1] = 0.0;
+      c1[i+j*n1] = 0.0;
       for ( k = 0; k < n2; k++ )
       {
-        d[i+j*n1] = d[i+j*n1] + a[i+k*n1] * b[k+j*n2];
+        c1[i+j*n1] = c1[i+j*n1] + a[i+k*n1] * b[k+j*n2];
       }
     }
   }
 
- for ( i = 0; i < n1; i++ )
-  {
-    for ( j = 0; j < n3; j++ )
-    {
-      c[i+j*n1] = d[i+j*n1];
-    }
-  }
+  r8mat_copy ( n1, n3, c1, c );
 
-  free ( d );
+  free ( c1 );
 
   return;
 }
@@ -16263,7 +20066,7 @@ double *r8mat_mm_new ( int n1, int n2, int n3, double a[], double b[] )
 
     Input, double A[N1*N2], double B[N2*N3], the matrices to multiply.
 
-    Output, double R8MAT_MM[N1*N3], the product matrix C = A * B.
+    Output, double R8MAT_MM_NEW[N1*N3], the product matrix C = A * B.
 */
 {
   double *c;
@@ -16322,7 +20125,7 @@ double *r8mat_mmt_new ( int n1, int n2, int n3, double a[], double b[] )
 
     Input, double A[N1*N2], double B[N3*N2], the matrices to multiply.
 
-    Output, double R8MAT_MMT[N1*N3], the product matrix C = A * B'.
+    Output, double R8MAT_MMT_NEW[N1*N3], the product matrix C = A * B'.
 */
 {
   double *c;
@@ -16381,7 +20184,7 @@ double *r8mat_mtm_new ( int n1, int n2, int n3, double a[], double b[] )
 
     Input, double A[N2*N1], double B[N2*N3], the matrices to multiply.
 
-    Output, double R8MAT_MM[N1*N3], the product matrix C = A' * B.
+    Output, double R8MAT_MTM_NEW[N1*N3], the product matrix C = A' * B.
 */
 {
   double *c;
@@ -16447,15 +20250,22 @@ void r8mat_mtv ( int m, int n, double a[], double x[], double atx[] )
 {
   int i;
   int j;
+  double *y;
+
+  y = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( j = 0; j < n; j++ )
   {
-    atx[j] = 0.0;
+    y[j] = 0.0;
     for ( i = 0; i < m; i++ )
     {
-      atx[j] = atx[j] + a[i+j*m] * x[i];
+      y[j] = y[j] + a[i+j*m] * x[i];
     }
   }
+
+  r8vec_copy ( n, y, atx );
+
+  free ( y );
 
   return;
 }
@@ -16539,7 +20349,7 @@ void r8mat_mv ( int m, int n, double a[], double x[], double ax[] )
 
   Modified:
 
-    26 August 2011
+    15 April 2014
 
   Author:
 
@@ -16558,15 +20368,25 @@ void r8mat_mv ( int m, int n, double a[], double x[], double ax[] )
 {
   int i;
   int j;
+  double *y;
+
+  y = ( double * ) malloc ( m * sizeof ( double ) );
 
   for ( i = 0; i < m; i++ )
   {
-    ax[i] = 0.0;
+    y[i] = 0.0;
     for ( j = 0; j < n; j++ )
     {
-      ax[i] = ax[i] + a[i+j*m] * x[j];
+      y[i] = y[i] + a[i+j*m] * x[j];
     }
   }
+
+  for ( i = 0; i < m; i++ )
+  {
+    ax[i] = y[i];
+  }
+
+  free ( y );
 
   return;
 }
@@ -16593,7 +20413,7 @@ double *r8mat_mv_new ( int m, int n, double a[], double x[] )
 
   Modified:
 
-    11 April 2007
+    15 April 2014
 
   Author:
 
@@ -16607,7 +20427,7 @@ double *r8mat_mv_new ( int m, int n, double a[], double x[] )
 
     Input, double X[N], the vector to be multiplied by A.
 
-    Output, double R8MAT_MV[M], the product A*X.
+    Output, double R8MAT_MV_NEW[M], the product A*X.
 */
 {
   int i;
@@ -16626,171 +20446,6 @@ double *r8mat_mv_new ( int m, int n, double a[], double x[] )
   }
 
   return y;
-}
-/******************************************************************************/
-
-void r8mat_mxm ( int n1, int n2, int n3, double a[], double b[], double c[] )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8MAT_MXM multiplies two matrices.
-
-  Discussion:
-
-    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
-    in column-major order.
-
-    For this routine, the result is returned as an argument.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    26 August 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N1, N2, N3, the order of the matrices.
-
-    Input, double A[N1*N2], double B[N2*N3], the matrices to multiply.
-
-    Output, double C[N1*N3], the product matrix C = A * B.
-*/
-{
-  int i;
-  int j;
-  int k;
-
-  for ( i = 0; i < n1; i++ )
-  {
-    for ( j = 0; j < n3; j++ )
-    {
-      c[i+j*n1] = 0.0;
-      for ( k = 0; k < n2; k++ )
-      {
-        c[i+j*n1] = c[i+j*n1] + a[i+k*n1] * b[k+j*n2];
-      }
-    }
-  }
-
-  return;
-}
-/******************************************************************************/
-
-double *r8mat_mxm_new ( int n1, int n2, int n3, double a[], double b[] )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8MAT_MXM_NEW multiplies two matrices.
-
-  Discussion:
-
-    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
-    in column-major order.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    26 August 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N1, N2, N3, the order of the matrices.
-
-    Input, double A[N1*N2], double B[N2*N3], the matrices to multiply.
-
-    Output, double R8MAT_MXM_NEW[N1*N3], the product matrix C = A * B.
-*/
-{
-  double *c;
-  int i;
-  int j;
-  int k;
-
-  c = ( double * ) malloc ( n1 * n3 * sizeof ( double ) );
-
-  for ( i = 0; i < n1; i++ )
-  {
-    for ( j = 0; j < n3; j++ )
-    {
-      c[i+j*n1] = 0.0;
-      for ( k = 0; k < n2; k++ )
-      {
-        c[i+j*n1] = c[i+j*n1] + a[i+k*n1] * b[k+j*n2];
-      }
-    }
-  }
-
-  return c;
-}
-/******************************************************************************/
-
-double **r8mat_new ( int m, int n )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8MAT_NEW sets up an R8MAT of the desired dimensions.
-
-  Discussion:
-
-    A declaration of the form
-      double **a;
-    is necesary.  Then an assignment of the form:
-      a = r8mat_new ( m, n );
-    allows the user to assign entries to the matrix using typical
-    2D array notation:
-      a[2][3] = 17.0;
-      y = a[1][0];
-    and so on.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    11 September 2011
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int M, N, the number of rows and columns.
-
-    Output, double **R8MAT_NEW, the array.
-*/
-{
-  double **a;
-  int i;
-
-  a = ( double ** ) malloc ( m * sizeof ( double * ) );
-
-  for ( i = 0; i < m; i++ )
-  {
-    a[i] = ( double * ) malloc ( n * sizeof ( double ) );
-  }
-  return a;
 }
 /******************************************************************************/
 
@@ -16813,7 +20468,7 @@ void r8mat_nint ( int m, int n, double a[] )
 
   Modified:
 
-    26 August 2011
+    18 August 2014
 
   Author:
 
@@ -16832,7 +20487,7 @@ void r8mat_nint ( int m, int n, double a[] )
 
   for ( j = 0; j < n; j++ )
   {
-    for ( i = 0; i < n; i++ )
+    for ( i = 0; i < m; i++ )
     {
       if ( a[i+j*m] < 0.0 )
       {
@@ -16842,11 +20497,66 @@ void r8mat_nint ( int m, int n, double a[] )
       {
         s = 1;
       }
-      a[i+j*m] = s * ( int ) ( r8_abs ( a[i+j*m] ) + 0.5 );
+      a[i+j*m] = s * ( int ) ( fabs ( a[i+j*m] ) + 0.5 );
     }
   }
 
   return;
+}
+/******************************************************************************/
+
+int r8mat_nonzeros ( int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_NONZEROS counts the nonzeros in an R8MAT.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    31 August 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double A[M*N], the matrix.
+
+    Output, int R8MAT_NONZEROS, the number of nonzeros.
+*/
+{
+  int i;
+  int j;
+  int value;
+
+  value = 0;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      if ( a[i+j*m] != 0.0 )
+      {
+        value = value + 1;
+      }
+    }
+  }
+
+  return value;
 }
 /******************************************************************************/
 
@@ -16900,7 +20610,7 @@ double r8mat_norm_eis ( int m, int n, double a[] )
   {
     for ( i = 0; i < m; i++ )
     {
-      value = value + r8_abs ( a[i+j*m] );
+      value = value + fabs ( a[i+j*m] );
     }
   }
 
@@ -17094,7 +20804,7 @@ double r8mat_norm_l1 ( int m, int n, double a[] )
     col_sum = 0.0;
     for ( i = 0; i < m; i++ )
     {
-      col_sum = col_sum + r8_abs ( a[i+j*m] );
+      col_sum = col_sum + fabs ( a[i+j*m] );
     }
     value = r8_max ( value, col_sum );
   }
@@ -17166,7 +20876,7 @@ double r8mat_norm_l2 ( int m, int n, double a[] )
 /*
   Find the maximum eigenvalue, and take its square root.
 */
-  diag = r8mat_diag_get_vector ( m, b );
+  diag = r8mat_diag_get_vector_new ( m, b );
 
   value = sqrt ( r8vec_max ( m, diag ) );
 
@@ -17236,7 +20946,7 @@ double r8mat_norm_li ( int m, int n, double a[] )
     row_sum = 0.0;
     for ( j = 0; j < n; j++ )
     {
-      row_sum = row_sum + r8_abs ( a[i+j*m] );
+      row_sum = row_sum + fabs ( a[i+j*m] );
     }
     value = r8_max ( value, row_sum );
   }
@@ -17531,7 +21241,7 @@ int r8mat_nullspace_size ( int m, int n, double a[] )
 }
 /******************************************************************************/
 
-void r8mat_orth_uniform ( int n, int *seed, double a[] )
+void r8mat_orth_uniform ( int n, int *seed, double q[] )
 
 /******************************************************************************/
 /*
@@ -17612,34 +21322,34 @@ void r8mat_orth_uniform ( int n, int *seed, double a[] )
 
     Input/output, int *SEED, a seed for the random number generator.
 
-    Output, double A[N*N], the orthogonal matrix.
+    Output, double Q[N*N], the orthogonal matrix.
 */
 {
-  double *a2;
+  double *a_col;
   int i;
   int j;
+  double *q2;
   double *v;
-  double *x;
 /*
-  Start with A = the identity matrix.
+  Start with Q = the identity matrix.
 */
-  r8mat_identity ( n, a );
+  r8mat_identity ( n, q );
 /*
   Now behave as though we were computing the QR factorization of
-  some other random matrix.  Generate the N elements of the first column,
+  some other random matrix A.  Generate the N elements of the first column,
   compute the Householder matrix H1 that annihilates the subdiagonal elements,
-  and set A := A * H1' = A * H.
+  and set Q := Q * H1' = Q * H.
 
   On the second step, generate the lower N-1 elements of the second column,
   compute the Householder matrix H2 that annihilates them,
-  and set A := A * H2' = A * H2 = H1 * H2.
+  and set Q := Q * H2' = Q * H2 = H1 * H2.
 
   On the N-1 step, generate the lower 2 elements of column N-1,
   compute the Householder matrix HN-1 that annihilates them, and
-  and set A := A * H(N-1)' = A * H(N-1) = H1 * H2 * ... * H(N-1).
+  and set Q := Q * H(N-1)' = Q * H(N-1) = H1 * H2 * ... * H(N-1).
   This is our random orthogonal matrix.
 */
-  x = ( double * ) malloc ( n * sizeof ( double ) );
+  a_col = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( j = 1; j < n; j++ )
   {
@@ -17648,30 +21358,30 @@ void r8mat_orth_uniform ( int n, int *seed, double a[] )
 */
     for ( i = 1; i < j; i++ )
     {
-      x[i-1] = 0.0;
+      a_col[i-1] = 0.0;
     }
     for ( i = j; i <= n; i++ )
     {
-      x[i-1] = r8_normal_01 ( seed );
+      a_col[i-1] = r8_normal_01 ( seed );
     }
 /*
   Compute the vector V that defines a Householder transformation matrix
-  H(V) that annihilates the subdiagonal elements of X.
+  H(V) that annihilates the subdiagonal elements of A.
 */
-    v = r8vec_house_column ( n, x, j );
+    v = r8vec_house_column ( n, a_col, j );
 /*
-  Postmultiply the matrix A by H'(V) = H(V).
+  Postmultiply the matrix Q by H'(V) = H(V).
 */
-    a2 = r8mat_house_axh_new ( n, a, v );
+    q2 = r8mat_house_axh_new ( n, q, v );
 
     free ( v );
 
-    r8mat_copy ( n, n, a2, a );
+    r8mat_copy ( n, n, q2, q );
 
-    free ( a2 );
+    free ( q2 );
   }
 
-  free ( x );
+  free ( a_col );
 
   return;
 }
@@ -17761,32 +21471,32 @@ double *r8mat_orth_uniform_new ( int n, int *seed )
     Output, double R8MAT_ORTH_UNIFORM_NEW[N*N], the orthogonal matrix.
 */
 {
-  double *a;
-  double *a2;
+  double *a_col;
   int i;
   int j;
+  double *q;
+  double *q2;
   double *v;
-  double *x;
 /*
-  Start with A = the identity matrix.
+  Start with Q = the identity matrix.
 */
-  a = r8mat_identity_new ( n );
+  q = r8mat_identity_new ( n );
 /*
   Now behave as though we were computing the QR factorization of
-  some other random matrix.  Generate the N elements of the first column,
+  some other random matrix A.  Generate the N elements of the first column,
   compute the Householder matrix H1 that annihilates the subdiagonal elements,
-  and set A := A * H1' = A * H.
+  and set Q := Q * H1' = Q * H.
 
   On the second step, generate the lower N-1 elements of the second column,
   compute the Householder matrix H2 that annihilates them,
-  and set A := A * H2' = A * H2 = H1 * H2.
+  and set Q := Q * H2' = Q * H2 = H1 * H2.
 
   On the N-1 step, generate the lower 2 elements of column N-1,
   compute the Householder matrix HN-1 that annihilates them, and
-  and set A := A * H(N-1)' = A * H(N-1) = H1 * H2 * ... * H(N-1).
+  and set Q := Q * H(N-1)' = Q * H(N-1) = H1 * H2 * ... * H(N-1).
   This is our random orthogonal matrix.
 */
-  x = ( double * ) malloc ( n * sizeof ( double ) );
+  a_col = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( j = 1; j < n; j++ )
   {
@@ -17795,32 +21505,34 @@ double *r8mat_orth_uniform_new ( int n, int *seed )
 */
     for ( i = 1; i < j; i++ )
     {
-      x[i-1] = 0.0;
+      a_col[i-1] = 0.0;
     }
     for ( i = j; i <= n; i++ )
     {
-      x[i-1] = r8_normal_01 ( seed );
+      a_col[i-1] = r8_normal_01 ( seed );
     }
 /*
   Compute the vector V that defines a Householder transformation matrix
-  H(V) that annihilates the subdiagonal elements of X.
+  H(V) that annihilates the subdiagonal elements of A.
 */
-    v = r8vec_house_column ( n, x, j );
+    v = r8vec_house_column ( n, a_col, j );
 /*
-  Postmultiply the matrix A by H'(V) = H(V).
+  Postmultiply the matrix Q by H'(V) = H(V).
 */
-    a2 = r8mat_house_axh_new ( n, a, v );
+    q2 = r8mat_house_axh_new ( n, q, v );
 
     free ( v );
 
-    r8mat_copy ( n, n, a2, a );
+    r8mat_copy ( n, n, q2, q );
 
-    free ( a2 );
+    free ( q2 );
   }
+/*
+  Free memory.
+*/
+  free ( a_col );
 
-  free ( x );
-
-  return a;
+  return q;
 }
 /******************************************************************************/
 
@@ -18186,7 +21898,7 @@ void r8mat_power_method ( int n, double a[], double *r, double v[] )
 
     if ( it_min < it )
     {
-      if ( r8_abs ( *r - r_old ) <= it_eps * ( 1.0 + r8_abs ( *r ) ) )
+      if ( fabs ( *r - r_old ) <= it_eps * ( 1.0 + fabs ( *r ) ) )
       {
         break;
       }
@@ -18203,14 +21915,14 @@ void r8mat_power_method ( int n, double a[], double *r, double v[] )
         v[i] = v[i] / *r;
       }
     }
-//
-//  Perturb V a bit, to avoid cases where the initial guess is exactly
-//  the eigenvector of a smaller eigenvalue.
-//
+/*
+  Perturb V a bit, to avoid cases where the initial guess is exactly
+  the eigenvector of a smaller eigenvalue.
+*/
     if ( it < it_max / 2 )
     {
       j = ( ( it - 1 ) % n );
-      v[j] = v[j] + eps * ( 1.0 + r8_abs ( v[j] ) );
+      v[j] = v[j] + eps * ( 1.0 + fabs ( v[j] ) );
       r2 = r8vec_norm ( n, v );
       for ( i = 0; i < n; i++ )
       {
@@ -18286,7 +21998,7 @@ void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi,
 
   Modified:
 
-    20 August 2010
+    26 June 2013
 
   Author:
 
@@ -18332,8 +22044,14 @@ void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi,
   for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
   {
     j2hi = j2lo + INCX - 1;
-    j2hi = i4_min ( j2hi, n );
-    j2hi = i4_min ( j2hi, jhi );
+    if ( n < j2hi )
+    {
+      j2hi = n;
+    }
+    if ( jhi < j2hi )
+    {
+      j2hi = jhi;
+    }
 
     fprintf ( stdout, "\n" );
 /*
@@ -18352,8 +22070,22 @@ void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi,
 /*
   Determine the range of the rows in this strip.
 */
-    i2lo = i4_max ( ilo, 1 );
-    i2hi = i4_min ( ihi, m );
+    if ( 1 < ilo )
+    {
+      i2lo = ilo;
+    }
+    else
+    {
+      i2lo = 1;
+    }
+    if ( m < ihi )
+    {
+      i2hi = m;
+    }
+    else
+    {
+      i2hi = ihi;
+    }
 
     for ( i = i2lo; i <= i2hi; i++ )
     {
@@ -18363,7 +22095,7 @@ void r8mat_print_some ( int m, int n, double a[], int ilo, int jlo, int ihi,
       fprintf ( stdout, "%5d:", i - 1 );
       for ( j = j2lo; j <= j2hi; j++ )
       {
-        fprintf ( stdout, "  %14f", a[i-1+(j-1)*m] );
+        fprintf ( stdout, "  %14g", a[i-1+(j-1)*m] );
       }
       fprintf ( stdout, "\n" );
     }
@@ -18554,6 +22286,53 @@ double r8mat_rms ( int m, int n, double a[] )
   }
 
   return value;
+}
+/******************************************************************************/
+
+void r8mat_row_copy ( int m, int n, int i, double v[], double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_ROW_COPY copies a vector into a row of an R8MAT.
+
+  Discussion:
+
+    An R8MAT is an MxN array of R8's, stored by (I,J) -> [I+J*M].
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 June 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrix.
+
+    Input, int I, the index of the row.
+    0 <= I <= M-1.
+
+    Input, double V[N], the row to be copied.
+
+    Input/output, double A[M*N], the matrix into which
+    the row is to be copied.
+*/
+{
+  int j;
+
+  for ( j = 0; j < n; j++ )
+  {
+    a[i+j*m] = v[j];
+  }
+  return;
 }
 /******************************************************************************/
 
@@ -18789,9 +22568,9 @@ int r8mat_significant ( int m, int n, double r[], double s[] )
     for ( i = 0; i < m; i++ )
     {
       t = r[i+j*m] + s[i+j*m];
-      tol = r8_epsilon ( ) * r8_abs ( r[i+j*m] );
+      tol = r8_epsilon ( ) * fabs ( r[i+j*m] );
 
-      if ( tol < r8_abs ( r[i+j*m] - t ) )
+      if ( tol < fabs ( r[i+j*m] - t ) )
       {
         value = 1;
         break;
@@ -18866,7 +22645,7 @@ int r8mat_solve ( int n, int rhs_num, double a[] )
 
     for ( i = j; i < n; i++ )
     {
-      if ( r8_abs ( apivot ) < r8_abs ( a[i+j*n] ) )
+      if ( fabs ( apivot ) < fabs ( a[i+j*n] ) )
       {
         apivot = a[i+j*n];
         ipivot = i;
@@ -19143,10 +22922,10 @@ double *r8mat_solve2 ( int n, double a[], double b[], int *ierror )
     {
       if ( piv[i-1] == 0 )
       {
-        if ( amax < r8_abs ( a[i-1+(k-1)*n] ) )
+        if ( amax < fabs ( a[i-1+(k-1)*n] ) )
         {
           imax = i;
-          amax = r8_abs ( a[i-1+(k-1)*n] );
+          amax = fabs ( a[i-1+(k-1)*n] );
         }
       }
     }
@@ -19170,7 +22949,8 @@ double *r8mat_solve2 ( int n, double a[], double b[], int *ierror )
         {
           for ( j = k+1; j <= n; j++ )
           {
-            a[i-1+(j-1)*n] = a[i-1+(j-1)*n] - a[i-1+(k-1)*n] * a[imax-1+(j-1)*n];
+            a[i-1+(j-1)*n] = a[i-1+(j-1)*n] 
+              - a[i-1+(k-1)*n] * a[imax-1+(j-1)*n];
           }
           b[i-1] = b[i-1] - a[i-1+(k-1)*n] * b[imax-1];
           a[i-1+(k-1)*n] = 0.0;
@@ -19229,6 +23009,60 @@ double *r8mat_solve2 ( int n, double a[], double b[], int *ierror )
   free ( piv );
 
   return x;
+}
+/******************************************************************************/
+
+double *r8mat_sub_new ( int m, int n, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_SUB_NEW computes C = A - B.
+
+  Discussion:
+
+    An R8MAT is a doubly dimensioned array of R8 values, stored as a vector
+    in column-major order.
+
+    For this routine, the result is returned as the function value.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    18 August 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the order of the matrices.
+
+    Input, double A[M*N], double B[M*N], the matrices.
+
+    Output, double R8MAT_SUB_NEW[M*N], the value of A-B.
+*/
+{
+  double *c;
+  int i;
+  int j;
+
+  c = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      c[i+j*m] = a[i+j*m] - b[i+j*m];
+    }
+  }
+
+  return c;
 }
 /******************************************************************************/
 
@@ -19413,11 +23247,11 @@ void r8mat_symm_jacobi ( int n, double a[] )
     {
       for ( j = 0; j < i; j++ )
       {
-        if ( eps * norm_fro < r8_abs ( a[i+j*n] ) + r8_abs ( a[j+i*n] ) )
+        if ( eps * norm_fro < fabs ( a[i+j*n] ) + fabs ( a[j+i*n] ) )
         {
           u = ( a[j+j*n] - a[i+i*n] ) / ( a[i+j*n] + a[j+i*n] );
 
-          t = r8_sign ( u ) / ( r8_abs ( u ) + sqrt ( u * u + 1.0 ) );
+          t = r8_sign ( u ) / ( fabs ( u ) + sqrt ( u * u + 1.0 ) );
           c = 1.0 / sqrt ( t * t + 1.0 );
           s = t * c;
 /*
@@ -19451,7 +23285,7 @@ void r8mat_symm_jacobi ( int n, double a[] )
     {
       for ( j = 0; j < i; j++ )
       {
-        sum2 = sum2 + r8_abs ( a[i+j*n] );
+        sum2 = sum2 + fabs ( a[i+j*n] );
       }
     }
 
@@ -19468,6 +23302,64 @@ void r8mat_symm_jacobi ( int n, double a[] )
   }
 
   return;
+}
+/******************************************************************************/
+
+double **r8mat_to_r8cmat_new (  int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_TO_R8CMAT_NEW copies data from an R8MAT to an R8CMAT.
+
+  Discussion:
+
+    An R8MAT is a column-major array stored as a vector, so
+    that element (I,J) of the M by N array is stored in location
+    I+J*M.
+
+    An R8CMAT is a column-major array, storing element (I,J)
+    as A[J][I], and can be created by a command like:
+      double **a;
+      a = r8cmat_new ( m, n );
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double A[M*N], the data, stored as an R8MAT.
+
+    Output, double R8MAT_TO_R8CMAT_NEW[M][N], the data, stored as an R8CMAT.
+*/
+{
+  double **b;
+  int i;
+  int j;
+
+  b = r8cmat_new ( m, n );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      b[j][i] = a[i+j*m];
+    }
+  }
+
+  return b;
 }
 /******************************************************************************/
 
@@ -19548,7 +23440,7 @@ int r8mat_to_r8plu ( int n, double a[], int pivot[], double lu[] )
     l = k;
     for ( i = k+1; i <= n; i++ )
     {
-      if ( r8_abs ( lu[l-1+(k-1)*n] ) < r8_abs ( lu[i-1+(k-1)*n] ) )
+      if ( fabs ( lu[l-1+(k-1)*n] ) < fabs ( lu[i-1+(k-1)*n] ) )
       {
         l = i;
       }
@@ -19606,6 +23498,65 @@ int r8mat_to_r8plu ( int n, double a[], int pivot[], double lu[] )
   }
 
   return info;
+}
+/******************************************************************************/
+
+double **r8mat_to_r8rmat ( int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_TO_R8RMAT copies data from an R8MAT to an R8RMAT.
+
+  Discussion:
+
+    An R8MAT is a column-major array stored as a vector, so
+    that element (I,J) of the M by N array is stored in location
+    I+J*M.
+
+    An R8RMAT is a row-major array that was created by a 
+    command like:
+
+      double **a;
+      a = r8rmat_new ( m, n );
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double A[M*N], the data, stored as an R8MAT.
+ 
+    Output, double R8MAT_TO_R8RMAT[M][N], the data, stored as an R8RMAT.
+*/
+{
+  double **b;
+  int i;
+  int j;
+
+  b = r8rmat_new ( m, n );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      b[i][j] = a[i+j*m];
+    }
+  }
+
+  return b;
 }
 /******************************************************************************/
 
@@ -19818,7 +23769,7 @@ void r8mat_transpose_print_some ( int m, int n, double a[], int ilo, int jlo,
 
   Modified:
 
-    20 August 2010
+    10 September 2013
 
   Author:
 
@@ -19843,6 +23794,8 @@ void r8mat_transpose_print_some ( int m, int n, double a[], int ilo, int jlo,
   int i2;
   int i2hi;
   int i2lo;
+  int i2lo_hi;
+  int i2lo_lo;
   int inc;
   int j;
   int j2hi;
@@ -19858,11 +23811,36 @@ void r8mat_transpose_print_some ( int m, int n, double a[], int ilo, int jlo,
     return;
   }
 
-  for ( i2lo = i4_max ( ilo, 1 ); i2lo <= i4_min ( ihi, m ); i2lo = i2lo + INCX )
+  if ( ilo < 1 )
+  {
+    i2lo_lo = 1;
+  }
+  else
+  {
+    i2lo_lo = ilo;
+  }
+
+  if ( ihi < m )
+  {
+    i2lo_hi = m;
+  }
+  else
+  {
+    i2lo_hi = ihi;
+  }
+
+  for ( i2lo = i2lo_lo; i2lo <= i2lo_hi; i2lo = i2lo + INCX )
   {
     i2hi = i2lo + INCX - 1;
-    i2hi = i4_min ( i2hi, m );
-    i2hi = i4_min ( i2hi, ihi );
+
+    if ( m < i2hi )
+    {
+      i2hi = m;
+    }
+    if ( ihi < i2hi )
+    {
+      i2hi = ihi;
+    }
 
     inc = i2hi + 1 - i2lo;
 
@@ -19876,16 +23854,29 @@ void r8mat_transpose_print_some ( int m, int n, double a[], int ilo, int jlo,
     fprintf ( stdout, "  Col\n" );
     fprintf ( stdout, "\n" );
 
-    j2lo = i4_max ( jlo, 1 );
-    j2hi = i4_min ( jhi, n );
-
+    if ( jlo < 1 )
+    {
+      j2lo = 1;
+    }
+    else
+    {
+      j2lo = jlo;
+    }
+    if ( n < jhi )
+    {
+      j2hi = n;
+    }
+    else
+    {
+      j2hi = jhi;
+    }
     for ( j = j2lo; j <= j2hi; j++ )
     {
       fprintf ( stdout, "%5d:", j - 1 );
       for ( i2 = 1; i2 <= inc; i2++ )
       {
         i = i2lo - 1 + i2;
-        fprintf ( stdout, "  %14f", a[(i-1)+(j-1)*m] );
+        fprintf ( stdout, "  %14g", a[(i-1)+(j-1)*m] );
       }
       fprintf ( stdout, "\n" );
     }
@@ -19975,6 +23966,64 @@ double *r8mat_u_inverse ( int n, double a[] )
   }
 
   return b;
+}
+/******************************************************************************/
+
+double *r8mat_u_solve ( int n, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_U_SOLVE solves an upper triangular linear system.
+
+  Discussion:
+
+    An R8MAT is an MxN array of R8's, stored by (I,J) -> [I+J*M].
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    21 October 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of
+    the matrix A.
+
+    Input, double A[N*N], the N by N upper triangular matrix.
+
+    Input, double B[N], the right hand side of the linear system.
+
+    Output, double R8MAT_U_SOLVE[N], the solution of the linear system.
+*/
+{
+  int i;
+  int j;
+  double *x;
+/*
+  Solve U * x = b.
+*/
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = n - 1; 0 <= i; i-- )
+  {
+    x[i] = b[i];
+    for ( j = i + 1; j < n; j++ )
+    {
+      x[i] = x[i] - a[i+j*n] * x[j];
+    }
+    x[i] = x[i] / a[i+i*n];
+  }
+
+  return x;
 }
 /******************************************************************************/
 
@@ -20124,6 +24173,7 @@ void r8mat_uniform_01 ( int m, int n, int *seed, double r[] )
 */
 {
   int i;
+  const int i4_huge = 2147483647;
   int j;
   int k;
 
@@ -20137,7 +24187,7 @@ void r8mat_uniform_01 ( int m, int n, int *seed, double r[] )
 
       if ( *seed < 0 )
       {
-        *seed = *seed + 2147483647;
+        *seed = *seed + i4_huge;
       }
 
       r[i+j*m] = ( double ) ( *seed ) * 4.656612875E-10;
@@ -20212,6 +24262,7 @@ double *r8mat_uniform_01_new ( int m, int n, int *seed )
 */
 {
   int i;
+  const int i4_huge = 2147483647;
   int j;
   int k;
   double *r;
@@ -20228,7 +24279,7 @@ double *r8mat_uniform_01_new ( int m, int n, int *seed )
 
       if ( *seed < 0 )
       {
-        *seed = *seed + 2147483647;
+        *seed = *seed + i4_huge;
       }
       r[i+j*m] = ( double ) ( *seed ) * 4.656612875E-10;
     }
@@ -20314,7 +24365,7 @@ void r8mat_uniform_ab ( int m, int n, double a, double b, int *seed, double r[] 
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int j;
   int k;
 
@@ -20422,7 +24473,7 @@ double *r8mat_uniform_ab_new ( int m, int n, double a, double b, int *seed )
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int j;
   int k;
   double *r;
@@ -20435,7 +24486,7 @@ double *r8mat_uniform_ab_new ( int m, int n, double a, double b, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( m * n * sizeof ( double ) );
+  r = ( double * ) malloc ( m * n * sizeof ( double ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -20534,7 +24585,7 @@ void r8mat_uniform_abvec ( int m, int n, double a[], double b[], int *seed,
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int j;
   int k;
 
@@ -20642,7 +24693,7 @@ double *r8mat_uniform_abvec_new ( int m, int n, double a[], double b[], int *see
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int j;
   int k;
   double *r;
@@ -20655,7 +24706,7 @@ double *r8mat_uniform_abvec_new ( int m, int n, double a[], double b[], int *see
     exit ( 1 );
   }
 
-  r = malloc ( m * n * sizeof ( double ) );
+  r = ( double * ) malloc ( m * n * sizeof ( double ) );
 
   for ( j = 0; j < n; j++ )
   {
@@ -20674,6 +24725,68 @@ double *r8mat_uniform_abvec_new ( int m, int n, double a[], double b[], int *see
   }
 
   return r;
+}
+/******************************************************************************/
+
+double *r8mat_ut_solve ( int n, double a[], double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_UT_SOLVE solves a transposed upper triangular linear system.
+
+  Discussion:
+
+    An R8MAT is an MxN array of R8's, stored by (I,J) -> [I+J*M].
+
+    Given the upper triangular matrix A, the linear system to be solved is:
+
+      A' * x = b
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 October 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of rows and columns of
+    the matrix A.
+
+    Input, double A[N*N], the N by N upper triangular matrix.
+
+    Input, double B[N], the right hand side of the linear system.
+
+    Output, double R8MAT_UT_SOLVE[N], the solution of the linear system.
+*/
+{
+  int i;
+  int j;
+  double *x;
+/*
+  Solve U' * x = b.
+*/
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b[i];
+    for ( j = 0; j < i; j++ )
+    {
+      x[i] = x[i] - a[j+i*n] * x[j];
+    }
+    x[i] = x[i] / a[i+i*n];
+  }
+
+  return x;
 }
 /******************************************************************************/
 
@@ -20765,6 +24878,60 @@ double *r8mat_vand2 ( int n, double x[] )
 }
 /******************************************************************************/
 
+double r8mat_vtmv ( int m, int n, double x[], double a[], double y[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_VTMV multiplies computes the scalar x' * A * y.
+
+  Discussion:
+
+    An R8MAT is an MxN array of R8's, stored by (I,J) -> [I+J*M].
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 June 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns of
+    the matrix.
+
+    Input, double X[N], the first vector factor.
+
+    Input, double A[M*N], the M by N matrix.
+
+    Input, double Y[M], the second vector factor.
+
+    Output, double R8MAT_VTMV, the value of X' * A * Y.
+*/
+{
+  int i;
+  int j;
+  double vtmv;
+
+  vtmv = 0.0;
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      vtmv = vtmv + x[i] * a[i+j*m] * y[j];
+    }
+  }
+  return vtmv;
+}
+/******************************************************************************/
+
 void r8mat_zero ( int m, int n, double a[] )
 
 /******************************************************************************/
@@ -20840,7 +25007,7 @@ double *r8mat_zero_new ( int m, int n )
 
     Input, int M, N, the number of rows and columns.
 
-    Output, double R8MAT_ZERO[M*N], the new zeroed matrix.
+    Output, double R8MAT_ZERO_NEW[M*N], the new zeroed matrix.
 */
 {
   double *a;
@@ -20961,7 +25128,7 @@ void r8plu_inverse ( int n, int pivot[], double lu[], double a_inverse[] )
   int k;
   double temp;
   double *work;
-//
+
   work = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( j = 0; j < n; j++ )
@@ -22009,7 +26176,7 @@ void r8poly_print ( int n, double a[], char *title )
 
   Modified:
 
-    23 July 2010
+    26 February 2015
 
   Author:
 
@@ -22028,22 +26195,19 @@ void r8poly_print ( int n, double a[], char *title )
 {
   int i;
   double mag;
-  int n2;
   char plus_minus;
 
   printf ( "\n" );
   printf ( "%s\n", title );
   printf ( "\n" );
 
-  n2 = r8poly_degree ( n, a );
-
-  if ( n2 <= 0 )
+  if ( n <= 0 )
   {
     printf ( "  p(x) = 0\n" );
     return;
   }
 
-  if ( a[n2] < 0.0 )
+  if ( a[n] < 0.0 )
   {
     plus_minus = '-';
   }
@@ -22052,22 +26216,22 @@ void r8poly_print ( int n, double a[], char *title )
     plus_minus = ' ';
   }
 
-  mag = r8_abs ( a[n2] );
+  mag = fabs ( a[n] );
 
-  if ( 2 <= n2 )
+  if ( 2 <= n )
   {
-    printf ( "  p(x) = %c%g * x^%d\n", plus_minus, mag, n2 );
+    printf ( "  p(x) = %c%g * x^%d\n", plus_minus, mag, n );
   }
-  else if ( n2 == 1 )
+  else if ( n == 1 )
   {
     printf ( "  p(x) = %c%g * x\n", plus_minus, mag );
   }
-  else if ( n2 == 0 )
+  else if ( n == 0 )
   {
     printf ( "  p(x) = %c%g\n", plus_minus, mag );
   }
 
-  for ( i = n2 - 1; 0 <= i; i-- )
+  for ( i = n - 1; 0 <= i; i-- )
   {
     if ( a[i] < 0.0 )
     {
@@ -22078,7 +26242,7 @@ void r8poly_print ( int n, double a[], char *title )
       plus_minus = '+';
     }
 
-    mag = r8_abs ( a[i] );
+    mag = fabs ( a[i] );
 
     if ( mag != 0.0 )
     {
@@ -22199,19 +26363,73 @@ void r8poly_shift ( double scale, double shift, int n, double poly_cof[] )
 }
 /******************************************************************************/
 
-double *r8poly_value ( int m, double c[], int n, double x[] )
+double r8poly_value_horner ( int m, double c[], double x )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8POLY_VALUE evaluates a polynomial.
+    R8POLY_VALUE_HORNER evaluates a polynomial using Horner's method.
 
   Discussion:
 
     The polynomial 
 
-      p(x) = c1 + c2 * x + c3 * x^2 + ... + cm * x^(m-1)
+      p(x) = c0 + c1 * x + c2 * x^2 + ... + cm * x^m
+
+    is to be evaluated at the value X.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    02 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the degree of the polynomial.
+
+    Input, double C[M+1], the coefficients of the polynomial.
+    C[0] is the constant term.
+
+    Input, double X, the point at which the polynomial is to be evaluated.
+
+    Output, double R8POLY_VALUE_HORNER, the value of the polynomial at X.
+*/
+{
+  int i;
+  double value;
+
+  value = c[m];
+
+  for ( i = m - 1; 0 <= i; i-- )
+  {
+    value = value * x + c[i];
+  }
+
+  return value;
+}
+/******************************************************************************/
+
+double *r8poly_values_horner ( int m, double c[], int n, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8POLY_VALUES_HORNER evaluates a polynomial using Horner's method.
+
+  Discussion:
+
+    The polynomial 
+
+      p(x) = c0 + c1 * x + c2 * x^2 + ... + cm * x^m
 
     is to be evaluated at the vector of values X.
 
@@ -22221,7 +26439,7 @@ double *r8poly_value ( int m, double c[], int n, double x[] )
 
   Modified:
 
-    23 September 2012
+    03 December 2013
 
   Author:
 
@@ -22232,14 +26450,13 @@ double *r8poly_value ( int m, double c[], int n, double x[] )
     Input, int M, the degree.
 
     Input, double C[M+1], the polynomial coefficients.  
-    C[0] is the constant term.
+    C[I] is the coefficient of X^I.
 
     Input, int N, the number of evaluation points.
 
     Input, double X[N], the evaluation points.
 
-    Output, double R8POLY_VALUE[N], the value of the polynomial at the 
-    evaluation points.
+    Output, double R8POLY_VALUES_HORNER[N], the polynomial values.
 */
 {
   int i;
@@ -22261,109 +26478,6 @@ double *r8poly_value ( int m, double c[], int n, double x[] )
     }
   }
   return p;
-}
-/******************************************************************************/
-
-double r8poly_value_horner ( int n, double c[], double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8POLY_VALUE_HORNER evaluates a polynomial using Horner's method.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    06 September 2005
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the dimension of C.
-
-    Input, double C[N+1], the polynomial coefficients.
-    C(I) is the coefficient of X^I.
-
-    Input, double X, the point at which the polynomial is
-    to be evaluated.
-
-    Output, double R8POLY_VALUE_HORNER, the value of the polynomial at X./
-*/
-{
-  int i;
-  double value;
-
-  value = c[n];
-  for ( i = n-1; 0 <= i; i-- )
-  {
-    value = value * x + c[i];
-  }
-
-  return value;
-}
-/******************************************************************************/
-
-double r8poly_value_old ( int n, double a[], double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8POLY_VALUE_OLD evaluates an R8POLY.
-
-  Discussion:
-
-    For sanity's sake, the value of N indicates the NUMBER of
-    coefficients, or more precisely, the ORDER of the polynomial,
-    rather than the DEGREE of the polynomial.  The two quantities
-    differ by 1, but cause a great deal of confusion.
-
-    Given N and A, the form of the polynomial is:
-
-      p(x) = a[0] + a[1] * x + ... + a[n-2] * x^(n-2) + a[n-1] * x^(n-1)
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    19 March 2010
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the order of the polynomial.
-
-    Input, double A[N], the coefficients of the polynomial.
-    A[0] is the constant term.
-
-    Input, double X, the point at which the polynomial is to be evaluated.
-
-    Output, double R8POLY_VALUE, the value of the polynomial at X.
-*/
-{
-  int i;
-  double value;
-
-  value = 0.0;
-
-  for ( i = n - 1; 0 <= i; i-- )
-  {
-    value = value * x + a[i];
-  }
-
-  return value;
 }
 /******************************************************************************/
 
@@ -23394,9 +27508,9 @@ void r8r8vec_index_insert_unique ( int maxn, int *n, double x[], double y[],
     *ival = 1;
     return;
   }
-//
-//  Does ( XVAL, YVAL ) already occur in ( X, Y )?
-//
+/*
+  Does ( XVAL, YVAL ) already occur in ( X, Y )?
+*/
   r8r8vec_index_search ( *n, x, y, indx, xval, yval, &less, &equal, &more );
 
   if ( equal == 0 )
@@ -23562,6 +27676,590 @@ void r8r8vec_index_search ( int n, double x[], double y[], int indx[],
   }
 
   return;
+}
+/******************************************************************************/
+
+double **r8rmat_copy_new ( int m, int n, double **a )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RMAT_COPY_NEW makes a new copy of an R8RMAT .
+
+  Discussion:
+
+    An R8RMAT is a matrix stored in row major form, using M pointers
+    to the beginnings of rows.
+
+    A declaration of the form
+      double **a;
+    is necesary.  Then an assignment of the form:
+      a = r8rmat_new ( m, n );
+    allows the user to assign entries to the matrix using typical
+    2D array notation:
+      a[2][3] = 17.0;
+      y = a[1][0];
+    and so on.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    27 May 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double **A, the array to copy.
+
+    Output, double **R8RMAT_COPY_NEW, the copied array.
+*/
+{
+  double **b;
+  int i;
+  int j;
+
+  b = r8rmat_new ( m, n );
+
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      b[i][j] = a[i][j];
+    }
+  }  
+  return b;
+}
+/******************************************************************************/
+
+void r8rmat_delete ( int m, int n, double **a )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RMAT_DELETE frees the memory set aside by R8RMAT_NEW.
+
+  Discussion:
+
+    This function releases the memory associated with a
+    row-major array that was created by a command like:
+
+      double **a;
+      a = r8rmat_new ( m, n );
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 September 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double **A, the array.
+*/
+{
+  int i;
+/*
+  Delete the pointers to rows.
+*/
+  for ( i = 0; i < m; i++ )
+  {
+    free ( a[i] );
+  }
+/*
+  Delete the pointer to the pointers to rows.
+*/
+  free ( a );
+
+  return;
+}
+/******************************************************************************/
+
+double *r8rmat_fs_new ( int n, double **a, double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RMAT_FS_NEW factors and solves an R8RMAT system with one right hand side.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 May 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the order of the matrix.
+    N must be positive.
+
+    Input, double **A, the coefficient matrix of the linear system.
+
+    Input, double B[N], the right hand side of the linear system.
+
+    Output, double R8RMAT_FS_NEW[N], the solution of the linear system.
+*/
+{
+  double **a2;
+  int i;
+  int j;
+  int k;
+  int p;
+  double t;
+  double *x;
+
+  a2 = r8rmat_copy_new ( n, n, a );
+  x = r8vec_copy_new ( n, b );
+
+  for ( k = 0; k < n; k++ )
+  {
+/*
+  Find the maximum element in column I.
+*/
+    p = k;
+
+    for ( i = k + 1; i < n; i++ )
+    {
+      if ( fabs ( a2[p][k] ) < fabs ( a2[i][k] ) )
+      {
+        p = i;
+      }
+    }
+
+    if ( a2[p][k] == 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8RMAT_FS_NEW - Fatal error!\n" );
+      fprintf ( stderr, "  Zero pivot on step %d\n", k );
+      exit ( 1 );
+    }
+/*
+  Switch rows K and P.
+*/
+    if ( k != p )
+    {
+      for ( j = 0; j < n; j++ )
+      {
+        t        = a2[k][j];
+        a2[k][j] = a2[p][j];
+        a2[p][j] = t;
+      }
+      t    = x[k];
+      x[k] = x[p];
+      x[p] = t;
+    }
+/*
+  Scale the pivot row.
+*/
+    t = a2[k][k];
+    a2[k][k] = 1.0;
+    for ( j = k + 1; j < n; j++ )
+    {
+      a2[k][j] = a2[k][j] / t;
+    }
+    x[k] = x[k] / t;
+/*
+  Use the pivot row to eliminate lower entries in that column.
+*/
+    for ( i = k + 1; i < n; i++ )
+    {
+      if ( a2[i][k] != 0.0 )
+      {
+        t = - a2[i][k];
+        a2[i][k] = 0.0;
+        for ( j = k + 1; j < n; j++ )
+        {
+          a2[i][j] = a2[i][j] + t * a2[k][j];
+        }
+        x[i] = x[i] + t * x[k];
+      }
+    }
+  }
+/*
+  Back solve.
+*/
+  for ( j = n - 1; 1 <= j; j-- )
+  {
+    for ( i = 0; i < j; i++ )
+    {
+      x[i] = x[i] - a2[i][j] * x[j];
+    }
+  }
+
+  r8rmat_delete ( n, n, a2 );
+
+  return x;
+}
+/******************************************************************************/
+
+double **r8rmat_new ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RMAT_NEW sets up an R8RMAT of the desired dimensions.
+
+  Discussion:
+
+    An R8RMAT is a matrix stored in row major form, using M pointers
+    to the beginnings of rows.
+
+    A declaration of the form
+      double **a;
+    is necesary.  Then an assignment of the form:
+      a = r8rmat_new ( m, n );
+    allows the user to assign entries to the matrix using typical
+    2D array notation:
+      a[2][3] = 17.0;
+      y = a[1][0];
+    and so on.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    08 September 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Output, double **R8RMAT_NEW, the array.
+*/
+{
+  double **a;
+  int i;
+
+  a = ( double ** ) malloc ( m * sizeof ( double * ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    a[i] = ( double * ) malloc ( n * sizeof ( double ) );
+  }
+  return a;
+}
+/******************************************************************************/
+
+void r8rmat_print ( int m, int n, double **a, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RMAT_PRINT prints an R8RMAT.
+
+  Discussion:
+
+    An R8RMAT is a matrix stored in row major form, using M pointers
+    to the beginnings of rows.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows in A.
+
+    Input, int N, the number of columns in A.
+
+    Input, double **A = double A[M][N], the M by N matrix.
+
+    Input, char *TITLE, a title.
+*/
+{
+  r8rmat_print_some ( m, n, a, 1, 1, m, n, title );
+
+  return;
+}
+/******************************************************************************/
+
+void r8rmat_print_some ( int m, int n, double **a, int ilo, int jlo, int ihi,
+  int jhi, char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RMAT_PRINT_SOME prints some of an R8RMAT.
+
+  Discussion:
+
+    An R8RMAT is a matrix stored in row major form, using M pointers
+    to the beginnings of rows.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the number of rows of the matrix.
+    M must be positive.
+
+    Input, int N, the number of columns of the matrix.
+    N must be positive.
+
+    Input, double **A = double A[M][N], the matrix.
+
+    Input, int ILO, JLO, IHI, JHI, designate the first row and
+    column, and the last row and column to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+# define INCX 5
+
+  int i;
+  int i2hi;
+  int i2lo;
+  int j;
+  int j2hi;
+  int j2lo;
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+
+  if ( m <= 0 || n <= 0 )
+  {
+    fprintf ( stdout, "\n" );
+    fprintf ( stdout, "  (None)\n" );
+    return;
+  }
+/*
+  Print the columns of the matrix, in strips of 5.
+*/
+  for ( j2lo = jlo; j2lo <= jhi; j2lo = j2lo + INCX )
+  {
+    j2hi = j2lo + INCX - 1;
+    if ( n < j2hi )
+    {
+      j2hi = n;
+    }
+    if ( jhi < j2hi )
+    {
+      j2hi = jhi;
+    }
+
+    fprintf ( stdout, "\n" );
+/*
+  For each column J in the current range...
+
+  Write the header.
+*/
+    fprintf ( stdout, "  Col:  ");
+    for ( j = j2lo; j <= j2hi; j++ )
+    {
+      fprintf ( stdout, "  %7d     ", j - 1 );
+    }
+    fprintf ( stdout, "\n" );
+    fprintf ( stdout, "  Row\n" );
+    fprintf ( stdout, "\n" );
+/*
+  Determine the range of the rows in this strip.
+*/
+    if ( 1 < ilo )
+    {
+      i2lo = ilo;
+    }
+    else
+    {
+      i2lo = 1;
+    }
+    if ( m < ihi )
+    {
+      i2hi = m;
+    }
+    else
+    {
+      i2hi = ihi;
+    }
+
+    for ( i = i2lo; i <= i2hi; i++ )
+    {
+/*
+  Print out (up to) 5 entries in row I, that lie in the current strip.
+*/
+      fprintf ( stdout, "%5d:", i - 1 );
+      for ( j = j2lo; j <= j2hi; j++ )
+      {
+        fprintf ( stdout, "  %14g", a[i-1][j-1] );
+      }
+      fprintf ( stdout, "\n" );
+    }
+  }
+
+  return;
+# undef INCX
+}
+/******************************************************************************/
+
+double *r8rmat_to_r8mat ( int m, int n, double **a )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RMAT_TO_R8MAT copies data from an R8RMAT to an R8MAT.
+
+  Discussion:
+
+    An R8RMAT is a row-major array that was created by a 
+    command like:
+
+      double **a;
+      a = r8rmat_new ( m, n );
+
+    An R8MAT is a column-major array stored as a vector, so
+    that element (I,J) of the M by N array is stored in location
+    I+J*M.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 January 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input, double **A = double A[M][N], the data, stored as an R8RMAT.
+
+    Output, double R8RMAT_TO_R8MAT[M*N], the data, stored as an R8MAT.
+*/
+{
+  double *b;
+  int i;
+  int j;
+
+  b = ( double * ) malloc ( m * n * sizeof ( double ) );
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < m; i++ )
+    {
+      b[i+j*m] = a[i][j];
+    }
+  }
+
+  return b;
+}
+/******************************************************************************/
+
+double **r8rmat_zero ( int m, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8RMAT_ZERO sets up and zeros an R8RMAT of the desired dimensions.
+
+  Discussion:
+
+    An R8RMAT is a matrix stored in row major form, using M pointers
+    to the beginnings of rows.
+
+    A declaration of the form
+      double **a;
+    is necesary.  Then an assignment of the form:
+      a = r8rmat_new ( m, n );
+    allows the user to assign entries to the matrix using typical
+    2D array notation:
+      a[2][3] = 17.0;
+      y = a[1][0];
+    and so on.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    26 May 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Output, double **R8RMAT_ZERO, the array of zeros.
+*/
+{
+  double **a;
+  int i;
+  int j;
+
+  a = ( double ** ) malloc ( m * sizeof ( double * ) );
+
+  for ( i = 0; i < m; i++ )
+  {
+    a[i] = ( double * ) malloc ( n * sizeof ( double ) );
+  }
+  for ( i = 0; i < m; i++ )
+  {
+    for ( j = 0; j < n; j++ )
+    {
+      a[i][j] = 0.0;
+    }
+  }
+  return a;
 }
 /******************************************************************************/
 
@@ -23758,7 +28456,7 @@ double *r8row_mean ( int m, int n, double a[] )
 
   Modified:
 
-    15 May 2010
+    30 July 2013
 
   Author:
 
@@ -23777,7 +28475,7 @@ double *r8row_mean ( int m, int n, double a[] )
   int j;
   double *mean;
 
-  mean = ( double * ) malloc ( m * sizeof ( m ) );
+  mean = ( double * ) malloc ( m * sizeof ( double ) );
 
   for ( i = 0; i < m; i++ )
   {
@@ -23851,6 +28549,68 @@ double *r8row_min ( int m, int n, double a[] )
   }
 
   return amin;
+}
+/******************************************************************************/
+
+void r8row_reverse ( int m, int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8ROW_REVERSE reverses the order of the rows of an R8ROW.
+
+  Discussion:
+
+    To reverse the rows is to start with something like
+
+      11 12 13 14 15
+      21 22 23 24 25
+      31 32 33 34 35
+      41 42 43 44 45
+      51 52 53 54 55
+
+    and return
+
+      51 52 53 54 55
+      41 42 43 44 45
+      31 32 33 34 35
+      21 22 23 24 25
+      11 12 13 14 15
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 May 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, N, the number of rows and columns.
+
+    Input/output, double A[M*N], the matrix whose rows are to be flipped.
+*/
+{
+  int i;
+  int j;
+  double t;
+
+  for ( j = 0; j < n; j++ )
+  {
+    for ( i = 0; i < ( m / 2 ); i++ )
+    {
+      t            = a[    i+j*m];
+      a[    i+j*m] = a[m-1-i+j*m];
+      a[m-1-i+j*m] = t;
+    }
+  }
+  return;
 }
 /******************************************************************************/
 
@@ -24649,9 +29409,9 @@ double r8vec_amax ( int n, double a[] )
   amax = 0.0;
   for ( i = 0; i < n; i++ )
   {
-    if ( amax < r8_abs ( a[i] ) )
+    if ( amax < fabs ( a[i] ) )
     {
-      amax = r8_abs ( a[i] );
+      amax = fabs ( a[i] );
     }
   }
   return amax;
@@ -24702,14 +29462,14 @@ int r8vec_amax_index ( int n, double a[] )
   else
   {
     amax_index = 1;
-    amax = r8_abs ( a[0] );
+    amax = fabs ( a[0] );
 
     for ( i = 2; i <= n; i++ )
     {
-      if ( amax < r8_abs ( a[i-1] ) )
+      if ( amax < fabs ( a[i-1] ) )
       {
         amax_index = i;
-        amax = r8_abs ( a[i-1] );
+        amax = fabs ( a[i-1] );
       }
     }
   }
@@ -24754,13 +29514,14 @@ double r8vec_amin ( int n, double a[] )
 {
   double amin;
   int i;
+  const double r8_huge = 1.79769313486231571E+308;
 
-  amin = r8_huge ( );
+  amin = r8_huge;
   for ( i = 0; i < n; i++ )
   {
-    if ( r8_abs ( a[i] ) < amin )
+    if ( fabs ( a[i] ) < amin )
     {
-      amin = r8_abs ( a[i] );
+      amin = fabs ( a[i] );
     }
   }
 
@@ -24812,14 +29573,14 @@ int r8vec_amin_index ( int n, double a[] )
   else
   {
     amin_index = 1;
-    amin = r8_abs ( a[0] );
+    amin = fabs ( a[0] );
 
     for ( i = 2; i <= n; i++ )
     {
-      if ( r8_abs ( a[i-1] ) < amin )
+      if ( fabs ( a[i-1] ) < amin )
       {
         amin_index = i;
-        amin = r8_abs ( a[i-1] );
+        amin = fabs ( a[i-1] );
       }
     }
   }
@@ -25008,9 +29769,9 @@ double *r8vec_any_normal ( int dim_num, double v1[] )
 
   for ( i = 0; i < dim_num; i++ )
   {
-    if ( r8_abs ( vk ) < r8_abs ( v1[i] ) || k == -1 )
+    if ( fabs ( vk ) < fabs ( v1[i] ) || k == -1 )
     {
-      if ( r8_abs ( vj ) < r8_abs ( v1[i] ) || j == -1 )
+      if ( fabs ( vj ) < fabs ( v1[i] ) || j == -1 )
       {
         k = j;
         vk = vj;
@@ -25159,65 +29920,111 @@ int r8vec_ascends_strictly ( int n, double x[] )
 }
 /******************************************************************************/
 
+double r8vec_asum ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_ASUM sums the absolute values of the entries of an R8VEC.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    24 January 2015
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input, double A[N], the vector.
+
+    Output, double R8VEC_ASUM, the sum of the absolute values of the entries.
+*/
+{
+  int i;
+  double value;
+
+  value = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    value = value + fabs ( a[i] );
+  }
+
+  return value;
+}
+/******************************************************************************/
+
 void r8vec_bin ( int n, double x[], int bin_num, double bin_min, double bin_max,
   int bin[], double bin_limit[] )
 
 /******************************************************************************/
 /*
-//  Purpose:
-//
-//    R8VEC_BIN computes bins based on a given R8VEC.
-//
-//  Discussion:
-//
-//    The user specifies minimum and maximum bin values, BIN_MIN and
-//    BIN_MAX, and the number of bins, BIN_NUM.  This determines a
-//    "bin width":
-//
-//      H = ( BIN_MAX - BIN_MIN ) / BIN_NUM
-//
-//    so that bin I will count all entries X(J) such that
-//
-//      BIN_LIMIT(I-1) <= X(J) < BIN_LIMIT(I).
-//
-//    The array X does NOT have to be sorted.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    22 February 2012
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int N, the number of entries of X.
-//
-//    Input, double X[N], an (unsorted) array to be binned.
-//
-//    Input, int BIN_NUM, the number of bins.  Two extra bins,
-//    #0 and #BIN_NUM+1, count extreme values.
-//
-//    Input, double BIN_MIN, BIN_MAX, define the range and size
-//    of the bins.  BIN_MIN and BIN_MAX must be distinct.
-//    Normally, BIN_MIN < BIN_MAX, and the documentation will assume
-//    this, but proper results will be computed if BIN_MIN > BIN_MAX.
-//
-//    Output, int BIN[BIN_NUM+2].
-//    BIN(0) counts entries of X less than BIN_MIN.
-//    BIN(BIN_NUM+1) counts entries greater than or equal to BIN_MAX.
-//    For 1 <= I <= BIN_NUM, BIN(I) counts the entries X(J) such that
-//      BIN_LIMIT(I-1) <= X(J) < BIN_LIMIT(I).
-//    where H is the bin spacing.
-//
-//    Output, double BIN_LIMIT[BIN_NUM+1], the "limits" of the bins.
-//    BIN(I) counts the number of entries X(J) such that
-//      BIN_LIMIT(I-1) <= X(J) < BIN_LIMIT(I).
+  Purpose:
+
+    R8VEC_BIN computes bins based on a given R8VEC.
+
+  Discussion:
+
+    The user specifies minimum and maximum bin values, BIN_MIN and
+    BIN_MAX, and the number of bins, BIN_NUM.  This determines a
+    "bin width":
+
+      H = ( BIN_MAX - BIN_MIN ) / BIN_NUM
+
+    so that bin I will count all entries X(J) such that
+
+      BIN_LIMIT(I-1) <= X(J) < BIN_LIMIT(I).
+
+    The array X does NOT have to be sorted.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 February 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries of X.
+
+    Input, double X[N], an (unsorted) array to be binned.
+
+    Input, int BIN_NUM, the number of bins.  Two extra bins,
+    #0 and #BIN_NUM+1, count extreme values.
+
+    Input, double BIN_MIN, BIN_MAX, define the range and size
+    of the bins.  BIN_MIN and BIN_MAX must be distinct.
+    Normally, BIN_MIN < BIN_MAX, and the documentation will assume
+    this, but proper results will be computed if BIN_MIN > BIN_MAX.
+
+    Output, int BIN[BIN_NUM+2].
+    BIN(0) counts entries of X less than BIN_MIN.
+    BIN(BIN_NUM+1) counts entries greater than or equal to BIN_MAX.
+    For 1 <= I <= BIN_NUM, BIN(I) counts the entries X(J) such that
+      BIN_LIMIT(I-1) <= X(J) < BIN_LIMIT(I).
+    where H is the bin spacing.
+
+    Output, double BIN_LIMIT[BIN_NUM+1], the "limits" of the bins.
+    BIN(I) counts the number of entries X(J) such that
+      BIN_LIMIT(I-1) <= X(J) < BIN_LIMIT(I).
 */
 {
   int i;
@@ -25256,7 +30063,7 @@ void r8vec_bin ( int n, double x[], int bin_num, double bin_min, double bin_max,
     bin[j] = bin[j] + 1;
   }
 /*
-//  Compute the bin limits.
+  Compute the bin limits.
 */
   for ( i = 0; i <= bin_num; i++ )
   {
@@ -26127,7 +30934,7 @@ double *r8vec_chebyspace_new ( int n, double a, double b )
 {
   double c;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double theta;
   double *x;
 
@@ -26141,7 +30948,7 @@ double *r8vec_chebyspace_new ( int n, double a, double b )
   {
     for ( i = 0; i < n; i++ )
     {
-      theta = ( double ) ( n - i - 1 ) * pi / ( double ) ( n - 1 );
+      theta = ( double ) ( n - i - 1 ) * r8_pi / ( double ) ( n - 1 );
 
       c = cos ( theta );
 
@@ -26198,7 +31005,7 @@ double *r8vec_cheby1space_new ( int n, double a, double b )
 {
   double c;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double theta;
   double *x;
 
@@ -26212,7 +31019,7 @@ double *r8vec_cheby1space_new ( int n, double a, double b )
   {
     for ( i = 0; i < n; i++ )
     {
-      theta = ( double ) ( 2 * ( n - i ) - 1 ) * pi / ( double ) ( 2 * n );
+      theta = ( double ) ( 2 * ( n - i ) - 1 ) * r8_pi / ( double ) ( 2 * n );
 
       c = cos ( theta );
 
@@ -26269,7 +31076,7 @@ double *r8vec_cheby2space_new ( int n, double a, double b )
 {
   double c;
   int i;
-  double pi = 3.141592653589793;
+  const double r8_pi = 3.141592653589793;
   double theta;
   double *x;
 
@@ -26283,7 +31090,7 @@ double *r8vec_cheby2space_new ( int n, double a, double b )
   {
     for ( i = 0; i < n; i++ )
     {
-      theta = ( double ) ( n - i - 1 ) * pi / ( double ) ( n - 1 );
+      theta = ( double ) ( n - i - 1 ) * r8_pi / ( double ) ( n - 1 );
 
       c = cos ( theta );
 
@@ -26435,6 +31242,113 @@ int r8vec_compare ( int n, double a[], double b[] )
     }
   }
   return isgn;
+}
+/******************************************************************************/
+
+void r8vec_concatenate ( int n1, double a[], int n2, double b[], double c[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_CONCATENATE concatenates two R8VEC's.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 November 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, the number of entries in the first vector.
+
+    Input, double A[N1], the first vector.
+
+    Input, int N2, the number of entries in the second vector.
+
+    Input, double B[N2], the second vector.
+
+    Output, double C[N1+N2], the concatenated vector.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n1; i++ )
+  {
+    c[i] = a[i];
+  }
+  for ( i = 0; i < n2; i++ )
+  {
+    c[n1+i] = b[i];
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8vec_concatenate_new ( int n1, double a[], int n2, double b[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_CONCATENATE_NEW concatenates two R8VEC's.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    22 November 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N1, the number of entries in the first vector.
+
+    Input, double A[N1], the first vector.
+
+    Input, int N2, the number of entries in the second vector.
+
+    Input, double B[N2], the second vector.
+
+    Output, double R8VEC_CONCATENATE_NEW[N1+N2], the concatenated vector.
+*/
+{
+  int i;
+  double *c;
+
+  c = ( double * ) malloc ( ( n1 + n2 ) * sizeof ( double ) );
+
+  for ( i = 0; i < n1; i++ )
+  {
+    c[i] = a[i];
+  }
+  for ( i = 0; i < n2; i++ )
+  {
+    c[n1+i] = b[i];
+  }
+
+  return c;
 }
 /******************************************************************************/
 
@@ -26766,6 +31680,66 @@ double r8vec_correlation ( int n, double x[], double y[] )
   }
 
   return correlation;
+}
+/******************************************************************************/
+
+double r8vec_covar ( int n, double x[], double y[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_COVAR computes the covariance of two vectors.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    20 April 2013
+
+  Author:
+
+    John Burkardt.
+
+  Parameters:
+
+    Input, double X[N], Y[N], the two vectors.
+
+    Input, int N, the dimension of the two vectors.
+
+    Output, double R8VEC_COVAR, the covariance of the two vectors.
+*/
+{
+  int i;
+  double value;
+  double x_average;
+  double y_average;
+
+  x_average = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    x_average = x_average + x[i];
+  }
+  x_average = x_average / ( double ) ( n );
+
+  y_average = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    y_average = y_average + y[i];
+  }
+  y_average = y_average / ( double ) ( n );
+
+  value = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    value = value + ( x[i] - x_average ) * ( y[i] - y_average );
+  }
+
+  value = value / ( double ) ( n - 1 );
+
+  return value;
 }
 /******************************************************************************/
 
@@ -27298,7 +32272,7 @@ double r8vec_diff_norm_l1 ( int n, double a[], double b[] )
 
   for ( i = 0; i < n; i++ )
   {
-    value = value + r8_abs ( a[i] - b[i] );
+    value = value + fabs ( a[i] - b[i] );
   }
   return value;
 }
@@ -27378,7 +32352,7 @@ double r8vec_diff_norm_li ( int n, double a[], double b[] )
 
   Modified:
 
-    02 April 2010
+    08 June 2014
 
   Author:
 
@@ -27400,7 +32374,10 @@ double r8vec_diff_norm_li ( int n, double a[], double b[] )
 
   for ( i = 0; i < n; i++ )
   {
-    value = r8_max ( value, r8_abs ( a[i] - b[i] ) );
+    if ( value < fabs ( a[i] - b[i] ) )
+    {
+      value = fabs ( a[i] - b[i] );
+    }
   }
   return value;
 }
@@ -28018,6 +32995,88 @@ double r8vec_dot_product_affine ( int n, double v0[], double v1[], double v2[] )
 }
 /******************************************************************************/
 
+double r8vec_entropy ( int n, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_ENTROPY computes the entropy of an R8VEC.
+
+  Discussion:
+
+    Typically, the entries represent probabilities, and must sum to 1.
+    For this function, the only requirement is that the entries be nonnegative.
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    30 August 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries.
+
+    Input, double X[N], the vector.
+    Each entry must be nonnegative.
+
+    Output, double R8VEC_ENTROPY, the entropy of the
+    normalized vector.
+*/
+{
+  int i;
+  double value;
+  double x_sum;
+  double xi;
+
+  for ( i = 0; i < n; i++ )
+  {
+    if ( x[i] < 0.0 )
+    {
+      fprintf ( stderr, "\n" );
+      fprintf ( stderr, "R8VEC_ENTROPY - Fatal error!\n" );
+      fprintf ( stderr, "  Some entries are negative.\n" );
+      exit ( 1 );
+    }
+  }
+
+  x_sum = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    x_sum = x_sum + x[i];
+  }
+
+  if ( x_sum == 0.0 )
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "R8VEC_ENTROPY - Fatal error!\n" );
+    fprintf ( stderr, "  Entries sum to 0.\n" );
+    exit ( 1 );
+  }
+
+  value = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    if ( 0.0 < x[i] )
+    {
+      xi = x[i] / x_sum;
+      value = value - r8_log_2 ( xi ) * xi;
+    }
+  }
+
+  return value;
+}
+/******************************************************************************/
+
 int r8vec_eq ( int n, double a1[], double a2[] )
 
 /******************************************************************************/
@@ -28455,7 +33514,7 @@ void r8vec_even3 ( int nold, int nval, double xold[], double xval[] )
   xlen = 0.0;
   for ( i = 1; i <= nold - 1; i++ )
   {
-    xlen = xlen + r8_abs ( xold[i] - xold[i-1] );
+    xlen = xlen + fabs ( xold[i] - xold[i-1] );
   }
 
   ntemp = nval - nold;
@@ -28468,7 +33527,7 @@ void r8vec_even3 ( int nold, int nval, double xold[], double xval[] )
 
   for ( i = 1; i <= nold - 1; i++ )
   {
-    xleni = r8_abs ( xold[i] - xold[i-1] );
+    xleni = fabs ( xold[i] - xold[i-1] );
     npts = ( int ) ( density * xleni );
     ntot = ntot + npts;
 /*
@@ -28734,7 +33793,7 @@ int *r8vec_first_index ( int n, double a[], double tol )
       first_index[i] = i;
       for ( j = i + 1; j < n; j++ )
       {
-        if ( r8_abs ( a[i] - a[j] ) <= tol )
+        if ( fabs ( a[i] - a[j] ) <= tol )
         {
           first_index[j] = i;
         }
@@ -28936,7 +33995,7 @@ double *r8vec_fraction ( int n, double x[] )
 
   for ( i = 0; i < n; i++ )
   {
-    fraction[i] = r8_abs ( x[i] ) - ( double ) ( ( int ) ( r8_abs ( x[i] ) ) );
+    fraction[i] = fabs ( x[i] ) - ( double ) ( ( int ) ( fabs ( x[i] ) ) );
   }
 
   return fraction;
@@ -29334,7 +34393,7 @@ int *r8vec_histogram ( int n, double a[], double a_lo, double a_hi,
 }
 /******************************************************************************/
 
-double *r8vec_house_column ( int n, double a[], int k )
+double *r8vec_house_column ( int n, double a_vec[], int k )
 
 /******************************************************************************/
 /*
@@ -29368,9 +34427,9 @@ double *r8vec_house_column ( int n, double a[], int k )
 
     Input, int N, the order of the matrix A.
 
-    Input, double A[N], column K of the matrix A.
+    Input, double A_VEC[N], a row or column of the matrix A.
 
-    Input, int K, the column of the matrix to be modified.
+    Input, int K, index of the row or column.
 
     Output, double R8VEC_HOUSE_COLUMN[N], a vector of unit L2 norm which
     defines an orthogonal Householder premultiplier matrix H with the property
@@ -29388,20 +34447,22 @@ double *r8vec_house_column ( int n, double a[], int k )
     return v;
   }
 
-  s = r8vec_norm_l2 ( n+1-k, a+k-1 );
+  s = r8vec_norm_l2 ( n+1-k, a_vec+k-1 );
 
   if ( s == 0.0 )
   {
     return v;
   }
 
-  v[k-1] = a[k-1] + r8_abs ( s ) * r8_sign ( a[k-1] );
+  v[k-1] = a_vec[k-1] + fabs ( s ) * r8_sign ( a_vec[k-1] );
 
-  r8vec_copy ( n-k, a+k, v+k );
-
+  r8vec_copy ( n-k, a_vec+k, v+k );
+/*
+  Normalize.
+*/
   s = r8vec_norm_l2 ( n-k+1, v+k-1 );
 
-  for ( i = k-1; i < n; i++ )
+  for ( i = k - 1; i < n; i++ )
   {
     v[i] = v[i] / s;
   }
@@ -30783,13 +35844,13 @@ int r8vec_indexed_heap_d_max ( int n, double a[], int indx[] )
 }
 /******************************************************************************/
 
-void r8vec_indicator ( int n, double a[] )
+void r8vec_indicator0 ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8VEC_INDICATOR sets an R8VEC to the indicator vector {1,2,3...}.
+    R8VEC_INDICATOR0 sets an R8VEC to the indicator vector {0,1,2,...}.
 
   Licensing:
 
@@ -30797,7 +35858,7 @@ void r8vec_indicator ( int n, double a[] )
 
   Modified:
 
-    07 May 2010
+    27 September 2014
 
   Author:
 
@@ -30812,22 +35873,22 @@ void r8vec_indicator ( int n, double a[] )
 {
   int i;
 
-  for ( i = 0; i <= n-1; i++ )
+  for ( i = 0; i < n; i++ )
   {
-    a[i] = ( double ) ( i + 1 );
+    a[i] = ( double ) ( i );
   }
 
   return;
 }
 /******************************************************************************/
 
-double *r8vec_indicator_new ( int n )
+double *r8vec_indicator0_new ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8VEC_INDICATOR_NEW sets an R8VEC to the indicator vector {1,2,3...}.
+    R8VEC_INDICATOR0_NEW sets an R8VEC to the indicator vector {0,1,2,...}.
 
   Licensing:
 
@@ -30835,7 +35896,7 @@ double *r8vec_indicator_new ( int n )
 
   Modified:
 
-    26 August 2008
+    27 September 2014
 
   Author:
 
@@ -30845,7 +35906,7 @@ double *r8vec_indicator_new ( int n )
 
     Input, int N, the number of elements of A.
 
-    Output, double R8VEC_INDICATOR_NEW[N], the array.
+    Output, double R8VEC_INDICATOR0_NEW[N], the array.
 */
 {
   double *a;
@@ -30853,7 +35914,86 @@ double *r8vec_indicator_new ( int n )
 
   a = ( double * ) malloc ( n * sizeof ( double ) );
 
-  for ( i = 0; i <= n-1; i++ )
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = ( double ) ( i );
+  }
+
+  return a;
+}
+/******************************************************************************/
+
+void r8vec_indicator1 ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_INDICATOR1 sets an R8VEC to the indicator vector {1,2,3,...}.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 September 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of elements of A.
+
+    Output, double A[N], the array.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n; i++ )
+  {
+    a[i] = ( double ) ( i + 1 );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8vec_indicator1_new ( int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_INDICATOR1_NEW sets an R8VEC to the indicator vector {1,2,3,...}.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 September 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of elements of A.
+
+    Output, double R8VEC_INDICATOR1_NEW[N], the array.
+*/
+{
+  double *a;
+  int i;
+
+  a = ( double * ) malloc ( n * sizeof ( double ) );
+
+  for ( i = 0; i < n; i++ )
   {
     a[i] = ( double ) ( i + 1 );
   }
@@ -30965,9 +36105,9 @@ int r8vec_insignificant ( int n, double r[], double s[] )
   for ( i = 0; i < n; i++ )
   {
     t = r[i] + s[i];
-    tol = r8_epsilon ( ) * r8_abs ( r[i] );
+    tol = r8_epsilon ( ) * fabs ( r[i] );
 
-    if ( tol < r8_abs ( r[i] - t ) )
+    if ( tol < fabs ( r[i] - t ) )
     {
       value = 0;
       break;
@@ -31163,6 +36303,63 @@ double *r8vec_legendre_new ( int n, double a_first, double a_last )
            /   2.0;
   }
   return a;
+}
+/******************************************************************************/
+
+void r8vec_linspace ( int n, double a, double b, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_LINSPACE creates a vector of linearly spaced values.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+    4 points evenly spaced between 0 and 12 will yield 0, 4, 8, 12.
+ 
+    In other words, the interval is divided into N-1 even subintervals,
+    and the endpoints of intervals are used as the points.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    10 April 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input, double A, B, the first and last entries.
+
+    Output, double X[N], a vector of linearly spaced data.
+*/
+{
+  int i;
+
+  if ( n == 1 )
+  {
+    x[0] = ( a + b ) / 2.0;
+  }
+  else
+  {
+    for ( i = 0; i < n; i++ )
+    {
+      x[i] = ( ( double ) ( n - 1 - i ) * a 
+             + ( double ) (         i ) * b ) 
+             / ( double ) ( n - 1     );
+    }
+  }
+  return;
 }
 /******************************************************************************/
 
@@ -31393,7 +36590,7 @@ void r8vec_mask_print ( int n, double a[], int mask_num, int mask[],
   printf ( "\n" );
   for ( i = 0; i < mask_num; i++ )
   {
-    printf ( "  %6d  %6d  %12f\n", i, mask[i], a[mask[i]-1] );
+    printf ( "  %6d  %6d  %12f\n", i, mask[i], a[mask[i]] );
   }
 
   return;
@@ -31431,7 +36628,6 @@ double r8vec_max ( int n, double r8vec[] )
 */
 {
   int i;
-  double *r8vec_pointer;
   double value;
 
   if ( n <= 0 )
@@ -31500,7 +36696,7 @@ int r8vec_max_abs_index ( int n, double a[] )
 
     for ( i = 1; i < n; i++ )
     {
-      if ( r8_abs ( a[max_index] ) < r8_abs ( a[i] ) )
+      if ( fabs ( a[max_index] ) < fabs ( a[i] ) )
       {
         max_index = i;
       }
@@ -31612,6 +36808,51 @@ double r8vec_mean ( int n, double x[] )
 }
 /******************************************************************************/
 
+double r8vec_mean_geometric ( int n, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_MEAN_GEOMETRIC returns the geometric mean of a R8VEC.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    27 April 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in the vector.
+
+    Input, double X[N], the vector whose mean is desired.
+
+    Output, double R8VEC_MEAN, the geometric mean of the vector entries.
+*/
+{
+  int i;
+  double mean;
+
+  mean = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    mean = mean + log ( x[i] );
+  }
+
+  mean = mean / ( double ) n;
+  mean = exp ( mean );
+
+  return mean;
+}
+/******************************************************************************/
+
 double r8vec_median ( int n, double a[] )
 
 /******************************************************************************/
@@ -31657,6 +36898,74 @@ double r8vec_median ( int n, double a[] )
   median = r8vec_frac ( n, a, k );
 
   return median;
+}
+/******************************************************************************/
+
+void r8vec_mesh_2d ( int nx, int ny, double xvec[], double yvec[], 
+  double xmat[], double ymat[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_MESH_2D creates a 2D mesh from X and Y vectors.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+    NX = 2
+    XVEC = ( 1, 2, 3 )
+    NY = 3
+    YVEC = ( 4, 5 )
+
+    XMAT = (
+      1, 2, 3
+      1, 2, 3 )
+
+    YMAT = (
+      4, 4, 4
+      5, 5, 5 ) 
+    
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 July 2013
+
+  Parameters:
+
+    Input, int NX, NY, the number of X and Y values.
+
+    Input, double XVEC[NX], YVEC[NY], the X and Y coordinate
+    values.
+
+    Output, double XMAT[NX*NY], YMAT[NX*NY], the coordinate
+    values of points on an NX by NY mesh.
+*/
+{
+  int i;
+  int j;
+
+  for ( j = 0; j < ny; j++ )
+  {
+    for ( i = 0; i < nx; i++ )
+    {
+      xmat[i+j*nx] = xvec[i];
+    }
+  }
+
+  for ( j = 0; j < ny; j++ )
+  {
+    for ( i = 0; i < nx; i++ )
+    {
+      ymat[i+j*nx] = yvec[j];
+    }
+  }
+
+ return;
 }
 /******************************************************************************/
 
@@ -31847,12 +37156,11 @@ double r8vec_min_pos ( int n, double a[] )
 
     Input, double A[N], the array.
 
-    Output, double R8VEC_MIN_POS, the smallest positive entry,
-    or R8_HUGE if no entry is positive.
+    Output, double R8VEC_MIN_POS, the smallest positive entry.
 */
 {
   int i;
-  double r8_huge = 1.0E+30;
+  const double r8_huge = 1.79769313486231571E+308;
   double value;
 
   value = r8_huge;
@@ -32049,13 +37357,64 @@ int r8vec_negative_strict ( int n, double a[] )
 }
 /******************************************************************************/
 
-double *r8vec_nint ( int n, double a[] )
+void r8vec_nint ( int n, double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
     R8VEC_NINT rounds the entries of an R8VEC.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    06 December 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of entries in A.
+
+    Input/output, double A[N], the vector to be rounded.
+*/
+{
+  int i;
+  int s;
+
+  for ( i = 0; i < n; i++ )
+  {
+    if ( a[i] < 0.0 )
+    {
+      s = -1;
+    }
+    else
+    {
+      s = 1;
+    }
+    a[i] = ( double ) ( s * ( int ) ( fabs ( a[i] ) + 0.5 ) );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+double *r8vec_nint_new ( int n, double a[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_NINT_NEW rounds the entries of an R8VEC.
 
   Discussion:
 
@@ -32079,7 +37438,7 @@ double *r8vec_nint ( int n, double a[] )
 
     Input, double A[N], the vector to be rounded.
 
-    Output, double B[N], the rounded values.
+    Output, double R8VEC_NINT_NEW[N], the rounded values.
 */
 {
   double *b;
@@ -32098,7 +37457,7 @@ double *r8vec_nint ( int n, double a[] )
     {
       s = 1;
     }
-    b[i] = ( double ) ( s * ( int ) ( r8_abs ( a[i] ) + 0.5 ) );
+    b[i] = ( double ) ( s * ( int ) ( fabs ( a[i] ) + 0.5 ) );
   }
 
   return b;
@@ -32208,7 +37567,7 @@ double r8vec_norm_affine ( int n, double v0[], double v1[] )
 }
 /******************************************************************************/
 
-int r8vec_norm_l0 ( int n, double a[] )
+double r8vec_norm_l0 ( int n, double a[] )
 
 /******************************************************************************/
 /*
@@ -32230,7 +37589,7 @@ int r8vec_norm_l0 ( int n, double a[] )
 
   Modified:
 
-    01 June 2012
+    02 January 2015
 
   Author:
 
@@ -32242,18 +37601,18 @@ int r8vec_norm_l0 ( int n, double a[] )
 
     Input, double A[N], the vector.
 
-    Output, int R8VEC_NORM_L0, the value of the norm.
+    Output, double R8VEC_NORM_L0, the value of the norm.
 */
 {
   int i;
-  int value;
+  double value;
 
-  value = 0;
+  value = 0.0;
   for ( i = 0; i < n; i++ )
   {
     if ( a[i] != 0.0 )
     {
-      value = value + 1;
+      value = value + 1.0;
     }
   }
   return value;
@@ -32304,7 +37663,7 @@ double r8vec_norm_l1 ( int n, double a[] )
 
   for ( i = 0; i < n; i++ )
   {
-    v = v + r8_abs ( a[i] );
+    v = v + fabs ( a[i] );
   }
 
   return v;
@@ -32406,7 +37765,7 @@ double r8vec_norm_li ( int n, double a[] )
 
   for ( i = 0; i < n; i++ )
   {
-    v2 = r8_abs ( a[i] );
+    v2 = fabs ( a[i] );
 
     if ( v1 < v2 )
     {
@@ -32466,7 +37825,7 @@ double r8vec_norm_lp ( int n, double a[], double p )
   {
     for ( i = 0; i < n; i++ )
     {
-      v = v + r8_abs ( a[i] );
+      v = v + fabs ( a[i] );
     }
   }
   else if ( p == 2.0 )
@@ -32481,210 +37840,12 @@ double r8vec_norm_lp ( int n, double a[], double p )
   {
     for ( i = 0; i < n; i++ )
     {
-      v = v + pow ( r8_abs ( a[i] ), p );
+      v = v + pow ( fabs ( a[i] ), p );
     }
     v = pow (  ( double ) v, 1.0 / p );
   }
 
   return v;
-}
-/******************************************************************************/
-
-void r8vec_normal ( int n, double b, double c, int *seed, double x[] )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8VEC_NORMAL returns a scaled pseudonormal R8VEC.
-
-  Discussion:
-
-    The scaled normal probability distribution function (PDF) has
-    mean A and standard deviation B.
-
-    This routine can generate a vector of values on one call.  It
-    has the feature that it should provide the same results
-    in the same order no matter how we break up the task.
-
-    Before calling this routine, the user may call RANDOM_SEED
-    in order to set the seed of the random number generator.
-
-    The Box-Muller method is used, which is efficient, but
-    generates an even number of values each time.  On any call
-    to this routine, an even number of new values are generated.
-    Depending on the situation, one value may be left over.
-    In that case, it is saved for the next call.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    02 February 2005
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int N, the number of values desired.  If N is negative,
-    then the code will flush its internal memory; in particular,
-    if there is a saved value to be used on the next call, it is
-    instead discarded.  This is useful if the user has reset the
-    random number seed, for instance.
-
-    Input, double B, C, the mean and standard deviation.
-
-    Input/output, int *SEED, a seed for the random number generator.
-
-    Output, double X[N], a sample of the standard normal PDF.
-
-  Local parameters:
-
-    Local, int MADE, records the number of values that have
-    been computed.  On input with negative N, this value overwrites
-    the return value of N, so the user can get an accounting of
-    how much work has been done.
-
-    Local, double R[N+1], is used to store some uniform random values.
-    Its dimension is N+1, but really it is only needed to be the
-    smallest even number greater than or equal to N.
-
-    Local, int SAVED, is 0 or 1 depending on whether there is a
-    single saved value left over from the previous call.
-
-    Local, int X_LO, X_HI, records the range of entries of
-    X that we need to compute.  This starts off as 1:N, but is adjusted
-    if we have a saved value that can be immediately stored in X(1),
-    and so on.
-
-    Local, double Y, the value saved from the previous call, if
-    SAVED is 1.
-*/
-{
-# define R8_PI 3.141592653589793
-
-  int i;
-  int m;
-  static int made = 0;
-  double *r;
-  static int saved = 0;
-  int x_hi;
-  int x_lo;
-  static double y = 0.0;
-/*
-  I'd like to allow the user to reset the internal data.
-  But this won't work properly if we have a saved value Y.
-  I'm making a crock option that allows the user to signal
-  explicitly that any internal memory should be flushed,
-  by passing in a negative value for N.
-*/
-  if ( n < 0 )
-  {
-    made = 0;
-    saved = 0;
-    y = 0.0;
-    return;
-  }
-  else if ( n == 0 )
-  {
-    return;
-  }
-/*
-  Record the range of X we need to fill in.
-*/
-  x_lo = 1;
-  x_hi = n;
-/*
-  Use up the old value, if we have it.
-*/
-  if ( saved == 1 )
-  {
-    x[0] = y;
-    saved = 0;
-    x_lo = 2;
-  }
-/*
-  Maybe we don't need any more values.
-*/
-  if ( x_hi - x_lo + 1 == 0 )
-  {
-  }
-/*
-  If we need just one new value, do that here to avoid null arrays.
-*/
-  else if ( x_hi - x_lo + 1 == 1 )
-  {
-    r = r8vec_uniform_01_new ( 2, seed );
-
-    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * R8_PI * r[1] );
-    y =         sqrt ( - 2.0 * log ( r[0] ) ) * sin ( 2.0 * R8_PI * r[1] );
-
-    saved = 1;
-
-    made = made + 2;
-
-    free ( r );
-  }
-/*
-  If we require an even number of values, that's easy.
-*/
-  else if ( ( x_hi - x_lo + 1 ) % 2 == 0 )
-  {
-    m = ( x_hi - x_lo + 1 ) / 2;
-
-    r = r8vec_uniform_01_new ( 2*m, seed );
-
-    for ( i = 0; i <= 2*m-2; i = i + 2 )
-    {
-      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * R8_PI * r[i+1] );
-      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * R8_PI * r[i+1] );
-    }
-    made = made + x_hi - x_lo + 1;
-
-    free ( r );
-  }
-/*
-  If we require an odd number of values, we generate an even number,
-  and handle the last pair specially, storing one in X(N), and
-  saving the other for later.
-*/
-  else
-  {
-    x_hi = x_hi - 1;
-
-    m = ( x_hi - x_lo + 1 ) / 2 + 1;
-
-    r = r8vec_uniform_01_new ( 2*m, seed );
-
-    for ( i = 0; i <= 2*m-4; i = i + 2 )
-    {
-      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * R8_PI * r[i+1] );
-      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * R8_PI * r[i+1] );
-    }
-
-    i = 2 * m - 2;
-
-    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * R8_PI * r[i+1] );
-    y           = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * R8_PI * r[i+1] );
-
-    saved = 1;
-
-    made = made + x_hi - x_lo + 2;
-
-    free ( r );
-  }
-
-  for ( i = 0; i < n; i++ )
-  {
-    x[i] = b + c * x[i];
-  }
-
-  return;
-# undef R8_PI
 }
 /******************************************************************************/
 
@@ -32701,18 +37862,7 @@ void r8vec_normal_01 ( int n, int *seed, double x[] )
     The standard normal probability distribution function (PDF) has
     mean 0 and standard deviation 1.
 
-    This routine can generate a vector of values on one call.  It
-    has the feature that it should provide the same results
-    in the same order no matter how we break up the task.
-
-    Before calling this routine, the user may call RANDOM_SEED
-    in order to set the seed of the random number generator.
-
-    The Box-Muller method is used, which is efficient, but
-    generates an even number of values each time.  On any call
-    to this routine, an even number of new values are generated.
-    Depending on the situation, one value may be left over.
-    In that case, it is saved for the next call.
+    This routine can generate a vector of values on one call.
 
   Licensing:
 
@@ -32720,7 +37870,7 @@ void r8vec_normal_01 ( int n, int *seed, double x[] )
 
   Modified:
 
-    18 October 2004
+    06 August 2013
 
   Author:
 
@@ -32728,11 +37878,7 @@ void r8vec_normal_01 ( int n, int *seed, double x[] )
 
   Parameters:
 
-    Input, int N, the number of values desired.  If N is negative,
-    then the code will flush its internal memory; in particular,
-    if there is a saved value to be used on the next call, it is
-    instead discarded.  This is useful if the user has reset the
-    random number seed, for instance.
+    Input, int N, the number of values desired.
 
     Input/output, int *SEED, a seed for the random number generator.
 
@@ -32740,88 +37886,33 @@ void r8vec_normal_01 ( int n, int *seed, double x[] )
 
   Local parameters:
 
-    Local, int MADE, records the number of values that have
-    been computed.  On input with negative N, this value overwrites
-    the return value of N, so the user can get an accounting of
-    how much work has been done.
-
     Local, double R[N+1], is used to store some uniform random values.
     Its dimension is N+1, but really it is only needed to be the
     smallest even number greater than or equal to N.
 
-    Local, int SAVED, is 0 or 1 depending on whether there is a
-    single saved value left over from the previous call.
-
     Local, int X_LO, X_HI, records the range of entries of
-    X that we need to compute.  This starts off as 1:N, but is adjusted
-    if we have a saved value that can be immediately stored in X(1),
-    and so on.
-
-    Local, double Y, the value saved from the previous call, if
-    SAVED is 1.
+    X that we need to compute.
 */
 {
-# define R8_PI 3.141592653589793
-
   int i;
   int m;
-  static int made = 0;
   double *r;
-  static int saved = 0;
+  const double r8_pi = 3.141592653589793;
   int x_hi;
   int x_lo;
-  static double y = 0.0;
-/*
-  I'd like to allow the user to reset the internal data.
-  But this won't work properly if we have a saved value Y.
-  I'm making a crock option that allows the user to signal
-  explicitly that any internal memory should be flushed,
-  by passing in a negative value for N.
-*/
-  if ( n < 0 )
-  {
-    made = 0;
-    saved = 0;
-    y = 0.0;
-    return;
-  }
-  else if ( n == 0 )
-  {
-    return;
-  }
 /*
   Record the range of X we need to fill in.
 */
   x_lo = 1;
   x_hi = n;
 /*
-  Use up the old value, if we have it.
-*/
-  if ( saved == 1 )
-  {
-    x[0] = y;
-    saved = 0;
-    x_lo = 2;
-  }
-/*
-  Maybe we don't need any more values.
-*/
-  if ( x_hi - x_lo + 1 == 0 )
-  {
-  }
-/*
   If we need just one new value, do that here to avoid null arrays.
 */
-  else if ( x_hi - x_lo + 1 == 1 )
+  if ( x_hi - x_lo + 1 == 1 )
   {
     r = r8vec_uniform_01_new ( 2, seed );
 
-    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * R8_PI * r[1] );
-    y =         sqrt ( - 2.0 * log ( r[0] ) ) * sin ( 2.0 * R8_PI * r[1] );
-
-    saved = 1;
-
-    made = made + 2;
+    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * r8_pi * r[1] );
 
     free ( r );
   }
@@ -32836,11 +37927,9 @@ void r8vec_normal_01 ( int n, int *seed, double x[] )
 
     for ( i = 0; i <= 2*m-2; i = i + 2 )
     {
-      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * R8_PI * r[i+1] );
-      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * R8_PI * r[i+1] );
+      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );
+      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );
     }
-    made = made + x_hi - x_lo + 1;
-
     free ( r );
   }
 /*
@@ -32858,24 +37947,16 @@ void r8vec_normal_01 ( int n, int *seed, double x[] )
 
     for ( i = 0; i <= 2*m-4; i = i + 2 )
     {
-      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * R8_PI * r[i+1] );
-      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * R8_PI * r[i+1] );
+      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );
+      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );
     }
 
-    i = 2*m - 2;
+    i = 2 * m - 2;
 
-    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * R8_PI * r[i+1] );
-    y           = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * R8_PI * r[i+1] );
-
-    saved = 1;
-
-    made = made + x_hi - x_lo + 2;
-
-    free ( r );
+    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );
   }
 
   return;
-# undef R8_PI
 }
 /******************************************************************************/
 
@@ -32892,26 +37973,13 @@ double *r8vec_normal_01_new ( int n, int *seed )
     The standard normal probability distribution function (PDF) has
     mean 0 and standard deviation 1.
 
-    This routine can generate a vector of values on one call.  It
-    has the feature that it should provide the same results
-    in the same order no matter how we break up the task.
-
-    Before calling this routine, the user may call RANDOM_SEED
-    in order to set the seed of the random number generator.
-
-    The Box-Muller method is used, which is efficient, but
-    generates an even number of values each time.  On any call
-    to this routine, an even number of new values are generated.
-    Depending on the situation, one value may be left over.
-    In that case, it is saved for the next call.
-
   Licensing:
 
     This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    18 February 2012
+    06 August 2013
 
   Author:
 
@@ -32919,11 +37987,7 @@ double *r8vec_normal_01_new ( int n, int *seed )
 
   Parameters:
 
-    Input, int N, the number of values desired.  If N is negative,
-    then the code will flush its internal memory; in particular,
-    if there is a saved value to be used on the next call, it is
-    instead discarded.  This is useful if the user has reset the
-    random number seed, for instance.
+    Input, int N, the number of values desired.
 
     Input/output, int *SEED, a seed for the random number generator.
 
@@ -32931,91 +37995,36 @@ double *r8vec_normal_01_new ( int n, int *seed )
 
   Local parameters:
 
-    Local, int MADE, records the number of values that have
-    been computed.  On input with negative N, this value overwrites
-    the return value of N, so the user can get an accounting of
-    how much work has been done.
-
     Local, double R[N+1], is used to store some uniform random values.
     Its dimension is N+1, but really it is only needed to be the
     smallest even number greater than or equal to N.
 
-    Local, int SAVED, is 0 or 1 depending on whether there is a
-    single saved value left over from the previous call.
-
     Local, int X_LO, X_HI, records the range of entries of
-    X that we need to compute.  This starts off as 1:N, but is adjusted
-    if we have a saved value that can be immediately stored in X(1),
-    and so on.
-
-    Local, double Y, the value saved from the previous call, if
-    SAVED is 1.
+    X that we need to compute.
 */
 {
-# define R8_PI 3.141592653589793
-
   int i;
   int m;
-  static int made = 0;
   double *r;
-  static int saved = 0;
+  const double r8_pi = 3.141592653589793;
   double *x;
   int x_hi;
   int x_lo;
-  static double y = 0.0;
 
   x = ( double * ) malloc ( n * sizeof ( double ) );
-/*
-  I'd like to allow the user to reset the internal data.
-  But this won't work properly if we have a saved value Y.
-  I'm making a crock option that allows the user to signal
-  explicitly that any internal memory should be flushed,
-  by passing in a negative value for N.
-*/
-  if ( n < 0 )
-  {
-    made = 0;
-    saved = 0;
-    y = 0.0;
-    return NULL;
-  }
-  else if ( n == 0 )
-  {
-    return NULL;
-  }
 /*
   Record the range of X we need to fill in.
 */
   x_lo = 1;
   x_hi = n;
 /*
-  Use up the old value, if we have it.
-*/
-  if ( saved == 1 )
-  {
-    x[0] = y;
-    saved = 0;
-    x_lo = 2;
-  }
-/*
-  Maybe we don't need any more values.
-*/
-  if ( x_hi - x_lo + 1 == 0 )
-  {
-  }
-/*
   If we need just one new value, do that here to avoid null arrays.
 */
-  else if ( x_hi - x_lo + 1 == 1 )
+  if ( x_hi - x_lo + 1 == 1 )
   {
     r = r8vec_uniform_01_new ( 2, seed );
 
-    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * R8_PI * r[1] );
-    y =         sqrt ( - 2.0 * log ( r[0] ) ) * sin ( 2.0 * R8_PI * r[1] );
-
-    saved = 1;
-
-    made = made + 2;
+    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * r8_pi * r[1] );
 
     free ( r );
   }
@@ -33030,17 +38039,14 @@ double *r8vec_normal_01_new ( int n, int *seed )
 
     for ( i = 0; i <= 2*m-2; i = i + 2 )
     {
-      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * R8_PI * r[i+1] );
-      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * R8_PI * r[i+1] );
+      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );
+      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );
     }
-    made = made + x_hi - x_lo + 1;
-
     free ( r );
   }
 /*
   If we require an odd number of values, we generate an even number,
-  and handle the last pair specially, storing one in X(N), and
-  saving the other for later.
+  and handle the last pair specially, storing one in X(N).
 */
   else
   {
@@ -33052,24 +38058,136 @@ double *r8vec_normal_01_new ( int n, int *seed )
 
     for ( i = 0; i <= 2*m-4; i = i + 2 )
     {
-      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * R8_PI * r[i+1] );
-      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * R8_PI * r[i+1] );
+      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );
+      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );
     }
 
-    i = 2*m - 2;
+    i = 2 * m - 2;
 
-    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * R8_PI * r[i+1] );
-    y           = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * R8_PI * r[i+1] );
-
-    saved = 1;
-
-    made = made + x_hi - x_lo + 2;
+    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );
 
     free ( r );
   }
 
   return x;
-# undef R8_PI
+}
+/******************************************************************************/
+
+void r8vec_normal_ab ( int n, double b, double c, int *seed, double x[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_NORMAL_AB returns a scaled pseudonormal R8VEC.
+
+  Discussion:
+
+    The scaled normal probability distribution function (PDF) has
+    mean A and standard deviation B.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    06 August 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of values desired.
+
+    Input, double B, C, the mean and standard deviation.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double X[N], a sample of the standard normal PDF.
+
+  Local parameters:
+
+    Local, double R[N+1], is used to store some uniform random values.
+    Its dimension is N+1, but really it is only needed to be the
+    smallest even number greater than or equal to N.
+
+    Local, int X_LO, X_HI, records the range of entries of
+    X that we need to compute.
+*/
+{
+  int i;
+  int m;
+  double *r;
+  const double r8_pi = 3.141592653589793;
+  int x_hi;
+  int x_lo;
+/*
+  Record the range of X we need to fill in.
+*/
+  x_lo = 1;
+  x_hi = n;
+/*
+  If we need just one new value, do that here to avoid null arrays.
+*/
+  if ( x_hi - x_lo + 1 == 1 )
+  {
+    r = r8vec_uniform_01_new ( 2, seed );
+
+    x[x_hi-1] = sqrt ( - 2.0 * log ( r[0] ) ) * cos ( 2.0 * r8_pi * r[1] );
+
+    free ( r );
+  }
+/*
+  If we require an even number of values, that's easy.
+*/
+  else if ( ( x_hi - x_lo + 1 ) % 2 == 0 )
+  {
+    m = ( x_hi - x_lo + 1 ) / 2;
+
+    r = r8vec_uniform_01_new ( 2*m, seed );
+
+    for ( i = 0; i <= 2*m-2; i = i + 2 )
+    {
+      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );
+      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );
+    }
+
+    free ( r );
+  }
+/*
+  If we require an odd number of values, we generate an even number,
+  and handle the last pair specially, storing one in X(N).
+*/
+  else
+  {
+    x_hi = x_hi - 1;
+
+    m = ( x_hi - x_lo + 1 ) / 2 + 1;
+
+    r = r8vec_uniform_01_new ( 2*m, seed );
+
+    for ( i = 0; i <= 2*m-4; i = i + 2 )
+    {
+      x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );
+      x[x_lo+i  ] = sqrt ( - 2.0 * log ( r[i] ) ) * sin ( 2.0 * r8_pi * r[i+1] );
+    }
+
+    i = 2 * m - 2;
+
+    x[x_lo+i-1] = sqrt ( - 2.0 * log ( r[i] ) ) * cos ( 2.0 * r8_pi * r[i+1] );
+
+    free ( r );
+  }
+
+  for ( i = 0; i < n; i++ )
+  {
+    x[i] = b + c * x[i];
+  }
+
+  return;
 }
 /******************************************************************************/
 
@@ -33599,13 +38717,13 @@ void r8vec_part_quick_a ( int n, double a[], int *l, int *r )
 }
 /******************************************************************************/
 
-void r8vec_permute ( int n, int p[], int base, double a[] )
+void r8vec_permute ( int n, int p[], double a[] )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    R8VEC_PERMUTE permutes an R8VEC in place.
+    R8VEC_PERMUTE applies a 0-based permutation to an R8VEC.
 
   Discussion:
 
@@ -33623,9 +38741,8 @@ void r8vec_permute ( int n, int p[], int base, double a[] )
     Input:
 
       N = 5
-      P = (   2,   4,   5,   1,   3 )
+      P = (   1,   3,   4,   0,   2 )
       A = ( 1.0, 2.0, 3.0, 4.0, 5.0 )
-      BASE = 1
 
     Output:
 
@@ -33647,34 +38764,35 @@ void r8vec_permute ( int n, int p[], int base, double a[] )
 
     Input, int N, the number of objects.
 
-    Input, int P[N], the permutation.
-
-    Input, int BASE, is 0 for a 0-based permutation and 1 for a 1-based permutation.
+    Input, int P[N], a zero-based permutation.
 
     Input/output, double A[N], the array to be permuted.
 */
 {
   double a_temp;
   int i;
+  int ierror;
   int iget;
   int iput;
   int istart;
 
-  if ( !perm_check ( n, p, base ) )
+  ierror = perm0_check ( n, p );
+
+  if ( ierror != 0 )
   {
     fprintf ( stderr, "\n" );
     fprintf ( stderr, "R8VEC_PERMUTE - Fatal error!\n" );
-    fprintf ( stderr, "  PERM_CHECK rejects this permutation.\n" );
+    fprintf ( stderr, "  PERM0_CHECK rejects permutation.\n" );
     exit ( 1 );
   }
 /*
   In order for the sign negation trick to work, we need to assume that the
-  entries of P are strictly positive.  Presumably, the lowest number is BASE.
-  So temporarily add 1-BASE to each entry to force positivity.
+  entries of P are strictly positive.  Presumably, the lowest number is 0.
+  So temporarily add 1 to each entry to force positivity.
 */
   for ( i = 0; i < n; i++ )
   {
-    p[i] = p[i] + 1 - base;
+    p[i] = p[i] + 1;
   }
 /*
   Search for the next element of the permutation that has not been used.
@@ -33730,11 +38848,11 @@ void r8vec_permute ( int n, int p[], int base, double a[] )
     p[i] = - p[i];
   }
 /*
-  Restore the base of the entries.
+  Restore the entries.
 */
   for ( i = 0; i < n; i++ )
   {
-    p[i] = p[i] - 1 +  base;
+    p[i] = p[i] - 1;
   }
   return;
 }
@@ -33834,12 +38952,11 @@ void r8vec_permute_uniform ( int n, double a[], int *seed )
     Input/output, int *SEED, a seed for the random number generator.
 */
 {
-  int base = 0;
   int *p;
 
-  p = perm_uniform_new ( n, base, seed );
+  p = perm0_uniform_new ( n, seed );
 
-  r8vec_permute ( n, p, base, a );
+  r8vec_permute ( n, p, a );
 
   free ( p );
 
@@ -34027,7 +39144,54 @@ void r8vec_print ( int n, double a[], char *title )
   fprintf ( stdout, "\n" );
   for ( i = 0; i < n; i++ )
   {
-    fprintf ( stdout, "  %8d: %14f\n", i, a[i] );
+    fprintf ( stdout, "  %8d: %14g\n", i, a[i] );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void r8vec_print_16 ( int n, double a[], char *title )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_PRINT_16 prints an R8VEC to 16 decimal places.
+
+  Discussion:
+
+    An R8VEC is a vector of R8's.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    29 May 2014
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int N, the number of components of the vector.
+
+    Input, double A[N], the vector to be printed.
+
+    Input, char *TITLE, a title.
+*/
+{
+  int i;
+
+  fprintf ( stdout, "\n" );
+  fprintf ( stdout, "%s\n", title );
+  fprintf ( stdout, "\n" );
+  for ( i = 0; i < n; i++ )
+  {
+    fprintf ( stdout, "  %8d: %24.16g\n", i, a[i] );
   }
 
   return;
@@ -34097,27 +39261,27 @@ void r8vec_print_part ( int n, double a[], int max_print, char *title )
   {
     for ( i = 0; i < n; i++ )
     {
-      fprintf ( stdout, "  %8d: %14f\n", i, a[i] );
+      fprintf ( stdout, "  %8d: %14g\n", i, a[i] );
     }
   }
   else if ( 3 <= max_print )
   {
     for ( i = 0; i < max_print - 2; i++ )
     {
-      fprintf ( stdout, "  %8d: %14f\n", i, a[i] );
+      fprintf ( stdout, "  %8d: %14g\n", i, a[i] );
     }
     fprintf ( stdout, "  ......  ..............\n" );
     i = n - 1;
-    fprintf ( stdout, "  %8d: %14f\n", i, a[i] );
+    fprintf ( stdout, "  %8d: %14g\n", i, a[i] );
   }
   else
   {
     for ( i = 0; i < max_print - 1; i++ )
     {
-      fprintf ( stdout, "  %8d: %14f\n", i, a[i] );
+      fprintf ( stdout, "  %8d: %14g\n", i, a[i] );
     }
     i = max_print - 1;
-    fprintf ( stdout, "  %8d: %14f  ...more entries...\n", i, a[i] );
+    fprintf ( stdout, "  %8d: %14g  ...more entries...\n", i, a[i] );
   }
 
   return;
@@ -34167,7 +39331,7 @@ void r8vec_print_some ( int n, double a[], int i_lo, int i_hi, char *title )
   fprintf ( stdout, "\n" );
   for ( i = i4_max ( 1, i_lo ); i <= i4_min ( n, i_hi ); i++ )
   {
-    fprintf ( stdout, "  %8d: %14f\n", i, a[i-1] );
+    fprintf ( stdout, "  %8d: %14g\n", i, a[i-1] );
   }
 
   return;
@@ -34261,9 +39425,10 @@ void r8vec_range ( int n, double x[], double xmin, double xmax, double y[],
 */
 {
   int i;
+  const double r8_huge = 1.79769313486231571E+308;
 
-  *ymin =   r8_huge ( );
-  *ymax = - r8_huge ( );
+  *ymin =   r8_huge;
+  *ymax = - r8_huge;
 
   for ( i = 0; i < n; i++ )
   {
@@ -34372,9 +39537,12 @@ void r8vec_reverse ( int n, double a[] )
 */
 {
   int i;
+  int i_hi;
   double temp;
 
-  for ( i = 1; i <= n/2; i++ )
+  i_hi = n / 2;
+
+  for ( i = 1; i <= i_hi; i++ )
   {
     temp   = a[i-1];
     a[i-1] = a[n-i];
@@ -34608,7 +39776,7 @@ void r8vec_scale ( double s, int n, double a[] )
 /*
   Purpose:
 
-    R8VEC_SCALE multiples an R8VEC by a scale factor.
+    R8VEC_SCALE multiplies an R8VEC by a scale factor.
 
   Discussion:
 
@@ -34763,7 +39931,6 @@ void r8vec_shift ( int shift, int n, double x[] )
   int i;
   int ihi;
   int ilo;
-  int j;
   double *y;
 
   y = ( double * ) malloc ( n * sizeof ( double ) );
@@ -35720,11 +40887,11 @@ int *r8vec_sort_heap_mask_a ( int n, double a[], int mask_num, int mask[] )
   if ( mask_num == 1 )
   {
     indx = ( int * ) malloc ( 1 * sizeof ( int ) );
-    indx[0] = 1;
+    indx[0] = 0;
     return indx;
   }
 
-  indx = i4vec_indicator_new ( mask_num );
+  indx = i4vec_indicator1_new ( mask_num );
 
   l = mask_num / 2 + 1;
   ir = mask_num;
@@ -35776,6 +40943,13 @@ int *r8vec_sort_heap_mask_a ( int n, double a[], int mask_num, int mask[] )
       }
     }
     indx[i-1] = indxt;
+  }
+/*
+  Temporary fix.  Indices were 1 based.  I don't want that any more.
+*/
+  for ( i = 0; i < mask_num; i++ )
+  {
+    indx[i] = indx[i] - 1;
   }
 
   return indx;
@@ -35884,7 +41058,7 @@ int *r8vec_sort_insert_index_a ( int n, double a[] )
     Input, double A[N], the array to be sorted.
 
     Output, int R8VEC_SORT_INSET_INDEX_A[N], the sorted indices.  The array
-    is sorted when listed from A(INDX(1)) through A(INDX(N)).
+    is sorted when listed from A[INDX[0]] through A[INDX[N-1]].
 */
 {
   int i;
@@ -35897,7 +41071,7 @@ int *r8vec_sort_insert_index_a ( int n, double a[] )
     return NULL;
   }
 
-  indx = i4vec_indicator_new ( n );
+  indx = i4vec_indicator1_new ( n );
 
   for ( i = 2; i <= n; i++ )
   {
@@ -35916,6 +41090,13 @@ int *r8vec_sort_insert_index_a ( int n, double a[] )
       j = j - 1;
     }
     indx[j] = i;
+  }
+/*
+  Temporary fix.
+*/
+  for ( i = 0; i < n; i++ )
+  {
+    indx[i] = indx[i] - 1;
   }
 
   return indx;
@@ -36427,7 +41608,7 @@ int r8vec_sorted_nearest ( int n, double a[], double value )
 /*
   Take the nearest.
 */
-    if ( r8_abs ( value - a[lo-1] ) < r8_abs ( value - a[hi-1] ) )
+    if ( fabs ( value - a[lo-1] ) < fabs ( value - a[hi-1] ) )
     {
       return lo;
     }
@@ -36475,7 +41656,7 @@ int r8vec_sorted_nearest ( int n, double a[], double value )
 /*
   Take the nearest.
 */
-    if ( r8_abs ( value - a[lo-1] ) < r8_abs ( value - a[hi-1] ) )
+    if ( fabs ( value - a[lo-1] ) < fabs ( value - a[hi-1] ) )
     {
       return lo;
     }
@@ -36888,7 +42069,7 @@ void r8vec_sorted_undex ( int x_num, double x_val[], int x_unique_num,
 
   for ( i = 1; i < x_num; i++ )
   {
-    if ( tol < r8_abs ( x_val[i] - x_val[undx[j]] ) )
+    if ( tol < fabs ( x_val[i] - x_val[undx[j]] ) )
     {
       j = j + 1;
       undx[j] = i;
@@ -36958,7 +42139,7 @@ double *r8vec_sorted_unique ( int n, double a[], double tol, int *unique_num )
 
   for ( i = 1; i < n; i++ )
   {
-    if ( tol < r8_abs ( a[i] - a[iuniq] ) )
+    if ( tol < fabs ( a[i] - a[iuniq] ) )
     {
        iuniq = i;
       *unique_num = *unique_num + 1;
@@ -36978,7 +42159,7 @@ double *r8vec_sorted_unique ( int n, double a[], double tol, int *unique_num )
 
   for ( i = 1; i < n; i++ )
   {
-    if ( tol < r8_abs ( a[i] - a_unique[*unique_num-1] ) )
+    if ( tol < fabs ( a[i] - a_unique[*unique_num-1] ) )
     {
       a_unique[*unique_num] = a[i];
       *unique_num = *unique_num + 1;
@@ -37040,7 +42221,7 @@ int r8vec_sorted_unique_count ( int n, double a[], double tol )
 
   for ( i = 1; i < n; i++ )
   {
-    if ( tol < r8_abs ( a[i-1] - a[i] ) )
+    if ( tol < fabs ( a[i-1] - a[i] ) )
     {
       unique_num = unique_num + 1;
     }
@@ -37112,7 +42293,7 @@ void r8vec_sorted_unique_hist ( int n, double a[], double tol, int maxuniq,
       auniq[index] = a[0];
       acount[index] = 1;
     }
-    else if ( r8_abs ( a[i] - auniq[index] ) <= tol )
+    else if ( fabs ( a[i] - auniq[index] ) <= tol )
     {
       acount[index] = acount[index] + 1;
     }
@@ -37292,6 +42473,59 @@ double r8vec_std ( int n, double a[] )
   }
 
   return std;
+}
+/******************************************************************************/
+
+void r8vec_step ( double x0, int n, double x[], double fx[] )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_STEP evaluates a unit step function.
+
+  Discussion:
+
+    F(X) = 0 if X < X0
+           1 if     X0 <= X
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    30 May 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, double X0, the location of the jump.
+
+    Input, int N, the number of argument values.
+
+    Output, double X[N], the arguments.
+
+    Output, double FX[N], the function values.
+*/
+{
+  int i;
+
+  for ( i = 0; i < n; i++ )
+  {
+    if ( x[i] < x0 )
+    {
+      fx[i] = 0.0;
+    }
+    else
+    {
+      fx[i] = 1.0;
+    }
+  }
+  return;
 }
 /******************************************************************************/
 
@@ -37519,11 +42753,9 @@ void r8vec_transpose_print ( int n, double a[], char *title )
     A = (/ 1.0, 2.1, 3.2, 4.3, 5.4, 6.5, 7.6, 8.7, 9.8, 10.9, 11.0 /)
     TITLE = 'My vector:  '
 
-    My vector:
-
-        1.0    2.1    3.2    4.3    5.4
-        6.5    7.6    8.7    9.8   10.9
-       11.0
+    My vector:   1.0    2.1    3.2    4.3    5.4
+                 6.5    7.6    8.7    9.8   10.9
+                11.0
 
   Licensing:
 
@@ -37531,7 +42763,7 @@ void r8vec_transpose_print ( int n, double a[], char *title )
 
   Modified:
 
-    12 November 2010
+    12 May 2014
 
   Author:
 
@@ -37549,23 +42781,29 @@ void r8vec_transpose_print ( int n, double a[], char *title )
   int i;
   int ihi;
   int ilo;
+  int title_length;
 
-  printf ( "\n" );
-  printf ( "%s\n", title );
-  printf ( "\n" );
-
-  if ( n <= 0 )
-  {
-    printf ( "  (Empty)\n" );
-    return;
-  }
+  title_length = s_len_trim ( title );
 
   for ( ilo = 0; ilo < n; ilo = ilo + 5 )
   {
+    if ( ilo == 0 )
+    {
+      printf ( "%s", title );
+    }
+    else
+    {
+      for ( i = 0; i < title_length; i++ )
+      {
+        printf ( " " );
+      }
+    }
+    printf ( "  " );
+
     ihi = i4_min ( ilo + 5, n );
     for ( i = ilo; i < ihi; i++ )
     {
-      printf ( "  %12f", a[i] );
+      printf ( "  %12g", a[i] );
     }
     printf ( "\n" );
   }
@@ -37692,7 +42930,7 @@ void r8vec_undex ( int x_num, double x_val[], int x_unique_num, double tol,
 
   for ( i = 1; i < x_num; i++ )
   {
-    if ( tol < r8_abs ( x_val[indx[i]] - x_val[undx[j]] ) )
+    if ( tol < fabs ( x_val[indx[i]] - x_val[undx[j]] ) )
     {
       j = j + 1;
       undx[j] = indx[i];
@@ -37774,7 +43012,7 @@ void r8vec_uniform_01 ( int n, int *seed, double r[] )
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
 
   if ( *seed == 0 )
@@ -37872,7 +43110,7 @@ double *r8vec_uniform_01_new ( int n, int *seed )
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
   double *r;
 
@@ -37884,7 +43122,7 @@ double *r8vec_uniform_01_new ( int n, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -37977,7 +43215,7 @@ void r8vec_uniform_ab ( int n, double a, double b, int *seed, double r[] )
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
 
   if ( *seed == 0 )
@@ -38079,7 +43317,7 @@ double *r8vec_uniform_ab_new ( int n, double a, double b, int *seed )
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
   double *r;
 
@@ -38091,7 +43329,7 @@ double *r8vec_uniform_ab_new ( int n, double a, double b, int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -38184,7 +43422,7 @@ void r8vec_uniform_abvec ( int n, double a[], double b[], int *seed, double r[] 
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
 
   if ( *seed == 0 )
@@ -38278,7 +43516,8 @@ double *r8vec_uniform_abvec_new ( int n, double a[], double b[], int *seed )
 
     Input, int N, the number of entries in the vector.
 
-    Input, double A[N], B[N], the lower and upper limits of the pseudorandom values.
+    Input, double A[N], B[N], the lower and upper limits of the pseudorandom
+    values.
 
     Input/output, int *SEED, a seed for the random number generator.
 
@@ -38286,7 +43525,7 @@ double *r8vec_uniform_abvec_new ( int n, double a[], double b[], int *seed )
 */
 {
   int i;
-  int i4_huge = 2147483647;
+  const int i4_huge = 2147483647;
   int k;
   double *r;
 
@@ -38298,7 +43537,7 @@ double *r8vec_uniform_abvec_new ( int n, double a[], double b[], int *seed )
     exit ( 1 );
   }
 
-  r = malloc ( n * sizeof ( double ) );
+  r = ( double * ) malloc ( n * sizeof ( double ) );
 
   for ( i = 0; i < n; i++ )
   {
@@ -38316,57 +43555,57 @@ double *r8vec_uniform_abvec_new ( int n, double a[], double b[], int *seed )
 
   return r;
 }
-//****************************************************************************80
+/******************************************************************************/
 
 double *r8vec_uniform_unit_new ( int m, int *seed )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    R8VEC_UNIFORM_UNIT_NEW generates a random unit vector.
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    04 October 2012
-//
-//  Author:
-//
-//    John Burkardt
-//
-//  Parameters:
-//
-//    Input, int M, the dimension of the space.
-//
-//    Input/output, int *SEED, a seed for the random number generator.
-//
-//    Output, double R8VEC_UNIFORM_UNIT_NEW[M], a random direction 
-//    vector, with unit norm.
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8VEC_UNIFORM_UNIT_NEW generates a random unit vector.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    04 October 2012
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int M, the dimension of the space.
+
+    Input/output, int *SEED, a seed for the random number generator.
+
+    Output, double R8VEC_UNIFORM_UNIT_NEW[M], a random direction 
+    vector, with unit norm.
+*/
 {
   double *a;
   int i;
   double norm;
-//
-//  Take M random samples from the normal distribution.
-//
+/*
+  Take M random samples from the normal distribution.
+*/
   a = r8vec_normal_01_new ( m, seed );
-//
-//  Compute the norm.
-//
+/*
+  Compute the norm.
+*/
   norm = 0.0;
   for ( i = 0; i < m; i++ )
   {
     norm = norm + a[i] * a[i];
   }
   norm = sqrt ( norm );
-//
-//  Normalize.
-//
+/*
+  Normalize.
+*/
   for ( i = 0; i < m; i++ )
   {
     a[i] = a[i] / norm;
@@ -38426,7 +43665,7 @@ int r8vec_unique_count ( int n, double a[], double tol )
 
     for ( j = 0; j < i; j++ )
     {
-      if ( r8_abs ( a[i] - a[j] ) <= tol )
+      if ( fabs ( a[i] - a[j] ) <= tol )
       {
         unique_num = unique_num - 1;
         break;
@@ -38496,7 +43735,7 @@ int *r8vec_unique_index ( int n, double a[], double tol )
       unique_index[i] = unique_num;
       for ( j = i + 1; j < n; j++ )
       {
-        if ( r8_abs ( a[i] - a[j] ) <= tol )
+        if ( fabs ( a[i] - a[j] ) <= tol )
         {
           unique_index[j] = unique_num;
         }
@@ -38862,7 +44101,7 @@ void r8vec2_print ( int n, double a1[], double a2[], char *title )
   fprintf ( stdout, "\n" );
   for ( i = 0; i < n; i++ )
   {
-    fprintf ( stdout, "  %4d: %14f  %14f\n", i, a1[i], a2[i] );
+    fprintf ( stdout, "  %4d: %14g  %14g\n", i, a1[i], a2[i] );
   }
 
   return;
@@ -38935,27 +44174,27 @@ void r8vec2_print_some ( int n, double x1[], double x2[], int max_print,
   {
     for ( i = 0; i < n; i++ )
     {
-      fprintf ( stdout, "  %4d: %14f  %14f\n", i, x1[i], x2[i] );
+      fprintf ( stdout, "  %4d: %14g  %14g\n", i, x1[i], x2[i] );
     }
   }
   else if ( 3 <= max_print )
   {
     for ( i = 0; i < max_print-2; i++ )
     {
-      fprintf ( stdout, "  %4d: %14f  %14f\n", i, x1[i], x2[i] );
+      fprintf ( stdout, "  %4d: %14g  %14g\n", i, x1[i], x2[i] );
     }
     fprintf ( stdout, "......  ..............  ..............\n" );
     i = n - 1;
-    fprintf ( stdout, "  %4d: %14f  %14f\n", i, x1[i], x2[i] );
+    fprintf ( stdout, "  %4d: %14g  %14g\n", i, x1[i], x2[i] );
   }
   else
   {
     for ( i = 0; i < max_print - 1; i++ )
     {
-      fprintf ( stdout, "  %4d: %14f  %14f\n", i, x1[i], x2[i] );
+      fprintf ( stdout, "  %4d: %14g  %14g\n", i, x1[i], x2[i] );
     }
     i = max_print - 1;
-    fprintf ( stdout, "  %4d: %14f  %14f  ...more entries...\n", i, x1[i], x2[i] );
+    fprintf ( stdout, "  %4d: %14g  %14g  ...more entries...\n", i, x1[i], x2[i] );
   }
 
   return;
@@ -39523,95 +44762,6 @@ void r8vec3_print ( int n, double a1[], double a2[], double a3[], char *title )
 }
 /******************************************************************************/
 
-void r8vecs_print ( int m, int nvec[], int na, double a[], char *title )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8VECS_PRINT prints a packed R8VEC.
-
-  Example:
-
-    M = 5
-    NVEC = (/ 0, 3, 5, 10, 12, 13 /)
-    A = (/ 11, 12, 13, 21, 22, 31, 32, 33, 34, 35, 41, 42, 51 /)
-
-    11 12 13
-    21 22
-    31 32 33 34 35
-    41 42
-    51
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    26 June 2012
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int M, the number of vectors packed into A.
-
-    Input, int NVEC[M+1], pointers to the first entry 
-    in each vector.
-
-    Input, int NA, the number of entries in A.
-
-    Input, double A[NA], the packed vector.  The I-th vector
-    extends from A(NVEC(I)) to A(NVEC(I+1)-1).
-
-    Input, char *TITLE, a title.
-*/
-{
-  int i;
-  int j;
-  int jhi;
-  int jlo;
-  int k;
-  int khi;
-  int klo;
-  int n;
-
-  printf ( "\n" );
-  printf ( "%s\n", title );
-  printf ( "\n" );
-
-  khi = -1;
-
-  for ( i = 0; i < m; i++ )
-  {
-    n = nvec[i+1] - nvec[i];
-    for ( jlo = 0; jlo < n; jlo = jlo + 5 )
-    {
-      jhi = i4_min ( jlo + 5 - 1, n - 1 );
-      klo = khi + 1;
-      khi = klo + ( jhi - jlo );
-      if ( jlo == 1 )
-      {
-        printf ( "  %3d  ", i );
-      }
-      else
-      {
-        printf ( "       " );
-      }
-      for ( k = klo; k <= khi; k++ )
-      {
-        printf ( "%14g", a[k] );
-      }
-      printf ( "\n" );
-    }
-  }
-  return;
-}
-/******************************************************************************/
-
 double *roots_to_r8poly ( int n, double x[] )
 
 /******************************************************************************/
@@ -39663,6 +44813,54 @@ double *roots_to_r8poly ( int n, double x[] )
     }
   }
   return c;
+}
+/******************************************************************************/
+
+int s_len_trim ( char *s )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    S_LEN_TRIM returns the length of a string to the last nonblank.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 April 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, char *S, a pointer to a string.
+
+    Output, int S_LEN_TRIM, the length of the string to the last nonblank.
+    If S_LEN_TRIM is 0, then the string is entirely blank.
+*/
+{
+  int n;
+  char *t;
+
+  n = strlen ( s );
+  t = s + strlen ( s ) - 1;
+
+  while ( 0 < n )
+  {
+    if ( *t != ' ' )
+    {
+      return n;
+    }
+    t--;
+    n--;
+  }
+
+  return n;
 }
 /******************************************************************************/
 
@@ -39857,7 +45055,7 @@ void sort_heap_external ( int n, int *indx, int *i, int *j, int isgn )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*

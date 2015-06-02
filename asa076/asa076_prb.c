@@ -4,13 +4,13 @@
 
 # include "asa076.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -20,7 +20,7 @@ int main ( void )
 
   Discussion:
 
-    ASA076_PRB calls the ASA076 routines.
+    ASA076_PRB tests the ASA076 library.
 
   Licensing:
 
@@ -36,7 +36,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA076_PRB:\n" );
   printf ( "  C version\n" );
@@ -50,7 +49,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA076_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -110,14 +108,14 @@ void test01 ( void )
     t2 = tfn ( h, a );
 
     printf ( "  %12.4f  %12.4f  %24.16g  %24.16g  %10.4e\n",
-      h, a, t1, t2, r8_abs ( t1 - t2 ) );
+      h, a, t1, t2, fabs ( t1 - t2 ) );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -170,7 +168,7 @@ void test02 ( void )
     t2 = tha ( h, one, a, one );
 
     printf ( "  %12.4f  %12.4f  %24.16g  %24.16g  %10.4e\n",
-      h, a, t1, t2, r8_abs ( t1 - t2 ) );
+      h, a, t1, t2, fabs ( t1 - t2 ) );
   }
 
   return;

@@ -31,7 +31,7 @@ int main ( void )
 
   Discussion:
 
-    TEST_APPROX_PRB calls the TEST_APPROX tests.
+    TEST_APPROX_PRB tests the TEST_APPROX library.
 
   Licensing:
 
@@ -47,7 +47,6 @@ int main ( void )
 */
 {
   timestamp (  );
-
   printf ( "\n" );
   printf ( "TEST_APPROX_PRB\n" );
   printf ( "  C version\n" );
@@ -73,7 +72,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "TEST_APPROX_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

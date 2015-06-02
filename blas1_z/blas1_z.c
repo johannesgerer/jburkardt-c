@@ -4,11 +4,12 @@
 # include <time.h>
 # include <complex.h>
 
+# include "blas0.h"
 # include "blas1_z.h"
 
 /******************************************************************************/
 
-double dzasum ( int n, _Complex double x[], int incx )
+double dzasum ( int n, double complex x[], int incx )
 
 /******************************************************************************/
 /*
@@ -47,7 +48,7 @@ double dzasum ( int n, _Complex double x[], int incx )
 
     Input, int N, the number of entries in the vector.
 
-    Input, _Complex double X[], the vector.
+    Input, double complex X[], the vector.
 
     Input, int INCX, the increment between successive entries of X.
 
@@ -69,8 +70,8 @@ double dzasum ( int n, _Complex double x[], int incx )
   {
     for ( i = 0; i < n; i++ )
     {
-      value = value + r8_abs ( creal ( x[i] ) ) 
-                    + r8_abs ( cimagf ( x[i] ) );
+      value = value + fabs ( creal ( x[i] ) ) 
+                    + fabs ( cimag ( x[i] ) );
     }
   }
   else
@@ -78,8 +79,8 @@ double dzasum ( int n, _Complex double x[], int incx )
     ix = 0;
     for ( i = 0; i < n; i++ )
     {
-      value = value + r8_abs ( creal ( x[ix] ) ) 
-                    + r8_abs ( cimagf ( x[ix] ) );
+      value = value + fabs ( creal ( x[ix] ) ) 
+                    + fabs ( cimag ( x[ix] ) );
       ix = ix + incx;
     }
   }
@@ -87,7 +88,7 @@ double dzasum ( int n, _Complex double x[], int incx )
 }
 /******************************************************************************/
 
-double dznrm2 ( int n, _Complex double x[], int incx )
+double dznrm2 ( int n, double complex x[], int incx )
 
 /******************************************************************************/
 /*
@@ -129,7 +130,7 @@ double dznrm2 ( int n, _Complex double x[], int incx )
 
     Input, int N, the number of entries in the vector.
 
-    Input, _Complex double X[], the vector.
+    Input, double complex X[], the vector.
 
     Input, int INCX, the increment between successive entries of X.
 
@@ -157,7 +158,7 @@ double dznrm2 ( int n, _Complex double x[], int incx )
     {
       if ( creal ( x[ix] ) != 0.0 )
       {
-        temp = r8_abs ( creal ( x[ix] ) );
+        temp = fabs ( creal ( x[ix] ) );
         if ( scale < temp )
         {
           ssq = 1.0 + ssq * pow ( scale / temp, 2 );
@@ -169,9 +170,9 @@ double dznrm2 ( int n, _Complex double x[], int incx )
         }
       }
 
-      if ( cimagf ( x[ix] ) != 0.0 )
+      if ( cimag ( x[ix] ) != 0.0 )
       {
-        temp = r8_abs ( cimagf ( x[ix] ) );
+        temp = fabs ( cimag ( x[ix] ) );
         if ( scale < temp )
         {
           ssq = 1.0 + ssq * pow ( scale / temp, 2 );
@@ -190,89 +191,7 @@ double dznrm2 ( int n, _Complex double x[], int incx )
 }
 /******************************************************************************/
 
-int i4_max ( int i1, int i2 )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_MAX returns the maximum of two I4's.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    29 August 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I1, I2, are two integers to be compared.
-
-    Output, int I4_MAX, the larger of I1 and I2.
-*/
-{
-  int value;
-
-  if ( i2 < i1 )
-  {
-    value = i1;
-  }
-  else
-  {
-    value = i2;
-  }
-  return value;
-}
-/******************************************************************************/
-
-int i4_min ( int i1, int i2 )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_MIN returns the smaller of two I4's.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    29 August 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I1, I2, two integers to be compared.
-
-    Output, int I4_MIN, the smaller of I1 and I2.
-*/
-{
-  int value;
-
-  if ( i1 < i2 )
-  {
-    value = i1;
-  }
-  else
-  {
-    value = i2;
-  }
-  return value;
-}
-/******************************************************************************/
-
-int izamax ( int n, _Complex double x[], int incx )
+int izamax ( int n, double complex x[], int incx )
 
 /******************************************************************************/
 /*
@@ -313,7 +232,7 @@ int izamax ( int n, _Complex double x[], int incx )
 
     Input, int N, the number of entries in the vector.
 
-    Input, _Complex double X[], the vector.
+    Input, double complex X[], the vector.
 
     Input, int INCX, the increment between successive entries of X.
 
@@ -373,367 +292,8 @@ int izamax ( int n, _Complex double x[], int incx )
 }
 /******************************************************************************/
 
-int lsame ( char ca, char cb )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    LSAME returns TRUE if CA is the same letter as CB regardless of case.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    C version by John Burkardt
-
-  Reference:
-
-    Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,
-    LINPACK User's Guide,
-    SIAM, 1979.
-
-    Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,
-    Basic Linear Algebra Subprograms for Fortran Usage,
-    Algorithm 539, 
-    ACM Transactions on Mathematical Software, 
-    Volume 5, Number 3, September 1979, pages 308-323.
-
-  Parameters:
-
-    Input, char CA, CB, the characters to compare.
-
-    Output, int LSAME, is 1 if the characters are equal,
-    disregarding case.
-*/
-{
-  if ( ca == cb )
-  {
-    return 1;
-  }
-
-  if ( 'A' <= ca && ca <= 'Z' )
-  {
-    if ( ca - 'A' == cb - 'a' )
-    {
-      return 1;
-    }    
-  }
-  else if ( 'a' <= ca && ca <= 'z' )
-  {
-    if ( ca - 'a' == cb - 'A' )
-    {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-/******************************************************************************/
-
-double r8_abs ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_ABS returns the absolute value of a number.
-
-  Discussion:
-
-    This routine uses double precision arithmetic.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, the quantity whose absolute value is desired.
-
-    Output, double R8_ABS, the absolute value of X.
-*/
-{
-  double value;
-
-  if ( 0.0 <= x )
-  {
-    value = x;
-  } 
-  else
-  {
-    value = -x;
-  }
-  return value;
-}
-/******************************************************************************/
-
-double r8_max ( double x, double y )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_MAX returns the maximum of two numbers.
-
-  Discussion:
-
-    This routine uses double precision arithmetic.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, Y, the quantities to compare.
-
-    Output, double R8_MAX, the maximum of X and Y.
-*/
-{
-  double value;
-
-  if ( y < x )
-  {
-    value = x;
-  } 
-  else
-  {
-    value = y;
-  }
-  return value;
-}
-/******************************************************************************/
-
-double r8_sign ( double x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R8_SIGN returns the sign of a number.
-
-  Discussion:
-
-    This routine uses double precision arithmetic.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, double X, the number whose sign is desired.
-
-    Output, double R8_SIGN, the sign of X.
-*/
-{
-  double value;
-
-  if ( x < 0.0 )
-  {
-    value = -1.0;
-  } 
-  else
-  {
-    value = 1.0;
-  }
-  return value;
-}
-/******************************************************************************/
-
-void xerbla ( char *srname, int info )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    XERBLA is an error handler for the LAPACK routines.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    30 March 2007
-
-  Author:
-
-    C version by John Burkardt
-
-  Reference:
-
-    Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,
-    LINPACK User's Guide,
-    SIAM, 1979.
-
-    Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,
-    Basic Linear Algebra Subprograms for Fortran Usage,
-    Algorithm 539, 
-    ACM Transactions on Mathematical Software, 
-    Volume 5, Number 3, September 1979, pages 308-323.
-
-  Parameters:
-
-    Input, char *SRNAME, the name of the routine
-    which called XERBLA.
-
-    Input, int INFO, the position of the invalid parameter in
-    the parameter list of the calling routine.
-*/
-{
-  printf ( "\n" );
-  printf ( "XERBLA - Fatal error!\n" );
-  printf ( "  On entry to routine %s\n", srname );
-  printf ( "  input parameter number %d had an illegal value.\n", info );
-  exit ( 1 );
-}
-/******************************************************************************/
-
-double zabs1 ( _Complex double z )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ZABS1 returns the L1 norm of a number.
-
-  Discussion:
-
-    This routine uses double precision complex arithmetic.
-
-    The L1 norm of a complex number is the sum of the absolute values
-    of the real and imaginary components.
-
-    ZABS1 ( Z ) = abs ( real ( Z ) ) + abs ( imaginary ( Z ) )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    C version by John Burkardt
-
-  Reference:
-
-    Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,
-    LINPACK User's Guide,
-    SIAM, 1979.
-
-    Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,
-    Basic Linear Algebra Subprograms for FORTRAN usage,
-    ACM Transactions on Mathematical Software,
-    Volume 5, Number 3, pages 308-323, 1979.
-
-  Parameters:
-
-    Input, _Complex double Z, the number whose norm is desired.
-
-    Output, double ZABS1, the L1 norm of Z.
-*/
-{
-  double value;
-
-  value = r8_abs ( creal ( z ) ) + r8_abs ( cimagf ( z ) );
-
-  return value;
-}
-/******************************************************************************/
-
-double zabs2 ( _Complex double z )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ZABS2 returns the L2 norm of a number.
-
-  Discussion:
-
-    This routine uses double precision complex arithmetic.
-
-    The L2 norm of a complex number is the square root of the sum 
-    of the squares of the real and imaginary components.
-
-    ZABS2 ( Z ) = sqrt ( ( real ( Z ) )**2 + ( imaginary ( Z ) )**2 )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Reference:
-
-    Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,
-    LINPACK User's Guide,
-    SIAM, 1979.
-
-    Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,
-    Basic Linear Algebra Subprograms for FORTRAN usage,
-    ACM Transactions on Mathematical Software,
-    Volume 5, Number 3, pages 308-323, 1979.
-
-  Parameters:
-
-    Input, _Complex double Z, the number whose norm is desired.
-
-    Output, float ZABS2, the L2 norm of Z.
-*/
-{
-  double value;
-
-  value = sqrt ( pow ( creal ( z ), 2 ) 
-               + pow ( cimag ( z ), 2 ) );
-
-  return value;
-}
-/******************************************************************************/
-
-void zaxpy ( int n, _Complex double ca, _Complex double cx[], 
-  int incx, _Complex double cy[], int incy )
+void zaxpy ( int n, double complex ca, double complex cx[], 
+  int incx, double complex cy[], int incy )
 
 /******************************************************************************/
 /*
@@ -773,13 +333,13 @@ void zaxpy ( int n, _Complex double ca, _Complex double cx[],
 
     Input, int N, the number of elements in CX and CY.
 
-    Input, _Complex double CA, the multiplier of CX.
+    Input, double complex CA, the multiplier of CX.
 
-    Input, _Complex double CX[], the first vector.
+    Input, double complex CX[], the first vector.
 
     Input, int INCX, the increment between successive entries of CX.
 
-    Input/output, _Complex double CY[], the second vector.
+    Input/output, double complex CY[], the second vector.
     On output, CY(*) has been replaced by CY(*) + CA * CX(*).
 
     Input, int INCY, the increment between successive entries of CY.
@@ -839,7 +399,7 @@ void zaxpy ( int n, _Complex double ca, _Complex double cx[],
 }
 /******************************************************************************/
 
-void zcopy ( int n, _Complex double cx[], int incx, _Complex double cy[], 
+void zcopy ( int n, double complex cx[], int incx, double complex cy[], 
   int incy )
 
 /******************************************************************************/
@@ -880,11 +440,11 @@ void zcopy ( int n, _Complex double cx[], int incx, _Complex double cy[],
 
     Input, int N, the number of elements in CX and CY.
 
-    Input, _Complex double CX[], the first vector.
+    Input, double complex CX[], the first vector.
 
     Input, int INCX, the increment between successive entries of CX.
 
-    Output, _Complex double CY[], the second vector.
+    Output, double complex CY[], the second vector.
 
     Input, int INCY, the increment between successive entries of CY.
 */
@@ -936,8 +496,8 @@ void zcopy ( int n, _Complex double cx[], int incx, _Complex double cy[],
 }
 /******************************************************************************/
 
-_Complex double zdotc ( int n, _Complex double cx[], int incx, 
-  _Complex double cy[], int incy )
+double complex zdotc ( int n, double complex cx[], int incx, 
+  double complex cy[], int incy )
 
 /******************************************************************************/
 /*
@@ -977,22 +537,22 @@ _Complex double zdotc ( int n, _Complex double cx[], int incx,
 
     Input, int N, the number of entries in the vectors.
 
-    Input, _Complex double CX[], the first vector.
+    Input, double complex CX[], the first vector.
 
     Input, int INCX, the increment between successive entries in CX.
 
-    Input, _Complex double CY[], the second vector.
+    Input, double complex CY[], the second vector.
 
     Input, int INCY, the increment between successive entries in CY.
 
-    Output, _Complex double ZDOTC, the conjugated dot product of
+    Output, double complex ZDOTC, the conjugated dot product of
     the corresponding entries of CX and CY.
 */
 {
   int i;
   int ix;
   int iy;
-  _Complex double value;
+  double complex value;
 
   value = 0.0;
 
@@ -1039,8 +599,8 @@ _Complex double zdotc ( int n, _Complex double cx[], int incx,
 }
 /******************************************************************************/
 
-_Complex double zdotu ( int n, _Complex double cx[], int incx, 
-  _Complex double cy[], int incy )
+double complex zdotu ( int n, double complex cx[], int incx, 
+  double complex cy[], int incy )
 
 /******************************************************************************/
 /*
@@ -1080,22 +640,22 @@ _Complex double zdotu ( int n, _Complex double cx[], int incx,
 
     Input, int N, the number of entries in the vectors.
 
-    Input, _Complex double CX[], the first vector.
+    Input, double complex CX[], the first vector.
 
     Input, int INCX, the increment between successive entries in CX.
 
-    Input, _Complex double CY[], the second vector.
+    Input, double complex CY[], the second vector.
 
     Input, int INCY, the increment between successive entries in CY.
 
-    Output, _Complex double ZDOTU, the unconjugated dot product of
+    Output, double complex ZDOTU, the unconjugated dot product of
     the corresponding entries of CX and CY.
 */
 {
   int i;
   int ix;
   int iy;
-  _Complex double value;
+  double complex value;
 
   value = 0.0;
 
@@ -1142,7 +702,7 @@ _Complex double zdotu ( int n, _Complex double cx[], int incx,
 }
 /******************************************************************************/
 
-void zdrot ( int n, _Complex double cx[], int incx, _Complex double cy[], 
+void zdrot ( int n, double complex cx[], int incx, double complex cy[], 
   int incy, double c, double s )
 
 /******************************************************************************/
@@ -1185,11 +745,11 @@ void zdrot ( int n, _Complex double cx[], int incx, _Complex double cy[],
 
     Input, int N, the number of entries in the vectors.
 
-    Input/output, _Complex double CX[], one of the vectors to be rotated.
+    Input/output, double complex CX[], one of the vectors to be rotated.
 
     Input, int INCX, the increment between successive entries of CX.
 
-    Input/output, _Complex double CY[], one of the vectors to be rotated.
+    Input/output, double complex CY[], one of the vectors to be rotated.
 
     Input, int INCY, the increment between successive elements of CY.
 
@@ -1197,7 +757,7 @@ void zdrot ( int n, _Complex double cx[], int incx, _Complex double cy[],
     some angle) that define a plane rotation.
 */
 {
-  _Complex double ctemp;
+  double complex ctemp;
   int i;
   int ix;
   int iy;
@@ -1249,7 +809,7 @@ void zdrot ( int n, _Complex double cx[], int incx, _Complex double cy[],
 }
 /******************************************************************************/
 
-void zdscal ( int n, double sa, _Complex double cx[], int incx )
+void zdscal ( int n, double sa, double complex cx[], int incx )
 
 /******************************************************************************/
 /*
@@ -1293,7 +853,7 @@ void zdscal ( int n, double sa, _Complex double cx[], int incx )
 
     Input, double SA, the multiplier.
 
-    Input/output, _Complex double CX[], the vector to be scaled.
+    Input/output, double complex CX[], the vector to be scaled.
 
     Input, int INCX, the increment between successive entries of
     the vector CX.
@@ -1324,152 +884,8 @@ void zdscal ( int n, double sa, _Complex double cx[], int incx )
 }
 /******************************************************************************/
 
-double zmach ( int job )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ZMACH computes machine parameters for double complex arithmetic.
-
-  Discussion:
-
-    Assume the computer has
-
-      B = base of arithmetic;
-      T = number of base B digits;
-      L = smallest possible exponent;
-      U = largest possible exponent;
-
-    then
-
-      EPS = B**(1-T)
-      TINY = 100.0 * B**(-L+T)
-      HUGE = 0.01 * B**(U-T)
-
-    If complex division is done by
-
-      1 / (X+i*Y) = (X-i*Y) / (X**2+Y**2)
-
-    then
-
-      TINY = sqrt ( TINY )
-      HUGE = sqrt ( HUGE )
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    C version by John Burkardt
-
-  Reference:
-
-    Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,
-    LINPACK User's Guide,
-    SIAM, 1979.
-
-    Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,
-    Basic Linear Algebra Subprograms for FORTRAN usage,
-    ACM Transactions on Mathematical Software,
-    Volume 5, Number 3, pages 308-323, 1979.
-
-  Parameters:
-
-    Input, int JOB:
-    1, EPS is desired;
-    2, TINY is desired;
-    3, HUGE is desired.
-
-    Output, double ZMACH, the requested value.
-*/
-{
-  double eps;
-  double huge;
-  double s;
-  _Complex double temp1;
-  _Complex double temp2;
-  _Complex double temp3;
-  double tiny;
-  double value;
-
-  eps = 1.0;
-
-  for ( ; ; )
-  {
-    eps = eps / 2.0;
-    s = 1.0 + eps;
-    if ( s <= 1.0 )
-    {
-      break;
-    }
-  }
-
-  eps = 2.0 * eps;
-
-  s = 1.0;
-
-  for ( ; ; )
-  {
-    tiny = s;
-    s = s / 16.0;
-
-    if ( s * 1.0 == 0.0 )
-    {
-      break;
-    }
-  }
-
-  tiny = ( tiny / eps ) * 100.0;
-/*
-  Had to insert this manually!
-*/
-  tiny = sqrt ( tiny );
-
-  if ( 0 )
-  {
-    temp1 = 1.0; 
-    temp2 = tiny;
-    temp3 = temp1 / temp2;
-
-    s = creal ( temp3 );
-
-    if ( s != 1.0 / tiny )
-    {
-      tiny = sqrt ( tiny );
-    }
-  }
-
-  huge = 1.0 / tiny;
-
-  if ( job == 1 )
-  {
-    value = eps;
-  }
-  else if ( job == 2 )
-  {
-    value = tiny;
-  }
-  else if ( job == 3 )
-  {
-    value = huge;
-  }
-  else
-  {
-    value = 0.0;
-  }
-
-  return value;
-}
-/******************************************************************************/
-
-void zrotg ( _Complex double *ca, _Complex double cb, double *c, 
-  _Complex double *s )
+void zrotg ( double complex *ca, double complex cb, double *c, 
+  double complex *s )
 
 /******************************************************************************/
 /*
@@ -1527,17 +943,17 @@ void zrotg ( _Complex double *ca, _Complex double cb, double *c,
 
   Parameters:
 
-    Input/output, _Complex double *CA, on input, the value A.  On output,
+    Input/output, double complex *CA, on input, the value A.  On output,
     the value R.
 
-    Input, _Complex double CB, the value B.
+    Input, double complex CB, the value B.
 
     Output, double *C, the cosine of the Givens rotation.
 
-    Output, _Complex double *S, the sine of the Givens rotation.
+    Output, double complex *S, the sine of the Givens rotation.
 */
 {
-  _Complex double alpha;
+  double complex alpha;
   double norm;
   double scale;
 
@@ -1562,7 +978,7 @@ void zrotg ( _Complex double *ca, _Complex double cb, double *c,
 }
 /******************************************************************************/
 
-void zscal ( int n, _Complex double ca, _Complex double cx[], int incx )
+void zscal ( int n, double complex ca, double complex cx[], int incx )
 
 /******************************************************************************/
 /*
@@ -1602,9 +1018,9 @@ void zscal ( int n, _Complex double ca, _Complex double cx[], int incx )
 
     Input, int N, the number of entries in the vector.
 
-    Input, _Complex double CA, the multiplier.
+    Input, double complex CA, the multiplier.
 
-    Input/output, _Complex double CX[], the vector to be scaled.
+    Input/output, double complex CX[], the vector to be scaled.
 
     Input, int INCX, the increment between successive entries of CX.
 */
@@ -1634,105 +1050,7 @@ void zscal ( int n, _Complex double ca, _Complex double cx[], int incx )
 }
 /******************************************************************************/
 
-_Complex double zsign1 ( _Complex double z1, _Complex double z2 )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ZSIGN1 is a transfer-of-sign function.
-
-  Discussion:
-
-    This routine uses double precision complex arithmetic.
-
-    The L1 norm is used.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, _Complex double Z1, Z2, the arguments.
-
-    Output, _Complex double ZSIGN1,  a complex value, with the magnitude of
-    Z1, and the argument of Z2.
-*/
-{
-  _Complex double value;
-
-  if ( zabs1 ( z2 ) == 0.0 )
-  {
-    value = 0.0;
-  }
-  else
-  {
-    value = zabs1 ( z1 ) * ( z2 / zabs1 ( z2 ) );
-  }
-
-  return value;
-}
-/******************************************************************************/
-
-_Complex double zsign2 ( _Complex double z1, _Complex double z2 )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    ZSIGN2 is a transfer-of-sign function.
-
-  Discussion:
-
-    This routine uses double precision complex arithmetic.
-
-    The L2 norm is used.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, _Complex double Z1, Z2, the arguments.
-
-    Output, _Complex double ZSIGN2,  a complex value, with the magnitude of
-    Z1, and the argument of Z2.
-*/
-{
-  _Complex double value;
-
-  if ( zabs2 ( z2 ) == 0.0 )
-  {
-    value = 0.0;
-  }
-  else
-  {
-    value = zabs2 ( z1 ) * ( z2 / zabs2 ( z2 ) );
-  }
-
-  return value;
-}
-/******************************************************************************/
-
-void zswap ( int n, _Complex double cx[], int incx, _Complex double cy[], 
+void zswap ( int n, double complex cx[], int incx, double complex cy[], 
   int incy )
 
 /******************************************************************************/
@@ -1773,16 +1091,16 @@ void zswap ( int n, _Complex double cx[], int incx, _Complex double cy[],
 
     Input, int N, the number of entries in the vectors.
 
-    Input/output, _Complex double CX[], one of the vectors to swap.
+    Input/output, double complex CX[], one of the vectors to swap.
 
     Input, int INCX, the increment between successive entries of CX.
 
-    Input/output, _Complex double CY[], one of the vectors to swap.
+    Input/output, double complex CY[], one of the vectors to swap.
 
     Input, int INCY, the increment between successive elements of CY.
 */
 {
-  _Complex double ctemp;
+  double complex ctemp;
   int i;
   int ix;
   int iy;

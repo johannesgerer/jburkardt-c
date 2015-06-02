@@ -16,7 +16,11 @@ int main ( void )
 /*
   Purpose:
 
-    ELLIPSE_GRID_TEST tests ELLIPSE_GRID.
+    MAIN is the main program for ELLIPSE_GRID_PRB.
+
+  Discussion:
+
+    ELLIPSE_GRID_PRB tests the ELLIPSE_GRID library.
 
   Licensing:
 
@@ -33,7 +37,7 @@ int main ( void )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "ELLIPSE_GRID_TEST:\n" );
+  printf ( "ELLIPSE_GRID_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the ELLIPSE_GRID library.\n" );
 
@@ -42,7 +46,7 @@ int main ( void )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "ELLIPSE_GRID_TEST:\n" );
+  printf ( "ELLIPSE_GRID_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

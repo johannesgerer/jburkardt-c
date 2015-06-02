@@ -1,20 +1,316 @@
 # include <stdlib.h>
 # include <stdio.h>
+# include <complex.h>
 # include <math.h>
 # include <time.h>
 
 # include "test_matrix_exponential.h"
+# include "c8lib.h"
 # include "r8lib.h"
 
 /******************************************************************************/
 
-double *mexp_a ( int test, int n )
+double complex *c8mat_exp_a ( int test, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    MEXP_A returns the matrix for a given test.
+    C8MAT_EXP_A returns the matrix for a given complex test.
+
+  Discussion:
+
+    1) Real diagonal example
+    2) Imaginary diagonal example
+    3) Complex diagonal example
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int TEST, the index of the test case.
+
+    Input, int N, the order of the matrix.
+
+    Output, double complex C8MAT_EXP_A[N*N], the matrix.
+*/
+{
+  double complex *a;
+  static double complex a01[2*2] = {
+      1.0, 0.0, 
+      0.0, 2.0 };
+  static double complex a02[2*2] = {
+      3.0 * I, 0.0, 
+      0.0, -4.0 * I };
+  static double complex a03[2*2] = {
+      5.0 + 6.0 * I, 0.0, 
+      0.0, 7.0 - 8.0 * I };
+  int i;
+  int j;
+
+  if ( test == 1 )
+  {
+    a = c8mat_copy_new ( n, n, a01 );
+  }
+  else if ( test == 2 )
+  {
+    a = c8mat_copy_new ( n, n, a02 );
+  }
+  else if ( test == 3 )
+  {
+    a = c8mat_copy_new ( n, n, a03 );
+  }
+  else
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "C8MAT_EXP_A - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal value of TEST = %d\n", test );
+    exit ( 1 );
+  }
+  return a;
+}
+/******************************************************************************/
+
+double complex *c8mat_exp_expa ( int test, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_EXP_EXPA returns the "exact" exponential matrix for a given complex test.
+
+  Discussion:
+
+    1) Real diagonal example
+    2) Imaginary diagonal example
+    3) Complex diagonal example
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int TEST, the index of the test case.
+
+    Input, int N, the order of the matrix.
+
+    Output, double complex C8MAT_EXP_EXPA[N*N], the exponential of the test matrix.
+*/
+{
+  double complex *expa;
+  static double complex expa01[2*2] = {
+      2.718281828459046, 
+      0.0, 
+      0.0,               
+      7.389056098930650 };
+  static double complex expa02[2*2] = {
+     -0.989992496600446 + 0.141120008059867 * I,
+      0.0,
+      0.0, 
+     -0.653643620863612 + 0.756802495307928 * I };
+  static double complex expa03[2*2] = {
+    142.501905518208 - 41.468936789923 * I,
+      0.0,
+      0.0,
+   -159.560161626987 - 1084.963058811836 * I };
+  int i;
+  int j;
+
+  if ( test == 1 )
+  {
+    expa = c8mat_copy_new ( n, n, expa01 );
+  }
+  else if ( test == 2 )
+  {
+    expa = c8mat_copy_new ( n, n, expa02 );
+  }
+  else if ( test == 3 )
+  {
+    expa = c8mat_copy_new ( n, n, expa03 );
+  }
+  else
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "C8MAT_EXP_EXPA - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal value of TEST = %d\n", test );
+    exit ( 1 );
+  }
+  return expa;
+}
+/******************************************************************************/
+
+int c8mat_exp_n ( int test )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_EXP_N returns the matrix order for a given complex test.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int TEST, the index of the test case.
+
+    Output, int C8MAT_EXP_N, the order of the matrix.
+*/
+{
+  int n;
+
+  if ( test == 1 )
+  {
+    n = 2;
+  }
+  else if ( test == 2 )
+  {
+    n = 2;
+  }
+  else if ( test == 3 )
+  {
+    n = 2;
+  }
+  else
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "C8MAT_EXP_N - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal value of TEST = %d\n", test );
+    exit ( 1 );
+  }
+
+  return n;
+}
+/******************************************************************************/
+
+void c8mat_exp_story ( int test )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_EXP_STORY prints explanatory text for each complex problem.
+
+  Discussion:
+
+    1) Real diagonal example
+    2) Imaginary diagonal example
+    3) Complex diagonal example
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, int TEST, the index of the test case.
+*/
+{
+  if ( test == 1 )
+  {
+    printf ( "\n" );
+    printf ( "  This matrix is diagonal.\n" );
+    printf ( "  The diagonal entries are real.\n" );
+  }
+  else if ( test == 2 )
+  {
+    printf ( "\n" );
+    printf ( "  This matrix is diagonal.\n" );
+    printf ( "  The diagonal entries are pure imaginary.\n" );
+  }
+  else if ( test == 3 )
+  {
+    printf ( "\n" );
+    printf ( "  This matrix is diagonal.\n" );
+    printf ( "  The diagonal entries are complex.\n" );
+  }
+  else
+  {
+    fprintf ( stderr, "\n" );
+    fprintf ( stderr, "C8MAT_EXP_STORY - Fatal error!\n" );
+    fprintf ( stderr, "  Illegal value of TEST = %d\n", test );
+    exit ( 1 );
+  }
+  return;
+}
+/******************************************************************************/
+
+int c8mat_exp_test_num ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    C8MAT_EXP_TEST_NUM returns the number of complex tests.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    03 March 2013
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Output, int C8MAT_EXP_TEST_NUM, the number of tests.
+*/
+{
+  int test_num;
+
+  test_num = 3;
+
+  return test_num;
+}
+/******************************************************************************/
+
+double *r8mat_exp_a ( int test, int n )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    R8MAT_EXP_A returns the matrix for a given real test.
 
   Discussion:
 
@@ -73,7 +369,7 @@ double *mexp_a ( int test, int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double MEXP_A[N*N], the matrix.
+    Output, double R8MAT_EXP_A[N*N], the matrix.
 */
 {
   double *a;
@@ -218,7 +514,7 @@ double *mexp_a ( int test, int n )
   else
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "MEXP_A - Fatal error!\n" );
+    fprintf ( stderr, "R8MAT_EXP_A - Fatal error!\n" );
     fprintf ( stderr, "  Illegal value of TEST = %d\n", test );
     exit ( 1 );
   }
@@ -226,13 +522,13 @@ double *mexp_a ( int test, int n )
 }
 /******************************************************************************/
 
-double *mexp_expa ( int test, int n )
+double *r8mat_exp_expa ( int test, int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    MEXP_EXPA returns the "exact" exponential matrix for a given test.
+    R8MAT_EXP_EXPA returns the "exact" exponential matrix for a given real test.
 
   Discussion:
 
@@ -256,13 +552,16 @@ double *mexp_expa ( int test, int n )
     Thanks to Alex Griffing for correcting the value of matrix 3,
     17 October 2012.
 
+    Thanks again to Alex Griffing for providing improved values for
+    matrices 4, 7 and 13, 03 September 2013.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    17 October 2012
+    03 September 2013
 
   Author:
 
@@ -296,7 +595,7 @@ double *mexp_expa ( int test, int n )
 
     Input, int N, the order of the matrix.
 
-    Output, double MEXP_EXPA[N*N], the exponential of the test matrix.
+    Output, double R8MAT_EXP_EXPA[N*N], the exponential of the test matrix.
 */
 {
   double exp16;
@@ -312,8 +611,8 @@ double *mexp_expa ( int test, int n )
        0.37756048,  0.00968104,
       -0.37756048, -0.00968104 };
   static double expa04[2*2] = {
-      -0.735759, -1.471518, 
-       0.551819,  1.103638 };
+      -0.7357587581447531, -1.4715175990882605, 
+       0.5518190996580977,  1.1036382407155727 };
   static double expa05[4*4] = {
       1.0,  0.0, 0.0, 0.0, 
       6.0,  1.0, 0.0, 0.0, 
@@ -323,8 +622,8 @@ double *mexp_expa ( int test, int n )
       2.718281828459046, 0.0, 
       2.718281828459046, 2.718281828459046 };
   static double expa07[2*2] = {
-      2.718309, 0.0, 
-      2.718282, 2.718255 };
+      2.718281828459045235360287, 0.0, 
+      2.718281828459045235360287, 2.718281828459045235360287 };
   static double expa09[4*4] = {
       740.7038, 731.2510, 823.7630, 998.4355, 
       610.8500, 603.5524, 679.4257, 823.7630, 
@@ -372,6 +671,8 @@ double *mexp_expa ( int test, int n )
     4.634806488376499E-01 };
   int i;
   int j;
+  int k;
+  double value;
 
   if ( test == 1 )
   {
@@ -443,6 +744,32 @@ double *mexp_expa ( int test, int n )
         expa[i+j*n] = 0.0;
       }
     }
+
+    k = 0;
+    for ( i = 1; i <= n; i++ )
+    {
+      expa[i-1+(i-1)*n] = 1.0;
+    }
+
+    value = 1.0;
+    for ( k = 1; k < n; k++ )
+    {
+      value = value / ( double ) ( k );
+      for ( i = 1; i <= n - k; i++ )
+      {
+        expa[i-1+(i+k-1)*n] = value;
+      }
+    }
+
+    value = 1.0 / pow ( 10.0, n );
+    for ( k = 1; k < n; k++ )
+    {
+      value = value / ( double ) ( k );
+      for ( j = 1; j <= k; j++ )
+      {
+        expa[n+j-k-1+(j-1)*n] = value;
+      }
+    }
   }
   else if ( test == 14 )
   {
@@ -451,7 +778,7 @@ double *mexp_expa ( int test, int n )
   else
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "MEXP_EXPA - Fatal error!\n" );
+    fprintf ( stderr, "R8MAT_EXP_EXPA - Fatal error!\n" );
     fprintf ( stderr, "  Illegal value of TEST = %d\n", test );
     exit ( 1 );
   }
@@ -459,13 +786,13 @@ double *mexp_expa ( int test, int n )
 }
 /******************************************************************************/
 
-int mexp_n ( int test )
+int r8mat_exp_n ( int test )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    MEXP_N returns the matrix order for a given test.
+    R8MAT_EXP_N returns the matrix order for a given real test.
 
   Licensing:
 
@@ -483,7 +810,7 @@ int mexp_n ( int test )
 
     Input, int TEST, the index of the test case.
 
-    Output, int MEXP_N, the order of the matrix.
+    Output, int R8MAT_EXP_N, the order of the matrix.
 */
 {
   int n;
@@ -547,7 +874,7 @@ int mexp_n ( int test )
   else
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "MEXP_N - Fatal error!\n" );
+    fprintf ( stderr, "R8MAT_EXP_N - Fatal error!\n" );
     fprintf ( stderr, "  Illegal value of TEST = %d\n", test );
     exit ( 1 );
   }
@@ -556,13 +883,13 @@ int mexp_n ( int test )
 }
 /******************************************************************************/
 
-void mexp_story ( int test )
+void r8mat_exp_story ( int test )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    MEXP_STORY prints explanatory text for each problem.
+    R8MAT_EXP_STORY prints explanatory text for each real problem.
 
   Discussion:
 
@@ -719,7 +1046,7 @@ void mexp_story ( int test )
   else
   {
     fprintf ( stderr, "\n" );
-    fprintf ( stderr, "MEXP_STORY - Fatal error!\n" );
+    fprintf ( stderr, "R8MAT_EXP_STORY - Fatal error!\n" );
     fprintf ( stderr, "  Illegal value of TEST = %d\n", test );
     exit ( 1 );
   }
@@ -727,13 +1054,13 @@ void mexp_story ( int test )
 }
 /******************************************************************************/
 
-int mexp_test_num ( )
+int r8mat_exp_test_num ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    MEXP_TEST_NUM returns the number of matrix exponential tests.
+    R8MAT_EXP_TEST_NUM returns the number of real tests.
 
   Licensing:
 
@@ -749,7 +1076,7 @@ int mexp_test_num ( )
 
   Parameters:
 
-    Output, int MEXP_TEST_NUM, the number of tests.
+    Output, int R8MAT_EXP_TEST_NUM, the number of tests.
 */
 {
   int test_num;

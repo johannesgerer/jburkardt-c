@@ -2,12 +2,11 @@
 #
 cp floyd.h /$HOME/include
 #
-gcc -c -g -I /$HOME/include floyd.c >& compiler.txt
+gcc -c -I /$HOME/include floyd.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling floyd.c."
   exit
 fi
-rm compiler.txt
 #
 mv floyd.o ~/libc/$ARCH/floyd.o
 #

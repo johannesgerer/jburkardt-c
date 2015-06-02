@@ -7,7 +7,7 @@ if [ $? -ne 0 ]; then
 fi
 rm compiler.txt
 #
-gcc gcc_intrinsics.o
+gcc gcc_intrinsics.o -lm
 if [ $? -ne 0 ]; then
   echo "Errors linking gcc_intrinsics.o."
   exit

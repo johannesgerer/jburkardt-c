@@ -2,12 +2,11 @@
 #
 cp ziggurat.h /$HOME/include
 #
-gcc -c -g ziggurat.c >& compiler.txt
+gcc -c ziggurat.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling ziggurat.c."
   exit
 fi
-rm compiler.txt
 #
 mv ziggurat.o ~/libc/$ARCH/ziggurat.o
 #

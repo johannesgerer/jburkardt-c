@@ -27,7 +27,7 @@ int main ( void )
 
   Discussion:
 
-    SUPER_BLAS1_C_PRB tests the SUPER_BLAS single precision complex routines.
+    SUPER_BLAS1_C_PRB tests the SUPER_BLAS library.
 
   Modified:
 
@@ -39,13 +39,11 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "SUPER_BLAS1_C_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Single precision complex arithmetic,\n" );
-  printf ( "  Tests for the routines in the SUPER_BLAS library,\n" );
-  printf ( "  the Level 1 Basic Linear Algebra Subprograms.\n" );
+  printf ( "  Test the SUPER_BLAS library.\n" );
  
   test03 ( );
   test04 ( );
@@ -55,11 +53,12 @@ int main ( void )
   test15 ( );
   test16 ( );
   test17 ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "SUPER_BLAS1_C_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

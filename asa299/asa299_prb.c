@@ -20,7 +20,7 @@ int main ( void )
 
   Discussion:
 
-    ASA299_PRB calls the ASA299 test routines.
+    ASA299_PRB tests the ASA299 library.
 
   Licensing:
 
@@ -36,7 +36,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA299_PRB\n" );
   printf ( "  C version\n" );
@@ -49,7 +48,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA299_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

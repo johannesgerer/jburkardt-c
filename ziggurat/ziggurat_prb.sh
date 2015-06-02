@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g ziggurat_prb.c >& compiler.txt
+gcc -c ziggurat_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling ziggurat_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc ziggurat_prb.o /$HOME/libc/$ARCH/ziggurat.o -lm
 if [ $? -ne 0 ]; then

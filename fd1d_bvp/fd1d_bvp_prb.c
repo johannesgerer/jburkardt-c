@@ -5,7 +5,7 @@
 
 # include "fd1d_bvp.h"
 
-int main ( void );
+int main ( );
 void fd1d_bvp_test01 ( void );
 void fd1d_bvp_test02 ( void );
 void fd1d_bvp_test03 ( void );
@@ -32,7 +32,7 @@ double r8_abs ( double x );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -42,7 +42,7 @@ int main ( void )
 
   Discussion:
 
-    FD1D_BVP_PRB tests the routines in FD1D_BVP.
+    FD1D_BVP_PRB tests the FD1D_BVP library.
 
   Licensing:
 
@@ -59,8 +59,9 @@ int main ( void )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "FD1D_BVP_TEST\n" );
-  printf ( "  C++ version\n" );
+  printf ( "FD1D_BVP_PRB\n" );
+  printf ( "  C version\n" );
+  printf ( "  Test the FD1D_BVP library.\n" );
 
   fd1d_bvp_test01 ( );
   fd1d_bvp_test02 ( );
@@ -71,9 +72,8 @@ int main ( void )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "FD1D_BVP_TEST\n" );
+  printf ( "FD1D_BVP_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -108,7 +108,7 @@ void fd1d_bvp_test01 ( void )
     John Burkardt
 */
 {
-  char *filename = malloc ( 80 );
+  char filename[80];
   int i;
   int n = 21;
   double *u;
@@ -223,7 +223,7 @@ void fd1d_bvp_test02 ( void )
     John Burkardt
 */
 {
-  char *filename = malloc ( 80 );
+  char filename[80];
   int i;
   int n = 11;
   double *u;
@@ -310,7 +310,7 @@ void fd1d_bvp_test03 ( void )
     John Burkardt
 */
 {
-  char *filename = malloc ( 80 );
+  char filename[80];
   int i;
   int n = 11;
   double *u;
@@ -397,7 +397,7 @@ void fd1d_bvp_test04 ( void )
     John Burkardt
 */
 {
-  char *filename = malloc ( 80 );
+  char filename[80];
   int i;
   int n = 11;
   double *u;
@@ -484,7 +484,7 @@ void fd1d_bvp_test05 ( void )
     John Burkardt
 */
 {
-  char *filename = malloc ( 80 );
+  char filename[80];
   int i;
   int n = 11;
   double *u;

@@ -22,7 +22,7 @@ int main ( void )
 
   Discussion:
 
-    OWENS_PRB calls the OWENS routines.
+    OWENS_PRB tests the OWENS library.
 
   Licensing:
 
@@ -38,7 +38,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "OWENS_PRB:\n" );
   printf ( "  C version\n" );
@@ -54,7 +53,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "OWENS_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

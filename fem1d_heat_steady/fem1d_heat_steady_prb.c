@@ -18,7 +18,11 @@ int main ( void )
 /*
   Purpose:
 
-    FEM1D_HEAT_STEADY_PRB tests the routines in FEM1D_HEAT_STEADY.
+    MAIN is the main program for FEM1D_HEAT_STEADY_PRB.
+
+  Discussion:
+
+    FEM1D_HEAT_STEADY_PRB tests the FEM1D_HEAT_STEADY library.
 
   Licensing:
 
@@ -46,7 +50,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "FEM1D_HEAT_STEADY_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

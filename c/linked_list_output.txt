@@ -1,0 +1,71 @@
+27 September 2013 11:46:53 AM
+
+LINKED_LIST:
+  C version
+  Demonstrate how a linked list can be used to create a
+  dynamically growing list of objects.
+
+  Setting pop = 20 for item k = 0
+  Setting pop = 16 for item k = 1
+  Setting pop = 8 for item k = 2
+
+  Number of items, K_NUM = 3
+
+  Item 0
+  Pop = 20
+
+  MU:
+
+         0:       0.829509
+         1:       0.561695
+         2:       0.415307
+
+  COV:
+
+  Col:          0             1             2     
+  Row
+
+    0:       0.0661187        0.043829        0.449539
+    1:        0.257578        0.633966        0.401306
+    2:        0.109957       0.0617272        0.754673
+
+  Item 1
+  Pop = 16
+
+  MU:
+
+         0:     0.00183837
+         1:       0.897504
+         2:       0.350752
+
+  COV:
+
+  Col:          0             1             2     
+  Row
+
+    0:       0.0945448        0.840847        0.260303
+    1:       0.0136169        0.123104        0.912484
+    2:        0.859097      0.00751236        0.113664
+
+  Item 2
+  Pop = 8
+
+  MU:
+
+         0:       0.822887
+         1:       0.267132
+         2:       0.692066
+
+  COV:
+
+  Col:          0             1             2     
+  Row
+
+    0:        0.561662        0.911977        0.761492
+    1:        0.861216        0.597917        0.396988
+    2:        0.453794        0.188955        0.185314
+
+LINKED_LIST
+  Normal end of execution.
+
+27 September 2013 11:46:53 AM

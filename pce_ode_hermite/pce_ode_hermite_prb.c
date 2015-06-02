@@ -17,7 +17,11 @@ int main ( )
 /*
   Purpose:
 
-    MAIN is the main program for PCE_ODE_HERMITE_TEST.
+    MAIN is the main program for PCE_ODE_HERMITE_PRB.
+
+  Discussion:
+
+    PCE_ODE_HERMITE_PRB tests the PCE_ODE_HERMITE libary.
 
   Licensing:
 
@@ -34,9 +38,9 @@ int main ( )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "PCE_ODE_HERMITE_TEST:\n" );
+  printf ( "PCE_ODE_HERMITE_PRB:\n" );
   printf ( "  C version\n" );
-  printf ( "  Test PCE_ODE_HERMITE.\n" );
+  printf ( "  Test the PCE_ODE_HERMITE library.\n" );
 
   pce_ode_hermite_test01 ( );
   pce_ode_hermite_test02 ( );
@@ -44,7 +48,7 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "PCE_ODE_HERMITE_TEST:\n" );
+  printf ( "PCE_ODE_HERMITE_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

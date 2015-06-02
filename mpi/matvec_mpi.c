@@ -6,7 +6,7 @@
 # include "mpi.h"
 
 int main ( int argc, char *argv[] );
-void timestamp ( void );
+void timestamp ( );
 
 /******************************************************************************/
 
@@ -130,9 +130,9 @@ int main ( int argc, char *argv[] )
 */
   if ( my_id == master )
   {
-    a = malloc ( m * n * sizeof ( double ) );
-    x = malloc ( n * sizeof ( double ) );
-    b = malloc ( m * sizeof ( double ) );
+    a = ( double * ) malloc ( m * n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+    b = ( double * ) malloc ( m * sizeof ( double ) );
 
     k = 0;
     for ( i = 1; i <= m; i++ ) 
@@ -172,8 +172,8 @@ int main ( int argc, char *argv[] )
 */
   else
   {
-    a_row = malloc ( n * sizeof ( double ) );
-    x = malloc ( n * sizeof ( double ) );
+    a_row = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
   }
 /*
   Process 0 broadcasts the vector X to the other processes.

@@ -1,0 +1,217 @@
+<html>
+
+  <head>
+    <title>
+      LATIN_RANDOM_DATASET - Generate Latin Random Square Datasets
+    </title>
+  </head>
+
+  <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
+
+    <h1 align = "center">
+      LATIN_RANDOM_DATASET <br> Generate Latin Random Square Datasets
+    </h1>
+
+    <hr>
+
+    <p>
+      <b>LATIN_RANDOM_DATASET</b>
+      is a C library which
+      creates a Latin Random Square dataset.
+    </p>
+
+    <p>
+      A Latin square, in <b>M</b> dimensional space, with <b>N</b> points,
+      can be thought of as being constructed by dividing each of the
+      <b>M</b> coordinate dimensions into <b>N</b> equal intervals.
+      The I-th coordinates of the <b>N</b> subsquares are defined
+      by assigning each possible value exactly once to one subsquare.
+      Such a set is called a Latin Square.
+    </p>
+
+    <p>
+      If we now select at random one point from each subsquare,
+      we have what we will term a "Latin Random Square".
+    </p>
+
+    <h3 align = "center">
+      Usage:
+    </h3>
+
+    <p>
+      <blockquote>
+        <b>latin_random_dataset</b> <i>m</i> <i>n</i> <i>seed</i>
+      </blockquote>
+      where
+      <ul>
+        <li>
+          <i>m</i> is the spatial dimension;
+        </li>
+        <li>
+          <i>n</i> is the number of points to generate;
+        </li>
+        <li>
+          <i>seed</i> is the initial seed value.
+        </li>
+      </ul>
+      The data is written to the file <b>latin_random_<i>m</i>_<i>n</i>.txt</b>.
+    </p>
+
+    <h3 align = "center">
+      Licensing:
+    </h3>
+
+    <p>
+      The computer code and data files described and made available on this web page
+      are distributed under
+      <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
+    </p>
+
+    <h3 align = "center">
+      Languages:
+    </h3>
+
+    <p>
+      <b>LATIN_RANDOM_DATASET</b> is available in
+      <a href = "../../c_src/latin_random_dataset/latin_random_dataset.html">a C version</a> and
+      <a href = "../../cpp_src/latin_random_dataset/latin_random_dataset.html">a C++ version</a> and
+      <a href = "../../f77_src/latin_random_dataset/latin_random_dataset.html">a FORTRAN77 version</a> and
+      <a href = "../../f_src/latin_random_dataset/latin_random_dataset.html">a FORTRAN90 version</a> and
+      <a href = "../../m_src/latin_random_dataset/latin_random_dataset.html">a MATLAB version</a>.
+    </p>
+
+    <h3 align = "center">
+      Related Data and Programs:
+    </h3>
+
+    <p>
+      <a href = "../../c_src/latin_random/latin_random.html">
+      LATIN_RANDOM</a>,
+      a C library which
+      computes a Latin Hypercube in M dimensions of N points, randomly
+      placed within their subsquares.
+    </p>
+
+    <h3 align = "center">
+      Reference:
+    </h3>
+
+    <p>
+      <ol>
+        <li>
+          Paul Bratley, Bennett Fox, Linus Schrage,<br>
+          A Guide to Simulation,<br>
+          Springer Verlag, pages 201-202, 1983.
+        </li>
+        <li>
+          CJ Colbourn, JH Dinitz,<br>
+          CRC Handbook of Combinatorial Design,<br>
+          CRC, 1996.
+        </li>
+        <li>
+          Bennett Fox,<br>
+          Algorithm 647:<br>
+          Implementation and Relative Efficiency of Quasirandom
+          Sequence Generators,<br>
+          ACM Transactions on Mathematical Software,<br>
+          Volume 12, Number 4, pages 362-376, 1986.
+        </li>
+        <li>
+          Michael McKay, William Conover, Richard Beckman,<br>
+          A Comparison of Three Methods for Selecting Values of Input
+          Variables in the Analysis of Output From a Computer Code,<br>
+          Technometrics,<br>
+          Volume 21, pages 239-245, 1979.
+        </li>
+        <li>
+          Albert Nijenhuis, Herbert Wilf,<br>
+          Combinatorial Algorithms,<br>
+          Academic Press, 1978, second edition,<br>
+          ISBN 0-12-519260-6.
+        </li>
+        <li>
+          Herbert Ryser,<br>
+          Combinatorial Mathematics,<br>
+          Mathematical Association of America, 1963.
+        </li>
+      </ol>
+    </p>
+
+    <h3 align = "center">
+      Source Code:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "latin_random_dataset.c">latin_random_dataset.c</a>,
+          the source code.
+        </li>
+        <li>
+          <a href = "latin_random_dataset.sh">latin_random_dataset.sh</a>,
+          commands to compile and load the source code.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      Examples and Data:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <a href = "latin_random_2_10.txt">latin_random_2_10.txt</a>,
+          is the file created by the command <b>latin_random_dataset 2 10 12346789</b>.
+        </li>
+      </ul>
+    </p>
+
+    <h3 align = "center">
+      List of Routines:
+    </h3>
+
+    <p>
+      <ul>
+        <li>
+          <b>MAIN</b> is the main program for LATIN_RANDOM_DATASET.
+        </li>
+        <li>
+          <b>I4_UNIFORM_AB</b> returns a scaled pseudorandom I4 between A and B.
+        </li>
+        <li>
+          <b>LATIN_RANDOM_NEW</b> returns points in a Latin Random square.
+        </li>
+        <li>
+          <b>PERM_UNIFORM_NEW</b> selects a random permutation of N objects.
+        </li>
+        <li>
+          <b>R8MAT_UNIFORM_01_NEW</b> returns a unit pseudorandom R8MAT.
+        </li>
+        <li>
+          <b>R8MAT_WRITE</b> writes an R8MAT file.
+        </li>
+        <li>
+          <b>TIMESTAMP</b> prints the current YMDHMS date as a time stamp.
+        </li>
+      </ul>
+    </p>
+
+    <p>
+      You can go up one level to <a href = "../c_src.html">
+      the C source codes</a>.
+    </p>
+
+    <hr>
+
+    <i>
+      Last revised on 13 November 2014.
+    </i>
+
+    <!-- John Burkardt -->
+
+  </body>
+
+  <!-- Initial HTML skeleton created by HTMLINDEX. -->
+
+</html>

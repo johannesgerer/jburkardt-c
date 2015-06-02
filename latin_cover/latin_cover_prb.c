@@ -52,7 +52,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "LATIN_COVER_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g test_values_prb.c >& compiler.txt
+gcc -c test_values_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling test_values_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc test_values_prb.o /$HOME/libc/$ARCH/test_values.o -lm
 if [ $? -ne 0 ]; then

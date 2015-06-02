@@ -48,7 +48,7 @@ int main ( int argc, char *argv[] )
 {
   double a;
   double b;
-  char filename[80];
+  char filename[255];
   int order;
   double *r;
   double *w;
@@ -59,24 +59,16 @@ int main ( int argc, char *argv[] )
   printf ( "CLENSHAW_CURTIS_RULE\n" );
   printf ( "  C version\n" );
   printf ( "\n" );
-  printf ( "  Compiled on %s at %s\n", __DATE__, __TIME__ );
-  printf ( "\n" );
   printf ( "  Compute a Clenshaw Curtis rule for approximating\n" );
-  printf ( "\n" );
   printf ( "    Integral ( -1 <= x <= +1 ) f(x) dx\n" );
-  printf ( "\n" );
   printf ( "  of order ORDER.\n" );
   printf ( "\n" );
   printf ( "  The user specifies ORDER, A, B and FILENAME.\n" );
   printf ( "\n" );
   printf ( "  ORDER is the number of points.\n" );
-  printf ( "\n" );
   printf ( "  A is the left endpoint.\n" );
-  printf ( "\n" );
   printf ( "  B is the right endpoint.\n" );
-  printf ( "\n" );
   printf ( "  FILENAME is used to generate 3 files:\n" );
-  printf ( "\n" );
   printf ( "    filename_w.txt - the weight file\n" );
   printf ( "    filename_x.txt - the abscissa file.\n" );
   printf ( "    filename_r.txt - the region file.\n" );
@@ -171,7 +163,6 @@ int main ( int argc, char *argv[] )
   printf ( "\n" );
   printf ( "CLENSHAW_CURTIS_RULE:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -468,7 +459,7 @@ void rule_write ( int order, char *filename, double x[], double w[],
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*

@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    MACHAR_PRB runs the MACHAR tests.
+    MACHAR_PRB tests the MACHAR library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "MACHAR_PRB\n" );
   printf ( "  C version\n" );
@@ -49,7 +48,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "MACHAR_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

@@ -17,6 +17,10 @@ int main ( void )
 
     MAIN is the main program for POWER_METHOD_PRB.
 
+  Discussion:
+
+    POWER_METHOD_PRB tests the POWER_METHOD library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license. 
@@ -34,14 +38,15 @@ int main ( void )
   printf ( "\n" );
   printf ( "POWER_METHOD_PRB\n" );
   printf ( "  C version:\n" );
-  printf ( "  Test the routines in the POWER_METHOD library.\n" );
+  printf ( "  Test the POWER_METHOD library.\n" );
 
   test01 ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "POWER_METHOD_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

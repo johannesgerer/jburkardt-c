@@ -4,22 +4,25 @@
 
 # include "sphere_grid.h"
 
-int main ( void );
+int main ( );
 
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
-void test05 ( void );
-void test06 ( void );
-void test07 ( void );
-void test08 ( void );
-void test09 ( void );
-void test10 ( void );
+void test01 ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
+void test05 ( );
+void test06 ( );
+void test07 ( );
+void test08 ( );
+void test09 ( );
+void test10 ( );
+void test11 ( );
+void test12 ( );
+void test13 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -29,7 +32,7 @@ int main ( void )
 
   Discussion:
 
-    SPHERE_GRID_PRB tests routines from the SPHERE_GRID library.
+    SPHERE_GRID_PRB tests the SPHERE_GRID library.
 
   Licensing:
 
@@ -45,7 +48,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "SPHERE_GRID_PRB\n" );
   printf ( "  C version\n" );
@@ -60,14 +62,17 @@ int main ( void )
   test07 ( );
   test08 ( );
   test09 ( );
+
   test10 ( );
+  test11 ( );
+  test12 ( );
+  test13 ( );
 /*
   Terminate.
 */
   printf ( "\n" );
   printf ( "SPHERE_GRID_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -75,7 +80,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -147,7 +152,7 @@ void test01 ( void )
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -198,21 +203,12 @@ void test02 ( void )
 /*
   Write the nodes to a file.
 */
-  if ( 1 )
-  {
-    sprintf ( filename, "sphere_icos1_points_f%d.xyz", factor );
+  sprintf ( filename, "sphere_icos1_points_f%d.xyz", factor );
 
-    output = fopen ( filename, "wt" );
-    for ( node = 0; node < node_num; node++ )
-    {
-      fprintf ( output, "  %f  %f  %f\n", 
-        node_xyz[0+node*3], node_xyz[1+node*3], node_xyz[2+node*3] );
-    }
-    fclose ( output );
+  r8mat_write ( filename, 3, node_num, node_xyz );
 
-    printf ( "\n" );
-    printf ( "  Wrote data to \"%s\"\n", filename );
-  }
+  printf ( "\n" );
+  printf ( "  Wrote data to \"%s\"\n", filename );
 
   free ( node_xyz );
 
@@ -220,7 +216,7 @@ void test02 ( void )
 }
 /******************************************************************************/
 
-void test03 ( void )
+void test03 ( )
 
 /******************************************************************************/
 /*
@@ -271,21 +267,12 @@ void test03 ( void )
 /*
   Write the nodes to a file.
 */
-  if ( 1 )
-  {
-    sprintf ( filename, "sphere_icos2_points_f%d.xyz", factor );
+  sprintf ( filename, "sphere_icos2_points_f%d.xyz", factor );
 
-    output = fopen ( filename, "wt" );
-    for ( node = 0; node < node_num; node++ )
-    {
-      fprintf ( output, "  %f  %f  %f\n", 
-        node_xyz[0+node*3], node_xyz[1+node*3], node_xyz[2+node*3] );
-    }
-    fclose ( output );
-
-    printf ( "\n" );
-    printf ( "  Wrote data to \"%s\"\n", filename );
-  }
+  r8mat_write ( filename, 3, node_num, node_xyz );
+ 
+  printf ( "\n" );
+  printf ( "  Wrote data to \"%s\"\n", filename );
 
   free ( node_xyz );
 
@@ -293,7 +280,7 @@ void test03 ( void )
 }
 /******************************************************************************/
 
-void test04 ( void )
+void test04 ( )
 
 /******************************************************************************/
 /*
@@ -373,7 +360,7 @@ void test04 ( void )
 }
 /******************************************************************************/
 
-void test05 ( void )
+void test05 ( )
 
 /******************************************************************************/
 /*
@@ -421,21 +408,12 @@ void test05 ( void )
 /*
   Write the nodes to a file.
 */
-  if ( 1 )
-  {
-    sprintf ( filename, "sphere_grid_spiral_n%d.xyz", node_num );
+  sprintf ( filename, "sphere_grid_spiral_n%d.xyz", node_num );
 
-    output = fopen ( filename, "wt" );
-    for ( node = 0; node < node_num; node++ )
-    {
-      fprintf ( output, "  %f  %f  %f\n", 
-        node_xyz[0+node*3], node_xyz[1+node*3], node_xyz[2+node*3] );
-    }
-    fclose ( output );
+  r8mat_write ( filename, 3, node_num, node_xyz );
 
-    printf ( "\n" );
-    printf ( "  Wrote data to \"%s\"\n", filename );
-  }
+  printf ( "\n" );
+  printf ( "  Wrote data to \"%s\"\n", filename );
 
   free ( node_xyz );
 
@@ -443,7 +421,7 @@ void test05 ( void )
 }
 /******************************************************************************/
 
-void test06 ( void )
+void test06 ( )
 
 /******************************************************************************/
 /*
@@ -492,7 +470,7 @@ void test06 ( void )
 }
 /******************************************************************************/
 
-void test07 ( void )
+void test07 ( )
 
 /******************************************************************************/
 /*
@@ -538,7 +516,7 @@ void test07 ( void )
 }
 /******************************************************************************/
 
-void test08 ( void )
+void test08 ( )
 
 /******************************************************************************/
 /*
@@ -561,7 +539,6 @@ void test08 ( void )
 {
   int lat_num = 3;
   int lon_num = 4;
-
   int triangle_num;
   int *triangle_node;
 
@@ -589,7 +566,7 @@ void test08 ( void )
 }
 /******************************************************************************/
 
-void test09 ( void )
+void test09 ( )
 
 /******************************************************************************/
 /*
@@ -631,21 +608,12 @@ void test09 ( void )
 /*
   Write the nodes to a file.
 */
-  if ( 1 )
-  {
-    sprintf ( filename, "sphere_sample_n%d.xyz", node_num );
+  sprintf ( filename, "sphere_sample_n%d.xyz", node_num );
 
-    output = fopen ( filename, "wt" );
-    for ( node = 0; node < node_num; node++ )
-    {
-      fprintf ( output, "  %f  %f  %f\n", 
-        node_xyz[0+node*3], node_xyz[1+node*3], node_xyz[2+node*3] );
-    }
-    fclose ( output );
+  r8mat_write ( filename, 3, node_num, node_xyz );
 
-    printf ( "\n" );
-    printf ( "  Wrote data to \"%s\"\n", filename );
-  }
+  printf ( "\n" );
+  printf ( "  Wrote data to \"%s\"\n", filename );
 
   free ( node_xyz );
 
@@ -694,27 +662,59 @@ void test10 ( )
 
   xyz = sphere_cubed_points ( n, ns );
 
-  r8mat_transpose_print_some ( 3, ns, xyz, 1, 1, 3, 20, "  Initial part of XYZ array:" );
+  r8mat_transpose_print_some ( 3, ns, xyz, 1, 1, 3, 20, 
+    "  Initial part of XYZ array:" );
 /*
   Write the nodes to a file.
 */
-  if ( 1 )
-  {
-    sprintf ( filename, "sphere_cubed_f%d.xyz", n );
+  sprintf ( filename, "sphere_cubed_f%d.xyz", n );
 
-    output = fopen ( filename, "wt" );
-    for ( j = 0; j < n; j++ )
-    {
-      fprintf ( output, "  %f  %f  %f\n", 
-        xyz[0+j*3], xyz[1+j*3], xyz[2+j*3] );
-    }
-    fclose ( output );
+  r8mat_write ( filename, 3, ns, xyz );
 
-    printf ( "\n" );
-    printf ( "  Wrote data to \"%s\"\n", filename );
-  }
+  printf ( "\n" );
+  printf ( "  Wrote data to \"%s\"\n", filename );
 
   free ( xyz );
 
   return;
 }
+/******************************************************************************/
+
+void test11 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST11 is a dummy function.  Refer to the MATLAB source for details.
+*/
+{
+  return;
+}
+/******************************************************************************/
+
+void test12 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST12 is a dummy function.  Refer to the MATLAB source for details.
+*/
+{
+  return;
+}
+/******************************************************************************/
+
+void test13 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST13 is a dummy function.  Refer to the MATLAB source for details.
+*/
+{
+  return;
+}
+

@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c -g filum_prb.c >& compiler.txt
+gcc -c filum_prb.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling filum_prb.c."
   exit
 fi
-rm compiler.txt
 #
 gcc filum_prb.o /$HOME/libc/$ARCH/filum.o -lm
 if [ $? -ne 0 ]; then

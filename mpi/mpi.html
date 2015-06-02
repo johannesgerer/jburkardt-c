@@ -23,8 +23,8 @@
 
     <p>
       <b>MPI</b> is a directory of C programs
-      which illustrates the use of the MPI library of message passing routines.  The library
-      allows a user to write a program in a familiar language, such as
+      which illustrates the use of the MPI library of message passing routines. 
+      The library allows a user to write a program in a familiar language, such as
       C, C++, FORTRAN77 or FORTRAN90, and carry out a computation in
       parallel on an arbitrary number of cooperating computers.
     </p>
@@ -162,7 +162,7 @@
     </h3>
 
     <p>
-      The computer code and data files described and made available on this web page 
+      The computer code and data files made available on this web page 
       are distributed under
       <a href = "../../txt/gnu_lgpl.txt">the GNU LGPL license.</a>
     </p>
@@ -239,11 +239,12 @@
     </p>
 
     <p>
-      <a href = "../../c_src/poisson_serial/poisson_serial.html">
-      POISSON_SERIAL</a>,
+      <a href = "../../c_src/poisson_mpi/poisson_mpi.html">
+      POISSON_MPI</a>,
       a C program which
-      computes an approximate solution to the Poisson equation in a rectangle,
-      and is intended as the starting point for the creation of a parallel version.
+      computes a solution to the Poisson equation in a rectangle,
+      using the Jacobi iteration to solve the linear system, and MPI to
+      carry out the Jacobi iteration in parallel.
     </p>
 
     <p>
@@ -299,7 +300,8 @@
       SEARCH_MPI</a>,
       a C program which
       searches integers between A and B for a value J such that F(J) = C,
-      using 
+      using MPI.
+    </p>
 
     <p>
       <a href = "../../c_src/task_division/task_division.html">
@@ -309,6 +311,14 @@
       P processors; such a method can be useful in MPI and other parallel
       environments, particularly when T is not an exact multiple of P,
       and when the processors can be indexed starting from 0 or from 1.
+    </p>
+
+    <p>
+      <a href = "../../c_src/wave_mpi/wave_mpi.html">
+      WAVE_MPI</a>,
+      a C program which
+      uses finite differences and MPI to estimate a solution to the
+      wave equation.
     </p>
 
     <h3 align = "center">

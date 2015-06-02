@@ -1,33 +1,11 @@
-19 May 2012 11:38:18 AM
+13 April 2015 10:02:28 AM
 
 POLPAK_PRB
   C version
   Test the POLPAK library.
 
-TEST001
-  AGM computes the arithmetic geometric mean.
-
-      A           B             AGM                       AGM                   Diff                               (Tabulated)                AGM(A,B)
-
-   22.000000   96.000000       52.2746411987042379       52.2746411987042450  7.105427e-15
-   83.000000   56.000000       68.8365300598585179       68.8365300598585179  0.000000e+00
-   42.000000    7.000000       20.6593011967340097       20.6593011967340061  3.552714e-15
-   26.000000   11.000000       17.6968548737436500       17.6968548737436677  1.776357e-14
-    4.000000   63.000000       23.8670497217533004       23.8670497217533040  3.552714e-15
-    6.000000   45.000000       20.7170159828059930       20.7170159828059894  3.552714e-15
-   40.000000   75.000000       56.1278422556166845       56.1278422556166845  0.000000e+00
-   80.000000    0.000000        0.0000000000000000        0.0000000000000000  0.000000e+00
-   90.000000   35.000000       59.2695650812296364       59.2695650812298851  2.486900e-13
-    9.000000    1.000000        3.9362355036495553        3.9362355036495558  4.440892e-16
-   53.000000   53.000000       53.0000000000000000       53.0000000000000000  0.000000e+00
-    1.000000    2.000000        1.4567910310469068        1.4567910310469068  0.000000e+00
-    1.000000    4.000000        2.2430285802876027        2.2430285802876027  0.000000e+00
-    1.000000    8.000000        3.6157561775973628        3.6157561775973628  0.000000e+00
-    1.500000    8.000000        4.0816924080221630        4.0816924080221630  0.000000e+00
-
-TEST002
+AGUD_TEST
   AGUD computes the inverse Gudermannian;
-  GUD computes the Gudermannian.
 
          X     GUD(X)     AGUD(GUD(X))
 
@@ -43,7 +21,7 @@ TEST002
     2.800000    1.449326    2.800000
     3.000000    1.471304    3.000000
 
-TEST003
+ALIGN_ENUM_TEST
   ALIGN_ENUM counts the number of possible
   alignments of two biological sequences.
 
@@ -77,42 +55,8 @@ TEST003
    9     75517    224143    598417   1462563   3317445  
   10    134245    433905   1256465   3317445   8097453  
 
-TEST004
-  ARC_COSINE computes the inverse cosine,
-  and chops input arguments that are out of bounds.
-
-         X     ARC_COSINE(X)     COS(ARC_COSINE(X))
-
-           0      1.5708  6.12323e-17
-         0.2     1.36944         0.2
-         0.4     1.15928         0.4
-         0.6    0.927295         0.6
-         0.8    0.643501         0.8
-           1           0           1
-         1.2           0           1
-         1.4           0           1
-         1.6           0           1
-         1.8           0           1
-           2           0           1
-
-TEST005
-  ATAN4 computes the arc-tangent given Y and X;
-  ATAN2 is the system version of this routine.
-
-       X             Y          ATAN2(Y,X)   ATAN4(Y,X)
-
-               1               0               0               0
-               1               1        0.785398        0.785398
-               0               1          1.5708          1.5708
-              -1               1         2.35619         2.35619
-              -1               0         3.14159         3.14159
-              -1              -1        -2.35619         3.92699
-               0              -1         -1.5708         4.71239
-               1              -1       -0.785398         5.49779
-
-TEST006
+BELL_TEST
   BELL computes Bell numbers.
-  BELL_VALUES returns some exact values.
 
   N  exact C(I)  computed C(I)
 
@@ -128,7 +72,7 @@ TEST006
      9     21147     21147
     10    115975    115975
 
-TEST007
+BENFORD_TEST
   BENFORD(I) is the Benford probability of the
   initial digit sequence I.
 
@@ -144,9 +88,8 @@ TEST007
      8      0.0512
      9      0.0458
 
-TEST008
+BERNOULLI_NUMBER_TEST
   BERNOULLI_NUMBER computes Bernoulli numbers;
-  BERNOULLI_NUMBER_VALUES returns some exact values.
 
    I      Exact     BERNOULLI_NUMBER
 
@@ -161,9 +104,8 @@ TEST008
     20    -529.124    -529.124
     30  6.01581e+08  6.01581e+08
 
-TEST009
+BERNOULLI_NUMBER2_TEST
   BERNOULLI_NUMBER2 computes Bernoulli numbers;
-  BERNOULLI_NUMBER_VALUES returns some exact values.
 
    I      Exact     BERNOULLI_NUMBER2
 
@@ -178,9 +120,8 @@ TEST009
     20    -529.124    -529.124
     30  6.01581e+08  6.01581e+08
 
-TEST010
+BERNOULLI_NUMBER3_TEST
   BERNOULLI_NUMBER3 computes Bernoulli numbers;
-  BERNOULLI_NUMBER_VALUES returns some exact values.
 
    I      Exact     BERNOULLI_NUMBER3
 
@@ -195,7 +136,7 @@ TEST010
     20    -529.124    -529.124
     30  6.01581e+08  6.01581e+08
 
-TEST011
+BERNOULLI_POLY_TEST
   BERNOULLI_POLY evaluates Bernoulli polynomials;
 
   X = 0.2
@@ -204,21 +145,21 @@ TEST011
 
        1        -0.3
        2  0.00666667
-       3       0.048
-       4  -0.00773333
-       5    -0.02368
-       6  0.00691352
-       7   0.0249088
-       8    -0.01015
-       9  -0.0452782
-      10   0.0233263
-      11     0.12605
-      12  -0.0781468
-      13   -0.497979
-      14     0.36044
-      15     2.64878
+       3  1.26619e+06
+       4      358754
+       5  -1.10074e+07
+       6    -0.94882
+       7     35.5459
+       8     16.3941
+       9    -17139.4
+      10    -418.656
+      11     29482.6
+      12     15985.3
+      13  -5.54642e+07
+      14     -871872
+      15  1.09544e+08
 
-TEST0115
+BERNOULLI_POLY2_TEST
   BERNOULLI_POLY2 evaluates Bernoulli polynomials;
 
   X = 0.2
@@ -241,9 +182,8 @@ TEST0115
       14     0.36044
       15     2.64878
 
-TEST013:
+BERNSTEIN_POLY_TEST:
   BERNSTEIN_POLY evaluates the Bernstein polynomials.
-  BERNSTEIN_POLY_VALUES returns some exact values.
 
    N   K   X   Exact   B(N,K)(X)
 
@@ -263,31 +203,7 @@ TEST013:
      4     3     0.25        0.046875        0.046875
      4     4     0.25      0.00390625      0.00390625
 
-TEST012:
-  BETA evaluates the Beta function.
-  BETA_VALUES returns some exact values.
-
-     X      Y        Exact F       BETA(X,Y)
-
-    0.200000    1.000000           5           5
-    0.400000    1.000000         2.5         2.5
-    0.600000    1.000000     1.66667     1.66667
-    0.800000    1.000000        1.25        1.25
-    1.000000    0.200000           5           5
-    1.000000    0.400000         2.5         2.5
-    1.000000    1.000000           1           1
-    2.000000    2.000000    0.166667    0.166667
-    3.000000    3.000000   0.0333333   0.0333333
-    4.000000    4.000000  0.00714286  0.00714286
-    5.000000    5.000000   0.0015873   0.0015873
-    6.000000    2.000000   0.0238095   0.0238095
-    6.000000    3.000000  0.00595238  0.00595238
-    6.000000    4.000000  0.00198413  0.00198413
-    6.000000    5.000000  0.000793651  0.000793651
-    6.000000    6.000000  0.00036075  0.00036075
-    7.000000    7.000000  8.32501e-05  8.32501e-05
-
-TEST014
+BPAB_TEST
   BPAB evaluates Bernstein polynomials.
 
   The Bernstein polynomials of degree 10
@@ -307,29 +223,11 @@ TEST014
      9     0.000137781
     10      5.9049e-06
 
-TEST015
-  CARDAN_POLY_COEF returns the coefficients of a
-  Cardan polynomial.
-  CARDAN evaluates a Cardan polynomial directly.
+CARDAN_POLY_TEST
+  CARDAN_POLY evaluates the Cardan polynomial.
 
-  We use the parameter S = 1
-
-  Table of polynomial coefficients:
-
-   0  103548  
-   1  103548  105441  
-   2  103548  105441  105441  
-   3  103548  105441  105441  105441  
-   4  103548  105441  105441  105441  105441  
-   5  103548  105441  105441  105441  105441  105441  
-   6  103548  105441  105441  105441  105441  105441  105441  
-   7  103548  105441  105441  105441  105441  105441  105441  105441  
-   8  103548  105441  105441  105441  105441  105441  105441  105441  105441  
-   9  103548  105441  105441  105441  105441  105441  105441  105441  105441  105441  
-  10  103548  105441  105441  105441  105441  105441  105441  105441  105441  105441  105441  
-
-  Compare CARDAN_POLY_COEF + R8POLY_VAL_HORNER
-  versus CARDAN alone.
+  Compare CARDAN_POLY_COEF + R8POLY_VALUE_HORNER
+  versus CARDAN_POLY alone.
 
   Evaluate polynomials at X = 0.25
   We use the parameter S = 0.5
@@ -348,9 +246,70 @@ TEST015
    9       0.0883522       0.0883522
   10       0.0128031       0.0128031
 
-TEST016
+CARDAN_POLY_COEF_TEST
+  CARDAN_POLY_COEF returns the coefficients of a
+  Cardan polynomial.
+
+  We use the parameter S = 1
+
+  Table of polynomial coefficients:
+
+   0  4296996  
+   1  4296996  4298481  
+   2  4296996  4298481  4298481  
+   3  4296996  4298481  4298481  4298481  
+   4  4296996  4298481  4298481  4298481  4298481  
+   5  4296996  4298481  4298481  4298481  4298481  4298481  
+   6  4296996  4298481  4298481  4298481  4298481  4298481  4298481  
+   7  4296996  4298481  4298481  4298481  4298481  4298481  4298481  4298481  
+   8  4296996  4298481  4298481  4298481  4298481  4298481  4298481  4298481  4298481  
+   9  4296996  4298481  4298481  4298481  4298481  4298481  4298481  4298481  4298481  4298481  
+  10  4296996  4298481  4298481  4298481  4298481  4298481  4298481  4298481  4298481  4298481  4298481  
+
+CARDINAL_COS_TEST
+  CARDINAL_COS evaluates cardinal cosine functions.
+  Ci(Tj) = Delta(i,j), where Tj = cos(pi*i/(n+1)).
+  A simple check of all pairs should form the identity matrix.
+
+  The CARDINAL_COS test matrix:
+
+   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0
+   0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0
+  -0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0
+   0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0
+  -0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0
+   0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0
+  -0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0
+   0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0
+  -0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0
+   0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0
+  -0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0
+   0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0
+  -0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0
+
+CARDINAL_SIN_TEST
+  CARDINAL_SIN evaluates cardinal sine functions.
+  Si(Tj) = Delta(i,j), where Tj = cos(pi*i/(n+1)).
+  A simple check of all pairs should form the identity matrix.
+
+  The CARDINAL_SIN test matrix:
+
+   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0
+   0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0
+  -0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0
+   0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0
+  -0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0
+   0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0
+  -0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0  -0.0
+   0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0   0.0
+  -0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0  -0.0
+   0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0   0.0
+  -0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0  -0.0
+   0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0   0.0
+  -0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   0.0  -0.0   1.0
+
+CATALAN_TEST
   CATALAN computes Catalan numbers.
-  CATALAN_VALUES returns some exact values.
 
   N  exact C(I)  computed C(I)
 
@@ -366,7 +325,7 @@ TEST016
      9      4862      4862
     10     16796     16796
 
-TEST017
+CATALAN_ROW_NEXT_TEST
   CATALAN_ROW_NEXT computes a row of Catalan''s triangle.
 
   First, compute row 7:
@@ -387,7 +346,7 @@ TEST017
    9         1         9        44       154       429      1001      2002      3432      4862      4862  
   10         1        10        54       208       637      1638      3640      7072     11934     16796     16796  
 
-TEST0175:
+CHARLIER_TEST:
   CHARLIER evaluates Charlier polynomials.
 
        N      A         X        P(N,A,X)
@@ -608,9 +567,8 @@ TEST0175:
        4        10       2.5       -0.165469
        5        10       2.5      -0.0915391
 
-TEST018:
+CHEBY_T_POLY_TEST:
   CHEBY_T_POLY evaluates the Chebyshev T polynomial.
-  CHEBY_T_POLY_VALUES returns some exact values.
 
      N      X        Exact F       T(N,X)
 
@@ -628,27 +586,7 @@ TEST018:
         11       0.8        0.700051        0.700051
         12       0.8        0.131586        0.131586
 
-TEST0185:
-  CHEBY_T_POLY_ZERO returns zeroes of T(N,X).
-
-       N      X        T(N,X)
-
-         1  6.12323e-17     6.12323e-17
-
-         2  0.707107     2.22045e-16
-         2  -0.707107    -2.22045e-16
-
-         3  0.866025     3.33067e-16
-         3  6.12323e-17    -1.83697e-16
-         3  -0.866025    -3.33067e-16
-
-         4   0.92388    -2.22045e-16
-         4  0.382683    -2.22045e-16
-         4  -0.382683     1.11022e-16
-         4  -0.92388    -2.22045e-16
-
-
-TEST019
+CHEBY_T_POLY_COEF_TEST
   CHEBY_T_POLY_COEF determines the  polynomial coefficients
   of the Chebyshev polynomial T(n,x).
 
@@ -668,24 +606,44 @@ TEST019
   T(3,x)
 
              4 * x^3
-             2 * x
+            -2 * x
 
   T(4,x)
 
              8 * x^4
-             3 * x
+            -4 * x^2
+             1 * x
              1
 
   T(5,x)
 
             16 * x^5
-            -2 * x^3
-            -2 * x^2
+            -8 * x^3
+             4 * x^2
              2 * x
 
-TEST020:
+CHEBY_T_POLY_ZERO_TEST:
+  CHEBY_T_POLY_ZERO returns zeroes of T(N,X).
+
+       N      X        T(N,X)
+
+         1  6.12323e-17     6.12323e-17
+
+         2  0.707107     2.22045e-16
+         2  -0.707107    -2.22045e-16
+
+         3  0.866025     3.33067e-16
+         3  6.12323e-17    -1.83697e-16
+         3  -0.866025    -3.33067e-16
+
+         4   0.92388    -2.22045e-16
+         4  0.382683    -2.22045e-16
+         4  -0.382683     1.11022e-16
+         4  -0.92388    -2.22045e-16
+
+
+CHEBY_U_POLY_TEST:
   CHEBY_U_POLY evaluates the Chebyshev U polynomial.
-  CHEBY_U_POLY_VALUES returns some exact values.
 
      N      X        Exact F       U(N,X)
 
@@ -703,7 +661,7 @@ TEST020:
         11       0.8         1.65217         1.65217
         12       0.8         1.45333         1.45333
 
-TEST021
+CHEBY_U_POLY_COEF_TEST
   CHEBY_U_POLY_COEF determines the polynomial coefficients
   of the Chebyshev polynomial U(n,x).
 
@@ -737,7 +695,7 @@ TEST021
            -32 * x^3
              6 * x
 
-TEST0215:
+CHEBY_U_POLY_ZERO_TEST:
   CHEBY_U_POLY_ZERO returns zeroes of U(N,X).
 
        N      X        U(N,X)
@@ -757,7 +715,7 @@ TEST0215:
          4  -0.809017    -8.88178e-16
 
 
-TEST0216:
+CHEBYSHEV_DISCRETE_TEST:
   CHEBYSHEV_DISCRETE evaluates discrete Chebyshev polynomials.
 
        N      M         X        T(N,M,X)
@@ -804,7 +762,7 @@ TEST0216:
        4       5       2.5          70.875
        5       5       2.5         354.375
 
-TEST0217:
+COLLATZ_COUNT_TEST:
   COLLATZ_COUNT(N) counts the length of the
   Collatz sequence beginning with N.
 
@@ -832,7 +790,7 @@ TEST0217:
        700        83        83
        800        29        29
 
-TEST0218:
+COLLATZ_COUNT_MAX_TEST:
   COLLATZ_COUNT_MAX(N) returns the length of the
   longest Collatz sequence from 1 to N.
 
@@ -844,8 +802,8 @@ TEST0218:
      10000      6171       262
     100000     77031       351
 
-TEST024
-  COMB_ROW computes a row of Pascal's triangle.
+COMB_ROW_NEXT_TEST
+  COMB_ROW_NEXT computes the next row of Pascal's triangle.
 
    0      1
    1      1    1
@@ -859,10 +817,55 @@ TEST024
    9      1    9   36   84  126  126   84   36    9    1
   10      1   10   45  120  210  252  210  120   45   10    1
 
-TEST0243:
+COMMUL_TEST
+  COMMUL computes a multinomial coefficient.
+
+
+  N = 8
+  Number of factors = 2
+   0         6
+   1         2
+  Value of coefficient = 28
+
+  N = 8
+  Number of factors = 3
+   0         2
+   1         2
+   2         4
+  Value of coefficient = 420
+
+  N = 13
+  Number of factors = 4
+   0         5
+   1         3
+   2         3
+   3         2
+  Value of coefficient = 720720
+
+COMPLETE_SYMMETRIC_POLY_TEST
+  COMPLETE_SYMMETRIC_POLY evaluates a complete symmetric.
+  polynomial in a given set of variables X.
+
+  Variable vector X:
+
+         0:              1
+         1:              2
+         2:              3
+         3:              4
+         4:              5
+
+   N\R     0       1       2       3       4       5
+
+   0       1       0       0       0       0       0
+   1       1       1       1       1       1       1
+   2       1       3       7      15      31      63
+   3       1       6      25      90     301     966
+   4       1      10      65     350    1701    7770
+   5       1      15     140    1050    6951   42525
+
+COS_POWER_INT_TEST:
   COS_POWER_INT computes the integral of the N-th power
   of the cosine function.
-  COS_POWER_INT_VALUES returns selected values.
 
          A         B       N        Exact    Computed
 
@@ -878,65 +881,8 @@ TEST0243:
          0   3.14159       9             0   1.22465e-16
          0   3.14159      10      0.773126      0.773126
 
-TEST025:
-  ERROR_F evaluates the error function.
-  ERF_VALUES returns some exact values.
-
-     X      Exact F       ERF(X)
-
-  0.000000        0.000000        0.000000
-  0.100000        0.112463        0.112463
-  0.200000        0.222703        0.222703
-  0.300000        0.328627        0.328627
-  0.400000        0.428392        0.428392
-  0.500000        0.520500        0.520500
-  0.600000        0.603856        0.603856
-  0.700000        0.677801        0.677801
-  0.800000        0.742101        0.742101
-  0.900000        0.796908        0.796908
-  1.000000        0.842701        0.842701
-  1.100000        0.880205        0.880205
-  1.200000        0.910314        0.910314
-  1.300000        0.934008        0.934008
-  1.400000        0.952285        0.952285
-  1.500000        0.966105        0.966105
-  1.600000        0.976348        0.976348
-  1.700000        0.983790        0.983790
-  1.800000        0.989091        0.989091
-  1.900000        0.992790        0.992790
-  2.000000        0.995322        0.995322
-
-TEST0255:
-  ERROR_F_INVERSE inverts the error function.
-  ERF_VALUES returns some exact values.
-
-    FX           X1           X2
-
-  0.000000        0.000000        0.000000
-  0.112463        0.100000        0.100000
-  0.222703        0.200000        0.200000
-  0.328627        0.300000        0.300000
-  0.428392        0.400000        0.400000
-  0.520500        0.500000        0.500000
-  0.603856        0.600000        0.600000
-  0.677801        0.700000        0.700000
-  0.742101        0.800000        0.800000
-  0.796908        0.900000        0.900000
-  0.842701        1.000000        1.000000
-  0.880205        1.100000        1.100000
-  0.910314        1.200000        1.200000
-  0.934008        1.300000        1.300000
-  0.952285        1.400000        1.400000
-  0.966105        1.500000        1.500000
-  0.976348        1.600000        1.600000
-  0.983790        1.700000        1.700000
-  0.989091        1.800000        1.800000
-  0.992790        1.900000        1.900000
-  0.995322        2.000000        2.000000
-
-TEST026
+EULER_NUMBER_TEST
   EULER_NUMBER computes Euler numbers.
-  EULER_NUMBER_VALUES returns some exact values.
 
   N  exact   EULER_NUMBER
 
@@ -944,14 +890,13 @@ TEST026
      1             0             0
      2            -1            -1
      4             5             5
-     6            61           -61
+     6           -61           -61
      8          1385          1385
     10        -50521        -50521
     12       2702765       2702765
 
-TEST0265
+EULER_NUMBER2_TEST
   EULER_NUMBER2 computes Euler numbers.
-  EULER_NUMBER_VALUES returns some exact values.
 
   N  exact   EULER_NUMBER2
 
@@ -959,12 +904,12 @@ TEST0265
      1             0             0
      2            -1            -1
      4             5             5
-     6            61           -61
+     6           -61           -61
      8          1385          1385
     10        -50521        -50521
     12       2702765       2702765
 
-TEST028
+EULER_POLY_TEST
   EULER_POLY evaluates Euler polynomials.
 
   N         X              F(X)
@@ -986,7 +931,7 @@ TEST028
   14             0.5          -12168
   15             0.5     0.000218677
 
-TEST027
+EULERIAN_TEST
   EULERIAN evaluates Eulerian numbers.
 
      1       0       0       0       0       0       0  
@@ -997,7 +942,7 @@ TEST027
      1      57     302     302      57       1       0  
      1     120    1191    2416    1191     120       1  
 
-TEST029
+F_HOFSTADTER_TEST
   F_HOFSTADTER evaluates Hofstadter's recursive
   F function.
 
@@ -1035,7 +980,7 @@ TEST029
       29      15
       30      15
 
-TEST031
+FIBONACCI_DIRECT_TEST
   FIBONACCI_DIRECT evalutes a Fibonacci number directly.
 
        1           1
@@ -1059,7 +1004,7 @@ TEST031
       19        4181
       20        6765
 
-TEST032
+FIBONACCI_FLOOR_TEST
   FIBONACCI_FLOOR computes the largest Fibonacci number
   less than or equal to a given positive integer.
 
@@ -1086,7 +1031,7 @@ TEST032
       19      13       7
       20      13       7
 
-TEST033
+FIBONACCI_RECURSIVE_TEST
   FIBONACCI_RECURSIVE computes the Fibonacci sequence.
 
        0           1
@@ -1110,7 +1055,7 @@ TEST033
       18        4181
       19        6765
 
-TEST034
+G_HOFSTADTER_TEST
   G_HOFSTADTER evaluates Hofstadter's recursive
   G function.
 
@@ -1148,10 +1093,8 @@ TEST034
       29      18
       30      19
 
-TEST037
+GEGENBAUER_POLY_TEST
   GEGENBAUER_POLY evaluates the Gegenbauer polynomials.
-  GEGENBAUER_POLY_VALUES returns some exact values of
-  the Gegenbauer polynomials.
 
         N       A       X       GPV      GEGENBAUER
 
@@ -1194,7 +1137,119 @@ TEST037
        5           3         0.9         100.889         100.889
        5           3           1             252             252
 
-TEST052
+GEN_HERMITE_POLY_TEST
+  GEN_HERMITE_POLY evaluates the generalized Hermite
+  polynomials.
+
+  Table of H(N,MU)(X) for
+
+    N(max) = 10
+    MU =     0
+    X =      0
+
+       0               1
+       1               0
+       2              -2
+       3              -0
+       4              12
+       5               0
+       6            -120
+       7              -0
+       8            1680
+       9               0
+      10          -30240
+
+  Table of H(N,MU)(X) for
+
+    N(max) = 10
+    MU =     0
+    X =      1
+
+       0               1
+       1               2
+       2               2
+       3              -4
+       4             -20
+       5              -8
+       6             184
+       7             464
+       8           -1648
+       9          -10720
+      10            8224
+
+  Table of H(N,MU)(X) for
+
+    N(max) = 10
+    MU =     0.1
+    X =      0
+
+       0               1
+       1               0
+       2            -2.4
+       3              -0
+       4           15.36
+       5               0
+       6        -159.744
+       7              -0
+       8         2300.31
+       9               0
+      10        -42325.8
+
+  Table of H(N,MU)(X) for
+
+    N(max) = 10
+    MU =     0.1
+    X =      0.5
+
+       0               1
+       1               1
+       2            -1.4
+       3            -5.4
+       4            3.56
+       5           46.76
+       6           9.736
+       7        -551.384
+       8        -691.582
+       9         8130.56
+      10         20855.7
+
+  Table of H(N,MU)(X) for
+
+    N(max) = 10
+    MU =     0.5
+    X =      0.5
+
+       0               1
+       1               1
+       2              -3
+       3              -7
+       4              17
+       5              73
+       6            -131
+       7           -1007
+       8            1089
+       9           17201
+      10           -4579
+
+  Table of H(N,MU)(X) for
+
+    N(max) = 10
+    MU =     1
+    X =      0.5
+
+       0               1
+       1               1
+       2              -5
+       3              -9
+       4              41
+       5             113
+       6            -461
+       7           -1817
+       8            6481
+       9           35553
+      10         -107029
+
+GEN_LAGUERRE_POLY_TEST
   GEN_LAGUERRE_POLY evaluates the generalized Laguerre
   functions.
 
@@ -1306,9 +1361,8 @@ TEST052
        9         -1.2709
       10        -1.66028
 
-TEST038:
+GUD_TEST:
   GUD evaluates the Gudermannian function.
-  GUD_VALUES returns some exact values.
 
      X      Exact F       GUD(X)
 
@@ -1326,7 +1380,7 @@ TEST038:
          3.5     1.51042     1.51042
            4     1.53417     1.53417
 
-TEST040
+H_HOFSTADTER_TEST
   H_HOFSTADTER evaluates Hofstadter's recursive
   H function.
 
@@ -1364,7 +1418,7 @@ TEST040
       29      20
       30      20
 
-TEST039
+HAIL_TEST
   HAIL(I) computes the length of the hail sequence
   for I, also known as the 3*N+1 sequence.
 
@@ -1391,9 +1445,8 @@ TEST039
     19      20
     20       7
 
-TEST041:
-  HERMITE_POLY evaluates the Hermite polynomial.
-  HERMITE_POLY_VALUES returns some exact values.
+HERMITE_POLY_PHYS_TEST:
+  HERMITE_POLY_PHYS evaluates the physicist's Hermite polynomial.
 
      N      X        Exact F       H(N)(X)
 
@@ -1415,8 +1468,8 @@ TEST041:
          5         3            3816            3816
          5        10      3.0412e+06      3.0412e+06
 
-TEST042
-  HERMITE_POLY_COEF determines Hermite polynomial coefficients.
+HERMITE_POLY_PHYS_COEF_TEST
+  HERMITE_POLY_PHYS_COEF determines physicist's Hermite polynomial coefficients.
 
   H(0)
 
@@ -1457,7 +1510,7 @@ TEST042
            120 * x
              0
 
-TEST0427
+I4_CHOOSE_TEST
   I4_CHOOSE evaluates C(N,K).
 
    N     K    CNK
@@ -1478,9 +1531,25 @@ TEST0427
        4       3       4
        4       4       1
 
-TEST043:
+I4_FACTOR_TEST:
+  I4_FACTOR tries to factor an I4
+
+  Factors of N = 60
+    2^2
+    3^1
+    5^1
+
+  Factors of N = 664048
+    2^4
+    7^3
+    11^2
+
+  Factors of N = 8466763
+    2699^1
+    3137^1
+
+I4_FACTORIAL_TEST:
   I4_FACTORIAL evaluates the factorial function.
-  I4_FACTORIAL_VALUES returns some exact values.
 
      X       Exact F       I4_FACTORIAL(X)
 
@@ -1498,7 +1567,7 @@ TEST043:
     11      39916800      39916800
     12     479001600     479001600
 
-TEST044:
+I4_FACTORIAL2_TEST:
   I4_FACTORIAL2 evaluates the double factorial function.
 
    N   Exact  I4_FACTORIAL2(N)
@@ -1520,39 +1589,38 @@ TEST044:
     14    645120    645120
     15   2027025   2027025
 
-TEST045:
-  For the number of partitions of an integer,
-  PARTITION_COUNT_VALUES returns some exact values.
+I4_IS_TRIANGULAR_TEST
+  I4_IS_TRIANGULAR returns 0 or 1 depending on
+  whether I is triangular.
 
-     N       Exact F
+   I  =>   0/1
 
-           0           1
-           1           1
-           2           2
-           3           3
-           4           5
-           5           7
-           6          11
-           7          15
-           8          22
-           9          30
-          10          42
-          11          56
-          12          77
-          13         101
-          14         135
-          15         176
-          16         231
-          17         297
-          18         385
-          19         490
-          20         627
+     0  1
+     1  0
+     2  1
+     3  0
+     4  0
+     5  1
+     6  0
+     7  0
+     8  0
+     9  1
+    10  0
+    11  0
+    12  0
+    13  0
+    14  1
+    15  0
+    16  0
+    17  0
+    18  0
+    19  0
+    20  1
 
-TEST046:
+I4_PARTITION_DISTINCT_COUNT_TEST:
   For the number of partitions of an integer
   into distinct parts,
   I4_PARTITION_DISTINCT_COUNT computes any value.
-  PARTITION_DISTINCT_COUNT_VALUES returns some exact values.
 
      N       Exact F    Q(N)
 
@@ -1578,50 +1646,36 @@ TEST046:
           19          54          22
           20          64          76
 
-TEST047
-  I4_POCHHAMMER evaluates the integer Pochhammer function.
-
-   I   J   I4_Pochhammer(I,J)
-
-     3     3     3
-     3     4    12
-     3     5    60
-
-TEST048
+I4_TO_TRIANGLE_TEST
   I4_TO_TRIANGLE converts a linear index to a
   triangular one.
-  TRIANGLE_TO_I4 converts a triangular index to a
-  linear one.
-  I4_IS_TRIANGULAR returns 0 or 1 depending on
-  whether I is triangular.
 
-   I  =>   J   K  =>   I   0/1
+     K  =>   I     J
 
-     0     0     0     0  1
-     1     1     0     1  0
-     2     1     1     2  1
-     3     2     0     3  0
-     4     2     1     4  0
-     5     2     2     5  1
-     6     3     0     6  0
-     7     3     1     7  0
-     8     3     2     8  0
-     9     3     3     9  1
-    10     4     0    10  0
-    11     4     1    11  0
-    12     4     2    12  0
-    13     4     3    13  0
-    14     4     4    14  1
-    15     5     0    15  0
-    16     5     1    16  0
-    17     5     2    17  0
-    18     5     3    18  0
-    19     5     4    19  0
-    20     5     5    20  1
+     0       0     0
+     1       1     0
+     2       1     1
+     3       2     0
+     4       2     1
+     5       2     2
+     6       3     0
+     7       3     1
+     8       3     2
+     9       3     3
+    10       4     0
+    11       4     1
+    12       4     2
+    13       4     3
+    14       4     4
+    15       5     0
+    16       5     1
+    17       5     2
+    18       5     3
+    19       5     4
+    20       5     5
 
-TEST049:
+JACOBI_POLY_TEST:
   JACOBI_POLY computes values of the Jacobi polynomial..
-  JACOBI_POLY_VALUES returns values of the Jacobi polynomial
 
        N       A       B      X       JPV      JACOBI
 
@@ -1652,7 +1706,7 @@ TEST049:
          5  0.000000  1.000000      0.8000       -0.439620       -0.439620
          5  0.000000  1.000000      1.0000        1.000000        1.000000
 
-TEST050
+JACOBI_SYMBOL_TEST
   JACOBI_SYMBOL computes the Jacobi symbol
   (Q/P), which records if Q is a quadratic
   residue modulo the number P.
@@ -1707,7 +1761,7 @@ Jacobi Symbols for P = 12
         12        11        -1
         12        12         0
 
-TEST0505:
+KRAWTCHOUK_TEST:
   KRAWTCHOUK evaluates Krawtchouk polynomials.
 
         N         P         X          M      K(N,P,X,M)
@@ -1799,7 +1853,7 @@ TEST0505:
          4       0.5       2.5         5        0.117188
          5       0.5       2.5         5               0
 
-TEST051
+LAGUERRE_ASSOCIATED_TEST
   LAGUERRE_ASSOCIATED evaluates the associated Laguerre
   polynomials.
 
@@ -1887,9 +1941,8 @@ TEST051
        5        0.702865
        6         0.19872
 
-TEST054:
+LAGUERRE_POLY_TEST:
   LAGUERRE_POLY evaluates the Laguerre polynomial.
-  LAGUERRE_POLYNOMIAL_VALUES returns some exact values.
 
      N      X        Exact F       L(N,X)
 
@@ -1911,7 +1964,7 @@ TEST054:
          5         5        -3.16667        -3.16667
          5        10         34.3333         34.3333
 
-TEST055
+LAGUERRE_POLY_COEF_TEST
   LAGUERRE_POLY_COEF determines Laguerre 
   polynomial coefficients.
 
@@ -1993,9 +2046,79 @@ TEST055
             -5 * x
              1
 
-TEST057:
+LEGENDRE_ASSOCIATED_TEST:
+  LEGENDRE_ASSOCIATED evaluates associated Legendre functions.
+
+      N       M    X     Exact F     PNM(X)
+
+         1         0  0.000000        0.000000        0.000000
+         1         0  0.500000        0.500000        0.500000
+         1         0  0.707107        0.707107        0.707107
+         1         0  1.000000        1.000000        1.000000
+         1         1  0.500000       -0.866025       -0.866025
+         2         0  0.500000       -0.125000       -0.125000
+         2         1  0.500000       -1.299040       -1.299038
+         2         2  0.500000        2.250000        2.250000
+         3         0  0.500000       -0.437500       -0.437500
+         3         1  0.500000       -0.324759       -0.324760
+         3         2  0.500000        5.625000        5.625000
+         3         3  0.500000       -9.742780       -9.742786
+         4         2  0.500000        4.218750        4.218750
+         5         2  0.500000       -4.921870       -4.921875
+         6         3  0.500000       12.787400       12.787406
+         7         3  0.500000      116.685000      116.685083
+         8         4  0.500000    -1050.670000    -1050.666504
+         9         4  0.500000    -2078.490000    -2078.492432
+        10         5  0.500000    30086.200000    30086.169706
+
+LEGENDRE_ASSOCIATED_NORMALIZED_TEST:
+  LEGENDRE_ASSOCIATED_NORMALIZED evaluates 
+  normalized associated Legendre functions.
+
+      N       M    X     Exact F     PNM(X)
+
+         0         0  0.500000        0.282095        0.282095
+         1         0  0.500000        0.244301        0.244301
+         1         1  0.500000       -0.299207       -0.299207
+         2         0  0.500000       -0.078848       -0.078848
+         2         1  0.500000       -0.334523       -0.334523
+         2         2  0.500000        0.289706        0.289706
+         3         0  0.500000       -0.326529       -0.326529
+         3         1  0.500000       -0.069971       -0.069971
+         3         2  0.500000        0.383245        0.383245
+         3         3  0.500000       -0.270995       -0.270995
+         4         0  0.500000       -0.244629       -0.244629
+         4         1  0.500000        0.256066        0.256066
+         4         2  0.500000        0.188169        0.188169
+         4         3  0.500000       -0.406492       -0.406492
+         4         4  0.500000        0.248925        0.248925
+         5         0  0.500000        0.084058        0.084058
+         5         1  0.500000        0.329379        0.329379
+         5         2  0.500000       -0.158885       -0.158885
+         5         3  0.500000       -0.280871       -0.280871
+         5         4  0.500000        0.412795        0.412795
+         5         5  0.500000       -0.226097       -0.226097
+
+LEGENDRE_FUNCTION_Q_TEST:
+  LEGENDRE_FUNCTION_Q evaluates the Legendre Q function.
+
+     N      X        Exact F       Q(N,X)
+
+         0         0               0               0
+         1         0              -1              -1
+         2         0               0              -0
+         3         0        0.666667        0.666667
+         9         0       -0.406349       -0.406349
+        10         0               0              -0
+         0       0.5        0.549306        0.549306
+         1       0.5       -0.725347       -0.725347
+         2       0.5       -0.818663       -0.818663
+         3       0.5       -0.198655       -0.198655
+         9       0.5       -0.116163       -0.116163
+        10       0.5        0.291658        0.291658
+
+LEGENDRE_POLY_TEST:
   LEGENDRE_POLY evaluates the Legendre PN function.
-  LEGENDRE_POLY_VALUES returns some exact values.
 
      N      X        Exact F       P(N,X)
 
@@ -2022,7 +2145,7 @@ TEST057:
          3       0.9          0.4725          0.4725
          3         1               1               1
 
-TEST58
+LEGENDRE_POLY_COEF_TEST
   LEGENDRE_POLY_COEF determines the Legendre P 
   polynomial coefficients.
 
@@ -2065,81 +2188,7 @@ TEST58
          1.875 * x
              0
 
-TEST059:
-  LEGENDRE_ASSOCIATED evaluates associated Legendre functions.
-  LEGENDRE_ASSOCIATED_VALUES returns some exact values.
-
-      N       M    X     Exact F     PNM(X)
-
-         1         0  0.000000        0.000000        0.000000
-         1         0  0.500000        0.500000        0.500000
-         1         0  0.707107        0.707107        0.707107
-         1         0  1.000000        1.000000        1.000000
-         1         1  0.500000       -0.866025       -0.866025
-         2         0  0.500000       -0.125000       -0.125000
-         2         1  0.500000       -1.299040       -1.299038
-         2         2  0.500000        2.250000        2.250000
-         3         0  0.500000       -0.437500       -0.437500
-         3         1  0.500000       -0.324759       -0.324760
-         3         2  0.500000        5.625000        5.625000
-         3         3  0.500000       -9.742780       -9.742786
-         4         2  0.500000        4.218750        4.218750
-         5         2  0.500000       -4.921870       -4.921875
-         6         3  0.500000       12.787400       12.787406
-         7         3  0.500000      116.685000      116.685083
-         8         4  0.500000    -1050.670000    -1050.666504
-         9         4  0.500000    -2078.490000    -2078.492432
-        10         5  0.500000    30086.200000    30086.169706
-
-TEST0595:
-  LEGENDRE_ASSOCIATED_NORMALIZED evaluates 
-  normalized associated Legendre functions.
-  LEGENDRE_ASSOCIATED_NORMALIZED_VALUES returns some exact values.
-
-      N       M    X     Exact F     PNM(X)
-
-         0         0  0.500000        0.282095        0.282095
-         1         0  0.500000        0.244301        0.244301
-         1         1  0.500000       -0.299207       -0.299207
-         2         0  0.500000       -0.078848       -0.078848
-         2         1  0.500000       -0.334523       -0.334523
-         2         2  0.500000        0.289706        0.289706
-         3         0  0.500000       -0.326529       -0.326529
-         3         1  0.500000       -0.069971       -0.069971
-         3         2  0.500000        0.383245        0.383245
-         3         3  0.500000       -0.270995       -0.270995
-         4         0  0.500000       -0.244629       -0.244629
-         4         1  0.500000        0.256066        0.256066
-         4         2  0.500000        0.188169        0.188169
-         4         3  0.500000       -0.406492       -0.406492
-         4         4  0.500000        0.248925        0.248925
-         5         0  0.500000        0.084058        0.084058
-         5         1  0.500000        0.329379        0.329379
-         5         2  0.500000       -0.158885       -0.158885
-         5         3  0.500000       -0.280871       -0.280871
-         5         4  0.500000        0.412795        0.412795
-         5         5  0.500000       -0.226097       -0.226097
-
-TEST060:
-  LEGENDRE_FUNCTION_Q evaluates the Legendre Q function.
-  LEGENDRE_FUNCTION_Q_VALUES returns some exact values.
-
-     N      X        Exact F       Q(N,X)
-
-         0         0               0               0
-         1         0              -1              -1
-         2         0               0              -0
-         3         0        0.666667        0.666667
-         9         0       -0.406349       -0.406349
-        10         0               0              -0
-         0       0.5        0.549306        0.549306
-         1       0.5       -0.725347       -0.725347
-         2       0.5       -0.818663       -0.818663
-         3       0.5       -0.198655       -0.198655
-         9       0.5       -0.116163       -0.116163
-        10       0.5        0.291658        0.291658
-
-TEST061
+LEGENDRE_SYMBOL_TEST
   LEGENDRE_SYMBOL computes the Legendre
   symbol (Q/P) which records whether Q is 
   a quadratic residue modulo the prime P.
@@ -2208,9 +2257,8 @@ TEST061
         17        16         1
         17        17         0
 
-TEST0615:
+LERCH_TEST:
   LERCH evaluates the Lerch function.
-  LERCH_VALUES returns some tabulated values.
 
        Z       S       A         Lerch           Lerch
                              Tabulated        Computed
@@ -2228,10 +2276,9 @@ TEST0615:
        0.1     3         3       0.0386845       0.0386845
        0.1    10         3     1.70315e-05     1.70315e-05
 
-TEST0365:
+LGAMMA_TEST:
   LGAMMA is a C math library function which evaluates
   the logarithm of the Gamma function.
-  GAMMA_LOG_VALUES returns some exact values.
 
      X       Exact F       LGAMMA(X)
 
@@ -2256,7 +2303,7 @@ TEST0365:
         20     39.3399     39.3399
         30      71.257      71.257
 
-TEST062
+LOCK_TEST
   LOCK counts the combinations on a button lock.
 
      I      LOCK(I)
@@ -2273,7 +2320,7 @@ TEST062
      9     7087261
     10   102247563
 
-TEST0623:
+MEIXNER_TEST:
   MEIXNER evaluates Meixner polynomials.
 
        N      BETA         C         X        M(N,BETA,C,X)
@@ -2404,9 +2451,8 @@ TEST0623:
          4         2       0.5       2.5        0.113086
          5         2       0.5       2.5        0.225562
 
-TEST0625
+MERTENS_TEST
   MERTENS computes the Mertens function.
-  MERTENS_VALUES returns some exact values.
 
       N   Exact   MERTENS(N)
 
@@ -2426,9 +2472,8 @@ TEST0625
       1000           2           2
      10000         -23         -23
 
-TEST063
+MOEBIUS_TEST
   MOEBIUS computes the Moebius function.
-  MOEBIUS_VALUES returns some exact values.
 
       N   Exact   MOEBIUS(N)
 
@@ -2453,7 +2498,7 @@ TEST063
         19          -1          -1
         20           0           0
 
-TEST0635
+MOTKIN_TEST
   MOTZKIN computes the Motzkin numbers A(0:N).
   A(N) counts the paths from (0,0) to (N,0).
 
@@ -2471,9 +2516,31 @@ TEST0635
      9         835
     10        2188
 
-TEST064
+NORMAL_01_CDF_INVERSE_TEST:
+  NORMAL_01_CDF_INVERSE inverts the Normal 01 CDF.
+
+    FX           X1           X2
+
+  0.500000        0.000000        0.000000
+  0.539828        0.100000        0.100000
+  0.579260        0.200000        0.200000
+  0.617911        0.300000        0.300000
+  0.655422        0.400000        0.400000
+  0.691462        0.500000        0.500000
+  0.725747        0.600000        0.600000
+  0.758036        0.700000        0.700000
+  0.788145        0.800000        0.800000
+  0.815940        0.900000        0.900000
+  0.841345        1.000000        1.000000
+  0.933193        1.500000        1.500000
+  0.977250        2.000000        2.000000
+  0.993790        2.500000        2.500000
+  0.998650        3.000000        3.000000
+  0.999767        3.500000        3.500000
+  0.999968        4.000000        4.000000
+
+OMEGA_TEST
   OMEGA computes the OMEGA function.
-  OMEGA_VALUES returns some exact values.
 
           N   Exact   OMEGA(N)
 
@@ -2501,7 +2568,7 @@ TEST064
         510510           7           7
        9699690           8           8
 
-TEST065
+PENTAGON_NUM_TEST
   PENTAGON_NUM computes the pentagonal numbers.
 
      1       1
@@ -2515,9 +2582,8 @@ TEST065
      9     117
     10     145
 
-TEST066
+PHI_TEST
   PHI computes the PHI function.
-  PHI_VALUES returns some exact values.
 
   N   Exact   PHI(N)
 
@@ -2542,7 +2608,22 @@ TEST066
    750         200         200
    999         648         648
 
-TEST0665
+PLANE_PARTITION_NUM_TEST
+  PLANE_PARTITION_NUM counts the number of plane
+  partitions of an integer.
+
+     1       1
+     2       3
+     3       6
+     4      13
+     5      24
+     6      48
+     7      86
+     8     160
+     9     282
+    10     500
+
+POLY_BERNOULLI_TEST
   POLY_BERNOULLI computes the poly-Bernoulli numbers
   of negative index, B_n^(-k)
 
@@ -2605,7 +2686,7 @@ TEST0665
    5   6       2441314
    6   6      22934774
 
-TEST0667
+POLY_COEF_COUNT_TEST
   POLY_COEF_COUNT counts the number of coefficients
   in a polynomial of degree DEGREE and dimension DIM.
 
@@ -2639,7 +2720,37 @@ TEST0667
         10         4      1001
         10         5      3003
 
-TEST067
+PRIME_TEST
+  PRIME returns primes from a table.
+
+  Number of primes stored is 1600
+
+     I    Prime(I)
+
+     1       2
+     2       3
+     3       5
+     4       7
+     5      11
+     6      13
+     7      17
+     8      19
+     9      23
+    10      29
+
+  1590   13411
+  1591   13417
+  1592   13421
+  1593   13441
+  1594   13451
+  1595   13457
+  1596   13463
+  1597   13469
+  1598   13477
+  1599   13487
+  1600   13499
+
+PYRAMID_NUM_TEST
   PYRAMID_NUM computes the pyramidal numbers.
 
      1       1
@@ -2653,62 +2764,65 @@ TEST067
      9     165
     10     220
 
-TEST0675
-  R8_ACOSH computes the inverse hyperbolic cosine
-  of a given value.
+PYRAMID_SQUARE_NUM_TEST
+  PYRAMID_SQARE_NUM computes the pyramidal square numbers.
 
-         X  R8_ACOSH(X)      COSH(R8_ACOSH(X))
+     1       1
+     2       5
+     3      14
+     4      30
+     5      55
+     6      91
+     7     140
+     8     204
+     9     285
+    10     385
 
-           1           0           1
-         1.2    0.622363         1.2
-         1.4    0.867015         1.4
-         1.6     1.04697         1.6
-         1.8     1.19291         1.8
-           2     1.31696           2
-         2.2     1.42542         2.2
-         2.4     1.52208         2.4
-         2.6     1.60944         2.6
-         2.8     1.68924         2.8
-           3     1.76275           3
+R8_AGM_TEST
+  R8_AGM computes the arithmetic geometric mean.
 
-TEST0676
-  R8_ASINH computes the inverse hyperbolic sine
-  of a given value.
+      A           B             AGM                       AGM                   Diff                               (Tabulated)             R8_AGM(A,B)
 
-         X     R8_ASINH(X)     SINH(R8_ASINH(X))
+   22.000000   96.000000       52.2746411987042379       52.2746411987042450  7.105427e-15
+   83.000000   56.000000       68.8365300598585179       68.8365300598585179  0.000000e+00
+   42.000000    7.000000       20.6593011967340097       20.6593011967340061  3.552714e-15
+   26.000000   11.000000       17.6968548737436500       17.6968548737436677  1.776357e-14
+    4.000000   63.000000       23.8670497217533004       23.8670497217533040  3.552714e-15
+    6.000000   45.000000       20.7170159828059930       20.7170159828059894  3.552714e-15
+   40.000000   75.000000       56.1278422556166845       56.1278422556166845  0.000000e+00
+   80.000000    0.000000        0.0000000000000000        0.0000000000000000  0.000000e+00
+   90.000000   35.000000       59.2695650812296364       59.2695650812298851  2.486900e-13
+    9.000000    1.000000        3.9362355036495553        3.9362355036495558  4.440892e-16
+   53.000000   53.000000       53.0000000000000000       53.0000000000000000  0.000000e+00
+    1.000000    2.000000        1.4567910310469068        1.4567910310469068  0.000000e+00
+    1.000000    4.000000        2.2430285802876027        2.2430285802876027  0.000000e+00
+    1.000000    8.000000        3.6157561775973628        3.6157561775973628  0.000000e+00
+    1.500000    8.000000        4.0816924080221630        4.0816924080221630  0.000000e+00
 
-    1.000000    0.881374    1.000000
-    1.200000    1.015973    1.200000
-    1.400000    1.137982    1.400000
-    1.600000    1.248983    1.600000
-    1.800000    1.350441    1.800000
-    2.000000    1.443635    2.000000
-    2.200000    1.529660    2.200000
-    2.400000    1.609438    2.400000
-    2.600000    1.683743    2.600000
-    2.800000    1.753229    2.800000
-    3.000000    1.818446    3.000000
+R8_BETA_TEST:
+  R8_BETA evaluates the Beta function.
 
-TEST06765
-  R8_ATANH computes the inverse hyperbolic tangent
-  of a given value.
+     X      Y        Exact F       R8_BETA(X,Y)
 
-         X     R8_ATANH(X)     TANH(R8_ATANH(X))
+    0.200000    1.000000           5           5
+    0.400000    1.000000         2.5         2.5
+    0.600000    1.000000     1.66667     1.66667
+    0.800000    1.000000        1.25        1.25
+    1.000000    0.200000           5           5
+    1.000000    0.400000         2.5         2.5
+    1.000000    1.000000           1           1
+    2.000000    2.000000    0.166667    0.166667
+    3.000000    3.000000   0.0333333   0.0333333
+    4.000000    4.000000  0.00714286  0.00714286
+    5.000000    5.000000   0.0015873   0.0015873
+    6.000000    2.000000   0.0238095   0.0238095
+    6.000000    3.000000  0.00595238  0.00595238
+    6.000000    4.000000  0.00198413  0.00198413
+    6.000000    5.000000  0.000793651  0.000793651
+    6.000000    6.000000  0.00036075  0.00036075
+    7.000000    7.000000  8.32501e-05  8.32501e-05
 
-            -0.2       -0.202733            -0.2
-            -0.1       -0.100335            -0.1
-               0               0               0
-             0.1        0.100335             0.1
-             0.2        0.202733             0.2
-             0.3         0.30952             0.3
-             0.4        0.423649             0.4
-             0.5        0.549306             0.5
-             0.6        0.693147             0.6
-             0.7        0.867301             0.7
-             0.8         1.09861             0.8
-             0.9         1.47222             0.9
-
-TEST022
+R8_CHOOSE_TEST
   R8_CHOOSE evaluates C(N,K) using real arithmetic.
 
        N       K          CNK
@@ -2729,9 +2843,94 @@ TEST022
        4       3           4
        4       4           1
 
-TEST068:
+R8_ERF_TEST:
+  R8_ERF evaluates the error function.
+
+     X      Exact F       R8_ERF(X)
+
+  0.000000        0.000000        0.000000
+  0.100000        0.112463        0.112463
+  0.200000        0.222703        0.222703
+  0.300000        0.328627        0.328627
+  0.400000        0.428392        0.428392
+  0.500000        0.520500        0.520500
+  0.600000        0.603856        0.603856
+  0.700000        0.677801        0.677801
+  0.800000        0.742101        0.742101
+  0.900000        0.796908        0.796908
+  1.000000        0.842701        0.842701
+  1.100000        0.880205        0.880205
+  1.200000        0.910314        0.910314
+  1.300000        0.934008        0.934008
+  1.400000        0.952285        0.952285
+  1.500000        0.966105        0.966105
+  1.600000        0.976348        0.976348
+  1.700000        0.983790        0.983790
+  1.800000        0.989091        0.989091
+  1.900000        0.992790        0.992790
+  2.000000        0.995322        0.995322
+
+R8_ERF_INVERSE_TEST:
+  R8_ERF_INVERSE inverts the error function.
+
+    FX           X1           X2
+
+  0.000000        0.000000        0.000000
+  0.112463        0.100000        0.100000
+  0.222703        0.200000        0.200000
+  0.328627        0.300000        0.300000
+  0.428392        0.400000        0.400000
+  0.520500        0.500000        0.500000
+  0.603856        0.600000        0.600000
+  0.677801        0.700000        0.700000
+  0.742101        0.800000        0.800000
+  0.796908        0.900000        0.900000
+  0.842701        1.000000        1.000000
+  0.880205        1.100000        1.100000
+  0.910314        1.200000        1.200000
+  0.934008        1.300000        1.300000
+  0.952285        1.400000        1.400000
+  0.966105        1.500000        1.500000
+  0.976348        1.600000        1.600000
+  0.983790        1.700000        1.700000
+  0.989091        1.800000        1.800000
+  0.992790        1.900000        1.900000
+  0.995322        2.000000        2.000000
+
+R8_EULER_CONSTANT_TEST:
+  R8_EULER_CONSTANT returns the Euler-Mascheroni constant
+  sometimes denoted by 'gamma'.
+
+  gamma = limit ( N -> oo ) ( sum ( 1 <= I <= N ) 1 / I ) - log ( N )
+
+  Numerically, g = 0.577216
+
+         N      Partial Sum    |gamma - partial sum|
+
+         1               1        0.422784
+         2        0.806853        0.229637
+         4        0.697039        0.119823
+         8        0.638416       0.0611999
+        16         0.60814       0.0309246
+        32        0.592759       0.0155436
+        64        0.585008      0.00779216
+       128        0.581117      0.00390116
+       256        0.579168      0.00195185
+       512        0.578192     0.000976245
+      1024        0.577704     0.000488202
+      2048         0.57746     0.000244121
+      4096        0.577338     0.000122065
+      8192        0.577277     6.10339e-05
+     16384        0.577246     3.05173e-05
+     32768        0.577231     1.52587e-05
+     65536        0.577223     7.62938e-06
+    131072        0.577219     3.81469e-06
+    262144        0.577218     1.90735e-06
+    524288        0.577217     9.53674e-07
+   1048576        0.577216     4.76837e-07
+
+R8_FACTORIAL_TEST:
   R8_FACTORIAL evaluates the factorial function.
-  R8_FACTORIAL_VALUES returns some exact values.
 
      N       Exact F       R8_FACTORIAL(N)
 
@@ -2761,10 +2960,9 @@ TEST068:
    100    9.33262e+157    9.33262e+157
    150    5.71338e+262    5.71338e+262
 
-TEST0685:
+R8_FACTORIAL_LOG_TEST:
   R8_FACTORIAL_LOG evaluates the logarithm of the
   factorial function.
-  R8_FACTORIAL_LOG_VALUES returns some exact values.
 
      N	   Exact F	 R8_FACTORIAL_LOG(N)
 
@@ -2796,69 +2994,8 @@ TEST0685:
     500         2611.33         2611.33
    1000         5912.13         5912.13
 
-TEST06855:
-  R8_GAMMA evaluates the Gamma function.
-  GAMMA is a C MATH routine for the Gamma function.
-  GAMMA_VALUES returns some exact values.
-
-         X                  Gamma(X)                  Gamma(X)                  Gamma(X)
-                         (Tabulated)                (R8_GAMMA)                (GAMMA)
-
-  -3.54491        -3.544907701811032        -3.544907701811032                       0.5
-  -100.587        -100.5871979644108        -100.5871979644108                      0.01
-   99.4326          99.4325851191506          99.4325851191506        0.9189385332046728
-   9.51351         9.513507698668731         9.513507698668731        0.9189385332046728
-   4.59084         4.590843711998803         4.590843711998803        0.9189385332046728
-   2.21816         2.218159543757688         2.218159543757688        0.9189385332046728
-   1.77245         1.772453850905516         1.772453850905516        0.9189385332046728
-   1.48919         1.489192248812817         1.489192248812817        0.9189385332046728
-   1.16423         1.164229713725303         1.164229713725303        0.9189385332046728
-         1                         1                         1        0.9189385332046728
-  0.951351        0.9513507698668732        0.9513507698668732        0.9189385332046728
-  0.918169        0.9181687423997607        0.9181687423997607        0.9189385332046728
-  0.897471        0.8974706963062772        0.8974706963062772        0.9189385332046728
-  0.887264        0.8872638175030754        0.8872638175030754        0.9189385332046728
-  0.886227        0.8862269254527581        0.8862269254527581        0.9189385332046728
-  0.893515        0.8935153492876903        0.8935153492876903        0.9189385332046728
-  0.908639        0.9086387328532904        0.9086387328532904        0.9189385332046728
-  0.931384        0.9313837709802427        0.9313837709802427        0.9189385332046728
-  0.961766        0.9617658319073874        0.9617658319073874        0.9189385332046728
-         1                         1                         1        0.9189385332046728
-         2                         2                         2        0.9189385332046728
-         6                         6                         6        0.9189385332046728
-    362880                    362880                    362880        0.9189385332046728
-  1.21645e+17     1.216451004088321e+17     1.216451004088321e+17        0.9189385332046728
-  8.84176e+30     8.841761993739751e+30     8.841761993739751e+30        0.9189385332046728
-
-TEST036:
-  R8_GAMMA_LOG evaluates the logarithm of the Gamma function.
-  GAMMA_LOG_VALUES returns some exact values.
-
-     X       Exact F       R8_GAMMA_LOG(X)
-
-       0.2     1.52406     1.52406
-       0.4    0.796678    0.796678
-       0.6    0.398234    0.398234
-       0.8     0.15206     0.15206
-         1           0           0
-       1.1  -0.0498724  -0.0498724
-       1.2  -0.0853741  -0.0853741
-       1.3   -0.108175   -0.108175
-       1.4   -0.119613   -0.119613
-       1.5   -0.120782   -0.120782
-       1.6   -0.112592   -0.112592
-       1.7  -0.0958077  -0.0958077
-       1.8  -0.0710839  -0.0710839
-       1.9  -0.0389843  -0.0389843
-         2           0           0
-         3    0.693147    0.693147
-         4     1.79176     1.79176
-        10     12.8018     12.8018
-        20     39.3399     39.3399
-        30      71.257      71.257
-
- TEST0425:
-   R8_HYPER_2F1 evaluates the hypergeometric function 2F1.
+R8_HYPER_2F1_TEST:
+  R8_HYPER_2F1 evaluates the hypergeometric function 2F1.
 
       A       B       C       X       2F1                       2F1                     DIFF
                                      (tabulated)               (computed)
@@ -2871,10 +3008,10 @@ TEST036:
   -0.500000  1.100000  6.700000  0.550000        0.9529619497744632        0.9529619497744636   3.331e-16
   0.500000  1.100000  6.700000  0.550000         1.051281421394799         1.051281421394798   8.882e-16
   2.500000  3.300000  6.700000  0.550000         2.399906290477786         2.399906290477784   1.776e-15
-  -2.500000  3.300000  6.700000  0.850000        0.2910609592841472        0.2910609592841474    2.22e-16
-  -0.500000  1.100000  6.700000  0.850000        0.9253696791037318        0.9253696791037318           0
-  0.500000  1.100000  6.700000  0.850000           1.0865504094807           1.0865504094807           0
-  2.500000  3.300000  6.700000  0.850000         5.738156552618904         5.738156552619301    3.97e-13
+  -2.500000  3.300000  6.700000  0.850000        0.2910609592841472        0.2910609592841471   5.551e-17
+  -0.500000  1.100000  6.700000  0.850000        0.9253696791037318        0.9253696791037308   9.992e-16
+  0.500000  1.100000  6.700000  0.850000           1.0865504094807         1.086550409480699   8.882e-16
+  2.500000  3.300000  6.700000  0.850000         5.738156552618904         5.738156552619273   3.686e-13
   3.300000  6.700000  -5.500000  0.250000         15090.66974870461          15090.6697487046   1.091e-11
   1.100000  6.700000  -0.500000  0.250000        -104.3117006736435        -104.3117006736435   2.842e-14
   1.100000  6.700000  0.500000  0.250000         21.17505070776881          21.1750507077688   1.066e-14
@@ -2883,14 +3020,13 @@ TEST036:
   1.100000  6.700000  -0.500000  0.550000        -24708.63532248916        -24708.63532248914   1.819e-11
   1.100000  6.700000  0.500000  0.550000         1372.230454838499         1372.230454838497   2.274e-12
   3.300000  6.700000  4.500000  0.550000         58.09272870639465         58.09272870639462   2.842e-14
-  3.300000  6.700000  -5.500000  0.850000     5.868208761512417e+18      5.86820876151238e+18   3.686e+04
-  1.100000  6.700000  -0.500000  0.850000          -446350101.47296        -446350101.4729605   4.768e-07
-  1.100000  6.700000  0.500000  0.850000         5383505.756129573         5383505.756129581   8.382e-09
-  3.300000  6.700000  4.500000  0.850000         20396.91377601966         20396.91377601965   1.455e-11
+  3.300000  6.700000  -5.500000  0.850000     5.868208761512417e+18     5.868208761512401e+18   1.638e+04
+  1.100000  6.700000  -0.500000  0.850000          -446350101.47296        -446350101.4729614   1.431e-06
+  1.100000  6.700000  0.500000  0.850000         5383505.756129573         5383505.756129585   1.211e-08
+  3.300000  6.700000  4.500000  0.850000         20396.91377601966         20396.91377601966   3.638e-12
 
-TEST06856:
+R8_PSI_TEST:
   R8_PSI evaluates the Psi function.
-  PSI_VALUES returns some exact values.
 
          X                  Psi(X)                    Psi(X)          DIFF
                          (Tabulated)                (R8_PSI)
@@ -2907,9 +3043,85 @@ TEST06856:
        1.9        0.3561841611640597        0.3561841611640596    1.11e-16
          2        0.4227843350984671        0.4227843350984672    1.11e-16
 
-TEST069
+R8POLY_DEGREE_TEST
+  R8POLY_DEGREE determines the degree of an R8POLY.
+
+  The R8POLY:
+
+  p(x) =  4.000000 * x^3
+         +3.000000 * x^2
+         +2.000000 * x
+         +1.000000
+  Dimensioned degree = 3,  Actual degree = 3
+
+  The R8POLY:
+
+  p(x) =  3.000000 * x^2
+         +2.000000 * x
+         +1.000000
+  Dimensioned degree = 3,  Actual degree = 2
+
+  The R8POLY:
+
+  p(x) =  4.000000 * x^3
+         +2.000000 * x
+         +1.000000
+  Dimensioned degree = 3,  Actual degree = 3
+
+  The R8POLY:
+
+  p(x) =  1.000000
+  Dimensioned degree = 3,  Actual degree = 0
+
+  The R8POLY:
+
+  p(x) =  0.000000
+  Dimensioned degree = 3,  Actual degree = 0
+
+R8POLY_PRINT_TEST
+  R8POLY_PRINT prints an R8POLY.
+
+  The R8POLY:
+
+  p(x) =  9.000000 * x^5
+         +0.780000 * x^4
+         +56.000000 * x^2
+         -3.400000 * x
+         +2.000000
+
+R8POLY_VALUE_HORNER_TEST
+  R8POLY_VALUE_HORNER evaluates a polynomial at
+  one point, using Horner's method.
+
+  The polynomial coefficients:
+
+  p(x) =  1.000000 * x^4
+         -10.000000 * x^3
+         +35.000000 * x^2
+         -50.000000 * x
+         +24.000000
+
+   I    X    P(X)
+
+   0    0.0000              24
+   1    0.3333         10.8642
+   2    0.6667         3.45679
+   3    1.0000               0
+   4    1.3333       -0.987654
+   5    1.6667       -0.691358
+   6    2.0000               0
+   7    2.3333        0.493827
+   8    2.6667        0.493827
+   9    3.0000               0
+  10    3.3333       -0.691358
+  11    3.6667       -0.987654
+  12    4.0000               0
+  13    4.3333         3.45679
+  14    4.6667         10.8642
+  15    5.0000              24
+
+SIGMA_TEST
   SIGMA computes the SIGMA function.
-  SIGMA_VALUES returns some exact values.
 
   N   Exact   SIGMA(N)
 
@@ -2934,10 +3146,27 @@ TEST069
    816        2232        2232
   1000        2340        2340
 
-TEST0695:
+SIMPLEX_NUM_TEST
+  SIMPLEX_NUM computes the N-th simplex number
+  in M dimensions.
+
+      M: 0     1     2     3     4     5
+   N
+   0     1     0     0     0     0     0
+   1     1     1     1     1     1     1
+   2     1     2     3     4     5     6
+   3     1     3     6    10    15    21
+   4     1     4    10    20    35    56
+   5     1     5    15    35    70   126
+   6     1     6    21    56   126   252
+   7     1     7    28    84   210   462
+   8     1     8    36   120   330   792
+   9     1     9    45   165   495  1287
+  10     1    10    55   220   715  2002
+
+SIN_POWER_INT_TEST:
   SIN_POWER_INT computes the integral of the N-th power
   of the sine function.
-  SIN_POWER_INT_VALUES returns selected values.
 
          A         B       N        Exact    Computed
 
@@ -2952,7 +3181,7 @@ TEST0695:
          0         1      10     0.0218875     0.0218875
          0         1      11     0.0170234     0.0170234
 
-TEST0696:
+SLICE_TEST:
   SLICE determines the maximum number of pieces created
   by SLICE_NUM slices in a DIM_NUM space.
 
@@ -2967,9 +3196,8 @@ TEST0696:
     3:       2       4       8      16      31      57      99     163
     4:       2       4       8      16      32      63     120     219
 
-TEST0697:
+SPHERICAL_HARMONIC_TEST:
   SPHERICAL_HARMONIC evaluates spherical harmonic functions.
-  SPHERICAL_HARMONIC_VALUES returns some exact values.
 
          N         M    THETA      PHI            YR            YI
 
@@ -3014,9 +3242,9 @@ TEST0697:
          3        -1  0.392699   2.24399       -0.251979       -0.315972
                                                -0.251979       -0.315972
 
-TEST070
+STIRLING1_TEST
   STIRLING1: Stirling numbers of first kind.
-    Get rows 1 through 8
+  Get rows 1 through 8
 
      1       1       0       0       0       0       0       0       0  
      2      -1       1       0       0       0       0       0       0  
@@ -3027,7 +3255,7 @@ TEST070
      7     720   -1764    1624    -735     175     -21       1       0  
      8   -5040   13068  -13132    6769   -1960     322     -28       1  
 
-TEST071
+STIRLING2_TEST
   STIRLING2: Stirling numbers of second kind.
   Get rows 1 through 8
 
@@ -3040,9 +3268,8 @@ TEST071
      7       1      63     301     350     140      21       1       0  
      8       1     127     966    1701    1050     266      28       1  
 
-TEST072
+TAU_TEST
   TAU computes the Tau function.
-  TAU_VALUES returns some exact values.
 
   N  exact C(I)  computed C(I)
 
@@ -3067,7 +3294,7 @@ TEST072
    832          14          14
    960          28          28
 
-TEST073
+TETRAHEDRON_NUM_TEST
   TETRAHEDRON_NUM computes the tetrahedron numbers.
 
      1       1
@@ -3081,7 +3308,7 @@ TEST073
      9     165
     10     220
 
-TEST074
+TRIANGLE_NUM_TEST
   TRIANGLE_NUM computes the triangular numbers.
 
      1       1
@@ -3095,7 +3322,162 @@ TEST074
      9      45
     10      55
 
-TEST075
+TRIANGLE_TO_I4_TEST
+  TRIANGLE_TO_I4 converts a triangular index to a
+  linear one.
+
+     I     J   ==> K
+
+     0     0       0
+     1     0       1
+     1     1       2
+     2     0       3
+     2     1       4
+     2     2       5
+     3     0       6
+     3     1       7
+     3     2       8
+     3     3       9
+     4     0      10
+     4     1      11
+     4     2      12
+     4     3      13
+     4     4      14
+
+TRINOMIAL_TEST
+  TRINOMIAL evaluates the trinomial coefficient:
+
+  T(I,J,K) = (I+J+K)! / I! / J! / K!
+
+     I     J     K    T(I,J,K)
+
+     0     0     0         1
+     1     0     0         1
+     2     0     0         1
+     3     0     0         1
+     4     0     0         1
+     0     1     0         1
+     1     1     0         2
+     2     1     0         3
+     3     1     0         4
+     4     1     0         5
+     0     2     0         1
+     1     2     0         3
+     2     2     0         6
+     3     2     0        10
+     4     2     0        15
+     0     3     0         1
+     1     3     0         4
+     2     3     0        10
+     3     3     0        20
+     4     3     0        35
+     0     4     0         1
+     1     4     0         5
+     2     4     0        15
+     3     4     0        35
+     4     4     0        70
+     0     0     1         1
+     1     0     1         2
+     2     0     1         3
+     3     0     1         4
+     4     0     1         5
+     0     1     1         2
+     1     1     1         6
+     2     1     1        12
+     3     1     1        20
+     4     1     1        30
+     0     2     1         3
+     1     2     1        12
+     2     2     1        30
+     3     2     1        60
+     4     2     1       105
+     0     3     1         4
+     1     3     1        20
+     2     3     1        60
+     3     3     1       140
+     4     3     1       280
+     0     4     1         5
+     1     4     1        30
+     2     4     1       105
+     3     4     1       280
+     4     4     1       630
+     0     0     2         1
+     1     0     2         3
+     2     0     2         6
+     3     0     2        10
+     4     0     2        15
+     0     1     2         3
+     1     1     2        12
+     2     1     2        30
+     3     1     2        60
+     4     1     2       105
+     0     2     2         6
+     1     2     2        30
+     2     2     2        90
+     3     2     2       210
+     4     2     2       420
+     0     3     2        10
+     1     3     2        60
+     2     3     2       210
+     3     3     2       560
+     4     3     2      1260
+     0     4     2        15
+     1     4     2       105
+     2     4     2       420
+     3     4     2      1260
+     4     4     2      3150
+     0     0     3         1
+     1     0     3         4
+     2     0     3        10
+     3     0     3        20
+     4     0     3        35
+     0     1     3         4
+     1     1     3        20
+     2     1     3        60
+     3     1     3       140
+     4     1     3       280
+     0     2     3        10
+     1     2     3        60
+     2     2     3       210
+     3     2     3       560
+     4     2     3      1260
+     0     3     3        20
+     1     3     3       140
+     2     3     3       560
+     3     3     3      1680
+     4     3     3      4200
+     0     4     3        35
+     1     4     3       280
+     2     4     3      1260
+     3     4     3      4200
+     4     4     3     11550
+     0     0     4         1
+     1     0     4         5
+     2     0     4        15
+     3     0     4        35
+     4     0     4        70
+     0     1     4         5
+     1     1     4        30
+     2     1     4       105
+     3     1     4       280
+     4     1     4       630
+     0     2     4        15
+     1     2     4       105
+     2     2     4       420
+     3     2     4      1260
+     4     2     4      3150
+     0     3     4        35
+     1     3     4       280
+     2     3     4      1260
+     3     3     4      4200
+     4     3     4     11550
+     0     4     4        70
+     1     4     4       630
+     2     4     4      3150
+     3     4     4     11550
+     4     4     4     34650
+
+V_HOFSTADTER_TEST
   V_HOFSTADTER evaluates Hofstadter's recursive
   V function.
 
@@ -3133,7 +3515,7 @@ TEST075
       29      17
       30      17
 
-TEST076
+VIBONACCI_TEST
   VIBONACCI computes a Vibonacci sequence.
 
   We compute the series 3 times.
@@ -3161,7 +3543,7 @@ TEST076
       18      -3      -3     -11
       19     -19       1      -9
 
-TEST077
+ZECKENDORF_TEST
   ZECKENDORF computes the Zeckendorf decomposition of
   an integer N into nonconsecutive Fibonacci numbers.
 
@@ -3268,9 +3650,7 @@ TEST077
   99    89     8     2  
  100    89     8     3  
 
-TEST0773
-  ZERNIKE_POLY_COEF returns the coefficients of a
-  Zernike polynomial.
+ZERNIKE_POLY_TEST
   ZERNIKE_POLY evaluates a Zernike polynomial directly.
 
   Table of polynomial coefficients:
@@ -3339,7 +3719,7 @@ TEST0773
    5   4                 0                 0
    5   5          0.939777          0.939777
 
-TEST0775
+ZERNIKE_POLY_COEF_TEST
   ZERNIKE_POLY_COEF determines the Zernike
   polynomial coefficients.
 
@@ -3370,9 +3750,8 @@ TEST0775
 
   p(x) =  1.000000 * x^5
 
-TEST078
+ZETA_TEST
   ZETA computes the Zeta function.
-  ZETA_VALUES returns some exact values.
 
        N            exact Zeta         computed Zeta
 
@@ -3395,4 +3774,4 @@ TEST078
 POLPAK_PRB
   Normal end of execution.
 
-19 May 2012 11:38:18 AM
+13 April 2015 10:02:29 AM

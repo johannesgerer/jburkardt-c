@@ -14,7 +14,11 @@ int main ( void )
 /*
   Purpose:
 
-    BALL_GRID_TEST tests BALL_GRID.
+    MAIN is the main program for BALL_GRID_PRB.
+
+  Discussion:
+
+    BALL_GRID_PRB tests the BALL_GRID library.
 
   Licensing:
 
@@ -31,7 +35,7 @@ int main ( void )
 {
   timestamp ( );
   printf ( "\n" );
-  printf ( "BALL_GRID_TEST:\n" );
+  printf ( "BALL_GRID_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the BALL_GRID library.\n" );
 
@@ -40,7 +44,7 @@ int main ( void )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "BALL_GRID_TEST:\n" );
+  printf ( "BALL_GRID_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

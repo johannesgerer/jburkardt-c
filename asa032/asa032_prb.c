@@ -4,12 +4,12 @@
 
 # include "asa032.h"
 
-int main ( void );
-void test01 ( void );
+int main ( );
+void test01 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -19,7 +19,7 @@ int main ( void )
 
   Discussion:
 
-    ASA032_PRB calls the ASA032 routines.
+    ASA032_PRB tests the ASA032 library.
 
   Licensing:
 
@@ -35,7 +35,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA032_PRB:\n" );
   printf ( "  C version\n" );
@@ -48,7 +47,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA032_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -109,7 +107,7 @@ void test01 ( void )
     fx2 = gamain ( x, a, &ifault );
 
     printf ( "  %12.8g  %12.8g  %24.16g  %24.16g  %10.4e\n", 
-      a, x, fx, fx2, r8_abs ( fx - fx2 ) );
+      a, x, fx, fx2, fabs ( fx - fx2 ) );
   }
 
   return;

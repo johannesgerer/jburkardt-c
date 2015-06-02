@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c showme.c >& compiler.txt
+gcc -c showme.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling showme.c"
   exit
 fi
-rm compiler.txt
 #
 gcc showme.o -L/usr/X11R6/lib -lX11
 if [ $? -ne 0 ]; then

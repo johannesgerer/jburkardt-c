@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c hello.c >& compiler.txt
+gcc -c hello.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling hello.c."
   exit
 fi
-rm compiler.txt
 #
 gcc hello.o
 if [ $? -ne 0 ]; then

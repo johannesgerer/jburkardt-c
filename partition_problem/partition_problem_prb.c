@@ -18,6 +18,10 @@ int main ( void )
 
     MAIN is the main program for PARTITION_PROBLEM_PRB.
 
+  Discussion:
+
+    PARTITION_PROBLEM_PRB tests the PARTIION_PROBLEM library.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.

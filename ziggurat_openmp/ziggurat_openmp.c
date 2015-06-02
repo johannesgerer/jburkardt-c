@@ -2,26 +2,25 @@
 # include <stdio.h>
 # include <math.h>
 # include <time.h>
+# include <stdint.h>
 # include <omp.h>
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
-float r4_exp ( unsigned long int *jsr, int ke[256], float fe[256], 
-  float we[256] );
-void r4_exp_setup ( int ke[256], float fe[256], float we[256] );
-float r4_nor ( unsigned long int *jsr, int kn[128], float fn[128], 
-  float wn[128] );
-void r4_nor_setup ( int kn[128], float fn[128], float wn[128] );
-float r4_uni ( unsigned long int *jsr );
-unsigned long int shr3 ( unsigned long int *jsr );
-void timestamp ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
+float r4_exp ( uint32_t *jsr, uint32_t ke[256], float fe[256], float we[256] );
+void r4_exp_setup ( uint32_t ke[256], float fe[256], float we[256] );
+float r4_nor ( uint32_t *jsr, uint32_t kn[128], float fn[128], float wn[128] );
+void r4_nor_setup ( uint32_t kn[128], float fn[128], float wn[128] );
+float r4_uni ( uint32_t *jsr );
+uint32_t shr3_seeded ( uint32_t *jsr );
+void timestamp ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -35,7 +34,7 @@ int main ( void )
 
   Modified:
 
-    24 March 2009
+    04 October 2013
 
   Author:
 
@@ -57,7 +56,7 @@ int main ( void )
   test04 ( );
 /*
   Terminate.
-/*
+*/
   printf ( "\n" );
   printf ( "ZIGGURAT_OPENMP:\n" );
   printf ( "  Normal end of execution.\n" );
@@ -68,13 +67,13 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST01 tests SHR3.
+    TEST01 tests SHR3_SEEDED.
 
   Licensing:
 
@@ -82,15 +81,15 @@ void test01 ( void )
 
   Modified:
 
-    09 December 2008
+    04 October 2013
 
   Author:
 
     John Burkardt
 */
 {
-  unsigned long int jsr;
-  unsigned long int jsr_value;
+  uint32_t jsr;
+  uint32_t jsr_value;
   double mega_rate_par;
   double mega_rate_seq;
   int r;
@@ -99,7 +98,7 @@ void test01 ( void )
   int *result_seq;
   int s;
   int s_num = 10000;
-  unsigned long int *seed;
+  uint32_t *seed;
   int thread;
   int thread_num;
   double wtime_par;
@@ -107,7 +106,7 @@ void test01 ( void )
 
   printf ( "\n" );
   printf ( "TEST01\n" );
-  printf ( "  SHR3 computes random integers.\n" );
+  printf ( "  SHR3_SEEDED computes random integers.\n" );
   printf ( "  Since the output is completely determined\n" );
   printf ( "  by the input value of SEED, we can run in\n" );
   printf ( "  parallel as long as we make an array of seeds.\n" );
@@ -125,7 +124,7 @@ void test01 ( void )
     printf ( "  The number of threads is %d\n", thread_num );
   }
 }
-  seed = ( unsigned long int * ) malloc ( thread_num * sizeof ( unsigned long int ) );
+  seed = ( uint32_t * ) malloc ( thread_num * sizeof ( uint32_t ) );
   result_seq = ( int * ) malloc ( thread_num * sizeof ( int ) );
   result_par = ( int * ) malloc ( thread_num * sizeof ( int ) );
 /*
@@ -138,7 +137,7 @@ void test01 ( void )
 
   for ( thread = 0; thread < thread_num; thread++ )
   {
-    seed[thread] = shr3 ( &jsr );
+    seed[thread] = shr3_seeded ( &jsr );
   }
 
   wtime_seq = omp_get_wtime ( );
@@ -151,7 +150,7 @@ void test01 ( void )
 
     for ( s = 0; s < s_num; s++ )
     {
-      jsr_value = shr3 ( &jsr );
+      jsr_value = shr3_seeded ( &jsr );
     }
     result_seq[thread] = jsr_value;
     seed[thread] = jsr;
@@ -159,7 +158,8 @@ void test01 ( void )
 
   wtime_seq = omp_get_wtime ( ) - wtime_seq;
 
-  mega_rate_seq = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_seq / 1000000.0;
+  mega_rate_seq = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_seq 
+    / 1000000.0;
 /*
   Parallel.
 */
@@ -167,7 +167,7 @@ void test01 ( void )
 
   for ( thread = 0; thread < thread_num; thread++ )
   {
-    seed[thread] = shr3 ( &jsr );
+    seed[thread] = shr3_seeded ( &jsr );
   }
 
   wtime_par = omp_get_wtime ( );
@@ -187,7 +187,7 @@ void test01 ( void )
 
       for ( s = 0; s < s_num; s++ )
       {
-        jsr_value = shr3 ( &jsr );
+        jsr_value = shr3_seeded ( &jsr );
       }
       result_par[thread] = jsr_value;
       seed[thread] = jsr;
@@ -196,7 +196,8 @@ void test01 ( void )
 
   wtime_par = omp_get_wtime ( ) - wtime_par;
 
-  mega_rate_par = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_par / 1000000.0;
+  mega_rate_par = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_par 
+    / 1000000.0;
 /*
   Report.
 */
@@ -224,7 +225,9 @@ void test01 ( void )
   printf ( "\n" );
   printf ( "      TIME:  %14f  %14f\n", wtime_seq, wtime_par  );
   printf ( "      RATE:  %14f  %14f\n", mega_rate_seq, mega_rate_par );
-
+/*
+  Free memory.
+*/
   free ( result_par );
   free ( result_seq );
   free ( seed );
@@ -233,7 +236,7 @@ void test01 ( void )
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -247,15 +250,15 @@ void test02 ( void )
 
   Modified:
 
-    09 December 2008
+    04 October 2013
 
   Author:
 
     John Burkardt
 */
 {
-  unsigned long int jsr;
-  unsigned long int jsr_value;
+  uint32_t jsr;
+  uint32_t jsr_value;
   double mega_rate_par;
   double mega_rate_seq;
   int r;
@@ -265,7 +268,7 @@ void test02 ( void )
   float *result_seq;
   int s;
   int s_num = 10000;
-  unsigned long int *seed;
+  uint32_t *seed;
   int thread;
   int thread_num;
   double wtime_par;
@@ -291,7 +294,7 @@ void test02 ( void )
     printf ( "  The number of threads is %d\n", thread_num );
   }
 }
-  seed = ( unsigned long int * ) malloc ( thread_num * sizeof ( unsigned long int ) );
+  seed = ( uint32_t * ) malloc ( thread_num * sizeof ( uint32_t ) );
   result_seq = ( float * ) malloc ( thread_num * sizeof ( float ) );
   result_par = ( float * ) malloc ( thread_num * sizeof ( float ) );
 /*
@@ -304,7 +307,7 @@ void test02 ( void )
 
   for ( thread = 0; thread < thread_num; thread++ )
   {
-    seed[thread] = shr3 ( &jsr );
+    seed[thread] = shr3_seeded ( &jsr );
   }
 
   wtime_seq = omp_get_wtime ( );
@@ -333,7 +336,7 @@ void test02 ( void )
 
   for ( thread = 0; thread < thread_num; thread++ )
   {
-    seed[thread] = shr3 ( &jsr );
+    seed[thread] = shr3_seeded ( &jsr );
   }
 
   wtime_par = omp_get_wtime ( );
@@ -390,7 +393,9 @@ void test02 ( void )
   printf ( "\n" );
   printf ( "      TIME:  %14f  %14f\n", wtime_seq, wtime_par  );
   printf ( "      RATE:  %14f  %14f\n", mega_rate_seq, mega_rate_par );
-
+/*
+  Free memory.
+*/
   free ( result_par );
   free ( result_seq );
   free ( seed );
@@ -399,7 +404,7 @@ void test02 ( void )
 }
 /******************************************************************************/
 
-void test03 ( void )
+void test03 ( )
 
 /******************************************************************************/
 /*
@@ -419,7 +424,7 @@ void test03 ( void )
 
   Modified:
 
-    09 December 2008
+    04 October 2013
 
   Author:
 
@@ -427,9 +432,9 @@ void test03 ( void )
 */
 {
   float fn[128];
-  unsigned long int jsr;
-  unsigned long int jsr_value;
-  int kn[128];
+  uint32_t jsr;
+  uint32_t jsr_value;
+  uint32_t kn[128];
   double mega_rate_par;
   double mega_rate_seq;
   int r;
@@ -439,7 +444,7 @@ void test03 ( void )
   float *result_seq;
   int s;
   int s_num = 10000;
-  unsigned long int *seed;
+  uint32_t *seed;
   int thread;
   int thread_num;
   float wn[128];
@@ -453,8 +458,8 @@ void test03 ( void )
   printf ( "  by the input value of SEED and the tables, we can run in\n" );
   printf ( "  parallel as long as we make an array of seeds and share the tables.\n" );
 /*
-  Set up the SEED array and the tables, which will be used for both sequential and
-  parallel computations.
+  Set up the SEED array and the tables, which will be used for both sequential
+  and parallel computations.
 */
 # pragma omp parallel
 {
@@ -466,7 +471,7 @@ void test03 ( void )
     printf ( "  The number of threads is %d\n", thread_num );
   }
 }
-  seed = ( unsigned long int * ) malloc ( thread_num * sizeof ( unsigned long int ) );
+  seed = ( uint32_t * ) malloc ( thread_num * sizeof ( uint32_t ) );
   result_seq = ( float * ) malloc ( thread_num * sizeof ( float ) );
   result_par = ( float * ) malloc ( thread_num * sizeof ( float ) );
 
@@ -481,7 +486,7 @@ void test03 ( void )
 
   for ( thread = 0; thread < thread_num; thread++ )
   {
-    seed[thread] = shr3 ( &jsr );
+    seed[thread] = shr3_seeded ( &jsr );
   }
 
   wtime_seq = omp_get_wtime ( );
@@ -510,7 +515,7 @@ void test03 ( void )
 
   for ( thread = 0; thread < thread_num; thread++ )
   {
-    seed[thread] = shr3 ( &jsr );
+    seed[thread] = shr3_seeded ( &jsr );
   }
 
   wtime_par = omp_get_wtime ( );
@@ -539,7 +544,8 @@ void test03 ( void )
 
   wtime_par = omp_get_wtime ( ) - wtime_par;
 
-  mega_rate_par = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_par / 1000000.0;
+  mega_rate_par = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_par 
+    / 1000000.0;
 /*
   Report.
 */
@@ -567,7 +573,9 @@ void test03 ( void )
   printf ( "\n" );
   printf ( "      TIME:  %14f  %14f\n", wtime_seq, wtime_par  );
   printf ( "      RATE:  %14f  %14f\n", mega_rate_seq, mega_rate_par );
-
+/*
+  Free memory.
+*/
   free ( result_par );
   free ( result_seq );
   free ( seed );
@@ -576,7 +584,7 @@ void test03 ( void )
 }
 /******************************************************************************/
 
-void test04 ( void )
+void test04 ( )
 
 /******************************************************************************/
 /*
@@ -596,7 +604,7 @@ void test04 ( void )
 
   Modified:
 
-    09 December 2008
+    19 October 2013
 
   Author:
 
@@ -604,9 +612,9 @@ void test04 ( void )
 */
 {
   float fe[256];
-  unsigned long int jsr;
-  unsigned long int jsr_value;
-  int ke[256];
+  uint32_t jsr;
+  uint32_t jsr_value;
+  uint32_t ke[256];
   double mega_rate_par;
   double mega_rate_seq;
   int r;
@@ -616,7 +624,7 @@ void test04 ( void )
   float *result_seq;
   int s;
   int s_num = 10000;
-  unsigned long int *seed;
+  uint32_t *seed;
   int thread;
   int thread_num;
   float we[256];
@@ -630,8 +638,8 @@ void test04 ( void )
   printf ( "  by the input value of SEED and the tables, we can run in\n" );
   printf ( "  parallel as long as we make an array of seeds and share the tables.\n" );
 /*
-  Set up the SEED array and the tables, which will be used for both sequential and
-  parallel computations.
+  Set up the SEED array and the tables, which will be used for both sequential
+  and parallel computations.
 */
 # pragma omp parallel
 {
@@ -643,7 +651,7 @@ void test04 ( void )
     printf ( "  The number of threads is %d\n", thread_num );
   }
 }
-  seed = ( unsigned long int * ) malloc ( thread_num * sizeof ( unsigned long int ) );
+  seed = ( uint32_t * ) malloc ( thread_num * sizeof ( uint32_t ) );
   result_seq = ( float * ) malloc ( thread_num * sizeof ( float ) );
   result_par = ( float * ) malloc ( thread_num * sizeof ( float ) );
 
@@ -658,7 +666,7 @@ void test04 ( void )
 
   for ( thread = 0; thread < thread_num; thread++ )
   {
-    seed[thread] = shr3 ( &jsr );
+    seed[thread] = shr3_seeded ( &jsr );
   }
 
   wtime_seq = omp_get_wtime ( );
@@ -679,7 +687,8 @@ void test04 ( void )
 
   wtime_seq = omp_get_wtime ( ) - wtime_seq;
 
-  mega_rate_seq = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_seq / 1000000.0;
+  mega_rate_seq = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_seq 
+    / 1000000.0;
 /*
   Parallel.
 */
@@ -687,7 +696,7 @@ void test04 ( void )
 
   for ( thread = 0; thread < thread_num; thread++ )
   {
-    seed[thread] = shr3 ( &jsr );
+    seed[thread] = shr3_seeded ( &jsr );
   }
 
   wtime_par = omp_get_wtime ( );
@@ -716,7 +725,8 @@ void test04 ( void )
 
   wtime_par = omp_get_wtime ( ) - wtime_par;
 
-  mega_rate_par = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_par / 1000000.0;
+  mega_rate_par = ( double ) ( r_num ) * ( double ) ( s_num ) / wtime_par 
+    / 1000000.0;
 /*
   Report.
 */
@@ -744,7 +754,9 @@ void test04 ( void )
   printf ( "\n" );
   printf ( "      TIME:  %14f  %14f\n", wtime_seq, wtime_par  );
   printf ( "      RATE:  %14f  %14f\n", mega_rate_seq, mega_rate_par );
-
+/*
+  Free memory.
+*/
   free ( result_par );
   free ( result_seq );
   free ( seed );
@@ -753,8 +765,7 @@ void test04 ( void )
 }
 /******************************************************************************/
 
-float r4_exp ( unsigned long int *jsr, int ke[256], float fe[256], 
-  float we[256] )
+float r4_exp ( uint32_t *jsr, uint32_t ke[256], float fe[256], float we[256] )
 
 /******************************************************************************/
 /*
@@ -775,7 +786,7 @@ float r4_exp ( unsigned long int *jsr, int ke[256], float fe[256],
 
   Modified:
 
-    09 December 20080
+    15 October 2013
 
   Author:
 
@@ -790,26 +801,26 @@ float r4_exp ( unsigned long int *jsr, int ke[256], float fe[256],
 
   Parameters:
 
-    Input/output, unsigned long int *JSR, the seed.
+    Input/output, uint32_t *JSR, the seed.
 
-    Input, int KE[256], data computed by R4_EXP_SETUP.
+    Input, uint32_t KE[256], data computed by R4_EXP_SETUP.
 
     Input, float FE[256], WE[256], data computed by R4_EXP_SETUP.
 
     Output, float R4_EXP, an exponentially distributed random value.
 */
 {
-  int iz;
-  int jz;
+  uint32_t iz;
+  uint32_t jz;
   float value;
   float x;
 
-  jz = shr3 ( jsr );
+  jz = shr3_seeded ( jsr );
   iz = ( jz & 255 );
 
-  if ( abs ( jz  ) < ke[iz] )
+  if ( jz < ke[iz] )
   {
-    value = ( float ) ( abs ( jz ) ) * we[iz];
+    value = ( float ) ( jz ) * we[iz];
   }
   else
   {
@@ -821,7 +832,7 @@ float r4_exp ( unsigned long int *jsr, int ke[256], float fe[256],
         break;
       }
 
-      x = ( float ) ( abs ( jz ) ) * we[iz];
+      x = ( float ) ( jz ) * we[iz];
 
       if ( fe[iz] + r4_uni ( jsr ) * ( fe[iz-1] - fe[iz] ) < exp ( - x ) )
       {
@@ -829,12 +840,12 @@ float r4_exp ( unsigned long int *jsr, int ke[256], float fe[256],
         break;
       }
 
-      jz = shr3 ( jsr );
+      jz = shr3_seeded ( jsr );
       iz = ( jz & 255 );
 
-      if ( abs ( jz ) < ke[iz] )
+      if ( jz < ke[iz] )
       {
-        value = ( float ) ( abs ( jz ) ) * we[iz];
+        value = ( float ) ( jz ) * we[iz];
         break;
       }
     }
@@ -843,7 +854,7 @@ float r4_exp ( unsigned long int *jsr, int ke[256], float fe[256],
 }
 /******************************************************************************/
 
-void r4_exp_setup ( int ke[256], float fe[256], float we[256] )
+void r4_exp_setup ( uint32_t ke[256], float fe[256], float we[256] )
 
 /******************************************************************************/
 /*
@@ -857,7 +868,7 @@ void r4_exp_setup ( int ke[256], float fe[256], float we[256] )
 
   Modified:
 
-    09 December 2008
+    14 October 2013
 
   Author:
 
@@ -872,7 +883,7 @@ void r4_exp_setup ( int ke[256], float fe[256], float we[256] )
 
   Parameters:
 
-    Output, int KE[256], data needed by R4_EXP.
+    Output, uint32_t KE[256], data needed by R4_EXP.
 
     Output, float FE[256], WE[256], data needed by R4_EXP.
 */
@@ -886,7 +897,7 @@ void r4_exp_setup ( int ke[256], float fe[256], float we[256] )
 
   q = ve / exp ( - de );
 
-  ke[0] = ( int ) ( ( de / q ) * m2 );
+  ke[0] = ( uint32_t ) ( ( de / q ) * m2 );
   ke[1] = 0;
 
   we[0] = ( float ) ( q / m2 );
@@ -898,7 +909,7 @@ void r4_exp_setup ( int ke[256], float fe[256], float we[256] )
   for ( i = 254; 1 <= i; i-- )
   {
     de = - log ( ve / de + exp ( - de ) );
-    ke[i+1] = ( int ) ( ( de / te ) * m2 );
+    ke[i+1] = ( uint32_t ) ( ( de / te ) * m2 );
     te = de;
     fe[i] = ( float ) ( exp ( - de ) );
     we[i] = ( float ) ( de / m2 );
@@ -907,8 +918,7 @@ void r4_exp_setup ( int ke[256], float fe[256], float we[256] )
 }
 /******************************************************************************/
 
-float r4_nor ( unsigned long int *jsr, int kn[128], float fn[128], 
-  float wn[128] )
+float r4_nor ( uint32_t *jsr, uint32_t kn[128], float fn[128], float wn[128] )
 
 /******************************************************************************/
 /*
@@ -926,13 +936,19 @@ float r4_nor ( unsigned long int *jsr, int kn[128], float fn[128],
     Before the first call to this function, the user must call R4_NOR_SETUP
     to determine the values of KN, FN and WN.
 
+    Thanks to Chad Wagner, 21 July 2014, for noticing a bug of the form
+      if ( x * x <= y * y );   <-- Stray semicolon!
+      {
+        break;
+      }
+
   Licensing:
 
     This code is distributed under the GNU LGPL license. 
 
   Modified:
 
-    09 December 2008
+    21 July 2014
 
   Author:
 
@@ -947,9 +963,9 @@ float r4_nor ( unsigned long int *jsr, int kn[128], float fn[128],
 
   Parameters:
 
-    Input/output, unsigned long int *JSR, the seed.
+    Input/output, uint32_t *JSR, the seed.
 
-    Input, int KN[128], data computed by R4_NOR_SETUP.
+    Input, uint32_t KN[128], data computed by R4_NOR_SETUP.
 
     Input, float FN[128], WN[128], data computed by R4_NOR_SETUP.
 
@@ -957,16 +973,16 @@ float r4_nor ( unsigned long int *jsr, int kn[128], float fn[128],
 */
 {
   int hz;
-  int iz;
+  uint32_t iz;
   const float r = 3.442620;
   float value;
   float x;
   float y;
 
-  hz = shr3 ( jsr );
+  hz = ( int ) shr3_seeded ( jsr );
   iz = ( hz & 127 );
 
-  if ( abs ( hz ) < kn[iz] )
+  if ( fabs ( hz ) < kn[iz] )
   {
     value = ( float ) ( hz ) * wn[iz];
   }
@@ -980,7 +996,7 @@ float r4_nor ( unsigned long int *jsr, int kn[128], float fn[128],
         {
           x = - 0.2904764 * log ( r4_uni ( jsr ) );
           y = - log ( r4_uni ( jsr ) );
-          if ( x * x <= y + y );
+          if ( x * x <= y + y )
           {
             break;
           }
@@ -999,16 +1015,17 @@ float r4_nor ( unsigned long int *jsr, int kn[128], float fn[128],
 
       x = ( float ) ( hz ) * wn[iz];
 
-      if ( fn[iz] + r4_uni ( jsr ) * ( fn[iz-1] - fn[iz] ) < exp ( - 0.5 * x * x ) )
+      if ( fn[iz] + r4_uni ( jsr ) * ( fn[iz-1] - fn[iz] ) 
+        < exp ( - 0.5 * x * x ) )
       {
         value = x;
         break;
       }
 
-      hz = shr3 ( jsr );
+      hz = ( int ) shr3_seeded ( jsr );
       iz = ( hz & 127 );
 
-      if ( abs ( hz ) < kn[iz] )
+      if ( fabs ( hz ) < kn[iz] )
       {
         value = ( float ) ( hz ) * wn[iz];
         break;
@@ -1020,7 +1037,7 @@ float r4_nor ( unsigned long int *jsr, int kn[128], float fn[128],
 }
 /******************************************************************************/
 
-void r4_nor_setup ( int kn[128], float fn[128], float wn[128] )
+void r4_nor_setup ( uint32_t kn[128], float fn[128], float wn[128] )
 
 /******************************************************************************/
 /*
@@ -1034,7 +1051,7 @@ void r4_nor_setup ( int kn[128], float fn[128], float wn[128] )
 
   Modified:
 
-    09 December 2008
+    14 October 2013
 
   Author:
 
@@ -1049,7 +1066,7 @@ void r4_nor_setup ( int kn[128], float fn[128], float wn[128] )
 
   Parameters:
 
-    Output, int KN[128], data needed by R4_NOR.
+    Output, uint32_t KN[128], data needed by R4_NOR.
 
     Output, float FN[128], WN[128], data needed by R4_NOR.
 */
@@ -1063,7 +1080,7 @@ void r4_nor_setup ( int kn[128], float fn[128], float wn[128] )
 
   q = vn / exp ( - 0.5 * dn * dn );
 
-  kn[0] = ( int ) ( ( dn / q ) * m1 );
+  kn[0] = ( uint32_t ) ( ( dn / q ) * m1 );
   kn[1] = 0;
 
   wn[0] = ( float ) ( q / m1 );
@@ -1075,16 +1092,17 @@ void r4_nor_setup ( int kn[128], float fn[128], float wn[128] )
   for ( i = 126; 1 <= i; i-- )
   {
     dn = sqrt ( - 2.0 * log ( vn / dn + exp ( - 0.5 * dn * dn ) ) );
-    kn[i+1] = ( int ) ( ( dn / tn ) * m1 );
+    kn[i+1] = ( uint32_t ) ( ( dn / tn ) * m1 );
     tn = dn;
     fn[i] = ( float ) ( exp ( - 0.5 * dn * dn ) );
     wn[i] = ( float ) ( dn / m1 );
   }
+
   return;
 }
 /******************************************************************************/
 
-float r4_uni ( unsigned long int *jsr )
+float r4_uni ( uint32_t *jsr )
 
 /******************************************************************************/
 /*
@@ -1098,7 +1116,7 @@ float r4_uni ( unsigned long int *jsr )
 
   Modified:
 
-    09 December 2008
+    04 October 2013
 
   Author:
 
@@ -1113,13 +1131,13 @@ float r4_uni ( unsigned long int *jsr )
 
   Parameters:
 
-    Input/output, unsigned long int *JSR, the seed.
+    Input/output, uint32_t *JSR, the seed.
 
     Output, float R4_UNI, a uniformly distributed random value in
     the range [0,1].
 */
 {
-  unsigned long int jsr_input;
+  uint32_t jsr_input;
   float value;
 
   jsr_input = *jsr;
@@ -1134,13 +1152,19 @@ float r4_uni ( unsigned long int *jsr )
 }
 /******************************************************************************/
 
-unsigned long int shr3 ( unsigned long int *jsr )
+uint32_t shr3_seeded ( uint32_t *jsr )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    SHR3 evaluates the SHR3 generator for integers.
+    SHR3_SEEDED evaluates the SHR3 generator for integers.
+
+  Discussion:
+
+    Thanks to Dirk Eddelbuettel for pointing out that this code needed to
+    use the uint32_t data type in order to execute properly in 64 bit mode,
+    03 October 2013.
 
   Licensing:
 
@@ -1148,7 +1172,7 @@ unsigned long int shr3 ( unsigned long int *jsr )
 
   Modified:
 
-    09 December 2008
+    04 October 2013
 
   Author:
 
@@ -1163,13 +1187,13 @@ unsigned long int shr3 ( unsigned long int *jsr )
 
   Parameters:
 
-    Input/output, unsigned long int *JSR, the seed, which is updated 
+    Input/output, uint32_t *JSR, the seed, which is updated 
     on each call.
 
-    Output, unsigned long int SHR3, the new value.
+    Output, uint32_t SHR3_SEEDED, the new value.
 */
 {
-  unsigned long int value;
+  uint32_t value;
 
   value = *jsr;
 

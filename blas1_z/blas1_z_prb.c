@@ -6,30 +6,29 @@
 
 # include "blas1_z.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
-void test05 ( void );
-void test06 ( void );
-void test07 ( void );
-void test08 ( void );
-void test09 ( void );
-void test10 ( void );
-void test11 ( void );
-void test12 ( void );
-void test13 ( void );
-void test14 ( void );
-void test15 ( void );
-void test16 ( void );
-void test17 ( void );
-_Complex double c8_uniform_01 ( int *seed );
-void timestamp ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
+void test05 ( );
+void test06 ( );
+void test07 ( );
+void test08 ( );
+void test09 ( );
+void test10 ( );
+void test11 ( );
+void test12 ( );
+void test13 ( );
+void test14 ( );
+void test15 ( );
+void test16 ( );
+void test17 ( );
+double complex c8_uniform_01 ( int *seed );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -39,7 +38,7 @@ int main ( void )
 
   Discussion:
 
-    BLAS1_Z_PRB tests the BLAS1 double precision complex routines.
+    BLAS1_Z_PRB tests the BLAS1_Z library.
 
   Licensing:
 
@@ -59,9 +58,7 @@ int main ( void )
   printf ( "\n" );
   printf ( "BLAS1_Z_PRB:\n" );
   printf ( "  C version\n" );
-  printf ( "  Double precision complex arithmetic version\n" );
-  printf ( "  Test the routines in the BLAS1 library,\n" );
-  printf ( "  the Level 1 Basic Linear Algebra Subprograms.\n" );
+  printf ( "  Test the BLAS1_Z library.\n" );
  
   test01 ( );
   test02 ( );
@@ -81,11 +78,12 @@ int main ( void )
   test15 ( );
   test16 ( );
   test17 ( );
-
+/*
+  Terminate.
+*/
   printf ( "\n" );
   printf ( "BLAS1_Z_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -93,7 +91,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -114,7 +112,7 @@ void test01 ( void )
     John Burkardt
 */
 {
-  _Complex double c;
+  double complex c;
   double c_norm;
   int i;
   int seed = 123456789;
@@ -141,7 +139,7 @@ void test01 ( void )
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -162,7 +160,7 @@ void test02 ( void )
     John Burkardt
 */
 {
-  _Complex double c;
+  double complex c;
   double c_norm;
   int i;
   int seed = 123456789;
@@ -189,7 +187,7 @@ void test02 ( void )
 }
 /******************************************************************************/
 
-void test03 ( void )
+void test03 ( )
 
 /******************************************************************************/
 /*
@@ -213,19 +211,19 @@ void test03 ( void )
 # define N 5
 
   int i;
-  _Complex double s;
-  _Complex double x[N] = {
-     2.0 - 1.0 * _Complex_I, 
-    -4.0 - 2.0 * _Complex_I, 
-     3.0 + 1.0 * _Complex_I, 
-     2.0 + 2.0 * _Complex_I, 
-    -1.0 - 1.0 * _Complex_I };
-  _Complex double y[N] = {
-    -1.0 + 0.0 * _Complex_I, 
-     0.0 - 3.0 * _Complex_I,
-     4.0 + 0.0 * _Complex_I, 
-    -3.0 + 4.0 * _Complex_I, 
-    -2.0 + 0.0 * _Complex_I };
+  double complex s;
+  double complex x[N] = {
+     2.0 - 1.0 * I, 
+    -4.0 - 2.0 * I, 
+     3.0 + 1.0 * I, 
+     2.0 + 2.0 * I, 
+    -1.0 - 1.0 * I };
+  double complex y[N] = {
+    -1.0 + 0.0 * I, 
+     0.0 - 3.0 * I,
+     4.0 + 0.0 * I, 
+    -3.0 + 4.0 * I, 
+    -2.0 + 0.0 * I };
 
   printf ( "\n" );
   printf ( "TEST03\n" );
@@ -247,7 +245,7 @@ void test03 ( void )
     printf ( "  %6d  %6f  %6f\n", i, creal ( y[i] ), cimag ( y[i] ) );
   }
 
-  s = 0.50 - 1.00 * _Complex_I;
+  s = 0.50 - 1.00 * I;
 
   printf ( "\n" );
   printf ( "  The scalar multiplier is: %f  %f\n", creal ( s ), cimag ( s ) );
@@ -267,7 +265,7 @@ void test03 ( void )
 }
 /******************************************************************************/
 
-void test04 ( void )
+void test04 ( )
 
 /******************************************************************************/
 /*
@@ -292,11 +290,11 @@ void test04 ( void )
 # define N2 5
 # define N 10
 
-  _Complex double a[N1*N2];
+  double complex a[N1*N2];
   int i;
   int j;
-  _Complex double x[N];
-  _Complex double y[N];
+  double complex x[N];
+  double complex y[N];
 
   printf ( "\n" );
   printf ( "TEST04\n" );
@@ -304,19 +302,19 @@ void test04 ( void )
  
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N1; i++ )
   {
     for ( j = 0; j < N2; j++ )
     {
-      a[i+j*N1] = 10 * ( i + 1 ) + ( j + 1 ) * _Complex_I;
+      a[i+j*N1] = 10 * ( i + 1 ) + ( j + 1 ) * I;
     }
   }
 
@@ -357,7 +355,7 @@ void test04 ( void )
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   zcopy ( 3, x, 2, y, 3 );
@@ -391,7 +389,7 @@ void test04 ( void )
   {
     for ( j = 0; j < N2; j++ )
     {
-      a[i+j*N1] = 10 * ( i + 1 ) + ( j + 1 ) * _Complex_I;
+      a[i+j*N1] = 10 * ( i + 1 ) + ( j + 1 ) * I;
     }
   }
 
@@ -418,7 +416,7 @@ void test04 ( void )
 }
 /******************************************************************************/
 
-void test05 ( void )
+void test05 ( )
 
 /******************************************************************************/
 /*
@@ -442,20 +440,20 @@ void test05 ( void )
 # define N 5
 
   int i;
-  _Complex double x_norm;
-  _Complex double xy_dot;
-  _Complex double x[N] = {
-     2.0 - 1.0 * _Complex_I, 
-    -4.0 - 2.0 * _Complex_I, 
-     3.0 + 1.0 * _Complex_I, 
-     2.0 + 2.0 * _Complex_I, 
-    -1.0 - 1.0 * _Complex_I };
-  _Complex double y[N] = {
-    -1.0 + 0.0 * _Complex_I, 
-     0.0 - 3.0 * _Complex_I, 
-     4.0 + 0.0 * _Complex_I, 
-    -3.0 + 4.0 * _Complex_I, 
-    -2.0 + 0.0 * _Complex_I };
+  double complex x_norm;
+  double complex xy_dot;
+  double complex x[N] = {
+     2.0 - 1.0 * I, 
+    -4.0 - 2.0 * I, 
+     3.0 + 1.0 * I, 
+     2.0 + 2.0 * I, 
+    -1.0 - 1.0 * I };
+  double complex y[N] = {
+    -1.0 + 0.0 * I, 
+     0.0 - 3.0 * I, 
+     4.0 + 0.0 * I, 
+    -3.0 + 4.0 * I, 
+    -2.0 + 0.0 * I };
 
   printf ( "\n" );
   printf ( "TEST05\n" );
@@ -494,7 +492,7 @@ void test05 ( void )
 }
 /******************************************************************************/
 
-void test06 ( void )
+void test06 ( )
 
 /******************************************************************************/
 /*
@@ -518,20 +516,20 @@ void test06 ( void )
 # define N 5
 
   int i;
-  _Complex double x_norm;
-  _Complex double xy_dot;
-  _Complex double x[N] = {
-    2.0 - 1.0 * _Complex_I, 
-   -4.0 - 2.0 * _Complex_I, 
-    3.0 + 1.0 * _Complex_I, 
-    2.0 + 2.0 * _Complex_I, 
-   -1.0 - 1.0 * _Complex_I };
-  _Complex double y[N] = {
-   -1.0 + 0.0 * _Complex_I, 
-    0.0 - 3.0 * _Complex_I, 
-    4.0 + 0.0 * _Complex_I, 
-   -3.0 + 4.0 * _Complex_I, 
-   -2.0 + 0.0 * _Complex_I };
+  double complex x_norm;
+  double complex xy_dot;
+  double complex x[N] = {
+    2.0 - 1.0 * I, 
+   -4.0 - 2.0 * I, 
+    3.0 + 1.0 * I, 
+    2.0 + 2.0 * I, 
+   -1.0 - 1.0 * I };
+  double complex y[N] = {
+   -1.0 + 0.0 * I, 
+    0.0 - 3.0 * I, 
+    4.0 + 0.0 * I, 
+   -3.0 + 4.0 * I, 
+   -2.0 + 0.0 * I };
 
   printf ( "\n" );
   printf ( "TEST06\n" );
@@ -572,7 +570,7 @@ void test06 ( void )
 }
 /******************************************************************************/
 
-void test07 ( void )
+void test07 ( )
 
 /******************************************************************************/
 /*
@@ -607,7 +605,7 @@ void test07 ( void )
 }
 /******************************************************************************/
 
-void test08 ( void )
+void test08 ( )
 
 /******************************************************************************/
 /*
@@ -630,13 +628,13 @@ void test08 ( void )
 {
 # define N 6
 
-  _Complex double da;
+  double complex da;
   int i;
-  _Complex double x[N];
+  double complex x[N];
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   printf ( "\n" );
@@ -663,10 +661,10 @@ void test08 ( void )
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
-  da = -2.0 + 1.0 * _Complex_I;
+  da = -2.0 + 1.0 * I;
   zscal ( 3, da, x, 2 );
   printf ( "\n" );
   printf ( "  ZSCAL ( 3, (%f, %f), X, 2 )\n", creal ( da ), cimag ( da ) );
@@ -681,7 +679,7 @@ void test08 ( void )
 }
 /******************************************************************************/
 
-void test09 ( void )
+void test09 ( )
 
 /******************************************************************************/
 /*
@@ -702,9 +700,9 @@ void test09 ( void )
     John Burkardt
 */
 {
-  _Complex double c1;
-  _Complex double c2;
-  _Complex double c3;
+  double complex c1;
+  double complex c2;
+  double complex c3;
   int i;
   int seed = 123456789;
 
@@ -735,7 +733,7 @@ void test09 ( void )
 }
 /******************************************************************************/
 
-void test10 ( void )
+void test10 ( )
 
 /******************************************************************************/
 /*
@@ -756,9 +754,9 @@ void test10 ( void )
     John Burkardt
 */
 {
-  _Complex double c1;
-  _Complex double c2;
-  _Complex double c3;
+  double complex c1;
+  double complex c2;
+  double complex c3;
   int i;
   int seed = 123456789;
 
@@ -788,7 +786,7 @@ void test10 ( void )
 }
 /******************************************************************************/
 
-void test11 ( void )
+void test11 ( )
 
 /******************************************************************************/
 /*
@@ -814,17 +812,17 @@ void test11 ( void )
   double c;
   int i;
   double s;
-  _Complex double x[N];
-  _Complex double y[N];
+  double complex x[N];
+  double complex y[N];
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   printf ( "\n" );
@@ -857,7 +855,7 @@ void test11 ( void )
 }
 /******************************************************************************/
 
-void test12 ( void )
+void test12 ( )
 
 /******************************************************************************/
 /*
@@ -882,11 +880,11 @@ void test12 ( void )
 
   double da;
   int i;
-  _Complex double x[N];
+  double complex x[N];
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   printf ( "\n" );
@@ -913,7 +911,7 @@ void test12 ( void )
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   da = -2.0;
@@ -931,7 +929,7 @@ void test12 ( void )
 }
 /******************************************************************************/
 
-void test13 ( void )
+void test13 ( )
 
 /******************************************************************************/
 /*
@@ -952,14 +950,14 @@ void test13 ( void )
     John Burkardt
 */
 {
-  _Complex double a;
-  _Complex double b;
+  double complex a;
+  double complex b;
   double c;
-  _Complex double r;
-  _Complex double s;
-  _Complex double sa;
-  _Complex double sb;
-  _Complex double t;
+  double complex r;
+  double complex s;
+  double complex sa;
+  double complex sb;
+  double complex t;
   int seed;
   int test;
   int test_num = 5;
@@ -1001,7 +999,7 @@ void test13 ( void )
 }
 /******************************************************************************/
 
-void test14 ( void )
+void test14 ( )
 
 /******************************************************************************/
 /*
@@ -1025,17 +1023,17 @@ void test14 ( void )
 # define N 5
 
   int i;
-  _Complex double x[N];
-  _Complex double y[N];
+  double complex x[N];
+  double complex y[N];
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   printf ( "\n" );
@@ -1064,12 +1062,12 @@ void test14 ( void )
 
   for ( i = 0; i < N; i++ )
   {
-    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * _Complex_I;
+    x[i] = 10 * ( i + 1 ) + ( i + 1 ) * I;
   }
 
   for ( i = 0; i < N; i++ )
   {
-    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * _Complex_I;
+    y[i] = 20 * ( i + 1 ) + 2 * ( i + 1 ) * I;
   }
 
   zswap ( 3, x, 2, y, 1 );
@@ -1088,7 +1086,7 @@ void test14 ( void )
 }
 /******************************************************************************/
 
-void test15 ( void )
+void test15 ( )
 
 /******************************************************************************/
 /*
@@ -1113,12 +1111,12 @@ void test15 ( void )
 
   int i;
   int incx;
-  _Complex double x[N] = {
-     2.0 - 1.0 * _Complex_I, 
-    -4.0 - 2.0 * _Complex_I, 
-     3.0 + 1.0 * _Complex_I, 
-     2.0 + 2.0 * _Complex_I, 
-    -1.0 - 1.0 * _Complex_I };
+  double complex x[N] = {
+     2.0 - 1.0 * I, 
+    -4.0 - 2.0 * I, 
+     3.0 + 1.0 * I, 
+     2.0 + 2.0 * I, 
+    -1.0 - 1.0 * I };
 
   printf ( "\n" );
   printf ( "TEST15\n" );
@@ -1149,7 +1147,7 @@ void test15 ( void )
 }
 /******************************************************************************/
 
-void test16 ( void )
+void test16 ( )
 
 /******************************************************************************/
 /*
@@ -1174,38 +1172,38 @@ void test16 ( void )
 # define NA 4
 # define NX 8
 
-  _Complex double a[MA*NA] = {
-    -3.0 + 4.0 * _Complex_I, 
-     2.0 + 0.0 * _Complex_I, 
-     3.0 - 4.0 * _Complex_I, 
-     2.0 + 0.0 * _Complex_I, 
-     2.0 - 1.0 * _Complex_I, 
-    -1.0 + 1.0 * _Complex_I, 
-     0.0 + 5.0 * _Complex_I, 
-    -4.0 - 2.0 * _Complex_I, 
-    -4.0 + 1.0 * _Complex_I, 
-    -4.0 - 3.0 * _Complex_I, 
-     0.0 - 2.0 * _Complex_I, 
-     1.0 + 3.0 * _Complex_I, 
-    -3.0 + 3.0 * _Complex_I, 
-    -3.0 + 3.0 * _Complex_I, 
-    -1.0 - 2.0 * _Complex_I, 
-    -1.0 + 2.0 * _Complex_I, 
-     2.0 - 4.0 * _Complex_I, 
-     0.0 - 1.0 * _Complex_I, 
-     0.0 - 1.0 * _Complex_I, 
-    -2.0 + 4.0 * _Complex_I };
+  double complex a[MA*NA] = {
+    -3.0 + 4.0 * I, 
+     2.0 + 0.0 * I, 
+     3.0 - 4.0 * I, 
+     2.0 + 0.0 * I, 
+     2.0 - 1.0 * I, 
+    -1.0 + 1.0 * I, 
+     0.0 + 5.0 * I, 
+    -4.0 - 2.0 * I, 
+    -4.0 + 1.0 * I, 
+    -4.0 - 3.0 * I, 
+     0.0 - 2.0 * I, 
+     1.0 + 3.0 * I, 
+    -3.0 + 3.0 * I, 
+    -3.0 + 3.0 * I, 
+    -1.0 - 2.0 * I, 
+    -1.0 + 2.0 * I, 
+     2.0 - 4.0 * I, 
+     0.0 - 1.0 * I, 
+     0.0 - 1.0 * I, 
+    -2.0 + 4.0 * I };
   int i;
   int j;
-  _Complex double x[NX] = {
-    2.0 - 1.0 * _Complex_I, 
-   -4.0 - 2.0 * _Complex_I, 
-    3.0 + 1.0 * _Complex_I, 
-    2.0 + 2.0 * _Complex_I, 
-   -1.0 - 1.0 * _Complex_I, 
-   -1.0 + 0.0 * _Complex_I, 
-    0.0 - 3.0 * _Complex_I, 
-    4.0 + 0.0 * _Complex_I };
+  double complex x[NX] = {
+    2.0 - 1.0 * I, 
+   -4.0 - 2.0 * I, 
+    3.0 + 1.0 * I, 
+    2.0 + 2.0 * I, 
+   -1.0 - 1.0 * I, 
+   -1.0 + 0.0 * I, 
+    0.0 - 3.0 * I, 
+    4.0 + 0.0 * I };
 
   printf ( "\n" );
   printf ( "TEST16\n" );
@@ -1253,7 +1251,7 @@ void test16 ( void )
 }
 /******************************************************************************/
 
-void test17 ( void )
+void test17 ( )
 
 /******************************************************************************/
 /*
@@ -1279,12 +1277,12 @@ void test17 ( void )
   int i;
   int incx;
   double norm;
-  _Complex double x[N] = {
-    2.0 - 1.0 * _Complex_I, 
-   -4.0 - 2.0 * _Complex_I, 
-    3.0 + 1.0 * _Complex_I, 
-    2.0 + 2.0 * _Complex_I, 
-   -1.0 - 1.0 * _Complex_I };
+  double complex x[N] = {
+    2.0 - 1.0 * I, 
+   -4.0 - 2.0 * I, 
+    3.0 + 1.0 * I, 
+    2.0 + 2.0 * I, 
+   -1.0 - 1.0 * I };
 
   printf ( "\n" );
   printf ( "TEST17\n" );
@@ -1308,120 +1306,4 @@ void test17 ( void )
   return;
 # undef N
 }
-/******************************************************************************/
 
-_Complex double c8_uniform_01 ( int *seed )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    C8_UNIFORM_01 returns a unit double complex pseudorandom number.
-
-  Discussion:
-
-    The angle should be uniformly distributed between 0 and 2 * PI,
-    the square root of the radius uniformly distributed between 0 and 1.
-
-    This results in a uniform distribution of values in the unit circle.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    31 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input/output, int *SEED, the "seed" value, which should NOT be 0.
-    On output, SEED has been updated.
-
-    Output, _Complex double C8_UNIFORM_01, a pseudorandom complex value.
-*/
-{
-  double r;
-  int k;
-  double pi = 3.141592653589793;
-  double theta;
-  _Complex double value;
-
-  k = *seed / 127773;
-
-  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
-
-  if ( *seed < 0 )
-  {
-    *seed = *seed + 2147483647;
-  }
-
-  r = sqrt ( ( ( double ) ( *seed ) * 4.656612875E-10 ) );
-
-  k = *seed / 127773;
-
-  *seed = 16807 * ( *seed - k * 127773 ) - k * 2836;
-
-  if ( *seed < 0 )
-  {
-    *seed = *seed + 2147483647;
-  }
-
-  theta = 2.0 * pi * ( ( double ) ( *seed ) * 4.656612875E-10 );
-
-  value = r * cos ( theta ) + r * sin ( theta ) * _Complex_I;
-
-  return value;
-}
-/******************************************************************************/
-
-void timestamp ( void )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    TIMESTAMP prints the current YMDHMS date as a time stamp.
-
-  Example:
-
-    31 May 2001 09:45:54 AM
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    24 September 2003
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    None
-*/
-{
-# define TIME_SIZE 40
-
-  static char time_buffer[TIME_SIZE];
-  const struct tm *tm;
-  size_t len;
-  time_t now;
-
-  now = time ( NULL );
-  tm = localtime ( &now );
-
-  len = strftime ( time_buffer, TIME_SIZE, "%d %B %Y %I:%M:%S %p", tm );
-
-  printf ( "%s\n", time_buffer );
-
-  return;
-# undef TIME_SIZE
-}

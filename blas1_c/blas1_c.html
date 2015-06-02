@@ -66,6 +66,14 @@
     </h3>
 
     <p>
+      <a href = "../../c_src/blas0/blas0.html">
+      BLAS0</a>,
+      a C library which
+      contains auxilliary functions for the Basic Linear Algebra Subprograms 
+      (BLAS).
+    </p>
+
+    <p>
       <a href = "../../c_src/blas1_d/blas1_d.html">
       BLAS1_D</a>,
       a C library which
@@ -90,19 +98,29 @@
     </p>
 
     <p>
-      <a href = "../../f77_src/blas2/blas2.html">
+      <a href = "../../c_src/blas2/blas2.html">
       BLAS2</a>,
-      a FORTRAN77 library which
-      contains basic linear algebra routines for matrix-vector operations,
-      using single or precision real or complex arithmetic.
+      a C library which
+      contains basic linear algebra subprograms (BLAS) 
+      for matrix-vector operations;
     </p>
 
     <p>
-      <a href = "../../f77_src/blas3/blas3.html">
+      <a href = "../../c_src/blas3/blas3.html">
       BLAS3</a>,
-      a FORTRAN77 library which
-      contains basic linear algebra routines for matrix-matrix operations,
-      using single or precision real or complex arithmetic.
+      a C library which
+      contains basic linear algebra subprograms (BLAS) 
+      for matrix-matrix operations;
+    </p>
+
+    <p>
+      <a href = "../../c_src/clapack/clapack.html">
+      CLAPACK</a>,
+      C programs which
+      illustrate the use of the CLAPACK library, 
+      a translation of the FORTRAN77 BLAS and LAPACK 
+      linear algebra libraries, including single and double precision, 
+      real and complex arithmetic.
     </p>
 
     <p>
@@ -114,23 +132,9 @@
     </p>
 
     <p>
-      <a href = "../../cpp_src/gsl/gsl.html">
-      GSL</a>,
-      C++ programs which
-      illustrate the use of the Gnu Scientific Library;
-    </p>
-
-    <p>
-      <a href = "../../f77_src/lapack_examples/lapack_examples.html">
-      LAPACK_EXAMPLES</a>,
-      a FORTRAN77 program which
-      demonstrates the use of the LAPACK linear algebra library.
-    </p>
-
-    <p>
-      <a href = "../../cpp_src/linpack_c/linpack_c.html">
-      LINPACK_C</a>,
-      a C++ library which
+      <a href = "../../c_src/linpack/linpack.html">
+      LINPACK</a>,
+      a C library which
       solves linear systems using single precision complex arithmetic;
     </p>
 
@@ -228,12 +232,6 @@
     <p>
       <ul>
         <li>
-          <b>CABS1</b> returns the L1 norm of a number.
-        </li>
-        <li>
-          <b>CABS2</b> returns the L2 norm of a number.
-        </li>
-        <li>
           <b>CAXPY</b> computes a constant times a vector plus a vector.
         </li>
         <li>
@@ -246,19 +244,10 @@
           <b>CDOTU</b> forms the unconjugated dot product of two vectors.
         </li>
         <li>
-          <b>CMACH</b> computes machine parameters for arithmetic.
-        </li>
-        <li>
           <b>CROTG</b> determines a Givens rotation.
         </li>
         <li>
           <b>CSCAL</b> scales a vector by a constant.
-        </li>
-        <li>
-          <b>CSIGN1</b> is a transfer-of-sign function.
-        </li>
-        <li>
-          <b>CSIGN2</b> is a transfer-of-sign function.
         </li>
         <li>
           <b>CSROT</b> applies a plane rotation.
@@ -270,31 +259,13 @@
           <b>CSWAP</b> interchanges two vectors.
         </li>
         <li>
-          <b>I4_MAX</b> returns the maximum of two integers.
-        </li>
-        <li>
-          <b>I4_MIN</b> returns the smaller of two integers.
-        </li>
-        <li>
-          <b>ICAMAX</b> indexes the element of maximum absolute value.
-        </li>
-        <li>
-          <b>LSAME</b> returns TRUE if CA is the same letter as CB regardless of case.
-        </li>
-        <li>
-          <b>R4_ABS</b> returns the absolute value of a float.
-        </li>
-        <li>
-          <b>R4_SIGN</b> returns the sign of a float.
+          <b>ICAMAX</b> indexes the vector element of maximum absolute value.
         </li>
         <li>
           <b>SCASUM</b> takes the sum of the absolute values of a vector.
         </li>
         <li>
           <b>SCNRM2</b> returns the euclidean norm of a vector.
-        </li>
-        <li>
-          <b>XERBLA</b> is an error handler for the LAPACK routines.
         </li>
       </ul>
     </p>
@@ -307,7 +278,7 @@
     <hr>
 
     <i>
-      Last revised on 23 June 2009.
+      Last revised on 03 April 2014.
     </i>
 
     <!-- John Burkardt -->

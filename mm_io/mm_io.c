@@ -70,71 +70,79 @@ int mm_read_banner ( FILE *f, MM_typecode *matcode )
     Output, MM_typecode *MATCODE, the header information.
 */
 {
-    char line[MM_MAX_LINE_LENGTH];
-    char banner[MM_MAX_TOKEN_LENGTH];
-    char mtx[MM_MAX_TOKEN_LENGTH]; 
-    char crd[MM_MAX_TOKEN_LENGTH];
-    char data_type[MM_MAX_TOKEN_LENGTH];
-    char storage_scheme[MM_MAX_TOKEN_LENGTH];
-    char *p;
+  char line[MM_MAX_LINE_LENGTH];
+  char banner[MM_MAX_TOKEN_LENGTH];
+  char mtx[MM_MAX_TOKEN_LENGTH]; 
+  char crd[MM_MAX_TOKEN_LENGTH];
+  char data_type[MM_MAX_TOKEN_LENGTH];
+  char storage_scheme[MM_MAX_TOKEN_LENGTH];
+  char *p;
 
-    mm_clear_typecode(matcode);  
+  mm_clear_typecode ( matcode );  
 
-    if (fgets(line, MM_MAX_LINE_LENGTH, f) == NULL) 
-        return MM_PREMATURE_EOF;
+  if ( fgets ( line, MM_MAX_LINE_LENGTH, f ) == NULL ) 
+  {
+    return MM_PREMATURE_EOF;
+  }
 
-    if (sscanf(line, "%s %s %s %s %s", banner, mtx, crd, data_type, 
-        storage_scheme) != 5)
-        return MM_PREMATURE_EOF;
+  if ( sscanf ( line, "%s %s %s %s %s", banner, mtx, crd, data_type, 
+    storage_scheme ) != 5 )
+  {
+    return MM_PREMATURE_EOF;
+  }
 
-    for (p=mtx; *p!='\0'; *p=tolower(*p),p++);  /* convert to lower case */
-    for (p=crd; *p!='\0'; *p=tolower(*p),p++);  
-    for (p=data_type; *p!='\0'; *p=tolower(*p),p++);
-    for (p=storage_scheme; *p!='\0'; *p=tolower(*p),p++);
+  for (p=mtx; *p!='\0'; *p=tolower(*p),p++);  /* convert to lower case */
+  for (p=crd; *p!='\0'; *p=tolower(*p),p++);  
+  for (p=data_type; *p!='\0'; *p=tolower(*p),p++);
+  for (p=storage_scheme; *p!='\0'; *p=tolower(*p),p++);
 /* 
   check for banner 
 */
-    if (strncmp(banner, MatrixMarketBanner, strlen(MatrixMarketBanner)) != 0)
+  if (strncmp(banner, MatrixMarketBanner, strlen(MatrixMarketBanner)) != 0)
         return MM_NO_HEADER;
 
 /* 
   first field should be "mtx" 
 */
-    if (strcmp(mtx, MM_MTX_STR) != 0)
+  if (strcmp(mtx, MM_MTX_STR) != 0)
         return  MM_UNSUPPORTED_TYPE;
-    mm_set_matrix(matcode);
+  mm_set_matrix(matcode);
 
 /* 
   second field describes whether this is a sparse matrix (in coordinate
   storgae) or a dense array 
 */
-    if (strcmp(crd, MM_SPARSE_STR) == 0)
+  if (strcmp(crd, MM_SPARSE_STR) == 0)
         mm_set_sparse(matcode);
-    else
+  else
     if (strcmp(crd, MM_DENSE_STR) == 0)
             mm_set_dense(matcode);
     else
         return MM_UNSUPPORTED_TYPE;
     
-
 /*
   third field 
 */
-
-    if (strcmp(data_type, MM_REAL_STR) == 0)
-        mm_set_real(matcode);
-    else
-    if (strcmp(data_type, MM_COMPLEX_STR) == 0)
-        mm_set_complex(matcode);
-    else
-    if (strcmp(data_type, MM_PATTERN_STR) == 0)
-        mm_set_pattern(matcode);
-    else
-    if (strcmp(data_type, MM_INT_STR) == 0)
-        mm_set_integer(matcode);
-    else
-        return MM_UNSUPPORTED_TYPE;
-    
+  if (strcmp(data_type, MM_REAL_STR) == 0)
+  {
+    mm_set_real(matcode);
+  }
+  else if (strcmp(data_type, MM_COMPLEX_STR) == 0)
+  {
+    mm_set_complex(matcode);
+  }
+  else if (strcmp(data_type, MM_PATTERN_STR) == 0)
+  {
+    mm_set_pattern(matcode);
+  }
+  else if (strcmp(data_type, MM_INT_STR) == 0)
+  {
+    mm_set_integer(matcode);
+  }
+  else
+  {
+    return MM_UNSUPPORTED_TYPE;
+  }    
 /*
   fourth field 
 */
@@ -235,6 +243,12 @@ int mm_read_mtx_crd(char *fname, int *M, int *N, int *nz, int **I, int **J,
 
     This function allocates the storage for the arrays.
 
+    mm_read_mtx_crd()  fills M, N, nz, array of values, and return
+                        type code, e.g. 'MCRS'
+
+                        if matrix is complex, values[] is of size 2*nz,
+                            (nz pairs of real/imaginary values)
+
   Modified:
 
     31 October 2008
@@ -242,16 +256,9 @@ int mm_read_mtx_crd(char *fname, int *M, int *N, int *nz, int **I, int **J,
   Parameters:
 
 */
-/*
-    mm_read_mtx_crd()  fills M, N, nz, array of values, and return
-                        type code, e.g. 'MCRS'
-
-                        if matrix is complex, values[] is of size 2*nz,
-                            (nz pairs of real/imaginary values)
-*/
 {
-    int ret_code;
-    FILE *f;
+  int ret_code;
+  FILE *f;
 
     if (strcmp(fname, "stdin") == 0) f=stdin;
     else
@@ -323,7 +330,8 @@ int mm_read_mtx_crd_data(FILE *f, int M, int N, int nz, int I[], int J[],
     Input, FILE *F, a pointer to the input file.
 */
 {
-    int i;
+  int i;
+
     if (mm_is_complex(matcode))
     {
         for (i=0; i<nz; i++)
@@ -424,7 +432,6 @@ int mm_read_mtx_crd_size(FILE *f, int *M, int *N, int *nz )
 {
   char line[MM_MAX_LINE_LENGTH];
   int num_items_read;
-
 /* 
   set return null parameter values, in case we exit with errors 
 */
@@ -482,7 +489,8 @@ int mm_read_unsymmetric_sparse(const char *fname, int *M_, int *N_, int *nz_,
     int M, N, nz;
     int i;
     double *val;
-    int *I, *J;
+    int *I;
+  int *J;
  
     if ((f = fopen(fname, "r")) == NULL)
             return -1;
@@ -788,7 +796,7 @@ int mm_write_mtx_crd_size ( FILE *f, int M, int N, int nz )
 }
 /******************************************************************************/
 
-void timestamp ( void )
+void timestamp ( )
 
 /******************************************************************************/
 /*

@@ -4,13 +4,13 @@
 
 # include "asa152.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -20,7 +20,7 @@ int main ( void )
 
   Discussion:
 
-    ASA152_PRB calls the ASA152 routines.
+    ASA152_PRB tests the ASA152 library.
 
   Licensing:
 
@@ -36,7 +36,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA152_PRB:\n" );
   printf ( "  C version\n" );
@@ -50,7 +49,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA152_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -58,7 +56,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*
@@ -117,7 +115,7 @@ void test01 ( void )
     fx2 = chyper ( point, sam, x, pop, suc, &ifault );
 
     printf ( "  %4d  %4d  %4d  %4d  %24.16f  %24.16f  %10.4e\n",
-      sam, suc, pop, x, fx, fx2, r8_abs ( fx - fx2 ) );
+      sam, suc, pop, x, fx, fx2, fabs ( fx - fx2 ) );
   }
 
   return;
@@ -183,7 +181,7 @@ void test02 ( void )
     fx2 = chyper ( point, sam, x, pop, suc, &ifault );
 
     printf ( "  %4d  %4d  %4d  %4d  %24.16f  %24.16f  %10.4e\n",
-      sam, suc, pop, x, fx, fx2, r8_abs ( fx - fx2 ) );
+      sam, suc, pop, x, fx, fx2, fabs ( fx - fx2 ) );
   }
 
   return;

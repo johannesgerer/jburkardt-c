@@ -2,12 +2,11 @@
 #
 cp spline.h /$HOME/include
 #
-gcc -c -g -I /$HOME/include spline.c >& compiler.txt
+gcc -c -I /$HOME/include spline.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling spline.c"
   exit
 fi
-rm compiler.txt
 #
 mv spline.o ~/libc/$ARCH/spline.o
 #

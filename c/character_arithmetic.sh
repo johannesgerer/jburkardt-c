@@ -1,11 +1,10 @@
 #!/bin/bash
 #
-gcc -c character_arithmetic.c >& compiler.txt
+gcc -c character_arithmetic.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling character_arithmetic.c."
   exit
 fi
-rm compiler.txt
 #
 gcc character_arithmetic.o
 if [ $? -ne 0 ]; then

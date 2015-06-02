@@ -1,7 +1,5 @@
 #!/bin/bash
 #
-cp nsasm.h /$HOME/include
-#
 gcc -c -g nsasm.c >& compiler.txt
 if [ $? -ne 0 ]; then
   echo "Errors compiling nsasm.c."

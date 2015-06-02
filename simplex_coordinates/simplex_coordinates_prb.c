@@ -16,7 +16,11 @@ int main ( )
 /*
   Purpose:
 
-    SIMPLEX_COORDINATES_PRB tests SIMPLEX_COORDINATES.
+    MAIN is the main program for SIMPLEX_COORDINATES_PRB.
+
+  Discussion:
+
+    SIMPLEX_COORDINATES_PRB tests the SIMPLEX_COORDINATES library.
 
   Licensing:
 
@@ -53,7 +57,6 @@ int main ( )
   printf ( "SIMPLEX_COORDINATES_PRB\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
-
   timestamp ( );
 
   return 0;

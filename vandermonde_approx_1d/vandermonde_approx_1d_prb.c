@@ -20,7 +20,11 @@ int main ( )
 /*
   Purpose:
 
-    VANDERMONDE_APPROX_1D_TEST tests VANDERMONDE_APPROX_1D.
+    MAIN is the main program for VANDERMONDE_APPROX_1D_PRB.
+
+  Discussion:
+
+    VANDERMONDE_APPROX_1D_PRB tests the VANDERMONDE_APPROX_1D library.
 
   Licensing:
 
@@ -44,7 +48,7 @@ int main ( )
 
   timestamp ( );
   printf ( "\n" );
-  printf ( "VANDERMONDE_APPROX_1D_TEST:\n" );
+  printf ( "VANDERMONDE_APPROX_1D_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the VANDERMONDE_APPROX_1D library.\n" );
   printf ( "  The R8LIB library is needed.\n" );
@@ -65,7 +69,7 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "VANDERMONDE_APPROX_1D_TEST:\n" );
+  printf ( "VANDERMONDE_APPROX_1D_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

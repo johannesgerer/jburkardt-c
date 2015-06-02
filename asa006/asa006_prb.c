@@ -4,14 +4,14 @@
 
 # include "asa006.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -21,7 +21,7 @@ int main ( void )
 
   Discussion:
 
-    ASA006_PRB calls the ASA006 routines.
+    ASA006_PRB tests the ASA006 library.
 
   Licensing:
 
@@ -37,7 +37,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA006_PRB:\n" );
   printf ( "  C version\n" );
@@ -52,7 +51,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA006_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

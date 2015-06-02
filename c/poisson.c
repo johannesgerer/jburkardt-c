@@ -382,7 +382,7 @@ double **r8mat_new ( int m, int n )
   double **a;
   int i;
 
-  a = malloc ( m * sizeof ( double * ) );
+  a = ( double * ) malloc ( m * sizeof ( double * ) );
 
   if ( a == NULL )
   {
@@ -394,7 +394,7 @@ double **r8mat_new ( int m, int n )
 
   for ( i = 0; i < m; i++ )
   {
-    a[i] = malloc ( n * sizeof ( double ) );
+    a[i] = ( double * ) malloc ( n * sizeof ( double ) );
     if ( a[i] == NULL )
     {
       fprintf ( stderr, "\n" );

@@ -19,7 +19,11 @@ int main ( )
 /*
   Purpose:
 
-    RBF_INTERP_2D_TEST tests RBF_INTERP_2D.
+    MAIN is the main program for RBF_INTERP_2D_PRB.
+
+  Discussion:
+
+    RBF_INTERP_2D_PRB tests the RBF_INTERP_2D library.
 
   Licensing:
 
@@ -40,7 +44,7 @@ int main ( )
 
   timestamp ( );
   printf ( "\n" );
-  printf ( "RBF_INTERP_2D_TEST:\n" );
+  printf ( "RBF_INTERP_2D_PRB:\n" );
   printf ( "  C version\n" );
   printf ( "  Test the RBF_INTERP_2D library.\n" );
   printf ( "  The R8LIB library is required.\n" );
@@ -60,7 +64,7 @@ int main ( )
   Terminate.
 */
   printf ( "\n" );
-  printf ( "RBF_INTERP_2D_TEST:\n" );
+  printf ( "RBF_INTERP_2D_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
   printf ( "\n" );
   timestamp ( );

@@ -51,12 +51,11 @@ int main ( void )
 */
   sgmga_product_weight_tests ( );
 /*
-  That's all.
+  Terminate.
 */
   printf ( "\n" );
   printf ( "SGMGA_PRODUCT_WEIGHT_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
   

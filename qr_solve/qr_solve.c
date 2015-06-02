@@ -311,7 +311,7 @@ double dnrm2 ( int n, double x[], int incx )
   }
   else if ( n == 1 )
   {
-    norm = r8_abs ( x[0] );
+    norm = fabs ( x[0] );
   }
   else
   {
@@ -323,7 +323,7 @@ double dnrm2 ( int n, double x[], int incx )
     {
       if ( x[ix] != 0.0 )
       {
-        absxi = r8_abs ( x[ix] );
+        absxi = fabs ( x[ix] );
         if ( scale < absxi )
         {
           ssq = 1.0 + ssq * ( scale / absxi ) * ( scale / absxi );
@@ -440,7 +440,7 @@ void dqrank ( double a[], int lda, int m, int n, double tol, int *kr,
 
   for ( j = 0; j < k; j++ )
   {
-    if ( r8_abs ( a[j+j*lda] ) <= tol * r8_abs ( a[0+0*lda] ) )
+    if ( fabs ( a[j+j*lda] ) <= tol * fabs ( a[0+0*lda] ) )
     {
       return;
     }
@@ -673,7 +673,7 @@ void dqrdc ( double a[], int lda, int n, int p, double qraux[], int jpvt[],
           {
             if ( qraux[j-1] != 0.0 )
             {
-              tt = 1.0 - pow ( r8_abs ( a[l-1+(j-1)*lda] ) / qraux[j-1], 2 );
+              tt = 1.0 - pow ( fabs ( a[l-1+(j-1)*lda] ) / qraux[j-1], 2 );
               tt = r8_max ( tt, 0.0 );
               t = tt;
               tt = 1.0 + 0.05 * tt * pow ( qraux[j-1] / work[j-1], 2 );
@@ -1126,7 +1126,7 @@ int dqrsl ( double a[], int lda, int n, int k, double qraux[], double y[],
   double t;
   double temp;
 /*
-  set info flag.
+  Set INFO flag.
 */
   info = 0;
 /*
@@ -1512,7 +1512,7 @@ void drotg ( double *sa, double *sb, double *c, double *s )
   double scale;
   double z;
 
-  if ( r8_abs ( *sb ) < r8_abs ( *sa ) )
+  if ( fabs ( *sb ) < fabs ( *sa ) )
   {
     roe = *sa;
   }
@@ -1521,7 +1521,7 @@ void drotg ( double *sa, double *sb, double *c, double *s )
     roe = *sb;
   }
 
-  scale = r8_abs ( *sa ) + r8_abs ( *sb );
+  scale = fabs ( *sa ) + fabs ( *sb );
 
   if ( scale == 0.0 )
   {
@@ -1538,7 +1538,7 @@ void drotg ( double *sa, double *sb, double *c, double *s )
     *s = *sb / r;
   }
 
-  if ( 0.0 < r8_abs ( *c ) && r8_abs ( *c ) <= *s )
+  if ( 0.0 < fabs ( *c ) && fabs ( *c ) <= *s )
   {
     z = 1.0 / *c;
   }
@@ -1829,7 +1829,7 @@ int dsvdc ( double a[], int lda, int m, int n, double s[], double e[],
       {
         if ( a[l-1+(l-1)*lda] != 0.0 )
         {
-          s[l-1] = r8_sign ( a[l-1+(l-1)*lda] ) * r8_abs ( s[l-1] );
+          s[l-1] = r8_sign ( a[l-1+(l-1)*lda] ) * fabs ( s[l-1] );
         }
         dscal ( m-l+1, 1.0 / s[l-1], a+l-1+(l-1)*lda, 1 );
         a[l-1+(l-1)*lda] = 1.0 + a[l-1+(l-1)*lda];
@@ -1877,7 +1877,7 @@ int dsvdc ( double a[], int lda, int m, int n, double s[], double e[],
       {
         if ( e[l] != 0.0 )
         {
-          e[l-1] = r8_sign ( e[l] ) * r8_abs ( e[l-1] );
+          e[l-1] = r8_sign ( e[l] ) * fabs ( e[l-1] );
         }
         dscal ( n-l, 1.0 / e[l-1], e+l, 1 );
         e[l] = 1.0 + e[l];
@@ -2050,8 +2050,8 @@ int dsvdc ( double a[], int lda, int m, int n, double s[], double e[],
         break;
       }
 
-      test = r8_abs ( s[l-1] ) + r8_abs ( s[l] );
-      ztest = test + r8_abs ( e[l-1] );
+      test = fabs ( s[l-1] ) + fabs ( s[l] );
+      ztest = test + fabs ( e[l-1] );
 
       if ( ztest == test )
       {
@@ -2080,15 +2080,15 @@ int dsvdc ( double a[], int lda, int m, int n, double s[], double e[],
         test = 0.0;
         if ( ls != mn )
         {
-          test = test + r8_abs ( e[ls-1] );
+          test = test + fabs ( e[ls-1] );
         }
 
         if ( ls != l + 1 )
         {
-          test = test + r8_abs ( e[ls-2] );
+          test = test + fabs ( e[ls-2] );
         }
 
-        ztest = test + r8_abs ( s[ls-1] );
+        ztest = test + fabs ( s[ls-1] );
 
         if ( ztest == test )
         {
@@ -2171,10 +2171,10 @@ int dsvdc ( double a[], int lda, int m, int n, double s[], double e[],
 /*
   Calculate the shift.
 */
-      scale = r8_max ( r8_abs ( s[mn-1] ), 
-              r8_max ( r8_abs ( s[mn-2] ), 
-              r8_max ( r8_abs ( e[mn-2] ), 
-              r8_max ( r8_abs ( s[l-1] ), r8_abs ( e[l-1] ) ) ) ) );
+      scale = r8_max ( fabs ( s[mn-1] ), 
+              r8_max ( fabs ( s[mn-2] ), 
+              r8_max ( fabs ( e[mn-2] ), 
+              r8_max ( fabs ( s[l-1] ), fabs ( e[l-1] ) ) ) ) );
 
       sm = s[mn-1] / scale;
       smm1 = s[mn-2] / scale;
@@ -2426,13 +2426,16 @@ double *normal_solve ( int m, int n, double a[], double b[], int *flag )
     system A'*A is effectively the square of the condition number of A, 
     meaning that there is a substantial loss of accuracy.
 
+    Thanks to David Doria for pointing out that this procedure was missing
+    "free()" statements at the end, 08 April 2013.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    11 September 2012
+    08 April 2013
 
   Author:
 
@@ -2493,6 +2496,11 @@ double *normal_solve ( int m, int n, double a[], double b[], int *flag )
   atb = r8mat_mv_new ( n, m, at, b );
 
   x = r8mat_cholesky_solve ( n, ata_c, atb );
+
+  free ( at );
+  free ( ata );
+  free ( ata_c );
+  free ( atb );
 
   return x;
 }

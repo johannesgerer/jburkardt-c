@@ -5,65 +5,69 @@
 
 # include "quadrule.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
-void test04 ( void );
-void test05 ( void );
-void test06 ( void );
-void test07 ( void );
-void test0725 ( void );
-void test075 ( void );
-void test076 ( void );
-void test078 ( void );
-void test079 ( int order, double alpha );
-void test08 ( void );
-void test085 ( void );
-void test087 ( void );
-void test09 ( void );
-void test095 ( void );
-void test10 ( void );
-void test105 ( void );
+int main ( );
+void bashforth_set_test ( );
+void test02 ( );
+void test03 ( );
+void test04 ( );
+void chebyshev1_compute_test ( );
+void test06 ( );
+void test065 ( int n );
+void chebyshev3_compute_test ( );
+void clenshaw_curtis_compute_test ( );
+void clenshaw_curtis_set_test ( );
+void fejer1_compute_test ( );
+void fejer1_set_test ( );
+void fejer2_compute_test ( );
+void fejer2_set_test ( );
+void gegenbauer_compute_test ( int order, double alpha );
+void test08 ( );
+void test085 ( );
+void test087 ( );
+void test089 ( );
+void test09 ( );
+void test095 ( );
+void test10 ( );
+void test105 ( );
 void test108 ( int order );
-void test11 ( void );
-void test12 ( void );
-void test13 ( void );
-void test14 ( void );
-void test15 ( void );
-void test16 ( void );
+void test11 ( );
+void test12 ( );
+void test13 ( );
+void test14 ( );
+void test15 ( );
+void test16 ( );
 void test165 ( int order, double alpha );
-void test17 ( void );
+void test17 ( );
 void test18 ( int n );
-void test185 ( void );
-void test19 ( void );
-void test20 ( void );
-void test21 ( void );
-void test22 ( void );
-void test23 ( void );
-void test24 ( void );
-void test25 ( void );
-void test26 ( void );
-void test27 ( void );
-void test28 ( void );
-void test29 ( void );
-void test30 ( void );
-void test31 ( void );
-void test32 ( void );
-void test33 ( void );
-void test34 ( void );
-void test345 ( void );
-void test35 ( void );
-void test36 ( void );
-void test37 ( void );
-void test38 ( void );
-void test39 ( void );
-void test40 ( void );
-void test401 ( void );
-void test402 ( void );
-void test403 ( void );
-void test404 ( void );
-void test41 ( void );
+void test185 ( );
+void test19 ( );
+void test20 ( );
+void test21 ( );
+void test22 ( );
+void test23 ( );
+void test24 ( );
+void test25 ( );
+void test26 ( );
+void test27 ( );
+void test28 ( );
+void test29 ( );
+void test30 ( );
+void test31 ( );
+void test32 ( );
+void test33 ( );
+void test34 ( );
+void lobatto_compute_test ( );
+void lobatto_set_test ( );
+void moulton_set_test ( );
+void ncc_set_test ( );
+void test38 ( );
+void test39 ( );
+void test40 ( );
+void test401 ( );
+void test402 ( );
+void test403 ( );
+void test404 ( );
+void test41 ( );
 double f1sd1 ( double x );
 char *function_name ( int function_index );
 void function_set ( char *action, int *i );
@@ -73,7 +77,7 @@ double fx2sd1 ( double x );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
@@ -83,7 +87,7 @@ int main ( void )
 
   Discussion:
 
-    QUADRULE_PRB calls a set of tests for the QUADRULE library.
+    QUADRULE_PRB tests the QUADRULE library.
 
   Licensing:
 
@@ -91,7 +95,7 @@ int main ( void )
 
   Modified:
 
-    20 April 2010
+    17 April 2015
 
   Author:
 
@@ -102,35 +106,39 @@ int main ( void )
   int n;
 
   timestamp ( );
-
   printf ( "\n" );
   printf ( "QUADRULE_PRB\n" );
   printf ( "  C version\n" );
   printf ( "  Test the QUADRULE library.\n" );
 
-  test01 ( );
+  bashforth_set_test ( );
   test02 ( );
   test03 ( );
   test04 ( );
-  test05 ( );
+  chebyshev1_compute_test ( );
   test06 ( );
-  test07 ( );
-  test0725 ( );
-  test075 ( );
-  test076 ( );
-  test078 ( );
+  n = 10;
+  test065 ( n );
+  chebyshev3_compute_test ( );
+  clenshaw_curtis_compute_test ( );
+  clenshaw_curtis_set_test ( );
+  fejer1_compute_test ( );
+  fejer1_set_test ( );
+  fejer2_compute_test ( );
+  fejer2_set_test ( );
 
   n = 5;
   alpha = 0.5;
-  test079 ( n, alpha );
+  gegenbauer_compute_test ( n, alpha );
 
   n = 10;
   alpha = - 0.5;
-  test079 ( n, alpha );
+  gegenbauer_compute_test ( n, alpha );
 
   test08 ( );
   test085 ( );
   test087 ( );
+  test089 ( );
   test09 ( );
   test095 ( );
 
@@ -189,10 +197,10 @@ int main ( void )
   test32 ( );
   test33 ( );
   test34 ( );
-  test345 ( );
-  test35 ( );
-  test36 ( );
-  test37 ( );
+  lobatto_compute_test ( );
+  lobatto_set_test ( );
+  moulton_set_test ( );
+  ncc_set_test ( );
   test38 ( );
   test39 ( );
 
@@ -208,7 +216,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "QUADRULE_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
  
@@ -216,13 +223,13 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void bashforth_set_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST01 tests BASHFORTH_SET and SUMMER.
+    BASHFORTH_SET_TEST tests BASHFORTH_SET.
 
   Licensing:
 
@@ -230,83 +237,47 @@ void test01 ( void )
 
   Modified:
 
-    04 May 2006
+    16 April 2015
 
   Author:
 
     John Burkardt
 */
 {
-  int function_num;
   int i;
-  int ihi;
-  int ilo;
   int n;
-  int n_max = 10;
-  double *result;
   double *w;
   double *x;
 
-  function_set ( "COUNT", &function_num );
-
-  result = ( double * ) malloc ( function_num * sizeof ( double ) );
-
   printf ( "\n" );
-  printf ( "TEST01\n" );
+  printf ( "BASHFORTH_SET_TEST\n" );
   printf ( "  BASHFORTH_SET sets up an Adams-Bashforth rule;\n" );
-  printf ( "  SUMMER carries it out.\n" );
   printf ( "\n" );
-  printf ( "  The integration interval is [0,1].\n" );
-  printf ( "  Quadrature order will vary.\n" );
-  printf ( "  Integrand will vary.\n" );
+  printf ( "    Index      X             W\n" );
   printf ( "\n" );
 
-  for ( ilo = 0; ilo < function_num; ilo = ilo + 5 )
+  for ( n = 1; n <= 10; n++ )
   {
-    ihi = i4_min ( ilo + 4, function_num - 1 );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+
+    bashforth_set ( n, x, w );
 
     printf ( "\n" );
-    printf ( "  Order  " );
-    for ( i = ilo; i <= ihi; i++ )
+
+    for ( i = 0; i < n; i++ )
     {
-      printf ( "%10s    ", function_name ( i ) );
+      printf ( "  %2d  %24.16g  %24.16g\n", i, x[i], w[i] );
     }
-    printf ( "\n" );
-    printf ( "\n" );
-
-    for ( n = 1; n <= n_max; n++ )
-    {
-      x = ( double * ) malloc ( n * sizeof ( double ) );
-      w = ( double * ) malloc ( n * sizeof ( double ) );
-
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        function_set ( "SET", &i );
-
-        bashforth_set ( n, x, w );
- 
-        result[i] = summer ( function_value, n, x, w );
- 
-      }
-      printf ( "  %2d  ", n );
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        printf ( "  %12.8e", result[i] );
-      }
-      printf ( "\n" );
-
-      free ( x );
-      free ( w );
-    }
+    free ( w );
+    free ( x );
   }
-
-  free ( result );
  
   return;
 }
 /******************************************************************************/
 
-void test02 ( void )
+void test02 ( )
 
 /******************************************************************************/
 /*
@@ -396,7 +367,7 @@ void test02 ( void )
 }
 /******************************************************************************/
 
-void test03 ( void )
+void test03 ( )
 
 /******************************************************************************/
 /*
@@ -486,13 +457,13 @@ void test03 ( void )
 }
 /******************************************************************************/
 
-void test04 ( void )
+void test04 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST04 tests CHEB_SET and SUM_SUB.
+    TEST04 tests CHEBYSHEV_SET and SUM_SUB.
 
   Licensing:
 
@@ -517,7 +488,7 @@ void test04 ( void )
   int order;
   int order_max = 9;
   double *result;
-  double *weight;
+  double *w;
   double xhi;
   double xlo;
   double *xtab;
@@ -536,7 +507,7 @@ void test04 ( void )
 
   printf ( "\n" );
   printf ( "TEST04\n" );
-  printf ( "  CHEB_SET sets up a Chebyshev rule;\n" );
+  printf ( "  CHEBYSHEV_SET sets up a Chebyshev rule;\n" );
   printf ( "  SUM_SUB carries it out.\n" );
   printf ( "\n" );
   printf ( "  The integration interval is [%f,%f].\n", a, b );
@@ -566,16 +537,16 @@ void test04 ( void )
       }
 
       xtab = ( double * ) malloc ( order * sizeof ( double ) );
-      weight = ( double * ) malloc ( order * sizeof ( double ) );
+      w = ( double * ) malloc ( order * sizeof ( double ) );
 
       for ( i = ilo; i <= ihi; i++ )
       {
         function_set ( "SET", &i );
 
-        cheb_set ( order, xtab, weight );
+        chebyshev_set ( order, xtab, w );
  
         result[i] = sum_sub ( function_value, a, b, nsub, order, 
-          xlo, xhi, xtab, weight ); 
+          xlo, xhi, xtab, w ); 
       }
       printf ( "%2d  ", order );
       for ( i = ilo; i <= ihi; i++ )
@@ -585,7 +556,7 @@ void test04 ( void )
       printf ( "\n" );
 
       free ( xtab );
-      free ( weight );
+      free ( w );
     }
   }
 
@@ -595,13 +566,13 @@ void test04 ( void )
 }
 /******************************************************************************/
 
-void test05 ( void )
+void chebyshev1_compute_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST05 tests CHEBYSHEV1_COMPUTE and SUMMER.
+    CHEBYSHEV1_COMPUTE_TEST tests CHEBYSHEV1_COMPUTE
 
   Licensing:
 
@@ -609,91 +580,49 @@ void test05 ( void )
 
   Modified:
 
-    04 March 2008
+    15 April 2015
 
   Author:
 
     John Burkardt
 */
 {
-  double a;
-  double b;
-  int function_num;
   int i;
-  int ihi;
-  int ilo;
-  int nsub;
-  int order;
-  int order_max = 6;
-  double *result;
-  double *weight;
-  double *xtab;
-
-  function_set ( "COUNT", &function_num );
-
-  result = ( double * ) malloc ( function_num * sizeof ( double ) );
-
-  a = -1.0;
-  b =  1.0;
-  nsub = 1;
+  int n;
+  double *w;
+  double *x;
 
   printf ( "\n" );
-  printf ( "TEST05\n" );
-  printf ( "  CHEBYSHEV1_COMPUTE sets up a Gauss-Chebyshev type 1 rule,\n" );
-  printf ( "  SUMMER carries it out.\n" );
+  printf ( "CHEBYSHEV1_COMPUTE_TEST\n" );
+  printf ( "  CHEBYSHEV1_COMPUTE computes\n" );
+  printf ( "  a Chebyshev Type 1 quadrature rule over [-1,1].\n" );
+
   printf ( "\n" );
-  printf ( "  The integration interval is [%f,%f].\n", a, b );
-  printf ( "  The number of subintervals is %d\n", nsub );
-  printf ( "  Quadrature order will vary.\n" );
-  printf ( "  Integrand will vary.\n" );
-  printf ( "  The weight function is 1 / sqrt ( 1 - X**2 )\n" );
+  printf ( "    Index      X             W\n" );
   printf ( "\n" );
 
-  for ( ilo = 0; ilo < function_num; ilo = ilo + 5 )
+  for ( n = 1; n <= 10; n++ )
   {
-    ihi = i4_min ( ilo + 4, function_num - 1 );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+
+    chebyshev1_compute ( n, x, w );
 
     printf ( "\n" );
-    printf ( "Order  " );
-    for ( i = ilo; i <= ihi; i++ )
+
+    for ( i = 0; i < n; i++ )
     {
-      printf ( "%10s    ", function_name ( i ) );
+      printf ( "  %2d  %24.16g  %24.16g\n", i, x[i], w[i] );
     }
-    printf ( "\n" );
-    printf ( "\n" );
-
-    for ( order = 1; order <= order_max; order++ )
-    {
-      xtab = ( double * ) malloc ( order * sizeof ( double ) );
-      weight = ( double * ) malloc ( order * sizeof ( double ) );
-
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        function_set ( "SET", &i );
-
-        chebyshev1_compute ( order, xtab, weight );
- 
-        result[i] = summer ( function_value, order, xtab, weight ); 
-      }
-      printf ( "%2d  ", order );
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        printf ( "  %12.6f", result[i] );
-      }
-      printf ( "\n" );
-
-      free ( xtab );
-      free ( weight );
-    }
+    free ( w );
+    free ( x );
   }
-
-  free ( result );
 
   return;
 }
 /******************************************************************************/
 
-void test06 ( void )
+void test06 ( )
 
 /******************************************************************************/
 /*
@@ -720,6 +649,7 @@ void test06 ( void )
   int i;
   int ihi;
   int ilo;
+  int j;
   int nsub;
   int order;
   int order_max = 4;
@@ -776,7 +706,11 @@ void test06 ( void )
 
         chebyshev2_compute ( order, xtab, weight );
  
-        result[i] = summer ( function_value, order, xtab, weight ); 
+        result[i] = 0.0;
+        for ( j = 0; j < order; j++ )
+        {
+          result[i] = result[i] + weight[j] * function_value ( xtab[j] );
+        } 
       }
       printf ( "%2d  ", order );
       for ( i = ilo; i <= ihi; i++ )
@@ -796,13 +730,13 @@ void test06 ( void )
 }
 /******************************************************************************/
 
-void test07 ( void )
+void test065 ( int n )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST07 tests CHEBYSHEV3_COMPUTE and SUMMER.
+    TEST065 uses CHEBSHEV2_COMPUTE to integral over the semicircle.
 
   Licensing:
 
@@ -810,97 +744,329 @@ void test07 ( void )
 
   Modified:
 
-    04 March 2008
+    08 January 2013
 
   Author:
 
     John Burkardt
 */
 {
-  double a;
-  double b;
-  int function_num;
+  double error;
+  double exact;
+  double *f;
   int i;
-  int ihi;
-  int ilo;
-  int nsub;
-  int order;
-  int order_max = 6;
-  double *result;
-  double *weight;
-  double *xtab;
-
-  function_set ( "COUNT", &function_num );
-
-  result = ( double * ) malloc ( function_num * sizeof ( double ) );
-
-  a = -1.0;
-  b =  1.0;
-  nsub = 1;
+  double q;
+  double *w;
+  double *x;
 
   printf ( "\n" );
-  printf ( "TEST07\n" );
-  printf ( "  CHEBYSHEV3_COMPUTE sets up a Gauss-Chebyshev type 3 rule,\n" );
-  printf ( "  SUMMER carries it out.\n" );
+  printf ( "TEST065\n" );
+  printf ( "  Approximate the integral of f(x,y) over the semicircle\n" );
+  printf ( "    -1 <= x <= 1, y = sqrt ( 1 - x^2 )\n" );
+  printf ( "  using N Chebyshev points.\n" );
+  printf ( "  If p(x,y) involves any term of odd degree in y,\n" );
+  printf ( "  the estimate will only be approximate.\n" );
   printf ( "\n" );
-  printf ( "  The integration interval is [%f,%f].\n", a, b );
-  printf ( "  The number of subintervals is %d\n", nsub );
-  printf ( "  Quadrature order will vary.\n" );
-  printf ( "  Integrand will vary.\n" );
-  printf ( "  The weight function is 1 / sqrt ( 1 - X**2 )\n" );
+  printf ( "  Polynomial    N    Integral        Estimate       Error\n" );
   printf ( "\n" );
 
-  for ( ilo = 0; ilo < function_num; ilo = ilo + 5 )
+  f = ( double * ) malloc ( n * sizeof ( double ) );
+  x = ( double * ) malloc ( n * sizeof ( double ) );
+  w = ( double * ) malloc ( n * sizeof ( double ) );
+
+  chebyshev2_compute ( n, x, w );
+/*
+  f(x,y) = 1
+*/
+  exact = 1.5707963267948966192;
+  for ( i = 0; i < n; i++ )
   {
-    ihi = i4_min ( ilo + 4, function_num - 1 );
-
-    printf ( "\n" );
-    printf ( "Order  " );
-    for ( i = ilo; i <= ihi; i++ )
-    {
-      printf ( "%10s    ", function_name ( i ) );
-    }
-    printf ( "\n" );
-    printf ( "\n" );
-
-    for ( order = 1; order <= order_max; order++ )
-    {
-      xtab = ( double * ) malloc ( order * sizeof ( double ) );
-      weight = ( double * ) malloc ( order * sizeof ( double ) );
-
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        function_set ( "SET", &i );
-
-        chebyshev3_compute ( order, xtab, weight );
- 
-        result[i] = summer ( function_value, order, xtab, weight ); 
-      }
-      printf ( "%2d  ", order );
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        printf ( "  %12.6f", result[i] );
-      }
-      printf ( "\n" );
-
-      free ( xtab );
-      free ( weight );
-    }
+    f[i] = 1.0;
   }
+  q = r8vec_dot_product ( n, w, f );
+  error = fabs ( q - exact );
+  printf ( "  1              %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x
+*/
+  exact = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = x[i];
+  }
+  q = r8vec_dot_product ( n, w, f );
+  error = fabs ( q - exact );
+  printf ( "  x              %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = y = sqrt ( 1 - x^2 )
+*/
+  exact = 0.66666666666666666667;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = sqrt ( 1.0 - pow ( x[i], 2 ) );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 2.0;
+  error = fabs ( q - exact );
+  printf ( "     y           %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x^2
+*/
+  exact = 0.39269908169872415481;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 2 );
+  }
+  q = r8vec_dot_product ( n, w, f );
+  error = fabs ( q - exact );
+  printf ( "  x^2            %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = xy = x * sqrt ( 1 - x^2 )
+*/
+  exact = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = x[i] * sqrt ( 1.0 - pow ( x[i], 2 ) );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 2.0;
+  error = fabs ( q - exact );
+  printf ( "  x  y           %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = y^2 -> ( 1 - x^2 )
+*/
+  exact = 0.39269908169872415481;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = 1.0 - pow ( x[i], 2 );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 3.0;
+  error = fabs ( q - exact );
+  printf ( "     y^2         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x^3
+*/
+  exact = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 3 );
+  }
+  q = r8vec_dot_product ( n, w, f );
+  error = fabs ( q - exact );
+  printf ( "  x^3            %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x^2 y = x^2 sqrt ( 1 - x^2 )
+*/
+  exact = 0.13333333333333333333;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 2 ) * sqrt ( 1.0 - pow ( x[i], 2 ) );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 2.0;
+  error = fabs ( q - exact );
+  printf ( "  x^2y           %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x y^2 = x * ( 1 - x^2 )
+*/
+  exact = 0.0;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = x[i] * ( 1.0 - pow ( x[i], 2 ) );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 3.0;
+  error = fabs ( q - exact );
+  printf ( "  x  y^2         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = y^3
+*/
+  exact = 0.26666666666666666667;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( 1.0 - pow ( x[i], 2 ), 1.5 );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 4.0;
+  error = fabs ( q - exact );
+  printf ( "     y^3         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x^4
+*/
+  exact = 0.19634954084936207740;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 4 );
+  }
+  q = r8vec_dot_product ( n, w, f );
+  error = fabs ( q - exact );
+  printf ( "  x^4            %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x^2y^2 -> x^2( 1 - x^2 )
+*/
+  exact = 0.065449846949787359135;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 2 ) * ( 1.0 - pow ( x[i], 2 ) );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 3.0;
+  error = fabs ( q - exact );
+  printf ( "  x^2y^2         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = y^4 -> ( 1 - x^2 )^2
+*/
+  exact = 0.19634954084936207740;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( 1.0 - pow ( x[i], 2 ), 2 );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 5.0;
+  error = fabs ( q - exact );
+  printf ( "     y^4         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x^4y = x^4 sqrt ( 1 - x^2 )
+*/
+  exact = 0.057142857142857142857;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 4 ) * sqrt ( 1.0 - pow ( x[i], 2 ) );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 2.0;
+  error = fabs ( q - exact );
+  printf ( "  x^4y           %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  x^2y^3 = x^2 ( 1 - x^2 )^(3/2)
+*/
+  exact = 0.038095238095238095238;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 2 ) * pow ( 1.0 - pow ( x[i], 2 ), 1.5 );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 4.0;
+  error = fabs ( q - exact );
+  printf ( "  x^2y^3         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = y^5
+*/
+  exact = 0.15238095238095238095;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( 1.0 - pow ( x[i], 2 ), 2.5 );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 6.0;
+  error = fabs ( q - exact );
+  printf ( "     y^5         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x^6
+*/
+  exact = 0.12271846303085129838;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 6 );
+  }
+  q = r8vec_dot_product ( n, w, f );
+  error = fabs ( q - exact );
+  printf ( "  x^6            %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x^4y^2 -> x^4( 1 - x^2 )
+*/
+  exact = 0.024543692606170259675;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 4 ) * ( 1.0 - pow ( x[i], 2 ) );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 3.0;
+  error = fabs ( q - exact );
+  printf ( "  x^4y^2         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = x^2y^4 -> x^2( 1 - x^2 )^2
+*/
+  exact = 0.024543692606170259675;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( x[i], 2 ) * pow ( 1.0 - pow ( x[i], 2 ), 2 );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 5.0;
+  error = fabs ( q - exact );
+  printf ( "  x^2y^4         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
+/*
+  f(x,y) = y^6 -> ( 1 - x^2 )^3
+*/
+  exact = 0.12271846303085129838;
+  for ( i = 0; i < n; i++ )
+  {
+    f[i] = pow ( 1.0 - pow ( x[i], 2 ), 3 );
+  }
+  q = r8vec_dot_product ( n, w, f ) / 7.0;
+  error = fabs ( q - exact );
+  printf ( "     y^6         %2d  %14.6g  %14.6g  %14.6g\n", n, exact, q, error );
 
-  free ( result );
+  free ( f );
+  free ( w );
+  free ( x );
 
   return;
 }
 /******************************************************************************/
 
-void test0725 ( void )
+void chebyshev3_compute_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST0725 tests CLENSHAW_CURTIS_COMPUTE
+    CHEBYSHEV3_COMPUTE_TEST tests CHEBYSHEV3_COMPUTE
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    17 April 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int n;
+  double *w;
+  double *x;
+
+  printf ( "\n" );
+  printf ( "CHEBYSHEV3_COMPUTE_TEST\n" );
+  printf ( "  CHEBYSHEV3_COMPUTE computes\n" );
+  printf ( "  a Chebyshev Type 3 quadrature rule over [-1,1].\n" );
+
+  printf ( "\n" );
+  printf ( "    Index      X             W\n" );
+  printf ( "\n" );
+
+  for ( n = 1; n <= 10; n++ )
+  {
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+
+    chebyshev3_compute ( n, x, w );
+
+    printf ( "\n" );
+
+    for ( i = 0; i < n; i++ )
+    {
+      printf ( "  %2d  %24.16g  %24.16g\n", i, x[i], w[i] );
+    }
+    free ( w );
+    free ( x );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void clenshaw_curtis_compute_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    CLENSHAW_CURTIS_COMPUTE_TEST tests CLENSHAW_CURTIS_COMPUTE
 
   Licensing:
 
@@ -916,34 +1082,32 @@ void test0725 ( void )
 */
 {
   int i;
-  int order;
-  int order_max = 10;
+  int n;
+  int n_max = 10;
   double *w;
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST0725\n" );
+  printf ( "CLENSHAW_CURTIS_COMPUTE_TEST\n" );
   printf ( "  CLENSHAW_CURTIS_COMPUTE computes\n" );
-  printf ( "  a Clenshaw-Curtis quadrature rule over [-1,1]\n" );
-  printf ( "  of given order.\n" );
+  printf ( "  a Clenshaw-Curtis quadrature rule over [-1,1].\n" );
 
   printf ( "\n" );
-  printf ( "    Order  W             X\n" );
+  printf ( "    Index      X             W\n" );
   printf ( "\n" );
 
-  for ( order = 1; order <= order_max; order++ )
+  for ( n = 1; n <= n_max; n++ )
   {
-    w = ( double * ) malloc ( order * sizeof ( double ) );
-    x = ( double * ) malloc ( order * sizeof ( double ) );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
 
-    clenshaw_curtis_compute ( order, x, w );
+    clenshaw_curtis_compute ( n, x, w );
 
     printf ( "\n" );
-    printf ( "  %8d\n", order );
 
-    for ( i = 0; i < order; i++ )
+    for ( i = 0; i < n; i++ )
     {
-      printf ( "            %14f  %14f\n", w[i], x[i] );
+      printf ( "  %2d  %24.16g  %24.16g\n", i, x[i], w[i] );
     }
     free ( w );
     free ( x );
@@ -953,13 +1117,13 @@ void test0725 ( void )
 }
 /******************************************************************************/
 
-void test075 ( void )
+void clenshaw_curtis_set_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST075 tests CLENSHAW_CURTIS_SET and SUMMER.
+    CLENSHAW_CURTIS_SET_TEST tests CLENSHAW_CURTIS_SET.
 
   Licensing:
 
@@ -967,89 +1131,64 @@ void test075 ( void )
 
   Modified:
 
-    04 May 2006
+    03 April 2015
 
   Author:
 
     John Burkardt
 */
 {
-  int function_num;
+  double e;
+  double exact;
   int i;
-  int ihi;
-  int ilo;
-  int order;
-  int order_max = 16;
-  double *result;
-  double *weight;
-  double *xtab;
-
-  function_set ( "COUNT", &function_num );
-
-  result = ( double * ) malloc ( function_num * sizeof ( double ) );
+  int n;
+  double q;
+  double *w;
+  double *x;
 
   printf ( "\n" );
-  printf ( "TEST075\n" );
+  printf ( "CLENSHAW_CURTIS_SET_TEST\n" );
   printf ( "  CLENSHAW_CURTIS_SET sets up a Clenshaw-Curtis rule;\n" );
-  printf ( "  SUMMER carries it out.\n" );
   printf ( "\n" );
-  printf ( "  The integration interval is [-1,1].\n" );
-  printf ( "  Quadrature order will vary.\n" );
-  printf ( "  Integrand will vary.\n" );
+  printf ( "  Estimate the integral of sqrt(abs(x)) over [-1,+1].\n" );
+  printf ( "\n" );
+  printf ( "   N           Estimate             Error\n" );
   printf ( "\n" );
 
-  for ( ilo = 0; ilo < function_num; ilo = ilo + 5 )
+  exact = 4.0 / 3.0;
+
+  for ( n = 1; n <= 10; n++ )
   {
-    ihi = i4_min ( ilo + 4, function_num - 1 );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
 
-    printf ( "\n" );
-    printf ( "Order  " );
-    for ( i = ilo; i <= ihi; i++ )
+    clenshaw_curtis_set ( n, x, w );
+
+    q = 0.0;
+    for ( i = 0; i < n; i++ )
     {
-      printf ( "%10s    ", function_name ( i ) );
+      q = q + w[i] * sqrt ( fabs ( x[i] ) );
     }
-    printf ( "\n" );
-    printf ( "\n" );
 
-    for ( order = 1; order <= order_max; order++ )
-    {
-      xtab = ( double * ) malloc ( order * sizeof ( double ) );
-      weight = ( double * ) malloc ( order * sizeof ( double ) );
+    e = fabs ( q - exact );
 
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        function_set ( "SET", &i );
+    printf ( "  %2d  %24.16g  %14.6e\n", n, q, e );
 
-        clenshaw_curtis_set ( order, xtab, weight );
- 
-        result[i] = summer ( function_value, order, xtab, weight );
- 
-      }
-      printf ( "%2d  ", order );
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        printf ( "  %12.8f", result[i] );
-      }
-      printf ( "\n" );
-
-      free ( xtab );
-      free ( weight );
-    }
+    free ( w );
+    free ( x );
   }
-
-  free ( result );
  
   return;
 }
 /******************************************************************************/
 
-void test076 ( void )
+void fejer1_compute_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST076 compares FEJER1_COMPUTE and FEJER1_SET.
+    FEJER1_COMPUTE_TEST tests FEJER1_COMPUTE.
 
   Licensing:
 
@@ -1057,7 +1196,7 @@ void test076 ( void )
 
   Modified:
 
-    05 March 2007
+    15 April 2015
 
   Author:
 
@@ -1065,61 +1204,103 @@ void test076 ( void )
 */
 {
   int i;
-  int order;
-  int order_max = 10;
-  double *w1;
-  double *w2;
-  double *x1;
-  double *x2;
+  int n;
+  int n_max = 10;
+  double *w;
+  double *x;
 
   printf ( "\n" );
-  printf ( "TEST076\n" );
+  printf ( "FEJER1_COMPUTE_TEST\n" );
   printf ( "  FEJER1_COMPUTE computes a Fejer type 1 quadrature rule;\n" );
+  printf ( "\n" );
+  printf ( "     Order        W               X\n" );
+  printf ( "\n" );
+
+  for ( n = 1; n <= n_max; n++ )
+  {
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+
+    fejer1_compute ( n, x, w );
+
+    printf ( "\n" );
+    printf ( "  %8d\n", n );
+
+    for ( i = 0; i < n; i++ )
+    {
+      printf ( "          %14g  %14g\n", w[i], x[i]  );
+    }
+    free ( w );
+    free ( x );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void fejer1_set_test ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    FEJER1_SET_TEST tests FEJER1_SET.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 April 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int n;
+  int n_max = 10;
+  double *w;
+  double *x;
+
+  printf ( "\n" );
+  printf ( "FEJER1_SET_TEST\n" );
   printf ( "  FEJER1_SET sets a Fejer type 1 quadrature rule;\n" );
   printf ( "\n" );
-  printf ( "  Compare:\n" );
-  printf ( "    (W1,X1) from FEJER1_SET,\n" );
-  printf ( "    (W2,X2) from FEJER1_COMPUTE.\n" );
-  printf ( "\n" );
-  printf ( "     Order        W1              W2              X1             X2\n" );
+  printf ( "     Order        W               X\n" );
   printf ( "\n" );
 
-  for ( order = 1; order <= order_max; order++ )
+  for ( n = 1; n <= n_max; n++ )
   {
-    w1 = ( double * ) malloc ( order * sizeof ( double ) );
-    x1 = ( double * ) malloc ( order * sizeof ( double ) );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
 
-    fejer1_set ( order, x1, w1 );
-
-    w2 = ( double * ) malloc ( order * sizeof ( double ) );
-    x2 = ( double * ) malloc ( order * sizeof ( double ) );
-
-    fejer1_compute ( order, x2, w2 );
+    fejer1_set ( n, x, w );
 
     printf ( "\n" );
-    printf ( "  %8d\n", order );
+    printf ( "  %8d\n", n );
 
-    for ( i = 0; i < order; i++ )
+    for ( i = 0; i < n; i++ )
     {
-      printf ( "          %14f  %14f  %14f  %14f\n", w1[i], w2[i], x1[i], x2[i]  );
+      printf ( "          %14g  %14g\n", w[i], x[i]  );
     }
-    free ( w1 );
-    free ( w2 );
-    free ( x1 );
-    free ( x2 );
+    free ( w );
+    free ( x );
   }
 
   return;
 }
 /******************************************************************************/
 
-void test078 ( void )
+void fejer2_compute_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST078 compares FEJER2_COMPUTE and FEJER2_SET.
+    FEJER2_COMPUTE_TEST tests FEJER2_COMPUTE.
 
   Licensing:
 
@@ -1127,60 +1308,111 @@ void test078 ( void )
 
   Modified:
 
-    05 March 2007
+    15 April 2015
 
   Author:
 
     John Burkardt
 */
 {
-# define ORDER_MAX 10
-
   int i;
-  int order;
-  double w1[ORDER_MAX];
-  double w2[ORDER_MAX];
-  double x1[ORDER_MAX];
-  double x2[ORDER_MAX];
+  int n;
+  int n_max = 10;
+  double *w;
+  double *x;
 
   printf ( "\n" );
-  printf ( "TEST078\n" );
+  printf ( "FEJER2_COMPUTE_TEST\n" );
   printf ( "  FEJER2_COMPUTE computes a Fejer type 2 quadrature rule;\n" );
-  printf ( "  FEJER2_SET sets a Fejer type 2 quadrature rule;\n" );
   printf ( "\n" );
-  printf ( "  Compare:\n" );
-  printf ( "    (W1,X1) from FEJER2_SET,\n" );
-  printf ( "    (W2,X2) from FEJER2_COMPUTE.\n" );
-  printf ( "\n" );
-  printf ( "     Order        W1              W2              X1             X2\n" );
+  printf ( "     Order        W               X\n" );
   printf ( "\n" );
 
-  for ( order = 1; order <= ORDER_MAX; order++ )
+  for ( n = 1; n <= n_max; n++ )
   {
-    fejer2_set ( order, x1, w1 );
-    fejer2_compute ( order, x2, w2 );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+
+    fejer2_compute ( n, x, w );
 
     printf ( "\n" );
-    printf ( "  %8d\n", order );
+    printf ( "  %8d\n", n );
 
-    for ( i = 0; i < order; i++ )
+    for ( i = 0; i < n; i++ )
     {
-      printf ( "          %14f  %14f  %14f  %14f\n", w1[i], w2[i], x1[i], x2[i]  );
+      printf ( "          %14g  %14g\n", w[i], x[i]  );
     }
+    free ( w );
+    free ( x );
   }
 
   return;
-# undef ORDER_MAX
 }
 /******************************************************************************/
 
-void test079 ( int order, double alpha )
+void fejer2_set_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST079 tests GEGENBAUER_COMPUTE.
+    FEJER2_SET_TEST tests FEJER2_SET.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    15 April 2015
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int i;
+  int n;
+  int n_max = 10;
+  double *w;
+  double *x;
+
+  printf ( "\n" );
+  printf ( "FEJER2_SET_TEST\n" );
+  printf ( "  FEJER2_SET sets a Fejer type 2 quadrature rule;\n" );
+  printf ( "\n" );
+  printf ( "     Order        W               X\n" );
+  printf ( "\n" );
+
+  for ( n = 1; n <= n_max; n++ )
+  {
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+
+    fejer2_set ( n, x, w );
+
+    printf ( "\n" );
+    printf ( "  %8d\n", n );
+
+    for ( i = 0; i < n; i++ )
+    {
+      printf ( "          %14g  %14g\n", w[i], x[i]  );
+    }
+    free ( w );
+    free ( x );
+  }
+
+  return;
+}
+/******************************************************************************/
+
+void gegenbauer_compute_test ( int order, double alpha )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    GEGENBAUER_COMPUTE_TEST tests GEGENBAUER_COMPUTE.
 
   Licensing:
 
@@ -1206,7 +1438,7 @@ void test079 ( int order, double alpha )
   double *x;
 
   printf ( "\n" );
-  printf ( "TEST079\n" );
+  printf ( "GEGENBAUER_COMPUTE_TEST\n" );
   printf ( "  GEGENBAUER_COMPUTE computes a Gauss-Gegenbauer rule;\n" );
   printf ( "\n" );
   printf ( "  The printed output of this routine can be inserted into\n" );
@@ -1217,20 +1449,20 @@ void test079 ( int order, double alpha )
 
   gegenbauer_compute ( order, alpha, x, w );
 
-  printf ( "\n" );
+  printf ( "/*\n" );
   printf ( "  Abscissas X and weights W for a Gauss Gegenbauer rule\n" );
   printf ( "  of ORDER   = %d\n", order );
   printf ( "  with ALPHA = %f\n", alpha );
-  printf ( "\n" );
+  printf ( "/*\n" );
 
   for ( i = 0; i < order; i++ )
   {
-    printf ( "    x[%2d] = %24.16e\n", i, x[i] );
+    printf ( "    x[%2d] = %24.16e;\n", i, x[i] );
   }
   printf ( "\n" );
   for ( i = 0; i < order; i++ )
   {
-    printf ( "    x[%2d] = %24.16e\n", i, w[i] );
+    printf ( "    x[%2d] = %24.16e;\n", i, w[i] );
   }
 
   free ( w );
@@ -1241,13 +1473,13 @@ void test079 ( int order, double alpha )
 }
 /******************************************************************************/
 
-void test08 ( void )
+void test08 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST08 tests HERMITE_SS_COMPUTE and SUMMER.
+    TEST08 tests HERMITE_SS_COMPUTE.
 
   Licensing:
 
@@ -1266,6 +1498,7 @@ void test08 ( void )
   int i;
   int ihi;
   int ilo;
+  int j;
   int order;
   int order_max = 20;
   double *result;
@@ -1279,7 +1512,6 @@ void test08 ( void )
   printf ( "\n" );
   printf ( "TEST08\n" );
   printf ( "  HERMITE_SS_COMPUTE computes a Gauss-Hermite rule;\n" );
-  printf ( "  SUMMER carries it out.\n" );
   printf ( "\n" );
   printf ( "  The integration interval is ( -Infinity, +Infinity ).\n" );
   printf ( "  The weight function is exp ( - X**2 )\n" );
@@ -1309,7 +1541,11 @@ void test08 ( void )
 
         hermite_ss_compute ( order, xtab, weight );
  
-        result[i] = summer ( function_value, order, xtab, weight ); 
+        result[i] = 0.0;
+        for ( j = 0; j < order; j++ )
+        {
+          result[i] = result[i] + weight[j] * function_value ( xtab[j] );
+        } 
       }
       printf ( "%2d  ", order );
       for ( i = ilo; i <= ihi; i++ )
@@ -1328,7 +1564,7 @@ void test08 ( void )
 }
 /******************************************************************************/
 
-void test085 ( void )
+void test085 ( )
 
 /******************************************************************************/
 /*
@@ -1401,7 +1637,7 @@ void test085 ( void )
       }
       estimate = r8vec_dot_product ( order, weight, f_vec );
 
-      error = r8_abs ( exact - estimate );
+      error = fabs ( exact - estimate );
   
       printf ( "  %8d  %8d  %14f  %14f  %14e\n", n, order, estimate, exact, error );
 
@@ -1415,7 +1651,7 @@ void test085 ( void )
 }
 /******************************************************************************/
 
-void test087 ( void )
+void test087 ( )
 
 /******************************************************************************/
 /*
@@ -1474,13 +1710,104 @@ void test087 ( void )
 }
 /******************************************************************************/
 
-void test09 ( void )
+void test089 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST09 tests HERMITE_SET and SUMMER.
+    TEST089 tests HERMITE_PROBABILIST_SET.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    07 June 2013
+
+  Author:
+
+    John Burkardt
+*/
+{
+  int function_num;
+  int i;
+  int ihi;
+  int ilo;
+  int j;
+  int order;
+  int order_max = 10;
+  double *result;
+  double *weight;
+  double *xtab;
+
+  function_set ( "COUNT", &function_num );
+
+  result = ( double * ) malloc ( function_num * sizeof ( double ) );
+
+  printf ( "\n" );
+  printf ( "TEST089\n" );
+  printf ( "  HERMITE_PROBABILIST_SET sets  Hermite probabilist rule;\n" );
+  printf ( "\n" );
+  printf ( "  The integration interval is ( -oo, +oo ).\n" );
+  printf ( "  The weight function is exp ( - x * x / 2 ) / sqrt ( 2 * pi ).\n" );
+  printf ( "\n" );
+
+  for ( ilo = 0; ilo < function_num; ilo = ilo + 5 )
+  {
+    ihi = i4_min ( ilo + 4, function_num - 1 );
+
+    printf ( "\n" );
+    printf ( "Order  " );
+    for ( i = ilo; i <= ihi; i++ )
+    {
+      printf ( "%10s    ", function_name ( i ) );
+    }
+    printf ( "\n" );
+    printf ( "\n" );
+
+    for ( order = 1; order <= order_max; order++ )
+    {
+      xtab = ( double * ) malloc ( order * sizeof ( double ) );
+      weight = ( double * ) malloc ( order * sizeof ( double ) );
+
+      for ( i = ilo; i <= ihi; i++ )
+      {
+        function_set ( "SET", &i );
+
+        hermite_probabilist_set ( order, xtab, weight );
+ 
+        result[i] = 0.0;
+        for ( j = 0; j < order; j++ )
+        {
+          result[i] = result[i] + weight[j] * function_value ( xtab[j] );
+        } 
+      }
+      printf ( "%2d  ", order );
+      for ( i = ilo; i <= ihi; i++ )
+      {
+        printf ( "  %12.8f", result[i] );
+      }
+      printf ( "\n" );
+
+      free ( xtab );
+      free ( weight );
+    }
+  }
+  free ( result );
+
+  return;
+}
+/******************************************************************************/
+
+void test09 ( )
+
+/******************************************************************************/
+/*
+  Purpose:
+
+    TEST09 tests HERMITE_SET.
 
   Licensing:
 
@@ -1499,6 +1826,7 @@ void test09 ( void )
   int i;
   int ihi;
   int ilo;
+  int j;
   int order;
   int order_max = 20;
   double *result;
@@ -1512,10 +1840,9 @@ void test09 ( void )
   printf ( "\n" );
   printf ( "TEST09\n" );
   printf ( "  HERMITE_SET sets up a Gauss-Hermite rule;\n" );
-  printf ( "  SUMMER carries it out.\n" );
   printf ( "\n" );
-  printf ( "  The integration interval is ( -Infinity, +Infinity ).\n" );
-  printf ( "  The weight function is exp ( - X**2 )\n" );
+  printf ( "  The integration interval is ( -oo, +oo ).\n" );
+  printf ( "  The weight function is exp ( - x * x )\n" );
   printf ( "\n" );
 
   for ( ilo = 0; ilo < function_num; ilo = ilo + 5 )
@@ -1541,8 +1868,12 @@ void test09 ( void )
         function_set ( "SET", &i );
 
         hermite_set ( order, xtab, weight );
- 
-        result[i] = summer ( function_value, order, xtab, weight ); 
+
+        result[i] = 0.0;
+        for ( j = 0; j < order; j++ )
+        {
+          result[i] = result[i] + weight[j] * function_value ( xtab[j] );
+        } 
       }
       printf ( "%2d  ", order );
       for ( i = ilo; i <= ihi; i++ )
@@ -1645,7 +1976,7 @@ void test095 ( )
 
       estimate = r8vec_dot_product ( n, w, f );
 
-      error = r8_abs ( exact - estimate );
+      error = fabs ( exact - estimate );
   
       fprintf ( stdout, "  %8d  %8d  %14.6e  %14.6e  %14.6e\n",
         m, n, estimate, exact, error );
@@ -1659,7 +1990,7 @@ void test095 ( )
 }
 /******************************************************************************/
 
-void test10 ( void )
+void test10 ( )
 
 /******************************************************************************/
 /*
@@ -1782,7 +2113,7 @@ void test10 ( void )
 }
 /******************************************************************************/
 
-void test105 ( void )
+void test105 ( )
 
 /******************************************************************************/
 /*
@@ -1937,7 +2268,7 @@ void test108 ( int order )
 }
 /******************************************************************************/
 
-void test11 ( void )
+void test11 ( )
 
 /******************************************************************************/
 /*
@@ -1975,7 +2306,7 @@ void test11 ( void )
   printf ( "  SUMMER_GK carries it out.\n" );
   printf ( "\n" );
   printf ( "  The integration interval is [-1, 1].\n" );
-  printf ( "  Integrand is X**2 / SQRT ( 1.1 - X**2 ).\n" );
+  printf ( "  Integrand is X*X / SQRT ( 1.1 - X*X ).\n" );
   printf ( "\n" );
 
   legendre_set ( ORDERG, xtabg, weightg );
@@ -1995,7 +2326,7 @@ void test11 ( void )
 }
 /******************************************************************************/
 
-void test12 ( void )
+void test12 ( )
 
 /******************************************************************************/
 /*
@@ -2062,7 +2393,7 @@ void test12 ( void )
 }
 /******************************************************************************/
 
-void test13 ( void )
+void test13 ( )
 
 /******************************************************************************/
 /*
@@ -2155,7 +2486,7 @@ void test13 ( void )
 }
 /******************************************************************************/
 
-void test14 ( void )
+void test14 ( )
 
 /******************************************************************************/
 /*
@@ -2248,13 +2579,13 @@ void test14 ( void )
 }
 /******************************************************************************/
 
-void test15 ( void )
+void test15 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST15 tests GEN_LAGUERRE_COMPUTE and LAGUERRE_SUM.
+    TEST15 tests GEN_LAGUERRE_SS_COMPUTE and LAGUERRE_SUM.
 
   Licensing:
 
@@ -2290,7 +2621,7 @@ void test15 ( void )
 
   printf ( "\n" );
   printf ( "TEST15\n" );
-  printf ( "  GEN_LAGUERRE_COMPUTE computes a generalized Gauss-Laguerre rule;\n" );
+  printf ( "  GEN_LAGUERRE_SS_COMPUTE computes a generalized Gauss-Laguerre rule;\n" );
   printf ( "  LAGUERRE_SUM carries it out.\n" );
   printf ( "\n" );
   printf ( "  The integration interval is [%f, +oo).\n", a );
@@ -2321,7 +2652,7 @@ void test15 ( void )
       {
         function_set ( "SET", &i );
 
-        gen_laguerre_compute ( order, alpha, xtab, weight );
+        gen_laguerre_ss_compute ( order, alpha, xtab, weight );
  
         result[i] = laguerre_sum ( function_value, a, order, xtab, weight ); 
       }
@@ -2343,13 +2674,13 @@ void test15 ( void )
 }
 /******************************************************************************/
 
-void test16 ( void )
+void test16 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST16 tests GEN_LAGUERRE_COMPUTE and LAGUERRE_SUM.
+    TEST16 tests GEN_LAGUERRE_SS_COMPUTE and LAGUERRE_SUM.
 
   Licensing:
 
@@ -2385,7 +2716,7 @@ void test16 ( void )
 
   printf ( "\n" );
   printf ( "TEST16\n" );
-  printf ( "  GEN_LAGUERRE_COMPUTE computes a generalized Gauss-Laguerre rule;\n" );
+  printf ( "  GEN_LAGUERRE_SS_COMPUTE computes a generalized Gauss-Laguerre rule;\n" );
   printf ( "  LAGUERRE_SUM carries it out.\n" );
   printf ( "\n" );
   printf ( "  The integration interval is [%f, +Infinity).\n", a );
@@ -2416,7 +2747,7 @@ void test16 ( void )
       {
         function_set ( "SET", &i );
 
-        gen_laguerre_compute ( order, alpha, xtab, weight );
+        gen_laguerre_ss_compute ( order, alpha, xtab, weight );
  
         result[i] = laguerre_sum ( function_value, a, order, xtab, weight ); 
       }
@@ -2444,7 +2775,7 @@ void test165 ( int order, double alpha )
 /*
   Purpose:
 
-    TEST165 tests GEN_LAGUERRE_COMPUTE.
+    TEST165 tests GEN_LAGUERRE_SS_COMPUTE.
 
   Discussion:
 
@@ -2476,7 +2807,7 @@ void test165 ( int order, double alpha )
 
   printf ( "\n" );
   printf ( "TEST165\n" );
-  printf ( "  LAGUERRE_COMPUTE computes a generalized Gauss-Laguerre rule;\n" );
+  printf ( "  GEN_LAGUERRE_SS_COMPUTE computes a generalized Gauss-Laguerre rule;\n" );
   printf ( "\n" );
   printf ( "  The printed output of this routine can be inserted into\n" );
   printf ( "  a C++ program.\n" );
@@ -2484,7 +2815,7 @@ void test165 ( int order, double alpha )
   w = ( double * ) malloc ( order * sizeof ( double ) );
   x = ( double * ) malloc ( order * sizeof ( double ) );
 
-  gen_laguerre_compute ( order, alpha, x, w );
+  gen_laguerre_ss_compute ( order, alpha, x, w );
 
   printf ( "\n" );
   printf ( "  Abscissas X and weights W for a Gauss Laguerre rule\n" );
@@ -2510,7 +2841,7 @@ void test165 ( int order, double alpha )
 }
 /******************************************************************************/
 
-void test17 ( void )
+void test17 ( )
 
 /******************************************************************************/
 /*
@@ -2609,7 +2940,7 @@ void test18 ( int n )
 /*
   Purpose:
 
-    TEST18 compares LEGENDRE_COMPUTE_DR and LEGENDRE_SET.
+    TEST18 compares LEGENDRE_DR_COMPUTE and LEGENDRE_SET.
 
   Licensing:
 
@@ -2636,7 +2967,7 @@ void test18 ( int n )
 
   printf ( "\n" );
   printf ( "TEST18\n" );
-  printf ( "  LEGENDRE_COMPUTE_DR computes a Gauss-Legendre rule;\n" );
+  printf ( "  LEGENDRE_DR_COMPUTE computes a Gauss-Legendre rule;\n" );
   printf ( "  LEGENDRE_SET looks up the same data.\n" );
   printf ( "\n" );
   printf ( "  Compare the data for N = %d\n", n );
@@ -2644,7 +2975,7 @@ void test18 ( int n )
   x1 = ( double * ) malloc ( n * sizeof ( double ) );
   w1 = ( double * ) malloc ( n * sizeof ( double ) );
 
-  legendre_compute_dr ( n, x1, w1 );
+  legendre_dr_compute ( n, x1, w1 );
 
   x2 = ( double * ) malloc ( n * sizeof ( double ) );
   w2 = ( double * ) malloc ( n * sizeof ( double ) );
@@ -2659,15 +2990,15 @@ void test18 ( int n )
 
   for ( i = 0; i < n; i++ )
   {
-    if ( xdifmax < r8_abs ( x1[i] - x2[i] ) )
+    if ( xdifmax < fabs ( x1[i] - x2[i] ) )
     {
-      xdifmax = r8_abs ( x1[i] - x2[i] );
+      xdifmax = fabs ( x1[i] - x2[i] );
       ixdifmax = i;
     }
 
-    if ( wdifmax < r8_abs ( w1[i] - w2[i] ) )
+    if ( wdifmax < fabs ( w1[i] - w2[i] ) )
     {
-      wdifmax = r8_abs ( w1[i] - w2[i] );
+      wdifmax = fabs ( w1[i] - w2[i] );
       iwdifmax = i;
     }
 
@@ -2710,13 +3041,13 @@ void test18 ( int n )
 }
 /******************************************************************************/
 
-void test185 ( void )
+void test185 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST185 tests LEGENDRE_COMPUTE_DR.
+    TEST185 tests LEGENDRE_DR_COMPUTE.
 
   Discussion:
 
@@ -2744,11 +3075,11 @@ void test185 ( void )
 
   printf ( "\n" );
   printf ( "TEST185\n" );
-  printf ( "  LEGENDRE_COMPUTE_DR computes a Gauss-Legendre rule;\n" );
+  printf ( "  LEGENDRE_DR_COMPUTE computes a Gauss-Legendre rule;\n" );
   printf ( "\n" );
   printf ( "  Compute the data for ORDER = %d\n", ORDER );
 
-  legendre_compute_dr ( ORDER, xtab, weight );
+  legendre_dr_compute ( ORDER, xtab, weight );
  
   printf ( "\n" );
   for ( i = 0; i < ORDER; i++ )
@@ -2766,13 +3097,13 @@ void test185 ( void )
 }
 /******************************************************************************/
 
-void test19 ( void )
+void test19 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST19 tests LEGENDRE_COMPUTE_DR and SUM_SUB.
+    TEST19 tests LEGENDRE_DR_COMPUTE and SUM_SUB.
 
   Licensing:
 
@@ -2807,7 +3138,7 @@ void test19 ( void )
 
   printf ( "\n" );
   printf ( "TEST19\n" );
-  printf ( "  LEGENDRE_COMPUTE_DR computes a Gauss-Legendre rule;\n" );
+  printf ( "  LEGENDRE_DR_COMPUTE computes a Gauss-Legendre rule;\n" );
   printf ( "  SUM_SUB carries it out over subintervals.\n" );
   printf ( "\n" );
   printf ( "  The integration interval is [%f,%f]\n", a, b );
@@ -2817,7 +3148,7 @@ void test19 ( void )
   printf ( "  NSUB     Integral\n" );
   printf ( "\n" );
  
-  legendre_compute_dr ( ORDER, xtab, weight );
+  legendre_dr_compute ( ORDER, xtab, weight );
  
   for ( iexp = 0; iexp <= 9; iexp++ )
   {
@@ -2833,13 +3164,13 @@ void test19 ( void )
 }
 /******************************************************************************/
 
-void test20 ( void )
+void test20 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST20 tests LEGENDRE_COMPUTE_DR and SUM_SUB.
+    TEST20 tests LEGENDRE_DR_COMPUTE and SUM_SUB.
 
   Licensing:
 
@@ -2883,7 +3214,7 @@ void test20 ( void )
 
   printf ( "\n" );
   printf ( "TEST20\n" );
-  printf ( "  LEGENDRE_COMPUTE_DR sets up a Gauss-Legendre rule;\n" );
+  printf ( "  LEGENDRE_DR_COMPUTE sets up a Gauss-Legendre rule;\n" );
   printf ( "  SUM_SUB carries it out.\n" );
   printf ( "\n" );
   printf ( "  The integration interval is [%f,%f]\n", a, b );
@@ -2914,7 +3245,7 @@ void test20 ( void )
       {
         function_set ( "SET", &i );
 
-        legendre_compute_dr ( order, xtab, weight );
+        legendre_dr_compute ( order, xtab, weight );
  
         result[i] = sum_sub ( function_value, a, b, nsub, order, xlo, xhi,
           xtab, weight ); 
@@ -2936,7 +3267,7 @@ void test20 ( void )
 }
 /******************************************************************************/
 
-void test21 ( void )
+void test21 ( )
 
 /******************************************************************************/
 /*
@@ -3039,7 +3370,7 @@ void test21 ( void )
 }
 /******************************************************************************/
 
-void test22 ( void )
+void test22 ( )
 
 /******************************************************************************/
 /*
@@ -3128,7 +3459,7 @@ void test22 ( void )
 }
 /******************************************************************************/
 
-void test23 ( void )
+void test23 ( )
 
 /******************************************************************************/
 /*
@@ -3237,13 +3568,13 @@ void test23 ( void )
 }
 /******************************************************************************/
 
-void test24 ( void )
+void test24 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST24 tests LEGENDRE_SET_SQRTX_01 and SUMMER.
+    TEST24 tests LEGENDRE_SET_SQRTX_01.
 
   Licensing:
 
@@ -3265,6 +3596,7 @@ void test24 ( void )
   int iexp;
   int ihi;
   int ilo;
+  int j;
   int order;
   int order_max = 20;
   double *result;
@@ -3281,8 +3613,7 @@ void test24 ( void )
   printf ( "\n" );
   printf ( "TEST24\n" );
   printf ( "  LEGENDRE_SET_SQRTX_01 sets up a Gauss-Legendre rule\n" );
-  printf ( "    over [0,1] with weight function SQRT(X);\n" );
-  printf ( "  SUMMER carries it out.\n" );
+  printf ( "  over [0,1] with weight function SQRT(X);\n" );
   printf ( "\n" );
   printf ( "  The integration interval is [%f,%f]\n", a, b );
   printf ( "  Quadrature order will vary.\n" );
@@ -3315,7 +3646,11 @@ void test24 ( void )
 
         legendre_set_sqrtx_01 ( order, xtab, weight );
  
-        result[i] = summer ( function_value, order, xtab, weight ); 
+        result[i] = 0.0;
+        for ( j = 0; j < order; j++ )
+        {
+          result[i] = result[i] + weight[j] * function_value ( xtab[j] );
+        } 
       }
       printf ( "%2d  ", order );
       for ( i = ilo; i <= ihi; i++ )
@@ -3335,13 +3670,13 @@ void test24 ( void )
 }
 /******************************************************************************/
 
-void test25 ( void )
+void test25 ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST25 tests LEGENDRE_SET_SQRTX2_01 and SUMMER.
+    TEST25 tests LEGENDRE_SET_SQRTX2_01.
 
   Licensing:
 
@@ -3363,6 +3698,7 @@ void test25 ( void )
   int iexp;
   int ihi;
   int ilo;
+  int j;
   int order;
   int order_max = 20;
   double *result;
@@ -3379,8 +3715,7 @@ void test25 ( void )
   printf ( "\n" );
   printf ( "TEST25\n" );
   printf ( "  LEGENDRE_SET_SQRTX2_01 sets up a Gauss-Legendre rule\n" );
-  printf ( "    over [0,1] with weight function 1/SQRT(X);\n" );
-  printf ( "  SUMMER carries it out.\n" );
+  printf ( "  over [0,1] with weight function 1/SQRT(X);\n" );
   printf ( "\n" );
   printf ( "  The integration interval is [%f,%f]\n", a, b );
   printf ( "  Quadrature order will vary.\n" );
@@ -3413,7 +3748,11 @@ void test25 ( void )
 
         legendre_set_sqrtx2_01 ( order, xtab, weight );
  
-        result[i] = summer ( function_value, order, xtab, weight ); 
+        result[i] = 0.0;
+        for ( j = 0; j < order; j++ )
+        {
+          result[i] = result[i] + weight[j] * function_value ( xtab[j] );
+        } 
       }
       printf ( "%2d  ", order );
       for ( i = ilo; i <= ihi; i++ )
@@ -3433,7 +3772,7 @@ void test25 ( void )
 }
 /******************************************************************************/
 
-void test26 ( void )
+void test26 ( )
 
 /******************************************************************************/
 /*
@@ -3542,7 +3881,7 @@ void test26 ( void )
 }
 /******************************************************************************/
 
-void test27 ( void )
+void test27 ( )
 
 /******************************************************************************/
 /*
@@ -3652,7 +3991,7 @@ void test27 ( void )
 }
 /******************************************************************************/
 
-void test28 ( void )
+void test28 ( )
 
 /******************************************************************************/
 /*
@@ -3756,7 +4095,7 @@ void test28 ( void )
 }
 /******************************************************************************/
 
-void test29 ( void )
+void test29 ( )
 
 /******************************************************************************/
 /*
@@ -3860,7 +4199,7 @@ void test29 ( void )
 }
 /******************************************************************************/
 
-void test30 ( void )
+void test30 ( )
 
 /******************************************************************************/
 /*
@@ -3964,7 +4303,7 @@ void test30 ( void )
 }
 /******************************************************************************/
 
-void test31 ( void )
+void test31 ( )
 
 /******************************************************************************/
 /*
@@ -4068,7 +4407,7 @@ void test31 ( void )
 }
 /******************************************************************************/
 
-void test32 ( void )
+void test32 ( )
 
 /******************************************************************************/
 /*
@@ -4172,7 +4511,7 @@ void test32 ( void )
 }
 /******************************************************************************/
 
-void test33 ( void )
+void test33 ( )
 
 /******************************************************************************/
 /*
@@ -4276,7 +4615,7 @@ void test33 ( void )
 }
 /******************************************************************************/
 
-void test34 ( void )
+void test34 ( )
 
 /******************************************************************************/
 /*
@@ -4380,13 +4719,13 @@ void test34 ( void )
 }
 /******************************************************************************/
 
-void test345 ( void )
+void lobatto_compute_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST345 tests LOBATTO_COMPUTE and LOBATTO_SET.
+    LOBATTO_COMPUTE_TEST tests LOBATTO_COMPUTE.
 
   Licensing:
 
@@ -4394,7 +4733,7 @@ void test345 ( void )
 
   Modified:
 
-    04 February 2007
+    23 April 2015
 
   Author:
 
@@ -4403,49 +4742,41 @@ void test345 ( void )
 {
   int i;
   int n;
-  double *w1;
-  double *w2;
-  double *x1;
-  double *x2;
+  double *w;
+  double *x;
 
   printf ( "\n" );
-  printf ( "TEST345\n" );
+  printf ( "LOBATTO_COMPUTE_TEST\n" );
   printf ( "  LOBATTO_COMPUTE computes a Lobatto rule;\n" );
-  printf ( "  LOBATTO_SET sets a rule from a table.\n" );
   printf ( "\n" );
-  printf ( "         I      X1            X2            W1            W2\n" );
+  printf ( "         I      X             W\n" );
 
   for ( n = 4; n <= 12; n = n + 3 )
   {
-    w1 = ( double * ) malloc ( n * sizeof ( double ) );
-    w2 = ( double * ) malloc ( n * sizeof ( double ) );
-    x1 = ( double * ) malloc ( n * sizeof ( double ) );
-    x2 = ( double * ) malloc ( n * sizeof ( double ) );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
 
-    lobatto_compute ( n, x1, w1 );
-    lobatto_set ( n, x2, w2 );
+    lobatto_compute ( n, x, w );
 
     printf ( "\n" );
     for ( i = 0; i < n; i++ )
     {
-      printf ( "  %8d  %12f  %12f  %12f  %12f\n", i+1, x1[i], x2[i], w1[i], w2[i] );
+      printf ( "  %8d  %12f  %12f  %12f  %12f\n", i, x[i], w[i] );
     }
-    free ( w1 );
-    free ( w2 );
-    free ( x1 );
-    free ( x2 );
+    free ( w );
+    free ( x );
   }
   return;
 }
 /******************************************************************************/
 
-void test35 ( void )
+void lobatto_set_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST35 tests LOBATTO_SET and SUM_SUB.
+    LOBATTO_SET_TEST tests LOBATTO_SET.
 
   Licensing:
 
@@ -4453,108 +4784,50 @@ void test35 ( void )
 
   Modified:
 
-    06 May 2006
+    23 April 2015
 
   Author:
 
     John Burkardt
 */
 {
-  double a;
-  double b;
-  int function_num;
   int i;
-  int ihi;
-  int ilo;
-  int nsub;
-  int order;
-  int order_max = 15;
-  double *result;
-  double *weight;
-  double xhi;
-  double xlo;
-  double *xtab;
-
-  function_set ( "COUNT", &function_num );
-
-  result = ( double * ) malloc ( function_num * sizeof ( double ) );
-
-  a = -1.0;
-  b =  1.0;
-
-  nsub = 1;
-
-  xlo = -1.0;
-  xhi =  1.0;
+  int n;
+  double *w;
+  double *x;
 
   printf ( "\n" );
-  printf ( "TEST35\n" );
-  printf ( "  LOBATTO_SET sets up a Lobatto rule;\n" );
-  printf ( "  SUM_SUB carries it out.\n" );
+  printf ( "LOBATTO_SET_TEST\n" );
+  printf ( "  LOBATTO_SET sets a Lobatto rule;\n" );
   printf ( "\n" );
-  printf ( "  The integration interval is [%f,%f]\n", a, b );
-  printf ( "  The number of subintervals is %d\n", nsub );
-  printf ( "  Quadrature order will vary.\n" );
-  printf ( "  Integrand will vary.\n" );
-  printf ( "\n" );
+  printf ( "         I      X             W\n" );
 
-  for ( ilo = 0; ilo < function_num; ilo = ilo + 5 )
+  for ( n = 4; n <= 12; n = n + 3 )
   {
-    ihi = i4_min ( ilo + 4, function_num - 1 );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+
+    lobatto_set ( n, x, w );
 
     printf ( "\n" );
-    printf ( "Order  " );
-    for ( i = ilo; i <= ihi; i++ )
+    for ( i = 0; i < n; i++ )
     {
-      printf ( "%10s    ", function_name ( i ) );
+      printf ( "  %8d  %12f  %12f  %12f  %12f\n", i, x[i], w[i] );
     }
-    printf ( "\n" );
-    printf ( "\n" );
-
-    for ( order = 1; order <= order_max; order++ )
-    {
-      if ( order == 1 )
-      {
-        continue;
-      }
-
-      xtab = ( double * ) malloc ( order * sizeof ( double ) );
-      weight = ( double * ) malloc ( order * sizeof ( double ) );
-
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        function_set ( "SET", &i );
-
-        lobatto_set ( order, xtab, weight );
- 
-        result[i] = sum_sub ( function_value, a, b, nsub, order, 
-          xlo, xhi, xtab, weight ); 
-      }
-      printf ( "%2d  ", order );
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        printf ( "  %12.8f", result[i] );
-      }
-      printf ( "\n" );
-
-      free ( xtab );
-      free ( weight );
-    }
+    free ( w );
+    free ( x );
   }
-
-  free ( result );
- 
   return;
 }
 /******************************************************************************/
 
-void test36 ( void )
+void moulton_set_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST36 tests MOULTON_SET and SUMMER.
+    MOULTON_SET_TEST tests MOULTON_SET.
 
   Licensing:
 
@@ -4562,89 +4835,53 @@ void test36 ( void )
 
   Modified:
 
-    05 May 2006
+    18 April 2015
 
   Author:
 
     John Burkardt
 */
 {
-  int function_num;
   int i;
-  int ihi;
-  int ilo;
-  int order;
-  int order_max = 10;
-  double *result;
-  double *weight;
-  double *xtab;
-
-  function_set ( "COUNT", &function_num );
-
-  result = ( double * ) malloc ( function_num * sizeof ( double ) );
+  int n;
+  double *w;
+  double *x;
 
   printf ( "\n" );
-  printf ( "TEST36\n" );
+  printf ( "MOULTON_SET_TEST\n" );
   printf ( "  MOULTON_SET sets up an Adams-Moulton rule;\n" );
-  printf ( "  SUMMER carries it out.\n" );
   printf ( "\n" );
-  printf ( "  The integration interval is [0,1].\n" );
-  printf ( "  Quadrature order will vary.\n" );
-  printf ( "  Integrand will vary.\n" );
+  printf ( "    Index      X             W\n" );
   printf ( "\n" );
 
-  for ( ilo = 0; ilo < function_num; ilo = ilo + 5 )
+  for ( n = 1; n <= 10; n++ )
   {
-    ihi = i4_min ( ilo + 4, function_num - 1 );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+
+    moulton_set ( n, x, w );
 
     printf ( "\n" );
-    printf ( "Order  " );
-    for ( i = ilo; i <= ihi; i++ )
+
+    for ( i = 0; i < n; i++ )
     {
-      printf ( "%10s    ", function_name ( i ) );
+      printf ( "  %2d  %24.16g  %24.16g\n", i, x[i], w[i] );
     }
-    printf ( "\n" );
-    printf ( "\n" );
-
-    for ( order = 1; order <= order_max; order++ )
-    {
-      xtab = ( double * ) malloc ( order * sizeof ( double ) );
-      weight = ( double * ) malloc ( order * sizeof ( double ) );
-
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        function_set ( "SET", &i );
-
-        moulton_set ( order, xtab, weight );
- 
-        result[i] = summer ( function_value, order, xtab, weight );
- 
-      }
-      printf ( "%2d  ", order );
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        printf ( "  %12.8f", result[i] );
-      }
-      printf ( "\n" );
-
-      free ( xtab );
-      free ( weight );
-    }
+    free ( w );
+    free ( x );
   }
-
-  free ( result );
  
   return;
 }
 /******************************************************************************/
 
-void test37 ( void )
+void ncc_set_test ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    TEST37 tests NCC_SET and SUM_SUB.
+    NCC_SET_TEST tests NCC_SET.
 
   Licensing:
 
@@ -4652,97 +4889,47 @@ void test37 ( void )
 
   Modified:
 
-    08 May 2007
+    24 April 2015
 
   Author:
 
     John Burkardt
 */
 {
-  double a;
-  double b;
-  int function_num;
   int i;
-  int ihi;
-  int ilo;
-  int nsub;
-  int order;
-  int order_max = 21;
-  double *result;
-  double *weight;
-  double xhi;
-  double xlo;
-  double *xtab;
-
-  function_set ( "COUNT", &function_num );
-
-  result = ( double * ) malloc ( function_num * sizeof ( double ) );
-
-  a =  0.0;
-  b =  1.0;
-
-  nsub = 1;
-
-  xlo = -1.0;
-  xhi =  1.0;
+  int n;
+  double *w;
+  double *x;
 
   printf ( "\n" );
-  printf ( "TEST37\n" );
-  printf ( "  NCC_SET computes a closed Newton-Cotes rule;\n" );
-  printf ( "  SUM_SUB carries it out.\n" );
+  printf ( "NCC_SET_TEST\n" );
+  printf ( "  NCC_SET sets up a Newton-Cotes Closed rule;\n" );
   printf ( "\n" );
-  printf ( "  The integration interval is [%f,%f]\n", a, b );
-  printf ( "  The number of subintervals is %d\n", nsub );
-  printf ( "  Quadrature order will vary.\n" );
-  printf ( "  Integrand will vary.\n" );
+  printf ( "    Index      X             W\n" );
   printf ( "\n" );
 
-  for ( ilo = 0; ilo < function_num; ilo = ilo + 5 )
+  for ( n = 1; n <= 10; n++ )
   {
-    ihi = i4_min ( ilo + 4, function_num - 1 );
+    w = ( double * ) malloc ( n * sizeof ( double ) );
+    x = ( double * ) malloc ( n * sizeof ( double ) );
+
+    ncc_set ( n, x, w );
 
     printf ( "\n" );
-    printf ( "Order  " );
-    for ( i = ilo; i <= ihi; i++ )
+
+    for ( i = 0; i < n; i++ )
     {
-      printf ( "%10s    ", function_name ( i ) );
+      printf ( "  %2d  %24.16g  %24.16g\n", i, x[i], w[i] );
     }
-    printf ( "\n" );
-    printf ( "\n" );
-
-    for ( order = 1; order <= order_max; order++ )
-    {
-      xtab = ( double * ) malloc ( order * sizeof ( double ) );
-      weight = ( double * ) malloc ( order * sizeof ( double ) );
-
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        function_set ( "SET", &i );
-
-        ncc_set ( order, xtab, weight );
- 
-        result[i] = sum_sub ( function_value, a, b, nsub, order, 
-          xlo, xhi, xtab, weight ); 
-      }
-      printf ( "%2d  ", order );
-      for ( i = ilo; i <= ihi; i++ )
-      {
-        printf ( "  %12.8f", result[i] );
-      }
-      printf ( "\n" );
-
-      free ( xtab );
-      free ( weight );
-    }
+    free ( w );
+    free ( x );
   }
-
-  free ( result );
  
   return;
 }
 /******************************************************************************/
 
-void test38 ( void )
+void test38 ( )
 
 /******************************************************************************/
 /*
@@ -4846,7 +5033,7 @@ void test38 ( void )
 }
 /******************************************************************************/
 
-void test39 ( void )
+void test39 ( )
 
 /******************************************************************************/
 /*
@@ -4954,7 +5141,7 @@ void test39 ( void )
 }
 /******************************************************************************/
 
-void test40 ( void )
+void test40 ( )
 
 /******************************************************************************/
 /*
@@ -5058,7 +5245,7 @@ void test40 ( void )
 }
 /******************************************************************************/
 
-void test401 ( void )
+void test401 ( )
 
 /******************************************************************************/
 /*
@@ -5162,7 +5349,7 @@ void test401 ( void )
 }
 /******************************************************************************/
 
-void test402 ( void )
+void test402 ( )
 
 /******************************************************************************/
 /*
@@ -5266,7 +5453,7 @@ void test402 ( void )
 }
 /******************************************************************************/
 
-void test403 ( void )
+void test403 ( )
 
 /******************************************************************************/
 /*
@@ -5374,7 +5561,7 @@ void test403 ( void )
 }
 /******************************************************************************/
 
-void test404 ( void )
+void test404 ( )
 
 /******************************************************************************/
 /*
@@ -5433,7 +5620,7 @@ void test404 ( void )
 }
 /******************************************************************************/
 
-void test41 ( void )
+void test41 ( )
 
 /******************************************************************************/
 /*

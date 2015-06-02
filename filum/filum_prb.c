@@ -21,7 +21,7 @@ int main ( void )
 
   Discussion:
 
-    FILUM_PRB calls the FILUM tests.
+    FILUM_PRB tests the FILUM library.
 
   Modified:
 
@@ -33,7 +33,6 @@ int main ( void )
 */
 {
   timestamp ( );
-
   printf ( "\n" );
   printf ( "FILUM_PRB:\n" );
   printf ( "  C version\n" );
@@ -51,7 +50,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "FILUM_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -151,7 +149,7 @@ void test14 ( )
 /*
   Purpose:
 
-    TEST14 tests FILE_NAME_INC.
+    TEST14 tests FILENAME_INC.
 
   Licensing:
 
@@ -172,7 +170,7 @@ void test14 ( )
 
   printf ( "\n" );
   printf ( "TEST14\n" );
-  printf ( "  FILE_NAME_INC increments a string\n" );
+  printf ( "  FILENAME_INC increments a string\n" );
   printf ( "\n" );
   printf ( "     Input             Output\n" );
 
@@ -199,7 +197,7 @@ void test14 ( )
     {
       printf ( "  %11s  ", filename );
 
-      file_name_inc ( filename );
+      filename_inc ( filename );
 
       printf ( "  %11s\n", filename );
 

@@ -75,7 +75,8 @@
           [ K, L ] = nsasm ( p, t, np0, e, u, mu );
           du = - lusolve ( K, L );
           u = u + du;
-          disp ( sprintf ( '%20.10g  %20.10g', norm ( L, inf ), norm ( du, inf ) ) );
+          disp ( sprintf ( '%20.10g  %20.10g', norm ( L, inf ), ...
+            norm ( du, inf ) ) );
         end
       </pre>
     </p>
@@ -155,16 +156,16 @@
           <b>real P[2,NP]</b>, the coordinates of the nodes;
         </li>
         <li>
-          <b>integer T[6,NT]</b>, the indices of the nodes that make up the elements; the node
-          indices are 1-based, not 0-based;  the ordering of the 6 entries
-          is vertex 1, vertex 2, vertex 3, then the node between vertex 2
-          and vertex 3, then the node between vertex 3 and vertex 1, and
-          then the node between vertex 1 and vertex 2. (This is a somewhat
+          <b>integer T[6,NT]</b>, the indices of the nodes that make up the
+          elements; the node indices are 1-based, not 0-based;  the ordering of
+          the 6 entries is vertex 1, vertex 2, vertex 3, then the node between
+          vertex 2 and vertex 3, then the node between vertex 3 and vertex 1,
+          and then the node between vertex 1 and vertex 2. (This is a somewhat
           peculiar ordering.)
         </li>
         <li>
-          <b>integer NP0</b>, the number of pressure nodes, that is, nodes which are <i>not</i>
-          the vertices of a triangular element.
+          <b>integer NP0</b>, the number of pressure nodes, that is, nodes
+          which are <i>not</i> the vertices of a triangular element.
         </li>
         <li>
           <b>real E[3,NE]</b>, the constraints.  Each constraint is defined by listing a
@@ -194,8 +195,9 @@
 
     <p>
       <b>NSASM</b> is available in
-      <a href = "../../c_src/nsasm/nsasm.html"> a C version</a> and
-      <a href = "../../f_src/nsasm/nsasm.html"> a FORTRAN90 version</a>,
+      <a href = "../../c_src/nsasm/nsasm.html">a C version</a> and
+      <a href = "../../f_src/nsasm/nsasm.html">a FORTRAN90 version</a> and
+      <a href = "../../m_src/nsasm/nsasm.html">a MATLAB version</a>.
     </p>
 
     <h3 align = "center">
@@ -228,8 +230,16 @@
     </p>
 
     <p>
-      <a href = "../../c_src/super_lu/super_lu.html">
-      SUPER_LU</a>,
+      <a href = "../../m_src/msm_to_hb/msm_to_hb.html">
+      MSM_TO_HB</a>,
+      a MATLAB program which
+      writes a MATLAB sparse matrix to a Harwell Boeing (HB) file,
+      by Xiaoye Li.
+    </p>
+
+    <p>
+      <a href = "../../c_src/superlu/superlu.html">
+      SUPERLU</a>,
       a C library which
       applies a fast direct solution method to a sparse linear system,
       by James Demmel, John Gilbert, and Xiaoye Li.
@@ -279,12 +289,22 @@
     </h3>
 
     <p>
-      The <b>C source code</b> carries out the assembly of the finite element matrix
-      and residual.  To use it, you must compile it once.  To do that, you need 
-      to set up mex (once), run matlab, and issue the "mex nsasm.c".  Since the
-      file is C code, you can also compile it with any standard C compiler, but
-      you will need to access the MEX include files invoked in the file.  The
-      location of these include files depends on how your copy of MATLAB was installed.
+      The <b>C source code</b> carries out the assembly of the finite element
+      matrix and residual.  To use it, you must compile it once.  To do that, 
+      you need to set up mex (once), run matlab, and issue the command
+      <pre>
+        mex -largeArrayDims nsasm.c
+      </pre>
+    </p>
+
+    <p>
+      Since the file is C code, you could instead compile it with any standard C
+      compiler, but you will need to access the MEX include files invoked in 
+      the file.  The location of these include files depends on how your copy
+      of MATLAB was installed.
+    </p>
+
+    <p>
       <ul>
         <li>
           <a href = "nsasm.c">nsasm.c</a>,
@@ -328,16 +348,20 @@
 
     <p>
       The <b>SMALL</b> test defines a small sparse matrix,
-      with 25 nodes, 8 elements, 33 constraints, NP0 = 9,
+      with NP = 25 nodes, NT = 8 elements, NE = 33 constraints, NP0 = 9,
       NU = 100.0.
       <ul>
         <li>
-          <a href = "small_test.m">small_test.m</a>,
-          calls NSASM_INTERFACE for the "small" data.
+          <a href = "nsasm_test_small.m">nsasm_test_small.m</a>,
+          calls nsasm_interface() for the "small" data.
         </li>
         <li>
-          <a href = "small_test_output.txt">small_test_output.txt</a>,
+          <a href = "nsasm_test_small_output.txt">nsasm_test_small_output.txt</a>,
           the printed output.
+        </li>
+        <li>
+          <a href = "small_constants.txt">small_constants.txt</a>,
+          records the constants for the problem, NP, NT, NE, NP0, NU.
         </li>
         <li>
           <a href = "small_constraints.txt">small_constraints.txt</a>,
@@ -359,6 +383,11 @@
         <li>
           <a href = "small_elements.png">small_elements.png</a>,
           a PNG image of the elements.
+        </li>
+        <li>
+          <a href = "small.hb">small.hb</a>,
+          a Harwell-Boeing file containing a copy of the matrix and
+          right hand side in a compressed format.
         </li>
       </ul>
     </p>
@@ -383,17 +412,21 @@
 
     <p>
       The <b>BIG</b> test defines a relatively large sparse matrix,
-      with 2049 nodes, 960 elements, 387 constraints, NP0 = 545,
+      with NP = 2049 nodes, NT = 960 elements, NE = 387 constraints, NP0 = 545,
       NU = 500.0, a version of the driven cavity problem, with an
       unstructured mesh.
       <ul>
         <li>
-          <a href = "big_test.m">big_test.m</a>,
-          calls NSASM_INTERFACE for the "big" data.
+          <a href = "nsasm_test_big.m">nsasm_test_big.m</a>,
+          calls nsasm_interface() for the "big" data.
         </li>
         <li>
-          <a href = "big_test_output.txt">big_test_output.txt</a>,
+          <a href = "nsasm_test_big_output.txt">nsasm_test_big_output.txt</a>,
           the printed output.
+        </li>
+        <li>
+          <a href = "big_constants.txt">big_constants.txt</a>,
+          records the constants for the problem, NP, NT, NE, NP0, NU.
         </li>
         <li>
           <a href = "big_constraints.txt">big_constraints.txt</a>,
@@ -415,6 +448,11 @@
           <a href = "big_elements.png">big_elements.png</a>,
           a PNG image of the elements.
         </li>
+        <li>
+          <a href = "big.hb">big.hb</a>,
+          a Harwell-Boeing file containing a copy of the matrix and
+          right hand side in a compressed format.
+        </li>
       </ul>
     </p>
 
@@ -422,10 +460,11 @@
       The element data for the big problem is quadratic, and the assumption
       is made that the midside nodes are the midpoints of the corresponding
       vertices.  That is, the 6-noded triangles have straight sides, with the
-      mid-side nodes actually at the geometric middles of their sides.  The easiest
-      way to guarantee such a triangulation is to generate a triangulation with
-      3-noded triangles, and then generate the midside nodes in the obvious way.
-      Here we include the original 3-noded triangulation information.
+      mid-side nodes actually at the geometric middles of their sides.  The
+      easiest way to guarantee such a triangulation is to generate a
+      triangulation with 3-noded triangles, and then generate the midside nodes
+      in the obvious way.  Here we include the original 3-noded triangulation
+      information.
       <ul>
         <li>
           <a href = "big_linear_nodes.txt">big_linear_nodes.txt</a>,
@@ -487,7 +526,7 @@
     <hr>
 
     <i>
-      Last revised on 07 April 2012.
+      Last revised on 25 January 2014.
     </i>
 
     <!-- John Burkardt -->

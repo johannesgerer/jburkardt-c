@@ -1,4 +1,4 @@
-15 October 2012 03:00:44 PM
+01 June 2013 09:01:36 PM
 
 VANDERMONDE_INTERP_1D_TEST:
   C version
@@ -96,7 +96,264 @@ TEST01:
   Normalized length of piecewise linear interpolant = 2.31939
   Normalized length of polynomial interpolant       = 23167
 
+TEST02:
+  VANDERMONDE_INTERP_1D_MATRIX sets the Vandermonde linear system for the
+  interpolating polynomial.
+  Interpolate data from TEST_INTERP problem #1
+  Number of data points = 18
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        4.000000
+    1:        1.000000        5.000000
+    2:        2.000000        6.000000
+    3:        4.000000        6.000000
+    4:        5.000000        5.000000
+    5:        6.000000        3.000000
+    6:        7.000000        1.000000
+    7:        8.000000        1.000000
+    8:        9.000000        1.000000
+    9:       10.000000        3.000000
+   10:       11.000000        4.000000
+   11:       12.000000        4.000000
+   12:       13.000000        3.000000
+   13:       14.000000        3.000000
+   14:       15.000000        4.000000
+   15:       16.000000        4.000000
+   16:       17.000000        3.000000
+   17:       18.000000        0.000000
+
+  Created graphics data file "data01.txt".
+  Created graphics interp file "interp01.txt".
+  Created graphics command file "commands01.txt".
+
+TEST02:
+  VANDERMONDE_INTERP_1D_MATRIX sets the Vandermonde linear system for the
+  interpolating polynomial.
+  Interpolate data from TEST_INTERP problem #2
+  Number of data points = 18
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        0.000000
+    1:        1.340000        5.000000
+    2:        5.000000        8.660000
+    3:       10.000000       10.000000
+    4:       10.600000       10.400000
+    5:       10.700000       12.000000
+    6:       10.705000       28.600000
+    7:       10.800000       30.200000
+    8:       11.400000       30.600000
+    9:       19.600000       30.600000
+   10:       20.200000       30.200000
+   11:       20.295000       28.600000
+   12:       20.300000       12.000000
+   13:       20.400000       10.400000
+   14:       21.000000       10.000000
+   15:       26.000000        8.660000
+   16:       29.660000        5.000000
+   17:       31.000000        0.000000
+
+  Created graphics data file "data02.txt".
+  Created graphics interp file "interp02.txt".
+  Created graphics command file "commands02.txt".
+
+TEST02:
+  VANDERMONDE_INTERP_1D_MATRIX sets the Vandermonde linear system for the
+  interpolating polynomial.
+  Interpolate data from TEST_INTERP problem #3
+  Number of data points = 11
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        0.000000
+    1:        2.000000       10.000000
+    2:        3.000000       10.000000
+    3:        5.000000       10.000000
+    4:        6.000000       10.000000
+    5:        8.000000       10.000000
+    6:        9.000000       10.500000
+    7:       11.000000       15.000000
+    8:       12.000000       50.000000
+    9:       14.000000       60.000000
+   10:       15.000000       85.000000
+
+  Created graphics data file "data03.txt".
+  Created graphics interp file "interp03.txt".
+  Created graphics command file "commands03.txt".
+
+TEST02:
+  VANDERMONDE_INTERP_1D_MATRIX sets the Vandermonde linear system for the
+  interpolating polynomial.
+  Interpolate data from TEST_INTERP problem #4
+  Number of data points = 8
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        0.000000
+    1:        0.050000        0.700000
+    2:        0.100000        1.000000
+    3:        0.200000        1.000000
+    4:        0.800000        0.300000
+    5:        0.850000        0.050000
+    6:        0.900000        0.100000
+    7:        1.000000        1.000000
+
+  Created graphics data file "data04.txt".
+  Created graphics interp file "interp04.txt".
+  Created graphics command file "commands04.txt".
+
+TEST02:
+  VANDERMONDE_INTERP_1D_MATRIX sets the Vandermonde linear system for the
+  interpolating polynomial.
+  Interpolate data from TEST_INTERP problem #5
+  Number of data points = 9
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        0.000000
+    1:        0.100000        0.900000
+    2:        0.200000        0.950000
+    3:        0.300000        0.900000
+    4:        0.400000        0.100000
+    5:        0.500000        0.050000
+    6:        0.600000        0.050000
+    7:        0.800000        0.200000
+    8:        1.000000        1.000000
+
+  Created graphics data file "data05.txt".
+  Created graphics interp file "interp05.txt".
+  Created graphics command file "commands05.txt".
+
+TEST02:
+  VANDERMONDE_INTERP_1D_MATRIX sets the Vandermonde linear system for the
+  interpolating polynomial.
+  Interpolate data from TEST_INTERP problem #6
+  Number of data points = 49
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:      595.000000        0.644000
+    1:      605.000000        0.622000
+    2:      615.000000        0.638000
+    3:      625.000000        0.649000
+    4:      635.000000        0.652000
+    5:      645.000000        0.639000
+    6:      655.000000        0.646000
+    7:      665.000000        0.657000
+    8:      675.000000        0.652000
+    9:      685.000000        0.655000
+   10:      695.000000        0.644000
+   11:      705.000000        0.663000
+   12:      715.000000        0.663000
+   13:      725.000000        0.668000
+   14:      735.000000        0.676000
+   15:      745.000000        0.676000
+   16:      755.000000        0.686000
+   17:      765.000000        0.679000
+   18:      775.000000        0.678000
+   19:      785.000000        0.683000
+   20:      795.000000        0.694000
+   21:      805.000000        0.699000
+   22:      815.000000        0.710000
+   23:      825.000000        0.730000
+   24:      835.000000        0.763000
+   25:      845.000000        0.812000
+   26:      855.000000        0.907000
+   27:      865.000000        1.044000
+   28:      875.000000        1.336000
+   29:      885.000000        1.881000
+   30:      895.000000        2.169000
+   31:      905.000000        2.075000
+   32:      915.000000        1.598000
+   33:      925.000000        1.211000
+   34:      935.000000        0.916000
+   35:      945.000000        0.746000
+   36:      955.000000        0.672000
+   37:      965.000000        0.627000
+   38:      975.000000        0.615000
+   39:      985.000000        0.607000
+   40:      995.000000        0.606000
+   41:     1005.000000        0.609000
+   42:     1015.000000        0.603000
+   43:     1025.000000        0.601000
+   44:     1035.000000        0.603000
+   45:     1045.000000        0.601000
+   46:     1055.000000        0.611000
+   47:     1065.000000        0.601000
+   48:     1075.000000        0.608000
+
+  Created graphics data file "data06.txt".
+  Created graphics interp file "interp06.txt".
+  Created graphics command file "commands06.txt".
+
+TEST02:
+  VANDERMONDE_INTERP_1D_MATRIX sets the Vandermonde linear system for the
+  interpolating polynomial.
+  Interpolate data from TEST_INTERP problem #7
+  Number of data points = 4
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:        0.000000        1.000000
+    1:        1.000000        2.000000
+    2:        4.000000        2.000000
+    3:        5.000000        1.000000
+
+  Created graphics data file "data07.txt".
+  Created graphics interp file "interp07.txt".
+  Created graphics command file "commands07.txt".
+
+TEST02:
+  VANDERMONDE_INTERP_1D_MATRIX sets the Vandermonde linear system for the
+  interpolating polynomial.
+  Interpolate data from TEST_INTERP problem #8
+  Number of data points = 12
+
+  Data array:
+
+  Row:        0             1     
+  Col
+
+    0:       -1.000000        1.000000
+    1:       -0.800000        0.640000
+    2:       -0.600000        0.360000
+    3:       -0.400000        0.160000
+    4:       -0.200000        0.040000
+    5:        0.000000        0.000000
+    6:        0.200000        0.040000
+    7:        0.200010        0.050000
+    8:        0.400000        0.160000
+    9:        0.600000        0.360000
+   10:        0.800000        0.640000
+   11:        1.000000        1.000000
+
+  Created graphics data file "data08.txt".
+  Created graphics interp file "interp08.txt".
+  Created graphics command file "commands08.txt".
+
 VANDERMONDE_INTERP_1D_TEST:
   Normal end of execution.
 
-15 October 2012 03:00:44 PM
+01 June 2013 09:01:36 PM

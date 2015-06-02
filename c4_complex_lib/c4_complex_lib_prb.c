@@ -43,6 +43,10 @@ int main ( void )
 /*
   Purpose:
 
+    MAIN is the main program for C4_COMPLEX_LIB_PRB.
+
+  Discussion:
+
     C4_COMPLEX_LIB_PRB tests the C4_COMPLEX_LIB library.
 
   Licensing:
@@ -100,7 +104,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "C4_COMPLEX_LIB_PRB\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 

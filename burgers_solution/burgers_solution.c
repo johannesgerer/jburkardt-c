@@ -198,7 +198,7 @@ void hermite_ek_compute ( int n, double x[], double w[] )
   Define the zero-th moment.
 */
   arg = 0.5;
-  zemu = gamma ( arg );
+  zemu = tgamma ( arg );
 /*
   Define the Jacobi matrix.
 */
@@ -558,23 +558,23 @@ double r8_epsilon ( )
 /*
   Purpose:
 
-    R8_EPSILON returns the R8 roundoff unit.
+    R8_EPSILON returns the R8 round off unit.
 
   Discussion:
 
-    The roundoff unit is a number R which is a power of 2 with the 
-    property that, to the precision of the computer's arithmetic,
+    R8_EPSILON is a number R which is a power of 2 with the property that,
+    to the precision of the computer's arithmetic,
       1 < 1 + R
-    but 
+    but
       1 = ( 1 + R / 2 )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    01 July 2004
+    01 September 2012
 
   Author:
 
@@ -585,16 +585,7 @@ double r8_epsilon ( )
     Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  double value;
-
-  value = 1.0;
-
-  while ( 1.0 < ( double ) ( 1.0 + value )  )
-  {
-    value = value / 2.0;
-  }
-
-  value = 2.0 * value;
+  const double value = 2.220446049250313E-016;
 
   return value;
 }

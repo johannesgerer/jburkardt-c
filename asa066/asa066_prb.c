@@ -5,20 +5,24 @@
 
 # include "asa066.h"
 
-int main ( void );
-void test01 ( void );
-void test02 ( void );
-void test03 ( void );
+int main ( );
+void test01 ( );
+void test02 ( );
+void test03 ( );
 
 /******************************************************************************/
 
-int main ( void )
+int main ( )
 
 /******************************************************************************/
 /*
   Purpose:
 
-    ASA066_PRB tests ASA066.
+    MAIN is the main program for ASA066_PRB.
+
+  Discussion:
+
+    ASA066_PRB tests the ASA066 library.
 
   Licensing:
 
@@ -33,12 +37,10 @@ int main ( void )
     John Burkardt
 */
 {
-  printf ( "\n" );
   timestamp ( );
-
   printf ( "\n" );
   printf ( "ASA066_PRB:\n" );
-  printf ( "  C++ version\n" );
+  printf ( "  C version\n" );
   printf ( "  Test the ASA066 library.\n" );
 
   test01 ( );
@@ -50,7 +52,6 @@ int main ( void )
   printf ( "\n" );
   printf ( "ASA066_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -58,7 +59,7 @@ int main ( void )
 }
 /******************************************************************************/
 
-void test01 ( void )
+void test01 ( )
 
 /******************************************************************************/
 /*

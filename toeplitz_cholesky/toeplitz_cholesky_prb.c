@@ -14,7 +14,11 @@ int main ( )
 /*
   Purpose:
 
-    MAIN tests TOEPLITZ_CHOLESKY.
+    MAIN is the main program for TOEPLITZ_CHOLESKY_PRB.
+
+  Discussion:
+
+    TOEPLITZ_CHOLESKY_PRB tests the TOEPLITZ_CHOLESKY library.
 
   Licensing:
 

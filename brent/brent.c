@@ -256,7 +256,7 @@ double glomin ( double a, double b, double c, double m, double machep,
 
       p = 2.0 * ( y2 - y3 ) / ( m * d0 );
 
-      if ( ( 1.0 + 9.0 * machep ) * d0 <= r8_abs ( p ) )
+      if ( ( 1.0 + 9.0 * machep ) * d0 <= fabs ( p ) )
       {
         break;
       }
@@ -315,13 +315,16 @@ double local_min ( double a, double b, double eps, double t,
     If F is not unimodal, then LOCAL_MIN may approximate a local, but 
     perhaps non-global, minimum to the same accuracy.
 
+    Thanks to Jonathan Eggleston for pointing out a correction to the 
+    golden section step, 01 July 2013.
+
   Licensing:
 
     This code is distributed under the GNU LGPL license. 
 
   Modified:
 
-    14 April 2008
+    01 July 2013
 
   Author:
 
@@ -392,12 +395,12 @@ double local_min ( double a, double b, double eps, double t,
   for ( ; ; )
   { 
     m = 0.5 * ( sa + sb ) ;
-    tol = eps * r8_abs ( *x ) + t;
+    tol = eps * fabs ( *x ) + t;
     t2 = 2.0 * tol;
 /*
   Check the stopping criterion.
 */
-    if ( r8_abs ( *x - m ) <= t2 - 0.5 * ( sb - sa ) )
+    if ( fabs ( *x - m ) <= t2 - 0.5 * ( sb - sa ) )
     {
       break;
     }
@@ -408,7 +411,7 @@ double local_min ( double a, double b, double eps, double t,
     q = r;
     p = q;
 
-    if ( tol < r8_abs ( e ) )
+    if ( tol < fabs ( e ) )
     {
       r = ( *x - w ) * ( fx - fv );
       q = ( *x - v ) * ( fx - fw );
@@ -418,12 +421,12 @@ double local_min ( double a, double b, double eps, double t,
       {
         p = - p;
       }
-      q = r8_abs ( q );
+      q = fabs ( q );
       r = e;
       e = d;
     }
 
-    if ( r8_abs ( p ) < r8_abs ( 0.5 * q * r ) && 
+    if ( fabs ( p ) < fabs ( 0.5 * q * r ) && 
          q * ( sa - *x ) < p && 
          p < q * ( sb - *x ) )
     {
@@ -458,14 +461,14 @@ double local_min ( double a, double b, double eps, double t,
       }
       else
       {
-        e = a - *x;
+        e = sa - *x;
       }
       d = c * e;
     }
 /*
   F must not be evaluated too close to X.
 */
-    if ( tol <= r8_abs ( d ) )
+    if ( tol <= fabs ( d ) )
     {
       u = *x + d;
     }
@@ -517,7 +520,7 @@ double local_min ( double a, double b, double eps, double t,
         w = u;
         fw = fu;
       }
-      else if ( fu <= fv || v == *x || v== w )
+      else if ( fu <= fv || v == *x || v == w )
       {
         v = u;
         fv = fu;
@@ -725,12 +728,12 @@ double local_min_rc ( double *a, double *b, int *status, double value )
    Take the next step.
 */
   midpoint = 0.5 * ( *a + *b );
-  tol1 = eps * r8_abs ( x ) + tol / 3.0;
+  tol1 = eps * fabs ( x ) + tol / 3.0;
   tol2 = 2.0 * tol1;
 /*
    If the stopping criterion is satisfied, we can exit.
 */
-  if ( r8_abs ( x - midpoint ) <= ( tol2 - 0.5 * ( *b - *a ) ) )
+  if ( fabs ( x - midpoint ) <= ( tol2 - 0.5 * ( *b - *a ) ) )
   {
     *status = 0;
     return arg;
@@ -738,7 +741,7 @@ double local_min_rc ( double *a, double *b, int *status, double value )
 /*
    Is golden-section necessary?
 */
-  if ( r8_abs ( e ) <= tol1 )
+  if ( fabs ( e ) <= tol1 )
   {
     if ( midpoint <= x )
     {
@@ -763,14 +766,14 @@ double local_min_rc ( double *a, double *b, int *status, double value )
     {
       p = - p;
     }
-    q = r8_abs ( q );
+    q = fabs ( q );
     r = e;
     e = d;
 /*
    Choose a golden-section step if the parabola is not advised.
 */
     if ( 
-      ( r8_abs ( 0.5 * q * r ) <= r8_abs ( p ) ) ||
+      ( fabs ( 0.5 * q * r ) <= fabs ( p ) ) ||
       ( p <= q * ( *a - x ) ) ||
       ( q * ( *b - x ) <= p ) ) 
     {
@@ -806,11 +809,11 @@ double local_min_rc ( double *a, double *b, int *status, double value )
 /*
    F must not be evaluated too close to X.
 */
-  if ( tol1 <= r8_abs ( d ) ) 
+  if ( tol1 <= fabs ( d ) ) 
   {
     u = x + d;
   }
-  if ( r8_abs ( d ) < tol1 )
+  if ( fabs ( d ) < tol1 )
   {
     u = x + tol1 * r8_sign ( d );
   }
@@ -865,7 +868,7 @@ double r8_abs ( double x )
 }
 /******************************************************************************/
 
-double r8_epsilon ( void )
+double r8_epsilon ( )
 
 /******************************************************************************/
 /*
@@ -878,16 +881,16 @@ double r8_epsilon ( void )
     R8_EPSILON is a number R which is a power of 2 with the property that,
     to the precision of the computer's arithmetic,
       1 < 1 + R
-    but 
+    but
       1 = ( 1 + R / 2 )
 
   Licensing:
 
-    This code is distributed under the GNU LGPL license. 
+    This code is distributed under the GNU LGPL license.
 
   Modified:
 
-    08 May 2006
+    01 September 2012
 
   Author:
 
@@ -895,19 +898,12 @@ double r8_epsilon ( void )
 
   Parameters:
 
-    Output, double R8_EPSILON, the double precision round-off unit.
+    Output, double R8_EPSILON, the R8 round-off unit.
 */
 {
-  double r;
+  const double value = 2.220446049250313E-016;
 
-  r = 1.0;
-
-  while ( 1.0 < ( double ) ( 1.0 + r )  )
-  {
-    r = r / 2.0;
-  }
-
-  return ( 2.0 * r );
+  return value;
 }
 /******************************************************************************/
 
@@ -1058,7 +1054,10 @@ double zero ( double a, double b, double machep, double t,
     one value C between A and B for which F(C) = 0.
 
     The location of the zero is determined to within an accuracy
-    of 6 * MACHEPS * r8_abs ( C ) + 2 * T.
+    of 6 * MACHEPS * abs ( C ) + 2 * T.
+
+    Thanks to Thomas Secretin for pointing out a transcription error in the
+    setting of the value of P, 11 February 2013.
 
   Licensing:
 
@@ -1066,7 +1065,7 @@ double zero ( double a, double b, double machep, double t,
 
   Modified:
 
-    13 April 2008
+    11 February 2013
 
   Author:
 
@@ -1126,7 +1125,7 @@ double zero ( double a, double b, double machep, double t,
 
   for ( ; ; )
   {
-    if ( r8_abs ( fc ) < r8_abs ( fb ) )
+    if ( fabs ( fc ) < fabs ( fb ) )
     {
       sa = sb;
       sb = c;
@@ -1136,15 +1135,15 @@ double zero ( double a, double b, double machep, double t,
       fc = fa;
     }
 
-    tol = 2.0 * machep * r8_abs ( sb ) + t;
+    tol = 2.0 * machep * fabs ( sb ) + t;
     m = 0.5 * ( c - sb );
 
-    if ( r8_abs ( m ) <= tol || fb == 0.0 )
+    if ( fabs ( m ) <= tol || fb == 0.0 )
     {
       break;
     }
 
-    if ( r8_abs ( e ) < tol || r8_abs ( fa ) <= r8_abs ( fb ) )
+    if ( fabs ( e ) < tol || fabs ( fa ) <= fabs ( fb ) )
     {
       e = m;
       d = e;
@@ -1162,7 +1161,7 @@ double zero ( double a, double b, double machep, double t,
       {
         q = fa / fc;
         r = fb / fc;
-        p = s * ( 2.0 * m * a * ( q - r ) - ( sb - sa ) * ( r - 1.0 ) );
+        p = s * ( 2.0 * m * q * ( q - r ) - ( sb - sa ) * ( r - 1.0 ) );
         q = ( q - 1.0 ) * ( r - 1.0 ) * ( s - 1.0 );
       }
 
@@ -1178,8 +1177,8 @@ double zero ( double a, double b, double machep, double t,
       s = e;
       e = d;
 
-      if ( 2.0 * p < 3.0 * m * q - r8_abs ( tol * q ) &&
-        p < r8_abs ( 0.5 * s * q ) )
+      if ( 2.0 * p < 3.0 * m * q - fabs ( tol * q ) &&
+        p < fabs ( 0.5 * s * q ) )
       {
         d = p / q;
       }
@@ -1192,7 +1191,7 @@ double zero ( double a, double b, double machep, double t,
     sa = sb;
     fa = fb;
 
-    if ( tol < r8_abs ( d ) )
+    if ( tol < fabs ( d ) )
     {
       sb = sb + d;
     }
@@ -1236,10 +1235,13 @@ void zero_rc ( double a, double b, double t, double *arg, int *status,
     one value C between A and B for which F(C) = 0.
 
     The location of the zero is determined to within an accuracy
-    of 6 * MACHEPS * r8_abs ( C ) + 2 * T.
+    of 6 * MACHEPS * abs ( C ) + 2 * T.
 
     The routine is a revised version of the Brent zero finder 
     algorithm, using reverse communication.
+
+    Thanks to Thomas Secretin for pointing out a transcription error in the
+    setting of the value of P, 11 February 2013.
 
   Licensing:
 
@@ -1247,7 +1249,7 @@ void zero_rc ( double a, double b, double t, double *arg, int *status,
 
   Modified:
 
-    14 October 2008
+    11 February 2013
 
   Author:
 
@@ -1358,7 +1360,7 @@ void zero_rc ( double a, double b, double t, double *arg, int *status,
 /*
   Compute the next point at which a function value is requested.
 */
-  if ( r8_abs ( fc ) < r8_abs ( fb ) )
+  if ( fabs ( fc ) < fabs ( fb ) )
   {
     sa = sb;
     sb = c;
@@ -1368,17 +1370,17 @@ void zero_rc ( double a, double b, double t, double *arg, int *status,
     fc = fa;
   }
 
-  tol = 2.0 * machep * r8_abs ( sb ) + t;
+  tol = 2.0 * machep * fabs ( sb ) + t;
   m = 0.5 * ( c - sb );
 
-  if ( r8_abs ( m ) <= tol || fb == 0.0 )
+  if ( fabs ( m ) <= tol || fb == 0.0 )
   {
     *status = 0;
     *arg = sb;
     return;
   }
 
-  if ( r8_abs ( e ) < tol || r8_abs ( fa ) <= r8_abs ( fb ) )
+  if ( fabs ( e ) < tol || fabs ( fa ) <= fabs ( fb ) )
   {
     e = m;
     d = e;
@@ -1396,7 +1398,7 @@ void zero_rc ( double a, double b, double t, double *arg, int *status,
     {
       q = fa / fc;
       r = fb / fc;
-      p = s * ( 2.0 * m * a * ( q - r ) - ( sb - sa ) * ( r - 1.0 ) );
+      p = s * ( 2.0 * m * q * ( q - r ) - ( sb - sa ) * ( r - 1.0 ) );
       q = ( q - 1.0 ) * ( r - 1.0 ) * ( s - 1.0 );
     }
 
@@ -1411,8 +1413,8 @@ void zero_rc ( double a, double b, double t, double *arg, int *status,
     s = e;
     e = d;
 
-    if ( 2.0 * p < 3.0 * m * q - r8_abs ( tol * q ) && 
-         p < r8_abs ( 0.5 * s * q ) )
+    if ( 2.0 * p < 3.0 * m * q - fabs ( tol * q ) && 
+         p < fabs ( 0.5 * s * q ) )
     {
       d = p / q;
     }
@@ -1426,7 +1428,7 @@ void zero_rc ( double a, double b, double t, double *arg, int *status,
   sa = sb;
   fa = fb;
 
-  if ( tol < r8_abs ( d ) )
+  if ( tol < fabs ( d ) )
   {
     sb = sb + d;
   }

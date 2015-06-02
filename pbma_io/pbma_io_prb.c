@@ -21,7 +21,7 @@ int main ( int argc, char *argv[] )
 
   Discussion:
 
-    PBMA_IO_PRB calls the PBMA_IO test routines.
+    PBMA_IO_PRB tests the PBMA_IO library.
 
   Licensing:
 
@@ -40,15 +40,16 @@ int main ( int argc, char *argv[] )
   fprintf ( stdout, "\n" );
   fprintf ( stdout, "PBMA_IO_PRB:\n" );
   fprintf ( stdout, "  C version\n" );
-  fprintf ( stdout, "  Tests for PBMA_IO, ASCII PBM read/write routines.\n" );
+  fprintf ( stdout, "  Test the PBMA_IO library.\n" );
 
   test01 ( );
   test02 ( );
-
+/*
+  Terminate.
+*/
   fprintf ( stdout, "\n" );
   fprintf ( stdout, "PBMA_IO_PRB:\n" );
   fprintf ( stdout, "  Normal end of execution.\n" );
-
   fprintf ( stdout, "\n" );
   timestamp ( );
 

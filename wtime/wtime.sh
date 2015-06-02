@@ -2,12 +2,11 @@
 #
 cp wtime.h /$HOME/include
 #
-gcc -c -g wtime.c >& compiler.txt
+gcc -c wtime.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling wtime.c."
   exit
 fi
-rm compiler.txt
 #
 mv wtime.o ~/libc/$ARCH/wtime.o
 #

@@ -9,47 +9,49 @@ void test02 ( char *prefix, char *suffix, int first, int last );
 void test03 ( char *prefix, char *suffix, int first, int last );
 void test04 ( char *filename, int filename_num );
 
-//****************************************************************************80
+/******************************************************************************/
 
 int main ( )
 
-//****************************************************************************80
-//
-//  Purpose:
-//
-//    FILE_NAME_SEQUENCE demonstrates ways of generating a sequence of filenames.
-//
-//  Discussion:
-//
-//    There are situations such as animations or parallel processing in which
-//    it is necessary to generate a sequence of file names which include
-//    an embedded index that increases.  A simple example might be
-//
-//      "fred0.txt", "fred1.txt", "fred2.txt"
-//
-//    A side issue arises when the number of files is large enough that the
-//    number of digits in the index will vary.  Thus, if we are going to have
-//    15 files, do we want to number them as
-//
-//      "fred00.txt" through "fred14.txt"
-//
-//    which means, for one thing, that they will alphabetize properly, or
-//    will we be satisfied with
-//
-//      "fred0.txt" through "fred14.txt" ?
-//
-//  Licensing:
-//
-//    This code is distributed under the GNU LGPL license.
-//
-//  Modified:
-//
-//    23 July 2012
-//
-//  Author:
-//
-//    John Burkardt
-//
+/******************************************************************************/
+/*
+  Purpose:
+
+    MAIN is the main program for FILE_NAME_SEQUENCE_PRB.
+
+  Discussion:
+
+    FILE_NAME_SEQUENCE_PRB tests the FILE_NAME_SEQUENCE library.
+
+    There are situations such as animations or parallel processing in which
+    it is necessary to generate a sequence of file names which include
+    an embedded index that increases.  A simple example might be
+
+      "fred0.txt", "fred1.txt", "fred2.txt"
+
+    A side issue arises when the number of files is large enough that the
+    number of digits in the index will vary.  Thus, if we are going to have
+    15 files, do we want to number them as
+
+      "fred00.txt" through "fred14.txt"
+
+    which means, for one thing, that they will alphabetize properly, or
+    will we be satisfied with
+
+      "fred0.txt" through "fred14.txt" ?
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    23 July 2012
+
+  Author:
+
+    John Burkardt
+*/
 {
   char filename[81] = { "frodo_01345_lives.txt" };
 
@@ -57,6 +59,7 @@ int main ( )
   printf ( "\n" );
   printf ( "FILE_NAME_SEQUENCE_PRB:\n" );
   printf ( "  C version\n" );
+  printf ( "  Test the FILE_NAME_SEQUENCE library.\n" );
   printf ( "  Demonstrate ways of generating a numeric sequence of file names.\n" );
 
   test02 ( "fred", ".txt", 0, 12 );
@@ -68,7 +71,6 @@ int main ( )
   printf ( "\n" );
   printf ( "FILE_NAME_SEQUENCE_PRB:\n" );
   printf ( "  Normal end of execution.\n" );
-
   printf ( "\n" );
   timestamp ( );
 
@@ -167,7 +169,7 @@ void test04 ( char *filename, int filename_num )
 //
 //  Purpose:
 //
-//    TEST04 uses FILE_NAME_INC.
+//    TEST04 uses FILENAME_INC.
 //
 //  Licensing:
 //
@@ -186,7 +188,7 @@ void test04 ( char *filename, int filename_num )
 
   printf ( "\n" );
   printf ( "TEST04:\n" );
-  printf ( "  FILENAME(I+1) = FILE_NAME_INC ( FILENAME(I) )\n" );
+  printf ( "  FILENAME(I+1) = FILENAME_INC ( FILENAME(I) )\n" );
   printf ( "  First FILENAME = \"%s\"\n", filename );
   printf ( "  Number of filenames = %d\n", filename_num );
   printf ( "  Numbers may include leading zeros.\n" );
@@ -195,7 +197,7 @@ void test04 ( char *filename, int filename_num )
   for ( i = 1; i <= filename_num; i++ )
   {
     printf ( "  %4d:  \"%s\"\n", i, filename );
-    file_name_inc ( filename );
+    filename_inc ( filename );
   }
 
   return;

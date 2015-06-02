@@ -2,14 +2,14 @@
 
   <head>
     <title>
-      MM_IO - Matrix Market - Read and Write Utilities
+      MM_IO - Matrix Market - Sparse Matrix Read and Write Utilities
     </title>
   </head>
 
   <body bgcolor="#EEEEEE" link="#CC0000" alink="#FF3300" vlink="#000055">
 
     <h1 align = "center">
-      MM_IO <br> Matrix Market - Read and Write Utilities
+      MM_IO <br> Matrix Market - Sparse Matrix Read and Write Utilities
     </h1>
 
     <hr>
@@ -17,7 +17,7 @@
     <p>
       <b>MM_IO</b> 
       is a C library which
-      reads and writes files in the Matrix Market format.
+      reads and writes files in the Matrix Market (MM) format.
     </p>
 
     <h3 align = "center">
@@ -27,6 +27,7 @@
     <p>
       <b>MM_IO</b> is available in
       <a href = "../../c_src/mm_io/mm_io.html">a C version</a> and
+      <a href = "../../f77_src/mm_io/mm_io.html">a FORTRAN77 version</a> and
       <a href = "../../f_src/mm_io/mm_io.html">a FORTRAN90 version</a> and
       <a href = "../../m_src/mm_io/mm_io.html">a MATLAB version</a>.
     </p>
@@ -34,6 +35,22 @@
     <h3 align = "center">
       Related Data and Programs:
     </h3>
+
+    <p>
+      <a href = "../../c_src/cc_io/cc_io.html">
+      CC_IO</a>,
+      a C library which
+      reads and writes sparse linear systems 
+      stored in the Compressed Column (CC) format.
+    </p>
+
+    <p>
+      <a href = "../../c_src/hb_io/hb_io.html">
+      HB_IO</a>,
+      a C library which
+      reads and writes sparse linear systems stored in the Harwell Boeing (HB) 
+      format for sparse matrices.
+    </p>
 
     <p>
       <a href = "../../data/mm/mm.html">
@@ -44,29 +61,21 @@
     </p>
 
     <p>
-      <a href = "../../m_src/mm_to_msm/mm_to_msm.html">
-      MM_TO_MSM</a>,
-      a MATLAB program which
-      reads a Matrix Market file defining a sparse matrix, and creates
-      a corresponding MATLAB sparse matrix data structure.
+      <a href = "../../c_src/sparse_display/sparse_display.html">
+      SPARSE_DISPLAY</a>,
+      a C library which
+      can read information defining a matrix of numbers and display
+      the sparsity pattern or location of the nonzero elements using
+      gnuplot.  This operation is already available in the built-in 
+      MATLAB "spy" command.
     </p>
 
     <p>
-      <a href = "../../m_src/msm_to_mm/msm_to_mm.html">
-      MSM_TO_MM</a>, 
-      a MATLAB program which
-      writes a MATLAB sparse matrix to a <a href = "../../data/mm/mm.html">
-      Matrix Market</a> file;
-    </p>
-
-    <p>
-      <a href = "../../m_src/templates/templates.html">
-      TEMPLATES</a>,
-      a MATLAB library which
-      performs the iterative solution of large sparse linear systems.
-      It includes a routine <b>mm_to_msm</b> which
-      can read a Matrix Market file and store it as a MATLAB sparse
-      matrix.
+      <a href = "../../c_src/st_io/st_io.html">
+      ST_IO</a>,
+      a C library which
+      reads and writes sparse linear systems 
+      stored in the Sparse Triplet (ST) format.
     </p>
 
     <h3 align = "center">
@@ -201,7 +210,7 @@
     <hr>
 
     <i>
-      Last revised on 02 November 2008.
+      Last revised on 31 January 2014.
     </i>
 
     <!-- John Burkardt -->

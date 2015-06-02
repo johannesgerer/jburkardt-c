@@ -466,7 +466,7 @@ double *toep_cholesky_lower ( int n, double g[] )
 /*
   Purpose:
 
-    TOEP_CHOLESKY_LOWER: lower Cholesky factor of a Toeplitz matrix.
+    TOEP_CHOLESKY_LOWER: lower Cholesky factor of a compressed Toeplitz matrix.
 
   Discussion:
 
@@ -565,7 +565,7 @@ double *toep_cholesky_upper ( int n, double g[] )
 /*
   Purpose:
 
-    TOEP_CHOLESKY_UPPER: upper Cholesky factor of a Toeplitz matrix.
+    TOEP_CHOLESKY_UPPER: upper Cholesky factor of a compressed Toeplitz matrix.
 
   Discussion:
 

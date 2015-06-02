@@ -2,12 +2,11 @@
 #
 #  Compile and load as an executable.
 #
-gcc -c -g triangle.c >& compiler.txt
+gcc -c triangle.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling triangle.c."
   exit
 fi
-rm compiler.txt
 #
 gcc triangle.o -lm
 if [ $? -ne 0 ]; then
@@ -20,12 +19,11 @@ echo "Executable installed as ~/binc/$ARCH/triangle"
 #
 #  Using the TRILIBRARY switch, the file can be compiled as a library.
 #
-gcc -c -DTRILIBRARY -g triangle.c >& compiler.txt
+gcc -c -DTRILIBRARY -g triangle.c
 if [ $? -ne 0 ]; then
   echo "Errors compiling triangle.c."
   exit
 fi
-rm compiler.txt
 #
 mv triangle.o ~/libc/$ARCH/triangle.o
 #

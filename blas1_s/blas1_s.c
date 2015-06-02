@@ -2,91 +2,11 @@
 # include <stdio.h>
 # include <math.h>
 # include <time.h>
+# include <complex.h>
 
+# include "blas0.h"
 # include "blas1_s.h"
 
-/******************************************************************************/
-
-int i4_max ( int i1, int i2 )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_MAX returns the maximum of two I4's.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    29 August 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I1, I2, are two integers to be compared.
-
-    Output, int I4_MAX, the larger of I1 and I2.
-*/
-{
-  int value;
-
-  if ( i2 < i1 )
-  {
-    value = i1;
-  }
-  else
-  {
-    value = i2;
-  }
-  return value;
-}
-/******************************************************************************/
-
-int i4_min ( int i1, int i2 )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    I4_MIN returns the smaller of two I4's.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license.
-
-  Modified:
-
-    29 August 2006
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, int I1, I2, two integers to be compared.
-
-    Output, int I4_MIN, the smaller of I1 and I2.
-*/
-{
-  int value;
-
-  if ( i1 < i2 )
-  {
-    value = i1;
-  }
-  else
-  {
-    value = i2;
-  }
-  return value;
-}
 /******************************************************************************/
 
 int isamax ( int n, float dx[], int incx )
@@ -160,223 +80,34 @@ int isamax ( int n, float dx[], int incx )
 
   if ( incx == 1 )
   {
-    dmax = r4_abs ( dx[0] );
+    dmax =fabs ( dx[0] );
 
     for ( i = 1; i < n; i++ )
     {
-      if ( dmax < r4_abs ( dx[i] ) )
+      if ( dmax < fabs ( dx[i] ) )
       {
         value = i + 1;
-        dmax = r4_abs ( dx[i] );
+        dmax = fabs ( dx[i] );
       }
     }
   }
   else
   {
     ix = 0;
-    dmax = r4_abs ( dx[0] );
+    dmax = fabs ( dx[0] );
     ix = ix + incx;
 
     for ( i = 1; i < n; i++ )
     {
-      if ( dmax < r4_abs ( dx[ix] ) )
+      if ( dmax < fabs ( dx[ix] ) )
       {
         value = i + 1;
-        dmax = r4_abs ( dx[ix] );
+        dmax = fabs ( dx[ix] );
       }
       ix = ix + incx;
     }
   }
 
-  return value;
-}
-/******************************************************************************/
-
-int lsame ( char ca, char cb )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    LSAME returns TRUE if CA is the same letter as CB regardless of case.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    29 March 2007
-
-  Author:
-
-    C version by John Burkardt
-
-  Reference:
-
-    Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,
-    LINPACK User's Guide,
-    SIAM, 1979,
-    ISBN13: 978-0-898711-72-1,
-    LC: QA214.L56.
-
-    Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,
-    Algorithm 539: 
-    Basic Linear Algebra Subprograms for Fortran Usage, 
-    ACM Transactions on Mathematical Software, 
-    Volume 5, Number 3, September 1979, pages 308-323.
-
-  Parameters:
-
-    Input, char CA, CB, the characters to compare.
-
-    Output, int LSAME, is TRUE if the characters are equal,
-    disregarding case.
-*/
-{
-  if ( ca == cb )
-  {
-    return 0;
-  }
-
-  if ( 'A' <= ca && ca <= 'Z' )
-  {
-    if ( ca - 'A' == cb - 'a' )
-    {
-      return 1;
-    }    
-  }
-  else if ( 'a' <= ca && ca <= 'z' )
-  {
-    if ( ca - 'a' == cb - 'A' )
-    {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-/******************************************************************************/
-
-float r4_abs ( float x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R4_ABS returns the absolute value of an R4.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    29 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, float X, the quantity whose absolute value is desired.
-
-    Output, float R4_ABS, the absolute value of X.
-*/
-{
-  float value;
-
-  if ( 0.0 <= x )
-  {
-    value = x;
-  } 
-  else
-  {
-    value = -x;
-  }
-  return value;
-}
-/******************************************************************************/
-
-float r4_max ( float x, float y )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R4_MAX returns the maximum of two R4's.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    29 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, float X, Y, the quantities to compare.
-
-    Output, float R4_MAX, the maximum of X and Y.
-*/
-{
-  float value;
-
-  if ( y < x )
-  {
-    value = x;
-  } 
-  else
-  {
-    value = y;
-  }
-  return value;
-}
-/******************************************************************************/
-
-float r4_sign ( float x )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    R4_SIGN returns the sign of an R4.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    29 March 2007
-
-  Author:
-
-    John Burkardt
-
-  Parameters:
-
-    Input, float X, the number whose sign is desired.
-
-    Output, float R4_SIGN, the sign of X.
-*/
-{
-  float value;
-
-  if ( x < 0.0 )
-  {
-    value = -1.0;
-  } 
-  else
-  {
-    value = 1.0;
-  }
   return value;
 }
 /******************************************************************************/
@@ -436,7 +167,7 @@ float sasum ( int n, float x[], int incx )
 
   for ( i = 0; i < n; i++ )
   {
-    value = value + r4_abs ( x[j] );
+    value = value + fabs ( x[j] );
     j = j + incx;
   }
 
@@ -810,128 +541,6 @@ float sdot ( int n, float dx[], int incx, float dy[], int incy )
 }
 /******************************************************************************/
 
-float smach ( int job )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    SMACH computes machine parameters of single precision real arithmetic.
-
-  Discussion:
-
-    This routine is for testing only.  It is not required by LINPACK.
-
-    If there is trouble with the automatic computation of these quantities,
-    they can be set by direct assignment statements.
-
-    We assume the computer has
-
-      B = base of arithmetic;
-      T = number of base B digits;
-      L = smallest possible exponent;
-      U = largest possible exponent.
-
-    then
-
-      EPS = B**(1-T)
-      TINY = 100.0 * B**(-L+T)
-      HUGE = 0.01 * B**(U-T)
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    29 March 2007
-
-  Author:
-
-    C version by John Burkardt
-
-  Reference:
-
-    Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,
-    LINPACK User's Guide,
-    SIAM, 1979,
-    ISBN13: 978-0-898711-72-1,
-    LC: QA214.L56.
-
-    Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,
-    Algorithm 539: 
-    Basic Linear Algebra Subprograms for Fortran Usage,
-    ACM Transactions on Mathematical Software, 
-    Volume 5, Number 3, September 1979, pages 308-323.
-
-  Parameters:
-
-    Input, int JOB:
-    1: requests EPS;
-    2: requests TINY;
-    3: requests HUGE.
-
-    Output, float SMACH, the requested value.
-*/
-{
-  float eps;
-  float huge;
-  float s;
-  float tiny;
-  float value;
-
-  eps = 1.0;
-  for ( ; ; )
-  {
-    value = 1.0 + ( eps / 2.0 );
-    if ( value <= 1.0 )
-    {
-      break;
-    }
-    eps = eps / 2.0;
-  }
-
-  s = 1.0;
-
-  for ( ; ; )
-  {
-    tiny = s;
-    s = s / 16.0;
-
-    if ( s * 1.0 == 0.0 )
-    {
-      break;
-    }
-
-  }
-
-  tiny = ( tiny / eps ) * 100.0;
-  huge = 1.0 / tiny;
-
-  if ( job == 1 )
-  {
-    value = eps;
-  }
-  else if ( job == 2 )
-  {
-    value = tiny;
-  }
-  else if ( job == 3 )
-  {
-    value = huge;
-  }
-  else
-  {
-    printf ( "\n" );
-    printf ( "SMACH - Fatal error!\n" );
-    printf ( "  Illegal input value of JOB = %d\n", job );
-    exit ( 1 );
-  }
-
-  return value;
-}
-/******************************************************************************/
-
 float snrm2 ( int n, float x[], int incx )
 
 /******************************************************************************/
@@ -995,7 +604,7 @@ float snrm2 ( int n, float x[], int incx )
   }
   else if ( n == 1 )
   {
-    norm = r4_abs ( x[0] );
+    norm = fabs ( x[0] );
   }
   else
   {
@@ -1007,7 +616,7 @@ float snrm2 ( int n, float x[], int incx )
     {
       if ( x[ix] != 0.0 )
       {
-        absxi = r4_abs ( x[ix] );
+        absxi = fabs ( x[ix] );
         if ( scale < absxi )
         {
           ssq = 1.0 + ssq * ( scale / absxi ) * ( scale / absxi );
@@ -1210,7 +819,7 @@ void srotg ( float *sa, float *sb, float *c, float *s )
   float scale;
   float z;
 
-  if ( r4_abs ( *sb ) < r4_abs ( *sa ) )
+  if ( fabs ( *sb ) < fabs ( *sa ) )
   {
     roe = *sa;
   }
@@ -1219,7 +828,7 @@ void srotg ( float *sa, float *sb, float *c, float *s )
     roe = *sb;
   }
 
-  scale = r4_abs ( *sa ) + r4_abs ( *sb );
+  scale = fabs ( *sa ) + fabs ( *sb );
 
   if ( scale == 0.0 )
   {
@@ -1236,7 +845,7 @@ void srotg ( float *sa, float *sb, float *c, float *s )
     *s = *sb / r;
   }
 
-  if ( 0.0 < r4_abs ( *c ) && r4_abs ( *c ) <= *s )
+  if ( 0.0 < fabs ( *c ) && fabs ( *c ) <= *s )
   {
     z = 1.0 / *c;
   }
@@ -1458,54 +1067,4 @@ void sswap ( int n, float x[], int incx, float y[], int incy )
   }
   return;
 }
-/******************************************************************************/
 
-void xerbla ( char *srname, int info )
-
-/******************************************************************************/
-/*
-  Purpose:
-
-    XERBLA is an error handler for the LAPACK routines.
-
-  Licensing:
-
-    This code is distributed under the GNU LGPL license. 
-
-  Modified:
-
-    29 March 2007
-
-  Author:
-
-    C version by John Burkardt
-
-  Reference:
-
-    Jack Dongarra, Cleve Moler, Jim Bunch, Pete Stewart,
-    LINPACK User's Guide,
-    SIAM, 1979,
-    ISBN13: 978-0-898711-72-1,
-    LC: QA214.L56.
-
-    Charles Lawson, Richard Hanson, David Kincaid, Fred Krogh,
-    Algorithm 539: 
-    Basic Linear Algebra Subprograms for Fortran Usage,
-    ACM Transactions on Mathematical Software, 
-    Volume 5, Number 3, September 1979, pages 308-323.
-
-  Parameters:
-
-    Input, char *SRNAME, the name of the routine
-    which called XERBLA.
-
-    Input, int INFO, the position of the invalid parameter in
-    the parameter list of the calling routine.
-*/
-{
-  printf ( "\n" );
-  printf ( "XERBLA - Fatal error!\n" );
-  printf ( "  On entry to routine %s\n", srname );
-  printf ( "  input parameter number %d had an illegal value.\n", info );
-  exit ( 1 );
-}
